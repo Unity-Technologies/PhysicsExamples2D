@@ -24,6 +24,9 @@ public class Spawner : MonoBehaviour
 	[Range (0.1f, 10.0f)]
 	public float m_MaxScale = 1.0f;
 
+	[Range (0f, 100f)]
+	public float m_GravityScale = 1.0f;
+
 	[Range (0, 360)]
 	public float m_RandomRotation = 0.0f;
 
@@ -70,6 +73,11 @@ public class Spawner : MonoBehaviour
 				var randomScale = Random.Range (m_MinScale, m_MaxScale);
 				spawnObj.transform.localScale = new Vector3 (randomScale, randomScale);
 				spawnObj.layer = m_Layer;
+
+				var body = spawnObj.GetComponent<Rigidbody2D> ();
+				if (body)
+					body.gravityScale = m_GravityScale;
+
 				++m_SpawnTotal;
 			}
 		}

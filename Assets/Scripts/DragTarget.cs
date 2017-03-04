@@ -16,6 +16,8 @@ public class DragTarget : MonoBehaviour
 	[Range (0.0f, 100.0f)]
 	public float m_Frequency = 5.0f;
 
+	public Color m_Color = Color.cyan;
+
 	private TargetJoint2D m_TargetJoint;
 
 	void Update ()
@@ -42,8 +44,7 @@ public class DragTarget : MonoBehaviour
 			m_TargetJoint.frequency = m_Frequency;
 
 			// Attach the anchor to the local-point where we clicked.
-			m_TargetJoint.anchor = body.GetPoint (worldPos);
-			
+			m_TargetJoint.anchor = body.GetPoint (worldPos);		
 		}
 		else if (Input.GetMouseButtonUp (0))
 		{
@@ -54,6 +55,11 @@ public class DragTarget : MonoBehaviour
 
 		// Update the joint target.
 		if (m_TargetJoint)
+		{
 			m_TargetJoint.target = worldPos;
+
+			// Draw the line between the target and the joint anchor.
+			Debug.DrawLine (m_TargetJoint.transform.TransformPoint (m_TargetJoint.anchor), worldPos, m_Color);
+		}
 	}
 }
