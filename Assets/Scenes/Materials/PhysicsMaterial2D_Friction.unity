@@ -195,7 +195,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1320454231}
+    m_TransformParent: {fileID: 148799105}
     m_Modifications:
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.x
@@ -227,7 +227,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -497,6 +497,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1320454231}
+  - {fileID: 1013114674}
   - {fileID: 169796555}
   - {fileID: 1973384313}
   - {fileID: 427517355}
