@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - Draggable
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - Ignore Ground
+  - No Collisions
   - 
   - 
   - 
