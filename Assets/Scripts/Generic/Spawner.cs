@@ -15,6 +15,9 @@ public class Spawner : MonoBehaviour
 	[Range (1, 1000)]
 	public int m_SpawnMaximum = 10;
 
+    [Range (0, 100)]
+    public float m_SpawnLifetime = 0.0f;
+
 	public Transform m_SpawnParent;
 
 	public Vector2 m_Area;
@@ -76,9 +79,12 @@ public class Spawner : MonoBehaviour
 				spawnObj.transform.localScale = new Vector3 (randomScale, randomScale);
 				spawnObj.layer = m_Layer;
 
-				var body = spawnObj.GetComponent<Rigidbody2D> ();
+                var body = spawnObj.GetComponent<Rigidbody2D> ();
 				if (body)
 					body.gravityScale = m_GravityScale;
+
+                if (m_SpawnLifetime > 0.0f)
+                    Destroy (spawnObj, m_SpawnLifetime);
 
 				++m_SpawnTotal;
 			}

@@ -865,10 +865,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpawnTime: 1
-  m_SpawnCount: 10
+  m_SpawnCount: 1
   m_SpawnMaximum: 30
+  m_SpawnLifetime: 0
   m_SpawnParent: {fileID: 0}
-  m_Area: {x: 7, y: 1}
+  m_Area: {x: 1, y: 1}
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.75
@@ -893,7 +894,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1941474859}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8, y: -0.8, z: 0}
+  m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
