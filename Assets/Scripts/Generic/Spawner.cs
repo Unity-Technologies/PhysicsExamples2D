@@ -18,6 +18,8 @@ public class Spawner : MonoBehaviour
 	public Transform m_SpawnParent;
 
 	public Vector2 m_Area;
+   	public Color m_AreaColor = Color.cyan;
+
 
 	[Range (0.1f, 10.0f)]
 	public float m_MinScale = 1.0f;
@@ -81,5 +83,25 @@ public class Spawner : MonoBehaviour
 				++m_SpawnTotal;
 			}
 		}
+
+        // Draw the spawn area.
+        DrawSpawnArea ();
 	}
+
+    private void DrawSpawnArea()
+    {
+        // Calculate the spawn area.
+        var spawnRange = m_Area * 0.5f;
+        var position = transform.position;
+        var vertex0 = transform.TransformPoint (new Vector3 (position.x - spawnRange.x, position.y - spawnRange.y));
+        var vertex1 = transform.TransformPoint (new Vector3 (position.x + spawnRange.x, position.y - spawnRange.y));
+        var vertex2 = transform.TransformPoint (new Vector3 (position.x + spawnRange.x, position.y + spawnRange.y));
+        var vertex3 = transform.TransformPoint (new Vector3 (position.x - spawnRange.x, position.y + spawnRange.y));
+
+        // Draw the spawn area.
+        Debug.DrawLine (vertex0, vertex1, m_AreaColor, 0.25f);
+        Debug.DrawLine (vertex1, vertex2, m_AreaColor, 0.25f);
+        Debug.DrawLine (vertex2, vertex3, m_AreaColor, 0.25f);
+        Debug.DrawLine (vertex3, vertex0, m_AreaColor, 0.25f);
+    }
 }

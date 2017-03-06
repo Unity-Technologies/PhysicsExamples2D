@@ -108,45 +108,12 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &74426494
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 74426495}
-  m_Layer: 0
-  m_Name: Ledges2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &74426495
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 74426494}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.99, y: -1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 790658204}
-  - {fileID: 1217991933}
-  - {fileID: 321140184}
-  - {fileID: 1468682704}
-  - {fileID: 1286901637}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &115121144
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 74426495}
+    m_TransformParent: {fileID: 148799105}
     m_Modifications:
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.x
@@ -154,7 +121,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -178,7 +145,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -223,7 +190,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_Name
-      value: GrassLedge (1)
+      value: GrassLedge7
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -242,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 148799105}
   m_Layer: 0
-  m_Name: Ledges1
+  m_Name: Motor Ledges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,6 +230,11 @@ Transform:
   - {fileID: 997006111}
   - {fileID: 591463806}
   - {fileID: 994603459}
+  - {fileID: 790658204}
+  - {fileID: 1217991933}
+  - {fileID: 321140184}
+  - {fileID: 1468682704}
+  - {fileID: 1286901637}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -304,7 +276,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 74426495}
+    m_TransformParent: {fileID: 148799105}
     m_Modifications:
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.x
@@ -312,7 +284,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -336,7 +308,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -381,7 +353,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_Name
-      value: GrassLedge (3)
+      value: GrassLedge9
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -473,7 +445,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_Name
-      value: GrassLedge (4)
+      value: GrassLedge5
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -803,7 +775,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 74426495}
+    m_TransformParent: {fileID: 148799105}
     m_Modifications:
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.x
@@ -811,7 +783,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -835,7 +807,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -883,6 +855,10 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 8af2ed97ea7f87540b0b1ac7cc710ad9, type: 2}
+    - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
+      propertyPath: m_Name
+      value: GrassLedge6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
   m_IsPrefabParent: 0
@@ -1150,7 +1126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_Name
-      value: GrassLedge (3)
+      value: GrassLedge4
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1165,7 +1141,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 74426495}
+    m_TransformParent: {fileID: 148799105}
     m_Modifications:
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1173,7 +1149,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1197,7 +1173,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1242,7 +1218,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_Name
-      value: GrassLedge (2)
+      value: GrassLedge8
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1290,7 +1266,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 74426495}
+    m_TransformParent: {fileID: 148799105}
     m_Modifications:
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1298,7 +1274,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1322,7 +1298,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1367,7 +1343,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_Name
-      value: GrassLedge (4)
+      value: GrassLedge10
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1528,6 +1504,10 @@ Prefab:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 8af2ed97ea7f87540b0b1ac7cc710ad9, type: 2}
+    - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
+      propertyPath: m_Name
+      value: GrassLedge1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
   m_IsPrefabParent: 0
@@ -1978,7 +1958,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_Name
-      value: GrassLedge (2)
+      value: GrassLedge3
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -2153,7 +2133,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_Name
-      value: GrassLedge (1)
+      value: GrassLedge2
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}

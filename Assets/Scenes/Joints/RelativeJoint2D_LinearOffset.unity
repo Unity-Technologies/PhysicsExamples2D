@@ -269,7 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 208439306}
   m_Layer: 0
-  m_Name: Ledge
+  m_Name: Ledge1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,7 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 936680056}
   m_Layer: 0
-  m_Name: Ledge (2)
+  m_Name: Ledge3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,34 +585,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1134191465
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1134191466}
-  m_Layer: 8
-  m_Name: Debris
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1134191466
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1134191465}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1228524272
 Prefab:
   m_ObjectHideFlags: 0
@@ -673,7 +645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1247245238}
   m_Layer: 0
-  m_Name: Ledge (1)
+  m_Name: Ledge2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -725,7 +697,7 @@ Transform:
   - {fileID: 936680056}
   - {fileID: 1596395780}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1362645633 stripped
 Rigidbody2D:
@@ -880,7 +852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596395780}
   m_Layer: 0
-  m_Name: Ledge (3)
+  m_Name: Ledge4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

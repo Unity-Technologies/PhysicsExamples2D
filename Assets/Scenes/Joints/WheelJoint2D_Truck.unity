@@ -511,35 +511,37 @@ Prefab:
     - {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1284747365
+--- !u!1 &1231800581
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1284747368}
-  - component: {fileID: 1284747367}
-  - component: {fileID: 1284747366}
+  - component: {fileID: 1231800584}
+  - component: {fileID: 1231800583}
+  - component: {fileID: 1231800582}
   m_Layer: 0
-  m_Name: Info
+  m_Name: ControlInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!102 &1284747366
+--- !u!102 &1231800582
 TextMesh:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1284747365}
-  m_Text: Forward (Right Arrow)  /  Backward (Left Arrow)
+  m_GameObject: {fileID: 1231800581}
+  m_Text: 'Right Arrow: Forward
+
+    Left Arrow: Backward'
   m_OffsetZ: 0
-  m_CharacterSize: 0.5
+  m_CharacterSize: 0.3
   m_LineSpacing: 1
-  m_Anchor: 7
+  m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
@@ -548,13 +550,13 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278255615
---- !u!23 &1284747367
+    rgba: 2158493440
+--- !u!23 &1231800583
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1284747365}
+  m_GameObject: {fileID: 1231800581}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -581,12 +583,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!4 &1284747368
+--- !u!4 &1231800584
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1284747365}
+  m_GameObject: {fileID: 1231800581}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
