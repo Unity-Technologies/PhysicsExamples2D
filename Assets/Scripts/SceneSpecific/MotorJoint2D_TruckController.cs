@@ -14,12 +14,10 @@ public class MotorJoint2D_TruckController : MonoBehaviour
     public bool m_InvertMotor = false;
 
     private WheelJoint2D[] m_WheelJoints;
-    private Rigidbody2D m_ChassisBody;
 
 	void Start ()
 	{
         m_WheelJoints = GetComponentsInChildren<WheelJoint2D> ();
-        m_ChassisBody = GetComponent<Rigidbody2D> ();
 	}
 	
 	void Update ()
@@ -58,5 +56,4 @@ public class MotorJoint2D_TruckController : MonoBehaviour
                 wheelJoint.motor = jointMotor;
         }
 	}
-
 }
