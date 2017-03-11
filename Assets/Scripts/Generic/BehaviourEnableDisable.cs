@@ -11,6 +11,8 @@ public class BehaviourEnableDisable : MonoBehaviour
 
 	IEnumerator Start ()
 	{
+		yield return new WaitForSeconds (1f);
+
         if (m_BehaviourComponent)
         {
             while (true)

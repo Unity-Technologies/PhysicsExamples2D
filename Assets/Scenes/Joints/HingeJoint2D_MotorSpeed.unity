@@ -145,7 +145,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -222,9 +222,19 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 148799104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.99, y: 1.5, z: 0}
+  m_LocalPosition: {x: -3.99, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1523444595}
+  - {fileID: 656570948}
+  - {fileID: 304998581}
+  - {fileID: 2026884419}
+  - {fileID: 1701030122}
+  - {fileID: 396700471}
+  - {fileID: 944952364}
+  - {fileID: 1439681118}
+  - {fileID: 1865702526}
+  - {fileID: 1712255057}
   - {fileID: 1320454231}
   - {fileID: 165593450}
   - {fileID: 997006111}
@@ -236,7 +246,7 @@ Transform:
   - {fileID: 1468682704}
   - {fileID: 1286901637}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &165593449 stripped
 GameObject:
@@ -262,7 +272,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: -1.99, y: 1.6125}
+  m_ConnectedAnchor: {x: -1.99, y: 1.4124999}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 50
@@ -308,7 +318,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -400,7 +410,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -465,8 +475,9 @@ GameObject:
   - component: {fileID: 304998581}
   - component: {fileID: 304998583}
   - component: {fileID: 304998582}
+  - component: {fileID: 304998584}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -479,11 +490,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 304998580}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4, y: 1, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 997006111}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &304998582
 TextMesh:
@@ -492,12 +503,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 304998580}
-  m_Text: Motor Speed = 100
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -538,6 +551,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &304998584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 304998580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 997006110}
 --- !u!1 &321140183 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
@@ -562,7 +587,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: 0.00999999, y: -1.3875}
+  m_ConnectedAnchor: {x: 0.00999999, y: -1.5875001}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: -100
@@ -581,8 +606,9 @@ GameObject:
   - component: {fileID: 396700471}
   - component: {fileID: 396700473}
   - component: {fileID: 396700472}
+  - component: {fileID: 396700474}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -595,11 +621,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 396700470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 790658204}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &396700472
 TextMesh:
@@ -608,12 +634,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 396700470}
-  m_Text: Motor Speed = -25
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -654,6 +682,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &396700474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 396700470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 790658203}
 --- !u!1 &591463805 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
@@ -678,7 +718,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: 2.01, y: 1.6125}
+  m_ConnectedAnchor: {x: 2.01, y: 1.4124999}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 150
@@ -697,8 +737,9 @@ GameObject:
   - component: {fileID: 656570948}
   - component: {fileID: 656570950}
   - component: {fileID: 656570949}
+  - component: {fileID: 656570951}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,11 +752,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 656570947}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 2, y: 1, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 165593450}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &656570949
 TextMesh:
@@ -724,12 +765,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 656570947}
-  m_Text: Motor Speed = 50
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -770,6 +813,101 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &656570951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 656570947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 165593449}
+--- !u!1 &711866430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 711866433}
+  - component: {fileID: 711866432}
+  - component: {fileID: 711866431}
+  m_Layer: 0
+  m_Name: TestInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!102 &711866431
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 711866430}
+  m_Text: Motor Speed (Demand) should match Rigidbody Angular Velocity (Actual)
+  m_OffsetZ: 0
+  m_CharacterSize: 0.3
+  m_LineSpacing: 1
+  m_Anchor: 7
+  m_Alignment: 1
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 2158493440
+--- !u!23 &711866432
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 711866430}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!4 &711866433
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 711866430}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.9, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &788000096
 Prefab:
   m_ObjectHideFlags: 0
@@ -807,7 +945,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -886,7 +1024,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: -3.99, y: -1.3875}
+  m_ConnectedAnchor: {x: -3.99, y: -1.5875001}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: -25
@@ -905,8 +1043,9 @@ GameObject:
   - component: {fileID: 944952364}
   - component: {fileID: 944952366}
   - component: {fileID: 944952365}
+  - component: {fileID: 944952367}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -919,11 +1058,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 944952363}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 2, y: -2, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 1217991933}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &944952365
 TextMesh:
@@ -932,12 +1071,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 944952363}
-  m_Text: Motor Speed = -50
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -978,6 +1119,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &944952367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 944952363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1217991932}
 --- !u!1 &994603458 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
@@ -1002,7 +1155,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: 4.01, y: 1.6125}
+  m_ConnectedAnchor: {x: 4.01, y: 1.4124999}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 200
@@ -1035,7 +1188,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: 0.00999999, y: 1.6125}
+  m_ConnectedAnchor: {x: 0.00999999, y: 1.4124999}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 100
@@ -1081,7 +1234,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1173,7 +1326,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1252,7 +1405,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: -1.99, y: -1.3875}
+  m_ConnectedAnchor: {x: -1.99, y: -1.5875001}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: -50
@@ -1298,7 +1451,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1377,7 +1530,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: 4.01, y: -1.3875}
+  m_ConnectedAnchor: {x: 4.01, y: -1.5875001}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: -200
@@ -1410,7 +1563,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: -3.99, y: 1.6125}
+  m_ConnectedAnchor: {x: -3.99, y: 1.4124999}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 25
@@ -1456,7 +1609,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1521,8 +1674,9 @@ GameObject:
   - component: {fileID: 1439681118}
   - component: {fileID: 1439681120}
   - component: {fileID: 1439681119}
+  - component: {fileID: 1439681121}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1535,11 +1689,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1439681117}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4, y: -2, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 321140184}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &1439681119
 TextMesh:
@@ -1548,12 +1702,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1439681117}
-  m_Text: Motor Speed = -100
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -1594,6 +1750,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1439681121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1439681117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 321140183}
 --- !u!1 &1468682703 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
@@ -1618,7 +1786,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.15}
-  m_ConnectedAnchor: {x: 2.01, y: -1.3875}
+  m_ConnectedAnchor: {x: 2.01, y: -1.5875001}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: -150
@@ -1637,8 +1805,9 @@ GameObject:
   - component: {fileID: 1523444595}
   - component: {fileID: 1523444597}
   - component: {fileID: 1523444596}
+  - component: {fileID: 1523444598}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1651,11 +1820,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1523444594}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 1320454231}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &1523444596
 TextMesh:
@@ -1664,12 +1833,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1523444594}
-  m_Text: Motor Speed = 25
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -1710,6 +1881,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1523444598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1523444594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1320454229}
 --- !u!1 &1701030121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,8 +1903,9 @@ GameObject:
   - component: {fileID: 1701030122}
   - component: {fileID: 1701030124}
   - component: {fileID: 1701030123}
+  - component: {fileID: 1701030125}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1734,11 +1918,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1701030121}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 8, y: 1, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 994603459}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &1701030123
 TextMesh:
@@ -1747,12 +1931,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1701030121}
-  m_Text: Motor Speed = 200
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -1793,6 +1979,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1701030125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701030121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 994603458}
 --- !u!1 &1712255056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1803,8 +2001,9 @@ GameObject:
   - component: {fileID: 1712255057}
   - component: {fileID: 1712255059}
   - component: {fileID: 1712255058}
+  - component: {fileID: 1712255060}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1817,11 +2016,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1712255056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 8, y: -2, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 1286901637}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &1712255058
 TextMesh:
@@ -1830,12 +2029,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1712255056}
-  m_Text: Motor Speed = -200
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -1876,6 +2077,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1712255060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1712255056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1286901636}
 --- !u!1001 &1725636583
 Prefab:
   m_ObjectHideFlags: 0
@@ -1913,7 +2126,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -1978,8 +2191,9 @@ GameObject:
   - component: {fileID: 1865702526}
   - component: {fileID: 1865702528}
   - component: {fileID: 1865702527}
+  - component: {fileID: 1865702529}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1992,11 +2206,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1865702525}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 6, y: -2, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 1468682704}
-  m_RootOrder: 3
+  m_Father: {fileID: 148799105}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &1865702527
 TextMesh:
@@ -2005,12 +2219,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1865702525}
-  m_Text: Motor Speed = -150
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -2051,6 +2267,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1865702529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1865702525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1468682703}
 --- !u!1001 &1950829333
 Prefab:
   m_ObjectHideFlags: 0
@@ -2088,7 +2316,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 50041782541308424, guid: 6af7a7857c30d744781bffdde2e6f7a8,
         type: 2}
@@ -2242,8 +2470,9 @@ GameObject:
   - component: {fileID: 2026884419}
   - component: {fileID: 2026884421}
   - component: {fileID: 2026884420}
+  - component: {fileID: 2026884422}
   m_Layer: 8
-  m_Name: Info
+  m_Name: Info4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2256,10 +2485,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2026884418}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 6, y: 1, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
-  m_Father: {fileID: 591463806}
+  m_Father: {fileID: 148799105}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &2026884420
@@ -2269,12 +2498,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2026884418}
-  m_Text: Motor Speed = 150
+  m_Text: 'Motor Info
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
   m_Anchor: 7
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 0
   m_FontStyle: 0
@@ -2315,3 +2546,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2026884422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2026884418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fadac5b8534b204981750d44700e7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 591463805}

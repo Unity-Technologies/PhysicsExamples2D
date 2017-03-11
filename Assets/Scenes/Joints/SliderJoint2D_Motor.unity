@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 27273029}
   - component: {fileID: 27273031}
   - component: {fileID: 27273030}
+  - component: {fileID: 27273032}
   m_Layer: 0
   m_Name: Info
   m_TagString: Untagged
@@ -132,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 27273028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1236424988}
@@ -145,9 +146,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 27273028}
-  m_Text: 'Motor Speed
-
-    = 6'
+  m_Text: Motor Speed
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -193,6 +192,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &27273032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 27273028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83726f8df1a34a940862b741f01cc4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 552231676}
 --- !u!1 &42571078
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +214,7 @@ GameObject:
   - component: {fileID: 42571079}
   - component: {fileID: 42571081}
   - component: {fileID: 42571080}
+  - component: {fileID: 42571082}
   m_Layer: 0
   m_Name: Info
   m_TagString: Untagged
@@ -217,7 +229,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 42571078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 542700359}
@@ -230,9 +242,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 42571078}
-  m_Text: 'Motor Speed
-
-    = 7'
+  m_Text: Motor Speed
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -278,6 +288,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &42571082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 42571078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83726f8df1a34a940862b741f01cc4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1858562001}
 --- !u!1 &62698400
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +310,7 @@ GameObject:
   - component: {fileID: 62698401}
   - component: {fileID: 62698403}
   - component: {fileID: 62698402}
+  - component: {fileID: 62698404}
   m_Layer: 0
   m_Name: Info
   m_TagString: Untagged
@@ -302,7 +325,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 62698400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 564367142}
@@ -315,9 +338,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 62698400}
-  m_Text: 'Motor Speed
-
-    = 3'
+  m_Text: Motor Speed
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -363,6 +384,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &62698404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 62698400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83726f8df1a34a940862b741f01cc4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1903552403}
 --- !u!1 &102139165
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +406,7 @@ GameObject:
   - component: {fileID: 102139166}
   - component: {fileID: 102139168}
   - component: {fileID: 102139167}
+  - component: {fileID: 102139169}
   m_Layer: 0
   m_Name: Info
   m_TagString: Untagged
@@ -387,7 +421,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 102139165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1044790587}
@@ -400,9 +434,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 102139165}
-  m_Text: 'Motor Speed
-
-    = 5'
+  m_Text: Motor Speed
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -448,6 +480,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &102139169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 102139165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83726f8df1a34a940862b741f01cc4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1624311756}
 --- !u!1 &130082706
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +592,7 @@ GameObject:
   - component: {fileID: 325510218}
   - component: {fileID: 325510220}
   - component: {fileID: 325510219}
+  - component: {fileID: 325510221}
   m_Layer: 0
   m_Name: Info
   m_TagString: Untagged
@@ -562,7 +607,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 325510217}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1052118249}
@@ -575,9 +620,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 325510217}
-  m_Text: 'Motor Speed
-
-    = 1'
+  m_Text: Motor Speed
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -623,6 +666,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &325510221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 325510217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83726f8df1a34a940862b741f01cc4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 822095690}
 --- !u!1001 &334924928
 Prefab:
   m_ObjectHideFlags: 0
@@ -632,7 +687,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -701,7 +756,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 539014879}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1052118249}
@@ -712,7 +767,7 @@ Transform:
   - {fileID: 1236424988}
   - {fileID: 542700359}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &542700359 stripped
 Transform:
@@ -748,7 +803,7 @@ SliderJoint2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 552231676}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 1236424989}
@@ -761,8 +816,8 @@ SliderJoint2D:
   m_Angle: 90
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -6
-    m_MaximumMotorForce: 500
+    m_MotorSpeed: -3
+    m_MaximumMotorForce: 10000
   m_UseLimits: 0
   m_TranslationLimits:
     m_LowerTranslation: 0
@@ -779,7 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BehaviourComponent: {fileID: 552231679}
-  m_TogglePeriod: 4
+  m_TogglePeriod: 3
 --- !u!4 &564367142 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a,
@@ -790,6 +845,90 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 50201640500099834, guid: 21723d1c440aea7439e585ee65e3f89a,
     type: 2}
   m_PrefabInternal: {fileID: 1191622571}
+--- !u!1 &666244675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 666244678}
+  - component: {fileID: 666244677}
+  - component: {fileID: 666244676}
+  m_Layer: 0
+  m_Name: TestInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!102 &666244676
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666244675}
+  m_Text: Rigidbody Speed should match the Motor Speed when Motor is ON and driving
+    upwards.
+  m_OffsetZ: 0
+  m_CharacterSize: 0.3
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 2158493440
+--- !u!23 &666244677
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666244675}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!4 &666244678
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666244675}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.25, y: 2.59, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &670081737
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +939,7 @@ GameObject:
   - component: {fileID: 670081738}
   - component: {fileID: 670081740}
   - component: {fileID: 670081739}
+  - component: {fileID: 670081741}
   m_Layer: 0
   m_Name: Info
   m_TagString: Untagged
@@ -814,7 +954,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 670081737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1025012722}
@@ -827,9 +967,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 670081737}
-  m_Text: 'Motor Speed
-
-    = 4'
+  m_Text: Motor Speed
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -875,6 +1013,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &670081741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 670081737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83726f8df1a34a940862b741f01cc4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1511929432}
 --- !u!1001 &757579689
 Prefab:
   m_ObjectHideFlags: 0
@@ -888,7 +1038,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.9
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -955,7 +1105,7 @@ SliderJoint2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 822095690}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 1052118250}
@@ -968,8 +1118,8 @@ SliderJoint2D:
   m_Angle: 90
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -1
-    m_MaximumMotorForce: 500
+    m_MotorSpeed: -0.5
+    m_MaximumMotorForce: 10000
   m_UseLimits: 0
   m_TranslationLimits:
     m_LowerTranslation: 0
@@ -986,7 +1136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BehaviourComponent: {fileID: 822095693}
-  m_TogglePeriod: 4
+  m_TogglePeriod: 3
 --- !u!50 &1025012720 stripped
 Rigidbody2D:
   m_PrefabParentObject: {fileID: 50201640500099834, guid: 21723d1c440aea7439e585ee65e3f89a,
@@ -1030,7 +1180,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.9
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1086,7 +1236,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.9
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1138,7 +1288,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1194,7 +1344,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1242,7 +1392,7 @@ SliderJoint2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1511929432}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 1025012720}
@@ -1255,8 +1405,8 @@ SliderJoint2D:
   m_Angle: 90
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -4
-    m_MaximumMotorForce: 500
+    m_MotorSpeed: -2
+    m_MaximumMotorForce: 10000
   m_UseLimits: 0
   m_TranslationLimits:
     m_LowerTranslation: 0
@@ -1286,7 +1436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BehaviourComponent: {fileID: 1511929433}
-  m_TogglePeriod: 4
+  m_TogglePeriod: 3
 --- !u!1001 &1547493210
 Prefab:
   m_ObjectHideFlags: 0
@@ -1296,7 +1446,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1346,7 +1496,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.9
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1398,7 +1548,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1459,7 +1609,7 @@ SliderJoint2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1624311756}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 1044790588}
@@ -1472,8 +1622,8 @@ SliderJoint2D:
   m_Angle: 90
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -5
-    m_MaximumMotorForce: 500
+    m_MotorSpeed: -2.5
+    m_MaximumMotorForce: 10000
   m_UseLimits: 0
   m_TranslationLimits:
     m_LowerTranslation: 0
@@ -1490,7 +1640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BehaviourComponent: {fileID: 1624311759}
-  m_TogglePeriod: 4
+  m_TogglePeriod: 3
 --- !u!1 &1764999245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,6 +1738,7 @@ GameObject:
   - component: {fileID: 1830321828}
   - component: {fileID: 1830321830}
   - component: {fileID: 1830321829}
+  - component: {fileID: 1830321831}
   m_Layer: 0
   m_Name: Info
   m_TagString: Untagged
@@ -1602,7 +1753,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1830321827}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 504142990}
@@ -1615,9 +1766,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1830321827}
-  m_Text: 'Motor Speed
-
-    = 2'
+  m_Text: Motor Speed
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -1663,6 +1812,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1830321831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1830321827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83726f8df1a34a940862b741f01cc4a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Source: {fileID: 1837301315}
 --- !u!1001 &1836293619
 Prefab:
   m_ObjectHideFlags: 0
@@ -1733,7 +1894,7 @@ SliderJoint2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1837301315}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 504142991}
@@ -1746,8 +1907,8 @@ SliderJoint2D:
   m_Angle: 90
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -2
-    m_MaximumMotorForce: 500
+    m_MotorSpeed: -1
+    m_MaximumMotorForce: 10000
   m_UseLimits: 0
   m_TranslationLimits:
     m_LowerTranslation: 0
@@ -1764,7 +1925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BehaviourComponent: {fileID: 1837301318}
-  m_TogglePeriod: 4
+  m_TogglePeriod: 3
 --- !u!1 &1858562001 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
@@ -1789,7 +1950,7 @@ SliderJoint2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1858562001}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 542700360}
@@ -1802,8 +1963,8 @@ SliderJoint2D:
   m_Angle: 90
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -7
-    m_MaximumMotorForce: 500
+    m_MotorSpeed: -3.5
+    m_MaximumMotorForce: 10000
   m_UseLimits: 0
   m_TranslationLimits:
     m_LowerTranslation: 0
@@ -1820,7 +1981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BehaviourComponent: {fileID: 1858562004}
-  m_TogglePeriod: 4
+  m_TogglePeriod: 3
 --- !u!1 &1903552403 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
@@ -1845,7 +2006,7 @@ SliderJoint2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1903552403}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 564367143}
@@ -1858,8 +2019,8 @@ SliderJoint2D:
   m_Angle: 90
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -3
-    m_MaximumMotorForce: 500
+    m_MotorSpeed: -1.5
+    m_MaximumMotorForce: 10000
   m_UseLimits: 0
   m_TranslationLimits:
     m_LowerTranslation: 0
@@ -1876,7 +2037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BehaviourComponent: {fileID: 1903552406}
-  m_TogglePeriod: 4
+  m_TogglePeriod: 3
 --- !u!1001 &1918215351
 Prefab:
   m_ObjectHideFlags: 0
@@ -1890,7 +2051,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.9
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1946,7 +2107,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.9
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2087,7 +2248,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2137,7 +2298,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.9
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
       propertyPath: m_LocalPosition.z
