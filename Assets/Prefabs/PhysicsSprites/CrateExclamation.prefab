@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50975860366975910}
   - component: {fileID: 61200894188232824}
   m_Layer: 0
-  m_Name: BoxExclamation
+  m_Name: CrateExclamation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
