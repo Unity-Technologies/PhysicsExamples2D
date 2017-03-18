@@ -197,70 +197,6 @@ SpriteRenderer:
   m_Size: {x: 12, y: 0.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
---- !u!1 &323853146
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 323853148}
-  - component: {fileID: 323853147}
-  m_Layer: 0
-  m_Name: Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &323853147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 323853146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b7f0200251997f4eba9bc24f826ae1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SpawnTime: 1
-  m_SpawnCount: 10
-  m_SpawnMaximum: 30
-  m_SpawnLifetime: 0
-  m_SpawnParent: {fileID: 0}
-  m_Area: {x: 9, y: 4}
-  m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
-  m_MinScale: 0.75
-  m_MaxScale: 1
-  m_GravityScale: 1
-  m_RandomRotation: 360
-  m_Layer: 8
-  m_UseRandomColor: 0
-  m_SpawnItems:
-  - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
-  - {fileID: 1660312775355036, guid: 6772a23b24c8cc847889dddec2c503df, type: 2}
-  - {fileID: 1456553197230442, guid: bbba6482cdc6ae34db9153f06ac61426, type: 2}
-  - {fileID: 1956257508365908, guid: c1a64c0f51b946d40ac12aa155402ce2, type: 2}
-  - {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
-  - {fileID: 1217302742837882, guid: a451a7124c7ea704199cdf1c4e8ea353, type: 2}
-  - {fileID: 1828883715830472, guid: 1516a9c04b7ea7547bfa7c5335203906, type: 2}
-  - {fileID: 1540256098732002, guid: d9f09b291ff5cdb42b650e4f6dd108fd, type: 2}
-  - {fileID: 1756446395587962, guid: 08abd911789147b44af36bdba44c6214, type: 2}
-  - {fileID: 1259125367759884, guid: f5d23617f0c702443ac6388095d979e7, type: 2}
---- !u!4 &323853148
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 323853146}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &889361955
 Prefab:
   m_ObjectHideFlags: 0
@@ -308,16 +244,16 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de56f1443e496f4408095248d6b6f0fd, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1265630438
+--- !u!1 &986197327
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1265630441}
-  - component: {fileID: 1265630440}
-  - component: {fileID: 1265630439}
+  - component: {fileID: 986197330}
+  - component: {fileID: 986197329}
+  - component: {fileID: 986197328}
   m_Layer: 0
   m_Name: ControlInfo
   m_TagString: Untagged
@@ -325,13 +261,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!102 &1265630439
+--- !u!102 &986197328
 TextMesh:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1265630438}
+  m_GameObject: {fileID: 986197327}
   m_Text: 'Left-Mouse: Drag Object'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
@@ -346,12 +282,12 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 2158493440
---- !u!23 &1265630440
+--- !u!23 &986197329
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1265630438}
+  m_GameObject: {fileID: 986197327}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -378,12 +314,12 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!4 &1265630441
+--- !u!4 &986197330
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1265630438}
+  m_GameObject: {fileID: 986197327}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.25, y: 2.95, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
@@ -391,16 +327,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1969883638
+--- !u!1 &1431794181
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1969883641}
-  - component: {fileID: 1969883640}
-  - component: {fileID: 1969883639}
+  - component: {fileID: 1431794184}
+  - component: {fileID: 1431794183}
+  - component: {fileID: 1431794182}
   m_Layer: 0
   m_Name: TestInfo
   m_TagString: Untagged
@@ -408,16 +344,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!102 &1969883639
+--- !u!102 &1431794182
 TextMesh:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1969883638}
-  m_Text: 'Should be able to Drag Objects from selected points on their area.
+  m_GameObject: {fileID: 1431794181}
+  m_Text: 'All PolygonCollider2D should collide with each other.
 
-    The objects should correctly rotate and ''hang'' around the selected point.'
+'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -431,12 +367,12 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 2158493440
---- !u!23 &1969883640
+--- !u!23 &1431794183
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1969883638}
+  m_GameObject: {fileID: 1431794181}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -463,18 +399,74 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!4 &1969883641
+--- !u!4 &1431794184
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1969883638}
+  m_GameObject: {fileID: 1431794181}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5.3, y: 2.95, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1624207355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1624207357}
+  - component: {fileID: 1624207356}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1624207356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1624207355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7f0200251997f4eba9bc24f826ae1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpawnTime: 0.25
+  m_SpawnCount: 1
+  m_SpawnMaximum: 20
+  m_SpawnLifetime: 0
+  m_SpawnParent: {fileID: 0}
+  m_Area: {x: 8, y: 4}
+  m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
+  m_MinScale: 2
+  m_MaxScale: 5
+  m_GravityScale: 1
+  m_RandomRotation: 360
+  m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 6200000, guid: ade229e5286d4994fbc7be5313e370e3, type: 2}
+  m_SpawnItems:
+  - {fileID: 1756446395587962, guid: 08abd911789147b44af36bdba44c6214, type: 2}
+--- !u!4 &1624207357
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1624207355}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1980240141
 GameObject:

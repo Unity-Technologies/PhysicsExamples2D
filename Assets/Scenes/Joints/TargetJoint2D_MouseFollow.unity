@@ -282,34 +282,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1134191465
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1134191466}
-  m_Layer: 8
-  m_Name: Debris
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1134191466
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1134191465}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1865544950 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1705186379396494, guid: a24daaec1d0b9914d98f42e6a305e862,
@@ -381,7 +353,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4877010837709426, guid: a24daaec1d0b9914d98f42e6a305e862, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 50201798178224048, guid: a24daaec1d0b9914d98f42e6a305e862,
         type: 2}
@@ -523,6 +495,7 @@ MonoBehaviour:
   m_GravityScale: 1
   m_RandomRotation: 360
   m_Layer: 8
+  m_UseRandomColor: 0
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
   - {fileID: 1660312775355036, guid: 6772a23b24c8cc847889dddec2c503df, type: 2}

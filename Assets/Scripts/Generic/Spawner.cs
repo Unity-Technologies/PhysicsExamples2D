@@ -23,7 +23,6 @@ public class Spawner : MonoBehaviour
 	public Vector2 m_Area;
    	public Color m_AreaColor = Color.cyan;
 
-
 	[Range (0.1f, 10.0f)]
 	public float m_MinScale = 1.0f;
 	[Range (0.1f, 10.0f)]
@@ -37,6 +36,10 @@ public class Spawner : MonoBehaviour
 
 	[Range (0, 31)]
 	public int m_Layer;
+
+	public bool m_UseRandomColor;
+
+	public PhysicsMaterial2D m_PhysicsMaterial;
 
 	public GameObject[] m_SpawnItems;
 
@@ -65,27 +68,49 @@ public class Spawner : MonoBehaviour
 	{
 		for (int n = 0; n < m_SpawnCount; ++n)
 		{
+			// Finish if we've reached our spawn maximum.
 			if (m_SpawnTotal >= m_SpawnMaximum)
 				return;
 
+			// Choose a spawn item.
 			var obj = m_SpawnItems[Random.Range (0, m_SpawnItems.Length)];
 			if (obj)
 			{
 				var spawnRange = m_Area * 0.5f;
 				var position = transform.TransformPoint (new Vector3 (Random.Range (-spawnRange.x, spawnRange.x), Random.Range (-spawnRange.y, spawnRange.y), transform.position.z));
 				var rotation = Random.Range (0.0f, m_RandomRotation);
+
+				// Create the spawn object at the random position & rotation.
 				var spawnObj = Instantiate (obj, position, Quaternion.Euler (0f, 0f, rotation), m_SpawnParent ? m_SpawnParent : transform);
+
+				// Set its random scale.
 				var randomScale = Random.Range (m_MinScale, m_MaxScale);
 				spawnObj.transform.localScale = new Vector3 (randomScale, randomScale);
+
+				// Set its layer.
 				spawnObj.layer = m_Layer;
 
+				// Set a random sprite renderer color if required.
+				if (m_UseRandomColor)
+				{
+					var spriteRenderer = spawnObj.GetComponentInChildren<SpriteRenderer> ();
+					if (spriteRenderer)
+						spriteRenderer.color = new Color (Random.Range (0f, 1f), Random.Range (0f, 1f), Random.Range (0f, 1f), 1.0f);
+				}
+
+				// Set the Rigidbody2D configuration if it's available.
                 var body = spawnObj.GetComponent<Rigidbody2D> ();
 				if (body)
+				{
 					body.gravityScale = m_GravityScale;
+					body.sharedMaterial = m_PhysicsMaterial;
+				}
 
+				// Set the spawn lifetime if required.
                 if (m_SpawnLifetime > 0.0f)
-                    Destroy (spawnObj, m_SpawnLifetime);
+					StartCoroutine (HandleObjectLifetime (spawnObj, m_SpawnLifetime));
 
+				// Increase our spawn count.
 				++m_SpawnTotal;
 			}
 		}
@@ -110,4 +135,17 @@ public class Spawner : MonoBehaviour
         Debug.DrawLine (vertex2, vertex3, m_AreaColor, 0.25f);
         Debug.DrawLine (vertex3, vertex0, m_AreaColor, 0.25f);
     }
+
+	// Destroy the specified object after the specified period of time.
+	private IEnumerator HandleObjectLifetime (Object obj, float lifetime)
+	{
+		// Wait for the lifetime.
+		yield return new WaitForSeconds (lifetime);
+
+		// Destroy the object.
+		Destroy (obj);
+
+		// Decrease our spawn count.
+		--m_SpawnTotal;
+	}
 }
