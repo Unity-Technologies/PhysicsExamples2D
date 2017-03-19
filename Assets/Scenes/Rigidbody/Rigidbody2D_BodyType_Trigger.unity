@@ -301,9 +301,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63190545}
-  m_Text: 'Dynamic v Dynamic
-
-    (Contact Callback Only)'
+  m_Text: Dynamic v Dynamic
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -901,9 +899,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 327286566}
-  m_Text: 'Static v Static
-
-    (No Action)'
+  m_Text: Static v Static
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1466,9 +1462,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 549252698}
-  m_Text: 'Dynamic v Static
-
-    (Contact Callback Only)'
+  m_Text: Dynamic v Static
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1640,9 +1634,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 702687612}
-  m_Text: 'Static v Dynamic
-
-    (Contact Callback Only)'
+  m_Text: Static v Dynamic
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2447,9 +2439,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1259321290}
-  m_Text: 'Dynamic v Kinematic
-
-    (Contact Callback Only)'
+  m_Text: Dynamic v Kinematic
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2568,9 +2558,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1316235958}
-  m_Text: 'Static v Kinematic
-
-    (Contact Callback Only)'
+  m_Text: Static v Kinematic
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2732,9 +2720,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1354567925}
-  m_Text: 'Kinematic v Kinematic
-
-    (Contact Callback Only)'
+  m_Text: Kinematic v Kinematic
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2887,9 +2873,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1436120232}
-  m_Text: 'Kinematic v Static
-
-    (Contact Callback Only)'
+  m_Text: Kinematic v Static
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -3455,9 +3439,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1696536937}
-  m_Text: 'Kinematic v Dynamic
-
-    (Contact Callback Only)'
+  m_Text: Kinematic v Dynamic
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
