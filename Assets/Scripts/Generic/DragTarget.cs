@@ -39,8 +39,8 @@ public class DragTarget : MonoBehaviour
 			if (!body)
 				return;
 
-			// Add a target joint.
-			m_TargetJoint = collider.gameObject.AddComponent<TargetJoint2D> ();
+			// Add a target joint to the Rigidbody2D GameObject.
+			m_TargetJoint = body.gameObject.AddComponent<TargetJoint2D> ();
 			m_TargetJoint.dampingRatio = m_Damping;
 			m_TargetJoint.frequency = m_Frequency;
 

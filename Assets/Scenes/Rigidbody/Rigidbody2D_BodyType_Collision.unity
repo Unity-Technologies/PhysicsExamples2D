@@ -518,9 +518,11 @@ TextMesh:
 
     - Full Kinematic Contacts on a Kinematic body type results in Contacts
 
-    being created for Kinematic/Static & Kinematic/Kinematic collisions.
+    being created for Kinematic/Static & Kinematic/Kinematic collisions
 
-    This produces callbacks but Kinematic body type still does not have
+    which otherwise would not be produced.  When such a Contact is created
+
+    it produces callbacks but the Kinematic body type still does not have
 
     any Collision Response (forces) applied.'
   m_OffsetZ: 0

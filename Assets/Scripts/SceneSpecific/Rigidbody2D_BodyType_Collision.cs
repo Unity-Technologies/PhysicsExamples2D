@@ -3,7 +3,7 @@
 /// <summary>
 /// Show a toggle button that controls the 'useFullIinematicContact' state.
 /// </summary>
-public class Rigidbody_BodyType_Collision : MonoBehaviour
+public class Rigidbody2D_BodyType_Collision : MonoBehaviour
 {
 	public Rigidbody2D[] m_Bodies;
 
@@ -19,7 +19,7 @@ public class Rigidbody_BodyType_Collision : MonoBehaviour
 	/// </summary>
 	void OnGUI ()
 	{
-		var buttonRect = new Rect (20f, Screen.height * 0.5f, Screen.width * 0.2f, 30f);
+		var buttonRect = new Rect (20f, 360f, 310f, 30f);
         m_UseFullKinematicContacts = GUI.Toggle(buttonRect, m_UseFullKinematicContacts, "Use Full Kinematic Contacts is " + (m_UseFullKinematicContacts ? "ON" : "OFF"), "button");
 
 		UpdatetFullKinematicContacts ();
@@ -30,6 +30,7 @@ public class Rigidbody_BodyType_Collision : MonoBehaviour
 	/// </summary>
 	private void UpdatetFullKinematicContacts ()
 	{
+		// Finish if no bodies.
 		if (m_Bodies == null)
 			return;
 
