@@ -256,6 +256,11 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 50201798178224048, guid: a24daaec1d0b9914d98f42e6a305e862,
+        type: 2}
+      propertyPath: m_UseFullKinematicContacts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a24daaec1d0b9914d98f42e6a305e862, type: 2}
   m_IsPrefabParent: 0
@@ -283,7 +288,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63190545}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 1767465039}
@@ -298,7 +303,7 @@ TextMesh:
   m_GameObject: {fileID: 63190545}
   m_Text: 'Dynamic v Dynamic
 
-    (Trigger Response)'
+    (Contact Callback Only)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -898,7 +903,7 @@ TextMesh:
   m_GameObject: {fileID: 327286566}
   m_Text: 'Static v Static
 
-    (No Trigger Response)'
+    (No Action)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1322,6 +1327,11 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 50939518803377918, guid: b8bf0f9886b86994ab4c4e11b2a9151e,
+        type: 2}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b8bf0f9886b86994ab4c4e11b2a9151e, type: 2}
   m_IsPrefabParent: 0
@@ -1443,7 +1453,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 549252698}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 857587808}
@@ -1458,7 +1468,7 @@ TextMesh:
   m_GameObject: {fileID: 549252698}
   m_Text: 'Dynamic v Static
 
-    (Trigger Response)'
+    (Contact Callback Only)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1632,7 +1642,7 @@ TextMesh:
   m_GameObject: {fileID: 702687612}
   m_Text: 'Static v Dynamic
 
-    (Trigger Response)'
+    (Contact Callback Only)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1744,6 +1754,11 @@ Prefab:
         type: 2}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50939518803377918, guid: b8bf0f9886b86994ab4c4e11b2a9151e,
+        type: 2}
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b8bf0f9886b86994ab4c4e11b2a9151e, type: 2}
@@ -2393,7 +2408,7 @@ Transform:
   - {fileID: 432209283}
   - {fileID: 1947477593}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1259321290
 GameObject:
@@ -2419,7 +2434,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1259321290}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalPosition: {x: 0, y: -0.75, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 381397665}
@@ -2434,7 +2449,7 @@ TextMesh:
   m_GameObject: {fileID: 1259321290}
   m_Text: 'Dynamic v Kinematic
 
-    (Trigger Response)'
+    (Contact Callback Only)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2555,7 +2570,7 @@ TextMesh:
   m_GameObject: {fileID: 1316235958}
   m_Text: 'Static v Kinematic
 
-    (Trigger Response)'
+    (Contact Callback Only)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2719,7 +2734,7 @@ TextMesh:
   m_GameObject: {fileID: 1354567925}
   m_Text: 'Kinematic v Kinematic
 
-    (Trigger Response)'
+    (Contact Callback Only)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2874,7 +2889,7 @@ TextMesh:
   m_GameObject: {fileID: 1436120232}
   m_Text: 'Kinematic v Static
 
-    (Trigger Response)'
+    (Contact Callback Only)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2978,6 +2993,11 @@ Prefab:
         type: 2}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50179722466569718, guid: 8079363d4482b034a97e0c2e8bfed93e,
+        type: 2}
+      propertyPath: m_UseFullKinematicContacts
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 2}
@@ -3437,7 +3457,7 @@ TextMesh:
   m_GameObject: {fileID: 1696536937}
   m_Text: 'Kinematic v Dynamic
 
-    (Trigger Response)'
+    (Contact Callback Only)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -3488,6 +3508,98 @@ Transform:
   m_PrefabParentObject: {fileID: 4877010837709426, guid: a24daaec1d0b9914d98f42e6a305e862,
     type: 2}
   m_PrefabInternal: {fileID: 18177295}
+--- !u!1 &1715007376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1715007379}
+  - component: {fileID: 1715007378}
+  - component: {fileID: 1715007377}
+  m_Layer: 0
+  m_Name: TestInfo1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!102 &1715007377
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1715007376}
+  m_Text: 'When a Contact is created, kept or destroyed so is a script Callback:
+
+
+    - A Trigger Contact produces OnTriggerXXX2D callbacks.
+
+    - A Collision Contact produces OnCollisionXXX2D callbacks.
+
+    - A Collision Contact involving a Dynamic body type produces
+
+    a Collision Response (forces) for that Rigidbody2D.'
+  m_OffsetZ: 0
+  m_CharacterSize: 0.25
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 2158493440
+--- !u!23 &1715007378
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1715007376}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!4 &1715007379
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1715007376}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.25, y: 2.95, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1738507746 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4286077783995786, guid: b8bf0f9886b86994ab4c4e11b2a9151e,
@@ -3682,7 +3794,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1969883638}
-  m_Text: 'Certain Rigidbody2D body types produce a Trigger Response.
+  m_Text: 'Only certain body type combinations produce a Trigger Contact.
 
     All Rigidbody2D here are Triggers.
 
@@ -3690,7 +3802,7 @@ TextMesh:
 
 '
   m_OffsetZ: 0
-  m_CharacterSize: 0.3
+  m_CharacterSize: 0.25
   m_LineSpacing: 1
   m_Anchor: 2
   m_Alignment: 2
