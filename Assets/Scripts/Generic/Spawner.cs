@@ -106,6 +106,9 @@ public class Spawner : MonoBehaviour
 					body.sharedMaterial = m_PhysicsMaterial;
 				}
 
+				// Enable the object.
+				spawnObj.active = true;
+
 				// Set the spawn lifetime if required.
                 if (m_SpawnLifetime > 0.0f)
 					StartCoroutine (HandleObjectLifetime (spawnObj, m_SpawnLifetime));
