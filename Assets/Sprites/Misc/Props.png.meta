@@ -1,0 +1,287 @@
+fileFormatVersion: 2
+guid: 545e3f6ad65c48d40a96534d4c3ecd84
+timeCreated: 1478690139
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: CrateSmall
+    21300002: BridgeAnchorLeft
+    21300004: BridgeAnchorRight
+    21300006: CrateBig
+    21300008: Barrel
+    21300010: BridgeSingle
+    21300012: BridgeDoubleLeft
+    21300014: BridgeDoubleRight
+    21300016: Lantern
+    21300018: Props_9
+    21300020: Cage
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 64
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CrateSmall
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -0.15866852, y: 0.12350464}
+        - {x: -0.14166832, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 0.112091064}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BridgeAnchorLeft
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BridgeAnchorRight
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: CrateBig
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -13.987507, y: -32}
+        - {x: 32, y: -32}
+        - {x: 32, y: 14.105896}
+        - {x: -14.1183815, y: 13.987518}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Barrel
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -14.994461, y: 1.9889221}
+        - {x: -17.080338, y: -4.108032}
+        - {x: -17.080338, y: -26.542938}
+        - {x: -14.897514, y: -32}
+        - {x: 10.983383, y: -32}
+        - {x: 13.080338, y: -26.451508}
+        - {x: 13.080338, y: -3.839325}
+        - {x: 10.903046, y: 1.8974915}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BridgeSingle
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 14.19664, y: 29.92157}
+        - {x: -0.3154297, y: 28.470123}
+        - {x: -14.820908, y: 29.83496}
+        - {x: -32, y: 32}
+        - {x: -32, y: 22}
+        - {x: -0.8463135, y: 18.623749}
+        - {x: 32, y: 22.221802}
+        - {x: 32, y: 32}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BridgeDoubleLeft
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 32, y: 15.190735}
+        - {x: 32, y: 25.834991}
+        - {x: -10.01059, y: 29.07724}
+        - {x: -32, y: 32}
+        - {x: -32, y: 22.0878}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BridgeDoubleRight
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 384
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -4.2369385, y: 27.778198}
+        - {x: -32, y: 25.268005}
+        - {x: -32, y: 16.056793}
+        - {x: 32, y: 21.685822}
+        - {x: 32, y: 32}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lantern
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -0.7699375, y: -0.55529785}
+        - {x: -10.0224, y: -10.968506}
+        - {x: -10.928625, y: -26.352692}
+        - {x: -6.763479, y: -32}
+        - {x: 4.727791, y: -32}
+        - {x: 8.540241, y: -26.080505}
+        - {x: 8.151855, y: -11.312103}
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Props_9
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cage
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 320
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -31.187073, y: 31.864502}
+        - {x: -29.645096, y: -32}
+        - {x: 30.10315, y: -32}
+        - {x: 32, y: 32}
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
