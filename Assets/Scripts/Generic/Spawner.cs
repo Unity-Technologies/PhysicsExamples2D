@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
 	[Range (1, 100)]
 	public int m_SpawnCount = 1;
 
-	[Range (1, 1000)]
+	[Range (0, 1000)]
 	public int m_SpawnMaximum = 10;
 
     [Range (0, 100)]
