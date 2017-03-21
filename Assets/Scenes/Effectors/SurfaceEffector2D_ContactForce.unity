@@ -597,9 +597,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7f0200251997f4eba9bc24f826ae1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnTime: 2
+  m_SpawnTime: 1
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -673,9 +673,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7f0200251997f4eba9bc24f826ae1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnTime: 2
+  m_SpawnTime: 1
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}

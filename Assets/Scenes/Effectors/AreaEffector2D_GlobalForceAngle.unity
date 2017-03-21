@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -277,6 +277,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &263174727
@@ -555,7 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -565,6 +567,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &442953303
@@ -809,7 +813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -819,6 +823,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &672744831
@@ -1146,7 +1152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -1156,6 +1162,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &850633905
@@ -1317,7 +1325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -1327,6 +1335,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &909164659
@@ -2004,7 +2014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2014,6 +2024,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &1376842301
@@ -2258,7 +2270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2268,6 +2280,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &1578030757
@@ -2312,7 +2326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2322,6 +2336,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &1730527943
@@ -2449,7 +2465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2459,6 +2475,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!1 &1743583362
@@ -2690,7 +2708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 0.25
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 0.75
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2700,6 +2718,8 @@ MonoBehaviour:
   m_GravityScale: 0
   m_RandomRotation: 0
   m_Layer: 8
+  m_UseRandomColor: 0
+  m_PhysicsMaterial: {fileID: 0}
   m_SpawnItems:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 2}
 --- !u!4 &1941474861

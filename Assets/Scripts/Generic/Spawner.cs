@@ -69,7 +69,8 @@ public class Spawner : MonoBehaviour
 		for (int n = 0; n < m_SpawnCount; ++n)
 		{
 			// Finish if we've reached our spawn maximum.
-			if (m_SpawnTotal >= m_SpawnMaximum)
+			// NOTE: Setting a spawn maximum of zero turns the limit off.
+			if (m_SpawnMaximum > 0 && m_SpawnTotal >= m_SpawnMaximum)
 				return;
 
 			// Choose a spawn item.

@@ -662,7 +662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -801,7 +801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -1379,8 +1379,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowSpeed: 1
-  m_ShowVelocity: 1
-  m_ShowRotation: 1
+  m_ShowVelocity: 0
+  m_ShowRotation: 0
   m_Body: {fileID: 0}
   m_Text: {fileID: 0}
 --- !u!102 &442295465
@@ -1704,7 +1704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -1760,7 +1760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2007,7 +2007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2123,7 +2123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2537,7 +2537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2593,7 +2593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -3232,7 +3232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 5
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}

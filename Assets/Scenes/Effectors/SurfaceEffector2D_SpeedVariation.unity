@@ -787,7 +787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -843,7 +843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -886,7 +886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -1490,7 +1490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -1845,7 +1845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -1984,7 +1984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2183,7 +2183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -2407,7 +2407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -3008,7 +3008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
@@ -3064,7 +3064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnTime: 2
   m_SpawnCount: 1
-  m_SpawnMaximum: 1000
+  m_SpawnMaximum: 1
   m_SpawnLifetime: 10
   m_SpawnParent: {fileID: 0}
   m_Area: {x: 0, y: 0}
