@@ -1029,7 +1029,7 @@ TextMesh:
   m_GameObject: {fileID: 1741687112}
   m_Text: 'Collider is Offset
 
-    (Does not affect Center of Mass)'
+    (Will cause Rigidbody2D to rotate initially)'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
