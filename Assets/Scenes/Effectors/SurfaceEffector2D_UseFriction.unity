@@ -362,7 +362,7 @@ TextMesh:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 529855927}
   m_Text: Use Friction = OFF (Friction between Wheel and Ground is NOT used) - Wheel
-    should not rotate.
+    should NOT rotate.
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -587,7 +587,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1306851041}
-  m_Text: Use Friction = ON (Friction between Wheel and Ground is used) - Wheel should
+  m_Text: Use Friction = ON (Friction between Wheel and Ground is used) - Wheel SHOULD
     rotate.
   m_OffsetZ: 0
   m_CharacterSize: 0.15

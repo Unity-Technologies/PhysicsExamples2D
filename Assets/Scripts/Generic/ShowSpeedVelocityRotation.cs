@@ -32,10 +32,10 @@ public class ShowSpeedVelocityRotation : MonoBehaviour
 			text += "Speed = " + m_Body.velocity.magnitude.ToString ("n2") + "\n";
 
 		if (m_ShowVelocity)
-			text += "Velocity = " + m_Body.velocity.ToString ("n2") + "\n";
+			text += "LinVel = " + m_Body.velocity.ToString ("n2") + "\n";
 
 		if (m_ShowRotation)
-			text += "Rotation = " + m_Body.rotation.ToString ("n2");
+			text += "AngVel = " + m_Body.angularVelocity.ToString ("n2");
 
 		// Set the text to show current values.
 		m_Text.text = text;

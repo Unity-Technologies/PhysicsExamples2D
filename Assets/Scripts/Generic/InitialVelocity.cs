@@ -16,7 +16,7 @@ public class InitialVelocity : MonoBehaviour
         if (rigidbody)
         {
             rigidbody.velocity = m_Velocity;
-            rigidbody.angularDrag = m_AngularVelocity;
+            rigidbody.angularVelocity = m_AngularVelocity;
         }
 	}
 }
