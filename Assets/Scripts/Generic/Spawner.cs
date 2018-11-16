@@ -108,7 +108,7 @@ public class Spawner : MonoBehaviour
 				}
 
 				// Enable the object.
-				spawnObj.active = true;
+				spawnObj.SetActive(true);
 
 				// Set the spawn lifetime if required.
                 if (m_SpawnLifetime > 0.0f)
