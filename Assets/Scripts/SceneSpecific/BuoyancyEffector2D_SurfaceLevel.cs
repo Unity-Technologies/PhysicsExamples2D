@@ -21,7 +21,7 @@ public class BuoyancyEffector2D_SurfaceLevel : MonoBehaviour
         var camera = Camera.main;
         var min = camera.WorldToScreenPoint(m_EffectorBounds.min);
         var max = camera.WorldToScreenPoint(m_EffectorBounds.max);
-        m_SliderBounds.Set(min.x + 20.0f, min.y, 30.0f, max.y - min.y);
+        m_SliderBounds.Set(20.0f, 20.0f, 30.0f, max.y - min.y);
     }
 
     void OnGUI()
