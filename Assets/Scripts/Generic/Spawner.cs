@@ -37,6 +37,8 @@ public class Spawner : MonoBehaviour
 	[Range (0, 31)]
 	public int m_Layer;
 
+    public bool m_UseAutoMass;
+
 	public bool m_UseRandomColor;
 
 	public PhysicsMaterial2D m_PhysicsMaterial;
@@ -105,6 +107,7 @@ public class Spawner : MonoBehaviour
 				{
 					body.gravityScale = m_GravityScale;
 					body.sharedMaterial = m_PhysicsMaterial;
+                    body.useAutoMass = m_UseAutoMass;
 				}
 
 				// Enable the object.
