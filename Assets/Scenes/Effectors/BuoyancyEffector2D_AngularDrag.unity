@@ -137,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 15721393}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1840132498}
@@ -164,7 +164,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -247,7 +247,7 @@ PrefabInstance:
     - target: {fileID: 50818109290664944, guid: 1234123af01455741802be8b7bdb04bd,
         type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 50818109290664944, guid: 1234123af01455741802be8b7bdb04bd,
         type: 3}
@@ -280,7 +280,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Velocity: {x: 0, y: 0}
-  m_AngularVelocity: 45
+  m_AngularVelocity: 360
+--- !u!114 &49152437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49152435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e607af36946e77f4093f61b8c47f4376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Rigidbody: {fileID: 0}
+  m_Text: {fileID: 1255113904}
+--- !u!4 &49152440 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4818404107769620, guid: 1234123af01455741802be8b7bdb04bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 49152434}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &56398581
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +341,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56398581}
-  m_Text: Drag = 512
+  m_Text: Drag = 0.1
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -450,10 +470,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 128
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.08
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -576,10 +596,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 512
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.1
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -781,7 +801,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274135956}
-  m_Text: Drag = 64
+  m_Text: Drag = 0.07
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -857,7 +877,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299528537}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2026523207}
@@ -884,7 +904,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -937,10 +957,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 4
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.03
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -1058,7 +1078,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522455432}
-  m_Text: Drag = 2
+  m_Text: Drag = 0.02
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1134,7 +1154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528902941}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1096908063}
@@ -1161,7 +1181,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -1209,7 +1229,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712485922}
-  m_Text: Drag = 32
+  m_Text: Drag = 0.06
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1285,7 +1305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871012808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1628972087}
@@ -1312,7 +1332,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -1345,7 +1365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954508015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 96288911}
@@ -1372,7 +1392,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -1420,7 +1440,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011951627}
-  m_Text: Drag = 256
+  m_Text: Drag = 0.09
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1496,7 +1516,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017422848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224033863}
@@ -1523,7 +1543,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -1576,10 +1596,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 2
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.02
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -1702,10 +1722,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 32
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.06
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -1889,7 +1909,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115492894}
-  m_Text: Drag = 8
+  m_Text: Drag = 0.04
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1980,7 +2000,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1163590229}
-  m_Text: Drag = 0
+  m_Text: Drag = 0.01
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2071,7 +2091,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198072792}
-  m_Text: Drag = 4
+  m_Text: Drag = 0.03
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -2167,10 +2187,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 64
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.07
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -2293,10 +2313,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 8
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.04
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -2374,6 +2394,97 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1255113903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255113906}
+  - component: {fileID: 1255113905}
+  - component: {fileID: 1255113904}
+  m_Layer: 8
+  m_Name: Info
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!102 &1255113904
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255113903}
+  m_Text: AngVel
+  m_OffsetZ: 0
+  m_CharacterSize: 0.15
+  m_LineSpacing: 1
+  m_Anchor: 4
+  m_Alignment: 1
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 0}
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278255615
+--- !u!23 &1255113905
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255113903}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!4 &1255113906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255113903}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.6, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 49152440}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1490287870
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,10 +2530,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 16
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -2677,10 +2788,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
+  m_SurfaceLevel: 0
+  m_Density: 2
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 0.01
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -2816,7 +2927,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875183165}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1534972588}
@@ -2843,7 +2954,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -2877,12 +2988,12 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969883638}
-  m_Text: 'The BuoyancyEffector2D should produce a Linear drag force.
+  m_Text: 'The BuoyancyEffector2D should produce an angular drag force.
 
-    Increasing linear drag factors should reduce linear translation.
+    Increasing angular drag factors should reduce rotation.
 
 
-    No angular drag force is used here so the Colliders should continue to rotate.'
+    No linear drag force is used here so the Colliders should continue to move position.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -2987,7 +3098,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973721166}
-  m_Text: Drag = 128
+  m_Text: Drag = 0.08
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -3083,10 +3194,10 @@ BuoyancyEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_SurfaceLevel: 0.5
-  m_Density: 0.95
-  m_LinearDrag: 256
-  m_AngularDrag: 0
+  m_SurfaceLevel: 0
+  m_Density: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.09
   m_FlowAngle: 0
   m_FlowMagnitude: 0
   m_FlowVariation: 0
@@ -3304,7 +3415,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1981387403}
-  m_Text: Drag = 16
+  m_Text: Drag = 0.05
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -3413,7 +3524,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070029650}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1082192166}
@@ -3440,7 +3551,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -3513,7 +3624,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118670020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1667671139}
@@ -3540,7 +3651,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
@@ -3573,7 +3684,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132495960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1639607048}
@@ -3600,7 +3711,7 @@ MonoBehaviour:
   m_AreaColor: {r: 0, g: 1, b: 1, a: 1}
   m_MinScale: 0.5
   m_MaxScale: 0.5
-  m_GravityScale: 0.5
+  m_GravityScale: 0.01
   m_RandomRotation: 0
   m_Layer: 8
   m_UseAutoMass: 0
