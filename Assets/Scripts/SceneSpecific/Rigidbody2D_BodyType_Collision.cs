@@ -6,6 +6,7 @@
 public class Rigidbody2D_BodyType_Collision : MonoBehaviour
 {
 	public Rigidbody2D[] m_Bodies;
+    public GameObject[] m_ExpectationTicks;
 
 	private bool m_UseFullKinematicContacts;
 
@@ -31,7 +32,7 @@ public class Rigidbody2D_BodyType_Collision : MonoBehaviour
 	private void UpdatetFullKinematicContacts ()
 	{
 		// Finish if no bodies.
-		if (m_Bodies == null)
+		if (m_Bodies == null || m_ExpectationTicks == null)
 			return;
 
 		foreach (var body in m_Bodies)
@@ -39,5 +40,10 @@ public class Rigidbody2D_BodyType_Collision : MonoBehaviour
 			if (body)
 				body.useFullKinematicContacts = m_UseFullKinematicContacts;
 		}
+
+        foreach(var tick in m_ExpectationTicks)
+        {
+            tick.SetActive(m_UseFullKinematicContacts);
+        }
 	}
 }
