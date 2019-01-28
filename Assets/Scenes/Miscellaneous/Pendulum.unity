@@ -585,11 +585,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2076061406}
+  - component: {fileID: 2076061411}
   - component: {fileID: 2076061409}
   - component: {fileID: 2076061408}
   - component: {fileID: 2076061407}
   - component: {fileID: 2076061410}
-  - component: {fileID: 2076061411}
   m_Layer: 8
   m_Name: Ball
   m_TagString: Untagged
@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fadabf3149eeb4894ee71af8afb1af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TangentForce: 3
+  TangentForce: 1
   PivotBody: {fileID: 2106865607}
 --- !u!114 &2076061411
 MonoBehaviour:
