@@ -11,8 +11,12 @@ public class RelativeJoint2D_AnimateAngularOffset : MonoBehaviour
 
 	void Start ()
 	{
-        relativeJoint = GetComponent<RelativeJoint2D> ();	
-	}
+        relativeJoint = GetComponent<RelativeJoint2D> ();
+
+        // This test produces crazy low rotational inertia which makes the whole set-up unstable.
+        // Explicitly set a reasonable inertia.
+        relativeJoint.attachedRigidbody.inertia = 0.5f;
+    }
 	
 	void FixedUpdate ()
 	{
