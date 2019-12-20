@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 459fa7a62f81a3d44b8c1a8c9fb4e071,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -500,6 +501,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &72349609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -624,7 +626,7 @@ TextMesh:
     so
     are the collision responses.
 
-    
+
 
     Selecting Full Kinematic Contacts changes
     what a Kinematic body type
@@ -632,20 +634,20 @@ TextMesh:
     should interact with but Kinematic bodies never
     react to contacts.
 
-    
 
-    Blue arrows indicate where the bottom of the
-    character should be.
 
-    Brown arrows indicate where the bottom of the create
+    Blue arrows indicate where the bottom of the character
     should be.
 
-    
+    Brown arrows indicate where the bottom of the create should be.
 
-    A tick indicates an expected contact whereas the
 
-    particle
-    effect indicates an actual collision contact.
+
+    A
+    tick indicates an expected contact whereas the
+
+    particle effect indicates
+    an actual collision contact.
 
 '
   m_OffsetZ: 0
@@ -700,6 +702,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &74279933
 Transform:
   m_ObjectHideFlags: 0
@@ -823,6 +826,10 @@ EdgeCollider2D:
   - {x: -5.4, y: 0.35}
   - {x: 5.4, y: 0.35}
   - {x: 5.4, y: 20}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!212 &130082709
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1019,6 +1026,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 184830411}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -1036,6 +1044,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 184830411}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StoparticleSystem
         m_Mode: 1
         m_Arguments:
@@ -1216,6 +1225,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &349737552 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4286077783995786, guid: b8bf0f9886b86994ab4c4e11b2a9151e,
@@ -1955,6 +1965,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &550514939 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
@@ -2278,6 +2289,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 678218835}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -2295,6 +2307,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 678218835}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StopParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -2407,6 +2420,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &731444548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3275,6 +3289,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1028538195}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -3292,6 +3307,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1028538195}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StopParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -3519,6 +3535,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1066164262}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -3536,6 +3553,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1066164262}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StopParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -3953,6 +3971,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &1275306965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4877010837709426, guid: a24daaec1d0b9914d98f42e6a305e862,
@@ -4168,6 +4187,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1330950099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1705186379396494, guid: a24daaec1d0b9914d98f42e6a305e862,
@@ -4208,6 +4228,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1330950103}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -4225,6 +4246,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1330950103}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StopParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -4337,6 +4359,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1381033979
 GameObject:
   m_ObjectHideFlags: 0
@@ -4670,6 +4693,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &1465220741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5029,6 +5053,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1575951337}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -5046,6 +5071,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1575951337}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StopParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -5344,6 +5370,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &1708071501 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4450711504923654, guid: d7ca159012d344443b815fa1f3cf490a,
@@ -5902,6 +5929,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &1969883641
 Transform:
   m_ObjectHideFlags: 0
@@ -6605,6 +6633,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2029895614}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -6622,6 +6651,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2029895614}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StopParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -6965,6 +6995,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2110232222}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -6982,6 +7013,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2110232222}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StopParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -7035,6 +7067,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2114708226}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: PlayParticleSystem
         m_Mode: 1
         m_Arguments:
@@ -7052,6 +7085,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2114708226}
+        m_TargetAssemblyTypeName: GenericActions, Assembly-CSharp
         m_MethodName: StopParticleSystem
         m_Mode: 1
         m_Arguments:
