@@ -104,7 +104,8 @@ public class FollowCurveTarget : MonoBehaviour
                             0.5f * percentCompleteSquared);
     }
 
-	public void OnDrawGizmosSelected ()
+#if UNITY_EDITOR
+    public void OnDrawGizmosSelected ()
 	{
         var pointCount = CurvePoints.Length;
 
@@ -119,4 +120,5 @@ public class FollowCurveTarget : MonoBehaviour
 			Handles.DrawLine (p0, p1);
         }
     }
+#endif
 }
