@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Miscellaneous_QuadraticDrag : MonoBehaviour
+public class QuadraticDrag : MonoBehaviour
 {
     public float DragCoefficient = 0.5f;
 
