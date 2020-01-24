@@ -7,6 +7,15 @@ using UnityEngine;
 /// </summary>
 public class KinematicTopDownController : MonoBehaviour
 {
+    public enum MovementInput
+    {
+        Keyboard,
+        Mouse
+    };
+
+    // Allows movement via keyboard or mouse.
+    public MovementInput MovementType = MovementInput.Mouse;
+
     // The speed of movement.
     public float m_MoveSpeed = 2.0f;
 
@@ -34,15 +43,38 @@ public class KinematicTopDownController : MonoBehaviour
 
     void Update()
     {
-        // Super simple movement allowing us to have compound horizontal/vertical movement to test.
-        m_Movement = new Vector2(
-            (Input.GetKey(KeyCode.LeftArrow) ? -1 : 0) + (Input.GetKey(KeyCode.RightArrow) ? 1 : 0),
-            (Input.GetKey(KeyCode.DownArrow) ? -1 : 0) + (Input.GetKey(KeyCode.UpArrow) ? 1 : 0));
+        switch(MovementType)
+        {
+            case MovementInput.Keyboard:
+                {
+                    // Super simple movement allowing us to have compound horizontal/vertical movement to test.
+                    m_Movement = new Vector2(
+                        (Input.GetKey(KeyCode.LeftArrow) ? -1 : 0) + (Input.GetKey(KeyCode.RightArrow) ? 1 : 0),
+                        (Input.GetKey(KeyCode.DownArrow) ? -1 : 0) + (Input.GetKey(KeyCode.UpArrow) ? 1 : 0));
+
+                    return;
+                }
+
+            case MovementInput.Mouse:
+                {
+		            // Calculate the world position for the mouse.
+		            m_Movement = (Vector2)Camera.main.ScreenToWorldPoint (Input.mousePosition) - m_Rigidbody.position;
+
+                    return;
+                }
+        }
+
+        // Reset the input movement.
+        m_Movement = Vector2.zero;
     }
 
     void FixedUpdate()
     {
         const float Epsilon = 0.005f;
+
+        // Don't perform any work if no movement is required.
+        if (m_Movement.sqrMagnitude <= Epsilon)
+            return;
 
         // Grab the input movement unit direction.
         var movementDirection = m_Movement.normalized;
