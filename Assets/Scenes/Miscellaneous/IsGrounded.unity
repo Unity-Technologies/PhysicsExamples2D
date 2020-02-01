@@ -199,7 +199,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: c2bd0a6739c7e7643974cb980c822204, type: 2}
+  m_Material: {fileID: 6200000, guid: ade229e5286d4994fbc7be5313e370e3, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -474,7 +474,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: c2bd0a6739c7e7643974cb980c822204, type: 2}
+  m_Material: {fileID: 6200000, guid: ade229e5286d4994fbc7be5313e370e3, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -1201,7 +1201,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1447976168}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c2bd0a6739c7e7643974cb980c822204, type: 2}
+  m_Material: {fileID: 6200000, guid: ade229e5286d4994fbc7be5313e370e3, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1426,7 +1426,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1805607407}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c2bd0a6739c7e7643974cb980c822204, type: 2}
+  m_Material: {fileID: 6200000, guid: ade229e5286d4994fbc7be5313e370e3, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1571,7 +1571,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: c2bd0a6739c7e7643974cb980c822204, type: 2}
+  m_Material: {fileID: 6200000, guid: ade229e5286d4994fbc7be5313e370e3, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -1875,7 +1875,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: c2bd0a6739c7e7643974cb980c822204, type: 2}
+  m_Material: {fileID: 6200000, guid: ade229e5286d4994fbc7be5313e370e3, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -1896,7 +1896,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c2bd0a6739c7e7643974cb980c822204, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
