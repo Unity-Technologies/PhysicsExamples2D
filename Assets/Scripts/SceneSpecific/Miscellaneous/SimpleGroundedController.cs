@@ -6,17 +6,15 @@ public class SimpleGroundedController : MonoBehaviour
     public float JumpImpulse = 7f;
     public float SideSpeed = 2f;
 
-    public ContactFilter2D m_ContactFilter;
+    public ContactFilter2D ContactFilter;
 
     private Rigidbody2D m_Rigidbody;
-    private List<ContactPoint2D> m_Contacts = new List<ContactPoint2D>(1);
-
     private bool m_ShouldJump;
     private float m_SideSpeed;
 
     // We can check to see if there are any contacts given our contact filter
     // which can be set to a specific layer and normal angle.
-    public bool IsGrounded => m_Rigidbody.GetContacts(m_ContactFilter, m_Contacts) > 0;
+    public bool IsGrounded => m_Rigidbody.IsTouching(ContactFilter);
 
     void Start()
     {

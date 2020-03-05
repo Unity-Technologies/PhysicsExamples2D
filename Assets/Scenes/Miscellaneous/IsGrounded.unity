@@ -119,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -1161,12 +1163,11 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308584646}
-  m_Text: "Can Only Jump when grounded.\nGrounded state defined by an upward angle.
-    Sloped Platform outside this range so cannot jump on it.\nGrounded state is controlled
-    entirely by the ContactFilter2D on the Controller.\n\nThe DynamicGravity component
-    can change gravity depending on whether\nyou're moving aganist it or with it. 
-    You can use this for a better jump/fall feel.\t\n\nUse Left/Right Cursor Arrows
-    to Move.\nSpace to Jump."
+  m_Text: "Can Only Jump when grounded.\nGrounded state defined by an upward angle.\nGrounded
+    state is controlled entirely by the ContactFilter2D on the Controller.\n\nThe
+    DynamicGravity component can change gravity depending on whether\nyou're moving
+    aganist it or with it.  You can use this for a better jump/fall feel.\t\n\nUse
+    Left/Right Cursor Arrows to Move.\nSpace to Jump."
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -2043,7 +2044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpImpulse: 10
   SideSpeed: 2
-  m_ContactFilter:
+  ContactFilter:
     useTriggers: 0
     useLayerMask: 0
     useDepth: 0
