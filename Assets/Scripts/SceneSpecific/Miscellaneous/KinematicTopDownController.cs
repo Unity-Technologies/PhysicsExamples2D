@@ -80,8 +80,8 @@ public class KinematicTopDownController : MonoBehaviour
         var movementDirection = m_Movement.normalized;
 
         // Calculate how much distance we'd like to cover this update.
-        var distanceRemaining = m_MoveSpeed * Time.fixedDeltaTime;
-
+        var distanceRemaining = Mathf.Min(m_MoveSpeed * Time.fixedDeltaTime, m_Movement.magnitude);
+        
         var maxIterations = m_MaxIterations;
 
         // We're going to be repositioning the Rigidbody2D during the query iterations so we'll need to keep a note of its starting position.
