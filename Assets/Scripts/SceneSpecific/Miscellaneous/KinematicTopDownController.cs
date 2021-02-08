@@ -70,10 +70,8 @@ public class KinematicTopDownController : MonoBehaviour
 
     void FixedUpdate()
     {
-        const float Epsilon = 0.005f;
-
         // Don't perform any work if no movement is required.
-        if (m_Movement.sqrMagnitude <= Epsilon)
+        if (m_Movement.sqrMagnitude <= Mathf.Epsilon)
             return;
 
         // Grab the input movement unit direction.
@@ -89,6 +87,7 @@ public class KinematicTopDownController : MonoBehaviour
         var startPosition = m_Rigidbody.position;
 
         // Iterate up to a capped iteration limit or until we have no distance to move or we've clamped the direction of motion to zero.
+        const float Epsilon = 0.005f;
         while(
             maxIterations-- > 0 &&
             distanceRemaining > Epsilon &&
