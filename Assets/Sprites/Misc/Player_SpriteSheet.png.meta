@@ -111,7 +111,7 @@ TextureImporter:
       213: 21300070
     second: Player_SpriteSheet_35
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -132,6 +132,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -142,7 +143,7 @@ TextureImporter:
     serializedVersion: 2
     filterMode: 0
     aniso: 16
-    mipBias: -100
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -163,10 +164,13 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -973,6 +977,43 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Player_SpriteSheet_2: 21300004
+      Player_SpriteSheet_4: 21300008
+      Player_SpriteSheet_18: 21300036
+      Player_SpriteSheet_3: 21300006
+      Player_SpriteSheet_34: 21300068
+      Player_SpriteSheet_9: 21300018
+      Player_SpriteSheet_5: 21300010
+      Player_SpriteSheet_25: 21300050
+      Player_SpriteSheet_26: 21300052
+      Player_SpriteSheet_13: 21300026
+      Player_SpriteSheet_23: 21300046
+      Player_SpriteSheet_21: 21300042
+      Player_SpriteSheet_12: 21300024
+      Player_SpriteSheet_24: 21300048
+      Player_SpriteSheet_29: 21300058
+      Player_SpriteSheet_33: 21300066
+      Player_SpriteSheet_19: 21300038
+      Player_SpriteSheet_10: 21300020
+      Player_SpriteSheet_20: 21300040
+      Player_SpriteSheet_35: 21300070
+      Player_SpriteSheet_27: 21300054
+      Player_SpriteSheet_22: 21300044
+      Player_SpriteSheet_30: 21300060
+      Player_SpriteSheet_32: 21300064
+      Player_SpriteSheet_11: 21300022
+      Player_SpriteSheet_1: 21300002
+      Player_SpriteSheet_15: 21300030
+      Player_SpriteSheet_31: 21300062
+      Player_SpriteSheet_6: 21300012
+      Player_SpriteSheet_28: 21300056
+      Player_SpriteSheet_0: 21300000
+      Player_SpriteSheet_14: 21300028
+      Player_SpriteSheet_7: 21300014
+      Player_SpriteSheet_17: 21300034
+      Player_SpriteSheet_16: 21300032
+      Player_SpriteSheet_8: 21300016
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
