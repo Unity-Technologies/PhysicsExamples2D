@@ -13,10 +13,6 @@ public class CustomCollider2D_Compound : MonoBehaviour
 
     private readonly List<Vector2> m_Vertices = new List<Vector2>();
     
-    void Start()
-    {
-    }
-
     void CreateRandomShapes()
     {
         // Fetch the custom collider.
