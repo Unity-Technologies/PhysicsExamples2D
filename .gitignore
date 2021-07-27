@@ -5,6 +5,7 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 **/.idea/
+UserSettings/
 
 # Visual Studio cache directory
 .vs/
