@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class CustomCollider2D_Compound : MonoBehaviour
+public class CustomCollider2D_Logo : MonoBehaviour
 {
     private HingeJoint2D m_Hinge;
     private CustomCollider2D m_CustomCollider;
