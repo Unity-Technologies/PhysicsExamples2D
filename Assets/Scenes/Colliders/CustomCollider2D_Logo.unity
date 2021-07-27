@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 238298907}
   - component: {fileID: 238298909}
   - component: {fileID: 238298908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 244486033}
   - component: {fileID: 244486035}
   - component: {fileID: 244486034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +388,7 @@ GameObject:
   - component: {fileID: 245585059}
   - component: {fileID: 245585061}
   - component: {fileID: 245585060}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 301540983}
   - component: {fileID: 301540981}
   - component: {fileID: 301540980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 445941234}
   - component: {fileID: 445941236}
   - component: {fileID: 445941235}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 661128671}
   - component: {fileID: 661128673}
   - component: {fileID: 661128672}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 684015840}
   - component: {fileID: 684015842}
   - component: {fileID: 684015841}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 801081792}
   - component: {fileID: 801081794}
   - component: {fileID: 801081793}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1081,7 +1081,7 @@ GameObject:
   - component: {fileID: 843282133}
   - component: {fileID: 843282135}
   - component: {fileID: 843282134}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1235,7 +1235,7 @@ GameObject:
   - component: {fileID: 870586254}
   - component: {fileID: 870586256}
   - component: {fileID: 870586255}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1351,7 +1351,7 @@ GameObject:
   - component: {fileID: 929141968}
   - component: {fileID: 929141970}
   - component: {fileID: 929141969}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1518,7 +1518,7 @@ GameObject:
   - component: {fileID: 1080432765}
   - component: {fileID: 1080432767}
   - component: {fileID: 1080432766}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1588,7 +1588,7 @@ GameObject:
   - component: {fileID: 1125120327}
   - component: {fileID: 1125120329}
   - component: {fileID: 1125120328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1658,7 +1658,7 @@ GameObject:
   - component: {fileID: 1127308406}
   - component: {fileID: 1127308408}
   - component: {fileID: 1127308407}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1728,7 +1728,7 @@ GameObject:
   - component: {fileID: 1231243847}
   - component: {fileID: 1231243849}
   - component: {fileID: 1231243848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1798,7 +1798,7 @@ GameObject:
   - component: {fileID: 1270237677}
   - component: {fileID: 1270237679}
   - component: {fileID: 1270237678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1979,7 +1979,7 @@ GameObject:
   - component: {fileID: 1446990782}
   - component: {fileID: 1446990784}
   - component: {fileID: 1446990783}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2049,7 +2049,7 @@ GameObject:
   - component: {fileID: 1461913334}
   - component: {fileID: 1461913336}
   - component: {fileID: 1461913335}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2119,7 +2119,7 @@ GameObject:
   - component: {fileID: 1603247758}
   - component: {fileID: 1603247760}
   - component: {fileID: 1603247759}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2282,7 +2282,7 @@ GameObject:
   - component: {fileID: 1982319208}
   - component: {fileID: 1982319210}
   - component: {fileID: 1982319209}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2352,7 +2352,7 @@ GameObject:
   - component: {fileID: 2053144999}
   - component: {fileID: 2053145001}
   - component: {fileID: 2053145000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball Logo (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
