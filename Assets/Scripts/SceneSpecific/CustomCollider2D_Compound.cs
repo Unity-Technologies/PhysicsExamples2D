@@ -27,7 +27,7 @@ public class CustomCollider2D_Compound : MonoBehaviour
             // Choose a random shape position.
             var shapePosition = Random.insideUnitCircle * MaxArea;
 
-            var shapeSelection = Random.Range(0, 3);
+            var shapeSelection = Random.Range(0, 4);
             switch (shapeSelection)
             {
                 // Add a Circle.
