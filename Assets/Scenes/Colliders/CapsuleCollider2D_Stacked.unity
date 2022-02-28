@@ -148,7 +148,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43042112}
-  m_Text: 'All BoxCollider2D should stay stacked and eventually sleep.
+  m_Text: 'All CapsuleCollider2D should stay stacked and eventually sleep.
 
 '
   m_OffsetZ: 0
