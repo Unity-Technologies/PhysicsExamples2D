@@ -30,6 +30,8 @@ public class SpawnPyramid : MonoBehaviour
 	public RigidbodySleepMode2D m_SleepMode = RigidbodySleepMode2D.NeverSleep;
 	public CollisionDetectionMode2D m_CollisionMode = CollisionDetectionMode2D.Discrete;
 
+	public LayerMask ContactCaptureLayers = Physics2D.AllLayers;
+
 	public PhysicsMaterial2D m_PhysicsMaterial;
 
 	public Transform m_SpawnParent;
@@ -71,6 +73,12 @@ public class SpawnPyramid : MonoBehaviour
 					body.gravityScale = m_GravityScale;
 					body.sharedMaterial = m_PhysicsMaterial;
                     body.collisionDetectionMode = m_CollisionMode;
+				}
+
+				var collider = spawnObj.GetComponent<Collider2D>();
+				if (collider)
+				{
+					collider.contactCaptureLayers = ContactCaptureLayers;
 				}
 
 				x += m_SpacingX;
