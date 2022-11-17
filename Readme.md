@@ -1,9 +1,13 @@
 # 2D Physics Examples
-This project contains multiple scenes which are designed to provide both examples of features as well as having the additional benefit that they can be used by Unity QA or developers who want to test that specific features are working away from their projects.
+This project contains multiple scenes that are designed to provide both examples of features as well as having the additional benefit that they can be used by Unity QA or developers who wish to test/verify that specific features are working.
 
-A lot of the scenes rely on Gizmos for presentation of Colliders, Joints, Contacts (etc) so please ensure that the "Gizmos" buttons are selected in both the "Scene" and "Game" views otherwise you may find you cannot see the content.
+A majority of the scenes rely on Unity Gizmos for presentation of Colliders, Joints, Contacts (etc) rather than renderers so please ensure that the "Gizmos" buttons are selected in both the "Scene" and "Game" views otherwise you may find you cannot see the content.
 
-Where a new feature is introduced into the project, a new branch will be introduced when the Unity version that feature landed has become public in at least a Beta version. Earlier Unity versions are therefore represented in branches.
+## Branch Names
+
+Each branch represents a specific version of Unity. As features are added in a public release, those features should be represented in that branch and future Unity version branches i.e. branch names of "2019", "2020", "2021" (etc) exist.
+
+"master" represents the current latest alpha/beta version of Unity, updated only when new 2D physics features land in a public alpha/beta release. When the latest alpha/beta transitions into a final release, a branch of that Unity version name will be created and "master" will become the next alpha/beta release.
 
 Twitter: https://twitter.com/melvmay
 Unity Forum: https://forum.unity.com/members/melvmay.287484/
