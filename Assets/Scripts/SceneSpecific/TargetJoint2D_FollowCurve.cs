@@ -4,7 +4,7 @@ using UnityEditor;
 /// <summary>
 /// Follow a set of points using a Catmull–Rom spline curve fitting algorithm.
 /// </summary>
-public class FollowCurveTarget : MonoBehaviour
+public class TargetJoint2D_FollowCurve : MonoBehaviour
 {
 	public float CurveDuration = 5.0f;
 	public Color CurveColor = Color.white;

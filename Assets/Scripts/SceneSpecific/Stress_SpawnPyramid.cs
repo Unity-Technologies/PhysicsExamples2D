@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SpawnPyramid : MonoBehaviour
+public class Stress_SpawnPyramid : MonoBehaviour
 {
     [Range(1, 10000)]
     public int m_SpawnCount = 20;

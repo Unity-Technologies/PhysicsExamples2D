@@ -31,12 +31,12 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Layer A
+  - Layer B
+  - Layer C
+  - Layer D
+  - Layer E
+  - Layer F
   m_SortingLayers:
   - name: Default
     uniqueID: 0
