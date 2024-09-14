@@ -27,6 +27,6 @@ public class SliderJoint2D_MotorSpeed : MonoBehaviour
 			return;		
 
 		// Set the text to show current values.
-		m_Text.text = "Motor Speed = " + Mathf.Abs (m_SliderJoint.motor.motorSpeed).ToString ("n1") + "\n" + "Body Speed = " + (m_Body.velocity.magnitude).ToString ("n1");
+		m_Text.text = "Motor Speed = " + Mathf.Abs (m_SliderJoint.motor.motorSpeed).ToString ("n1") + "\n" + "Body Speed = " + (m_Body.linearVelocity.magnitude).ToString ("n1");
 	} 
 }

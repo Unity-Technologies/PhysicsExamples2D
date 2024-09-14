@@ -38,7 +38,7 @@ public class SimpleGroundedController : MonoBehaviour
             m_Rigidbody.AddForce(Vector2.up * JumpImpulse, ForceMode2D.Impulse);
 
         // Set sideways velocity.
-        m_Rigidbody.velocity = new Vector2(m_SideSpeed, m_Rigidbody.velocity.y);
+        m_Rigidbody.linearVelocity = new Vector2(m_SideSpeed, m_Rigidbody.linearVelocity.y);
 
         // Reset movement.
         m_ShouldJump = false;

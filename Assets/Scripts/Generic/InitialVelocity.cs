@@ -15,7 +15,7 @@ public class InitialVelocity : MonoBehaviour
         // Set the initial velocities if the rigidbody was found.
         if (rigidbody)
         {
-            rigidbody.velocity = m_Velocity;
+            rigidbody.linearVelocity = m_Velocity;
             rigidbody.angularVelocity = m_AngularVelocity;
         }
 	}

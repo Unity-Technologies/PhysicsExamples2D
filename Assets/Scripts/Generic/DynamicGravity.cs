@@ -15,7 +15,7 @@ public class DynamicGravity : MonoBehaviour
     void FixedUpdate()
     {
         // Calculate our direction relative to the global gravity.
-        var direction = Vector2.Dot(m_Rigidbody.velocity, Physics2D.gravity);
+        var direction = Vector2.Dot(m_Rigidbody.linearVelocity, Physics2D.gravity);
         
         // Set the gravity scale accordingly.
         m_Rigidbody.gravityScale = direction > 0f ? FallGravityScale : AgainstGravityScale;

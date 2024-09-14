@@ -14,7 +14,7 @@ public class Rigidbody2D_VelocityXY : MonoBehaviour
 
     void FixedUpdate()
     {
-        m_Rigidbody.velocityX = velocityX;
-        m_Rigidbody.velocityY = velocityY;
+        m_Rigidbody.linearVelocityX = velocityX;
+        m_Rigidbody.linearVelocityY = velocityY;
     }
 }

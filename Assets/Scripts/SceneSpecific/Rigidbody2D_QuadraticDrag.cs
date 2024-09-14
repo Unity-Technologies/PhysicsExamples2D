@@ -14,7 +14,7 @@ public class Rigidbody2D_QuadraticDrag : MonoBehaviour
     void FixedUpdate()
     {
         // Fetch the body velocity.
-        var velocity = Body.velocity;
+        var velocity = Body.linearVelocity;
 
         // Calculate the body speed.
         var speed = velocity.magnitude;

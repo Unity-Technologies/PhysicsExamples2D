@@ -29,10 +29,10 @@ public class ShowSpeedVelocityRotation : MonoBehaviour
 
 		string text = string.Empty;
 		if (m_ShowSpeed)
-			text += "Speed = " + m_Body.velocity.magnitude.ToString ("n2") + "\n";
+			text += "Speed = " + m_Body.linearVelocity.magnitude.ToString ("n2") + "\n";
 
 		if (m_ShowVelocity)
-			text += "LinVel = " + m_Body.velocity.ToString ("n2") + "\n";
+			text += "LinVel = " + m_Body.linearVelocity.ToString ("n2") + "\n";
 
 		if (m_ShowRotation)
 			text += "AngVel = " + m_Body.angularVelocity.ToString ("n2");
