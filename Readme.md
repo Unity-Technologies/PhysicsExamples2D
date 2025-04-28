@@ -14,4 +14,5 @@ Each branch represents a specific version of Unity. As features are added in a p
 "master" represents the current latest alpha/beta version of Unity, updated only when new 2D physics features land in a public alpha/beta release. When the latest alpha/beta transitions into a final release, a branch of that Unity version name will be created and "master" will become the next alpha/beta release.
 
 Twitter: https://twitter.com/melvmay
-Unity Forum: https://forum.unity.com/members/melvmay.287484/
+BlueSky: https://bsky.app/profile/melvmay.bsky.social
+Unity Discussions: [https://forum.unity.com/members/melvmay.287484/](https://discussions.unity.com/u/melvmay)
