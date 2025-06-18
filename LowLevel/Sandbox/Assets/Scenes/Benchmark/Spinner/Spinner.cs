@@ -155,8 +155,9 @@ public class Spinner : MonoBehaviour
             const int pointCount = 360;
 
             var chainPoints = new NativeArray<Vector2>(pointCount, Allocator.Temp);
-            
-            var rotate = new PhysicsRotate(-math.PI2 / pointCount);
+
+            var tau = PhysicsMath.PI * 2f;
+            var rotate = new PhysicsRotate(-tau / pointCount);
             var offset = new Vector2(40.0f, 0f);
             for (var i = 0; i < pointCount; ++i)
             {
