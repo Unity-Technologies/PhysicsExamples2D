@@ -266,6 +266,10 @@ MonoBehaviour:
     Name: Ellipse Polygons
     Category: Shapes
     Description: Demonstrating creating pseudo-ellipse shapes as Polygons.
+  - ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
+    Name: Rounded Polygons
+    Category: Shapes
+    Description: Demonstrating rounded polygons.
   - ScenePath: Assets/Scenes/Shapes/Friction/Friction.unity
     Name: Friction
     Category: Shapes
@@ -278,10 +282,6 @@ MonoBehaviour:
     Name: Rolling Resistance
     Category: Shapes
     Description: Demonstrating Rolling Resistance Surface Property.
-  - ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
-    Name: Rounded Polygons
-    Category: Shapes
-    Description: Demonstrating rounded polygons.
   - ScenePath: Assets/Scenes/Simulate/Parallel/ParallelSimulate.unity
     Name: Parallel Simulate
     Category: Simulation
