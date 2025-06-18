@@ -1,0 +1,247 @@
+using System;
+using UnityEngine;
+using UnityEngine.LowLevelPhysics2D;
+using UnityEngine.UIElements;
+
+public class ShapeStack : MonoBehaviour
+{
+    private SandboxManager m_SandboxManager;	
+    private SceneManifest m_SceneManifest;
+    private UIDocument m_UIDocument;
+    private CameraManipulator m_CameraManipulator;
+
+    private enum ObjectType
+    {
+        Circle = 0,
+        Capsule = 1,
+        Box = 2,
+        Mix = 3
+    }
+    
+    private ObjectType m_ObjectType;
+    private int m_StackHeight;
+    private float m_ContactHertz;
+    private float m_ContactDampingRatio;
+    private float m_ContactSpeed;
+    private float m_GravityScale;
+
+    private float m_OldContactHertz;
+    private float m_OldContactDampingRatio;
+    private float m_OldContactSpeed;
+    private Vector2 m_OldGravity;
+
+    private void OnEnable()
+    {
+        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
+        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_UIDocument = GetComponent<UIDocument>();
+
+        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator.CameraSize = 6f;
+        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 5f);
+        
+        m_ObjectType = ObjectType.Circle;
+        m_StackHeight = 8;
+
+        var world = PhysicsWorld.defaultWorld;
+        m_OldContactHertz = world.contactHertz;
+        m_OldContactDampingRatio = world.contactDampingRatio;
+        m_OldContactSpeed = world.contactSpeed;
+        m_OldGravity = world.gravity;
+
+        m_ContactHertz = m_OldContactHertz;
+        m_ContactDampingRatio = m_OldContactDampingRatio;
+        m_ContactSpeed = m_OldContactSpeed;
+        m_GravityScale = 1f;
+        
+        SetupOptions();
+
+        SetupScene();
+    }
+
+    private void OnDisable()
+    {
+	    var world = PhysicsWorld.defaultWorld;
+	    world.contactHertz = m_OldContactHertz;
+	    world.contactDampingRatio = m_OldContactDampingRatio;
+	    world.contactSpeed = m_OldContactSpeed;
+	    world.gravity = m_OldGravity;
+    }
+    
+    private void SetupOptions()
+    {
+        var root = m_UIDocument.rootVisualElement;
+        var world = PhysicsWorld.defaultWorld;
+        
+        {
+            // Menu Region (for camera manipulator).
+            var menuRegion = root.Q<VisualElement>("menu-region");
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+
+            // Object Type.
+            var objectType = root.Q<DropdownField>("object-type");
+            objectType.index = (int)m_ObjectType;
+            objectType.RegisterValueChangedCallback(evt =>
+            {
+                m_ObjectType = Enum.Parse<ObjectType>(evt.newValue);
+                SetupScene();
+            });
+
+            // Stack Height.
+            var stackHeight = root.Q<SliderInt>("stack-height");
+            stackHeight.value = m_StackHeight;
+            stackHeight.RegisterValueChangedCallback(evt =>
+            {
+	            m_StackHeight = evt.newValue;
+	            SetupScene();
+            });
+
+            // Contact Hertz.
+            var contactHertz = root.Q<Slider>("contact-hertz");
+            contactHertz.RegisterValueChangedCallback(evt => { m_ContactHertz = evt.newValue; world.contactHertz = m_ContactHertz; });
+            contactHertz.value = m_ContactHertz;
+
+            // Contact Damping.
+            var contactDampingRatio = root.Q<Slider>("contact-damping");
+            contactDampingRatio.RegisterValueChangedCallback(evt => { m_ContactDampingRatio = evt.newValue; world.contactDampingRatio = m_ContactDampingRatio; });
+            contactDampingRatio.value = m_ContactDampingRatio;
+
+            // Contact Speed.
+            var contactSpeed = root.Q<Slider>("contact-speed");
+            contactSpeed.RegisterValueChangedCallback(evt => { m_ContactSpeed = evt.newValue; world.contactSpeed = m_ContactSpeed; });
+            contactSpeed.value = m_ContactSpeed;
+            
+            // Gravity Scale.
+            var gravityScale = root.Q<Slider>("gravity-scale");
+            gravityScale.RegisterValueChangedCallback(evt => { m_GravityScale = evt.newValue; world.gravity = m_OldGravity * m_GravityScale; });
+            gravityScale.value = m_GravityScale;
+            
+            // Reset Scene.
+            var resetScene = root.Q<Button>("reset-scene");
+            resetScene.clicked += SetupScene;
+            
+            // Fetch the scene description.
+            var sceneDescription = root.Q<Label>("scene-description");
+            sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
+        }
+    }
+    
+    private void SetupScene()
+    {
+	    // Reset the scene state.
+	    m_SandboxManager.ResetSceneState();
+        
+        var world = PhysicsWorld.defaultWorld;
+        var bodies = m_SandboxManager.Bodies;
+        
+        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        bodies.Add(groundBody);
+
+        // Ground.
+        {
+	        var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+	        bodies.Add(body);
+	        body.CreateShape(new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) }, PhysicsShapeDefinition.defaultDefinition);
+        }
+
+        // Stack.
+        {
+		    CreateStack(new Vector2(0f, 0.55f));
+        }
+    }
+
+    private void CreateStack(Vector2 position)
+    {
+	    var world = PhysicsWorld.defaultWorld;
+	    var bodies = m_SandboxManager.Bodies;
+
+	    var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+	    var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.3f } };
+
+	    for (var i = 0; i < m_StackHeight; ++i)
+	    {
+		    bodyDef.position = position + new Vector2(0f, i * 1.2f);
+		    var body = world.CreateBody(bodyDef);
+		    bodies.Add(body);
+
+		    shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
+
+		    switch (m_ObjectType)
+		    {
+			    case ObjectType.Circle:
+			    {
+				    CreateCircle(body, shapeDef);
+				    continue;
+			    }
+            
+			    case ObjectType.Capsule:
+			    {
+				    CreateCapsule(body, shapeDef);
+				    continue;
+			    }
+            
+			    case ObjectType.Box:
+			    {
+				    CreateBox(body, shapeDef);
+				    continue;
+			    }
+				
+			    case ObjectType.Mix:
+			    {
+				    switch (bodies.Count % 4)
+				    {
+					    case 0:
+					    {
+						    CreateCircle(body, shapeDef);
+						    continue;
+					    }
+							
+					    case 1:
+					    {
+						    CreateCapsule(body, shapeDef);
+						    continue;
+					    }
+							
+					    case 2:
+					    {
+						    CreateBox(body, shapeDef);
+						    continue;
+					    }
+
+					    default:
+						    continue;
+				    }
+			    }
+            
+			    default:
+				    throw new ArgumentOutOfRangeException();
+		    }				
+	    }
+    }
+
+    private static void CreateCircle(PhysicsBody body, PhysicsShapeDefinition shapeDef)
+    {
+	    var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = 0.5f };
+	    body.CreateShape(circleGeometry, shapeDef);
+    }
+
+    private static void CreateCapsule(PhysicsBody body, PhysicsShapeDefinition shapeDef)
+    {
+	    var capsuleGeometry = new CapsuleGeometry
+	    {
+		    center1 = new Vector2(0f, -0.25f),
+		    center2 = new Vector2(0f, 0.25f),
+		    radius = 0.25f
+	    };
+	    body.CreateShape(capsuleGeometry, shapeDef);
+    }
+    
+    private static void CreateBox(PhysicsBody body, PhysicsShapeDefinition shapeDef)
+    {
+	    var boxSize = new Vector2(1f, 1f);
+	    const float boxRadius = 0f;
+	    var polygonGeometry = PolygonGeometry.CreateBox(size: boxSize, radius: boxRadius);
+	    body.CreateShape(polygonGeometry, shapeDef);
+    }
+}

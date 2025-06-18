@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xmlns:uib="Unity.UI.Builder">
+    <ui:ScrollView>
+        <ui:VisualElement class="uitoolkit-settings-container">
+            <ui:Label text="Text" class="uitoolkit-settings-header"/>
+            <ui:VisualElement style="flex-direction: row;">
+                <ui:Toggle name="enable-text-advanced" text="Advanced Text Generator" />
+            </ui:VisualElement>
+            <ui:HelpBox message-type="Warning" text="The Advanced Text Generator supports comprehensive Unicode and text shaping for various languages and scripts, including right-to-left languages. However, it&apos;s currently in development and may not have full feature parity with the standard generator.  &#10;&#10;Enabling this setting will update Font Assets and make a USS property available. Note that some functionalities remain under development. &lt;a href=&quot;https://docs.unity3d.com/2023.3/Documentation/Manual/UIE-advanced-text-generator.html&quot;&gt;Learn more.&lt;/a&gt;" style="padding: 5px;" />
+            <ui:Label text="UI Toolkit" class="uitoolkit-settings-header" style="padding-top: 20px"/>
+            <ui:Label text="Advanced" class="uitoolkit-settings-advanced-header"/>
+            <ui:VisualElement style="flex-direction: row">
+                <ui:Toggle name="enable-event-debugger" text="Enable Event Debugger" />
+                <ui:Label class="unity-experimental-tag" text="Experimental" />
+            </ui:VisualElement>
+            <uib:HelpBox text="Do not use Event Debugger in production. Experimental features are not supported and should be used for testing only."/>
+            <ui:VisualElement style="flex-direction: row; padding-top: 20px">
+                <ui:Toggle name="enable-layout-debugger" text="Enable Layout Debugger" />
+                <ui:Label class="unity-experimental-tag" text="Experimental" />
+            </ui:VisualElement>
+            <uib:HelpBox text="Do not use Layout Debugger in production. Experimental features are not supported and should be used for testing only."/>
+            <ui:Label style="padding-top: 20px" text="UI Builder" class="uitoolkit-settings-header"/>
+            <ui:Toggle name="editor-extensions-mode-toggle" text="Enable Editor Extension Authoring by Default"/>
+            <uib:HelpBox text="This setting affects new files, and files that you open in the UI Builder for the first time. &#10;To enable/disable Editor extension authoring for an open file, select the canvas and edit its properties in the Inspector."/>
+            <ui:Toggle style="padding-top: 20px" name="disable-mouse-wheel-zooming" text="Disable Viewport Zooming via Mouse Wheel/Trackpad" />
+            <ui:VisualElement name="developer-settings-container">
+                <ui:Label style="padding-top: 20px" text="Advanced" class="uitoolkit-settings-advanced-header"/>
+                <ui:VisualElement style="flex-direction: row">
+                    <ui:Toggle name="enable-absolute-position-placement" text="Enable Absolute Position Placement" />
+                    <ui:Label class="unity-experimental-tag" text="Experimental" />
+                </ui:VisualElement>
+                <uib:HelpBox text="Some settings enable experimental features of the UI Builder toolset. &#10;Experimental features are not supported and should be used for testing only."/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ScrollView>
+</ui:UXML>

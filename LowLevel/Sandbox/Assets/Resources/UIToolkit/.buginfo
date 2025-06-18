@@ -1,0 +1,5 @@
+text:
+  when:
+    path:
+      - ^*Text StyleSheet.*$
+  area: Text

@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19300, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Physics LowLevel Settings 2D
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.LowLevelPhysics2D.PhysicsLowLevelSettings2D
+  physicsWorldDefinition:
+    gravity: {x: 0, y: -9.81}
+    simulationMode: 0
+    simulationSubSteps: 4
+    simulationWorkers: 64
+    transformWriteMode: 1
+    transformPlane: 0
+    transformTweening: 1
+    sleepingAllowed: 1
+    continuousAllowed: 1
+    preSolveEventsAllowed: 0
+    bounceThreshold: 1
+    hitEventThreshold: 1
+    contactHertz: 30
+    contactDampingRatio: 10
+    contactSpeed: 3
+    maximumLinearSpeed: 400
+    drawOptions: 4128
+    drawFillOptions: -1
+    drawThickness: 2
+    drawFillAlpha: 0.1
+    drawPointScale: 1
+    drawNormalScale: 1
+    drawImpulseScale: 1
+    drawCapacity: 0
+    drawColors:
+      transformAxisX: {r: 1, g: 0, b: 0, a: 1}
+      transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
+      bodyBad: {r: 1, g: 0, b: 0, a: 1}
+      bodyDisabled: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
+      bodyAwake: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
+      bodyStatic: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
+      bodyKinematic: {r: 0.11764706, g: 0.5647059, b: 1, a: 1}
+      bodyFastCollisions: {r: 0.2509804, g: 0.8784314, b: 0.8156863, a: 1}
+      bodyMovingFast: {r: 0.6784314, g: 1, b: 0.18431373, a: 1}
+      bodySpeedCapped: {r: 1, g: 0.27058825, b: 0, a: 1}
+      shapeTrigger: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+      shapeOther: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+      shapeBounds: {r: 0.4117647, g: 0.4117647, b: 0.4117647, a: 1}
+      contactSpeculative: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+      contactAdded: {r: 0, g: 0.5019608, b: 0, a: 1}
+      contactPersisted: {r: 0, g: 0, b: 1, a: 1}
+      contactNormal: {r: 0.4117647, g: 0.4117647, b: 0.4117647, a: 1}
+      contactImpulse: {r: 1, g: 0, b: 1, a: 1}
+      contactFriction: {r: 1, g: 1, b: 0, a: 1}
+      solverIsland: {r: 0.18431373, g: 0.30980393, b: 0.30980393, a: 1}
+      constraintGraph:
+        graphConstraint0: {r: 1, g: 0, b: 0, a: 1}
+        graphConstraint1: {r: 1, g: 0.64705884, b: 0, a: 1}
+        graphConstraint2: {r: 1, g: 1, b: 0, a: 1}
+        graphConstraint3: {r: 0, g: 0.5019608, b: 0, a: 1}
+        graphConstraint4: {r: 0, g: 1, b: 1, a: 1}
+        graphConstraint5: {r: 0, g: 0, b: 1, a: 1}
+        graphConstraint6: {r: 0.93333334, g: 0.50980395, b: 0.93333334, a: 1}
+        graphConstraint7: {r: 1, g: 0.7529412, b: 0.79607844, a: 1}
+        graphConstraint8: {r: 0.8235294, g: 0.4117647, b: 0.11764706, a: 1}
+        graphConstraint9: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+        graphConstraint10: {r: 1, g: 0.49803922, b: 0.3137255, a: 1}
+        graphConstraint11: {r: 0, g: 0, b: 0, a: 1}
+  physicsBodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: 0, y: 0}
+    rotation:
+      direction: {x: 1, y: 0}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    fastTriggers: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  physicsShapeDefinition:
+    surfaceMaterial:
+      friction: 0.6
+      bounciness: 0
+      frictionCombine: 1
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 0
+    contactFilter:
+      categories:
+        bitMask: 1
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 0
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 1
+    updateBodyMass: 1
+  physicsChainDefinition:
+    surfaceMaterial:
+      friction: 0.6
+      bounciness: 0
+      frictionCombine: 1
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 0
+    contactFilter:
+      categories:
+        bitMask: 1
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    isLoop: 0
+    triggerEventsAllowed: 0
+  concurrentSimulations: 2
+  lengthUnitsPerMeter: 1
+  drawInBuild: 0

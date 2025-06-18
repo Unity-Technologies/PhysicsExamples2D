@@ -1,0 +1,81 @@
+:root {
+    --foreground: rgba(80, 80, 80, 0.9);
+    --background: rgba(50, 50, 50, 0.9);
+}
+
+VisualElement {
+    -unity-font-definition: resource("UIToolkit/Fonts/Inter/Inter-Regular-SDF");
+}
+
+TreeView {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+Label {
+    min-width: 100px;
+}
+
+#unity-tree-view__item:hover {
+    background-color: var(--foreground);
+}
+
+#unity-tree-view__item:checked {
+    background-color: var(--foreground);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#unity-tree-view__item-content {
+    justify-content: center;
+}
+
+/*
+background-color: rgba(80, 100, 110, 1.0)
+*/
+
+.unity-progress-bar__progress {
+    background-color: var(--foreground);
+}
+ 
+#description {
+    background-color: var(--background);
+    border-color: var(--foreground);
+    border-width: 1px;
+    border-radius: 6px;
+    margin-top: 2px;
+}
+
+/* By default, each tab header has an underline. This hides the header underline  */
+.unity-tab__header-underline {
+    opacity: 0;
+}
+
+.unity-tab__header {
+    flex-grow: 1;
+    align-content: center;
+    width: 33%;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-color: var(--foreground);
+    background-color: var(--background);
+}
+
+.unity-tab__header-label {
+    flex-grow: 1;
+    min-width: 10px;
+    align-self: stretch;
+}
+
+.unity-tab__header:checked {
+    background-color: var(--foreground);
+}
+
+.unity-tab {
+    border-width: 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-color: var(--foreground);
+    background-color: var(--background);
+}

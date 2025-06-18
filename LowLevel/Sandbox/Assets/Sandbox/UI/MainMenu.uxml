@@ -1,0 +1,51 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Sandbox/UI/Common/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides" />
+    <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start;">
+        <ui:VisualElement name="menu-region" style="width: 20%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
+            <ui:TabView tabindex="0" name="selected-tab" style="width: 100%; height: 100%;">
+                <ui:Tab label="Scenes" tabindex="0" name="Tab">
+                    <ui:TreeView name="scenes" virtualization-method="DynamicHeight" focusable="false" />
+                </ui:Tab>
+                <ui:Tab label="World2D" name="Tab" tabindex="1">
+                    <ui:VisualElement name="world">
+                        <ui:SliderInt label="Workers" value="64" high-value="64" show-input-field="true" name="workers" fill="true" />
+                        <ui:SliderInt label="Sub-steps" value="4" high-value="64" show-input-field="true" low-value="1" inverted="false" name="sub-steps" focusable="false" fill="true" />
+                        <ui:Toggle label="Warm Starting" name="warm-starting" value="true" focusable="false" />
+                        <ui:Toggle label="Sleeping" name="sleeping" value="true" focusable="false" />
+                        <ui:Toggle label="Continuous" name="continuous" value="true" focusable="false" />
+                        <ui:DropdownField label="Frequency" choices="15,30,60,120,Variable" index="2" name="frequency" focusable="false" />
+                        <ui:Button text="Restart" name="restart" focusable="false" enabled="true" />
+                        <ui:Button text="Pause/Continue (P)" name="pause-continue" focusable="false" />
+                        <ui:Button text="Single-Step (S)" name="single-step" focusable="false" enabled="false" />
+                        <ui:Button text="Quit&#x9;" name="quit-application" focusable="false" />
+                    </ui:VisualElement>
+                </ui:Tab>
+                <ui:Tab label="Options" name="Tab" tabindex="2">
+                    <ui:VisualElement name="options">
+                        <ui:Toggle label="Show Debugging" name="show-debugging" value="false" focusable="false" />
+                        <ui:DropdownField label="Input Mode" name="input-mode" choices="Drag Object,Explode" index="1" />
+                        <ui:Slider label="Explode Impulse" value="0" high-value="100" name="explode-impulse" low-value="1" show-input-field="true" focusable="false" inverted="false" fill="true" />
+                        <ui:Slider label="Camera Zoom" value="1" high-value="20" name="camera-zoom" low-value="0.1" show-input-field="true" focusable="false" inverted="false" fill="true" />
+                        <ui:Slider label="Outline Thickness" value="2" high-value="10" name="draw-thickness" low-value="1" show-input-field="true" focusable="false" fill="true" />
+                        <ui:Slider label="Point Scale" value="1" high-value="10" name="draw-point-scale" low-value="0.001" show-input-field="true" focusable="false" fill="true" />
+                        <ui:Slider label="Normal Scale" value="1" high-value="10" name="draw-normal-scale" low-value="0.001" show-input-field="true" focusable="false" fill="true" />
+                        <ui:Slider label="Impulse Scale" value="1" high-value="10" name="draw-impulse-scale" low-value="0.001" show-input-field="true" focusable="false" fill="true" />
+                        <ui:Toggle label="Color Shape State" name="color-shape-state" value="true" focusable="false" />
+                        <ui:Toggle label="Shapes" name="draw-shapes" value="true" focusable="false" />
+                        <ui:Toggle label="Shape Bounds" name="draw-shape-bounds" value="true" focusable="false" />
+                        <ui:Toggle label="Bodies" name="draw-bodies" value="true" focusable="false" />
+                        <ui:Toggle label="Joints" name="draw-joints" value="true" focusable="false" />
+                        <ui:Toggle label="Solver Islands" name="draw-solver-islands" value="true" focusable="false" />
+                        <ui:Toggle label="Contact Points" name="draw-contact-points" value="true" focusable="false" />
+                        <ui:Toggle label="Contact Normals" name="draw-contact-normals" value="true" focusable="false" />
+                        <ui:Toggle label="Contact Friction" name="draw-contact-tangents" value="true" focusable="false" />
+                        <ui:Toggle label="Contact Impulses" name="draw-contact-impulses" value="true" focusable="false" />
+                    </ui:VisualElement>
+                </ui:Tab>
+            </ui:TabView>
+            <ui:VisualElement name="status" style="flex-grow: 1; width: 100%; height: 24px; flex-shrink: 0; align-items: stretch; align-self: stretch; margin-top: 1px; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                <ui:ProgressBar value="60" title="FPS: 60" name="fps" high-value="100" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
