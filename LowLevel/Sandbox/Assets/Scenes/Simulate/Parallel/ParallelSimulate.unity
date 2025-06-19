@@ -447,7 +447,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -510,7 +509,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -573,7 +571,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -636,7 +633,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -699,7 +695,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -1765,7 +1760,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -1797,7 +1791,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -1829,7 +1822,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -1861,7 +1853,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
@@ -1893,7 +1884,6 @@ MonoBehaviour:
     sleepThreshold: 0.05
     fastRotationAllowed: 0
     fastCollisions: 0
-    fastTriggers: 0
     sleepingAllowed: 1
     awake: 1
     enabled: 1
