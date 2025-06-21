@@ -216,16 +216,5 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         }
 
         public override string ToString() => m_Shape.ToString();
-        
-#if false        
-        [DrawGizmo(GizmoType.InSelectionHierarchy, typeof(SceneShape))]
-        private static void DrawGizmos(SceneShape sceneShape, GizmoType gizmoType)
-        {
-            // Draw if we're drawing selections.
-            var shape = sceneShape.Shape;
-            if (shape.isValid && sceneShape.Shape.world.drawOptions.HasFlag(PhysicsWorld.DrawOptions.SelectedShapes))
-                shape.Draw();
-        }
-#endif
     }
 }
