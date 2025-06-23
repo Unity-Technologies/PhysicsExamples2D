@@ -12,6 +12,73 @@ MonoBehaviour:
   m_Script: {fileID: 19300, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Physics LowLevel Settings 2D
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.LowLevelPhysics2D.PhysicsLowLevelSettings2D
+  physicsLayerNames:
+    m_Names:
+    - Default
+    - 
+    - 
+    - Ground
+    - 
+    - 
+    - Player
+    - Interactables
+    - Obstacles
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  useFullLayerEditing: 1
   physicsWorldDefinition:
     gravity: {x: 0, y: -9.81}
     simulationMode: 0
@@ -29,8 +96,8 @@ MonoBehaviour:
     contactDampingRatio: 10
     contactSpeed: 3
     maximumLinearSpeed: 400
-    drawOptions: 4128
-    drawFillOptions: -1
+    drawOptions: 4256
+    drawFillOptions: 7
     drawThickness: 2
     drawFillAlpha: 0.1
     drawPointScale: 1
