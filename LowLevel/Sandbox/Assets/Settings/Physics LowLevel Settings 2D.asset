@@ -78,7 +78,7 @@ MonoBehaviour:
     - 
     - 
     - 
-  useFullLayerEditing: 1
+  useFullLayers: 0
   physicsWorldDefinition:
     gravity: {x: 0, y: -9.81}
     simulationMode: 0
