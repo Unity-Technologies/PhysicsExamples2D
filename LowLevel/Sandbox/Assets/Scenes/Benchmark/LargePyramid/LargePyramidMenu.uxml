@@ -5,8 +5,8 @@
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Large Pyramid Options" tabindex="0" name="Tab">
                     <ui:SliderInt label="Base Count" value="50" high-value="150" name="base-count" low-value="2" fill="true" focusable="false" show-input-field="true" />
-                    <ui:Slider label="Gravity Scale" value="1" high-value="5" name="gravity-scale" show-input-field="true" low-value="0.1" fill="true" />
-                    <ui:Button text="Reset Scene" name="reset-scene" />
+                    <ui:Slider label="Gravity Scale" value="1" high-value="5" name="gravity-scale" show-input-field="true" low-value="0.1" fill="true" focusable="false" />
+                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false" />
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

@@ -4,7 +4,7 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Tumbler Options" tabindex="0" name="Tab">
-                    <ui:DropdownField label="Object Type" name="object-type" choices="Circle,Capsule,Polygon,Compound,Random" index="0" />
+                    <ui:DropdownField label="Object Type" name="object-type" choices="Circle,Capsule,Polygon,Compound,Random" index="0" focusable="false" />
                     <ui:Slider label="Motor Speed" value="0" high-value="2" name="angular-velocity" fill="true" show-input-field="true" low-value="-2" focusable="false" />
                     <ui:SliderInt label="Debris Count" value="1" high-value="2000" show-input-field="true" name="debris-count" fill="true" low-value="1" focusable="false" />
                     <ui:Slider label="Gravity Scale" value="1" high-value="2" name="gravity-scale" show-input-field="true" low-value="0" fill="true" focusable="false" />

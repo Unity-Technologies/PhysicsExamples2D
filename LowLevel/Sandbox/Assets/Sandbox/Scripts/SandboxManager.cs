@@ -20,6 +20,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     public string StartSceneName = string.Empty;
     public DebuggingMenu DebuggingMenu;
+    public ShortcutMenu ShortcutMenu;
     public float UpdatePeriodFPS = 0.1f;
     
     public void SetOverrideDrawOptions(PhysicsWorld.DrawOptions drawOptions)
@@ -96,9 +97,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private bool m_OverrideColorShapeState;
     private bool m_OverridePreviousColorShapeState;
     
-    private const string DragObjectString = "Drag Object";
-    private const string ExplodeString = "Explode";
-    
     private struct MenuDefaults
     {
         // PhysicsWorld.
@@ -126,7 +124,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private SceneManifest m_SceneManifest;
     private UIDocument m_MainMenuDocument;
     private TreeView m_ScenesView;
-    private Label m_SceneDescription;
     private VisualElement m_CountersElement;
     private ProgressBar m_BarFPS;
     private float m_MaxFPS;
@@ -255,9 +252,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_SceneManifest = GetComponent<SceneManifest>();
         m_MainMenuDocument = GetComponent<UIDocument>();
-
+        
         ColorShapeState = false;
         m_ShowUI = true;
+
+        // Show the Shortcut menu by default.
+        ShortcutMenu.gameObject.SetActive(true);
         
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
@@ -272,7 +272,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
             // Drawing.
             ShowDebugging = true,
-            InputDrag = DragObjectString,
+            InputDrag = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag),
             ExplodeImpulse = 30f,
             CameraZoom = 1f,
             ColorShapeState = ColorShapeState,
@@ -311,6 +311,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 if (m_ShowDebuggingElement.value)
                     DebuggingMenu.gameObject.SetActive(m_ShowUI);
 
+                ShortcutMenu.gameObject.SetActive(!ShortcutMenu.gameObject.activeInHierarchy);
+                
                 // Main Menu.
                 m_MainMenuDocument.rootVisualElement.style.display = m_ShowUI ? DisplayStyle.Flex : DisplayStyle.None;
 
@@ -353,6 +355,15 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             {
                 if (!m_OverrideColorShapeState)
                     m_ColorShapeStateElement.value = !m_ColorShapeStateElement.value;
+            }
+            
+            // Touch State.
+            {
+                // Drag Mode.
+                if (currentKeyboard.digit1Key.wasPressedThisFrame)
+                    m_InputModeElement.value = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag);
+                else if (currentKeyboard.digit2Key.wasPressedThisFrame)
+                    m_InputModeElement.value = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Explode);
             }
         }
 

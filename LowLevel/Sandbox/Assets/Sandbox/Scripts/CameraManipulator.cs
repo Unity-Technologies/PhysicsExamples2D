@@ -11,7 +11,7 @@ public class CameraManipulator : MonoBehaviour
 {
     public enum InputMode
     {
-        DragObject,
+        Drag,
         Explode
     };
     
@@ -83,7 +83,7 @@ public class CameraManipulator : MonoBehaviour
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
         Camera = GetComponentInParent<Camera>();
         CameraStartPosition = Vector2.zero;
-        m_TouchMode = InputMode.DragObject;
+        m_TouchMode = InputMode.Drag;
         CameraZoom = 1f;
         CameraSize = 6f;
     }
@@ -123,7 +123,7 @@ public class CameraManipulator : MonoBehaviour
                     // Handle the touch behaviour.
                     switch (TouchMode)
                     {
-                        case InputMode.DragObject:
+                        case InputMode.Drag:
                         {
                             var defaultWorld = PhysicsWorld.defaultWorld;
                             using var hits = defaultWorld.OverlapPoint(worldPosition, PhysicsQuery.QueryFilter.Everything);
