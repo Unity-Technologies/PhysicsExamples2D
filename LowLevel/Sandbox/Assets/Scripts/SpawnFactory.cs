@@ -33,7 +33,7 @@ public static class SpawnFactory
         public static SpawnedItem SpawnDonut(PhysicsWorld world, IShapeColorProvider colorProvider, Vector2 position, int sides = 7, float scale = 1f, float jointFrequency = 5f, float jointDamping = 0.0f)
         {
             NativeList<PhysicsBody> bodies = new(Allocator.Persistent);
-            var userObject = world.CreateUserObject(PhysicsWorld.UserObject.UserData.Empty);
+            var userObject = world.CreateUserObject(default);
 
             var radius = 1.0f * scale;
             var deltaAngle = 2.0f * PhysicsMath.PI / sides;
@@ -203,7 +203,7 @@ public static class SpawnFactory
         public static SpawnedItem SpawnRagdoll(PhysicsWorld world, Vector2 position, Configuration configuration, bool rightFacing, ref Random random)
         {
             NativeList<PhysicsBody> bodies = new(Allocator.Persistent);
-            var userObject = world.CreateUserObject(PhysicsWorld.UserObject.UserData.Empty);
+            var userObject = world.CreateUserObject(default);
             
             // Create the bone array.
             var bones = new BoneArray(Allocator.Temp);
