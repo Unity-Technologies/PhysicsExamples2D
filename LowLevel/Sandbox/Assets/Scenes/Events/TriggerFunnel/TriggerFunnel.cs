@@ -10,7 +10,7 @@ using PhysicsJoint = UnityEngine.LowLevelPhysics2D.PhysicsJoint;
 
 public class TriggerFunnel : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -25,7 +25,7 @@ public class TriggerFunnel : MonoBehaviour
         Softbody = 5,
         Random = 6,
     }
-    
+
     private ObjectType m_ObjectType;
     private float m_ObjectScale;
     private float m_SpawnPeriod;
@@ -64,13 +64,13 @@ public class TriggerFunnel : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
         world.gravity = m_OldGravity;
     }
-    
+
     private void Update()
     {
         // Finish if the world is paused.
         if (m_SandboxManager.WorldPaused)
             return;
-        
+
         SpawnObject();
 
         DestroyTriggerDetections();
@@ -79,7 +79,8 @@ public class TriggerFunnel : MonoBehaviour
     private void DestroyTriggerDetections()
     {
         var world = PhysicsWorld.defaultWorld;
-        foreach (var triggerEvent in world.triggerBeginEvents)
+        var triggerEvents = world.triggerBeginEvents;
+        foreach (var triggerEvent in triggerEvents)
         {
             var visitorShape = triggerEvent.visitorShape;
             if (!visitorShape.isValid)
@@ -94,7 +95,7 @@ public class TriggerFunnel : MonoBehaviour
             // are detecting events with each other.
             if (body.bodyType == RigidbodyType2D.Static)
                 return;
-            
+
             var userObject = body.userObject;
             if (userObject.isValid)
                 m_SandboxManager.RemoveSpawnedItem(userObject, true);
@@ -110,7 +111,7 @@ public class TriggerFunnel : MonoBehaviour
             return;
 
         m_SpawnTime = m_SpawnPeriod / math.sqrt(m_GravityScale);
-        
+
         // Spawn Object.
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
@@ -119,8 +120,12 @@ public class TriggerFunnel : MonoBehaviour
         var spawnPosition = new Vector2(random.NextFloat(-SpawnSide, SpawnSide), 35f);
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition };
-        var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.05f, customColor = m_SandboxManager.ShapeColorState } };
-        
+        var shapeDef = new PhysicsShapeDefinition
+        {
+            surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.05f, customColor = m_SandboxManager.ShapeColorState },
+            triggerEventsAllowed = true
+        };
+
         switch (m_ObjectType)
         {
             case ObjectType.Circle:
@@ -130,7 +135,7 @@ public class TriggerFunnel : MonoBehaviour
                 CreateCircle(body, shapeDef, ref random);
                 return;
             }
-            
+
             case ObjectType.Capsule:
             {
                 var body = world.CreateBody(bodyDef);
@@ -138,7 +143,7 @@ public class TriggerFunnel : MonoBehaviour
                 CreateCapsule(body, shapeDef, ref random);
                 return;
             }
-            
+
             case ObjectType.Polygon:
             {
                 var body = world.CreateBody(bodyDef);
@@ -146,7 +151,7 @@ public class TriggerFunnel : MonoBehaviour
                 CreatePolygon(body, shapeDef, ref random);
                 return;
             }
-            
+
             case ObjectType.Compound:
             {
                 var body = world.CreateBody(bodyDef);
@@ -166,7 +171,7 @@ public class TriggerFunnel : MonoBehaviour
                 CreateDonut(world, spawnPosition, bodies);
                 return;
             }
-            
+
             case ObjectType.Random:
             {
                 var body = world.CreateBody(bodyDef);
@@ -179,38 +184,38 @@ public class TriggerFunnel : MonoBehaviour
                         CreateCircle(body, shapeDef, ref random);
                         return;
                     }
-                    
+
                     case 1:
                     {
                         CreateCapsule(body, shapeDef, ref random);
                         return;
                     }
-                    
+
                     case 2:
                     {
                         CreatePolygon(body, shapeDef, ref random);
                         return;
                     }
-                    
+
                     case 4:
                     {
                         CreateCompound(body, shapeDef);
                         return;
                     }
-                    
+
                     case 5:
                     {
                         CreateRagdoll(world, spawnPosition, random, bodies);
                         return;
                     }
-                    
+
                     case 6:
                     {
                         CreateDonut(world, spawnPosition, bodies);
                         return;
                     }
-                }   
-                
+                }
+
                 break;
             }
 
@@ -218,17 +223,17 @@ public class TriggerFunnel : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
     }
-    
+
     private void CreateCircle(PhysicsBody body, PhysicsShapeDefinition shapeDef, ref Random random)
     {
         var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = m_ObjectScale * 0.5f };
         body.CreateShape(circleGeometry, shapeDef);
     }
-    
+
     private void CreateCapsule(PhysicsBody body, PhysicsShapeDefinition shapeDef, ref Random random)
     {
         var capsuleScale = m_ObjectScale * 0.5f;
-        
+
         var capsuleGeometry = new CapsuleGeometry
         {
             center1 = new Vector2(0f, -0.5f * capsuleScale),
@@ -237,7 +242,7 @@ public class TriggerFunnel : MonoBehaviour
         };
         body.CreateShape(capsuleGeometry, shapeDef);
     }
-    
+
     private void CreatePolygon(PhysicsBody body, PhysicsShapeDefinition shapeDef, ref Random random)
     {
         var polygonScale = m_ObjectScale * 0.5f;
@@ -245,7 +250,7 @@ public class TriggerFunnel : MonoBehaviour
         var polygonGeometry = SandboxUtility.CreateRandomPolygon(extent: polygonScale, radius: radius, ref random);
         body.CreateShape(polygonGeometry, shapeDef);
     }
-    
+
     private void CreateRagdoll(PhysicsWorld world, Vector2 spawnPosition, Random random, NativeHashSet<PhysicsBody> bodies)
     {
         var ragDollConfiguration = new SpawnFactory.Ragdoll.Configuration
@@ -270,8 +275,8 @@ public class TriggerFunnel : MonoBehaviour
             bodies.Add(body);
         }
         m_SandboxManager.AddSpawnedItem(spawnedItem);
-    }    
-    
+    }
+
     private void CreateDonut(PhysicsWorld world, Vector2 spawnPosition, NativeHashSet<PhysicsBody> bodies)
     {
         var spawnedItem = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f);
@@ -291,18 +296,18 @@ public class TriggerFunnel : MonoBehaviour
         body.CreateShape(leftGeometry, shapeDef);
         body.CreateShape(rightGeometry, shapeDef);
     }
-    
+
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
         var world = PhysicsWorld.defaultWorld;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+
             // Object Type.
             var objectType = root.Q<DropdownField>("object-type");
             objectType.index = (int)m_ObjectType;
@@ -326,7 +331,7 @@ public class TriggerFunnel : MonoBehaviour
             {
                 m_SpawnPeriod = evt.newValue;
             });
-            
+
             // Gravity Scale.
             var gravityScale = root.Q<Slider>("gravity-scale");
             gravityScale.RegisterValueChangedCallback(evt =>
@@ -335,35 +340,35 @@ public class TriggerFunnel : MonoBehaviour
                 world.gravity = m_OldGravity * m_GravityScale;
             });
             gravityScale.value = m_GravityScale;
-            
+
             // Fast Collisions.
             var fastCollisions = root.Q<Toggle>("fast-collisions");
             fastCollisions.value = m_FastCollisions;
             fastCollisions.RegisterValueChangedCallback(evt =>
             {
                 m_FastCollisions = evt.newValue;
-            });            
-            
+            });
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
         m_SpawnTime = 0f;
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         // Ground.
         {
             var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
@@ -383,7 +388,7 @@ public class TriggerFunnel : MonoBehaviour
             var chainGeometry = new ChainGeometry(points.AsArray().AsSpan());
             var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.2f, bounciness = 0f }, isLoop = true };
             groundBody.CreateChain(chainGeometry, chainDef);
-            
+
             {
                 var sign = 1.0f;
                 var y = 28.0f;
@@ -410,14 +415,14 @@ public class TriggerFunnel : MonoBehaviour
                         enableMotor = true
                     };
                     world.CreateJoint(jointDef);
-                    
+
                     y -= 14.0f;
                     sign = -sign;
                 }
 
                 {
                     var boxGeometry = PolygonGeometry.CreateBox(new Vector2(250f, 4f), radius: 0f, new PhysicsTransform(new Vector2(0f, -32.5f), PhysicsRotate.identity));
-                    var shapeDef = new PhysicsShapeDefinition { isTrigger = true };
+                    var shapeDef = new PhysicsShapeDefinition { isTrigger = true, triggerEventsAllowed = true };
                     groundBody.CreateShape(boxGeometry, shapeDef);
                 }
             }

@@ -11,7 +11,7 @@ public static class SpawnFactory
     {
         public NativeList<PhysicsBody> Bodies;
         public PhysicsWorld.UserObject UserObject;
-        
+
         public void Dispose()
         {
             if (Bodies.IsCreated)
@@ -51,6 +51,7 @@ public static class SpawnFactory
                     customColor = colorProvider.ShapeColorState
                 },
                 contactFilter = new PhysicsShape.ContactFilter { categories = 1, contacts = PhysicsMask.All, groupIndex = -1 },
+                triggerEventsAllowed = true
             };
 
             // Create bodies.
@@ -64,11 +65,11 @@ public static class SpawnFactory
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
                 body.userObject = userObject;
-                
+
                 body.CreateShape(capsuleGeometry, shapeDef);
 
                 shapeDef.surfaceMaterial.customColor = colorProvider.ShapeColorState;
-                
+
                 angle += deltaAngle;
             }
 
@@ -127,7 +128,7 @@ public static class SpawnFactory
                 EnableLimits = enableLimits;
                 ColorBodyState = colorBodyState;
             }
-            
+
             public Vector2 ScaleRange;
             [Min(0f)] public float JointHertz;
             [Min(0f)] public float JointDamping;
@@ -175,7 +176,7 @@ public static class SpawnFactory
             public BoneArray(Allocator allocator = Allocator.Temp)
             {
                 m_BoneArray = new NativeArray<Bone>((int)BoneType.Count, allocator);
-                
+
                 for (var i = 0; i < (int)BoneType.Count; ++i)
                 {
                     m_BoneArray[i] = new Bone
@@ -187,7 +188,7 @@ public static class SpawnFactory
                     };
                 }
             }
-            
+
             public void Dispose()
             {
                 m_BoneArray.Dispose();
@@ -204,10 +205,10 @@ public static class SpawnFactory
         {
             NativeList<PhysicsBody> bodies = new(Allocator.Persistent);
             var userObject = world.CreateUserObject(default);
-            
+
             // Create the bone array.
             var bones = new BoneArray(Allocator.Temp);
-            
+
             var bodyDef = new PhysicsBodyDefinition
             {
                 bodyType = RigidbodyType2D.Dynamic,
@@ -224,7 +225,8 @@ public static class SpawnFactory
                     categories = configuration.ContactBodyLayer,
                     contacts = configuration.ContactBodyLayer | configuration.ContactFeetLayer,
                     groupIndex = -configuration.ContactGroupIndex
-                }
+                },
+                triggerEventsAllowed = true
             };
 
             var footShapeDef = new PhysicsShapeDefinition
@@ -235,12 +237,13 @@ public static class SpawnFactory
                     categories = configuration.ContactBodyLayer,
                     contacts = configuration.ContactFeetLayer,
                     groupIndex = -configuration.ContactGroupIndex
-                }
+                },
+                triggerEventsAllowed = true
             };
 
             if (!configuration.ColorBodyState)
                 footShapeDef.surfaceMaterial.customColor = Color.saddleBrown;
-            
+
             var scale = random.NextFloat(configuration.ScaleRange.x, configuration.ScaleRange.y);
             var maxTorque = configuration.JointFriction * scale;
             var hertz = configuration.JointHertz;
@@ -257,18 +260,18 @@ public static class SpawnFactory
             {
                 // Fetch the bone.
                 var bone = bones[BoneType.Hip];
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 0.95f * scale);
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
                 bone.body.userObject = userObject;
-                
+
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = trouserColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.02f * scale), center2 = new Vector2(0f, 0.02f * scale), radius = 0.095f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
 
@@ -289,11 +292,11 @@ public static class SpawnFactory
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
                 bone.body.userObject = userObject;
-                
+
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = shirtColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.135f * scale), center2 = new Vector2(0f, 0.135f * scale), radius = 0.09f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
 
@@ -319,29 +322,29 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.Torso] = bone;
             }
-            
+
             // Head
             {
                 // Fetch the bone.
                 var bone = bones[BoneType.Head];
                 bone.parentBone = BoneType.Torso;
                 bone.frictionScale = 0.25f;
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 1.475f * scale);
                 bodyDef.linearDamping = 0.1f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
                 bone.body.userObject = userObject;
-                
+
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = skinColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.038f * scale), center2 = new Vector2(0f, 0.039f * scale), radius = 0.075f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
 
@@ -367,32 +370,32 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.Head] = bone;
             }
-            
+
             // Upper Left Leg
             {
                 // Fetch the bone.
                 var bone = bones[BoneType.UpperLeftLeg];
                 bone.parentBone = BoneType.Hip;
                 bone.frictionScale = 1f;
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 0.775f * scale);
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
                 bone.body.userObject = userObject;
-                
+
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = trouserColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.06f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
-                
+
                 // Create joint.
                 var pivot = position + new Vector2(0f, 0.9f * scale);
                 var bodyA = bones[bone.parentBone].body;
@@ -415,7 +418,7 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.UpperLeftLeg] = bone;
             }
@@ -436,7 +439,7 @@ public static class SpawnFactory
                 var bone = bones[BoneType.LowerLeftLeg];
                 bone.parentBone = BoneType.UpperLeftLeg;
                 bone.frictionScale = 0.5f;
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 0.475f * scale);
                 bodyDef.linearDamping = 0f;
@@ -447,7 +450,7 @@ public static class SpawnFactory
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = trouserColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.155f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.045f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
 
@@ -476,11 +479,11 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.LowerLeftLeg] = bone;
-            }            
-            
+            }
+
             // Upper Right Leg
             {
                 // Fetch the bone.
@@ -498,10 +501,10 @@ public static class SpawnFactory
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = trouserColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.06f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
-                
+
                 // Create joint.
                 var pivot = position + new Vector2(0f, 0.9f * scale);
                 var bodyA = bones[bone.parentBone].body;
@@ -524,18 +527,18 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.UpperRightLeg] = bone;
             }
-            
+
             // Lower Right Leg.
             {
                 // Fetch the bone.
                 var bone = bones[BoneType.LowerRightLeg];
                 bone.parentBone = BoneType.UpperRightLeg;
                 bone.frictionScale = 0.5f;
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 0.475f * scale);
                 bodyDef.linearDamping = 0f;
@@ -546,13 +549,13 @@ public static class SpawnFactory
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = trouserColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.155f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.045f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
-                
+
                 // Create foot shape.
                 bone.body.CreateShape(footPolygonGeometry, footShapeDef);
-                
+
                 // Create joint.
                 var pivot = position + new Vector2(0f, 0.625f * scale);
                 var bodyA = bones[bone.parentBone].body;
@@ -575,7 +578,7 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.LowerRightLeg] = bone;
             }
@@ -586,7 +589,7 @@ public static class SpawnFactory
                 var bone = bones[BoneType.UpperLeftArm];
                 bone.parentBone = BoneType.Torso;
                 bone.frictionScale = 0.5f;
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 1.225f * scale);
                 bodyDef.linearDamping = 0f;
@@ -597,10 +600,10 @@ public static class SpawnFactory
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = shirtColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.035f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
-                
+
                 // Create joint.
                 var pivot = position + new Vector2(0f, 1.35f * scale);
                 var bodyA = bones[bone.parentBone].body;
@@ -623,18 +626,18 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.UpperLeftArm] = bone;
             }
-            
+
             // Lower Left Arm.
             {
                 // Fetch the bone.
                 var bone = bones[BoneType.LowerLeftArm];
                 bone.parentBone = BoneType.UpperLeftArm;
                 bone.frictionScale = 0.1f;
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 0.975f * scale);
                 bodyDef.linearDamping = 0.1f;
@@ -645,10 +648,10 @@ public static class SpawnFactory
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = skinColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.03f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
-                
+
                 // Create joint.
                 var pivot = position + new Vector2(0f, 1.1f * scale);
                 var bodyA = bones[bone.parentBone].body;
@@ -673,10 +676,10 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.LowerLeftArm] = bone;
-            }            
+            }
 
             // Upper Right Arm.
             {
@@ -684,7 +687,7 @@ public static class SpawnFactory
                 var bone = bones[BoneType.UpperRightArm];
                 bone.parentBone = BoneType.Torso;
                 bone.frictionScale = 0.5f;
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 1.225f * scale);
                 bodyDef.linearDamping = 0f;
@@ -695,10 +698,10 @@ public static class SpawnFactory
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = shirtColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.035f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
-                
+
                 // Create joint.
                 var pivot = position + new Vector2(0f, 1.35f * scale);
                 var bodyA = bones[bone.parentBone].body;
@@ -721,7 +724,7 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.UpperRightArm] = bone;
             }
@@ -732,7 +735,7 @@ public static class SpawnFactory
                 var bone = bones[BoneType.LowerRightArm];
                 bone.parentBone = BoneType.UpperRightArm;
                 bone.frictionScale = 0.1f;
-                
+
                 // Create body.
                 bodyDef.position = position + new Vector2(0f, 0.975f * scale);
                 bodyDef.linearDamping = 0.1f;
@@ -743,10 +746,10 @@ public static class SpawnFactory
                 // Create shape.
                 if (!configuration.ColorBodyState)
                     shapeDef.surfaceMaterial.customColor = skinColor;
-                
+
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.03f * scale };
                 bone.body.CreateShape(capsuleGeometry, shapeDef);
-                
+
                 // Create joint.
                 var pivot = position + new Vector2(0f, 1.1f * scale);
                 var bodyA = bones[bone.parentBone].body;
@@ -771,14 +774,14 @@ public static class SpawnFactory
                     springDampingRatio = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
-                
+
                 // Set the bone.
                 bones[BoneType.LowerRightArm] = bone;
             }
-            
+
             // Dispose of the bones.
             bones.Dispose();
-            
+
             return new SpawnedItem { Bodies = bodies, UserObject = userObject };
         }
     }

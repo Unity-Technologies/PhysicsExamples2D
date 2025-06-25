@@ -96,8 +96,8 @@ MonoBehaviour:
     contactDampingRatio: 10
     contactSpeed: 3
     maximumLinearSpeed: 400
-    drawOptions: 4256
-    drawFillOptions: 7
+    drawOptions: 4128
+    drawFillOptions: -1
     drawThickness: 2
     drawFillAlpha: 0.1
     drawPointScale: 1
