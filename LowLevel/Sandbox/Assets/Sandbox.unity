@@ -257,6 +257,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneItems:
+  - ScenePath: Assets/Scenes/Batching/Shooter/Shooter.unity
+    Name: Shooter
+    Category: Batching
+    Description: Demonstrate the batch creation and destruction of lots of bodies
+      and shapes.
   - ScenePath: Assets/Scenes/Benchmark/Barrel/Barrel.unity
     Name: Barrel
     Category: Benchmarks
@@ -386,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartSceneName: Barrel
+  StartSceneName: Shooter
   DebuggingMenu: {fileID: 1603435387}
   ShortcutMenu: {fileID: 465066520}
   UpdatePeriodFPS: 0.1

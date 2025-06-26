@@ -141,6 +141,7 @@ public class BounceRagdolls : MonoBehaviour
 	private void Update()
 	{
 		var world = PhysicsWorld.defaultWorld;
+
 		var segment = new SegmentGeometry { point1 = Vector2.zero, point2 = world.gravity * 3f };
 		if (segment.isValid)
 			world.DrawGeometry(segment, PhysicsTransform.identity, Color.orangeRed);
