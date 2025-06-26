@@ -263,6 +263,7 @@ public class TriggerFunnel : MonoBehaviour
             ContactBodyLayer = 0x2,
             ContactFeetLayer = 0x1,
             ContactGroupIndex = 1,
+            TriggerEvents = true,
             FastCollisions = m_FastCollisions,
             EnableLimits = true,
             EnableMotor = true,
@@ -279,7 +280,7 @@ public class TriggerFunnel : MonoBehaviour
 
     private void CreateDonut(PhysicsWorld world, Vector2 spawnPosition, NativeHashSet<PhysicsBody> bodies)
     {
-        var spawnedItem = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f);
+        var spawnedItem = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true);
         foreach (var body in spawnedItem.Bodies)
         {
             bodies.Add(body);
@@ -421,7 +422,7 @@ public class TriggerFunnel : MonoBehaviour
                 }
 
                 {
-                    var boxGeometry = PolygonGeometry.CreateBox(new Vector2(250f, 4f), radius: 0f, new PhysicsTransform(new Vector2(0f, -32.5f), PhysicsRotate.identity));
+                    var boxGeometry = PolygonGeometry.CreateBox(new Vector2(10f, 4f), radius: 0f, new PhysicsTransform(new Vector2(0f, -32.5f), PhysicsRotate.identity));
                     var shapeDef = new PhysicsShapeDefinition { isTrigger = true, triggerEventsAllowed = true };
                     groundBody.CreateShape(boxGeometry, shapeDef);
                 }

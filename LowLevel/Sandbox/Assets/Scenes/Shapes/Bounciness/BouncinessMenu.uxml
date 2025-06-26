@@ -1,16 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Sandbox/UI/Common/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides" />
-    <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; justify-content: flex-end; align-content: auto;">
+    <Style src="project://database/Assets/Sandbox/UI/Common/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides"/>
+    <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; justify-content: flex-end; align-content: auto; padding-left: 8px; padding-bottom: 8px;">
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Bounciness Options" tabindex="0" name="Tab">
-                    <ui:DropdownField label="Object Type" name="object-type" choices="Circle,Capsule,Box" index="0" focusable="false" />
-                    <ui:Slider label="Gravity Scale" high-value="10" name="gravity-scale" fill="true" show-input-field="true" focusable="false" value="1" low-value="1" />
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false" />
+                    <ui:DropdownField label="Object Type" name="object-type" choices="Circle,Capsule,Box" index="0" focusable="false"/>
+                    <ui:Slider label="Gravity Scale" high-value="10" name="gravity-scale" fill="true" show-input-field="true" focusable="false" value="1" low-value="1"/>
+                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">
-                <ui:Label text="..." name="scene-description" style="flex-wrap: nowrap; flex-grow: 1; flex-direction: column; white-space: normal; text-overflow: clip; -unity-text-align: upper-center;" />
+                <ui:Label text="..." name="scene-description" style="flex-wrap: nowrap; flex-grow: 1; flex-direction: column; white-space: normal; text-overflow: clip; -unity-text-align: upper-center;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

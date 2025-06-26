@@ -139,6 +139,7 @@ public class Barrel : MonoBehaviour
 	        ContactFeetLayer = 1,
 	        ContactGroupIndex = 0,
 	        FastCollisions = m_FastCollisions,
+	        TriggerEvents = false,
 	        EnableLimits = true,
 	        EnableMotor = true,
 	        ColorBodyState = m_SandboxManager.ColorShapeState

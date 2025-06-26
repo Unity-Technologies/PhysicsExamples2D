@@ -30,7 +30,7 @@ public static class SpawnFactory
 
     public static class Softbody
     {
-        public static SpawnedItem SpawnDonut(PhysicsWorld world, IShapeColorProvider colorProvider, Vector2 position, int sides = 7, float scale = 1f, float jointFrequency = 5f, float jointDamping = 0.0f)
+        public static SpawnedItem SpawnDonut(PhysicsWorld world, IShapeColorProvider colorProvider, Vector2 position, int sides = 7, float scale = 1f, bool triggerEvents = false, float jointFrequency = 5f, float jointDamping = 0.0f)
         {
             NativeList<PhysicsBody> bodies = new(Allocator.Persistent);
             var userObject = world.CreateUserObject(default);
@@ -51,7 +51,7 @@ public static class SpawnFactory
                     customColor = colorProvider.ShapeColorState
                 },
                 contactFilter = new PhysicsShape.ContactFilter { categories = 1, contacts = PhysicsMask.All, groupIndex = -1 },
-                triggerEventsAllowed = true
+                triggerEventsAllowed = triggerEvents
             };
 
             // Create bodies.
@@ -110,6 +110,7 @@ public static class SpawnFactory
                 UInt64 contactFeetLayer,
                 int contactGroupIndex,
                 float gravityScale = 1.0f,
+                bool triggerEvents = false,
                 bool fastCollisions = true,
                 bool enableMotor = true,
                 bool enableLimits = true,
@@ -123,6 +124,7 @@ public static class SpawnFactory
                 ContactFeetLayer = contactFeetLayer;
                 ContactGroupIndex = contactGroupIndex;
                 GravityScale = gravityScale;
+                TriggerEvents = triggerEvents;
                 FastCollisions = fastCollisions;
                 EnableMotor = enableMotor;
                 EnableLimits = enableLimits;
@@ -137,6 +139,7 @@ public static class SpawnFactory
             public UInt64 ContactBodyLayer;
             public UInt64 ContactFeetLayer;
             public int ContactGroupIndex;
+            public bool TriggerEvents;
             public bool FastCollisions;
             public bool EnableMotor;
             public bool EnableLimits;
@@ -226,7 +229,7 @@ public static class SpawnFactory
                     contacts = configuration.ContactBodyLayer | configuration.ContactFeetLayer,
                     groupIndex = -configuration.ContactGroupIndex
                 },
-                triggerEventsAllowed = true
+                triggerEventsAllowed = configuration.TriggerEvents
             };
 
             var footShapeDef = new PhysicsShapeDefinition
@@ -238,7 +241,7 @@ public static class SpawnFactory
                     contacts = configuration.ContactFeetLayer,
                     groupIndex = -configuration.ContactGroupIndex
                 },
-                triggerEventsAllowed = true
+                triggerEventsAllowed = configuration.TriggerEvents
             };
 
             if (!configuration.ColorBodyState)
