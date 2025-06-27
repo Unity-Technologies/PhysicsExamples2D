@@ -7,6 +7,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
+using UnityEngine.U2D.Physics.LowLevelExtras;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
@@ -18,7 +19,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public float CameraZoom { get => m_CameraZoomElement.value; set => m_CameraZoomElement.value = value; }
     public bool ColorShapeState { get; private set; }
 
-    public string StartSceneName = string.Empty;
+    public string StartScene = string.Empty;
     public DebuggingMenu DebuggingMenu;
     public ShortcutMenu ShortcutMenu;
     public float UpdatePeriodFPS = 0.1f;
@@ -171,6 +172,14 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     
     public void ResetSceneState()
     {
+        // Disable any "SceneBody".
+        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            sceneBody.enabled = false;
+        
+        // Disable any "SceneWorlds".
+        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
+            sceneWorld.enabled = false;
+        
         // Destroy any current bodies.
         if (Bodies.IsCreated && Bodies.Count > 0)
         {
@@ -197,6 +206,16 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         // Reset the default world.
         PhysicsWorld.defaultWorld.Reset();
+        
+        // Enable any "SceneWorlds".
+        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
+            sceneWorld.enabled = true;
+        
+        // Enable all bodies again.
+        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            sceneBody.enabled = true;
+        
+        
     }
 
     public void AddSpawnedItem(SpawnFactory.SpawnedItem spawnedItem)
@@ -562,7 +581,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 ColorShapeState = evt.newValue;
                 
                 if (!m_DisableUIRestarts)
-                    m_SceneManifest.ReloadCurrentScene();
+                    m_SceneManifest.ReloadCurrentScene(ResetSceneState);
             }); 
             
             // Bodies.
@@ -657,11 +676,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_ScenesView.Rebuild();
 
         // Load the start scene if specified.
-        if (StartSceneName != string.Empty)
+        if (StartScene != string.Empty)
         {
-            ResetSceneState();
             DebuggingMenu.ResetStats();
-            m_SceneManifest.LoadScene(StartSceneName);
+            m_SceneManifest.LoadScene(StartScene, ResetSceneState);
         }
     }
 
@@ -687,16 +705,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         if (string.IsNullOrEmpty(sceneName) ||
             sceneName == m_SceneManifest.LoadedSceneName)
             return;
-            
-        // Reset the scene state.
-        ResetSceneState();
-        
+
         m_CameraManipulator.ResetPanZoom();
         m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
         
         DebuggingMenu.ResetStats();
         
-        m_SceneManifest.LoadScene(sceneName);
+        m_SceneManifest.LoadScene(sceneName, ResetSceneState);
     }
 
     // Reset the settings and reload the current scene.
@@ -734,11 +749,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_DrawContactTangentsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactFriction);
         m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactImpulse);
 
-        ResetSceneState();
         DebuggingMenu.ResetStats();
         
         // Reload the scene.
-        m_SceneManifest.ReloadCurrentScene();
+        m_SceneManifest.ReloadCurrentScene(ResetSceneState);
 
         m_DisableUIRestarts = false;
     }

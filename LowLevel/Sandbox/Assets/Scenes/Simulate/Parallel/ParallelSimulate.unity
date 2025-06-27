@@ -1398,7 +1398,7 @@ MonoBehaviour:
     continuousAllowed: 1
     preSolveEventsAllowed: 0
     bounceThreshold: 1
-    hitEventThreshold: 1
+    contactHitEventThreshold: 1
     contactHertz: 30
     contactDampingRatio: 10
     contactSpeed: 3
@@ -1470,7 +1470,7 @@ MonoBehaviour:
     continuousAllowed: 1
     preSolveEventsAllowed: 0
     bounceThreshold: 1
-    hitEventThreshold: 1
+    contactHitEventThreshold: 1
     contactHertz: 30
     contactDampingRatio: 10
     contactSpeed: 3
@@ -1542,7 +1542,7 @@ MonoBehaviour:
     continuousAllowed: 1
     preSolveEventsAllowed: 0
     bounceThreshold: 1
-    hitEventThreshold: 1
+    contactHitEventThreshold: 1
     contactHertz: 30
     contactDampingRatio: 10
     contactSpeed: 3
@@ -1614,7 +1614,7 @@ MonoBehaviour:
     continuousAllowed: 1
     preSolveEventsAllowed: 0
     bounceThreshold: 1
-    hitEventThreshold: 1
+    contactHitEventThreshold: 1
     contactHertz: 30
     contactDampingRatio: 10
     contactSpeed: 3
@@ -1686,7 +1686,7 @@ MonoBehaviour:
     continuousAllowed: 1
     preSolveEventsAllowed: 0
     bounceThreshold: 1
-    hitEventThreshold: 1
+    contactHitEventThreshold: 1
     contactHertz: 30
     contactDampingRatio: 10
     contactSpeed: 3

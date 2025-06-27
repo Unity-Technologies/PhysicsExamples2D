@@ -46,13 +46,6 @@ public class ParallelSimulate : MonoBehaviour
     
     private void SetupScene()
     {
-        // Toggle worlds.
-        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
-        {
-            sceneWorld.enabled = false;
-            sceneWorld.enabled = true;
-        }
-
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 

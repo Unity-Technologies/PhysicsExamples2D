@@ -1,9 +1,7 @@
-﻿using UnityEditor;
-
-namespace Editor
+﻿namespace UnityEditor
 {
     [CustomEditor(typeof(SceneManifest), true)]
-    public class ScenePickerEditor : UnityEditor.Editor
+    public class ScenePickerEditor : Editor
     {
         private SerializedProperty m_SceneItemsProperty;
         

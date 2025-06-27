@@ -122,16 +122,8 @@ public class Shooter : MonoBehaviour
 
 	private void SetupScene()
 	{
-		// Disable all bodies.
-		foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-			sceneBody.enabled = false;
-		
 		// Reset the scene state.
 		m_SandboxManager.ResetSceneState();
-
-		// Enable all bodies.
-		foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-			sceneBody.enabled = true;
 	}
 
 	private void Update()

@@ -35,23 +35,23 @@ public class SceneManifest : MonoBehaviour
         LoadedSceneDescription = string.Empty;
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName, Action action)
     {
         if (m_LoadSceneRoutine != null)
             return;
 
-        m_LoadSceneRoutine = StartCoroutine(LoadSceneCoroutine(sceneName));
+        m_LoadSceneRoutine = StartCoroutine(LoadSceneCoroutine(sceneName, action));
     }
 
-    public void ReloadCurrentScene()
+    public void ReloadCurrentScene(Action action)
     {
         if (LoadedSceneName == string.Empty)
             return;
         
-        LoadScene(LoadedSceneName);
+        LoadScene(LoadedSceneName, action);
     }
-    
-    private IEnumerator LoadSceneCoroutine(string sceneName)
+
+    private IEnumerator LoadSceneCoroutine(string sceneName, Action action)
     {
         var sceneIndex = FindSceneIndex(sceneName);
         
@@ -62,6 +62,9 @@ public class SceneManifest : MonoBehaviour
             while (!operation.isDone)
                 yield return null;
         }
+
+        // Call the action.
+        action();
         
         // Load the new scene.
         {
