@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
-using PhysicsJoint = UnityEngine.LowLevelPhysics2D.PhysicsJoint;
-
 public class JointGrid : MonoBehaviour
 {
     private SandboxManager m_SandboxManager;	
@@ -12,9 +10,8 @@ public class JointGrid : MonoBehaviour
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
-    private const int JointSize = 100;
-    
     private Vector2 m_OldGravity;
+    private int m_GridSize;
     private float m_GravityScale;
 
     private void OnEnable()
@@ -24,8 +21,8 @@ public class JointGrid : MonoBehaviour
         m_UIDocument = GetComponent<UIDocument>();
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 70f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(50, -60f);
+        m_CameraManipulator.CameraStartPosition = new Vector2(-10f, -10f);
+        m_CameraManipulator.CameraSize = 100f;
         
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.AllJoints);
@@ -33,6 +30,7 @@ public class JointGrid : MonoBehaviour
         world.drawOptions = PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints;
         
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
+        m_GridSize = 100;
         m_GravityScale = 1f;
 
         SetupOptions();
@@ -60,6 +58,12 @@ public class JointGrid : MonoBehaviour
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
 
+            // Grid Size.
+            var gridSize = root.Q<SliderInt>("grid-size");
+            gridSize.value = m_GridSize;
+            gridSize.RegisterValueChangedCallback(evt => { m_GridSize = evt.newValue; SetupScene(); });
+            
+            
             // Gravity Scale.
             var gravityScale = root.Q<Slider>("gravity-scale");
             gravityScale.value = m_GravityScale;
@@ -93,17 +97,18 @@ public class JointGrid : MonoBehaviour
         
         var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = 0.4f };
         
-        var bodyArray = new NativeArray<PhysicsBody>(JointSize * JointSize, Allocator.Temp);
-        
+        var bodyArray = new NativeArray<PhysicsBody>(m_GridSize * m_GridSize, Allocator.Temp);
+
+        var offset = new Vector2(m_GridSize * -0.5f, m_GridSize * 0.5f);
         var index = 0;
-        for (var k = 0; k < JointSize; ++k )
+        for (var k = 0; k < m_GridSize; ++k )
         {
-            for (var i = 0; i < JointSize; ++i )
+            for (var i = 0; i < m_GridSize; ++i )
             {
                 var fk = (float)k;
                 var fi = (float)i;
 
-                if (k >= JointSize / 2 - 3 && k <= JointSize / 2 + 3 && i == 0)
+                if (k >= m_GridSize / 2 - 3 && k <= m_GridSize / 2 + 3 && i == 0)
                 {
                     bodyDef.bodyType = RigidbodyType2D.Static;
                 }
@@ -112,7 +117,7 @@ public class JointGrid : MonoBehaviour
                     bodyDef.bodyType = RigidbodyType2D.Dynamic;
                 }
 
-                bodyDef.position = new Vector2(fk, -fi);
+                bodyDef.position = new Vector2(fk, -fi) + offset;
 
                 var body = world.CreateBody(bodyDef);
                 
@@ -132,7 +137,7 @@ public class JointGrid : MonoBehaviour
 
                 if ( k > 0 )
                 {
-                    hingeJointDef.bodyA = bodyArray[index - JointSize];
+                    hingeJointDef.bodyA = bodyArray[index - m_GridSize];
                     hingeJointDef.bodyB = body;
                     hingeJointDef.localAnchorA = new Vector2(0.5f, 0f);
                     hingeJointDef.localAnchorB = new Vector2(-0.5f, 0f);
