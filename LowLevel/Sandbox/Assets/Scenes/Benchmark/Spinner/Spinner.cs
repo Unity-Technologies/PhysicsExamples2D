@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
-using PhysicsJoint = UnityEngine.LowLevelPhysics2D.PhysicsJoint;
-
 public class Spinner : MonoBehaviour
 {
     private SandboxManager m_SandboxManager;	

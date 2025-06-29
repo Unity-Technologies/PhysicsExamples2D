@@ -138,11 +138,11 @@ public class Barrel : MonoBehaviour
 	        ContactBodyLayer = 2,
 	        ContactFeetLayer = 1,
 	        ContactGroupIndex = 0,
+	        ColorProvider = m_SandboxManager,
 	        FastCollisions = m_FastCollisions,
 	        TriggerEvents = false,
 	        EnableLimits = true,
-	        EnableMotor = true,
-	        ColorBodyState = m_SandboxManager.ColorShapeState
+	        EnableMotor = true
         };
         
         var leftGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(-1.0f, 0f), new(0.5f, 1f), new(0f, 2f) }.AsSpan());

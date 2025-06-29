@@ -32,6 +32,9 @@ public class BounceRagdolls : MonoBehaviour
 		m_CameraManipulator.CameraSize = 12f;
 		m_CameraManipulator.CameraStartPosition = Vector2.zero;
 
+		// Set Overrides.
+		m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints);
+		
 		m_OldGravity = PhysicsWorld.defaultWorld.gravity;
 		
 		SetupOptions();
@@ -47,6 +50,8 @@ public class BounceRagdolls : MonoBehaviour
 		world.gravity = m_OldGravity;
 		
 		PhysicsEvents.PreSimulate -= OnPreSimulation;
+
+		m_SandboxManager.ResetOverrideDrawOptions();
 	}
 
 	private void SetupOptions()
@@ -184,11 +189,11 @@ public class BounceRagdolls : MonoBehaviour
 	        ContactBodyLayer = 2,
 	        ContactFeetLayer = 1,
 	        ContactGroupIndex = 1,
+	        ColorProvider = m_SandboxManager,
 	        FastCollisions = FastCollisions,
 	        TriggerEvents = false,
 	        EnableLimits = true,
-	        EnableMotor = true,
-	        ColorBodyState = m_SandboxManager.ColorShapeState
+	        EnableMotor = true
         };
 
         ref var random = ref m_SandboxManager.Random;

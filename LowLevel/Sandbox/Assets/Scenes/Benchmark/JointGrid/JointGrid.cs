@@ -25,9 +25,7 @@ public class JointGrid : MonoBehaviour
         m_CameraManipulator.CameraSize = 100f;
         
         // Set Overrides.
-        m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.AllJoints);
-        var world = PhysicsWorld.defaultWorld;
-        world.drawOptions = PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints;
+        m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints);
         
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GridSize = 64;

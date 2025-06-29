@@ -2716,9 +2716,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Shooter
   BatchFilter:
     categories:
-      bitMask: 128
+      bitMask: 64
     contacts:
-      bitMask: 264
+      bitMask: 392
     groupIndex: 0
 --- !u!1 &601833514
 GameObject:

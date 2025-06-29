@@ -169,7 +169,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private Random m_Random;
 
     public Color32 ShapeColorState => ColorShapeState ? new Color32() : new Color32((byte)m_Random.NextUInt(0, 256), (byte)m_Random.NextUInt(0, 256), (byte)m_Random.NextUInt(0, 256), 255);
-    
+    bool IShapeColorProvider.IsActive => ColorShapeState;
+
     public void ResetSceneState()
     {
         // Disable any "SceneBody".
@@ -214,8 +215,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Enable all bodies again.
         foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             sceneBody.enabled = true;
-        
-        
     }
 
     public void AddSpawnedItem(SpawnFactory.SpawnedItem spawnedItem)

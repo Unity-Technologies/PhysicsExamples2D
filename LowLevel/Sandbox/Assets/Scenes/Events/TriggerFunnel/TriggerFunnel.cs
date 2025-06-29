@@ -6,7 +6,6 @@ using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
 using Random = Unity.Mathematics.Random;
-using PhysicsJoint = UnityEngine.LowLevelPhysics2D.PhysicsJoint;
 
 public class TriggerFunnel : MonoBehaviour
 {
@@ -46,6 +45,9 @@ public class TriggerFunnel : MonoBehaviour
         m_CameraManipulator.CameraSize = 35f;
         m_CameraManipulator.CameraStartPosition = Vector2.zero;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints);
+        
         m_ObjectType = ObjectType.Ragdoll;
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
@@ -63,6 +65,9 @@ public class TriggerFunnel : MonoBehaviour
     {
         var world = PhysicsWorld.defaultWorld;
         world.gravity = m_OldGravity;
+        
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideDrawOptions();        
     }
 
     private void Update()
@@ -263,11 +268,11 @@ public class TriggerFunnel : MonoBehaviour
             ContactBodyLayer = 0x2,
             ContactFeetLayer = 0x1,
             ContactGroupIndex = 1,
+            ColorProvider = m_SandboxManager,
             TriggerEvents = true,
             FastCollisions = m_FastCollisions,
             EnableLimits = true,
-            EnableMotor = true,
-            ColorBodyState = m_SandboxManager.ColorShapeState
+            EnableMotor = true
         };
 
         var spawnedItem = SpawnFactory.Ragdoll.SpawnRagdoll(world, spawnPosition, ragDollConfiguration, true, ref random);
@@ -280,7 +285,7 @@ public class TriggerFunnel : MonoBehaviour
 
     private void CreateDonut(PhysicsWorld world, Vector2 spawnPosition, NativeHashSet<PhysicsBody> bodies)
     {
-        var spawnedItem = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true);
+        var spawnedItem = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true, jointFrequency: 20f);
         foreach (var body in spawnedItem.Bodies)
         {
             bodies.Add(body);

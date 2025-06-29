@@ -1,11 +1,8 @@
 using System;
-using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
-
-using PhysicsJoint = UnityEngine.LowLevelPhysics2D.PhysicsJoint;
 
 public class CameraManipulator : MonoBehaviour
 {
