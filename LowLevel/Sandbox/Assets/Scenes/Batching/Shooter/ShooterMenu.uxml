@@ -4,13 +4,11 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Shooter Options" tabindex="0" name="Tab">
-                    <ui:SliderInt label="Batch Count" value="250" high-value="500" show-input-field="true" name="batch-count" fill="true" low-value="10" focusable="false"/>
-                    <ui:Slider label="Batch Delay " value="0" high-value="1" name="batch-delay" fill="true" show-input-field="true" low-value="0.1" focusable="false"/>
+                    <ui:SliderInt label="Batch Count" value="100" high-value="250" show-input-field="true" name="batch-count" fill="true" low-value="10" focusable="false"/>
+                    <ui:Slider label="Batch Delay " value="0" high-value="5" name="batch-delay" fill="true" show-input-field="true" low-value="0.1" focusable="false"/>
                     <ui:Slider label="Batch Spread " value="10" high-value="360" name="batch-spread" fill="true" show-input-field="true" low-value="0" focusable="false"/>
                     <ui:MinMaxSlider label="Batch Speed" value="3,550" low-limit="10" high-limit="50" focusable="false" name="batch-speed"/>
-                    <ui:MinMaxSlider label="Batch Offset" value="0,1" low-limit="0" high-limit="1" focusable="false" name="batch-offset"/>
-                    <ui:MinMaxSlider label="Batch Length" value="0.01,0.1" low-limit="0.01" high-limit="0.5" focusable="false" name="batch-length"/>
-                    <ui:MinMaxSlider label="Batch Radius" value="0.01,0.1" low-limit="0.01" high-limit="0.5" focusable="false" name="batch-radius"/>
+                    <ui:MinMaxSlider label="Batch Size" value="0.01,0.1" low-limit="0.01" high-limit="0.5" focusable="false" name="batch-size"/>
                     <ui:Slider label="Gravity Scale" value="1" high-value="5" name="gravity-scale" fill="true" show-input-field="true" low-value="1" focusable="false"/>
                     <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>

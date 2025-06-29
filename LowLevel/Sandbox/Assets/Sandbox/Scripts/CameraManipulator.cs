@@ -142,7 +142,7 @@ public class CameraManipulator : MonoBehaviour
                                     localAnchorB = hitBody.GetLocalPoint(worldPosition),
                                     springHertz = 5f,
                                     springDampingRatio = 0.7f,
-                                    maxForce = 1000f * hitBody.mass
+                                    maxForce = 10000f * hitBody.mass
                                 };
                                 m_DragJoint = defaultWorld.CreateJoint(targetDefinition);
                                 hitBody.awake = true;
@@ -219,6 +219,7 @@ public class CameraManipulator : MonoBehaviour
                 m_DragJoint.localAnchorA = new PhysicsTransform(target);
 
                 var world = PhysicsWorld.defaultWorld;
+                world.DrawLine(target, m_DragJoint.bodyB.position, Color.grey);
                 world.DrawLine(oldTarget, target, Color.whiteSmoke);                
                 world.DrawPoint(oldTarget, 0.05f, Color.darkGreen);
                 world.DrawPoint(target, 0.05f, Color.green);

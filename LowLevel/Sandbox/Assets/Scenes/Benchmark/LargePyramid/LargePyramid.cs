@@ -98,7 +98,7 @@ public class LargePyramid : MonoBehaviour
 
         // Pyramid.
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = m_GravityScale };
+            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = m_GravityScale, awake = false };
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
             
             const float halfHeight = 0.5f;

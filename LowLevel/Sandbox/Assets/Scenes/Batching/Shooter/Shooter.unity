@@ -183,8 +183,8 @@ MonoBehaviour:
     ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
-      vertex0: {x: -0.5, y: -0.5}
-      vertex1: {x: 0.5, y: -0.5}
+      vertex0: {x: -0.5, y: -2}
+      vertex1: {x: 0.5, y: -2}
       vertex2: {x: 0.5, y: 0.5}
       vertex3: {x: -0.5, y: 0.5}
       vertex4: {x: 0, y: 0}
@@ -205,9 +205,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -347,9 +347,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -630,7 +630,7 @@ MonoBehaviour:
     bodyType: 0
     bodyConstraints: 0
     transformWriteMode: 3
-    position: {x: 12, y: 0}
+    position: {x: 4, y: 0}
     rotation:
       direction: {x: 1, y: 0}
     linearVelocity: {x: 0, y: 0}
@@ -892,148 +892,6 @@ MonoBehaviour:
     awake: 1
     enabled: 1
   SceneWorld: {fileID: 0}
---- !u!1 &93322362
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 93322363}
-  - component: {fileID: 93322366}
-  - component: {fileID: 93322365}
-  m_Layer: 0
-  m_Name: GroundBottomKill
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &93322363
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93322362}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10.4, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1249772078}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &93322365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93322362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    center: {x: 0, y: 0}
-    radius: 0.5
-  CapsuleGeometry:
-    center1: {x: 0, y: 0.5}
-    center2: {x: 0, y: 0.5}
-    radius: 0.5
-  SegmentGeometry:
-    point1: {x: -0.5, y: 0}
-    point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    ghost1: {x: 1, y: 0}
-    segment:
-      point1: {x: 0.5, y: 0}
-      point2: {x: -0.5, y: 0}
-    ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      vertex0: {x: -14.5, y: -0.5}
-      vertex1: {x: 14.5, y: -0.5}
-      vertex2: {x: 14.5, y: 0.5}
-      vertex3: {x: -14.6, y: 0.5}
-      vertex4: {x: 0, y: 0}
-      vertex5: {x: 0, y: 0}
-      vertex6: {x: 0, y: 0}
-      vertex7: {x: 0, y: 0}
-    normals:
-      vertex0: {x: 0, y: -1}
-      vertex1: {x: 1, y: 0}
-      vertex2: {x: 0, y: 1}
-      vertex3: {x: -1, y: 0}
-      vertex4: {x: 0, y: 0}
-      vertex5: {x: 0, y: 0}
-      vertex6: {x: 0, y: 0}
-      vertex7: {x: 0, y: 0}
-    centroid: {x: 0, y: 0}
-    radius: 0
-    count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
-      bouncinessCombine: 4
-      rollingResistance: 0
-      tangentSpeed: 0
-      customColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      categories:
-        bitMask: 8
-      contacts:
-        bitMask: 18446744073709551615
-      groupIndex: 0
-    density: 1
-    isTrigger: 0
-    triggerEventsAllowed: 0
-    contactEventsAllowed: 1
-    hitEventsAllowed: 0
-    preSolveEventsAllowed: 0
-    updateContactsOnCreate: 0
-    updateBodyMass: 1
-  ScaleRadius: 1
-  SceneBody: {fileID: 93322366}
---- !u!114 &93322366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93322362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    bodyType: 2
-    bodyConstraints: 0
-    transformWriteMode: 3
-    position: {x: 0, y: -10.4}
-    rotation:
-      direction: {x: 1, y: 0}
-    linearVelocity: {x: 0, y: 0}
-    angularVelocity: 0
-    linearDamping: 0
-    angularDamping: 0
-    gravityScale: 1
-    sleepThreshold: 0.05
-    fastRotationAllowed: 0
-    fastCollisions: 0
-    sleepingAllowed: 1
-    awake: 1
-    enabled: 1
-  SceneWorld: {fileID: 0}
 --- !u!1 &138041593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,6 +1134,148 @@ MonoBehaviour:
     awake: 1
     enabled: 1
   SceneWorld: {fileID: 0}
+--- !u!1 &144729003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 144729004}
+  - component: {fileID: 144729006}
+  - component: {fileID: 144729005}
+  m_Layer: 0
+  m_Name: Pointy (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &144729004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144729003}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354157184}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &144729005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144729003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 3
+  CircleGeometry:
+    center: {x: 0, y: 0}
+    radius: 0.5
+  CapsuleGeometry:
+    center1: {x: 0, y: 0.5}
+    center2: {x: 0, y: 0.5}
+    radius: 0.5
+  SegmentGeometry:
+    point1: {x: -0.5, y: 0}
+    point2: {x: 0.5, y: 0}
+  ChainSegmentGeometry:
+    ghost1: {x: 1, y: 0}
+    segment:
+      point1: {x: 0.5, y: 0}
+      point2: {x: -0.5, y: 0}
+    ghost2: {x: -1, y: 0}
+  PolygonGeometry:
+    vertices:
+      vertex0: {x: -0.5, y: -0.5}
+      vertex1: {x: 0.5, y: -0.5}
+      vertex2: {x: 0.5, y: 0.5}
+      vertex3: {x: -0.5, y: 0.5}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    normals:
+      vertex0: {x: 0, y: -1}
+      vertex1: {x: 1, y: 0}
+      vertex2: {x: 0, y: 1}
+      vertex3: {x: -1, y: 0}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    centroid: {x: 0, y: 0}
+    radius: 0
+    count: 4
+  ShapeDefinition:
+    surfaceMaterial:
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 4282071353
+    contactFilter:
+      categories:
+        bitMask: 8
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 0
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 0
+    updateBodyMass: 1
+  ScaleRadius: 1
+  SceneBody: {fileID: 144729006}
+--- !u!114 &144729006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144729003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: 3, y: -10.5}
+    rotation:
+      direction: {x: 0.70710707, y: 0.70710653}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  SceneWorld: {fileID: 0}
 --- !u!1 &145671236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,9 +1362,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -1482,10 +1482,10 @@ MonoBehaviour:
     ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
-      vertex0: {x: -0.5, y: -0.5}
+      vertex0: {x: -2, y: -0.5}
       vertex1: {x: 0.5, y: -0.5}
       vertex2: {x: 0.5, y: 0.5}
-      vertex3: {x: -0.5, y: 0.5}
+      vertex3: {x: -2, y: 0.5}
       vertex4: {x: 0, y: 0}
       vertex5: {x: 0, y: 0}
       vertex6: {x: 0, y: 0}
@@ -1504,9 +1504,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -1560,6 +1560,44 @@ MonoBehaviour:
     awake: 1
     enabled: 1
   SceneWorld: {fileID: 0}
+--- !u!1 &354157183
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 354157184}
+  m_Layer: 0
+  m_Name: Edge (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &354157184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354157183}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -10.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 791107171}
+  - {fileID: 605148273}
+  - {fileID: 1278892626}
+  - {fileID: 507807930}
+  - {fileID: 144729004}
+  - {fileID: 1860228195}
+  - {fileID: 1115821534}
+  m_Father: {fileID: 1249772078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &423337203
 GameObject:
   m_ObjectHideFlags: 0
@@ -1829,9 +1867,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -2001,6 +2039,148 @@ MonoBehaviour:
     position: {x: 5, y: 9.9}
     rotation:
       direction: {x: 1, y: 0}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  SceneWorld: {fileID: 0}
+--- !u!1 &507807929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 507807930}
+  - component: {fileID: 507807932}
+  - component: {fileID: 507807931}
+  m_Layer: 0
+  m_Name: Pointy (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &507807930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507807929}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354157184}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &507807931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507807929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 3
+  CircleGeometry:
+    center: {x: 0, y: 0}
+    radius: 0.5
+  CapsuleGeometry:
+    center1: {x: 0, y: 0.5}
+    center2: {x: 0, y: 0.5}
+    radius: 0.5
+  SegmentGeometry:
+    point1: {x: -0.5, y: 0}
+    point2: {x: 0.5, y: 0}
+  ChainSegmentGeometry:
+    ghost1: {x: 1, y: 0}
+    segment:
+      point1: {x: 0.5, y: 0}
+      point2: {x: -0.5, y: 0}
+    ghost2: {x: -1, y: 0}
+  PolygonGeometry:
+    vertices:
+      vertex0: {x: -0.5, y: -0.5}
+      vertex1: {x: 0.5, y: -0.5}
+      vertex2: {x: 0.5, y: 0.5}
+      vertex3: {x: -0.5, y: 0.5}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    normals:
+      vertex0: {x: 0, y: -1}
+      vertex1: {x: 1, y: 0}
+      vertex2: {x: 0, y: 1}
+      vertex3: {x: -1, y: 0}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    centroid: {x: 0, y: 0}
+    radius: 0
+    count: 4
+  ShapeDefinition:
+    surfaceMaterial:
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 4282071353
+    contactFilter:
+      categories:
+        bitMask: 8
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 0
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 0
+    updateBodyMass: 1
+  ScaleRadius: 1
+  SceneBody: {fileID: 507807932}
+--- !u!114 &507807932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507807929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: 0, y: -10.5}
+    rotation:
+      direction: {x: 0.70710707, y: 0.70710653}
     linearVelocity: {x: 0, y: 0}
     angularVelocity: 0
     linearDamping: 0
@@ -2205,8 +2385,8 @@ MonoBehaviour:
     ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
-      vertex0: {x: -0.5, y: -0.5}
-      vertex1: {x: 0.5, y: -0.5}
+      vertex0: {x: -0.5, y: -2}
+      vertex1: {x: 0.5, y: -2}
       vertex2: {x: 0.5, y: 0.5}
       vertex3: {x: -0.5, y: 0.5}
       vertex4: {x: 0, y: 0}
@@ -2227,9 +2407,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -2626,9 +2806,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -2682,6 +2862,148 @@ MonoBehaviour:
     awake: 1
     enabled: 1
   SceneWorld: {fileID: 0}
+--- !u!1 &605148272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605148273}
+  - component: {fileID: 605148275}
+  - component: {fileID: 605148274}
+  m_Layer: 0
+  m_Name: Pointy (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &605148273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605148272}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -7, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354157184}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &605148274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605148272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 3
+  CircleGeometry:
+    center: {x: 0, y: 0}
+    radius: 0.5
+  CapsuleGeometry:
+    center1: {x: 0, y: 0.5}
+    center2: {x: 0, y: 0.5}
+    radius: 0.5
+  SegmentGeometry:
+    point1: {x: -0.5, y: 0}
+    point2: {x: 0.5, y: 0}
+  ChainSegmentGeometry:
+    ghost1: {x: 1, y: 0}
+    segment:
+      point1: {x: 0.5, y: 0}
+      point2: {x: -0.5, y: 0}
+    ghost2: {x: -1, y: 0}
+  PolygonGeometry:
+    vertices:
+      vertex0: {x: -0.5, y: -0.5}
+      vertex1: {x: 0.5, y: -0.5}
+      vertex2: {x: 0.5, y: 0.5}
+      vertex3: {x: -0.5, y: 0.5}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    normals:
+      vertex0: {x: 0, y: -1}
+      vertex1: {x: 1, y: 0}
+      vertex2: {x: 0, y: 1}
+      vertex3: {x: -1, y: 0}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    centroid: {x: 0, y: 0}
+    radius: 0
+    count: 4
+  ShapeDefinition:
+    surfaceMaterial:
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 4282071353
+    contactFilter:
+      categories:
+        bitMask: 8
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 0
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 0
+    updateBodyMass: 1
+  ScaleRadius: 1
+  SceneBody: {fileID: 605148275}
+--- !u!114 &605148275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605148272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: -7, y: -10.5}
+    rotation:
+      direction: {x: 0.70710707, y: 0.70710653}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  SceneWorld: {fileID: 0}
 --- !u!1 &640772410
 GameObject:
   m_ObjectHideFlags: 0
@@ -2708,7 +3030,7 @@ Transform:
   m_GameObject: {fileID: 640772410}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12, y: 0, z: 0}
+  m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2731,7 +3053,7 @@ MonoBehaviour:
     bodyType: 2
     bodyConstraints: 0
     transformWriteMode: 3
-    position: {x: -12, y: 0}
+    position: {x: -4, y: 0}
     rotation:
       direction: {x: 1, y: 0}
     linearVelocity: {x: 0, y: 0}
@@ -2832,9 +3154,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -2874,6 +3196,148 @@ MonoBehaviour:
     bodyConstraints: 0
     transformWriteMode: 3
     position: {x: 3, y: 9.9}
+    rotation:
+      direction: {x: 0.70710707, y: 0.70710653}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  SceneWorld: {fileID: 0}
+--- !u!1 &791107170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 791107171}
+  - component: {fileID: 791107173}
+  - component: {fileID: 791107172}
+  m_Layer: 0
+  m_Name: Pointy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &791107171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791107170}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -11, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354157184}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &791107172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791107170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 3
+  CircleGeometry:
+    center: {x: 0, y: 0}
+    radius: 0.5
+  CapsuleGeometry:
+    center1: {x: 0, y: 0.5}
+    center2: {x: 0, y: 0.5}
+    radius: 0.5
+  SegmentGeometry:
+    point1: {x: -0.5, y: 0}
+    point2: {x: 0.5, y: 0}
+  ChainSegmentGeometry:
+    ghost1: {x: 1, y: 0}
+    segment:
+      point1: {x: 0.5, y: 0}
+      point2: {x: -0.5, y: 0}
+    ghost2: {x: -1, y: 0}
+  PolygonGeometry:
+    vertices:
+      vertex0: {x: -0.5, y: -0.5}
+      vertex1: {x: 0.5, y: -0.5}
+      vertex2: {x: 0.5, y: 0.5}
+      vertex3: {x: -0.5, y: 0.5}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    normals:
+      vertex0: {x: 0, y: -1}
+      vertex1: {x: 1, y: 0}
+      vertex2: {x: 0, y: 1}
+      vertex3: {x: -1, y: 0}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    centroid: {x: 0, y: 0}
+    radius: 0
+    count: 4
+  ShapeDefinition:
+    surfaceMaterial:
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 4282071353
+    contactFilter:
+      categories:
+        bitMask: 8
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 0
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 0
+    updateBodyMass: 1
+  ScaleRadius: 1
+  SceneBody: {fileID: 791107173}
+--- !u!114 &791107173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791107170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: -11, y: -10.5}
     rotation:
       direction: {x: 0.70710707, y: 0.70710653}
     linearVelocity: {x: 0, y: 0}
@@ -3344,9 +3808,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -3733,9 +4197,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -3917,10 +4381,10 @@ MonoBehaviour:
     ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
-      vertex0: {x: -0.5, y: -0.5}
+      vertex0: {x: -2, y: -0.5}
       vertex1: {x: 0.5, y: -0.5}
       vertex2: {x: 0.5, y: 0.5}
-      vertex3: {x: -0.5, y: 0.5}
+      vertex3: {x: -2, y: 0.5}
       vertex4: {x: 0, y: 0}
       vertex5: {x: 0, y: 0}
       vertex6: {x: 0, y: 0}
@@ -3939,9 +4403,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -4301,8 +4765,8 @@ MonoBehaviour:
     ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
-      vertex0: {x: -0.5, y: -0.5}
-      vertex1: {x: 0.5, y: -0.5}
+      vertex0: {x: -0.5, y: -2}
+      vertex1: {x: 0.5, y: -2}
       vertex2: {x: 0.5, y: 0.5}
       vertex3: {x: -0.5, y: 0.5}
       vertex4: {x: 0, y: 0}
@@ -4323,9 +4787,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -4562,6 +5026,148 @@ MonoBehaviour:
     awake: 1
     enabled: 1
   SceneWorld: {fileID: 0}
+--- !u!1 &1115821533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1115821534}
+  - component: {fileID: 1115821536}
+  - component: {fileID: 1115821535}
+  m_Layer: 0
+  m_Name: Pointy (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1115821534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115821533}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 11, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354157184}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &1115821535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115821533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 3
+  CircleGeometry:
+    center: {x: 0, y: 0}
+    radius: 0.5
+  CapsuleGeometry:
+    center1: {x: 0, y: 0.5}
+    center2: {x: 0, y: 0.5}
+    radius: 0.5
+  SegmentGeometry:
+    point1: {x: -0.5, y: 0}
+    point2: {x: 0.5, y: 0}
+  ChainSegmentGeometry:
+    ghost1: {x: 1, y: 0}
+    segment:
+      point1: {x: 0.5, y: 0}
+      point2: {x: -0.5, y: 0}
+    ghost2: {x: -1, y: 0}
+  PolygonGeometry:
+    vertices:
+      vertex0: {x: -0.5, y: -0.5}
+      vertex1: {x: 0.5, y: -0.5}
+      vertex2: {x: 0.5, y: 0.5}
+      vertex3: {x: -0.5, y: 0.5}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    normals:
+      vertex0: {x: 0, y: -1}
+      vertex1: {x: 1, y: 0}
+      vertex2: {x: 0, y: 1}
+      vertex3: {x: -1, y: 0}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    centroid: {x: 0, y: 0}
+    radius: 0
+    count: 4
+  ShapeDefinition:
+    surfaceMaterial:
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 4282071353
+    contactFilter:
+      categories:
+        bitMask: 8
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 0
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 0
+    updateBodyMass: 1
+  ScaleRadius: 1
+  SceneBody: {fileID: 1115821536}
+--- !u!114 &1115821536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115821533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: 11, y: -10.5}
+    rotation:
+      direction: {x: 0.70710707, y: 0.70710653}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  SceneWorld: {fileID: 0}
 --- !u!1 &1135509225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4626,10 +5232,10 @@ MonoBehaviour:
     ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
-      vertex0: {x: -0.5, y: -0.5}
+      vertex0: {x: -2, y: -0.5}
       vertex1: {x: 0.5, y: -0.5}
       vertex2: {x: 0.5, y: 0.5}
-      vertex3: {x: -0.5, y: 0.5}
+      vertex3: {x: -2, y: 0.5}
       vertex4: {x: 0, y: 0}
       vertex5: {x: 0, y: 0}
       vertex6: {x: 0, y: 0}
@@ -4648,9 +5254,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -5152,7 +5758,7 @@ MonoBehaviour:
     bodyType: 0
     bodyConstraints: 0
     transformWriteMode: 3
-    position: {x: -12, y: 0}
+    position: {x: -4, y: 0}
     rotation:
       direction: {x: 1, y: 0}
     linearVelocity: {x: 0, y: 0}
@@ -5263,12 +5869,155 @@ Transform:
   - {fileID: 1799124675}
   - {fileID: 1986502511}
   - {fileID: 875938872}
-  - {fileID: 93322363}
+  - {fileID: 2101177203}
   - {fileID: 1552431570}
   - {fileID: 1909275864}
   - {fileID: 1200223526}
+  - {fileID: 354157184}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1278892625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1278892626}
+  - component: {fileID: 1278892628}
+  - component: {fileID: 1278892627}
+  m_Layer: 0
+  m_Name: Pointy (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1278892626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278892625}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354157184}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &1278892627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278892625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 3
+  CircleGeometry:
+    center: {x: 0, y: 0}
+    radius: 0.5
+  CapsuleGeometry:
+    center1: {x: 0, y: 0.5}
+    center2: {x: 0, y: 0.5}
+    radius: 0.5
+  SegmentGeometry:
+    point1: {x: -0.5, y: 0}
+    point2: {x: 0.5, y: 0}
+  ChainSegmentGeometry:
+    ghost1: {x: 1, y: 0}
+    segment:
+      point1: {x: 0.5, y: 0}
+      point2: {x: -0.5, y: 0}
+    ghost2: {x: -1, y: 0}
+  PolygonGeometry:
+    vertices:
+      vertex0: {x: -0.5, y: -0.5}
+      vertex1: {x: 0.5, y: -0.5}
+      vertex2: {x: 0.5, y: 0.5}
+      vertex3: {x: -0.5, y: 0.5}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    normals:
+      vertex0: {x: 0, y: -1}
+      vertex1: {x: 1, y: 0}
+      vertex2: {x: 0, y: 1}
+      vertex3: {x: -1, y: 0}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    centroid: {x: 0, y: 0}
+    radius: 0
+    count: 4
+  ShapeDefinition:
+    surfaceMaterial:
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 4282071353
+    contactFilter:
+      categories:
+        bitMask: 8
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 0
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 0
+    updateBodyMass: 1
+  ScaleRadius: 1
+  SceneBody: {fileID: 1278892628}
+--- !u!114 &1278892628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278892625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: -3, y: -10.5}
+    rotation:
+      direction: {x: 0.70710707, y: 0.70710653}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  SceneWorld: {fileID: 0}
 --- !u!1 &1297724540
 GameObject:
   m_ObjectHideFlags: 0
@@ -5295,7 +6044,7 @@ Transform:
   m_GameObject: {fileID: 1297724540}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5318,7 +6067,7 @@ MonoBehaviour:
     bodyType: 2
     bodyConstraints: 0
     transformWriteMode: 3
-    position: {x: 12, y: 0}
+    position: {x: 4, y: 0}
     rotation:
       direction: {x: 1, y: 0}
     linearVelocity: {x: 0, y: 0}
@@ -5419,9 +6168,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -5539,8 +6288,8 @@ MonoBehaviour:
     ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
-      vertex0: {x: -0.5, y: -0.5}
-      vertex1: {x: 0.5, y: -0.5}
+      vertex0: {x: -0.5, y: -2}
+      vertex1: {x: 0.5, y: -2}
       vertex2: {x: 0.5, y: 0.5}
       vertex3: {x: -0.5, y: 0.5}
       vertex4: {x: 0, y: 0}
@@ -5561,9 +6310,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -5914,9 +6663,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -6034,10 +6783,10 @@ MonoBehaviour:
     ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
-      vertex0: {x: -0.5, y: -0.5}
+      vertex0: {x: -2, y: -0.5}
       vertex1: {x: 0.5, y: -0.5}
       vertex2: {x: 0.5, y: 0.5}
-      vertex3: {x: -0.5, y: 0.5}
+      vertex3: {x: -2, y: 0.5}
       vertex4: {x: 0, y: 0}
       vertex5: {x: 0, y: 0}
       vertex6: {x: 0, y: 0}
@@ -6056,9 +6805,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -6601,9 +7350,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -6743,9 +7492,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -6844,6 +7593,148 @@ Transform:
   - {fileID: 1297724541}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1860228194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860228195}
+  - component: {fileID: 1860228197}
+  - component: {fileID: 1860228196}
+  m_Layer: 0
+  m_Name: Pointy (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1860228195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860228194}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: 7, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 354157184}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &1860228196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860228194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 3
+  CircleGeometry:
+    center: {x: 0, y: 0}
+    radius: 0.5
+  CapsuleGeometry:
+    center1: {x: 0, y: 0.5}
+    center2: {x: 0, y: 0.5}
+    radius: 0.5
+  SegmentGeometry:
+    point1: {x: -0.5, y: 0}
+    point2: {x: 0.5, y: 0}
+  ChainSegmentGeometry:
+    ghost1: {x: 1, y: 0}
+    segment:
+      point1: {x: 0.5, y: 0}
+      point2: {x: -0.5, y: 0}
+    ghost2: {x: -1, y: 0}
+  PolygonGeometry:
+    vertices:
+      vertex0: {x: -0.5, y: -0.5}
+      vertex1: {x: 0.5, y: -0.5}
+      vertex2: {x: 0.5, y: 0.5}
+      vertex3: {x: -0.5, y: 0.5}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    normals:
+      vertex0: {x: 0, y: -1}
+      vertex1: {x: 1, y: 0}
+      vertex2: {x: 0, y: 1}
+      vertex3: {x: -1, y: 0}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    centroid: {x: 0, y: 0}
+    radius: 0
+    count: 4
+  ShapeDefinition:
+    surfaceMaterial:
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 4282071353
+    contactFilter:
+      categories:
+        bitMask: 8
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 0
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 0
+    updateBodyMass: 1
+  ScaleRadius: 1
+  SceneBody: {fileID: 1860228197}
+--- !u!114 &1860228197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860228194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: 7, y: -10.5}
+    rotation:
+      direction: {x: 0.70710707, y: 0.70710653}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  SceneWorld: {fileID: 0}
 --- !u!1 &1909275863
 GameObject:
   m_ObjectHideFlags: 0
@@ -6967,9 +7858,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -7109,9 +8000,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -7251,9 +8142,9 @@ MonoBehaviour:
     count: 4
   ShapeDefinition:
     surfaceMaterial:
-      friction: 0.1
-      bounciness: 0.6
-      frictionCombine: 1
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
       bouncinessCombine: 4
       rollingResistance: 0
       tangentSpeed: 0
@@ -7476,6 +8367,148 @@ MonoBehaviour:
     bodyConstraints: 0
     transformWriteMode: 3
     position: {x: 9, y: 0.02}
+    rotation:
+      direction: {x: 1, y: 0}
+    linearVelocity: {x: 0, y: 0}
+    angularVelocity: 0
+    linearDamping: 0
+    angularDamping: 0
+    gravityScale: 1
+    sleepThreshold: 0.05
+    fastRotationAllowed: 0
+    fastCollisions: 0
+    sleepingAllowed: 1
+    awake: 1
+    enabled: 1
+  SceneWorld: {fileID: 0}
+--- !u!1 &2101177202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2101177203}
+  - component: {fileID: 2101177205}
+  - component: {fileID: 2101177204}
+  m_Layer: 0
+  m_Name: GroundBottomKill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2101177203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101177202}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -11, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1249772078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2101177204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101177202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShapeType: 3
+  CircleGeometry:
+    center: {x: 0, y: 0}
+    radius: 0.5
+  CapsuleGeometry:
+    center1: {x: 0, y: 0.5}
+    center2: {x: 0, y: 0.5}
+    radius: 0.5
+  SegmentGeometry:
+    point1: {x: -0.5, y: 0}
+    point2: {x: 0.5, y: 0}
+  ChainSegmentGeometry:
+    ghost1: {x: 1, y: 0}
+    segment:
+      point1: {x: 0.5, y: 0}
+      point2: {x: -0.5, y: 0}
+    ghost2: {x: -1, y: 0}
+  PolygonGeometry:
+    vertices:
+      vertex0: {x: -14.5, y: -0.5}
+      vertex1: {x: 14.5, y: -0.5}
+      vertex2: {x: 14.5, y: 0.5}
+      vertex3: {x: -14.5, y: 0.5}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    normals:
+      vertex0: {x: 0, y: -1}
+      vertex1: {x: 1, y: 0}
+      vertex2: {x: 0, y: 1}
+      vertex3: {x: -1, y: 0}
+      vertex4: {x: 0, y: 0}
+      vertex5: {x: 0, y: 0}
+      vertex6: {x: 0, y: 0}
+      vertex7: {x: 0, y: 0}
+    centroid: {x: 0, y: 0}
+    radius: 0
+    count: 4
+  ShapeDefinition:
+    surfaceMaterial:
+      friction: 0
+      bounciness: 0
+      frictionCombine: 3
+      bouncinessCombine: 4
+      rollingResistance: 0
+      tangentSpeed: 0
+      customColor:
+        serializedVersion: 2
+        rgba: 4282071353
+    contactFilter:
+      categories:
+        bitMask: 8
+      contacts:
+        bitMask: 18446744073709551615
+      groupIndex: 0
+    density: 1
+    isTrigger: 0
+    triggerEventsAllowed: 0
+    contactEventsAllowed: 1
+    hitEventsAllowed: 0
+    preSolveEventsAllowed: 0
+    updateContactsOnCreate: 0
+    updateBodyMass: 1
+  ScaleRadius: 1
+  SceneBody: {fileID: 2101177205}
+--- !u!114 &2101177205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101177202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyDefinition:
+    bodyType: 2
+    bodyConstraints: 0
+    transformWriteMode: 3
+    position: {x: 0, y: -11}
     rotation:
       direction: {x: 1, y: 0}
     linearVelocity: {x: 0, y: 0}

@@ -4,8 +4,8 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Spinner Options" tabindex="0" name="Tab">
-                    <ui:SliderInt label="Grid Size" value="100" high-value="150" name="grid-size" low-value="50" fill="true" focusable="false" show-input-field="true"/>
-                    <ui:Slider label="Gravity Scale" value="1" high-value="3" name="gravity-scale" show-input-field="true" low-value="0" fill="true" focusable="false"/>
+                    <ui:SliderInt label="Grid Size" value="64" high-value="100" name="grid-size" low-value="10" fill="true" focusable="false" show-input-field="true"/>
+                    <ui:Slider label="Gravity Scale" value="1" high-value="2" name="gravity-scale" show-input-field="true" low-value="0" fill="true" focusable="false"/>
                     <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>

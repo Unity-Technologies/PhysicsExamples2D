@@ -2,7 +2,6 @@ using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
-using UnityEngine.U2D.Physics.LowLevelExtras;
 using UnityEngine.UIElements;
 
 public class Shooter : MonoBehaviour
@@ -16,12 +15,12 @@ public class Shooter : MonoBehaviour
 	
 	private int m_BatchCount = 100;
 	private float m_BatchDelay = 0.1f;
-	private float m_GravityScale = 5f;
+	private float m_GravityScale = 2f;
 	private float m_BatchSpread = 10.0f;
-	private Vector2 m_BatchSpeed = new(10f, 50f);
-	private Vector2 m_BatchOffset = new (0.8f, 2f);
-	private Vector2 m_BatchLength = new(0.01f, 0.1f); 
-	private Vector2 m_BatchRadius = new (0.01f, 0.1f);
+	private Vector2 m_BatchSpeed = new(10f, 25f);
+	private Vector2 m_BatchSize = new(0.01f, 0.1f); 
+	private readonly Vector2 m_BatchRadius = new (0.01f, 0.1f);
+	private readonly Vector2 m_BatchOffset = new (0.8f, 2f);
 	
 	private float m_Time;
 	private float m_BatchDelayTime;
@@ -38,6 +37,11 @@ public class Shooter : MonoBehaviour
 		m_CameraManipulator.CameraSize = 12f;
 		m_CameraManipulator.CameraStartPosition = Vector2.zero;
 
+		// Set Overrides.
+		m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.AllJoints);
+		var world = PhysicsWorld.defaultWorld;
+		world.drawOptions = PhysicsWorld.DrawOptions.DefaultAll | PhysicsWorld.DrawOptions.AllJoints;
+		
 		m_OldGravity = PhysicsWorld.defaultWorld.gravity;
 		
 		SetupOptions();
@@ -90,20 +94,10 @@ public class Shooter : MonoBehaviour
 			batchSpeed.value = m_BatchSpeed;
 			batchSpeed.RegisterValueChangedCallback(evt => { m_BatchSpeed = evt.newValue; });
 
-			// Batch Offset.
-			var batchOffset = root.Q<MinMaxSlider>("batch-offset");
-			batchOffset.value = m_BatchOffset;
-			batchOffset.RegisterValueChangedCallback(evt => { m_BatchOffset = evt.newValue; });
-
-			// Batch Length.
-			var batchLength = root.Q<MinMaxSlider>("batch-length");
-			batchLength.value = m_BatchLength;
-			batchLength.RegisterValueChangedCallback(evt => { m_BatchLength = evt.newValue; });
-
-			// Batch Radius.
-			var batchRadius = root.Q<MinMaxSlider>("batch-radius");
-			batchRadius.value = m_BatchRadius;
-			batchRadius.RegisterValueChangedCallback(evt => { m_BatchRadius = evt.newValue; });
+			// Batch Size.
+			var batchLength = root.Q<MinMaxSlider>("batch-size");
+			batchLength.value = m_BatchSize;
+			batchLength.RegisterValueChangedCallback(evt => { m_BatchSize = evt.newValue; });
 			
 			// Gravity Scale.
 			var gravityScale = root.Q<Slider>("gravity-scale");
@@ -163,7 +157,7 @@ public class Shooter : MonoBehaviour
 					ref var random = ref m_SandboxManager.Random;
 					
 					var capsuleRadius = random.NextFloat(m_BatchRadius.x, m_BatchRadius.y);
-					var capsuleLength = capsuleRadius + random.NextFloat(m_BatchLength.x, m_BatchLength.y) * 0.5f;
+					var capsuleLength = capsuleRadius + random.NextFloat(m_BatchSize.x, m_BatchSize.y) * 0.5f;
 					var capsuleGeometry = new CapsuleGeometry
 					{
 						center1 = Vector2.left * capsuleLength,
@@ -172,7 +166,7 @@ public class Shooter : MonoBehaviour
 					};
 					
 					var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = m_GravityScale, fastCollisions = true };
-					var shapeDef = new PhysicsShapeDefinition { contactFilter = BatchFilter, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 0.2f } };
+					var shapeDef = new PhysicsShapeDefinition { contactFilter = BatchFilter, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.0f, bounciness = 0.3f } };
 					
 					// Fire all the projectiles.
 					var definitions = new NativeArray<PhysicsBodyDefinition>(m_BatchCount, Allocator.Temp);

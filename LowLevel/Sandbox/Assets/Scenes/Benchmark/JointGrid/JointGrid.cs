@@ -30,7 +30,7 @@ public class JointGrid : MonoBehaviour
         world.drawOptions = PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints;
         
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
-        m_GridSize = 100;
+        m_GridSize = 64;
         m_GravityScale = 1f;
 
         SetupOptions();
@@ -89,18 +89,14 @@ public class JointGrid : MonoBehaviour
         
         var bodyDef = PhysicsBodyDefinition.defaultDefinition;
         var hingeJointDef = PhysicsHingeJointDefinition.defaultDefinition;
+        var gridShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
         
-        var shapeDef = new PhysicsShapeDefinition
-        {
-            contactFilter = new PhysicsShape.ContactFilter(),
-        };
+        var gridScale = 150.0f / m_GridSize;
+        var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = 0.4f * gridScale };
         
-        var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = 0.4f };
-        
-        var bodyArray = new NativeArray<PhysicsBody>(m_GridSize * m_GridSize, Allocator.Temp);
-
         var offset = new Vector2(m_GridSize * -0.5f, m_GridSize * 0.5f);
         var index = 0;
+        var bodyArray = new NativeArray<PhysicsBody>(m_GridSize * m_GridSize, Allocator.Temp);
         for (var k = 0; k < m_GridSize; ++k )
         {
             for (var i = 0; i < m_GridSize; ++i )
@@ -117,21 +113,18 @@ public class JointGrid : MonoBehaviour
                     bodyDef.bodyType = RigidbodyType2D.Dynamic;
                 }
 
-                bodyDef.position = new Vector2(fk, -fi) + offset;
-
+                bodyDef.position = (new Vector2(fk, -fi) + offset) * gridScale;
                 var body = world.CreateBody(bodyDef);
                 
-                // Fetch the appropriate shape color.
-                shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                
-                body.CreateShape(circleGeometry, shapeDef);
+                gridShapeDefinition.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
+                body.CreateShape(circleGeometry, gridShapeDefinition);
                 
                 if (i > 0)
                 {
                     hingeJointDef.bodyA = bodyArray[index - 1];
                     hingeJointDef.bodyB = body;
-                    hingeJointDef.localAnchorA = new Vector2(0f, -0.5f);
-                    hingeJointDef.localAnchorB = new Vector2(0f, 0.5f);
+                    hingeJointDef.localAnchorA = new Vector2(0f, -0.5f) * gridScale;
+                    hingeJointDef.localAnchorB = new Vector2(0f, 0.5f) * gridScale;
                     world.CreateJoint(hingeJointDef);
                 }
 
@@ -139,8 +132,8 @@ public class JointGrid : MonoBehaviour
                 {
                     hingeJointDef.bodyA = bodyArray[index - m_GridSize];
                     hingeJointDef.bodyB = body;
-                    hingeJointDef.localAnchorA = new Vector2(0.5f, 0f);
-                    hingeJointDef.localAnchorB = new Vector2(-0.5f, 0f);
+                    hingeJointDef.localAnchorA = new Vector2(0.5f, 0f) * gridScale;
+                    hingeJointDef.localAnchorB = new Vector2(-0.5f, 0f) * gridScale;
                     world.CreateJoint(hingeJointDef);
                 }
 
