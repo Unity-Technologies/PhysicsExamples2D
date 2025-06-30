@@ -75,6 +75,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 return;
             
             // Create a new body.
+            DestroyBody();
             CreateBody();
         }
 

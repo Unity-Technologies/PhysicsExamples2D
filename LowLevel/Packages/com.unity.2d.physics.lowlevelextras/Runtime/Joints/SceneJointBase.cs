@@ -57,6 +57,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
         private void OnValidate()
         {
+            if (!isActiveAndEnabled)
+                return;
+            
             DestroyJoint();
             CreateJoint();
         }

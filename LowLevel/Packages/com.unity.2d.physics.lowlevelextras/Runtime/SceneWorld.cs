@@ -114,16 +114,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
         private void OnValidate()
         {
-            // Nothing to validate if invalid or the default world.
+            // Write the definition if the world is valid and not the default world.
             if (m_World.isValid && !m_World.isDefaultWorld)
-            {
-                // Write the definition.
                 m_World.definition = WorldDefinition;
-            }
-
-            // Recreate the world.
-            DestroyWorld();
-            CreateWorld();
         }
 
         public override string ToString() => m_World.ToString();

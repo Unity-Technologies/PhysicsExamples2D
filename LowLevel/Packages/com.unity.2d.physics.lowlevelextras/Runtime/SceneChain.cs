@@ -58,7 +58,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             if (!isActiveAndEnabled)
                 return;
-            
+
+            DestroyShape();
             CreateShape();
         }
 
