@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 19300, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Physics LowLevel Settings 2D
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.LowLevelPhysics2D.PhysicsLowLevelSettings2D
-  physicsLayerNames:
+  m_PhysicsLayerNames:
     m_Names:
     - Default
     - 
@@ -78,33 +78,34 @@ MonoBehaviour:
     - 
     - 
     - 
-  useFullLayers: 0
-  physicsWorldDefinition:
-    gravity: {x: 0, y: -9.81}
-    simulationMode: 0
-    simulationSubSteps: 4
-    simulationWorkers: 64
-    transformWriteMode: 1
-    transformPlane: 0
-    transformTweening: 1
-    sleepingAllowed: 1
-    continuousAllowed: 1
-    preSolveEventsAllowed: 0
-    bounceThreshold: 1
-    hitEventThreshold: 1
-    contactHertz: 30
-    contactDampingRatio: 10
-    contactSpeed: 3
-    maximumLinearSpeed: 400
-    drawOptions: 4128
-    drawFillOptions: -1
-    drawThickness: 2
-    drawFillAlpha: 0.1
-    drawPointScale: 1
-    drawNormalScale: 1
-    drawImpulseScale: 1
-    drawCapacity: 0
-    drawColors:
+  m_UseFullLayers: 0
+  m_PhysicsWorldDefinition:
+    m_Gravity: {x: 0, y: -9.81}
+    m_SimulationMode: 0
+    m_SimulationSubSteps: 4
+    m_SimulationWorkers: 64
+    m_TransformWriteMode: 1
+    m_TransformPlane: 0
+    m_TransformTweening: 1
+    m_SleepingAllowed: 1
+    m_ContinuousAllowed: 1
+    m_FilterContactEventsAllowed: 0
+    m_PreSolveEventsAllowed: 0
+    m_BounceThreshold: 1
+    m_ContactHitEventThreshold: 1
+    m_ContactHertz: 30
+    m_ContactDampingRatio: 10
+    m_ContactSpeed: 3
+    m_MaximumLinearSpeed: 400
+    m_DrawOptions: 4128
+    m_DrawFillOptions: -1
+    m_DrawThickness: 2
+    m_DrawFillAlpha: 0.1
+    m_DrawPointScale: 1
+    m_DrawNormalScale: 1
+    m_DrawImpulseScale: 1
+    m_DrawCapacity: 0
+    m_DrawColors:
       transformAxisX: {r: 1, g: 0, b: 0, a: 1}
       transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
       bodyBad: {r: 1, g: 0, b: 0, a: 1}
@@ -138,68 +139,69 @@ MonoBehaviour:
         graphConstraint9: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
         graphConstraint10: {r: 1, g: 0.49803922, b: 0.3137255, a: 1}
         graphConstraint11: {r: 0, g: 0, b: 0, a: 1}
-  physicsBodyDefinition:
-    bodyType: 2
-    bodyConstraints: 0
-    transformWriteMode: 3
-    position: {x: 0, y: 0}
-    rotation:
+  m_PhysicsBodyDefinition:
+    m_BodyType: 2
+    m_BodyConstraints: 0
+    m_TransformWriteMode: 3
+    m_Position: {x: 0, y: 0}
+    m_Rotation:
       direction: {x: 1, y: 0}
-    linearVelocity: {x: 0, y: 0}
-    angularVelocity: 0
-    linearDamping: 0
-    angularDamping: 0
-    gravityScale: 1
-    sleepThreshold: 0.05
-    fastRotationAllowed: 0
-    fastCollisions: 0
-    sleepingAllowed: 1
-    awake: 1
-    enabled: 1
-  physicsShapeDefinition:
+    m_LinearVelocity: {x: 0, y: 0}
+    m_AngularVelocity: 0
+    m_LinearDamping: 0
+    m_AngularDamping: 0
+    m_GravityScale: 1
+    m_SleepThreshold: 0.05
+    m_FastRotationAllowed: 0
+    m_FastCollisions: 0
+    m_SleepingAllowed: 1
+    m_Awake: 1
+    m_Enabled: 1
+  m_PhysicsShapeDefinition:
     surfaceMaterial:
-      friction: 0.6
-      bounciness: 0
-      frictionCombine: 1
-      bouncinessCombine: 4
-      rollingResistance: 0
-      tangentSpeed: 0
-      customColor:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionCombine: 1
+      m_BouncinessCombine: 4
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
         serializedVersion: 2
         rgba: 0
     contactFilter:
-      categories:
+      m_Categories:
         bitMask: 1
-      contacts:
+      m_Contacts:
         bitMask: 18446744073709551615
-      groupIndex: 0
-    density: 1
-    isTrigger: 0
-    triggerEventsAllowed: 0
-    contactEventsAllowed: 0
-    hitEventsAllowed: 0
-    preSolveEventsAllowed: 0
-    updateContactsOnCreate: 1
-    updateBodyMass: 1
-  physicsChainDefinition:
-    surfaceMaterial:
-      friction: 0.6
-      bounciness: 0
-      frictionCombine: 1
-      bouncinessCombine: 4
-      rollingResistance: 0
-      tangentSpeed: 0
-      customColor:
+      m_GroupIndex: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEventsAllowed: 0
+    m_ContactEventsAllowed: 0
+    m_HitEventsAllowed: 0
+    m_FilterContactEventsAllowed: 0
+    m_PreSolveEventsAllowed: 0
+    m_UpdateContactsOnCreate: 1
+    m_UpdateBodyMass: 1
+  m_PhysicsChainDefinition:
+    m_SurfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionCombine: 1
+      m_BouncinessCombine: 4
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
         serializedVersion: 2
         rgba: 0
-    contactFilter:
-      categories:
+    m_ContactFilter:
+      m_Categories:
         bitMask: 1
-      contacts:
+      m_Contacts:
         bitMask: 18446744073709551615
-      groupIndex: 0
-    isLoop: 0
-    triggerEventsAllowed: 0
-  concurrentSimulations: 2
-  lengthUnitsPerMeter: 1
-  drawInBuild: 0
+      m_GroupIndex: 0
+    m_IsLoop: 0
+    m_TriggerEventsAllowed: 0
+  m_ConcurrentSimulations: 2
+  m_LengthUnitsPerMeter: 1
+  m_DrawInBuild: 0

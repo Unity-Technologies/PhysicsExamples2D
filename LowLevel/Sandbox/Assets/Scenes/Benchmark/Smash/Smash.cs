@@ -175,8 +175,7 @@ public class Smash : MonoBehaviour
             {
                 for (var j = 0; j < Rows; ++j )
                 {
-                    bodyDef.position.x = i * spacing - 60f;
-                    bodyDef.position.y = (j - Rows / 2.0f) * spacing;
+                    bodyDef.position = new Vector2(i * spacing - 60f, (j - Rows / 2.0f) * spacing);
                     var boxBody = world.CreateBody(bodyDef);
                     bodies.Add(boxBody);
                     

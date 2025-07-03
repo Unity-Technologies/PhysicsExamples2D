@@ -157,7 +157,7 @@ public class CameraManipulator : MonoBehaviour
                         {
                             const float radius = 10f;
                             PhysicsWorld.defaultWorld.DrawCircle(worldPosition, radius, Color.orangeRed, 0.02f);
-                            var explodeDef = new PhysicsWorld.ExplodeDefinition { position = worldPosition, radius = radius, falloff = 2f, impulsePerLength = ExplodeImpulse };
+                            var explodeDef = new PhysicsWorld.ExplosionDefinition { position = worldPosition, radius = radius, falloff = 2f, impulsePerLength = ExplodeImpulse };
                             
                             // Explode in all the worlds.
                             using var worlds = PhysicsWorld.GetWorlds();

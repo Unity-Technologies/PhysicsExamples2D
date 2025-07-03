@@ -10,7 +10,6 @@ public class DebuggingMenu : MonoBehaviour
     
     private int m_SampledCount;
     private PhysicsWorld.WorldCounters m_LastCounters;
-    private PhysicsWorld.WorldCounters m_TotalCounters;
     private PhysicsWorld.WorldCounters m_MaxCounters;
     private PhysicsWorld.WorldProfile m_LastProfile;
     private PhysicsWorld.WorldProfile m_TotalProfile;
@@ -48,8 +47,8 @@ public class DebuggingMenu : MonoBehaviour
     private Label m_JointCountElement;
     private Label m_ContactCountElement;
     private Label m_IslandCountElement;
-    private Label m_StaticTreeHeightElement;
-    private Label m_MoveableTreeHeightElement;
+    private Label m_StaticBroadphaseHeightElement;
+    private Label m_MoveableBroadphaseHeightElement;
     private Label m_StackBytesUsedElement;
     private Label m_TotalBytesUsedElement;
     private Label m_TaskCountElement;
@@ -57,7 +56,6 @@ public class DebuggingMenu : MonoBehaviour
     public void ResetStats()
     {
         m_SampledCount = 0;
-        m_TotalCounters = m_MaxCounters = default;
         m_TotalProfile = m_MaxProfile = default;
     }
     
@@ -116,8 +114,8 @@ public class DebuggingMenu : MonoBehaviour
             m_JointCountElement = root.Q<Label>("joint-count");
             m_ContactCountElement = root.Q<Label>("contact-count");
             m_IslandCountElement = root.Q<Label>("island-count");
-            m_StaticTreeHeightElement = root.Q<Label>("static-tree-height");
-            m_MoveableTreeHeightElement = root.Q<Label>("moveable-tree-height");
+            m_StaticBroadphaseHeightElement = root.Q<Label>("static-broadphase-height");
+            m_MoveableBroadphaseHeightElement = root.Q<Label>("moveable-broadphase-height");
             m_StackBytesUsedElement = root.Q<Label>("stack-bytes-used");
             m_TotalBytesUsedElement = root.Q<Label>("total-bytes-used");
             m_TaskCountElement = root.Q<Label>("task-count");
@@ -169,7 +167,6 @@ public class DebuggingMenu : MonoBehaviour
         m_SleepIslandsElement.text = $"<b>Sleep Islands</b>: {color}{m_LastProfile.sleepIslands:F2}{endColor} ~[{color}{m_TotalProfile.sleepIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.sleepIslands:F2}{endColor}]";
         m_UpdateTriggersElement.text = $"<b>Update Triggers</b>: {color}{m_LastProfile.updateTriggers:F2}{endColor} ~[{color}{m_TotalProfile.updateTriggers * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.updateTriggers:F2}{endColor}]";
         m_WriteTransformsElement.text = $"<b>Write Transforms</b>: {color}{m_LastProfile.writeTransforms:F2}{endColor} ~[{color}{m_TotalProfile.writeTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.writeTransforms:F2}{endColor}]";
-
         
         // Counters.
         m_BodyCountElement.text = $"<b>Bodies</b>: {color}{m_LastCounters.bodyCount}{endColor} >[{color}{m_MaxCounters.bodyCount}{endColor}]";
@@ -177,14 +174,14 @@ public class DebuggingMenu : MonoBehaviour
         m_ContactCountElement.text = $"<b>Contacts</b>: {color}{m_LastCounters.contactCount}{endColor} >[{color}{m_MaxCounters.contactCount}{endColor}]";
         m_JointCountElement.text = $"<b>Joints</b>: {color}{m_LastCounters.jointCount}{endColor} >[{color}{m_MaxCounters.jointCount}{endColor}]";
         m_IslandCountElement.text = $"<b>Island</b>: {color}{m_LastCounters.islandCount}{endColor} >[{color}{m_MaxCounters.islandCount}{endColor}]";
-        m_StaticTreeHeightElement.text = $"<b>Static Tree</b>: {color}{m_LastCounters.staticTreeHeight}{endColor} >[{color}{m_MaxCounters.staticTreeHeight}{endColor}] <color=#696969>Height</color>";
-        m_MoveableTreeHeightElement.text = $"<b>Moveable Tree</b>: {color}{m_LastCounters.treeHeight}{endColor} >[{color}{m_MaxCounters.treeHeight}{endColor}] <color=#696969>Height</color>"; 
+        m_StaticBroadphaseHeightElement.text = $"<b>Static Tree</b>: {color}{m_LastCounters.staticBroadphaseHeight}{endColor} >[{color}{m_MaxCounters.staticBroadphaseHeight}{endColor}] <color=#696969>Height</color>";
+        m_MoveableBroadphaseHeightElement.text = $"<b>Moveable Tree</b>: {color}{m_LastCounters.broadphaseHeight}{endColor} >[{color}{m_MaxCounters.broadphaseHeight}{endColor}] <color=#696969>Height</color>"; 
         m_StackBytesUsedElement.text = $"<b>Stack Memory</b>: {color}{m_LastCounters.stackUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.stackUsed * memoryScale:F2}{endColor}] <color=#696969>MB</color>";
         m_TotalBytesUsedElement.text = $"<b>Total Memory</b>: {color}{m_LastCounters.memoryUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.memoryUsed * memoryScale:F2}{endColor}] <color=#696969>MB</color>";
         m_TaskCountElement.text = $"<b>Tasks</b>: {color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
     }
     
-    private unsafe void UpdateStats(PhysicsWorld world, float deltaTime)
+    private void UpdateStats(PhysicsWorld world, float deltaTime)
     {
         if (!world.isDefaultWorld)
             return;
@@ -195,45 +192,15 @@ public class DebuggingMenu : MonoBehaviour
         // Profile.
         {
             m_LastProfile = PhysicsWorld.globalProfile;
-            
-            var profileFloatCount = sizeof(PhysicsWorld.WorldProfile) / sizeof(float);
-            fixed (float* pTotalProfile = &m_TotalProfile.simulationStep)
-            {
-                fixed (float* pMaxProfile = &m_MaxProfile.simulationStep)
-                {
-                    fixed (float* pWorldProfile = &m_LastProfile.simulationStep)
-                    {
-                        for (var n = 0; n < profileFloatCount; ++n)
-                        {
-                            var profileValue = pWorldProfile[n];
-                            pTotalProfile[n] += profileValue;
-                            pMaxProfile[n] = math.max(profileValue, pMaxProfile[n]);
-                        }
-                    }
-                }
-            }
+
+            m_TotalProfile = PhysicsWorld.WorldProfile.Add(m_TotalProfile, m_LastProfile);
+            m_MaxProfile = PhysicsWorld.WorldProfile.Maximum(m_MaxProfile, m_LastProfile);
         }
 
         // Counters.
         {
             m_LastCounters = PhysicsWorld.globalCounters;
-            
-            var countersIntCount = sizeof(PhysicsWorld.WorldCounters) / sizeof(int);
-            fixed (int* pTotalCounters = &m_TotalCounters.bodyCount)
-            {
-                fixed (int* pMaxCounters = &m_MaxCounters.bodyCount)
-                {
-                    fixed (int* pWorldCounters = &m_LastCounters.bodyCount)
-                    {
-                        for (var n = 0; n < countersIntCount; ++n)
-                        {
-                            var countersValue = pWorldCounters[n];
-                            pTotalCounters[n] += countersValue;
-                            pMaxCounters[n] = math.max(countersValue, pMaxCounters[n]);
-                        }
-                    }
-                }
-            }
+            m_MaxCounters = PhysicsWorld.WorldCounters.Maximum(m_MaxCounters, m_LastCounters);
         }
     }
 }

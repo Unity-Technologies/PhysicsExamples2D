@@ -187,31 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e7f7e9dc9ae704bb932d04b89a26b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridShapeDefinition:
-    surfaceMaterial:
-      friction: 0.6
-      bounciness: 0
-      frictionCombine: 1
-      bouncinessCombine: 4
-      rollingResistance: 0
-      tangentSpeed: 0
-      customColor:
-        serializedVersion: 2
-        rgba: 0
-    contactFilter:
-      categories:
-        bitMask: 128
-      contacts:
-        bitMask: 18446744073709551615
-      groupIndex: 0
-    density: 1
-    isTrigger: 0
-    triggerEventsAllowed: 0
-    contactEventsAllowed: 0
-    hitEventsAllowed: 0
-    preSolveEventsAllowed: 0
-    updateContactsOnCreate: 1
-    updateBodyMass: 1
 --- !u!1 &1415967095
 GameObject:
   m_ObjectHideFlags: 0
