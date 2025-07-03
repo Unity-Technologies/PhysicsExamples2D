@@ -133,7 +133,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     {
                         // Calculate the add point.
                         // NOTE: We must offset the point along the normal, so we're not collinear.
-                        var collinearOffset = 0.05f;
+                        var collinearOffset = 0.5f;
                         var midPoint = (vertices[i] + vertices[j]) * 0.5f + (normals[j] * collinearOffset);
                         var point = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(midPoint), ShapeTarget.transform.position, TransformPlane);
                         var handleSize = GetHandleSize(point);
