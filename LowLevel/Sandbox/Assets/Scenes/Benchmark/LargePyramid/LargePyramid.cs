@@ -4,12 +4,12 @@ using UnityEngine.UIElements;
 
 public class LargePyramid : MonoBehaviour
 {
-   
-    private SandboxManager m_SandboxManager;	
+
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
-    
+
     private int m_BaseCount;
     private Vector2 m_OldGravity;
     private float m_GravityScale;
@@ -42,7 +42,7 @@ public class LargePyramid : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
@@ -57,7 +57,7 @@ public class LargePyramid : MonoBehaviour
                 m_BaseCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Gravity Scale.
             var gravityScale = root.Q<Slider>("gravity-scale");
             gravityScale.value = m_GravityScale;
@@ -69,18 +69,18 @@ public class LargePyramid : MonoBehaviour
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
@@ -98,9 +98,9 @@ public class LargePyramid : MonoBehaviour
 
         // Pyramid.
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = m_GravityScale, awake = false };
+            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = m_GravityScale };
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
-            
+
             const float halfHeight = 0.5f;
             const float radius = 0.05f;
             var boxGeometry = PolygonGeometry.CreateBox(new Vector2(halfHeight - radius, halfHeight - radius) * 2f, radius);
@@ -122,7 +122,7 @@ public class LargePyramid : MonoBehaviour
                     shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                     body.CreateShape(boxGeometry, shapeDef);
                 }
-            }            
-        }        
+            }
+        }
     }
 }
