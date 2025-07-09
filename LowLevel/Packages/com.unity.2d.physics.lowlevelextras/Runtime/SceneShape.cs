@@ -75,8 +75,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private void Update()
         {
             if (Application.isPlaying ||
-                !transform.hasChanged ||
-                !m_Shape.isValid)
+                !transform.hasChanged)
                 return;
             
             // Reset transform changed flag.
