@@ -191,7 +191,7 @@ public class GearLift : MonoBehaviour
 			gearBody.CreateShape(circle, shapeDef);
 
 			const int count = 16;
-			var deltaAngle = 2.0f * PhysicsMath.PI / 16f;
+			var deltaAngle = PhysicsMath.TAU / 16f;
 			var dq = new PhysicsRotate(deltaAngle);
 			var center = new Vector2(gearRadius + toothHalfHeight, 0f);
 			var rotation = PhysicsRotate.identity;
@@ -245,7 +245,7 @@ public class GearLift : MonoBehaviour
 			followerBody.CreateShape(circle, shapeDef);
 
 			const int count = 16;
-			var deltaAngle = 2.0f * PhysicsMath.PI / 16f;
+			var deltaAngle = PhysicsMath.TAU / 16f;
 			var dq = new PhysicsRotate(deltaAngle);
 			var center = new Vector2(gearRadius + toothHalfWidth, 0f);
 			var rotation = PhysicsRotate.identity;

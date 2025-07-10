@@ -36,8 +36,8 @@ public static class SpawnFactory
             var userObject = world.CreateUserObject(default);
 
             var radius = 1.0f * scale;
-            var deltaAngle = 2.0f * PhysicsMath.PI / sides;
-            var length = 2.0f * PhysicsMath.PI * radius / sides;
+            var deltaAngle = PhysicsMath.TAU / sides;
+            var length = PhysicsMath.TAU * radius / sides;
 
             var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.5f * length), center2 = new Vector2(0f, 0.5f * length), radius = 0.25f * scale };
             var center = position;
@@ -823,7 +823,7 @@ public static class SpawnFactory
             gearBody.CreateShape(circle, shapeDef);
 
             const int count = 16;
-            var deltaAngle = 2.0f * PhysicsMath.PI / 16f;
+            var deltaAngle = PhysicsMath.TAU / 16f;
             var dq = new PhysicsRotate(deltaAngle);
             var center = new Vector2(gearRadius + toothHalfHeight, 0f);
             var rotation = PhysicsRotate.identity;
