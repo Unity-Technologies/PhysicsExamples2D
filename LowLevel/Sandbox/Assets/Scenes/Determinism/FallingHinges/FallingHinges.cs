@@ -66,7 +66,7 @@ public class FallingHinges : MonoBehaviour
             return;
         }
         
-        m_EverythingAsleep = world.bodyEvents.Length == 0;
+        m_EverythingAsleep = world.bodyUpdateEvents.Length == 0;
         ++m_SimulationSteps;
         m_EndHash = CalculateTransformHash();
         UpdateHashStatus(m_EverythingAsleep);

@@ -91,6 +91,7 @@ MonoBehaviour:
     m_ContinuousAllowed: 1
     m_FilterContactEventsAllowed: 0
     m_PreSolveEventsAllowed: 0
+    m_AutoTargetCallbacksAllowed: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
