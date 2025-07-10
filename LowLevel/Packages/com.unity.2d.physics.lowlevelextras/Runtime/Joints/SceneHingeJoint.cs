@@ -7,7 +7,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [Icon(IconUtility.IconPath + "SceneHingeJoint.png")]
     public sealed class SceneHingeJoint : SceneJointBase, IWorldSceneDrawable
     {
-        public PhysicsHingeJointDefinition Definition = PhysicsHingeJointDefinition.defaultDefinition;
+        [FormerlySerializedAs("Definition")] public PhysicsHingeJointDefinition JointDefinition = PhysicsHingeJointDefinition.defaultDefinition;
         
         private PhysicsHingeJoint m_Joint;
 
@@ -25,17 +25,20 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 return;
             
             // Set the definition.
-            Definition.bodyA = BodyA.Body;
-            Definition.bodyB = BodyB.Body;
+            JointDefinition.bodyA = BodyA.Body;
+            JointDefinition.bodyB = BodyB.Body;
 
             // Clamp the limits.
-            if (Definition.lowerAngleLimit > Definition.upperAngleLimit)
-                Definition.lowerAngleLimit = Definition.upperAngleLimit;
+            if (JointDefinition.lowerAngleLimit > JointDefinition.upperAngleLimit)
+                JointDefinition.lowerAngleLimit = JointDefinition.upperAngleLimit;
             
             // Create the joint.
-            m_Joint = PhysicsHingeJoint.Create(world, Definition);
+            m_Joint = PhysicsHingeJoint.Create(world, JointDefinition);
             if (m_Joint.isValid)
+            {
+                m_Joint.callbackTarget = CallbackTarget;
                 m_OwnerKey = m_Joint.SetOwner(this);
+            }
         }
 
         protected override  void DestroyJoint()

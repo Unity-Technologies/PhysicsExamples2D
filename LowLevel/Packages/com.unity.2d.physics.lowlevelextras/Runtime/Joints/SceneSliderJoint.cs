@@ -7,7 +7,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [Icon(IconUtility.IconPath + "SceneSliderJoint.png")]
     public sealed class SceneSliderJoint : SceneJointBase, IWorldSceneDrawable
     {
-        public PhysicsSliderJointDefinition Definition = PhysicsSliderJointDefinition.defaultDefinition;
+        [FormerlySerializedAs("Definition")] public PhysicsSliderJointDefinition JointDefinition = PhysicsSliderJointDefinition.defaultDefinition;
         
         private PhysicsSliderJoint m_Joint;
 
@@ -25,17 +25,20 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 return;
             
             // Set the definition.
-            Definition.bodyA = BodyA.Body;
-            Definition.bodyB = BodyB.Body;
+            JointDefinition.bodyA = BodyA.Body;
+            JointDefinition.bodyB = BodyB.Body;
             
             // Clamp the limits.
-            if (Definition.lowerTranslationLimit > Definition.upperTranslationLimit)
-                Definition.lowerTranslationLimit = Definition.upperTranslationLimit;
+            if (JointDefinition.lowerTranslationLimit > JointDefinition.upperTranslationLimit)
+                JointDefinition.lowerTranslationLimit = JointDefinition.upperTranslationLimit;
             
             // Create the joint.
-            m_Joint = PhysicsSliderJoint.Create(world, Definition);
+            m_Joint = PhysicsSliderJoint.Create(world, JointDefinition);
             if (m_Joint.isValid)
+            {
+                m_Joint.callbackTarget = CallbackTarget;
                 m_OwnerKey = m_Joint.SetOwner(this);
+            }
         }
 
         protected override void DestroyJoint()

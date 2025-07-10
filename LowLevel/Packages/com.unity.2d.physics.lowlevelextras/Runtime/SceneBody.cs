@@ -11,6 +11,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     {
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
         public SceneWorld SceneWorld;
+        public Object CallbackTarget;
 
         public PhysicsBody Body => m_Body;
         private int m_OwnerKey;
@@ -92,11 +93,14 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             m_Body = PhysicsBody.Create(world: world, definition: BodyDefinition);
             if (m_Body.isValid)
             {
-                // Set Owner.
-                m_OwnerKey = m_Body.SetOwner(this);
-
                 // Set the transform object.
                 m_Body.transformObject = transform;
+
+                // Set the callback target.
+                m_Body.callbackTarget = CallbackTarget;
+                
+                // Set Owner.
+                m_OwnerKey = m_Body.SetOwner(this);
             }
 
             // Notify.
