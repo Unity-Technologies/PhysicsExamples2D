@@ -1,14 +1,13 @@
-﻿using UnityEngine.LowLevelPhysics2D;
-
-namespace UnityEngine.U2D.Physics.LowLevelExtras
+﻿namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
     [ExecuteAlways]
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneJoint)]    
     public abstract class SceneJointBase : MonoBehaviour
     {
-        public SceneWorld SceneWorld;
         public SceneBody BodyA;
         public SceneBody BodyB;
+        public Object CallbackTarget;
+        public SceneWorld SceneWorld;
         
         protected int m_OwnerKey;
         

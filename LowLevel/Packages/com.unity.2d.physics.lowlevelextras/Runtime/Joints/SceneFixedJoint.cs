@@ -7,7 +7,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [Icon(IconUtility.IconPath + "SceneFixedJoint.png")]
     public sealed class SceneFixedJoint : SceneJointBase, IWorldSceneDrawable
     {
-        public PhysicsFixedJointDefinition Definition = PhysicsFixedJointDefinition.defaultDefinition;
+        [FormerlySerializedAs("Definition")] public PhysicsFixedJointDefinition JointDefinition = PhysicsFixedJointDefinition.defaultDefinition;
         
         private PhysicsFixedJoint m_Joint;
 
@@ -25,13 +25,16 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 return;
             
             // Set the definition.
-            Definition.bodyA = BodyA.Body;
-            Definition.bodyB = BodyB.Body;
+            JointDefinition.bodyA = BodyA.Body;
+            JointDefinition.bodyB = BodyB.Body;
             
             // Create the joint.
-            m_Joint = PhysicsFixedJoint.Create(world, Definition);
+            m_Joint = PhysicsFixedJoint.Create(world, JointDefinition);
             if (m_Joint.isValid)
+            {
+                m_Joint.callbackTarget = CallbackTarget;
                 m_OwnerKey = m_Joint.SetOwner(this);
+            }
         }
 
         protected override void DestroyJoint()

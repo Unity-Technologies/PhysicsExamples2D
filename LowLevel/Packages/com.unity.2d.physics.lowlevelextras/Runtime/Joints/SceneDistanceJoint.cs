@@ -1,4 +1,5 @@
 ﻿using UnityEngine.LowLevelPhysics2D;
+using UnityEngine.Serialization;
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
@@ -6,7 +7,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [Icon(IconUtility.IconPath + "SceneDistanceJoint.png")]
     public sealed class SceneDistanceJoint : SceneJointBase, IWorldSceneDrawable
     {
-        public PhysicsDistanceJointDefinition Definition = PhysicsDistanceJointDefinition.defaultDefinition;
+        [FormerlySerializedAs("Definition")] public PhysicsDistanceJointDefinition JointDefinition = PhysicsDistanceJointDefinition.defaultDefinition;
         
         private PhysicsDistanceJoint m_Joint;
 
@@ -24,18 +25,20 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 return;
             
             // Set the definition.
-            Definition.bodyA = BodyA.Body;
-            Definition.bodyB = BodyB.Body;
+            JointDefinition.bodyA = BodyA.Body;
+            JointDefinition.bodyB = BodyB.Body;
             
             // Clamp the limits.
-            if (Definition.minLengthLimit > Definition.maxLengthLimit)
-                Definition.minLengthLimit = Definition.maxLengthLimit;
+            if (JointDefinition.minLengthLimit > JointDefinition.maxLengthLimit)
+                JointDefinition.minLengthLimit = JointDefinition.maxLengthLimit;
             
             // Create the joint.
-            m_Joint = PhysicsDistanceJoint.Create(world, Definition);
-            
+            m_Joint = PhysicsDistanceJoint.Create(world, JointDefinition);
             if (m_Joint.isValid)
+            {
+                m_Joint.callbackTarget = CallbackTarget;
                 m_OwnerKey = m_Joint.SetOwner(this);
+            }
         }
 
         protected override void DestroyJoint()

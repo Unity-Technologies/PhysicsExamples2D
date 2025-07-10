@@ -17,6 +17,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         private SerializedProperty m_PolygonGeometryProperty;
         private SerializedProperty m_ShapeDefinitionProperty;
         private SerializedProperty m_ScaleRadiusProperty;
+        private SerializedProperty m_CallbackTargetProperty;
         private SerializedProperty m_SceneBodyProperty;
         
         private PropertyField m_CircleGeometryPropertyField;
@@ -28,6 +29,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         
         private void OnEnable()
         {
+            m_CallbackTargetProperty = serializedObject.FindProperty(nameof(SceneShape.CallbackTarget));
             m_SceneBodyProperty = serializedObject.FindProperty(nameof(SceneShape.SceneBody));
             m_ShapeDefinitionProperty = serializedObject.FindProperty(nameof(SceneShape.ShapeDefinition));
             m_ScaleRadiusProperty = serializedObject.FindProperty(nameof(SceneShape.ScaleRadius));
@@ -66,6 +68,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
             // Base Properties.
             root.Add(new PropertyField(m_ShapeDefinitionProperty));
+            root.Add(new PropertyField(m_CallbackTargetProperty));
             root.Add(new PropertyField(m_SceneBodyProperty));
             
             return root;

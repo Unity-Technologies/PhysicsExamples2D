@@ -17,6 +17,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public PhysicsShapeDefinition ShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
         public bool ScaleRadius = true;
         public SceneBody SceneBody;
+        public Object CallbackTarget;
 
         public PhysicsShape Shape => m_Shape;
         private PhysicsShape m_Shape;
@@ -177,9 +178,12 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                     return;
             }
 
-            // Set owner.
+            // Set extra details.
             if (m_Shape.isValid)
+            {
+                m_Shape.callbackTarget = CallbackTarget;
                 m_OwnerKey = m_Shape.SetOwner(this);
+            }
         }
 
         private void DestroyShape()
