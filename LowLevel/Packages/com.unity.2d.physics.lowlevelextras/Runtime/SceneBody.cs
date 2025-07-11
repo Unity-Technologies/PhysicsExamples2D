@@ -88,8 +88,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             var transformPlane = world.transformPlane;
             
             // Create the body at the transform position.
-            BodyDefinition.position = PhysicsMath.TransformPosition2D(transform.position, transformPlane);
-            BodyDefinition.rotation = new PhysicsRotate(PhysicsMath.TransformRotation2D(transform.rotation, transformPlane));
+            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
+            BodyDefinition.rotation = new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
             m_Body = PhysicsBody.Create(world: world, definition: BodyDefinition);
             if (m_Body.isValid)
             {

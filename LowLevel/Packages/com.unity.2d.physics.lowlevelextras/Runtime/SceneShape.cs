@@ -93,8 +93,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 
                 // Update the body.
                 body.transform = new PhysicsTransform(
-                    PhysicsMath.TransformPosition2D(transform.position, transformPlane),
-                    new PhysicsRotate(PhysicsMath.TransformRotation2D(transform.rotation, transformPlane)));            
+                    PhysicsMath.ToPosition2D(transform.position, transformPlane),
+                    new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane)));            
             }
             
             // Create the shape.

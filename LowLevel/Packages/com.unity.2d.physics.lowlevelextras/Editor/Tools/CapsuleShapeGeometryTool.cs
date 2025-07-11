@@ -30,14 +30,14 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
                 var axisUp = (Vector3)(geometry.center1 - geometry.center2).normalized;
                 var axisRight = new Vector3(axisUp.y, -axisUp.x, 0f);
-                var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.TransformSwizzle(axisRight, TransformPlane)).normalized;
-                var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.TransformSwizzle(axisUp, TransformPlane)).normalized;
+                var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisRight, TransformPlane)).normalized;
+                var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisUp, TransformPlane)).normalized;
 
                 // Fetch the show labels option.
                 var showLabels = geometryToolSettings.ShowLabels; 
                 
                 // Radius.
-                var shapeOrigin = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint((geometry.center1 + geometry.center2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
+                var shapeOrigin = PhysicsMath.ToPosition3D(Body.transform.TransformPoint((geometry.center1 + geometry.center2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
                 var handleSize = GetHandleSize(shapeOrigin);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(shapeOrigin, Quaternion.identity, Vector3.one)))
                 {
@@ -66,7 +66,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }
 
                 // Center Mid.
-                var centerOriginMid = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint((geometry.center1 + geometry.center2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
+                var centerOriginMid = PhysicsMath.ToPosition3D(Body.transform.TransformPoint((geometry.center1 + geometry.center2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(centerOriginMid);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(centerOriginMid, Quaternion.identity, Vector3.one)))
                 {
@@ -78,7 +78,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1&2");
-                        var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                        var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                         geometry.center1 += centerOffset;
                         geometry.center2 += centerOffset;
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
@@ -88,7 +88,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }
 
                 // Center #1.
-                var centerOrigin1 = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(geometry.center1), ShapeTarget.transform.position, TransformPlane);
+                var centerOrigin1 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.center1), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(centerOrigin1);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(centerOrigin1, Quaternion.identity, Vector3.one)))
                 {
@@ -100,7 +100,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1");
-                        geometry.center1 += Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                        geometry.center1 += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                         ShapeTarget.CapsuleGeometry = localGeometry;
                         TargetShapeChanged = true;
@@ -116,7 +116,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }
 
                 // Center #2.
-                var centerOrigin2 = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(geometry.center2), ShapeTarget.transform.position, TransformPlane);
+                var centerOrigin2 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.center2), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(centerOrigin2);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(centerOrigin2, Quaternion.identity, Vector3.one)))
                 {
@@ -128,7 +128,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1");
-                        geometry.center2 += Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                        geometry.center2 += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                         ShapeTarget.CapsuleGeometry = localGeometry;
                         TargetShapeChanged = true;

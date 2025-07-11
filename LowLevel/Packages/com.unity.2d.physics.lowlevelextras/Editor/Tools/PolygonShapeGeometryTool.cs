@@ -66,13 +66,13 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     // Calculate the axis/handle directions.
                     var axisUp = (Vector3)(vertices[i] - vertices[j]).normalized;
                     var axisRight = new Vector3(axisUp.y, -axisUp.x, 0f);
-                    var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.TransformSwizzle(axisRight, TransformPlane)).normalized;
-                    var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.TransformSwizzle(axisUp, TransformPlane)).normalized;
+                    var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisRight, TransformPlane)).normalized;
+                    var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisUp, TransformPlane)).normalized;
 
                     // Vertices.
                     {
                         // Fetch the point.
-                        var point = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(vertices[i]), ShapeTarget.transform.position, TransformPlane);
+                        var point = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(vertices[i]), ShapeTarget.transform.position, TransformPlane);
                         var handleSize = GetHandleSize(point);
 
                         // Draw the point handle.
@@ -97,7 +97,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                             if (EditorGUI.EndChangeCheck())
                             {
                                 Undo.RecordObject(ShapeTarget, "Change PolygonGeometry Point");
-                                vertices[i] += Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                                vertices[i] += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                                 localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                                 
                                 m_HotVertexCount = 1;
@@ -135,7 +135,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         // NOTE: We must offset the point along the normal, so we're not collinear.
                         var collinearOffset = 0.5f;
                         var midPoint = (vertices[i] + vertices[j]) * 0.5f + (normals[j] * collinearOffset);
-                        var point = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(midPoint), ShapeTarget.transform.position, TransformPlane);
+                        var point = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(midPoint), ShapeTarget.transform.position, TransformPlane);
                         var handleSize = GetHandleSize(point);
 
                         // Draw the add point handle.
@@ -169,7 +169,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         {
                             // Calculate the add point.
                             var radiusPoint = Vector2.Lerp(vertices[i], vertices[j], 0.75f);
-                            var point = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(radiusPoint), ShapeTarget.transform.position, TransformPlane);
+                            var point = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(radiusPoint), ShapeTarget.transform.position, TransformPlane);
                             var handleSize = GetHandleSize(point);
 
                             // Draw the radius point handle.
@@ -199,7 +199,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                             }
 
                             // Centroid.
-                            var centroid = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(geometry.centroid), ShapeTarget.transform.position, TransformPlane);
+                            var centroid = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.centroid), ShapeTarget.transform.position, TransformPlane);
                             handleSize = GetHandleSize(centroid);
                             using (new Handles.DrawingScope(Matrix4x4.TRS(centroid, Quaternion.identity, Vector3.one)))
                             {
@@ -211,7 +211,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                 if (EditorGUI.EndChangeCheck())
                                 {
                                     Undo.RecordObject(ShapeTarget, "Change PolygonGeometry Centroid");
-                                    var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                                    var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                                     geometry = geometry.Transform(new PhysicsTransform(centerOffset, PhysicsRotate.identity));
                                     localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                                     ShapeTarget.PolygonGeometry = localGeometry; 
@@ -225,7 +225,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         {
                             // Calculate the add point.
                             var edgePoint = Vector2.Lerp(vertices[i], vertices[j], 0.5f) + normals[j] * geometry.radius;
-                            var point = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(edgePoint), ShapeTarget.transform.position, TransformPlane);
+                            var point = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(edgePoint), ShapeTarget.transform.position, TransformPlane);
                             var handleSize = GetHandleSize(point);
 
                             // Draw the radius point handle.
@@ -250,7 +250,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                 {
                                     Undo.RecordObject(ShapeTarget, "Change PolygonGeometry Edge");
                                     var projectedOffset = Vector3.Dot(handleRight, newEdgeValue) * handleRight;
-                                    var vertexOffset = Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(projectedOffset, TransformPlane));
+                                    var vertexOffset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(projectedOffset, TransformPlane));
                                     vertices[i] += vertexOffset;
                                     vertices[j] += vertexOffset;
                                     
@@ -290,7 +290,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }
                 
                 // Draw the geometry.
-                World.SetElementDepth3D(PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(geometry.centroid), ShapeTarget.transform.position, TransformPlane));
+                World.SetElementDepth3D(PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.centroid), ShapeTarget.transform.position, TransformPlane));
                 World.DrawGeometry(geometry, Body.transform, drawGeometryColor, 0.0f, drawGeometryFilled ? PhysicsWorld.DrawFillOptions.All : PhysicsWorld.DrawFillOptions.Outline);
             }
         }

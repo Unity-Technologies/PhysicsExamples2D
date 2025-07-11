@@ -30,14 +30,14 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
                 var axisUp = (Vector3)(geometrySegment.point1 - geometrySegment.point2).normalized;
                 var axisRight = new Vector3(axisUp.y, -axisUp.x, 0f);
-                var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.TransformSwizzle(axisRight, TransformPlane)).normalized;
-                var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.TransformSwizzle(axisUp, TransformPlane)).normalized;
+                var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisRight, TransformPlane)).normalized;
+                var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisUp, TransformPlane)).normalized;
                 
                 // Fetch the show labels option.
                 var showLabels = geometryToolSettings.ShowLabels; 
                 
                 // Segment Mid.
-                var centerOriginMid = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint((geometrySegment.point1 + geometrySegment.point2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
+                var centerOriginMid = PhysicsMath.ToPosition3D(Body.transform.TransformPoint((geometrySegment.point1 + geometrySegment.point2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
                 var handleSize = GetHandleSize(centerOriginMid);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(centerOriginMid, Quaternion.identity, Vector3.one)))
                 {
@@ -49,7 +49,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry Center1&2");
-                        var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                        var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                         geometrySegment.point1 += centerOffset;
                         geometrySegment.point2 += centerOffset;
                         geometry.ghost1 += centerOffset;
@@ -62,7 +62,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }                
 
                 // Segment Point #1.
-                var pointOrigin1 = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(geometrySegment.point1), ShapeTarget.transform.position, TransformPlane);
+                var pointOrigin1 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometrySegment.point1), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(pointOrigin1);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(pointOrigin1, Quaternion.identity, Vector3.one)))
                 {
@@ -74,7 +74,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry Point1");
-                        var offset = Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                        var offset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                         geometrySegment.point1 += offset;
                         geometry.ghost1 += offset;
                         geometry.segment = geometrySegment;
@@ -93,7 +93,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }
                 
                 // Segment Point #2.
-                var pointOrigin2 = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(geometrySegment.point2), ShapeTarget.transform.position, TransformPlane);
+                var pointOrigin2 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometrySegment.point2), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(pointOrigin2);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(pointOrigin2, Quaternion.identity, Vector3.one)))
                 {
@@ -105,7 +105,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry Point2");
-                        var offset = Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                        var offset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                         geometrySegment.point2 += offset;
                         geometry.ghost2 += offset;
                         geometry.segment = geometrySegment;
@@ -124,7 +124,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }
                 
                 // Ghost Point #1.
-                var ghostPointOrigin1 = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(geometry.ghost1), ShapeTarget.transform.position, TransformPlane);
+                var ghostPointOrigin1 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.ghost1), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(ghostPointOrigin1);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(ghostPointOrigin1, Quaternion.identity, Vector3.one)))
                 {
@@ -136,7 +136,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry GhostPoint1");
-                        geometry.ghost1 += Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                        geometry.ghost1 += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                         localGeometry = geometry.InverseTransform(relativeTransform);
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
@@ -152,7 +152,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }
                 
                 // Ghost Point #2.
-                var ghostPointOrigin2 = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(geometry.ghost2), ShapeTarget.transform.position, TransformPlane);
+                var ghostPointOrigin2 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.ghost2), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(ghostPointOrigin2);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(ghostPointOrigin2, Quaternion.identity, Vector3.one)))
                 {
@@ -164,7 +164,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry GhostPoint2");
-                        geometry.ghost2 += Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                        geometry.ghost2 += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                         localGeometry = geometry.InverseTransform(relativeTransform);
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;

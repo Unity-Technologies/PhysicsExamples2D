@@ -118,12 +118,12 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     // Calculate the axis/handle directions.
                     var axisUp = (Vector3)(chainPoints[i] - chainPoints[j]).normalized;
                     var axisRight = new Vector3(axisUp.y, -axisUp.x, 0f);
-                    var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.TransformSwizzle(axisRight, TransformPlane)).normalized;
-                    var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.TransformSwizzle(axisUp, TransformPlane)).normalized;
+                    var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisRight, TransformPlane)).normalized;
+                    var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisUp, TransformPlane)).normalized;
 
                     {
                         // Fetch the point.
-                        var point = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(chainPoints[i]), Target.transform.position, TransformPlane);
+                        var point = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(chainPoints[i]), Target.transform.position, TransformPlane);
                         var handleSize = GetHandleSize(point);
 
                         // Draw the point handle.
@@ -140,7 +140,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                             if (EditorGUI.EndChangeCheck())
                             {
                                 Undo.RecordObject(Target, "Change ChainGeometry Point");
-                                chainPoints[i] += Body.rotation.InverseRotateVector(PhysicsMath.TransformPosition2D(newCenterValue, TransformPlane));
+                                chainPoints[i] += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                                 TargetShapeChanged = true;
                             }
 
@@ -170,7 +170,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     {
                         // Calculate the add point.
                         var midPoint = (chainPoints[i] + chainPoints[j]) * 0.5f;
-                        var point = PhysicsMath.TransformPosition3D(Body.transform.TransformPoint(midPoint), Target.transform.position, TransformPlane);
+                        var point = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(midPoint), Target.transform.position, TransformPlane);
                         var handleSize = GetHandleSize(point);
                         
                         // Draw the add point handle.
