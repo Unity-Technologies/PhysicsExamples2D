@@ -36,12 +36,12 @@ public class Spinner : MonoBehaviour
         
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;
-        m_MotorSpeed = 3f;
-        m_MaxMotorTorque = 40000f;
-        m_KinematicSpinner = true;
-        m_DebrisCount = 2500;
-        m_DebrisFriction = 0f;
-        m_DebrisBounciness = 0f;
+        m_MotorSpeed = 5f;
+        m_MaxMotorTorque = 1000000f;
+        m_KinematicSpinner = false;
+        m_DebrisCount = 5000;
+        m_DebrisFriction = 0.1f;
+        m_DebrisBounciness = 0.1f;
 
         SetupOptions();
 
@@ -208,11 +208,12 @@ public class Spinner : MonoBehaviour
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { density = 0.25f, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_DebrisFriction, bounciness = m_DebrisBounciness } };
 
-            ref var random = ref m_SandboxManager.Random;
+            var x = -23f;
+            var y = -30f;
             
             for (var i = 0; i < m_DebrisCount; ++i)
             {
-                bodyDef.position = random.NextFloat2Direction() * math.sqrt(random.NextFloat(0f, 1f)) * 39f;
+                bodyDef.position = new Vector2(x, y);
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
 
@@ -230,6 +231,14 @@ public class Spinner : MonoBehaviour
                 else if ( remainder == 2 )
                 {
                     body.CreateShape(square, shapeDef);
+                }
+                
+                x += 0.5f;
+
+                if ( x >= 23.0f )
+                {
+                    x = -23.0f;
+                    y += 0.5f;
                 }
             }            
         }

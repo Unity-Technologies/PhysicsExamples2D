@@ -4,8 +4,8 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Spinner Options" tabindex="0" name="Tab">
-                    <ui:Slider label="Motor Speed" value="0" high-value="3" name="motor-speed" fill="true" show-input-field="true" low-value="-3" focusable="false"/>
-                    <ui:Slider label="Motor Torque" value="0" high-value="99999" name="motor-torque" fill="true" show-input-field="true" low-value="0" focusable="false"/>
+                    <ui:Slider label="Motor Speed" value="0" high-value="5" name="motor-speed" fill="true" show-input-field="true" low-value="-5" focusable="false"/>
+                    <ui:Slider label="Motor Torque" value="0" high-value="100000" name="motor-torque" fill="true" show-input-field="true" low-value="0" focusable="false"/>
                     <ui:Toggle label="Kinematic Spinner" name="kinematic-spinner" focusable="false" value="false"/>
                     <ui:SliderInt label="Debris Count" value="500" high-value="10000" show-input-field="true" name="debris-count" fill="true" low-value="1000" focusable="false"/>
                     <ui:Slider label="Debris Friction" value="0" high-value="1" name="debris-friction" show-input-field="true" low-value="0" fill="true" focusable="false"/>
