@@ -114,6 +114,7 @@ MonoBehaviour:
       bodyAwake: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
       bodyStatic: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
       bodyKinematic: {r: 0.11764706, g: 0.5647059, b: 1, a: 1}
+      bodyTimeOfImpactEvent: {r: 0, g: 1, b: 0, a: 1}
       bodyFastCollisions: {r: 0.2509804, g: 0.8784314, b: 0.8156863, a: 1}
       bodyMovingFast: {r: 0.6784314, g: 1, b: 0.18431373, a: 1}
       bodySpeedCapped: {r: 1, g: 0.27058825, b: 0, a: 1}
@@ -140,6 +141,18 @@ MonoBehaviour:
         graphConstraint9: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
         graphConstraint10: {r: 1, g: 0.49803922, b: 0.3137255, a: 1}
         graphConstraint11: {r: 0, g: 0, b: 0, a: 1}
+        graphConstraint12: {r: 0, g: 1, b: 1, a: 1}
+        graphConstraint13: {r: 0.8039216, g: 0.52156866, b: 0.24705882, a: 1}
+        graphConstraint14: {r: 0, g: 1, b: 0, a: 1}
+        graphConstraint15: {r: 1, g: 0.84313726, b: 0, a: 1}
+        graphConstraint16: {r: 0.8666667, g: 0.627451, b: 0.8666667, a: 1}
+        graphConstraint17: {r: 1, g: 0.98039216, b: 0.98039216, a: 1}
+        graphConstraint18: {r: 0, g: 0.5019608, b: 0.5019608, a: 1}
+        graphConstraint19: {r: 0.9411765, g: 0.9019608, b: 0.54901963, a: 1}
+        graphConstraint20: {r: 0.98039216, g: 0.5019608, b: 0.44705883, a: 1}
+        graphConstraint21: {r: 1, g: 0.85490197, b: 0.7254902, a: 1}
+        graphConstraint22: {r: 0.9411765, g: 1, b: 0.9411765, a: 1}
+        graphConstraint23: {r: 0, g: 0, b: 0, a: 1}
   m_PhysicsBodyDefinition:
     m_BodyType: 2
     m_BodyConstraints: 0
