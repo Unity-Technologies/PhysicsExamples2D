@@ -9,8 +9,8 @@ public class Smash : MonoBehaviour
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
-    private const int Columns = 120;
-    private const int Rows = 80;
+    private const int Columns = 100;
+    private const int Rows = 60;
     
     private Vector2 m_OldGravity;
     private float m_Speed;
@@ -33,7 +33,7 @@ public class Smash : MonoBehaviour
         m_Speed = 40f;
         m_Density = 25f;
         m_Bounciness = 0f;
-        m_Spacing = 0f;
+        m_Spacing = 0.2f;
         m_FastCollisions = false;
 
         SetupOptions();

@@ -2314,7 +2314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &525055468
 Transform:
   m_ObjectHideFlags: 0
@@ -6566,7 +6566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1406794751
 Transform:
   m_ObjectHideFlags: 0
@@ -7399,6 +7399,68 @@ MonoBehaviour:
     m_Enabled: 1
   SceneWorld: {fileID: 0}
   CallbackTarget: {fileID: 0}
+--- !u!1 &1723683181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1723683182}
+  - component: {fileID: 1723683183}
+  m_Layer: 0
+  m_Name: Gear_ML
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1723683182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723683181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1833011815}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1723683183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723683181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9915a57bb5c2dfa48869691a00573ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GearComponent
+  GearRadius: 0.5
+  GearFriction: 0.1
+  GearColor: {r: 0.5450981, g: 0.2705882, b: 0.07450981, a: 1}
+  ToothColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ToothCount: 7
+  ToothWidth: 0.14
+  ToothHeight: 0.41
+  ToothRadius: 0.01
+  EnableGearMotor: 0
+  MotorSpeed: 0
+  MaxMotorTorque: 1000000
+  GearContactFilter:
+    m_Categories:
+      bitMask: 128
+    m_Contacts:
+      bitMask: 18446744073709551615
+    m_GroupIndex: 0
+  SceneWorld: {fileID: 0}
 --- !u!1 &1750004567
 GameObject:
   m_ObjectHideFlags: 0
@@ -7721,6 +7783,8 @@ Transform:
   - {fileID: 485784288}
   - {fileID: 50659050}
   - {fileID: 1337879745}
+  - {fileID: 1723683182}
+  - {fileID: 1928091770}
   - {fileID: 525055468}
   - {fileID: 824668146}
   - {fileID: 1406794751}
@@ -7916,6 +7980,68 @@ Transform:
   - {fileID: 1497156215}
   m_Father: {fileID: 1249772078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1928091769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1928091770}
+  - component: {fileID: 1928091771}
+  m_Layer: 0
+  m_Name: Gear_MR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1928091770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928091769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1833011815}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1928091771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928091769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9915a57bb5c2dfa48869691a00573ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GearComponent
+  GearRadius: 0.5
+  GearFriction: 0.1
+  GearColor: {r: 0.5450981, g: 0.2705882, b: 0.07450981, a: 1}
+  ToothColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  ToothCount: 7
+  ToothWidth: 0.14
+  ToothHeight: 0.41
+  ToothRadius: 0.01
+  EnableGearMotor: 0
+  MotorSpeed: 0
+  MaxMotorTorque: 1000000
+  GearContactFilter:
+    m_Categories:
+      bitMask: 128
+    m_Contacts:
+      bitMask: 18446744073709551615
+    m_GroupIndex: 0
+  SceneWorld: {fileID: 0}
 --- !u!1 &1986502510
 GameObject:
   m_ObjectHideFlags: 0

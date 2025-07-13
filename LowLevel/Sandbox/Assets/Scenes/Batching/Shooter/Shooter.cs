@@ -118,15 +118,6 @@ public class Shooter : MonoBehaviour
 	{
 		// Reset the scene state.
 		m_SandboxManager.ResetSceneState();
-
-#if false		
-		using var spawnedItem = SpawnFactory.Gear.SpawnGear(PhysicsWorld.defaultWorld, m_SandboxManager, new Vector2(-2f, -2f), 1f);
-		var bodies = m_SandboxManager.Bodies;
-		foreach (var body in spawnedItem.Bodies)
-		{
-			bodies.Add(body);
-		}
-#endif
 	}
 
 	private void Update()

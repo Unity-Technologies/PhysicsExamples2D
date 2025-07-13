@@ -790,7 +790,7 @@ public static class SpawnFactory
 
     public static class Gear
     {
-        public static SpawnedItem SpawnGear(PhysicsWorld world, IShapeColorProvider colorProvider, Vector2 gearPosition, float gearRadius, bool useMotor = false, float motorSpeed = 0f)
+        public static SpawnedItem SpawnGear(PhysicsWorld world, IShapeColorProvider colorProvider, PhysicsShape.ContactFilter contactFilter, Vector2 gearPosition, float gearRadius, bool useMotor = false, float motorSpeed = 0f)
         {
             NativeList<PhysicsBody> bodies = new(Allocator.Persistent);
             var userObject = world.CreateUserObject(default);
@@ -816,6 +816,7 @@ public static class SpawnFactory
 
             var shapeDef = new PhysicsShapeDefinition
             {
+                contactFilter = contactFilter,
                 surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.saddleBrown }
             };
 
