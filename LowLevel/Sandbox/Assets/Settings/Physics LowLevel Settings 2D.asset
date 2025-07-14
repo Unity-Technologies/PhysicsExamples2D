@@ -195,8 +195,8 @@ MonoBehaviour:
     m_HitEvents: 0
     m_FilterContactEvents: 0
     m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 1
-    m_UpdateBodyMass: 1
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
   m_PhysicsChainDefinition:
     m_SurfaceMaterial:
       m_Friction: 0.6
