@@ -91,7 +91,7 @@ public class LargeCompound : MonoBehaviour
             var span = 100 / m_CompoundCount;
 
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
-            var shapeDef = new PhysicsShapeDefinition { updateBodyMass = false };
+            var shapeDef = new PhysicsShapeDefinition { startMassUpdate = false };
 
             for (var m = 0; m < m_CompoundCount; ++m)
             {

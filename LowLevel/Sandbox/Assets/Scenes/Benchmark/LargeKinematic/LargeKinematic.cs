@@ -90,7 +90,7 @@ public class LargeKinematic : MonoBehaviour
         // Rotating Kinematic.
         {
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Kinematic, angularVelocity = m_AngularVelocity };
-            var shapeDef = new PhysicsShapeDefinition { updateBodyMass = false };
+            var shapeDef = new PhysicsShapeDefinition { startMassUpdate = false };
 
             var body = world.CreateBody(bodyDef);
             bodies.Add(body);
