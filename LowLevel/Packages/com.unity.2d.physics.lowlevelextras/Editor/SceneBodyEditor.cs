@@ -8,24 +8,13 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
     [CanEditMultipleObjects]
     public class SceneBodyEditor : Editor
     {
-        private SerializedProperty m_BodyDefinitionProperty;
-        private SerializedProperty m_SceneWorldProperty;
-        private SerializedProperty m_CallbackTargetProperty;
-        
-        private void OnEnable()
-        {
-            m_BodyDefinitionProperty = serializedObject.FindProperty(nameof(SceneBody.BodyDefinition));
-            m_CallbackTargetProperty = serializedObject.FindProperty(nameof(SceneBody.CallbackTarget));
-            m_SceneWorldProperty = serializedObject.FindProperty(nameof(SceneBody.SceneWorld));
-        }
-
         public override VisualElement CreateInspectorGUI()
         {
             var root = new VisualElement();
 
-            root.Add(new PropertyField(m_BodyDefinitionProperty));
-            root.Add(new PropertyField(m_CallbackTargetProperty));
-            root.Add(new PropertyField(m_SceneWorldProperty));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneBody.BodyDefinition))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneBody.CallbackTarget))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneBody.SceneWorld))));
             
             return root;
         }

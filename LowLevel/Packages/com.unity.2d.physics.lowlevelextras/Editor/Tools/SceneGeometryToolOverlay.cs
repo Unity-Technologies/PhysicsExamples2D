@@ -2,7 +2,6 @@
 using UnityEditor.Overlays;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
-using UnityEngine.U2D.Physics.LowLevelExtras;
 
 namespace UnityEditor.U2D.Physics.LowLevelExtras
 {

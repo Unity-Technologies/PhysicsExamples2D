@@ -10,50 +10,28 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
     public class SceneShapeEditor : Editor
     {
         private SerializedProperty m_ShapeTypeProperty;
-        private SerializedProperty m_CircleGeometryProperty;
-        private SerializedProperty m_CapsuleGeometryProperty;
-        private SerializedProperty m_SegmentGeometryProperty;
-        private SerializedProperty m_ChainSegmentGeometryProperty;
-        private SerializedProperty m_PolygonGeometryProperty;
-        private SerializedProperty m_ShapeDefinitionProperty;
-        private SerializedProperty m_ScaleRadiusProperty;
-        private SerializedProperty m_CallbackTargetProperty;
-        private SerializedProperty m_SceneBodyProperty;
         
+        private PropertyField m_ScaleRadiusPropertyField;
         private PropertyField m_CircleGeometryPropertyField;
         private PropertyField m_CapsuleGeometryPropertyField;
         private PropertyField m_SegmentGeometryPropertyField;
         private PropertyField m_ChainSegmentGeometryPropertyField;
         private PropertyField m_PolygonGeometryPropertyField;
-        private PropertyField m_ScaleRadiusPropertyField;
-        
-        private void OnEnable()
-        {
-            m_CallbackTargetProperty = serializedObject.FindProperty(nameof(SceneShape.CallbackTarget));
-            m_SceneBodyProperty = serializedObject.FindProperty(nameof(SceneShape.SceneBody));
-            m_ShapeDefinitionProperty = serializedObject.FindProperty(nameof(SceneShape.ShapeDefinition));
-            m_ScaleRadiusProperty = serializedObject.FindProperty(nameof(SceneShape.ScaleRadius));
-            m_ShapeTypeProperty = serializedObject.FindProperty(nameof(SceneShape.ShapeType));
-            m_CircleGeometryProperty = serializedObject.FindProperty(nameof(SceneShape.CircleGeometry));
-            m_CapsuleGeometryProperty = serializedObject.FindProperty(nameof(SceneShape.CapsuleGeometry));
-            m_SegmentGeometryProperty = serializedObject.FindProperty(nameof(SceneShape.SegmentGeometry));
-            m_ChainSegmentGeometryProperty = serializedObject.FindProperty(nameof(SceneShape.ChainSegmentGeometry));
-            m_PolygonGeometryProperty = serializedObject.FindProperty(nameof(SceneShape.PolygonGeometry));
-        }
         
         public override VisualElement CreateInspectorGUI()
         {
             var root = new VisualElement();
 
             // Geometry.
-            m_ScaleRadiusPropertyField = new PropertyField(m_ScaleRadiusProperty);
-            m_CircleGeometryPropertyField = new PropertyField(m_CircleGeometryProperty);
-            m_CapsuleGeometryPropertyField = new PropertyField(m_CapsuleGeometryProperty);
-            m_SegmentGeometryPropertyField = new PropertyField(m_SegmentGeometryProperty);
-            m_ChainSegmentGeometryPropertyField = new PropertyField(m_ChainSegmentGeometryProperty);
-            m_PolygonGeometryPropertyField = new PropertyField(m_PolygonGeometryProperty);
+            m_ScaleRadiusPropertyField = new PropertyField(serializedObject.FindProperty(nameof(SceneShape.ScaleRadius)));
+            m_CircleGeometryPropertyField = new PropertyField(serializedObject.FindProperty(nameof(SceneShape.CircleGeometry)));
+            m_CapsuleGeometryPropertyField = new PropertyField(serializedObject.FindProperty(nameof(SceneShape.CapsuleGeometry)));
+            m_SegmentGeometryPropertyField = new PropertyField(serializedObject.FindProperty(nameof(SceneShape.SegmentGeometry)));
+            m_ChainSegmentGeometryPropertyField = new PropertyField(serializedObject.FindProperty(nameof(SceneShape.ChainSegmentGeometry)));
+            m_PolygonGeometryPropertyField = new PropertyField(serializedObject.FindProperty(nameof(SceneShape.PolygonGeometry)));
             
             // Shape Type.
+            m_ShapeTypeProperty = serializedObject.FindProperty(nameof(SceneShape.ShapeType));
             var shapeTypePropertyField = new PropertyField(m_ShapeTypeProperty);
             shapeTypePropertyField.RegisterValueChangeCallback(_ => { UpdateGeometries(); });
             root.Add(shapeTypePropertyField);
@@ -67,9 +45,9 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             UpdateGeometries();
 
             // Base Properties.
-            root.Add(new PropertyField(m_ShapeDefinitionProperty));
-            root.Add(new PropertyField(m_CallbackTargetProperty));
-            root.Add(new PropertyField(m_SceneBodyProperty));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneShape.ShapeDefinition))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneShape.CallbackTarget))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneShape.SceneBody))));
             
             return root;
         }
