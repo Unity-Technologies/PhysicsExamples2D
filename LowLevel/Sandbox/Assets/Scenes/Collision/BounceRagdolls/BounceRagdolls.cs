@@ -190,7 +190,7 @@ public class BounceRagdolls : MonoBehaviour
 	        ContactFeetLayer = 1,
 	        ContactGroupIndex = 1,
 	        ColorProvider = m_SandboxManager,
-	        FastCollisions = FastCollisions,
+	        FastCollisionsAllowed = FastCollisions,
 	        TriggerEvents = false,
 	        EnableLimits = true,
 	        EnableMotor = true

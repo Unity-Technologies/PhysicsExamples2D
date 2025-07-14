@@ -86,7 +86,7 @@ public class Triggers : MonoBehaviour
         var shapeDef = new PhysicsShapeDefinition
         {
             isTrigger = true,
-            triggerEventsAllowed = true,
+            triggerEvents = true,
             contactFilter = new PhysicsShape.ContactFilter
             {
                 categories = new PhysicsMask { bitMask = TriggerLayer | DestroyLayer },
@@ -166,7 +166,7 @@ public class Triggers : MonoBehaviour
 
         var shapeDef = new PhysicsShapeDefinition
         {
-            triggerEventsAllowed = true,
+            triggerEvents = true,
             contactFilter = new PhysicsShape.ContactFilter
             {
                 categories = new PhysicsMask { bitMask = VisitorLayer },

@@ -25,7 +25,7 @@ public class Barrel : MonoBehaviour
     }
 
     private ObjectType m_ObjectType;
-    private bool m_FastCollisions;
+    private bool m_FastCollisionsAllowed;
 
     private void OnEnable()
     {
@@ -65,10 +65,10 @@ public class Barrel : MonoBehaviour
             
             // Fast Collisions.
             var fastCollisions = root.Q<Toggle>("fast-collisions");
-            fastCollisions.value = m_FastCollisions;
+            fastCollisions.value = m_FastCollisionsAllowed;
             fastCollisions.RegisterValueChangedCallback(evt =>
             {
-	            m_FastCollisions = evt.newValue;
+	            m_FastCollisionsAllowed = evt.newValue;
 	            SetupScene();
             });
             
@@ -122,7 +122,7 @@ public class Barrel : MonoBehaviour
             centerX = shift * columnCount / 2.0f;
         }
 
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, fastCollisions = m_FastCollisions };
+        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed };
         if (m_ObjectType == ObjectType.PrimitiveMix)
             bodyDef.angularDamping = 0.3f;
 
@@ -139,7 +139,7 @@ public class Barrel : MonoBehaviour
 	        ContactFeetLayer = 1,
 	        ContactGroupIndex = 0,
 	        ColorProvider = m_SandboxManager,
-	        FastCollisions = m_FastCollisions,
+	        FastCollisionsAllowed = m_FastCollisionsAllowed,
 	        TriggerEvents = false,
 	        EnableLimits = true,
 	        EnableMotor = true

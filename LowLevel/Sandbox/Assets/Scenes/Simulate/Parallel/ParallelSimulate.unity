@@ -446,7 +446,7 @@ MonoBehaviour:
     m_GravityScale: 2
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -469,11 +469,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
 --- !u!114 &189626045014500945
@@ -509,7 +509,7 @@ MonoBehaviour:
     m_GravityScale: 2
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -532,11 +532,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
 --- !u!114 &189626045202893423
@@ -572,7 +572,7 @@ MonoBehaviour:
     m_GravityScale: 2
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -595,11 +595,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
 --- !u!114 &189626046310373398
@@ -635,7 +635,7 @@ MonoBehaviour:
     m_GravityScale: 2
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -658,11 +658,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
 --- !u!114 &189626046356350689
@@ -698,7 +698,7 @@ MonoBehaviour:
     m_GravityScale: 2
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -721,11 +721,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
 --- !u!1 &245102234504216311
@@ -1401,9 +1401,9 @@ MonoBehaviour:
     m_TransformTweening: 1
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
-    m_AutoTargetCallbacksAllowed: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
+    m_AutoTargetCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1488,9 +1488,9 @@ MonoBehaviour:
     m_TransformTweening: 1
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
-    m_AutoTargetCallbacksAllowed: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
+    m_AutoTargetCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1575,9 +1575,9 @@ MonoBehaviour:
     m_TransformTweening: 1
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
-    m_AutoTargetCallbacksAllowed: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
+    m_AutoTargetCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1662,9 +1662,9 @@ MonoBehaviour:
     m_TransformTweening: 1
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
-    m_AutoTargetCallbacksAllowed: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
+    m_AutoTargetCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1749,9 +1749,9 @@ MonoBehaviour:
     m_TransformTweening: 1
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
-    m_AutoTargetCallbacksAllowed: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
+    m_AutoTargetCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1839,7 +1839,7 @@ MonoBehaviour:
     m_GravityScale: 1
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1871,7 +1871,7 @@ MonoBehaviour:
     m_GravityScale: 1
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1903,7 +1903,7 @@ MonoBehaviour:
     m_GravityScale: 1
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1935,7 +1935,7 @@ MonoBehaviour:
     m_GravityScale: 1
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1967,7 +1967,7 @@ MonoBehaviour:
     m_GravityScale: 1
     m_SleepThreshold: 0.05
     m_FastRotationAllowed: 0
-    m_FastCollisions: 0
+    m_FastCollisionsAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -2128,11 +2128,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2208,11 +2208,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2288,11 +2288,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2368,11 +2368,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2448,11 +2448,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2528,11 +2528,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2608,11 +2608,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2688,11 +2688,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2768,11 +2768,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -2848,11 +2848,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3098,11 +3098,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3178,11 +3178,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3258,11 +3258,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3338,11 +3338,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3418,11 +3418,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3498,11 +3498,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3578,11 +3578,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3658,11 +3658,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3738,11 +3738,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1
@@ -3818,11 +3818,11 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
-    m_TriggerEventsAllowed: 0
-    m_ContactEventsAllowed: 0
-    m_HitEventsAllowed: 0
-    m_FilterContactEventsAllowed: 0
-    m_PreSolveEventsAllowed: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_FilterContactEvents: 0
+    m_PreSolveEvents: 0
     m_UpdateContactsOnCreate: 0
     m_UpdateBodyMass: 1
   ScaleRadius: 1

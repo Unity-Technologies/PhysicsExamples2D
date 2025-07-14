@@ -23,7 +23,7 @@ public class ChainShape : MonoBehaviour
     private int m_ObjectCount;
     private const float Friction = 0.1f;
     private float m_GravityScale;
-    private bool m_FastCollisions;
+    private bool m_FastCollisionsAllowed;
 
     private Vector2 m_OldGravity;
     private int m_ItemsSpawned;
@@ -45,7 +45,7 @@ public class ChainShape : MonoBehaviour
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 10f;
-        m_FastCollisions = false;
+        m_FastCollisionsAllowed = false;
         
         SetupOptions();
 
@@ -82,7 +82,7 @@ public class ChainShape : MonoBehaviour
             var startPosition = new Vector2(-55f, 13.5f);
             var startLinearVelocity = new Vector2(2f, -1f);
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, fastCollisions = m_FastCollisions, position = startPosition, linearVelocity = startLinearVelocity };
+            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed, position = startPosition, linearVelocity = startLinearVelocity };
             var body = world.CreateBody(bodyDef);
             bodies.Add(body);
 
@@ -155,10 +155,10 @@ public class ChainShape : MonoBehaviour
             
             // Fast Collisions.
             var fastCollisions = root.Q<Toggle>("fast-collisions");
-            fastCollisions.value = m_FastCollisions;
+            fastCollisions.value = m_FastCollisionsAllowed;
             fastCollisions.RegisterValueChangedCallback(evt =>
             {
-                m_FastCollisions = evt.newValue;
+                m_FastCollisionsAllowed = evt.newValue;
                 SetupScene();
             });            
             

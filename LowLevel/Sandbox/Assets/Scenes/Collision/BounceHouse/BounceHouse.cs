@@ -115,7 +115,7 @@ public class BounceHouse : MonoBehaviour
 	        {
 		        bodyType = RigidbodyType2D.Dynamic,
 		        linearVelocity = new Vector2(20f, 30f),
-		        fastCollisions = true,
+		        fastCollisionsAllowed = true,
 		        fastRotationAllowed = m_ObjectType == ObjectType.Circle,
 		        gravityScale = 0f,
 		        position = Vector2.zero
@@ -127,7 +127,7 @@ public class BounceHouse : MonoBehaviour
 	        var shapeDef = new PhysicsShapeDefinition
 	        {
 		        density = 1f,
-		        hitEventsAllowed = true,
+		        hitEvents = true,
 		        surfaceMaterial = new PhysicsShape.SurfaceMaterial
 		        {
 			        bounciness = 1.2f,

@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine.LowLevelPhysics2D;
+using UnityEngine.Serialization;
 using Random = Unity.Mathematics.Random;
 
 public static class SpawnFactory
@@ -51,7 +52,7 @@ public static class SpawnFactory
                     customColor = colorProvider.ShapeColorState
                 },
                 contactFilter = new PhysicsShape.ContactFilter { categories = 1, contacts = PhysicsMask.All, groupIndex = -1 },
-                triggerEventsAllowed = triggerEvents
+                triggerEvents = triggerEvents
             };
 
             // Create bodies.
@@ -112,7 +113,7 @@ public static class SpawnFactory
                 IShapeColorProvider colorProvider,
                 float gravityScale = 1.0f,
                 bool triggerEvents = false,
-                bool fastCollisions = true,
+                bool fastCollisionsAllowed = true,
                 bool enableMotor = true,
                 bool enableLimits = true
                 )
@@ -127,7 +128,7 @@ public static class SpawnFactory
                 ColorProvider = colorProvider;
                 GravityScale = gravityScale;
                 TriggerEvents = triggerEvents;
-                FastCollisions = fastCollisions;
+                FastCollisionsAllowed = fastCollisionsAllowed;
                 EnableMotor = enableMotor;
                 EnableLimits = enableLimits;
             }
@@ -142,7 +143,7 @@ public static class SpawnFactory
             public int ContactGroupIndex;
             public IShapeColorProvider ColorProvider;
             public bool TriggerEvents;
-            public bool FastCollisions;
+            [FormerlySerializedAs("FastCollisions")] public bool FastCollisionsAllowed;
             public bool EnableMotor;
             public bool EnableLimits;
         }
@@ -217,7 +218,7 @@ public static class SpawnFactory
             {
                 bodyType = RigidbodyType2D.Dynamic,
                 gravityScale = configuration.GravityScale,
-                fastCollisions = configuration.FastCollisions,
+                fastCollisionsAllowed = configuration.FastCollisionsAllowed,
                 sleepThreshold = 0.1f
             };
 
@@ -230,7 +231,7 @@ public static class SpawnFactory
                     contacts = configuration.ContactBodyLayer | configuration.ContactFeetLayer,
                     groupIndex = -configuration.ContactGroupIndex
                 },
-                triggerEventsAllowed = configuration.TriggerEvents
+                triggerEvents = configuration.TriggerEvents
             };
 
             var footShapeDef = new PhysicsShapeDefinition
@@ -242,7 +243,7 @@ public static class SpawnFactory
                     contacts = configuration.ContactFeetLayer,
                     groupIndex = -configuration.ContactGroupIndex
                 },
-                triggerEventsAllowed = configuration.TriggerEvents
+                triggerEvents = configuration.TriggerEvents
             };
 
             if (!configuration.ColorProvider.IsActive)

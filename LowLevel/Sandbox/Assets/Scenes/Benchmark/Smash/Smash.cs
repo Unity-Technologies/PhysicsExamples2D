@@ -17,7 +17,7 @@ public class Smash : MonoBehaviour
     private float m_Density;
     private float m_Bounciness;
     private float m_Spacing;
-    private bool m_FastCollisions;
+    private bool m_FastCollisionsAllowed;
 
     private void OnEnable()
     {
@@ -34,7 +34,7 @@ public class Smash : MonoBehaviour
         m_Density = 25f;
         m_Bounciness = 0f;
         m_Spacing = 0.2f;
-        m_FastCollisions = false;
+        m_FastCollisionsAllowed = false;
 
         SetupOptions();
 
@@ -99,10 +99,10 @@ public class Smash : MonoBehaviour
             
             // Fast Collisions.
             var fastCollisions = root.Q<Toggle>("fast-collisions");
-            fastCollisions.value = m_FastCollisions;
+            fastCollisions.value = m_FastCollisionsAllowed;
             fastCollisions.RegisterValueChangedCallback(evt =>
             {
-                m_FastCollisions = evt.newValue;
+                m_FastCollisionsAllowed = evt.newValue;
                 SetupScene();
             });
             
@@ -145,7 +145,7 @@ public class Smash : MonoBehaviour
                 position = new Vector2(-90f, 0f),
                 linearVelocity = new Vector2(m_Speed, 0f),
                 angularVelocity = PhysicsMath.PI * 0.1f,
-                fastCollisions = m_FastCollisions
+                fastCollisionsAllowed = m_FastCollisionsAllowed
             };
             var body = world.CreateBody(bodyDef);
             bodies.Add(body);
@@ -159,7 +159,7 @@ public class Smash : MonoBehaviour
             var bodyDef = new PhysicsBodyDefinition
             {
                 bodyType = RigidbodyType2D.Dynamic,
-                fastCollisions = m_FastCollisions,
+                fastCollisionsAllowed = m_FastCollisionsAllowed,
                 awake = false
             };
             var largeBody = world.CreateBody(bodyDef);

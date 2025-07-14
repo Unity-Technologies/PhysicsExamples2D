@@ -128,7 +128,7 @@ public class TriggerFunnel : MonoBehaviour
         var shapeDef = new PhysicsShapeDefinition
         {
             surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.05f, customColor = m_SandboxManager.ShapeColorState },
-            triggerEventsAllowed = true
+            triggerEvents = true
         };
 
         switch (m_ObjectType)
@@ -270,7 +270,7 @@ public class TriggerFunnel : MonoBehaviour
             ContactGroupIndex = 1,
             ColorProvider = m_SandboxManager,
             TriggerEvents = true,
-            FastCollisions = m_FastCollisions,
+            FastCollisionsAllowed = m_FastCollisions,
             EnableLimits = true,
             EnableMotor = true
         };
@@ -428,7 +428,7 @@ public class TriggerFunnel : MonoBehaviour
 
                 {
                     var boxGeometry = PolygonGeometry.CreateBox(new Vector2(10f, 4f), radius: 0f, new PhysicsTransform(new Vector2(0f, -32.5f), PhysicsRotate.identity));
-                    var shapeDef = new PhysicsShapeDefinition { isTrigger = true, triggerEventsAllowed = true };
+                    var shapeDef = new PhysicsShapeDefinition { isTrigger = true, triggerEvents = true };
                     groundBody.CreateShape(boxGeometry, shapeDef);
                 }
             }
