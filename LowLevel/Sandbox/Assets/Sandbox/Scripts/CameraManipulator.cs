@@ -212,7 +212,7 @@ public class CameraManipulator : MonoBehaviour
                 
                 // Update drag target.
                 var oldTarget = m_DragJoint.bodyA.GetWorldPoint(m_DragJoint.localAnchorA.position);
-                var target = Camera.ScreenToWorldPoint(Input.mousePosition);
+                var target = Camera.ScreenToWorldPoint(currentMouse.position.value);
                 m_DragJoint.localAnchorA = new PhysicsTransform(target);
 
                 var world = PhysicsWorld.defaultWorld;
