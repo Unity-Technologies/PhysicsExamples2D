@@ -225,10 +225,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 7888149}
   CallbackTarget: {fileID: 0}
@@ -370,10 +370,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 8792236}
   CallbackTarget: {fileID: 0}
@@ -616,10 +616,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 50465088}
   CallbackTarget: {fileID: 0}
@@ -868,10 +868,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 64075880}
   CallbackTarget: {fileID: 0}
@@ -1114,10 +1114,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 138041598}
   CallbackTarget: {fileID: 0}
@@ -1259,10 +1259,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 144729006}
   CallbackTarget: {fileID: 0}
@@ -1404,10 +1404,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 145671239}
   CallbackTarget: {fileID: 0}
@@ -1549,10 +1549,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 264193411}
   CallbackTarget: {fileID: 0}
@@ -1774,10 +1774,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 423337207}
   CallbackTarget: {fileID: 0}
@@ -1919,10 +1919,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 477155090}
   CallbackTarget: {fileID: 0}
@@ -2194,10 +2194,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 507807932}
   CallbackTarget: {fileID: 0}
@@ -2469,10 +2469,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 534109154}
   CallbackTarget: {fileID: 0}
@@ -2656,10 +2656,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 537971317}
   CallbackTarget: {fileID: 0}
@@ -2875,10 +2875,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 601833517}
   CallbackTarget: {fileID: 0}
@@ -3020,10 +3020,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 605148275}
   CallbackTarget: {fileID: 0}
@@ -3230,10 +3230,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 678265710}
   CallbackTarget: {fileID: 0}
@@ -3375,10 +3375,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 791107173}
   CallbackTarget: {fileID: 0}
@@ -3751,10 +3751,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 859224179}
   CallbackTarget: {fileID: 0}
@@ -3896,10 +3896,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 875938874}
   CallbackTarget: {fileID: 0}
@@ -4148,10 +4148,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 904521498}
   CallbackTarget: {fileID: 0}
@@ -4293,10 +4293,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1005381639}
   CallbackTarget: {fileID: 0}
@@ -4503,10 +4503,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1062612408}
   CallbackTarget: {fileID: 0}
@@ -4749,10 +4749,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1070417811}
   CallbackTarget: {fileID: 0}
@@ -4894,10 +4894,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1086296362}
   CallbackTarget: {fileID: 0}
@@ -5081,10 +5081,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1092812751}
   CallbackTarget: {fileID: 0}
@@ -5226,10 +5226,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1115821536}
   CallbackTarget: {fileID: 0}
@@ -5371,10 +5371,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1135509228}
   CallbackTarget: {fileID: 0}
@@ -5558,10 +5558,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1173146479}
   CallbackTarget: {fileID: 0}
@@ -5842,10 +5842,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1203947811}
   CallbackTarget: {fileID: 0}
@@ -6091,10 +6091,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1278892628}
   CallbackTarget: {fileID: 0}
@@ -6301,10 +6301,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1305111617}
   CallbackTarget: {fileID: 0}
@@ -6446,10 +6446,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1309292291}
   CallbackTarget: {fileID: 0}
@@ -6804,10 +6804,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1480745268}
   CallbackTarget: {fileID: 0}
@@ -6949,10 +6949,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1497156217}
   CallbackTarget: {fileID: 0}
@@ -7173,10 +7173,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1690892810}
   CallbackTarget: {fileID: 0}
@@ -7360,10 +7360,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1693972977}
   CallbackTarget: {fileID: 0}
@@ -7567,10 +7567,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1750004570}
   CallbackTarget: {fileID: 0}
@@ -7712,10 +7712,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1799124677}
   CallbackTarget: {fileID: 0}
@@ -7904,10 +7904,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1860228197}
   CallbackTarget: {fileID: 0}
@@ -8148,10 +8148,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 1986502513}
   CallbackTarget: {fileID: 0}
@@ -8293,10 +8293,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 2029759318}
   CallbackTarget: {fileID: 0}
@@ -8438,10 +8438,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 2040859084}
   CallbackTarget: {fileID: 0}
@@ -8625,10 +8625,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 2070492584}
   CallbackTarget: {fileID: 0}
@@ -8770,10 +8770,10 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 1
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
-    m_UpdateContactsOnCreate: 0
-    m_UpdateBodyMass: 1
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
+    m_StartStaticContacts: 0
+    m_StartMassUpdate: 1
   ScaleRadius: 1
   SceneBody: {fileID: 2101177205}
   CallbackTarget: {fileID: 0}

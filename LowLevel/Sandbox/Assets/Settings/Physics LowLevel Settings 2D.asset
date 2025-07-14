@@ -89,8 +89,8 @@ MonoBehaviour:
     m_TransformTweening: 1
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
     m_AutoTargetCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
@@ -193,8 +193,8 @@ MonoBehaviour:
     m_TriggerEvents: 0
     m_ContactEvents: 0
     m_HitEvents: 0
-    m_FilterContactEvents: 0
-    m_PreSolveEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
   m_PhysicsChainDefinition:
