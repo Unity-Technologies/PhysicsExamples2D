@@ -37,6 +37,9 @@ public class Barrel : MonoBehaviour
         m_CameraManipulator.CameraSize = 60f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 58f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_ObjectType = ObjectType.Polygon;
         
         SetupOptions();
@@ -131,9 +134,9 @@ public class Barrel : MonoBehaviour
         var ragDollConfiguration = new SpawnFactory.Ragdoll.Configuration
         {
 	        ScaleRange = new Vector2(3.5f, 3.5f),
-	        JointHertz = 5f,
-	        JointDamping = 0.5f,
-	        JointFriction = 0.05f,
+	        JointHertz = 1f,
+	        JointDamping = 0.1f,
+	        JointFriction = 0.0f,
 	        GravityScale = 1f,
 	        ContactBodyLayer = 2,
 	        ContactFeetLayer = 1,

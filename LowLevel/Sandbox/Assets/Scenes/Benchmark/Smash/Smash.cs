@@ -29,6 +29,9 @@ public class Smash : MonoBehaviour
         m_CameraManipulator.CameraSize = 60f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 0f);
         
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_Speed = 40f;
         m_Density = 25f;

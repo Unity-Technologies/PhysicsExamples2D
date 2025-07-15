@@ -45,6 +45,9 @@ public class ContactManifold : MonoBehaviour
         m_CameraManipulator.CameraStartPosition = Vector2.zero;
         m_CameraManipulator.DisableManipulators = true;
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_ManipulatorState = ManipulatorState.None;
         
         m_Transform = new PhysicsTransform { position = new Vector2(0f, 0.5f), rotation = PhysicsRotate.identity };

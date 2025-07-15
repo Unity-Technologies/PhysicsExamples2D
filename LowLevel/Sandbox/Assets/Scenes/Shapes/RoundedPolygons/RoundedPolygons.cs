@@ -24,6 +24,9 @@ public class RoundedPolygons : MonoBehaviour
         m_CameraManipulator.CameraSize = 12f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 10f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_ColumnCount = 10;
         m_RowCount = 10;
         m_Friction = 0.6f;

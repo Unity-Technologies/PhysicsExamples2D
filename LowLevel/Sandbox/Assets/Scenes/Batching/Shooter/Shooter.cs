@@ -37,6 +37,9 @@ public class Shooter : MonoBehaviour
 		m_CameraManipulator.CameraSize = 12f;
 		m_CameraManipulator.CameraStartPosition = Vector2.zero;
 
+		// Set up the scene reset action.
+		m_SandboxManager.SceneResetAction = SetupScene;
+		
 		// Set Overrides.
 		m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.AllJoints);
 		
@@ -61,6 +64,7 @@ public class Shooter : MonoBehaviour
 
 	private void SetupOptions()
 	{
+		
 		var root = m_UIDocument.rootVisualElement;
 
 		{

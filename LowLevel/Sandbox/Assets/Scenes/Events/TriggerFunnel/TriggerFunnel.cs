@@ -45,6 +45,9 @@ public class TriggerFunnel : MonoBehaviour
         m_CameraManipulator.CameraSize = 35f;
         m_CameraManipulator.CameraStartPosition = Vector2.zero;
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints);
         
@@ -261,13 +264,13 @@ public class TriggerFunnel : MonoBehaviour
         var ragDollConfiguration = new SpawnFactory.Ragdoll.Configuration
         {
             ScaleRange = new Vector2(m_ObjectScale * 1.25f, m_ObjectScale * 1.25f),
-            JointHertz = 6f,
-            JointDamping = 0.5f,
-            JointFriction = 0.05f,
+            JointHertz = 1f,
+            JointDamping = 0.1f,
+            JointFriction = 0.0f,
             GravityScale = 1f,
             ContactBodyLayer = 0x2,
             ContactFeetLayer = 0x1,
-            ContactGroupIndex = 1,
+            ContactGroupIndex = 0x1,
             ColorProvider = m_SandboxManager,
             TriggerEvents = true,
             FastCollisionsAllowed = m_FastCollisions,

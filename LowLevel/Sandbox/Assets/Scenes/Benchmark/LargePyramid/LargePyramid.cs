@@ -24,6 +24,9 @@ public class LargePyramid : MonoBehaviour
         m_CameraManipulator.CameraSize = 80f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 79f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_BaseCount = 100;
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;

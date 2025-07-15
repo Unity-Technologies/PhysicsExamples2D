@@ -40,6 +40,9 @@ public class ChainShape : MonoBehaviour
         m_CameraManipulator.CameraSize = 35f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 0f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_ObjectType = ObjectType.Box;
         m_ObjectCount = 100;
 

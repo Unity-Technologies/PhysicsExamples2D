@@ -23,6 +23,9 @@ public class LargeKinematic : MonoBehaviour
         m_CameraManipulator.CameraSize = 80f;
         m_CameraManipulator.CameraStartPosition = Vector2.zero;
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_GridSize = 100;
         m_GridSpacing = 0f;
         m_AngularVelocity = 1f;

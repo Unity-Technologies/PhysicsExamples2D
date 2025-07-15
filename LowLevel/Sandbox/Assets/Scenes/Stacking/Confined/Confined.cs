@@ -22,6 +22,9 @@ public class Confined : MonoBehaviour
         m_CameraManipulator.CameraSize = 14f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0, 10f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_GridCount = 25;
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
 

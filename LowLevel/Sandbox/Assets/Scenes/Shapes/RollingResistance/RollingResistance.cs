@@ -30,6 +30,9 @@ public class RollingResistance : MonoBehaviour
         m_CameraManipulator.CameraSize = 35f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 20f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_SlopeType = SlopeType.Flat;
         
         SetupOptions();
@@ -88,7 +91,8 @@ public class RollingResistance : MonoBehaviour
 
             var circle = new CircleGeometry { radius = 0.5f };
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, linearVelocity = new Vector2(5f, 0f), angularVelocity = -10f };
-            var shapeDef = PhysicsShapeDefinition.defaultDefinition;
+            var slopeShapeDef = PhysicsShapeDefinition.defaultDefinition;
+            var ballShapeDef = PhysicsShapeDefinition.defaultDefinition;
             
             // Add slopes.
             for (var n = 0; n < 20; ++n)
@@ -96,16 +100,17 @@ public class RollingResistance : MonoBehaviour
                 // Create Slope.
                 var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
                 bodies.Add(groundBody);
-                groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-40f, 2f * n), point2 = new Vector2(-40f, 2f * n + 1.5f) }, shapeDef);
-                groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-40f, 2f * n), point2 = new Vector2(40f, 2f * n + slopeAngle) }, shapeDef);
-                groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(40f, 2f * n + slopeAngle), point2 = new Vector2(40f, 2f * n + slopeAngle + 1.5f) }, shapeDef);
+                groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-40f, 2f * n), point2 = new Vector2(-40f, 2f * n + 1.5f) }, slopeShapeDef);
+                groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-40f, 2f * n), point2 = new Vector2(40f, 2f * n + slopeAngle) }, slopeShapeDef);
+                groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(40f, 2f * n + slopeAngle), point2 = new Vector2(40f, 2f * n + slopeAngle + 1.5f) }, slopeShapeDef);
 
                 // Create Ball.
                 bodyDef.position = new Vector2(-39.5f, 2f * n + 0.75f);
                 var ballBody = world.CreateBody(bodyDef);
                 bodies.Add(ballBody);
-                shapeDef.surfaceMaterial.rollingResistance = 0.02f * n;
-                ballBody.CreateShape(circle, shapeDef);
+                ballShapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
+                ballShapeDef.surfaceMaterial.rollingResistance = 0.02f * n;
+                ballBody.CreateShape(circle, ballShapeDef);
             }
         }
     }

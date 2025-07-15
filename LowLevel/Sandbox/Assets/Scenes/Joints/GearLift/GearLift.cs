@@ -27,6 +27,9 @@ public class GearLift : MonoBehaviour
         m_CameraManipulator.CameraSize = 7f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 3.5f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_UseMotor = false;
         m_MotorSpeed = -0.5f;
         m_MaxMotorTorque = 80f;

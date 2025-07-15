@@ -20,6 +20,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public bool ColorShapeState { get; private set; }
 
     public string StartScene = string.Empty;
+    public Action SceneResetAction;
     public DebuggingMenu DebuggingMenu;
     public ShortcutMenu ShortcutMenu;
     public float UpdatePeriodFPS = 0.1f;
@@ -578,9 +579,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             m_ColorShapeStateElement.RegisterValueChangedCallback(evt =>
             {
                 ColorShapeState = evt.newValue;
-                
+
                 if (!m_DisableUIRestarts)
-                    m_SceneManifest.ReloadCurrentScene(ResetSceneState);
+                    SceneResetAction?.Invoke();
+                    //m_SceneManifest.ReloadCurrentScene(ResetSceneState);
             }); 
             
             // Bodies.
@@ -709,7 +711,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
         
         DebuggingMenu.ResetStats();
-        
+
+        SceneResetAction = null;
         m_SceneManifest.LoadScene(sceneName, ResetSceneState);
     }
 
@@ -751,6 +754,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         DebuggingMenu.ResetStats();
         
         // Reload the scene.
+        SceneResetAction = null;
         m_SceneManifest.ReloadCurrentScene(ResetSceneState);
 
         m_DisableUIRestarts = false;

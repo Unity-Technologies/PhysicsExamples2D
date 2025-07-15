@@ -25,6 +25,9 @@ public class SoftBody : MonoBehaviour
         m_CameraManipulator.CameraSize = 5f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 0f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_BodySides = 10;
         m_BodyScale = 2f;
         m_JointFrequency = 7f;

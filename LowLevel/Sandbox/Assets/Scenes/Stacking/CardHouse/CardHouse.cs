@@ -20,6 +20,9 @@ public class CardHouse : MonoBehaviour
         m_CameraManipulator.CameraSize = 1f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0.7f, 0.9f);
         
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         SetupOptions();
 
         SetupScene();

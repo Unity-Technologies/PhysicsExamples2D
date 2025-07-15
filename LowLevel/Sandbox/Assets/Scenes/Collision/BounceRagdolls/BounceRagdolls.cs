@@ -32,6 +32,9 @@ public class BounceRagdolls : MonoBehaviour
 		m_CameraManipulator.CameraSize = 12f;
 		m_CameraManipulator.CameraStartPosition = Vector2.zero;
 
+		// Set up the scene reset action.
+		m_SandboxManager.SceneResetAction = SetupScene;
+		
 		// Set Overrides.
 		m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints);
 		

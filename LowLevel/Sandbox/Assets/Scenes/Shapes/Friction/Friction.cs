@@ -36,6 +36,9 @@ public class Friction : MonoBehaviour
         m_CameraManipulator.CameraSize = 24f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 15f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_ObjectType = ObjectType.Capsule;
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 5f;

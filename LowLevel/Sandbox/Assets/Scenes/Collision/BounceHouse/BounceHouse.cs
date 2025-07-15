@@ -32,6 +32,9 @@ public class BounceHouse : MonoBehaviour
         m_CameraManipulator.CameraSize = 11f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 0f);
         
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_ObjectType = ObjectType.Polygon;
         
         SetupOptions();

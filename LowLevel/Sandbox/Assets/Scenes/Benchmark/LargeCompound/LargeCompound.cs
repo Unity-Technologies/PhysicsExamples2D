@@ -21,6 +21,9 @@ public class LargeCompound : MonoBehaviour
         m_CameraManipulator.CameraSize = 100f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 99f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         SetupOptions();
 
         SetupScene();
@@ -88,7 +91,7 @@ public class LargeCompound : MonoBehaviour
 
         // Large Dynamic Compounds. 
         {
-            var span = 100 / m_CompoundCount;
+            var span = 50 / m_CompoundCount;
 
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { startMassUpdate = false };
@@ -110,6 +113,7 @@ public class LargeCompound : MonoBehaviour
                         for (var j = 0; j < span; ++j)
                         {
                             var x = gridSize * j;
+                            shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                             body.CreateShape(PolygonGeometry.CreateBox(gridBoxSize, radius: 0f, new PhysicsTransform(new Vector2(x, y), PhysicsRotate.identity)), shapeDef);
                         }
                     }

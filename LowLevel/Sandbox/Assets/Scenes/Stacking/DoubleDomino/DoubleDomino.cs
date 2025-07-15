@@ -23,6 +23,9 @@ public class DoubleDomino : MonoBehaviour
         m_CameraManipulator.CameraSize = 6f;
         m_CameraManipulator.CameraStartPosition = new Vector2(-0.5f, 0f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         SetupOptions();
 
         SetupScene();

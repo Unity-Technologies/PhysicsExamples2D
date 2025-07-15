@@ -31,6 +31,9 @@ public class Bounciness : MonoBehaviour
         m_CameraManipulator.CameraSize = 28f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 19f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         m_ObjectType = ObjectType.Circle;
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;

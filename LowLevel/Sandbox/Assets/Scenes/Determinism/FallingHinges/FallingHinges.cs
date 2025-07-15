@@ -33,6 +33,9 @@ public class FallingHinges : MonoBehaviour
         m_CameraManipulator.CameraSize = 10f;
         m_CameraManipulator.CameraStartPosition = new Vector2(0f, 4f);
 
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+        
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.AllJoints);
         m_SandboxManager.SetOverrideColorShapeState(true); 
@@ -129,15 +132,15 @@ public class FallingHinges : MonoBehaviour
 
         // Hinges.
         {
-            var h = 0.25f;
-            var r = 0.1f * h;
-            var box = PolygonGeometry.CreateBox(new Vector2(h - r, h - r), radius: r);
+            const float height = 0.25f;
+            const float radius = 0.1f * height;
+            var box = PolygonGeometry.CreateBox(new Vector2(height - radius, height - radius), radius: radius);
 
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.3f, customColor = m_SandboxManager.ShapeColorState } };
 
-            var offset = 0.4f * h;
-            var dx = 10.0f * h;
-            var xroot = -0.5f * dx * (Columns - 1.0f) - 4.5f;
+            const float offset = 0.4f * height;
+            const float dx = 10.0f * height;
+            var offsetX = -0.5f * dx * (Columns - 1.0f) - 4.5f;
 
             var jointDef = new PhysicsHingeJointDefinition
             {
@@ -147,13 +150,13 @@ public class FallingHinges : MonoBehaviour
                 enableSpring = true,
                 springHertz = 0.5f,
                 springDampingRatio = 0.5f,
-                localAnchorA = new Vector2(h, h),
-                localAnchorB = new Vector2(offset, -h)
+                localAnchorA = new Vector2(height, height),
+                localAnchorB = new Vector2(offset, -height)
             };
 
             for (var j = 0; j < Columns; ++j )
             {
-                var x = xroot + j * dx;
+                var x = offsetX + j * dx;
 
                 var prevBody = new PhysicsBody();
 
@@ -164,7 +167,7 @@ public class FallingHinges : MonoBehaviour
                     var bodyDef = new PhysicsBodyDefinition
                     {
                         bodyType = RigidbodyType2D.Dynamic,
-                        position = new Vector2(x + offset * i, h + 2f * h * i),
+                        position = new Vector2(x + offset * i, height + 2f * height * i),
                         rotation = new PhysicsRotate(0.1f * rowIndex - 1f) // This tests the deterministic cosine and sine functions
                     };
 
@@ -183,6 +186,7 @@ public class FallingHinges : MonoBehaviour
                         prevBody = new PhysicsBody();
                     }
 
+                    shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;                    
                     body.CreateShape(box, shapeDef);
                 }
             }
