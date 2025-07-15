@@ -218,5 +218,5 @@ MonoBehaviour:
     m_TriggerEvents: 0
   m_ConcurrentSimulations: 2
   m_LengthUnitsPerMeter: 1
-  m_DrawInBuild: 0
+  m_DrawInBuild: 1
   m_BypassLowLevel: 0
