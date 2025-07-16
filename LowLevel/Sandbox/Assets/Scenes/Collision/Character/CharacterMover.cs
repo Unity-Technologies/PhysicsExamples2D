@@ -335,7 +335,7 @@ public class CharacterMover : MonoBehaviour
             groundBody2.CreateChain(chainGeometry, PhysicsChainDefinition.defaultDefinition);
         }
 
-        // Create Bridge.
+        // Create the Bridge.
         {
 	        var box = PolygonGeometry.CreateBox(new Vector2(1f, 0.25f));
 	        var shapeDef = PhysicsShapeDefinition.defaultDefinition;
@@ -414,6 +414,7 @@ public class CharacterMover : MonoBehaviour
 		}
 #endif
 	    
+	    // Create some random dynamic debris.
 		{
 			ref var random = ref m_SandboxManager.Random;
 			
@@ -450,7 +451,7 @@ public class CharacterMover : MonoBehaviour
 			}
 		}
 
-		// Create some dynamic debris.
+		// Create the elevator.
 		{
 			var bodyDef = new PhysicsBodyDefinition
 			{
