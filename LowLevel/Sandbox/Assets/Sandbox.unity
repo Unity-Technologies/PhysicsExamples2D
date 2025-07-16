@@ -311,6 +311,10 @@ MonoBehaviour:
     Name: Bounce Ragdolls
     Category: Collision
     Description: Checking the stability of very fast continuous collision.
+  - ScenePath: Assets/Scenes/Collision/Character/CharacterMover.unity
+    Name: Character Mover
+    Category: Collision
+    Description: Demonstrating the Cast Mover feature.
   - ScenePath: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
     Name: Contact Manifold
     Category: Collision
@@ -391,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Shooter
+  StartScene: Character Mover
   DebuggingMenu: {fileID: 1603435387}
   ShortcutMenu: {fileID: 465066520}
   UpdatePeriodFPS: 0.1

@@ -118,7 +118,7 @@ public class SoftBody : MonoBehaviour
                 new (5.5f, -4.5f),
                 new (-5.5f, -4.5f)
             };
-            body.CreateChain(new ChainGeometry(vertices.AsArray()), new PhysicsChainDefinition { isLoop = true });
+            body.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
         }
         
         // Soft Body.

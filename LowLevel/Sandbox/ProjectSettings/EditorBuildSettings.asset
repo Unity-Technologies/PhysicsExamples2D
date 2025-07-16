@@ -48,6 +48,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Collision/BounceRagdolls/BounceRagdolls.unity
     guid: 233338694a9fd2e458095fa190d051c5
   - enabled: 1
+    path: Assets/Scenes/Collision/Character/CharacterMover.unity
+    guid: dc934a44ec5d5bd45bbbc5364c17e497
+  - enabled: 1
     path: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
     guid: a40d1ed7d2a9d69458c3b8055816fea9
   - enabled: 1

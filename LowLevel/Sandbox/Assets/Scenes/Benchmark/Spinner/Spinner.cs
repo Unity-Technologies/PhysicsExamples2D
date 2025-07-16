@@ -165,7 +165,8 @@ public class Spinner : MonoBehaviour
                 chainPoints[i] = new Vector2(offset.x, offset.y);
                 offset = rotate.RotateVector(offset);
             }
-            groundBody.CreateChain(new ChainGeometry(chainPoints), new PhysicsChainDefinition {surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 0f }, isLoop = true });
+
+            groundBody.CreateChain(new ChainGeometry(chainPoints), new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 0f } });
             chainPoints.Dispose();
         }
 

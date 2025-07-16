@@ -155,7 +155,7 @@ public class GearLift : MonoBehaviour
             }
 
             var chainGeometry = new ChainGeometry(points.AsArray());
-            var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.darkSeaGreen }, isLoop = true };
+            var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.darkSeaGreen } };
             groundBody.CreateChain(chainGeometry, chainDef);
 
             points.Dispose();

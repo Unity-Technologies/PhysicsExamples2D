@@ -132,7 +132,7 @@ public class BounceRagdolls : MonoBehaviour
 		{
 			groundBody.CreateChain(
 				geometry: new ChainGeometry(extentPoints.AsArray()),
-				definition: new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 1.3f }, isLoop = true }
+				definition: new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 1.3f } }
 			);
 		}
 

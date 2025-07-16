@@ -11,7 +11,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     {
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };
         public bool ReverseChain;
-        public PhysicsChainDefinition ChainDefinition = new() { isLoop = true };
+        public PhysicsChainDefinition ChainDefinition = PhysicsChainDefinition.defaultDefinition;
         public SceneBody SceneBody;
 
         public PhysicsChain ChainShape => m_ChainShape;

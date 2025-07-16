@@ -395,7 +395,7 @@ public class TriggerFunnel : MonoBehaviour
             };
 
             var chainGeometry = new ChainGeometry(points.AsArray().AsSpan());
-            var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.2f, bounciness = 0f }, isLoop = true };
+            var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.2f, bounciness = 0f } };
             groundBody.CreateChain(chainGeometry, chainDef);
 
             {

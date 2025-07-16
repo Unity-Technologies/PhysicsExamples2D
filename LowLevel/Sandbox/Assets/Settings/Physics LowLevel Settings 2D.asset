@@ -91,7 +91,7 @@ MonoBehaviour:
     m_ContinuousAllowed: 1
     m_ContactFilterCallbacks: 0
     m_PreSolveCallbacks: 0
-    m_AutoTargetCallbacks: 0
+    m_AutoCallbackTargets: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -128,31 +128,6 @@ MonoBehaviour:
       contactImpulse: {r: 1, g: 0, b: 1, a: 1}
       contactFriction: {r: 1, g: 1, b: 0, a: 1}
       solverIsland: {r: 0.18431373, g: 0.30980393, b: 0.30980393, a: 1}
-      constraintGraph:
-        graphConstraint0: {r: 1, g: 0, b: 0, a: 1}
-        graphConstraint1: {r: 1, g: 0.64705884, b: 0, a: 1}
-        graphConstraint2: {r: 1, g: 1, b: 0, a: 1}
-        graphConstraint3: {r: 0, g: 0.5019608, b: 0, a: 1}
-        graphConstraint4: {r: 0, g: 1, b: 1, a: 1}
-        graphConstraint5: {r: 0, g: 0, b: 1, a: 1}
-        graphConstraint6: {r: 0.93333334, g: 0.50980395, b: 0.93333334, a: 1}
-        graphConstraint7: {r: 1, g: 0.7529412, b: 0.79607844, a: 1}
-        graphConstraint8: {r: 0.8235294, g: 0.4117647, b: 0.11764706, a: 1}
-        graphConstraint9: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-        graphConstraint10: {r: 1, g: 0.49803922, b: 0.3137255, a: 1}
-        graphConstraint11: {r: 0, g: 0, b: 0, a: 1}
-        graphConstraint12: {r: 0, g: 1, b: 1, a: 1}
-        graphConstraint13: {r: 0.8039216, g: 0.52156866, b: 0.24705882, a: 1}
-        graphConstraint14: {r: 0, g: 1, b: 0, a: 1}
-        graphConstraint15: {r: 1, g: 0.84313726, b: 0, a: 1}
-        graphConstraint16: {r: 0.8666667, g: 0.627451, b: 0.8666667, a: 1}
-        graphConstraint17: {r: 1, g: 0.98039216, b: 0.98039216, a: 1}
-        graphConstraint18: {r: 0, g: 0.5019608, b: 0.5019608, a: 1}
-        graphConstraint19: {r: 0.9411765, g: 0.9019608, b: 0.54901963, a: 1}
-        graphConstraint20: {r: 0.98039216, g: 0.5019608, b: 0.44705883, a: 1}
-        graphConstraint21: {r: 1, g: 0.85490197, b: 0.7254902, a: 1}
-        graphConstraint22: {r: 0.9411765, g: 1, b: 0.9411765, a: 1}
-        graphConstraint23: {r: 0, g: 0, b: 0, a: 1}
   m_PhysicsBodyDefinition:
     m_BodyType: 2
     m_BodyConstraints: 0
@@ -214,7 +189,7 @@ MonoBehaviour:
       m_Contacts:
         bitMask: 18446744073709551615
       m_GroupIndex: 0
-    m_IsLoop: 0
+    m_IsLoop: 1
     m_TriggerEvents: 0
   m_ConcurrentSimulations: 2
   m_LengthUnitsPerMeter: 1

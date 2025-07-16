@@ -201,7 +201,7 @@ public class ChainShape : MonoBehaviour
             };
 
             var chainGeometry = new ChainGeometry(points.AsArray());
-            var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 0f }, isLoop = true };
+            var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 0f } };
             body.CreateChain(chainGeometry, chainDef);
         }
     }
