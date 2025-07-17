@@ -123,8 +123,8 @@ public class SoftBody : MonoBehaviour
         
         // Soft Body.
         { 
-            using var spawnedItem = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, Vector2.zero, m_BodySides, m_BodyScale, triggerEvents: false, jointFrequency: m_JointFrequency, jointDamping: m_JointDamping);
-            foreach (var body in spawnedItem.Bodies)
+            using var spawnedBodies = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, Vector2.zero, m_BodySides, m_BodyScale, triggerEvents: false, jointFrequency: m_JointFrequency, jointDamping: m_JointDamping);
+            foreach (var body in spawnedBodies)
                 bodies.Add(body);
         }
     }

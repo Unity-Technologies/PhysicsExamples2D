@@ -101,7 +101,7 @@ public class Barrel : MonoBehaviour
         }
         else if (m_ObjectType == ObjectType.Ragdoll)
         {
-	        rowCount = 30;
+	        rowCount = 15;
         }            
         
         var shift = 1.15f;
@@ -243,12 +243,9 @@ public class Barrel : MonoBehaviour
             
 					case ObjectType.Ragdoll:
 					{
-						var spawnedItem = SpawnFactory.Ragdoll.SpawnRagdoll(world, bodyDef.position, ragDollConfiguration, true, ref random);
-						foreach (var body in spawnedItem.Bodies)
-						{
+						using var spawnedBodies = SpawnFactory.Ragdoll.SpawnRagdoll(world, bodyDef.position, ragDollConfiguration, true, ref random);
+						foreach (var body in spawnedBodies)
 							bodies.Add(body);
-						}
-						spawnedItem.Dispose();
 						continue;
 					}
             

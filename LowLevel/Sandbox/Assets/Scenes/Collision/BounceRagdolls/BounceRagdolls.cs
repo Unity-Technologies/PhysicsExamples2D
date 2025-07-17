@@ -202,9 +202,9 @@ public class BounceRagdolls : MonoBehaviour
         ref var random = ref m_SandboxManager.Random;
         var position = new Vector2(random.NextFloat(-2f, 2f), random.NextFloat(-2f, 0f));
         
-        using var spawnedItem = SpawnFactory.Ragdoll.SpawnRagdoll(world, position, ragDollConfiguration, true, ref random);
+        using var spawnedBodies = SpawnFactory.Ragdoll.SpawnRagdoll(world, position, ragDollConfiguration, true, ref random);
         var bodies = m_SandboxManager.Bodies;
-        foreach (var body in spawnedItem.Bodies)
+        foreach (var body in spawnedBodies)
         {
 	        bodies.Add(body);
         }

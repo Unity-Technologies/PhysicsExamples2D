@@ -104,11 +104,8 @@ public class TriggerFunnel : MonoBehaviour
             if (body.bodyType == RigidbodyType2D.Static)
                 return;
 
-            var userObject = body.userObject;
-            if (userObject.isValid)
-                m_SandboxManager.RemoveSpawnedItem(userObject, true);
-            else
-                body.Destroy();
+            // Destroy the body.
+            body.Destroy();
         }
     }
 
@@ -278,22 +275,16 @@ public class TriggerFunnel : MonoBehaviour
             EnableMotor = true
         };
 
-        var spawnedItem = SpawnFactory.Ragdoll.SpawnRagdoll(world, spawnPosition, ragDollConfiguration, true, ref random);
-        foreach (var body in spawnedItem.Bodies)
-        {
+        using var spawnedBodies = SpawnFactory.Ragdoll.SpawnRagdoll(world, spawnPosition, ragDollConfiguration, true, ref random);
+        foreach (var body in spawnedBodies)
             bodies.Add(body);
-        }
-        m_SandboxManager.AddSpawnedItem(spawnedItem);
     }
 
     private void CreateDonut(PhysicsWorld world, Vector2 spawnPosition, NativeHashSet<PhysicsBody> bodies)
     {
-        var spawnedItem = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true, jointFrequency: 20f);
-        foreach (var body in spawnedItem.Bodies)
-        {
+        using var spawnedBodies = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true, jointFrequency: 20f);
+        foreach (var body in spawnedBodies)
             bodies.Add(body);
-        }
-        m_SandboxManager.AddSpawnedItem(spawnedItem);
     }
 
     private void CreateCompound(PhysicsBody body, PhysicsShapeDefinition shapeDef)

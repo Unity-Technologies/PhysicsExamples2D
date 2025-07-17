@@ -8,33 +8,11 @@ using Random = Unity.Mathematics.Random;
 
 public static class SpawnFactory
 {
-    public struct SpawnedItem : IDisposable
-    {
-        public NativeList<PhysicsBody> Bodies;
-        public PhysicsWorld.UserObject UserObject;
-
-        public void Dispose()
-        {
-            if (Bodies.IsCreated)
-            {
-                Bodies.Dispose();
-                Bodies = default;
-            }
-
-            if (UserObject.isValid)
-            {
-                UserObject.Destroy();
-                UserObject = default;
-            }
-        }
-    }
-
     public static class Softbody
     {
-        public static SpawnedItem SpawnDonut(PhysicsWorld world, IShapeColorProvider colorProvider, Vector2 position, int sides = 7, float scale = 1f, bool triggerEvents = false, float jointFrequency = 5f, float jointDamping = 0.0f)
+        public static NativeList<PhysicsBody> SpawnDonut(PhysicsWorld world, IShapeColorProvider colorProvider, Vector2 position, int sides = 7, float scale = 1f, bool triggerEvents = false, float jointFrequency = 5f, float jointDamping = 0.0f, Allocator allocator = Allocator.Temp)
         {
-            NativeList<PhysicsBody> bodies = new(Allocator.Persistent);
-            var userObject = world.CreateUserObject(default);
+            NativeList<PhysicsBody> bodies = new(allocator);
 
             var radius = 1.0f * scale;
             var deltaAngle = PhysicsMath.TAU / sides;
@@ -65,7 +43,6 @@ public static class SpawnFactory
 
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
-                body.userObject = userObject;
 
                 body.CreateShape(capsuleGeometry, shapeDef);
 
@@ -93,7 +70,7 @@ public static class SpawnFactory
                 prevBody = currentBody;
             }
 
-            return new SpawnedItem { Bodies = bodies, UserObject = userObject };
+            return bodies;
         }
     }
 
@@ -206,10 +183,9 @@ public static class SpawnFactory
             }
         }
 
-        public static SpawnedItem SpawnRagdoll(PhysicsWorld world, Vector2 position, Configuration configuration, bool rightFacing, ref Random random)
+        public static NativeList<PhysicsBody> SpawnRagdoll(PhysicsWorld world, Vector2 position, Configuration configuration, bool rightFacing, ref Random random)
         {
             NativeList<PhysicsBody> bodies = new(Allocator.Persistent);
-            var userObject = world.CreateUserObject(default);
 
             // Create the bone array.
             var bones = new BoneArray(Allocator.Temp);
@@ -246,7 +222,7 @@ public static class SpawnFactory
                 triggerEvents = configuration.TriggerEvents
             };
 
-            if (!configuration.ColorProvider.IsActive)
+            if (configuration.ColorProvider is not { IsShapeColorActive: true })
                 footShapeDef.surfaceMaterial.customColor = Color.saddleBrown;
 
             var scale = random.NextFloat(configuration.ScaleRange.x, configuration.ScaleRange.y);
@@ -271,10 +247,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = trouserColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.02f * scale), center2 = new Vector2(0f, 0.02f * scale), radius = 0.095f * scale };
@@ -296,10 +271,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = shirtColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.135f * scale), center2 = new Vector2(0f, 0.135f * scale), radius = 0.09f * scale };
@@ -344,10 +318,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0.1f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = skinColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.038f * scale), center2 = new Vector2(0f, 0.039f * scale), radius = 0.075f * scale };
@@ -392,10 +365,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = trouserColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.06f * scale };
@@ -450,10 +422,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = trouserColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.155f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.045f * scale };
@@ -501,10 +472,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = trouserColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.06f * scale };
@@ -549,10 +519,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = trouserColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.155f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.045f * scale };
@@ -600,10 +569,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = shirtColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.035f * scale };
@@ -648,10 +616,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0.1f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = skinColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.03f * scale };
@@ -698,10 +665,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = shirtColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.035f * scale };
@@ -746,10 +712,9 @@ public static class SpawnFactory
                 bodyDef.linearDamping = 0.1f;
                 bone.body = world.CreateBody(bodyDef);
                 bodies.Add(bone.body);
-                bone.body.userObject = userObject;
 
                 // Create shape.
-                if (!configuration.ColorProvider.IsActive)
+                if (configuration.ColorProvider is not { IsShapeColorActive: true })
                     shapeDef.surfaceMaterial.customColor = skinColor;
 
                 var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.125f * scale), center2 = new Vector2(0f, 0.125f * scale), radius = 0.03f * scale };
@@ -785,16 +750,15 @@ public static class SpawnFactory
             // Dispose of the bones.
             bones.Dispose();
 
-            return new SpawnedItem { Bodies = bodies, UserObject = userObject };
+            return bodies;
         }
     }
 
     public static class Gear
     {
-        public static SpawnedItem SpawnGear(PhysicsWorld world, IShapeColorProvider colorProvider, PhysicsShape.ContactFilter contactFilter, Vector2 gearPosition, float gearRadius, bool useMotor = false, float motorSpeed = 0f)
+        public static NativeList<PhysicsBody> SpawnGear(PhysicsWorld world, IShapeColorProvider colorProvider, PhysicsShape.ContactFilter contactFilter, Vector2 gearPosition, float gearRadius, bool useMotor = false, float motorSpeed = 0f, Allocator allocator = Allocator.Temp)
         {
-            NativeList<PhysicsBody> bodies = new(Allocator.Persistent);
-            var userObject = world.CreateUserObject(default);
+            NativeList<PhysicsBody> bodies = new(allocator);
             
             var toothHalfWidth = 0.09f * gearRadius;
             var toothHalfHeight = 0.06f * gearRadius;
@@ -812,14 +776,16 @@ public static class SpawnFactory
             };
 
             var gearBody = world.CreateBody(bodyDef);
-            gearBody.userObject = userObject;
             bodies.Add(gearBody);
 
             var shapeDef = new PhysicsShapeDefinition
             {
                 contactFilter = contactFilter,
-                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.saddleBrown }
+                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f }
             };
+
+            if (colorProvider is not { IsShapeColorActive: true })
+                shapeDef.surfaceMaterial.customColor = Color.saddleBrown;
 
             var circle = new CircleGeometry { radius = gearRadius };
             gearBody.CreateShape(circle, shapeDef);
@@ -830,6 +796,10 @@ public static class SpawnFactory
             var center = new Vector2(gearRadius + toothHalfHeight, 0f);
             var rotation = PhysicsRotate.identity;
 
+            shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f };
+            if (colorProvider is not { IsShapeColorActive: true })
+                shapeDef.surfaceMaterial.customColor = Color.gray;
+            
             for (var i = 0; i < count; ++i)
             {
                 var tooth = PolygonGeometry.CreateBox(
@@ -837,7 +807,6 @@ public static class SpawnFactory
                     radius: toothRadius,
                     transform: new PhysicsTransform(center, rotation));
 
-                shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.gray };
                 gearBody.CreateShape(tooth, shapeDef);
 
                 rotation = dq.MultiplyRotation(rotation);
@@ -857,8 +826,8 @@ public static class SpawnFactory
 			
             // Create the gear hinge.
             world.CreateJoint(jointDef);
-            
-            return new SpawnedItem { Bodies = bodies, UserObject = userObject };
+
+            return bodies;
         }
     }
 }

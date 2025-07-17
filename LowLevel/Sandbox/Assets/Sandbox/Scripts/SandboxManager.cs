@@ -134,7 +134,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private bool m_DisableUIRestarts;
     private bool m_ShowUI;
     private Dictionary<PhysicsWorld.DrawOptions, Toggle> m_DrawFlagElements;
-    private NativeHashMap<PhysicsWorld.UserObject, SpawnFactory.SpawnedItem> m_SpawnedItems;
     
     // PhysicsWorld Elements.
     private SliderInt m_WorkersElement;
@@ -170,7 +169,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private Random m_Random;
 
     public Color32 ShapeColorState => ColorShapeState ? new Color32() : new Color32((byte)m_Random.NextUInt(0, 256), (byte)m_Random.NextUInt(0, 256), (byte)m_Random.NextUInt(0, 256), 255);
-    bool IShapeColorProvider.IsActive => ColorShapeState;
+    bool IShapeColorProvider.IsShapeColorActive => ColorShapeState;
 
     public void ResetSceneState()
     {
@@ -187,17 +186,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         {
             PhysicsWorld.DestroyBodyBatch(Bodies.ToNativeArray(Allocator.Temp));
             Bodies.Clear();
-        }
-
-        // Destroy any user objects.
-        if (m_SpawnedItems.IsCreated)
-        {
-            // Dispose of the bodies and user objects.
-            foreach (var item in m_SpawnedItems)
-            {
-                item.Value.Dispose();
-            }
-            m_SpawnedItems.Clear();
         }
 
         // Clear the debug draw.
@@ -217,32 +205,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             sceneBody.enabled = true;
     }
-
-    public void AddSpawnedItem(SpawnFactory.SpawnedItem spawnedItem)
-    {
-        m_SpawnedItems.Add(spawnedItem.UserObject, spawnedItem);
-    }
-
-    public void RemoveSpawnedItem(PhysicsWorld.UserObject userObject, bool destroy)
-    {
-        if (!m_SpawnedItems.TryGetValue(userObject, out var spawnedItem))
-            return;
-        
-        // Remove the spawned item.
-        m_SpawnedItems.Remove(userObject);
-
-        if (!destroy)
-            return;
-        
-        // Destroy the spawned item.
-        foreach (var body in spawnedItem.Bodies)
-        {
-            if (body.isValid)
-                body.Destroy();
-        }
-
-        spawnedItem.Dispose();
-    }
     
     private void OnEnable()
     {
@@ -253,7 +215,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         
         Bodies = new NativeHashSet<PhysicsBody>(500, Allocator.Persistent);
         m_DrawFlagElements = new Dictionary<PhysicsWorld.DrawOptions, Toggle>(capacity: 8);
-        m_SpawnedItems = new NativeHashMap<PhysicsWorld.UserObject, SpawnFactory.SpawnedItem>(initialCapacity: 8, allocator: Allocator.Persistent);
 
         // Overrides.
         m_OverrideDrawOptions = PhysicsWorld.DrawOptions.Off;
@@ -263,7 +224,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private void OnDisable()
     {
         Bodies.Dispose();
-        m_SpawnedItems.Dispose();
     }
 
     private void Start()
