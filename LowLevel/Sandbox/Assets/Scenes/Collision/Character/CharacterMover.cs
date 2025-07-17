@@ -386,33 +386,6 @@ public class CharacterMover : MonoBehaviour
 				world.CreateJoint(jointDef);
 			}
         }
-
-#if false
-        {
-	        var bodyDef = new PhysicsBodyDefinition
-	        {
-		        position = new Vector2(32f, 4.5f)
-	        };
-
-	        var shapeDef = new PhysicsShapeDefinition
-	        {
-		        contactFilter = new PhysicsShape.ContactFilter
-		        {
-			        categories = CollisionBits.MoverBit,
-			        contacts = CollisionBits.AllBits
-		        },
-		        moverData = new PhysicsShape.MoverData
-		        {
-			        pushLimit = 0.025f,
-			        clipVelocity = false
-		        }
-	        };
-
-	        var body = world.CreateBody(bodyDef);
-	        bodies.Add(body);
-	        body.CreateShape(m_Geometry, shapeDef);
-		}
-#endif
 	    
 	    // Create some random dynamic debris.
 		{
