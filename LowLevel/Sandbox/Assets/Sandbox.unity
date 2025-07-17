@@ -311,7 +311,7 @@ MonoBehaviour:
     Name: Bounce Ragdolls
     Category: Collision
     Description: Checking the stability of very fast continuous collision.
-  - ScenePath: Assets/Scenes/Collision/Character/CharacterMover.unity
+  - ScenePath: Assets/Scenes/Collision/CharacterMover/CharacterMover.unity
     Name: Character Mover
     Category: Collision
     Description: Demonstrating the Cast Mover feature.
