@@ -13,6 +13,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public bool ReverseChain;
         public PhysicsChainDefinition ChainDefinition = PhysicsChainDefinition.defaultDefinition;
         public PhysicsUserData UserData;
+        public Object CallbackTarget;
         public SceneBody SceneBody;
 
         public PhysicsChain ChainShape => m_ChainShape;
@@ -115,6 +116,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             {
                 // Set the user data.
                 m_ChainShape.userData = UserData;
+             
+                // Set the callback target.
+                m_ChainShape.callbackTarget = CallbackTarget;
                 
                 // Set the owner.
                 m_OwnerKey = m_ChainShape.SetOwner(this);
