@@ -1,7 +1,9 @@
 {
     "name": "Unity.2D.Physics.LowLevelExtras",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+    "Unity.Collections"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
