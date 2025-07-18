@@ -16,7 +16,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public PolygonGeometry PolygonGeometry = new();
         public PhysicsShapeDefinition ShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
         public PhysicsUserData UserData;
-        public Object CallbackTarget;
+        public MonoBehaviour CallbackTarget;
         public bool ScaleRadius = true;
         public SceneBody SceneBody;
 

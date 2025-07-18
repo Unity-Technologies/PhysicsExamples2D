@@ -9,7 +9,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public SceneBody BodyA;
         public SceneBody BodyB;
         public PhysicsUserData UserData;
-        public Object CallbackTarget;
+        public MonoBehaviour CallbackTarget;
         public SceneWorld SceneWorld;
         
         protected int m_OwnerKey;

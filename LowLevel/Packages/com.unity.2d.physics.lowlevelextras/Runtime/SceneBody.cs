@@ -11,7 +11,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     {
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
         public PhysicsUserData UserData;
-        public Object CallbackTarget;
+        public MonoBehaviour CallbackTarget;
         public SceneWorld SceneWorld;
 
         public PhysicsBody Body => m_Body;

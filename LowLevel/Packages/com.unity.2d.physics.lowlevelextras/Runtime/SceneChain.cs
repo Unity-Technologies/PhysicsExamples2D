@@ -13,7 +13,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public bool ReverseChain;
         public PhysicsChainDefinition ChainDefinition = PhysicsChainDefinition.defaultDefinition;
         public PhysicsUserData UserData;
-        public Object CallbackTarget;
+        public MonoBehaviour CallbackTarget;
         public SceneBody SceneBody;
 
         public PhysicsChain ChainShape => m_ChainShape;
