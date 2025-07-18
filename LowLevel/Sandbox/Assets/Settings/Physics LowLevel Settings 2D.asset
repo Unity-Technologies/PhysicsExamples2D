@@ -191,6 +191,160 @@ MonoBehaviour:
       m_GroupIndex: 0
     m_IsLoop: 1
     m_TriggerEvents: 0
+  m_PhysicsDistanceJointDefinition:
+    m_LocalAnchorA:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Distance: 1
+    m_EnableSpring: 0
+    m_SpringHertz: 0
+    m_SpringDampingRatio: 0
+    m_EnableMotor: 0
+    m_MotorSpeed: 0
+    m_MaxMotorForce: 0
+    m_EnableLimit: 0
+    m_MinLengthLimit: 0
+    m_MaxLengthLimit: 100000
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDampingRatio: 0
+    m_DrawScale: 1
+    m_CollideConnected: 0
+  m_PhysicsFixedJointDefinition:
+    m_LocalAnchorA:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LinearHertz: 0
+    m_LinearDampingRatio: 0
+    m_AngularHertz: 0
+    m_AngularDampingRatio: 0
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDampingRatio: 0
+    m_DrawScale: 1
+    m_CollideConnected: 0
+  m_PhysicsHingeJointDefinition:
+    m_LocalAnchorA:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_EnableSpring: 0
+    m_SpringTargetAngle: 0
+    m_SpringHertz: 0
+    m_SpringDampingRatio: 0
+    m_EnableMotor: 0
+    m_MotorSpeed: 0
+    m_MaxMotorTorque: 0
+    m_EnableLimit: 0
+    m_LowerAngleLimit: 0
+    m_UpperAngleLimit: 0
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDampingRatio: 0
+    m_DrawScale: 1
+    m_CollideConnected: 0
+  m_PhysicsRelativeJointDefinition:
+    m_LocalAnchorA:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_MaxForce: 1
+    m_MaxTorque: 1
+    m_CorrectionFactor: 0.3
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDampingRatio: 0
+    m_DrawScale: 1
+    m_CollideConnected: 0
+  m_PhysicsSliderJointDefinition:
+    m_LocalAnchorA:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_EnableSpring: 0
+    m_SpringTargetTranslation: 0
+    m_SpringHertz: 0
+    m_SpringDampingRatio: 0
+    m_EnableMotor: 0
+    m_MotorSpeed: 0
+    m_MaxMotorForce: 0
+    m_EnableLimit: 0
+    m_LowerTranslationLimit: 0
+    m_UpperTranslationLimit: 0
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDampingRatio: 0
+    m_DrawScale: 1
+    m_CollideConnected: 0
+  m_PhysicsTargetJointDefinition:
+    m_LocalAnchorA:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_SpringHertz: 4
+    m_SpringDampingRatio: 1
+    m_MaxForce: 1
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDampingRatio: 0
+    m_DrawScale: 1
+    m_CollideConnected: 0
+  m_PhysicsWheelJointDefinition:
+    m_LocalAnchorA:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_EnableSpring: 1
+    m_SpringHertz: 1
+    m_SpringDampingRatio: 0.7
+    m_EnableMotor: 0
+    m_MotorSpeed: 0
+    m_MaxMotorTorque: 0
+    m_EnableLimit: 0
+    m_LowerTranslationLimit: 0
+    m_UpperTranslationLimit: 0
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDampingRatio: 0
+    m_DrawScale: 1
+    m_CollideConnected: 0
   m_ConcurrentSimulations: 2
   m_LengthUnitsPerMeter: 1
   m_DrawInBuild: 1
