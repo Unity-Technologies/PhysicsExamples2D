@@ -12,6 +12,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };
         public bool ReverseChain;
         public PhysicsChainDefinition ChainDefinition = PhysicsChainDefinition.defaultDefinition;
+        public PhysicsUserData UserData;
         public SceneBody SceneBody;
 
         public PhysicsChain ChainShape => m_ChainShape;
@@ -111,7 +112,13 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             m_ChainShape = body.CreateChain(chainGeometry, ChainDefinition);
 
             if (m_ChainShape.isValid)
+            {
+                // Set the user data.
+                m_ChainShape.userData = UserData;
+                
+                // Set the owner.
                 m_OwnerKey = m_ChainShape.SetOwner(this);
+            }
         }
 
         private void DestroyShape()

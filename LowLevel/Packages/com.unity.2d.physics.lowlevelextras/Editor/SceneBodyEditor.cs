@@ -13,6 +13,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             var root = new VisualElement();
 
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneBody.BodyDefinition))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneBody.UserData))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneBody.CallbackTarget))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneBody.SceneWorld))));
             

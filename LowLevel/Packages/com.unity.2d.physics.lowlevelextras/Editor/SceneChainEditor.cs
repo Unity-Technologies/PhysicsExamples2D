@@ -14,6 +14,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneChain.ReverseChain))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneChain.ChainDefinition))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneChain.UserData))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneChain.Points))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneChain.SceneBody))));
             

@@ -64,6 +64,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
             // World Definition.
             m_ShowHideWorldDefinition.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneWorld.WorldDefinition))));
+            m_ShowHideWorldDefinition.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneWorld.UserData))));
             root.Add(m_ShowHideWorldDefinition);
 
             // Info.

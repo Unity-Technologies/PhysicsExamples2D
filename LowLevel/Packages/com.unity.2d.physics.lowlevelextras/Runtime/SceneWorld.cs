@@ -15,7 +15,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     {
         public bool UseDefaultWorld = true;
         public PhysicsWorldDefinition WorldDefinition = PhysicsWorldDefinition.defaultDefinition;
-
+        public PhysicsUserData UserData;
+        
         public delegate void SceneWorldCreateEventHandler(SceneWorld sceneWorld);
         public delegate void SceneWorldDestroyEventHandler(SceneWorld sceneWorld);
         public event SceneWorldCreateEventHandler CreateWorldEvent;
@@ -86,7 +87,13 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             {
                 m_World = PhysicsWorld.Create(definition: WorldDefinition);
                 if (m_World.isValid)
+                {
+                    // Set the user data.
+                    m_World.userData = UserData;
+                    
+                    // Set the owner.
                     m_OwnerKey = m_World.SetOwner(this);
+                }
             }
             
             // Notify.

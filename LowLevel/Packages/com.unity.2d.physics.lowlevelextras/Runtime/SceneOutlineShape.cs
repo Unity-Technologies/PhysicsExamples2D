@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine.LowLevelPhysics2D;
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
@@ -11,6 +12,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     {
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };
         public PhysicsShapeDefinition ShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
+        public PhysicsUserData UserData;
+        public Object CallbackTarget;
         public SceneBody SceneBody;
 
         private struct OwnedShapes
@@ -21,7 +24,6 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         
         private NativeList<OwnedShapes> m_OwnedShapes;
         
-
         public void UpdateShape(Vector2[] points)
         {
             Points = points;
@@ -138,6 +140,12 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 var shape = body.CreateShape(geometry, ShapeDefinition);
                 if (!shape.isValid)
                     continue;
+
+                // Set the user data.
+                shape.userData = UserData;
+                
+                // Set the callback target.
+                shape.callbackTarget = CallbackTarget;
                 
                 // Set the owner.
                 var ownerKey = shape.SetOwner(this);

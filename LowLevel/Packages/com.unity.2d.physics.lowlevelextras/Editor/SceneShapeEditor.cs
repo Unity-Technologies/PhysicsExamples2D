@@ -46,6 +46,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
             // Base Properties.
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneShape.ShapeDefinition))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneShape.UserData))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneShape.CallbackTarget))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneShape.SceneBody))));
             

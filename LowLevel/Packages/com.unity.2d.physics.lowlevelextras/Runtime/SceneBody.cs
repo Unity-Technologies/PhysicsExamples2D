@@ -10,8 +10,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     public sealed class SceneBody : MonoBehaviour, IWorldSceneDrawable
     {
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
-        public SceneWorld SceneWorld;
+        public PhysicsUserData UserData;
         public Object CallbackTarget;
+        public SceneWorld SceneWorld;
 
         public PhysicsBody Body => m_Body;
         private int m_OwnerKey;
@@ -96,6 +97,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 // Set the transform object.
                 m_Body.transformObject = transform;
 
+                // Set the user data.
+                m_Body.userData = UserData;
+                
                 // Set the callback target.
                 m_Body.callbackTarget = CallbackTarget;
                 

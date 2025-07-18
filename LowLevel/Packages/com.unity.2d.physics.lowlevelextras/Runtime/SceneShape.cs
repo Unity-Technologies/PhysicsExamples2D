@@ -15,9 +15,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public ChainSegmentGeometry ChainSegmentGeometry = new();
         public PolygonGeometry PolygonGeometry = new();
         public PhysicsShapeDefinition ShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
+        public PhysicsUserData UserData;
+        public Object CallbackTarget;
         public bool ScaleRadius = true;
         public SceneBody SceneBody;
-        public Object CallbackTarget;
 
         public PhysicsShape Shape => m_Shape;
         private PhysicsShape m_Shape;
@@ -181,7 +182,13 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             // Set extra details.
             if (m_Shape.isValid)
             {
+                // Set the user data.
+                m_Shape.userData = UserData;
+                
+                // Set the callback target.
                 m_Shape.callbackTarget = CallbackTarget;
+                
+                // Set the owner.
                 m_OwnerKey = m_Shape.SetOwner(this);
             }
         }

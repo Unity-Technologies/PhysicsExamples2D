@@ -1,5 +1,4 @@
 ﻿using UnityEngine.LowLevelPhysics2D;
-using UnityEngine.Serialization;
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
@@ -7,7 +6,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [Icon(IconUtility.IconPath + "SceneWheelJoint.png")]
     public sealed class SceneWheelJoint : SceneJointBase, IWorldSceneDrawable
     {
-        [FormerlySerializedAs("Definition")] public PhysicsWheelJointDefinition JointDefinition = PhysicsWheelJointDefinition.defaultDefinition;
+        public PhysicsWheelJointDefinition JointDefinition = PhysicsWheelJointDefinition.defaultDefinition;
         
         private PhysicsWheelJoint m_Joint;
 
@@ -36,6 +35,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             m_Joint = PhysicsWheelJoint.Create(world, JointDefinition);
             if (m_Joint.isValid)
             {
+                m_Joint.userData = UserData;
                 m_Joint.callbackTarget = CallbackTarget;
                 m_OwnerKey = m_Joint.SetOwner(this);
             }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine.LowLevelPhysics2D;
-using UnityEngine.Serialization;
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
@@ -7,7 +6,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [Icon(IconUtility.IconPath + "SceneHingeJoint.png")]
     public sealed class SceneHingeJoint : SceneJointBase, IWorldSceneDrawable
     {
-        [FormerlySerializedAs("Definition")] public PhysicsHingeJointDefinition JointDefinition = PhysicsHingeJointDefinition.defaultDefinition;
+        public PhysicsHingeJointDefinition JointDefinition = PhysicsHingeJointDefinition.defaultDefinition;
         
         private PhysicsHingeJoint m_Joint;
 
@@ -36,6 +35,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             m_Joint = PhysicsHingeJoint.Create(world, JointDefinition);
             if (m_Joint.isValid)
             {
+                m_Joint.userData = UserData;
                 m_Joint.callbackTarget = CallbackTarget;
                 m_OwnerKey = m_Joint.SetOwner(this);
             }

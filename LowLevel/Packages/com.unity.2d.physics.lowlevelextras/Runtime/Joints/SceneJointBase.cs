@@ -1,4 +1,6 @@
-﻿namespace UnityEngine.U2D.Physics.LowLevelExtras
+﻿using UnityEngine.LowLevelPhysics2D;
+
+namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
     [ExecuteAlways]
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneJoint)]    
@@ -6,6 +8,7 @@
     {
         public SceneBody BodyA;
         public SceneBody BodyB;
+        public PhysicsUserData UserData;
         public Object CallbackTarget;
         public SceneWorld SceneWorld;
         
