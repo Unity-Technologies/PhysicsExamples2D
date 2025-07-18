@@ -4,14 +4,17 @@ using UnityEngine.UIElements;
 
 namespace UnityEditor.U2D.Physics.LowLevelExtras
 {
-    [CustomEditor(typeof(SceneJointBase))]
+    [CustomEditor(typeof(SceneIgnoreJoint))]
     [CanEditMultipleObjects]
-    public class SceneJointEditor : Editor
+    public class SceneIgnoreJointEditor : SceneJointBaseEditor
     {
         public override VisualElement CreateInspectorGUI()
         {
             var root = new VisualElement();
-            InspectorElement.FillDefaultInspector(root, serializedObject, this);
+
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneIgnoreJoint.JointDefinition))));
+            AddBaseInspectorGUI(root);
+            
             return root;
         }
     }
