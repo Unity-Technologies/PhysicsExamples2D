@@ -34,6 +34,11 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             if (SceneBody == null)
                 SceneBody = SceneBody.FindSceneBody(gameObject);
+#if true            
+            // Set the contact filter categories to match the GameObject layer.
+            // NOTE: We do this here for convenience as the component has just been added.
+            ShapeDefinition.contactFilter = new PhysicsShape.ContactFilter { categories = new PhysicsMask(gameObject.layer), contacts = ShapeDefinition.contactFilter.contacts };
+#endif
         }
        
         private void OnEnable()
@@ -102,11 +107,11 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             // Calculate the polygons from the points.
             var composer = PhysicsComposer.Create();
             composer.AddLayer(Points, PhysicsTransform.identity);
-            using var polygons = composer.CreatePolygonGeometry();
+            using var polygons = composer.CreatePolygonGeometry(vertexScale: transform.lossyScale);
             composer.Destroy();
             
             // Calculate the relative transform from the scene body to this scene shape.
-            var relativeTransform = PhysicsMath.GetRelativeMatrix(SceneBody.transform, transform, SceneBody.Body.world.transformPlane);
+            var relativeTransform = PhysicsMath.GetRelativeMatrix(SceneBody.transform, transform, SceneBody.Body.world.transformPlane, useScale: false);
 
             // Iterate the polygons.
             foreach (var geometry in polygons)
