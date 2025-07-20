@@ -77,18 +77,13 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
         private void Update()
         {
-            m_TransformChangeReset = !Application.isPlaying && transform.hasChanged && m_Body.isValid;
-        }
-
-        private void LateUpdate()
-        {
-            if (!m_TransformChangeReset)
+            if (Application.isPlaying ||
+                !transform.hasChanged ||
+                !m_Body.isValid)
                 return;
 
-            m_TransformChangeReset = false;
-
-            transform.hasChanged = false;
-
+            // Flag as transform needing reset.
+            m_TransformChangeReset = true;
 #if true            
             CreateBody();
 #else            
@@ -103,6 +98,14 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 PhysicsMath.ToPosition2D(transform.position, transformPlane),
                 new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane)));
 #endif
+        }
+
+        private void LateUpdate()
+        {
+            if (!m_TransformChangeReset)
+                return;
+
+            transform.hasChanged = m_TransformChangeReset = false;
         }
 
         private void OnValidate()
