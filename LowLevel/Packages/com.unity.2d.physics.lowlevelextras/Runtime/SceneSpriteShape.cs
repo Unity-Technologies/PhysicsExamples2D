@@ -11,12 +11,16 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     public sealed class SceneSpriteShape : MonoBehaviour
     {
         public Sprite Sprite;
+        public bool UseDelaunay = true;
         public PhysicsShapeDefinition ShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
         public PhysicsUserData UserData;
         public MonoBehaviour CallbackTarget;
         public SceneBody SceneBody;
 
-        private List<Vector2> m_PhysicsShapeVertex = new();
+        public void UpdateShape() => CreateShapes();
+        
+        private readonly List<Vector2> m_PhysicsShapeVertex = new();
+        private bool m_TransformChangeReset;
 
         private struct OwnedShapes
         {
@@ -64,6 +68,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneBody.CreateBodyEvent -= OnCreateBody;
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
+            
+            m_TransformChangeReset = false;
         }
 
         private void OnValidate()
@@ -81,8 +87,19 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 !transform.hasChanged)
                 return;
             
+            // Flag as transform needing reset.
+            m_TransformChangeReset = true;
+            
             // Create the shapes.
             CreateShapes();
+        }
+
+        private void LateUpdate()
+        {
+            if (!m_TransformChangeReset)
+                return;
+
+            transform.hasChanged = m_TransformChangeReset = false;
         }
         
         private void CreateShapes()
@@ -108,6 +125,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 return;
 
             var composer = PhysicsComposer.Create();
+            composer.useDelaunay = UseDelaunay;
             var vertexPath = new NativeList<Vector2>(Allocator.Temp);
 
             // Add all physic shape paths.
@@ -123,6 +141,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                     // Add the layer to the composer.
                     composer.AddLayer(vertexPath.AsArray(), PhysicsTransform.identity);
                 }
+
+                vertexPath.Clear();
             }
             
             // Calculate the polygons from the points.

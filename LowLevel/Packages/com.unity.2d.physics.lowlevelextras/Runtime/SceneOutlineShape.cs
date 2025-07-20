@@ -16,6 +16,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public MonoBehaviour CallbackTarget;
         public SceneBody SceneBody;
 
+        private bool m_TransformChangeReset;
+        
         private struct OwnedShapes
         {
             public PhysicsShape Shape;
@@ -68,6 +70,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneBody.CreateBodyEvent -= OnCreateBody;
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
+            
+            m_TransformChangeReset = false;
         }
 
         private void OnValidate()
@@ -85,8 +89,19 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 !transform.hasChanged)
                 return;
             
+            // Flag as transform needing reset.
+            m_TransformChangeReset = true;
+            
             // Create the shapes.
             CreateShapes();
+        }
+        
+        private void LateUpdate()
+        {
+            if (!m_TransformChangeReset)
+                return;
+
+            transform.hasChanged = m_TransformChangeReset = false;
         }
         
         private void CreateShapes()

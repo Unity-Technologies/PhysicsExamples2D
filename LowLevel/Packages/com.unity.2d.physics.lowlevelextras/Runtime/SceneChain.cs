@@ -20,6 +20,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private PhysicsChain m_ChainShape;
         private int m_OwnerKey;
 
+        private bool m_TransformChangeReset;
+        
         public void UpdateShape(Vector2[] points)
         {
             Points = points;
@@ -54,6 +56,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneBody.CreateBodyEvent -= OnCreateBody;
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
+            
+            m_TransformChangeReset = false;
         }
 
         private void OnValidate()
@@ -72,26 +76,19 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 !m_ChainShape.isValid)
                 return;
             
-            // Reset transform changed flag.
-            transform.hasChanged = false;
+            // Flag as transform needing reset.
+            m_TransformChangeReset = true;
 
-            // Is the body the same transform or deeper in the hierarchy?
-            if (SceneBody.transform == transform.root || SceneBody.transform.IsChildOf(transform))
-            {
-                // Fetch the body.
-                var body = SceneBody.Body;
-                
-                // Fetch the transform plane.
-                var transformPlane = body.world.transformPlane;
-                
-                // Update the body.
-                body.transform = new PhysicsTransform(
-                    PhysicsMath.ToPosition2D(transform.position, transformPlane),
-                    new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane)));            
-            }
-            
             // Create the shape.
             CreateShape();
+        }
+        
+        private void LateUpdate()
+        {
+            if (!m_TransformChangeReset)
+                return;
+
+            transform.hasChanged = m_TransformChangeReset = false;
         }
         
         private void CreateShape()

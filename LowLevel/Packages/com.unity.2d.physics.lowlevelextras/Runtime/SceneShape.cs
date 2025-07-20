@@ -24,6 +24,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private PhysicsShape m_Shape;
         private int m_OwnerKey;
 
+        private bool m_TransformChangeReset;
+        
         public void UpdateShape() => CreateShape();
         
         private void Reset()
@@ -63,6 +65,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneBody.CreateBodyEvent -= OnCreateBody;
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
+            
+            m_TransformChangeReset = false;
         }
 
         private void OnValidate()
@@ -80,10 +84,21 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 !transform.hasChanged)
                 return;
             
+            // Flag as transform needing reset.
+            m_TransformChangeReset = true;
+            
             // Create the shape.
             CreateShape();
         }
   
+        private void LateUpdate()
+        {
+            if (!m_TransformChangeReset)
+                return;
+
+            transform.hasChanged = m_TransformChangeReset = false;
+        }        
+
         private void CreateShape()
         {
             // Destroy any existing shape.
