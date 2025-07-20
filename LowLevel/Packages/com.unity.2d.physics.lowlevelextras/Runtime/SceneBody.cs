@@ -22,6 +22,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public delegate void SceneBodyDestroyEventHandler(SceneBody sceneBody);
         public event SceneBodyCreateEventHandler CreateBodyEvent;
         public event SceneBodyDestroyEventHandler DestroyBodyEvent;
+
+        private bool m_TransformChangeReset;
         
         /// <summary>
         /// Find a SceneBody.
@@ -69,6 +71,38 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneWorld.CreateWorldEvent -= OnCreateWorld;
                 SceneWorld.DestroyWorldEvent -= OnDestroyWorld;
             }
+
+            m_TransformChangeReset = false;
+        }
+
+        private void Update()
+        {
+            m_TransformChangeReset = !Application.isPlaying && transform.hasChanged && m_Body.isValid;
+        }
+
+        private void LateUpdate()
+        {
+            if (!m_TransformChangeReset)
+                return;
+
+            m_TransformChangeReset = false;
+
+            transform.hasChanged = false;
+
+#if true            
+            CreateBody();
+#else            
+            if (!m_Body.isValid)
+                return;
+            
+            // Fetch the transform plane.
+            var transformPlane = m_Body.world.transformPlane;
+                
+            // Update the body.
+            m_Body.transform = new PhysicsTransform(
+                PhysicsMath.ToPosition2D(transform.position, transformPlane),
+                new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane)));
+#endif
         }
 
         private void OnValidate()

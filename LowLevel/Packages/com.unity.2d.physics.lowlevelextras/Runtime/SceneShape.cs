@@ -73,35 +73,17 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             DestroyShape();
             CreateShape();
         }
-
+        
         private void Update()
         {
             if (Application.isPlaying ||
                 !transform.hasChanged)
                 return;
             
-            // Reset transform changed flag.
-            transform.hasChanged = false;
-
-            // Is the body the same transform?
-            if (SceneBody.transform == transform)
-            {
-                // Fetch the body.
-                var body = SceneBody.Body;
-                
-                // Fetch the transform plane.
-                var transformPlane = body.world.transformPlane;
-                
-                // Update the body.
-                body.transform = new PhysicsTransform(
-                    PhysicsMath.ToPosition2D(transform.position, transformPlane),
-                    new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane)));            
-            }
-            
             // Create the shape.
             CreateShape();
         }
-        
+  
         private void CreateShape()
         {
             // Destroy any existing shape.

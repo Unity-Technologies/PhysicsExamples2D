@@ -77,29 +77,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private void Update()
         {
             if (Application.isPlaying ||
-                !transform.hasChanged ||
-                m_OwnedShapes.Length == 0)
+                !transform.hasChanged)
                 return;
             
-            // Reset transform changed flag.
-            transform.hasChanged = false;
-
-            // Is the body the same transform or deeper in the hierarchy?
-            if (SceneBody.transform == transform.root || SceneBody.transform.IsChildOf(transform))
-            {
-                // Fetch the body.
-                var body = SceneBody.Body;
-                
-                // Fetch the transform plane.
-                var transformPlane = body.world.transformPlane;
-                
-                // Update the body.
-                body.transform = new PhysicsTransform(
-                    PhysicsMath.ToPosition2D(transform.position, transformPlane),
-                    new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane)));            
-            }
-            
-            // Create the shape.
+            // Create the shapes.
             CreateShapes();
         }
         
@@ -137,7 +118,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 if (!shapeGeometry.isValid)
                     continue;
                 
-                var shape = body.CreateShape(geometry, ShapeDefinition);
+                var shape = body.CreateShape(shapeGeometry, ShapeDefinition);
                 if (!shape.isValid)
                     continue;
 
