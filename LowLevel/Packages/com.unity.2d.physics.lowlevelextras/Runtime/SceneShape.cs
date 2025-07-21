@@ -213,7 +213,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 DestroyShape();
         }
         
-        public void Draw()
+        void IWorldSceneDrawable.Draw()
         {
             if (!m_Shape.isValid)
                 return;
