@@ -31,16 +31,11 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             Points = points;
             CreateShapes();
         }
-        
+
         private void Reset()
         {
             if (SceneBody == null)
                 SceneBody = SceneBody.FindSceneBody(gameObject);
-#if true            
-            // Set the contact filter categories to match the GameObject layer.
-            // NOTE: We do this here for convenience as the component has just been added.
-            ShapeDefinition.contactFilter = new PhysicsShape.ContactFilter { categories = new PhysicsMask(gameObject.layer), contacts = ShapeDefinition.contactFilter.contacts };
-#endif
         }
        
         private void OnEnable()
