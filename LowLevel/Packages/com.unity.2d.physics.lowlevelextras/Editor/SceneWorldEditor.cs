@@ -6,10 +6,10 @@ using UnityEngine.UIElements;
 namespace UnityEditor.U2D.Physics.LowLevelExtras
 {
     [CustomEditor(typeof(SceneWorld))]
-    [CanEditMultipleObjects]
     public class SceneWorldEditor : Editor
     {
         private VisualElement m_ShowHideWorldDefinition;
+        private SerializedObject m_SceneWorldEditorSerializedObject;
 
         private Foldout m_InfoFoldout;
         private const float InfoUpdatePeriod = 0.25f;
@@ -53,6 +53,8 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
         public override VisualElement CreateInspectorGUI()
         {
+            m_SceneWorldEditorSerializedObject = new SerializedObject(this);
+            
             var root = new VisualElement();
             m_ShowHideWorldDefinition = new VisualElement();
 
@@ -69,10 +71,10 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
             // Info.
             m_InfoFoldout = new Foldout { text = "Info", value = false, style = { marginTop = 4 }, viewDataKey = $"{typeof(SceneWorldEditor)}_Info" };
-            var profilePropertyField = new PropertyField(serializedObject.FindProperty(nameof(WorldProfile)));
-            var countersPropertyField = new PropertyField(serializedObject.FindProperty(nameof(WorldCounters)));
-            profilePropertyField.Bind(serializedObject);
-            countersPropertyField.Bind(serializedObject);
+            var profilePropertyField = new PropertyField(m_SceneWorldEditorSerializedObject.FindProperty(nameof(WorldProfile)));
+            var countersPropertyField = new PropertyField(m_SceneWorldEditorSerializedObject.FindProperty(nameof(WorldCounters)));
+            profilePropertyField.Bind(m_SceneWorldEditorSerializedObject);
+            countersPropertyField.Bind(m_SceneWorldEditorSerializedObject);
             m_InfoFoldout.Add(profilePropertyField);
             m_InfoFoldout.Add(countersPropertyField);
             root.Add(m_InfoFoldout);

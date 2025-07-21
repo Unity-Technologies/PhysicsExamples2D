@@ -7,6 +7,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     /// <summary>
     /// A wrapper around a World that also provides world drawing.
     /// </summary>
+    [DisallowMultipleComponent]
     [ExecuteAlways]
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneWorld)]
     [AddComponentMenu("Physics 2D (LowLevel)/Scene World", 2)]
@@ -21,7 +22,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public delegate void SceneWorldDestroyEventHandler(SceneWorld sceneWorld);
         public event SceneWorldCreateEventHandler CreateWorldEvent;
         public event SceneWorldDestroyEventHandler DestroyWorldEvent;
-        
+
         public PhysicsWorld World => m_World;
         private PhysicsWorld m_World;
         private int m_OwnerKey;
