@@ -8,7 +8,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneShape)]
     [AddComponentMenu("Physics 2D (LowLevel)/Scene Sprite Shape", 1)]
     [Icon(IconUtility.IconPath + "SceneShape.png")]
-    public sealed class SceneSpriteShape : MonoBehaviour
+    public sealed class SceneSpriteShape : MonoBehaviour, IWorldSceneDrawable
     {
         public Sprite Sprite;
         public bool UseDelaunay = true;
@@ -211,6 +211,21 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private void OnDestroyBody(SceneBody sceneBody)
         {
             DestroyShapes();
+        }
+        
+        void IWorldSceneDrawable.Draw()
+        {
+            // Finish if we've nothing to draw.
+            if (!m_OwnedShapes.IsCreated || m_OwnedShapes.Length == 0)
+                return;
+
+            // Finish if we're not drawing selections.
+            if (!m_OwnedShapes[0].Shape.world.drawOptions.HasFlag(PhysicsWorld.DrawOptions.SelectedShapes))
+                return;
+
+            // Draw selections.
+            foreach (var ownedShape in m_OwnedShapes)
+                ownedShape.Shape.Draw();
         }        
     }
 }
