@@ -117,7 +117,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             // Calculate the polygons from the points.
             var composer = PhysicsComposer.Create();
             composer.AddLayer(Points, PhysicsTransform.identity);
-            using var polygons = composer.CreatePolygonGeometry(vertexScale: transform.lossyScale);
+            using var polygons = composer.CreatePolygonGeometry(vertexScale: transform.lossyScale, Allocator.Temp);
             composer.Destroy();
             
             // Calculate the relative transform from the scene body to this scene shape.

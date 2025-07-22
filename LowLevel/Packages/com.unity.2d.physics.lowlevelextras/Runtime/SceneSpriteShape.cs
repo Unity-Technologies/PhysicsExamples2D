@@ -141,7 +141,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             }
             
             // Calculate the polygons from the points.
-            using var polygons = composer.CreatePolygonGeometry(vertexScale: transform.lossyScale);
+            using var polygons = composer.CreatePolygonGeometry(vertexScale: transform.lossyScale, Allocator.Temp);
 
             vertexPath.Dispose();
             composer.Destroy();
