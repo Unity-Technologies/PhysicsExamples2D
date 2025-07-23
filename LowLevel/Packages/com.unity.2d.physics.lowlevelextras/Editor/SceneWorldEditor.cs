@@ -33,7 +33,8 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         private void PostSimulateHandler(PhysicsWorld world, float deltaTime)
         {
             // Check if the update is relevant.
-            if (!m_InfoFoldout.value ||
+            if (m_InfoFoldout == null ||
+                !m_InfoFoldout.value ||
                 ((SceneWorld)target).World != world)
                 return;
 
