@@ -1761,6 +1761,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 0
   SceneWorld: {fileID: 2705271620396043455}
 --- !u!114 &3815549511264163470
 MonoBehaviour:
@@ -1800,6 +1801,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 0
   SceneWorld: {fileID: 2705271620619923035}
 --- !u!114 &3815549511584692912
 MonoBehaviour:
@@ -1839,6 +1841,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 0
   SceneWorld: {fileID: 2705271620263838309}
 --- !u!114 &3815549512603915838
 MonoBehaviour:
@@ -1878,6 +1881,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 0
   SceneWorld: {fileID: 2705271621417299691}
 --- !u!114 &3815549512692099273
 MonoBehaviour:
@@ -1917,6 +1921,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 0
   SceneWorld: {fileID: 2705271621303881756}
 --- !u!1 &4176388283383189403
 GameObject:
