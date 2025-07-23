@@ -14,11 +14,6 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             DestroyJoint();
             
-            // Fetch the world.
-            var world = SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
-            if (!world.isValid)
-                return;
-            
             // Validate.
             if (!BodyA || !BodyA.Body.isValid || !BodyB || !BodyB.Body.isValid)
                 return;
@@ -28,7 +23,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             JointDefinition.bodyB = BodyB.Body;
             
             // Create the joint.
-            m_Joint = PhysicsFixedJoint.Create(world, JointDefinition);
+            m_Joint = PhysicsFixedJoint.Create(BodyA.Body.world, JointDefinition);
             if (m_Joint.isValid)
             {
                 m_Joint.userData = UserData;

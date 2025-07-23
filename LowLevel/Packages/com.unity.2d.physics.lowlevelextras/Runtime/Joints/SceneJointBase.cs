@@ -10,15 +10,11 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public SceneBody BodyB;
         public PhysicsUserData UserData;
         public MonoBehaviour CallbackTarget;
-        public SceneWorld SceneWorld;
         
         protected int m_OwnerKey;
         
         private void Reset()
         {
-            if (SceneWorld == null)
-                SceneWorld = SceneWorld.FindSceneWorld(gameObject);
-
             if (BodyA == null)
                 BodyA = SceneBody.FindSceneBody(gameObject);
         }

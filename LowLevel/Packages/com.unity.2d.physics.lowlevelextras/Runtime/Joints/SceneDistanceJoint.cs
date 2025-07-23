@@ -14,15 +14,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             DestroyJoint();
             
-            // Fetch the world.
-            var world = SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
-            if (!world.isValid)
-                return;
-            
             // Validate.
             if (!BodyA || !BodyA.Body.isValid || !BodyB || !BodyB.Body.isValid)
                 return;
-            
+
             // Set the definition.
             JointDefinition.bodyA = BodyA.Body;
             JointDefinition.bodyB = BodyB.Body;
@@ -32,7 +27,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 JointDefinition.minLengthLimit = JointDefinition.maxLengthLimit;
             
             // Create the joint.
-            m_Joint = PhysicsDistanceJoint.Create(world, JointDefinition);
+            m_Joint = PhysicsDistanceJoint.Create(BodyA.Body.world, JointDefinition);
             if (m_Joint.isValid)
             {
                 m_Joint.userData = UserData;

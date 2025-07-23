@@ -14,11 +14,6 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             DestroyJoint();
             
-            // Fetch the world.
-            var world  = SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
-            if (!world.isValid)
-                return;
-            
             // Validate.
             if (!BodyA || !BodyA.Body.isValid || !BodyB || !BodyB.Body.isValid)
                 return;
@@ -32,7 +27,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 JointDefinition.lowerAngleLimit = JointDefinition.upperAngleLimit;
             
             // Create the joint.
-            m_Joint = PhysicsHingeJoint.Create(world, JointDefinition);
+            m_Joint = PhysicsHingeJoint.Create(BodyA.Body.world, JointDefinition);
             if (m_Joint.isValid)
             {
                 m_Joint.userData = UserData;

@@ -12,6 +12,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
         public PhysicsUserData UserData;
         public MonoBehaviour CallbackTarget;
+        public bool UseDefaultWorld = true;
         public SceneWorld SceneWorld;
 
         public PhysicsBody Body => m_Body;
@@ -38,9 +39,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         
         private void Reset()
         {
-            if (SceneWorld != null)
+            if (UseDefaultWorld || SceneWorld != null)
                 return;
-            
+
+            // This is super slow, hopefully we don't need to do this.
             SceneWorld = SceneWorld.FindSceneWorld(gameObject);
         }
 
@@ -113,14 +115,16 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             if (!isActiveAndEnabled)
                 return;
             
-            // Create a new body.
+            // Destroy the body.
             DestroyBody();
+
+            // Create a new body.
             CreateBody();
         }
 
         private void CreateBody()
         {
-            var world = SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
+            var world = UseDefaultWorld || SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
             
             // Fetch the transform plane.
             var transformPlane = world.transformPlane;
@@ -163,12 +167,14 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
         private void OnCreateWorld(SceneWorld sceneWorld)
         {
-            CreateBody();
+            if (!UseDefaultWorld)
+                CreateBody();
         }
 
         private void OnDestroyWorld(SceneWorld sceneWorld)
         {
-            DestroyBody();
+            if (!UseDefaultWorld)
+                DestroyBody();
         }
         
         private void FixUnassignedSceneShapes()

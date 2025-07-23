@@ -12,7 +12,6 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneJointBase.BodyB))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneJointBase.UserData))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneJointBase.CallbackTarget))));
-            root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneJointBase.SceneWorld))));
         }
     }
 }
