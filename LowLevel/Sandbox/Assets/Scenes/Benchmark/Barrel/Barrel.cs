@@ -40,7 +40,7 @@ public class Barrel : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
         
-        m_ObjectType = ObjectType.Polygon;
+        m_ObjectType = ObjectType.Ragdoll;
         
         SetupOptions();
 
@@ -119,9 +119,10 @@ public class Barrel : MonoBehaviour
         }
         else if (m_ObjectType == ObjectType.Ragdoll)
         {
+	        columnCount = 11;
             extray = 0.5f;
-            side = 0.55f;
-            shift = 2.5f;
+            side = 1.0f;
+            shift = 6.5f;
             centerX = shift * columnCount / 2.0f;
         }
 
@@ -133,7 +134,7 @@ public class Barrel : MonoBehaviour
         
         var ragDollConfiguration = new SpawnFactory.Ragdoll.Configuration
         {
-	        ScaleRange = new Vector2(3.5f, 3.5f),
+	        ScaleRange = new Vector2(5f, 9f),
 	        JointHertz = 1f,
 	        JointDamping = 0.1f,
 	        JointFriction = 0.0f,
