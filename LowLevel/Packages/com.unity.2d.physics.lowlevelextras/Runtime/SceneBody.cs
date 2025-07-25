@@ -136,7 +136,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             if (m_Body.isValid)
             {
                 // Set the transform object.
-                m_Body.transformObject = transform;
+                m_Body.transformObject = m_Body.transformWriteMode != PhysicsBody.TransformWriteMode.Off ? transform : null;
 
                 // Set the user data.
                 m_Body.userData = UserData;
