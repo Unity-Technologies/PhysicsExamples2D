@@ -8,7 +8,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneShape)]
     [AddComponentMenu("Physics 2D (LowLevel)/Scene Sprite Shape", 1)]
     [Icon(IconUtility.IconPath + "SceneShape.png")]
-    public sealed class SceneSpriteShape : MonoBehaviour, IWorldSceneDrawable
+    public sealed class SceneSpriteShape : MonoBehaviour, IWorldSceneTransformChanged, IWorldSceneDrawable
     {
         public Sprite Sprite;
         public bool UseDelaunay = true;
@@ -20,7 +20,6 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public void UpdateShape() => CreateShapes();
         
         private readonly List<Vector2> m_PhysicsShapeVertex = new();
-        private bool m_TransformChangeReset;
 
         private struct OwnedShapes
         {
@@ -49,6 +48,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             m_OwnedShapes = new NativeList<OwnedShapes>(Allocator.Persistent);
             
             CreateShapes();
+            
+#if UNITY_EDITOR
+            WorldSceneTransformMonitor.AddMonitor(this);
+#endif
         }
 
         private void OnDisable()
@@ -64,7 +67,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
             
-            m_TransformChangeReset = false;
+#if UNITY_EDITOR
+            WorldSceneTransformMonitor.RemoveMonitor(this);
+#endif
         }
 
         private void OnValidate()
@@ -76,27 +81,6 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             CreateShapes();
         }
 
-        private void Update()
-        {
-            if (Application.isPlaying ||
-                !transform.hasChanged)
-                return;
-            
-            // Flag as transform needing reset.
-            m_TransformChangeReset = true;
-            
-            // Create the shapes.
-            CreateShapes();
-        }
-
-        private void LateUpdate()
-        {
-            if (!m_TransformChangeReset)
-                return;
-
-            transform.hasChanged = m_TransformChangeReset = false;
-        }
-        
         private void CreateShapes()
         {
             // Destroy any existing shape.
@@ -207,6 +191,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             DestroyShapes();
         }
+ 
+        void IWorldSceneTransformChanged.TransformChanged() => CreateShapes();
         
         void IWorldSceneDrawable.Draw()
         {

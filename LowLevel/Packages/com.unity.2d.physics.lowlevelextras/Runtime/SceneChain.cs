@@ -7,7 +7,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneShape)]
     [AddComponentMenu("Physics 2D (LowLevel)/Scene Chain", 1)]
     [Icon(IconUtility.IconPath + "SceneChain.png")]
-    public sealed class SceneChain : MonoBehaviour
+    public sealed class SceneChain : MonoBehaviour, IWorldSceneTransformChanged
     {
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };
         public bool ReverseChain;
@@ -20,8 +20,6 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private PhysicsChain m_ChainShape;
         private int m_OwnerKey;
 
-        private bool m_TransformChangeReset;
-        
         public void UpdateShape(Vector2[] points)
         {
             Points = points;
@@ -45,6 +43,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             }
             
             CreateShape();
+            
+#if UNITY_EDITOR
+            WorldSceneTransformMonitor.AddMonitor(this);
+#endif
         }
 
         private void OnDisable()
@@ -57,7 +59,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
             
-            m_TransformChangeReset = false;
+#if UNITY_EDITOR
+            WorldSceneTransformMonitor.RemoveMonitor(this);
+#endif
         }
 
         private void OnValidate()
@@ -65,30 +69,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             if (!isActiveAndEnabled)
                 return;
 
-            DestroyShape();
             CreateShape();
-        }
-
-        private void Update()
-        {
-            if (Application.isPlaying ||
-                !transform.hasChanged ||
-                !m_ChainShape.isValid)
-                return;
-            
-            // Flag as transform needing reset.
-            m_TransformChangeReset = true;
-
-            // Create the shape.
-            CreateShape();
-        }
-        
-        private void LateUpdate()
-        {
-            if (!m_TransformChangeReset)
-                return;
-
-            transform.hasChanged = m_TransformChangeReset = false;
         }
         
         private void CreateShape()
@@ -141,6 +122,12 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             DestroyShape();
         }        
+ 
+        void IWorldSceneTransformChanged.TransformChanged()
+        {
+            if (m_ChainShape.isValid)
+                CreateShape();
+        }
         
         public override string ToString() => m_ChainShape.ToString();
     }

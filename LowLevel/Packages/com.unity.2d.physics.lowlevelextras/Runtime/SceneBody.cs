@@ -7,7 +7,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneBody)]
     [AddComponentMenu("Physics 2D (LowLevel)/Scene Body")]
     [Icon(IconUtility.IconPath + "SceneBody.png")]
-    public sealed class SceneBody : MonoBehaviour, IWorldSceneDrawable
+    public sealed class SceneBody : MonoBehaviour, IWorldSceneTransformChanged, IWorldSceneDrawable
     {
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
         public PhysicsUserData UserData;
@@ -24,8 +24,6 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public event SceneBodyCreateEventHandler CreateBodyEvent;
         public event SceneBodyDestroyEventHandler DestroyBodyEvent;
 
-        private bool m_TransformChangeReset;
-        
         /// <summary>
         /// Find a SceneBody.
         /// </summary>
@@ -62,6 +60,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
             // Fix any SceneShapes here that are not assigned a SceneBody.
             FixUnassignedSceneShapes();
+            
+#if UNITY_EDITOR
+            WorldSceneTransformMonitor.AddMonitor(this);
+#endif
         }
 
         private void OnDisable()
@@ -73,41 +75,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneWorld.CreateWorldEvent -= OnCreateWorld;
                 SceneWorld.DestroyWorldEvent -= OnDestroyWorld;
             }
-
-            m_TransformChangeReset = false;
-        }
-
-        private void Update()
-        {
-            if (Application.isPlaying ||
-                !transform.hasChanged ||
-                !m_Body.isValid)
-                return;
-
-            // Flag as transform needing reset.
-            m_TransformChangeReset = true;
-#if true            
-            CreateBody();
-#else            
-            if (!m_Body.isValid)
-                return;
             
-            // Fetch the transform plane.
-            var transformPlane = m_Body.world.transformPlane;
-                
-            // Update the body.
-            m_Body.transform = new PhysicsTransform(
-                PhysicsMath.ToPosition2D(transform.position, transformPlane),
-                new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane)));
+#if UNITY_EDITOR
+            WorldSceneTransformMonitor.RemoveMonitor(this);
 #endif
-        }
-
-        private void LateUpdate()
-        {
-            if (!m_TransformChangeReset)
-                return;
-
-            transform.hasChanged = m_TransformChangeReset = false;
         }
 
         private void OnValidate()
@@ -115,15 +86,15 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             if (!isActiveAndEnabled)
                 return;
             
-            // Destroy the body.
-            DestroyBody();
-
             // Create a new body.
             CreateBody();
         }
 
         private void CreateBody()
         {
+            // Destroy any existing body.
+            DestroyBody();
+            
             var world = UseDefaultWorld || SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
             
             // Fetch the transform plane.
@@ -196,7 +167,13 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 }
             }
         }
-
+        
+        void IWorldSceneTransformChanged.TransformChanged()
+        {
+            if (m_Body.isValid)
+                CreateBody();            
+        }
+        
         void IWorldSceneDrawable.Draw()
         {
             if (!m_Body.isValid)
