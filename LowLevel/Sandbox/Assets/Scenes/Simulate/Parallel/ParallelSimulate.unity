@@ -1403,7 +1403,10 @@ MonoBehaviour:
     m_ContinuousAllowed: 1
     m_ContactFilterCallbacks: 0
     m_PreSolveCallbacks: 0
-    m_AutoCallbackTargets: 0
+    m_AutoBodyUpdateCallbacks: 0
+    m_AutoContactCallbacks: 0
+    m_AutoTriggerCallbacks: 0
+    m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1411,7 +1414,7 @@ MonoBehaviour:
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4128
-    m_DrawFillOptions: 7
+    m_DrawFillOptions: -1
     m_DrawThickness: 3
     m_DrawFillAlpha: 0.25
     m_DrawPointScale: 1
@@ -1472,7 +1475,10 @@ MonoBehaviour:
     m_ContinuousAllowed: 1
     m_ContactFilterCallbacks: 0
     m_PreSolveCallbacks: 0
-    m_AutoCallbackTargets: 0
+    m_AutoBodyUpdateCallbacks: 0
+    m_AutoContactCallbacks: 0
+    m_AutoTriggerCallbacks: 0
+    m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1541,7 +1547,10 @@ MonoBehaviour:
     m_ContinuousAllowed: 1
     m_ContactFilterCallbacks: 0
     m_PreSolveCallbacks: 0
-    m_AutoCallbackTargets: 0
+    m_AutoBodyUpdateCallbacks: 0
+    m_AutoContactCallbacks: 0
+    m_AutoTriggerCallbacks: 0
+    m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1610,7 +1619,10 @@ MonoBehaviour:
     m_ContinuousAllowed: 1
     m_ContactFilterCallbacks: 0
     m_PreSolveCallbacks: 0
-    m_AutoCallbackTargets: 0
+    m_AutoBodyUpdateCallbacks: 0
+    m_AutoContactCallbacks: 0
+    m_AutoTriggerCallbacks: 0
+    m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30
@@ -1679,7 +1691,10 @@ MonoBehaviour:
     m_ContinuousAllowed: 1
     m_ContactFilterCallbacks: 0
     m_PreSolveCallbacks: 0
-    m_AutoCallbackTargets: 0
+    m_AutoBodyUpdateCallbacks: 0
+    m_AutoContactCallbacks: 0
+    m_AutoTriggerCallbacks: 0
+    m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactHertz: 30

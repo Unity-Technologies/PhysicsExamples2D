@@ -277,6 +277,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &8792233
 GameObject:
@@ -436,6 +437,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &50465083
 GameObject:
@@ -552,7 +554,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -703,6 +704,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &50659049
 GameObject:
@@ -775,214 +777,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
---- !u!1 &64075876
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 64075877}
-  - component: {fileID: 64075880}
-  - component: {fileID: 64075879}
-  - component: {fileID: 64075878}
-  m_Layer: 0
-  m_Name: Joint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &64075877
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64075876}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 525055468}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &64075878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64075876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06e1b7b410753c04088fc8b80cd1dd53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyA: {fileID: 525055469}
-  BodyB: {fileID: 64075880}
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
-  JointDefinition:
-    m_LocalAnchorA:
-      position: {x: 0, y: 0}
-      rotation:
-        direction: {x: 1, y: 0}
-    m_LocalAnchorB:
-      position: {x: 0, y: 0}
-      rotation:
-        direction: {x: 1, y: 0}
-    m_EnableSpring: 0
-    m_SpringTargetAngle: 0
-    m_SpringHertz: 0
-    m_SpringDampingRatio: 0
-    m_EnableMotor: 1
-    m_MotorSpeed: 6.2
-    m_MaxMotorTorque: 10000
-    m_EnableLimit: 0
-    m_LowerAngleLimit: 0
-    m_UpperAngleLimit: 0
-    m_ForceThreshold: 1000000
-    m_TorqueThreshold: 1000000
-    m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
-    m_DrawScale: 1
-    m_CollideConnected: 0
---- !u!114 &64075879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64075876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 1
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 20.2
-  CapsuleGeometry:
-    m_Center1: {x: -2, y: 0}
-    m_Center2: {x: 2, y: 0}
-    m_Radius: 0.1
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0.1
-      m_Bounciness: 0.6
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4278204927
-    contactFilter:
-      m_Categories:
-        bitMask: 256
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 64075880}
---- !u!114 &64075880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 64075876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 0
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: -9, y: 0.02}
-    m_Rotation:
-      direction: {x: 1, y: 0}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &138041593
 GameObject:
@@ -1099,7 +894,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -1250,6 +1044,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &144729003
 GameObject:
@@ -1409,6 +1204,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &145671236
 GameObject:
@@ -1568,6 +1364,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &264193408
 GameObject:
@@ -1727,6 +1524,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &354157183
 GameObject:
@@ -1822,7 +1620,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -1973,6 +1770,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &477155087
 GameObject:
@@ -2132,6 +1930,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &485784287
 GameObject:
@@ -2204,6 +2003,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &485918428
 GameObject:
@@ -2276,6 +2076,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &507807929
 GameObject:
@@ -2435,6 +2236,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &524853948
 GameObject:
@@ -2507,78 +2309,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
---- !u!1 &525055467
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 525055468}
-  - component: {fileID: 525055469}
-  m_Layer: 0
-  m_Name: HingeJoint_Motor_ML
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &525055468
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525055467}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9, y: 0.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 64075877}
-  m_Father: {fileID: 1833011815}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &525055469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525055467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: -9, y: 0.02}
-    m_Rotation:
-      direction: {x: 1, y: 0}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &534109151
 GameObject:
@@ -2738,6 +2469,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &537971313
 GameObject:
@@ -2795,7 +2527,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -2946,6 +2677,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &560997283
 GameObject:
@@ -3179,6 +2911,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &605148272
 GameObject:
@@ -3338,6 +3071,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &640772410
 GameObject:
@@ -3410,6 +3144,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &678265707
 GameObject:
@@ -3569,6 +3304,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &791107170
 GameObject:
@@ -3728,6 +3464,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &824668145
 GameObject:
@@ -3800,6 +3537,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &835922286
 GameObject:
@@ -3872,6 +3610,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &859224174
 GameObject:
@@ -3988,7 +3727,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -4139,6 +3877,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &875938871
 GameObject:
@@ -4298,6 +4037,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &890457987
 GameObject:
@@ -4370,6 +4110,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &904521494
 GameObject:
@@ -4427,7 +4168,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -4578,6 +4318,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1005381636
 GameObject:
@@ -4737,6 +4478,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1055976077
 GameObject:
@@ -4809,6 +4551,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1062612405
 GameObject:
@@ -4968,6 +4711,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1070417806
 GameObject:
@@ -5084,7 +4828,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -5235,6 +4978,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1086296359
 GameObject:
@@ -5394,6 +5138,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1092812747
 GameObject:
@@ -5451,7 +5196,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -5602,6 +5346,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1115821533
 GameObject:
@@ -5761,6 +5506,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1135509225
 GameObject:
@@ -5920,6 +5666,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1173146475
 GameObject:
@@ -5977,7 +5724,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -6128,6 +5874,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1200223525
 GameObject:
@@ -6282,7 +6029,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -6433,6 +6179,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1235040028
 GameObject:
@@ -6505,6 +6252,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1249772077
 GameObject:
@@ -6703,6 +6451,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1297724540
 GameObject:
@@ -6775,6 +6524,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1305111614
 GameObject:
@@ -6934,6 +6684,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1309292288
 GameObject:
@@ -7093,6 +6844,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1337879744
 GameObject:
@@ -7165,78 +6917,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
---- !u!1 &1406794750
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1406794751}
-  - component: {fileID: 1406794752}
-  m_Layer: 0
-  m_Name: HingeJoint_Motor_MR
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1406794751
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406794750}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9, y: 0.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2070492581}
-  m_Father: {fileID: 1833011815}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1406794752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406794750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: 9, y: 0.02}
-    m_Rotation:
-      direction: {x: 1, y: 0}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1415967095
 GameObject:
@@ -7479,6 +7160,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1497156214
 GameObject:
@@ -7638,6 +7320,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1552431569
 GameObject:
@@ -7732,7 +7415,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -7883,6 +7565,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1693972973
 GameObject:
@@ -7940,7 +7623,6 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
   JointDefinition:
     m_LocalAnchorA:
       position: {x: 0, y: 0}
@@ -8091,68 +7773,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
---- !u!1 &1723683181
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1723683182}
-  - component: {fileID: 1723683183}
-  m_Layer: 0
-  m_Name: Gear_ML
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1723683182
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723683181}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1833011815}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1723683183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723683181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9915a57bb5c2dfa48869691a00573ed2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GearComponent
-  GearRadius: 0.5
-  GearFriction: 0.1
-  GearColor: {r: 0.5450981, g: 0.2705882, b: 0.07450981, a: 1}
-  ToothColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  ToothCount: 7
-  ToothWidth: 0.14
-  ToothHeight: 0.41
-  ToothRadius: 0.01
-  EnableGearMotor: 0
-  MotorSpeed: 0
-  MaxMotorTorque: 1000000
-  GearContactFilter:
-    m_Categories:
-      bitMask: 128
-    m_Contacts:
-      bitMask: 18446744073709551615
-    m_GroupIndex: 0
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1750004567
 GameObject:
@@ -8312,6 +7933,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1799124674
 GameObject:
@@ -8471,6 +8093,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1833011814
 GameObject:
@@ -8504,11 +8127,7 @@ Transform:
   - {fileID: 485784288}
   - {fileID: 50659050}
   - {fileID: 1337879745}
-  - {fileID: 1723683182}
-  - {fileID: 1928091770}
-  - {fileID: 525055468}
   - {fileID: 824668146}
-  - {fileID: 1406794751}
   - {fileID: 1055976078}
   - {fileID: 835922287}
   - {fileID: 524853949}
@@ -8677,6 +8296,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &1909275863
 GameObject:
@@ -8715,68 +8335,6 @@ Transform:
   - {fileID: 1497156215}
   m_Father: {fileID: 1249772078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1928091769
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1928091770}
-  - component: {fileID: 1928091771}
-  m_Layer: 0
-  m_Name: Gear_MR
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1928091770
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928091769}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1833011815}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1928091771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928091769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9915a57bb5c2dfa48869691a00573ed2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GearComponent
-  GearRadius: 0.5
-  GearFriction: 0.1
-  GearColor: {r: 0.5450981, g: 0.2705882, b: 0.07450981, a: 1}
-  ToothColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  ToothCount: 7
-  ToothWidth: 0.14
-  ToothHeight: 0.41
-  ToothRadius: 0.01
-  EnableGearMotor: 0
-  MotorSpeed: 0
-  MaxMotorTorque: 1000000
-  GearContactFilter:
-    m_Categories:
-      bitMask: 128
-    m_Contacts:
-      bitMask: 18446744073709551615
-    m_GroupIndex: 0
-  SceneWorld: {fileID: 0}
 --- !u!1 &1986502510
 GameObject:
   m_ObjectHideFlags: 0
@@ -8935,6 +8493,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &2029759315
 GameObject:
@@ -9094,6 +8653,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &2040859081
 GameObject:
@@ -9253,214 +8813,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
---- !u!1 &2070492580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2070492581}
-  - component: {fileID: 2070492584}
-  - component: {fileID: 2070492583}
-  - component: {fileID: 2070492582}
-  m_Layer: 0
-  m_Name: Joint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2070492581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070492580}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1406794751}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2070492582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070492580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06e1b7b410753c04088fc8b80cd1dd53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyA: {fileID: 1406794752}
-  BodyB: {fileID: 2070492584}
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  SceneWorld: {fileID: 0}
-  JointDefinition:
-    m_LocalAnchorA:
-      position: {x: 0, y: 0}
-      rotation:
-        direction: {x: 1, y: 0}
-    m_LocalAnchorB:
-      position: {x: 0, y: 0}
-      rotation:
-        direction: {x: 1, y: 0}
-    m_EnableSpring: 0
-    m_SpringTargetAngle: 0
-    m_SpringHertz: 0
-    m_SpringDampingRatio: 0
-    m_EnableMotor: 1
-    m_MotorSpeed: -6.2
-    m_MaxMotorTorque: 10000
-    m_EnableLimit: 0
-    m_LowerAngleLimit: 0
-    m_UpperAngleLimit: 0
-    m_ForceThreshold: 1000000
-    m_TorqueThreshold: 1000000
-    m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
-    m_DrawScale: 1
-    m_CollideConnected: 0
---- !u!114 &2070492583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070492580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 1
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 20.2
-  CapsuleGeometry:
-    m_Center1: {x: -2, y: 0}
-    m_Center2: {x: 2, y: 0}
-    m_Radius: 0.1
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0.1
-      m_Bounciness: 0.6
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4278204927
-    contactFilter:
-      m_Categories:
-        bitMask: 256
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 2070492584}
---- !u!114 &2070492584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070492580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 0
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: 9, y: 0.02}
-    m_Rotation:
-      direction: {x: 1, y: 0}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1 &2101177202
 GameObject:
@@ -9620,6 +8973,7 @@ MonoBehaviour:
     m_Int: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
