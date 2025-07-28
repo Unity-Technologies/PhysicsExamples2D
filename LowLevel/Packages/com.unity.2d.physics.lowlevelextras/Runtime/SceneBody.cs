@@ -180,8 +180,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 return;
             
             // Draw if we're drawing selections.
-            var world = SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
-            if (world.drawOptions.HasFlag(PhysicsWorld.DrawOptions.SelectedBodies))
+            if (m_Body.world.drawOptions.HasFlag(PhysicsWorld.DrawOptions.SelectedBodies))
                 m_Body.Draw();
         }
         
