@@ -3740,12 +3740,14 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringHertz: 30
     m_SpringDampingRatio: 0
+    m_SpringLowerForce: -3.4028235e+38
+    m_SpringUpperForce: 3.4028235e+38
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorForce: 0
     m_EnableLimit: 0
-    m_MinLengthLimit: 0
-    m_MaxLengthLimit: 100000
+    m_MinDistanceLimit: 0
+    m_MaxDistanceLimit: 100000
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
@@ -4841,12 +4843,14 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringHertz: 30
     m_SpringDampingRatio: 0
+    m_SpringLowerForce: -3.4028235e+38
+    m_SpringUpperForce: 3.4028235e+38
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorForce: 0
     m_EnableLimit: 0
-    m_MinLengthLimit: 0
-    m_MaxLengthLimit: 100000
+    m_MinDistanceLimit: 0
+    m_MaxDistanceLimit: 100000
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60

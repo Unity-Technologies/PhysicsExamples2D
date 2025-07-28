@@ -23,8 +23,8 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             JointDefinition.bodyB = BodyB.Body;
             
             // Clamp the limits.
-            if (JointDefinition.minLengthLimit > JointDefinition.maxLengthLimit)
-                JointDefinition.minLengthLimit = JointDefinition.maxLengthLimit;
+            if (JointDefinition.minDistanceLimit > JointDefinition.maxDistanceLimit)
+                JointDefinition.minDistanceLimit = JointDefinition.maxDistanceLimit;
             
             // Create the joint.
             m_Joint = PhysicsDistanceJoint.Create(BodyA.Body.world, JointDefinition);

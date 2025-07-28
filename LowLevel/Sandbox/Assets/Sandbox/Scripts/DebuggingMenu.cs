@@ -20,7 +20,6 @@ public class DebuggingMenu : MonoBehaviour
     private Label m_ContactPairsElement;
     private Label m_ContactUpdatesElement;
     private Label m_SolvingElement;
-    private Label m_MergeIslandsElement;
     private Label m_PrepareStagesElement;
     private Label m_PrepareConstraintsElement;
     private Label m_SolveConstraintsElement;
@@ -84,7 +83,6 @@ public class DebuggingMenu : MonoBehaviour
             m_ContactPairsElement = root.Q<Label>("contact-pairs");
             m_ContactUpdatesElement = root.Q<Label>("contact-updates");
             m_SolvingElement = root.Q<Label>("solving");
-            m_MergeIslandsElement = root.Q<Label>("merge-islands");
             m_SolveConstraintsElement = root.Q<Label>("solve-constraints");
             m_PrepareStagesElement = root.Q<Label>("prepare-stages");
             m_PrepareConstraintsElement = root.Q<Label>("prepare-constraints");
@@ -147,7 +145,6 @@ public class DebuggingMenu : MonoBehaviour
         m_ContactPairsElement.text = $"<b>Contact Pairs</b>: {color}{m_LastProfile.contactPairs:F2}{endColor} ~[{color}{m_TotalProfile.contactPairs * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactPairs:F2}{endColor}]";
         m_ContactUpdatesElement.text = $"<b>Contact Updates</b>: {color}{m_LastProfile.contactUpdates:F2}{endColor} ~[{color}{m_TotalProfile.contactUpdates * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactUpdates:F2}{endColor}]";
         m_SolvingElement.text = $"<b>Solving</b>: {color}{m_LastProfile.solving:F2}{endColor} ~[{color}{m_TotalProfile.solving * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solving:F2}{endColor}]";
-        m_MergeIslandsElement.text = $"<b>Merge Islands</b>: {color}{m_LastProfile.mergeIslands:F2}{endColor} ~[{color}{m_TotalProfile.mergeIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.mergeIslands:F2}{endColor}]";
         m_PrepareStagesElement.text = $"<b>Prepare Stages</b>: {color}{m_LastProfile.prepareStages:F2}{endColor} ~[{color}{m_TotalProfile.prepareStages * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.prepareStages:F2}{endColor}]";
         m_PrepareConstraintsElement.text = $"<b>Prepare Constraints</b>: {color}{m_LastProfile.prepareConstraints:F2}{endColor} ~[{color}{m_TotalProfile.prepareConstraints * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.prepareConstraints:F2}{endColor}]";
         m_SolveConstraintsElement.text = $"<b>Solve Constraints</b>: {color}{m_LastProfile.solveConstraints:F2}{endColor} ~[{color}{m_TotalProfile.solveConstraints * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solveConstraints:F2}{endColor}]";
