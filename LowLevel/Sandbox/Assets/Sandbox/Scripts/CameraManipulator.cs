@@ -71,7 +71,7 @@ public class CameraManipulator : MonoBehaviour
     private InputMode m_TouchMode;
     private ManipulatorState m_ManipulatorState = ManipulatorState.None;
     private Vector3 m_WorldLastPosition;
-    private PhysicsTargetJoint m_DragJoint;
+    private PhysicsRelativeJoint m_DragJoint;
     private PhysicsBody m_DragGroundBody;
     private int m_OverlapUI;
 
@@ -131,18 +131,18 @@ public class CameraManipulator : MonoBehaviour
                                     continue;
 
                                 m_DragGroundBody = defaultWorld.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-                                var targetDefinition = new PhysicsTargetJointDefinition
+                                var relativeDefinition = new PhysicsRelativeJointDefinition
                                 {
                                     bodyA = m_DragGroundBody,
                                     bodyB = hitBody,
                                     localAnchorA = new PhysicsTransform(worldPosition),
                                     localAnchorB = hitBody.GetLocalPoint(worldPosition),
-                                    springHertz = 5f,
-                                    springDampingRatio = 0.7f,
-                                    maxForce = 10000f * hitBody.mass
+                                    springLinearFrequency = 15f,
+                                    springLinearDampingRatio = 0.7f,
+                                    springMaxForce = 1000f * hitBody.mass * defaultWorld.gravity.magnitude
                                 };
-                                m_DragJoint = defaultWorld.CreateJoint(targetDefinition);
-                                hitBody.awake = true;
+                                m_DragJoint = defaultWorld.CreateJoint(relativeDefinition);
+                                m_DragJoint.WakeBodies();
 
                                 // Flag as dragging an object.
                                 m_ManipulatorState = ManipulatorState.ObjectDrag;
@@ -214,9 +214,11 @@ public class CameraManipulator : MonoBehaviour
                 var oldTarget = m_DragJoint.bodyA.GetWorldPoint(m_DragJoint.localAnchorA.position);
                 var target = Camera.ScreenToWorldPoint(currentMouse.position.value);
                 m_DragJoint.localAnchorA = new PhysicsTransform(target);
+                m_DragJoint.WakeBodies();
 
                 var world = PhysicsWorld.defaultWorld;
-                world.DrawLine(target, m_DragJoint.bodyB.position, Color.grey);
+                var bodyB = m_DragJoint.bodyB;
+                world.DrawLine(target, bodyB.GetWorldPoint(m_DragJoint.localAnchorB.position), Color.grey);
                 world.DrawLine(oldTarget, target, Color.whiteSmoke);                
                 world.DrawPoint(oldTarget, 0.05f, Color.darkGreen);
                 world.DrawPoint(target, 0.05f, Color.green);

@@ -40,7 +40,7 @@ public class Barrel : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
         
-        m_ObjectType = ObjectType.Ragdoll;
+        m_ObjectType = ObjectType.Circle;
         
         SetupOptions();
 
