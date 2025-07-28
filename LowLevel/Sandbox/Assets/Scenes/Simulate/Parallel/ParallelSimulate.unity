@@ -1422,7 +1422,7 @@ MonoBehaviour:
     m_DrawImpulseScale: 1
     m_DrawCapacity: 0
     m_DrawColors:
-      transformAxisX: {r: 1, g: 0, b: 0, a: 1}
+      transformAxisX: {r: 0, g: 1, b: 1, a: 1}
       transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
       bodyBad: {r: 1, g: 0, b: 0, a: 1}
       bodyDisabled: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
@@ -1494,7 +1494,7 @@ MonoBehaviour:
     m_DrawImpulseScale: 1
     m_DrawCapacity: 0
     m_DrawColors:
-      transformAxisX: {r: 1, g: 0, b: 0, a: 1}
+      transformAxisX: {r: 0, g: 1, b: 1, a: 1}
       transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
       bodyBad: {r: 1, g: 0, b: 0, a: 1}
       bodyDisabled: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
@@ -1566,7 +1566,7 @@ MonoBehaviour:
     m_DrawImpulseScale: 1
     m_DrawCapacity: 0
     m_DrawColors:
-      transformAxisX: {r: 1, g: 0, b: 0, a: 1}
+      transformAxisX: {r: 0, g: 1, b: 1, a: 1}
       transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
       bodyBad: {r: 1, g: 0, b: 0, a: 1}
       bodyDisabled: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
@@ -1638,7 +1638,7 @@ MonoBehaviour:
     m_DrawImpulseScale: 1
     m_DrawCapacity: 0
     m_DrawColors:
-      transformAxisX: {r: 1, g: 0, b: 0, a: 1}
+      transformAxisX: {r: 0, g: 1, b: 1, a: 1}
       transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
       bodyBad: {r: 1, g: 0, b: 0, a: 1}
       bodyDisabled: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
@@ -1710,7 +1710,7 @@ MonoBehaviour:
     m_DrawImpulseScale: 1
     m_DrawCapacity: 0
     m_DrawColors:
-      transformAxisX: {r: 1, g: 0, b: 0, a: 1}
+      transformAxisX: {r: 0, g: 1, b: 1, a: 1}
       transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
       bodyBad: {r: 1, g: 0, b: 0, a: 1}
       bodyDisabled: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
