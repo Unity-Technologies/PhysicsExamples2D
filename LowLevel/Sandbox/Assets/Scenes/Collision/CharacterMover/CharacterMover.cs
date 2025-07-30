@@ -344,7 +344,7 @@ public class CharacterMover : MonoBehaviour
 	        {
 		        maxMotorTorque = 10f,
 		        enableMotor = true,
-		        springHertz = 3f,
+		        springFrequency = 3f,
 		        springDampingRatio = 0.8f,
 		        enableSpring = true
 	        };

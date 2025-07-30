@@ -185,7 +185,7 @@ public class BounceRagdolls : MonoBehaviour
         var ragDollConfiguration = new SpawnFactory.Ragdoll.Configuration
         {
 	        ScaleRange = new Vector2(1.75f, 1.75f),
-	        JointHertz = 1f,
+	        JointFrequency = 1f,
 	        JointDamping = 0.1f,
 	        JointFriction = 0.0f,
 	        GravityScale = 1f,

@@ -565,7 +565,7 @@ MonoBehaviour:
         direction: {x: 0, y: 1}
     m_EnableSpring: 1
     m_SpringTargetTranslation: 0
-    m_SpringHertz: 1
+    m_SpringFrequency: 1
     m_SpringDampingRatio: 0
     m_EnableMotor: 0
     m_MotorSpeed: 10
@@ -905,7 +905,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_EnableSpring: 0
     m_SpringTargetAngle: 0
-    m_SpringHertz: 0
+    m_SpringFrequency: 0
     m_SpringDampingRatio: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
@@ -1631,7 +1631,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
-    m_SpringHertz: 2
+    m_SpringFrequency: 2
     m_SpringDampingRatio: 0.4
     m_EnableMotor: 0
     m_MotorSpeed: 0
@@ -2538,7 +2538,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
-    m_SpringHertz: 3
+    m_SpringFrequency: 3
     m_SpringDampingRatio: 0.4
     m_EnableMotor: 0
     m_MotorSpeed: 0
@@ -3738,7 +3738,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_Distance: 3
     m_EnableSpring: 1
-    m_SpringHertz: 30
+    m_SpringFrequency: 30
     m_SpringDampingRatio: 0
     m_SpringLowerForce: -3.4028235e+38
     m_SpringUpperForce: 3.4028235e+38
@@ -4181,7 +4181,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_EnableSpring: 1
     m_SpringTargetTranslation: 0
-    m_SpringHertz: 1
+    m_SpringFrequency: 1
     m_SpringDampingRatio: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
@@ -4841,7 +4841,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_Distance: 3
     m_EnableSpring: 1
-    m_SpringHertz: 30
+    m_SpringFrequency: 30
     m_SpringDampingRatio: 0
     m_SpringLowerForce: -3.4028235e+38
     m_SpringUpperForce: 3.4028235e+38
@@ -5211,7 +5211,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_EnableSpring: 0
     m_SpringTargetAngle: 0
-    m_SpringHertz: 0
+    m_SpringFrequency: 0
     m_SpringDampingRatio: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
@@ -5739,7 +5739,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
-    m_SpringHertz: 3
+    m_SpringFrequency: 3
     m_SpringDampingRatio: 0.4
     m_EnableMotor: 0
     m_MotorSpeed: 0
@@ -6044,7 +6044,7 @@ MonoBehaviour:
         direction: {x: 0, y: 1}
     m_EnableSpring: 1
     m_SpringTargetTranslation: 0
-    m_SpringHertz: 1
+    m_SpringFrequency: 1
     m_SpringDampingRatio: 0
     m_EnableMotor: 1
     m_MotorSpeed: 10
@@ -7430,7 +7430,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_EnableSpring: 1
     m_SpringTargetTranslation: 0
-    m_SpringHertz: 1
+    m_SpringFrequency: 1
     m_SpringDampingRatio: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
@@ -7638,7 +7638,7 @@ MonoBehaviour:
         direction: {x: 1, y: 0}
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
-    m_SpringHertz: 2
+    m_SpringFrequency: 2
     m_SpringDampingRatio: 0.4
     m_EnableMotor: 0
     m_MotorSpeed: 0
