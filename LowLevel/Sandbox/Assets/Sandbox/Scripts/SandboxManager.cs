@@ -759,6 +759,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();
         foreach (var world in worlds)
-            world.ClearDraw(true);
+            world.ClearDraw();
     }
 }
