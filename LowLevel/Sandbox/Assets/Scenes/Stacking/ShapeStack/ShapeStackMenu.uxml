@@ -6,7 +6,7 @@
                 <ui:Tab label="Tumbler Options" tabindex="0" name="Tab">
                     <ui:DropdownField label="Object Type" name="object-type" choices="Circle,Capsule,Box,Mix" index="0" focusable="false"/>
                     <ui:SliderInt label="Stack Height" value="1" high-value="20" show-input-field="true" name="stack-height" fill="true" low-value="2" focusable="false"/>
-                    <ui:Slider label="Contact Hertz" value="0" high-value="120" show-input-field="true" name="contact-hertz" fill="true" low-value="0" focusable="false"/>
+                    <ui:Slider label="Contact Frequency	" value="0" high-value="120" show-input-field="true" name="contact-frequency" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Contact Damping" value="0" high-value="100" show-input-field="true" name="contact-damping" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Contact Speed" value="0" high-value="10" show-input-field="true" name="contact-speed" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Gravity Scale" value="1" high-value="20" name="gravity-scale" show-input-field="true" low-value="0" fill="true" focusable="false"/>

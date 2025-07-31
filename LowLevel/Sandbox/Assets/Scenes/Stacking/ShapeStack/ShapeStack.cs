@@ -20,12 +20,12 @@ public class ShapeStack : MonoBehaviour
     
     private ObjectType m_ObjectType;
     private int m_StackHeight;
-    private float m_ContactHertz;
+    private float m_ContactFrequency;
     private float m_ContactDampingRatio;
     private float m_ContactSpeed;
     private float m_GravityScale;
 
-    private float m_OldContactHertz;
+    private float m_OldContactFrequency;
     private float m_OldContactDampingRatio;
     private float m_OldContactSpeed;
     private Vector2 m_OldGravity;
@@ -47,12 +47,12 @@ public class ShapeStack : MonoBehaviour
         m_StackHeight = 8;
 
         var world = PhysicsWorld.defaultWorld;
-        m_OldContactHertz = world.contactHertz;
+        m_OldContactFrequency = world.contactFrequency;
         m_OldContactDampingRatio = world.contactDampingRatio;
         m_OldContactSpeed = world.contactSpeed;
         m_OldGravity = world.gravity;
 
-        m_ContactHertz = m_OldContactHertz;
+        m_ContactFrequency = m_OldContactFrequency;
         m_ContactDampingRatio = m_OldContactDampingRatio;
         m_ContactSpeed = m_OldContactSpeed;
         m_GravityScale = 1f;
@@ -65,7 +65,7 @@ public class ShapeStack : MonoBehaviour
     private void OnDisable()
     {
 	    var world = PhysicsWorld.defaultWorld;
-	    world.contactHertz = m_OldContactHertz;
+	    world.contactFrequency = m_OldContactFrequency;
 	    world.contactDampingRatio = m_OldContactDampingRatio;
 	    world.contactSpeed = m_OldContactSpeed;
 	    world.gravity = m_OldGravity;
@@ -100,10 +100,10 @@ public class ShapeStack : MonoBehaviour
 	            SetupScene();
             });
 
-            // Contact Hertz.
-            var contactHertz = root.Q<Slider>("contact-hertz");
-            contactHertz.RegisterValueChangedCallback(evt => { m_ContactHertz = evt.newValue; world.contactHertz = m_ContactHertz; });
-            contactHertz.value = m_ContactHertz;
+            // Contact Frequency.
+            var contactFrequency = root.Q<Slider>("contact-frequency");
+            contactFrequency.RegisterValueChangedCallback(evt => { m_ContactFrequency = evt.newValue; world.contactFrequency = m_ContactFrequency; });
+            contactFrequency.value = m_ContactFrequency;
 
             // Contact Damping.
             var contactDampingRatio = root.Q<Slider>("contact-damping");
