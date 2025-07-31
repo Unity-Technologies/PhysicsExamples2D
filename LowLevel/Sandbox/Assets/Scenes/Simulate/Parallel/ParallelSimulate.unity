@@ -456,6 +456,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -519,6 +521,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -582,6 +586,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -645,6 +651,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -708,6 +716,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -1409,7 +1419,7 @@ MonoBehaviour:
     m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
-    m_ContactHertz: 30
+    m_ContactFrequency: 30
     m_ContactDampingRatio: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
@@ -1481,7 +1491,7 @@ MonoBehaviour:
     m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
-    m_ContactHertz: 30
+    m_ContactFrequency: 30
     m_ContactDampingRatio: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
@@ -1553,7 +1563,7 @@ MonoBehaviour:
     m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
-    m_ContactHertz: 30
+    m_ContactFrequency: 30
     m_ContactDampingRatio: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
@@ -1625,7 +1635,7 @@ MonoBehaviour:
     m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
-    m_ContactHertz: 30
+    m_ContactFrequency: 30
     m_ContactDampingRatio: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
@@ -1697,7 +1707,7 @@ MonoBehaviour:
     m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
-    m_ContactHertz: 30
+    m_ContactFrequency: 30
     m_ContactDampingRatio: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
@@ -2080,6 +2090,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2167,6 +2179,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2254,6 +2268,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2341,6 +2357,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2428,6 +2446,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2515,6 +2535,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2602,6 +2624,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2689,6 +2713,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2776,6 +2802,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -2863,6 +2891,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3120,6 +3150,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3207,6 +3239,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3294,6 +3328,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3381,6 +3417,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3468,6 +3506,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3555,6 +3595,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3642,6 +3684,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3729,6 +3773,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3816,6 +3862,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
@@ -3903,6 +3951,8 @@ MonoBehaviour:
       m_Bounciness: 0
       m_FrictionCombine: 1
       m_BouncinessCombine: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
       m_RollingResistance: 0
       m_TangentSpeed: 0
       m_CustomColor:
