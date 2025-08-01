@@ -60,6 +60,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Events/TriggerFunnel/TriggerFunnel.unity
     guid: db1d9ec2a7974ad48a0528f29fa3ead3
   - enabled: 1
+    path: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
+    guid: ba1b1c7ba0ff09a44a8f4c6394869e1e
+  - enabled: 1
     path: Assets/Scenes/Joints/GearLift/GearLift.unity
     guid: f9cb718917288df469347cdb8a607f89
   - enabled: 1
