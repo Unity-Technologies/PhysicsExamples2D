@@ -43,7 +43,7 @@ public class Tumbler : MonoBehaviour
         
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 2f;
-        m_AngularVelocity = 0.25f;
+        m_AngularVelocity = 15f;
         m_DebrisCount = 1000;
         m_ObjectType = ObjectType.Polygon;
         

@@ -6,7 +6,7 @@
                 <ui:Tab label="Large Kinematic Options" tabindex="0" name="Tab">
                     <ui:SliderInt label="Grid Size" value="100" high-value="150" name="grid-size" low-value="10" fill="true" focusable="false" show-input-field="true"/>
                     <ui:Slider label="Grid Spacing" value="0" high-value="1" name="grid-spacing" fill="true" show-input-field="true" focusable="false"/>
-                    <ui:Slider label="Angular Velocity" value="1" high-value="10" name="angular-velocity" fill="true" show-input-field="true" low-value="-10" focusable="false"/>
+                    <ui:Slider label="Angular Velocity" value="1" high-value="360" name="angular-velocity" fill="true" show-input-field="true" low-value="-360" focusable="false"/>
                     <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>

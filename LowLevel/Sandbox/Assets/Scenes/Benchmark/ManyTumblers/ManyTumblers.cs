@@ -35,7 +35,7 @@ public class ManyTumblers : MonoBehaviour
         m_RowCount = 15;
         m_ColumnCount = 15;
         m_SpawnCount = 10;
-        m_AngularVelocity = 1f;
+        m_AngularVelocity = 45f;
 
         SetupOptions();
 

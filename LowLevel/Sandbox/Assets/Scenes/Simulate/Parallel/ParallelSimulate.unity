@@ -1768,7 +1768,7 @@ MonoBehaviour:
     m_Rotation:
       direction: {x: 1, y: 0}
     m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: -1
+    m_AngularVelocity: -90
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
@@ -1808,7 +1808,7 @@ MonoBehaviour:
     m_Rotation:
       direction: {x: 1, y: 0}
     m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: -1
+    m_AngularVelocity: -90
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
@@ -1848,7 +1848,7 @@ MonoBehaviour:
     m_Rotation:
       direction: {x: 1, y: 0}
     m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: -1
+    m_AngularVelocity: -90
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
@@ -1888,7 +1888,7 @@ MonoBehaviour:
     m_Rotation:
       direction: {x: 1, y: 0}
     m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: -1
+    m_AngularVelocity: -90
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
@@ -1928,7 +1928,7 @@ MonoBehaviour:
     m_Rotation:
       direction: {x: 1, y: 0}
     m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: -1
+    m_AngularVelocity: -90
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1

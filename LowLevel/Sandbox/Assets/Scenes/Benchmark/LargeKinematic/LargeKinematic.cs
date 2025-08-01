@@ -28,7 +28,7 @@ public class LargeKinematic : MonoBehaviour
         
         m_GridSize = 100;
         m_GridSpacing = 0f;
-        m_AngularVelocity = 1f;
+        m_AngularVelocity = 90f;
 
         SetupOptions();
 

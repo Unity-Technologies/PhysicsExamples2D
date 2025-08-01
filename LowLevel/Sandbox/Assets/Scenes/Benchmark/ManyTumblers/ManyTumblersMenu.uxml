@@ -7,7 +7,7 @@
                     <ui:SliderInt label="Row Count" value="0" high-value="50" name="row-count" low-value="1" fill="true" focusable="false" show-input-field="true"/>
                     <ui:SliderInt label="Column Count" value="0" high-value="50" name="column-count" low-value="1" fill="true" focusable="false" show-input-field="true"/>
                     <ui:SliderInt label="Spawn Count" value="11" high-value="10" name="spawn-count" low-value="1" fill="true" focusable="false" show-input-field="true"/>
-                    <ui:Slider label="Angular Velocity" value="1" high-value="1" name="angular-velocity" fill="true" show-input-field="true" low-value="-1" focusable="false"/>
+                    <ui:Slider label="Angular Velocity" value="45" high-value="90" name="angular-velocity" fill="true" show-input-field="true" low-value="-90" focusable="false"/>
                     <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
