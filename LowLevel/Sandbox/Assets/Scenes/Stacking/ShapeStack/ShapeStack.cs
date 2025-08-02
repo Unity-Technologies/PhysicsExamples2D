@@ -26,7 +26,7 @@ public class ShapeStack : MonoBehaviour
     private float m_GravityScale;
 
     private float m_OldContactFrequency;
-    private float m_OldContactDampingRatio;
+    private float m_OldContactDamping;
     private float m_OldContactSpeed;
     private Vector2 m_OldGravity;
 
@@ -48,12 +48,12 @@ public class ShapeStack : MonoBehaviour
 
         var world = PhysicsWorld.defaultWorld;
         m_OldContactFrequency = world.contactFrequency;
-        m_OldContactDampingRatio = world.contactDampingRatio;
+        m_OldContactDamping = world.contactDamping;
         m_OldContactSpeed = world.contactSpeed;
         m_OldGravity = world.gravity;
 
         m_ContactFrequency = m_OldContactFrequency;
-        m_ContactDampingRatio = m_OldContactDampingRatio;
+        m_ContactDampingRatio = m_OldContactDamping;
         m_ContactSpeed = m_OldContactSpeed;
         m_GravityScale = 1f;
         
@@ -66,7 +66,7 @@ public class ShapeStack : MonoBehaviour
     {
 	    var world = PhysicsWorld.defaultWorld;
 	    world.contactFrequency = m_OldContactFrequency;
-	    world.contactDampingRatio = m_OldContactDampingRatio;
+	    world.contactDamping = m_OldContactDamping;
 	    world.contactSpeed = m_OldContactSpeed;
 	    world.gravity = m_OldGravity;
     }
@@ -106,9 +106,9 @@ public class ShapeStack : MonoBehaviour
             contactFrequency.value = m_ContactFrequency;
 
             // Contact Damping.
-            var contactDampingRatio = root.Q<Slider>("contact-damping");
-            contactDampingRatio.RegisterValueChangedCallback(evt => { m_ContactDampingRatio = evt.newValue; world.contactDampingRatio = m_ContactDampingRatio; });
-            contactDampingRatio.value = m_ContactDampingRatio;
+            var contactDamping = root.Q<Slider>("contact-damping");
+            contactDamping.RegisterValueChangedCallback(evt => { m_ContactDampingRatio = evt.newValue; world.contactDamping = m_ContactDampingRatio; });
+            contactDamping.value = m_ContactDampingRatio;
 
             // Contact Speed.
             var contactSpeed = root.Q<Slider>("contact-speed");

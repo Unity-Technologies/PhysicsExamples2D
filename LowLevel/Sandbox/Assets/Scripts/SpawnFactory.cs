@@ -55,7 +55,7 @@ public static class SpawnFactory
             var fixedDefinition = new PhysicsFixedJointDefinition
             {
                 angularFrequency = jointFrequency,
-                angularDampingRatio = jointDamping,
+                angularDamping = jointDamping,
                 localAnchorA = new Vector2(0.0f, 0.5f * length),
                 localAnchorB = new Vector2(0.0f, -0.5f * length)
             };
@@ -298,7 +298,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -345,7 +345,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -392,7 +392,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -452,7 +452,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -499,7 +499,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -549,7 +549,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -596,7 +596,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -645,7 +645,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -692,7 +692,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 
@@ -739,7 +739,7 @@ public static class SpawnFactory
                     maxMotorTorque = bone.frictionScale * maxTorque,
                     enableSpring = jointFrequency > 0.0f,
                     springFrequency = jointFrequency,
-                    springDampingRatio = dampingRatio
+                    springDamping = dampingRatio
                 };
                 bone.joint = world.CreateJoint(jointDef);
 

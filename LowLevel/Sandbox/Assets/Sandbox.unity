@@ -331,6 +331,10 @@ MonoBehaviour:
     Name: Ball and Chain
     Category: Joints
     Description: Demonstrating a chain of joints.
+  - ScenePath: Assets/Scenes/Joints/DistanceJoint/DistanceJoint.unity
+    Name: Distance Joint
+    Category: Joints
+    Description: Demonstrating the features of the Distance Joint.
   - ScenePath: Assets/Scenes/Joints/GearLift/GearLift.unity
     Name: Gear Lift
     Category: Joints

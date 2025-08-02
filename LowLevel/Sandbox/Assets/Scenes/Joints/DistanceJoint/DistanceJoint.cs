@@ -4,20 +4,25 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
-public class BallAndChain : MonoBehaviour
+public class DistanceJoint : MonoBehaviour
 {
     private SandboxManager m_SandboxManager;	
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
-    private const int JointCount = 30;
     private NativeList<PhysicsHingeJoint> m_Joints;
     
-    private float m_MaxMotorTorque;
+    private int m_JointCount;
+    private float m_JointDistance;
+    private bool m_EnableSpring;
     private float m_SpringFrequency;
     private float m_SpringDamping;
-    private bool m_FixChainLength;
+    private float m_SpringTension;
+    private float m_SpringCompression;
+    private bool m_EnableLimit;
+    private float m_MinDistanceLimit;
+    private float m_MaxDistanceLimit;
     
     private void OnEnable()
     {
@@ -26,18 +31,25 @@ public class BallAndChain : MonoBehaviour
         m_UIDocument = GetComponent<UIDocument>();
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 28f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, -8f);
+        m_CameraManipulator.CameraSize = 8f;
+        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 12f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        m_Joints = new NativeList<PhysicsHingeJoint>(JointCount, Allocator.Persistent);
-        
-        m_SpringFrequency = 40f;
-        m_SpringDamping = 1f;
-        m_MaxMotorTorque = 100f;
-        
+        m_JointCount = 1;
+        m_JointDistance = 1f;
+        m_EnableSpring = false;
+        m_SpringFrequency = 5f;
+        m_SpringDamping = 0.5f;
+        m_SpringTension = 2000f;
+        m_SpringCompression = 100f;
+        m_EnableLimit = false;
+        m_MinDistanceLimit = m_JointDistance;
+        m_MaxDistanceLimit = m_JointDistance;
+            
+        m_Joints = new NativeList<PhysicsHingeJoint>(m_JointCount, Allocator.Persistent);
+    
         SetupOptions();
 
         SetupScene();
@@ -59,6 +71,33 @@ public class BallAndChain : MonoBehaviour
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
 
+            // Joint Count.
+            var jointCount = root.Q<SliderInt>("joint-count");
+            jointCount.value = m_JointCount;
+            jointCount.RegisterValueChangedCallback(evt =>
+            {
+                m_JointCount = evt.newValue;
+                UpdateJoints();
+            });
+            
+            // Spring Frequency.
+            var jointDidtance = root.Q<Slider>("joint-distance");
+            jointDidtance.value = m_JointDistance;
+            jointDidtance.RegisterValueChangedCallback(evt =>
+            {
+                m_JointDistance = evt.newValue;
+                UpdateJoints();
+            });
+            
+            // Enable Spring.
+            var enableSpring = root.Q<Toggle>("enable-spring");
+            enableSpring.value = m_EnableSpring;
+            enableSpring.RegisterValueChangedCallback(evt =>
+            {
+                m_EnableSpring = evt.newValue;
+                UpdateJoints();
+            });              
+            
             // Spring Frequency.
             var springFrequency = root.Q<Slider>("spring-frequency");
             springFrequency.value = m_SpringFrequency;
@@ -77,23 +116,50 @@ public class BallAndChain : MonoBehaviour
                 UpdateJoints();
             });
             
-            // Joint Frequency.
-            var maxMotorTorque = root.Q<Slider>("max-motor-torque");
-            maxMotorTorque.value = m_MaxMotorTorque;
-            maxMotorTorque.RegisterValueChangedCallback(evt =>
+            // Spring Tension.
+            var springTension = root.Q<Slider>("spring-tension");
+            springTension.value = m_SpringTension;
+            springTension.RegisterValueChangedCallback(evt =>
             {
-                m_MaxMotorTorque = evt.newValue;
+                m_SpringTension = evt.newValue;
+                UpdateJoints();
+            });
+
+            // Spring Compression.
+            var springCompression = root.Q<Slider>("spring-compression");
+            springCompression.value = m_SpringCompression;
+            springCompression.RegisterValueChangedCallback(evt =>
+            {
+                m_SpringCompression = evt.newValue;
+                UpdateJoints();
+            });
+
+            // Enable Limit.
+            var enableLimit = root.Q<Toggle>("enable-limit");
+            enableLimit.value = m_EnableLimit;
+            enableLimit.RegisterValueChangedCallback(evt =>
+            {
+                m_EnableLimit = evt.newValue;
+                UpdateJoints();
+            });             
+            
+            // Min Distance Limit.
+            var minDistanceLimit = root.Q<Slider>("min-distance-limit");
+            minDistanceLimit.value = m_MinDistanceLimit;
+            minDistanceLimit.RegisterValueChangedCallback(evt =>
+            {
+                m_MinDistanceLimit = evt.newValue;
                 UpdateJoints();
             });
             
-            // Fix Chain Length.
-            var fixChainLength = root.Q<Toggle>("fix-chain-length");
-            fixChainLength.value = m_FixChainLength;
-            fixChainLength.RegisterValueChangedCallback(evt =>
+            // Max Distance Limit.
+            var maxDistanceLimit = root.Q<Slider>("max-distance-limit");
+            maxDistanceLimit.value = m_MaxDistanceLimit;
+            maxDistanceLimit.RegisterValueChangedCallback(evt =>
             {
-                m_FixChainLength = evt.newValue;
-                SetupScene();
-            });        
+                m_MaxDistanceLimit = evt.newValue;
+                UpdateJoints();
+            });
             
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
@@ -104,34 +170,51 @@ public class BallAndChain : MonoBehaviour
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
-	    // Reset the scene state.
-	    m_SandboxManager.ResetSceneState();
+        // Reset the scene state.
+        m_SandboxManager.ResetSceneState();
 
         m_Joints.Clear();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
-        const float scale = 0.5f;
-        
+
+        //const float scale = 0.5f;
+
         // Ground Body.
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
         bodies.Add(groundBody);
-        
-        var prevBody = groundBody;
-        
-        // Chain.
+
+#if false        
+        const float radius = 0.25f;
+        var geometry = new CircleGeometry { radius = radius };
+        var shapeDef = new PhysicsShapeDefinition { density = 20f };
+        var jointDef = new PhysicsDistanceJointDefinition
         {
-            // Create the chain links.
-            for (var n = 0; n < JointCount; ++n)
+            distance = m_JointDistance,
+            enableSpring = m_EnableSpring,
+            springFrequency = m_SpringFrequency,
+            springDampingRatio = m_SpringDamping,
+            springLowerForce = -m_SpringTension,
+        };
+
+        var offsetY = 20f;
+
+        
+
+        var prevBody = groundBody;
+
+        // Joints.
+        {
+            // Create the joints.
+            for (var n = 0; n < m_JointCount; ++n)
             {
                 var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2((1f + 2f * n) * scale, JointCount * scale) };
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
-                
+
                 var geometry = new CapsuleGeometry { center1 = Vector2.left * scale, center2 = Vector2.right * scale, radius = 0.125f };
                 var shapeDef = new PhysicsShapeDefinition
                 {
@@ -152,81 +235,25 @@ public class BallAndChain : MonoBehaviour
                     maxMotorTorque = m_MaxMotorTorque,
                     enableSpring = n > 0,
                     springFrequency = m_SpringFrequency,
-                    springDamping = m_SpringDamping
+                    springDampingRatio = m_SpringDamping
                 };
                 m_Joints.Add(world.CreateJoint(jointDef));
-                
+
                 prevBody = body;
             }
         }
-        
-        // Ball.
-        {
-            var geometry = new CircleGeometry { radius = 4f };
-            
-            var bodyDef = new PhysicsBodyDefinition
-            {
-                bodyType = RigidbodyType2D.Dynamic,
-                position = new Vector2((1f + 2f * JointCount) * scale + geometry.radius - scale, JointCount * scale),
-                gravityScale = 3f
-            };
-            
-            var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
-            
-            var shapeDef = new PhysicsShapeDefinition
-            {
-                density = 20f,
-                contactFilter = new PhysicsShape.ContactFilter { categories = 0x2, contacts = 0x1 },
-                surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState }
-            };
-            body.CreateShape(geometry, shapeDef);
-            
-            var pivot = new Vector2(2f * JointCount * scale, JointCount * scale);
-            var jointDef = new PhysicsHingeJointDefinition
-            {
-                bodyA = prevBody,
-                bodyB = body,
-                localAnchorA = prevBody.GetLocalPoint(pivot),
-                localAnchorB = body.GetLocalPoint(pivot),
-                enableMotor = true,
-                maxMotorTorque = m_MaxMotorTorque,
-                enableSpring = true,
-                springFrequency = m_SpringFrequency,
-                springDamping = m_SpringDamping
-            };
-            m_Joints.Add(world.CreateJoint(jointDef));
-
-            if (m_FixChainLength)
-            {
-                // Constraint the length of the chain.
-                var distance = JointCount;
-                world.CreateJoint(new PhysicsDistanceJointDefinition
-                {
-                    bodyA = groundBody,
-                    bodyB = body,
-                    localAnchorA = groundBody.GetLocalPoint(Vector2.up * JointCount * scale),
-                    localAnchorB = body.GetLocalPoint(pivot),
-                    distance = distance,
-                    enableSpring = false,
-                    springFrequency = 30f,
-                    springDamping = 1f,
-                    enableLimit = false,
-                    minDistanceLimit = -distance,
-                    maxDistanceLimit = distance
-                });
-            }
-        }
+#endif
     }
 
     private void UpdateJoints()
     {
+#if false        
         // Update the max motor torque.
         foreach (var joint in m_Joints)
         {
-            joint.springFrequency = m_SpringFrequency;
-            joint.springDamping = m_SpringDamping;
-            joint.maxMotorTorque = m_MaxMotorTorque;
+            //joint.springFrequency = m_SpringFrequency;
+            //joint.springDamping = m_SpringDamping;
         }
+#endif
     }
 }

@@ -5,7 +5,7 @@
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Bounce House Options" tabindex="0" name="Tab">
                     <ui:Slider label="Spring Frequency" value="0" high-value="120" show-input-field="true" name="spring-frequency" fill="true" low-value="0" focusable="false"/>
-                    <ui:Slider label="Spring Damping" value="0" high-value="1" show-input-field="true" name="spring-damping" fill="true" low-value="0" focusable="false"/>
+                    <ui:Slider label="Spring Damping" value="0" high-value="10" show-input-field="true" name="spring-damping" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Max Motor Torque " value="0" high-value="1000" show-input-field="true" name="max-motor-torque" fill="true" low-value="0" focusable="false"/>
                     <ui:Toggle label="Fix Chain Length" name="fix-chain-length" focusable="false"/>
                     <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>

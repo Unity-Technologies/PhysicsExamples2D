@@ -138,7 +138,7 @@ public class CameraManipulator : MonoBehaviour
                                     localAnchorA = new PhysicsTransform(worldPosition),
                                     localAnchorB = hitBody.GetLocalPoint(worldPosition),
                                     springLinearFrequency = 15f,
-                                    springLinearDampingRatio = 0.7f,
+                                    springLinearDamping = 0.7f,
                                     springMaxForce = 1000f * hitBody.mass * defaultWorld.gravity.magnitude
                                 };
                                 m_DragJoint = defaultWorld.CreateJoint(relativeDefinition);

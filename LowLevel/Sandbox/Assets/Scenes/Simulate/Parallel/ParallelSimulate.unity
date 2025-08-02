@@ -1420,7 +1420,7 @@ MonoBehaviour:
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactFrequency: 30
-    m_ContactDampingRatio: 10
+    m_ContactDamping: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4128
@@ -1492,7 +1492,7 @@ MonoBehaviour:
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactFrequency: 30
-    m_ContactDampingRatio: 10
+    m_ContactDamping: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4128
@@ -1564,7 +1564,7 @@ MonoBehaviour:
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactFrequency: 30
-    m_ContactDampingRatio: 10
+    m_ContactDamping: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4128
@@ -1636,7 +1636,7 @@ MonoBehaviour:
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactFrequency: 30
-    m_ContactDampingRatio: 10
+    m_ContactDamping: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4128
@@ -1708,7 +1708,7 @@ MonoBehaviour:
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
     m_ContactFrequency: 30
-    m_ContactDampingRatio: 10
+    m_ContactDamping: 10
     m_ContactSpeed: 3
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4128

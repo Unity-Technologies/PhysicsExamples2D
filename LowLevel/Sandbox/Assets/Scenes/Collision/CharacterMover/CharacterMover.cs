@@ -345,7 +345,7 @@ public class CharacterMover : MonoBehaviour
 		        maxMotorTorque = 10f,
 		        enableMotor = true,
 		        springFrequency = 3f,
-		        springDampingRatio = 0.8f,
+		        springDamping = 0.8f,
 		        enableSpring = true
 	        };
 
@@ -628,7 +628,7 @@ public class CharacterMover : MonoBehaviour
 			var offset = pogoCurrentLength - pogoRestLength;
 			m_PogoVelocity = PhysicsMath.SpringDamper(
 				frequency: m_PogoFrequency,
-				dampingRatio: m_PogoDamping,
+				damping: m_PogoDamping,
 				translation: offset,
 				speed: m_PogoVelocity,
 				deltaTime: deltaTime);

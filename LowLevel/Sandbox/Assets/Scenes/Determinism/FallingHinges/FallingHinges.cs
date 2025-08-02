@@ -149,7 +149,7 @@ public class FallingHinges : MonoBehaviour
                 upperAngleLimit = 0.2f * PhysicsMath.PI,
                 enableSpring = true,
                 springFrequency = 0.5f,
-                springDampingRatio = 0.5f,
+                springDamping = 0.5f,
                 localAnchorA = new Vector2(height, height),
                 localAnchorB = new Vector2(offset, -height)
             };

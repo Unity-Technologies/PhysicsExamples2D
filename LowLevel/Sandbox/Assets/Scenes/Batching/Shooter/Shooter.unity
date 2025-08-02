@@ -570,7 +570,7 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringTargetTranslation: 0
     m_SpringFrequency: 1
-    m_SpringDampingRatio: 0
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 10
     m_MaxMotorForce: 100
@@ -580,7 +580,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &50465087
@@ -912,7 +912,7 @@ MonoBehaviour:
     m_EnableSpring: 0
     m_SpringTargetAngle: 0
     m_SpringFrequency: 0
-    m_SpringDampingRatio: 0
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorTorque: 0
@@ -922,7 +922,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &138041597
@@ -1646,7 +1646,7 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 2
-    m_SpringDampingRatio: 0.4
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorTorque: 0
@@ -1656,7 +1656,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &423337206
@@ -2561,7 +2561,7 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 3
-    m_SpringDampingRatio: 0.4
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorTorque: 0
@@ -2571,7 +2571,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &537971316
@@ -3771,7 +3771,7 @@ MonoBehaviour:
     m_Distance: 3
     m_EnableSpring: 1
     m_SpringFrequency: 30
-    m_SpringDampingRatio: 0
+    m_SpringDamping: 0
     m_SpringLowerForce: -3.4028235e+38
     m_SpringUpperForce: 3.4028235e+38
     m_EnableMotor: 0
@@ -3783,7 +3783,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &859224178
@@ -4218,7 +4218,7 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringTargetTranslation: 0
     m_SpringFrequency: 1
-    m_SpringDampingRatio: 0
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorForce: 0
@@ -4228,7 +4228,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &904521497
@@ -4884,7 +4884,7 @@ MonoBehaviour:
     m_Distance: 3
     m_EnableSpring: 1
     m_SpringFrequency: 30
-    m_SpringDampingRatio: 0
+    m_SpringDamping: 0
     m_SpringLowerForce: -3.4028235e+38
     m_SpringUpperForce: 3.4028235e+38
     m_EnableMotor: 0
@@ -4896,7 +4896,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &1070417810
@@ -5258,7 +5258,7 @@ MonoBehaviour:
     m_EnableSpring: 0
     m_SpringTargetAngle: 0
     m_SpringFrequency: 0
-    m_SpringDampingRatio: 0
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorTorque: 0
@@ -5268,7 +5268,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &1092812750
@@ -5792,7 +5792,7 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 3
-    m_SpringDampingRatio: 0.4
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorTorque: 0
@@ -5802,7 +5802,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &1173146478
@@ -6099,7 +6099,7 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringTargetTranslation: 0
     m_SpringFrequency: 1
-    m_SpringDampingRatio: 0
+    m_SpringDamping: 0
     m_EnableMotor: 1
     m_MotorSpeed: 10
     m_MaxMotorForce: 100
@@ -6109,7 +6109,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &1203947810
@@ -7497,7 +7497,7 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringTargetTranslation: 0
     m_SpringFrequency: 1
-    m_SpringDampingRatio: 0
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorForce: 0
@@ -7507,7 +7507,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &1690892809
@@ -7707,7 +7707,7 @@ MonoBehaviour:
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 2
-    m_SpringDampingRatio: 0.4
+    m_SpringDamping: 0
     m_EnableMotor: 0
     m_MotorSpeed: 0
     m_MaxMotorTorque: 0
@@ -7717,7 +7717,7 @@ MonoBehaviour:
     m_ForceThreshold: 1000000
     m_TorqueThreshold: 1000000
     m_TuningFrequency: 60
-    m_TuningDampingRatio: 0
+    m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
 --- !u!114 &1693972976
