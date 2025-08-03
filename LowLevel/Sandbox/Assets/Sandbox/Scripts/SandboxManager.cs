@@ -25,7 +25,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public ShortcutMenu ShortcutMenu;
     public float UpdatePeriodFPS = 0.1f;
     
-    public void SetOverrideDrawOptions(PhysicsWorld.DrawOptions drawOptions)
+    public void SetOverrideDrawOptions(PhysicsWorld.DrawOptions overridenOptions, PhysicsWorld.DrawOptions fixedOptions)
     {
         // Finish if we're already overriding.
         if (m_OverrideDrawOptions != PhysicsWorld.DrawOptions.Off)
@@ -34,7 +34,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Disable the appropriate elements.
         foreach (var item in m_DrawFlagElements)
         {
-            if ((item.Key & drawOptions) == 0)
+            if ((item.Key & overridenOptions) == 0)
                 continue;
 
             item.Value.enabledSelf = false;
@@ -42,8 +42,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         // Set the override.
         m_OverridePreviousDrawOptions = PhysicsWorld.defaultWorld.drawOptions;
-        m_OverrideDrawOptions = drawOptions;
-        UpdateOverrideWorldDrawOptions(drawOptions);
+        m_OverrideDrawOptions = overridenOptions;
+        UpdateOverrideWorldDrawOptions(fixedOptions);
     }
 
     public void ResetOverrideDrawOptions()
@@ -61,10 +61,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_OverridePreviousDrawOptions = m_OverrideDrawOptions = PhysicsWorld.DrawOptions.Off;
     }
     
-    private void UpdateOverrideWorldDrawOptions(PhysicsWorld.DrawOptions drawOptions)
+    private void UpdateOverrideWorldDrawOptions(PhysicsWorld.DrawOptions fixedOptions)
     {
         // Calculate new draw flags.
-        var newDrawOptions = (PhysicsWorld.defaultWorld.drawOptions & ~m_OverrideDrawOptions) | drawOptions;
+        var newDrawOptions = (PhysicsWorld.defaultWorld.drawOptions & ~m_OverrideDrawOptions) | fixedOptions;
         
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();

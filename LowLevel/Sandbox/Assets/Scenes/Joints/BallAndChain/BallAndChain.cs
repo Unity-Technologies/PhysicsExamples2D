@@ -33,7 +33,7 @@ public class BallAndChain : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
 
         // Set Overrides.
-        m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll | PhysicsWorld.DrawOptions.AllJoints);
+        m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
         
         m_Joints = new NativeList<PhysicsHingeJoint>(JointCount, Allocator.Persistent);
         

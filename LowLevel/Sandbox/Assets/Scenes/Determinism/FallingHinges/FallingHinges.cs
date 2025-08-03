@@ -37,7 +37,7 @@ public class FallingHinges : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
         
         // Set Overrides.
-        m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.AllJoints);
+        m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
         m_SandboxManager.SetOverrideColorShapeState(true); 
 
         SetupOptions();

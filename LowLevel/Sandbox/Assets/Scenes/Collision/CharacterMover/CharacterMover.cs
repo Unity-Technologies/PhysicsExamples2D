@@ -30,7 +30,7 @@ public class CharacterMover : MonoBehaviour
     private const int MaxSolverIterations = 5;
     private const float DrawLifetime = 1f;
     private const float VelocityDrawScale = 2f;
-    private readonly Vector2 ElevatorOffset = new (112f, 10f);
+    private readonly Vector2 m_ElevatorOffset = new (112f, 10f);
     private const float ElevatorAmplitude = 4f;
 
     private float m_JumpSpeed;
@@ -74,7 +74,7 @@ public class CharacterMover : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
         
         // Set Overrides.
-        m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll & ~PhysicsWorld.DrawOptions.AllJoints);
+        m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
         
         // Reset Option State.
         m_JumpSpeed = 15f;
@@ -429,7 +429,7 @@ public class CharacterMover : MonoBehaviour
 			var bodyDef = new PhysicsBodyDefinition
 			{
 				bodyType = RigidbodyType2D.Kinematic,
-				position = new Vector2(ElevatorOffset.x, ElevatorOffset.y - ElevatorAmplitude)
+				position = new Vector2(m_ElevatorOffset.x, m_ElevatorOffset.y - ElevatorAmplitude)
 			};
 			m_ElevatorBody = world.CreateBody(bodyDef);
 			bodies.Add(m_ElevatorBody);
@@ -463,7 +463,7 @@ public class CharacterMover : MonoBehaviour
 		    return;
 	    
 	    // Animate the elevator.
-	    var target = new PhysicsTransform(new Vector2(ElevatorOffset.x, ElevatorAmplitude * Mathf.Cos(1f * m_Time + PhysicsMath.PI) + ElevatorOffset.y));
+	    var target = new PhysicsTransform(new Vector2(m_ElevatorOffset.x, ElevatorAmplitude * Mathf.Cos(1f * m_Time + PhysicsMath.PI) + m_ElevatorOffset.y));
 	    m_ElevatorBody.SetTransformTarget(target, deltaTime);
 
 	    // Bump the time.
