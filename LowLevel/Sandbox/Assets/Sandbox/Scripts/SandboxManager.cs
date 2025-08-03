@@ -212,6 +212,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 60;
 #endif
+        // We don't want this appearing all the time.
+        UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
         
         Bodies = new NativeHashSet<PhysicsBody>(500, Allocator.Persistent);
         m_DrawFlagElements = new Dictionary<PhysicsWorld.DrawOptions, Toggle>(capacity: 8);
