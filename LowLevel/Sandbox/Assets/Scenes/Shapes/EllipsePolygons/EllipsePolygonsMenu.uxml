@@ -3,7 +3,7 @@
     <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; justify-content: flex-end; align-content: auto; padding-left: 8px; padding-bottom: 8px;">
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
-                <ui:Tab label="Rounded Polygons Options" tabindex="0" name="Tab">
+                <ui:Tab label="Ellipse Polygons Options" tabindex="0" name="Tab">
                     <ui:SliderInt label="Column Count" high-value="35" name="column-count" low-value="1" fill="true" focusable="false" show-input-field="true"/>
                     <ui:SliderInt label="Row Count" high-value="20" name="row-count" low-value="1" fill="true" focusable="false" show-input-field="true"/>
                     <ui:Slider label="Friction" high-value="1" name="friction" fill="true" show-input-field="true" focusable="false"/>

@@ -3,7 +3,7 @@
     <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; justify-content: flex-end; align-content: auto; padding-left: 8px; padding-bottom: 8px;">
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
-                <ui:Tab label="Friction Options" tabindex="0" name="Tab">
+                <ui:Tab label="Rolling Resistance Options" tabindex="0" name="Tab">
                     <ui:EnumField label="Slope Type" value="Flat" type="RollingResistance+SlopeType, Assembly-CSharp" name="slope-type"/>
                     <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>

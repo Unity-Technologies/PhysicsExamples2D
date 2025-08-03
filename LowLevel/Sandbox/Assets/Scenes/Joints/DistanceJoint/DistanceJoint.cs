@@ -1,4 +1,3 @@
-using System;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
@@ -11,7 +10,7 @@ public class DistanceJoint : MonoBehaviour
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
-    private NativeList<PhysicsHingeJoint> m_Joints;
+    private NativeList<PhysicsDistanceJoint> m_Joints;
     
     private int m_JointCount;
     private float m_JointDistance;
@@ -32,11 +31,14 @@ public class DistanceJoint : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 8f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 12f);
+        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 14f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll | PhysicsWorld.DrawOptions.AllJoints);
+        
         m_JointCount = 1;
         m_JointDistance = 1f;
         m_EnableSpring = false;
@@ -48,7 +50,7 @@ public class DistanceJoint : MonoBehaviour
         m_MinDistanceLimit = m_JointDistance;
         m_MaxDistanceLimit = m_JointDistance;
             
-        m_Joints = new NativeList<PhysicsHingeJoint>(m_JointCount, Allocator.Persistent);
+        m_Joints = new NativeList<PhysicsDistanceJoint>(m_JointCount, Allocator.Persistent);
     
         SetupOptions();
 
@@ -59,6 +61,9 @@ public class DistanceJoint : MonoBehaviour
     {
         if (m_Joints.IsCreated)
             m_Joints.Dispose();
+        
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideDrawOptions();
     }
 
     private void SetupOptions()
@@ -77,13 +82,13 @@ public class DistanceJoint : MonoBehaviour
             jointCount.RegisterValueChangedCallback(evt =>
             {
                 m_JointCount = evt.newValue;
-                UpdateJoints();
+                SetupScene();
             });
             
-            // Spring Frequency.
-            var jointDidtance = root.Q<Slider>("joint-distance");
-            jointDidtance.value = m_JointDistance;
-            jointDidtance.RegisterValueChangedCallback(evt =>
+            // Joint Distance.
+            var jointDistance = root.Q<Slider>("joint-distance");
+            jointDistance.value = m_JointDistance;
+            jointDistance.RegisterValueChangedCallback(evt =>
             {
                 m_JointDistance = evt.newValue;
                 UpdateJoints();
@@ -142,14 +147,21 @@ public class DistanceJoint : MonoBehaviour
                 m_EnableLimit = evt.newValue;
                 UpdateJoints();
             });             
-            
+
             // Min Distance Limit.
             var minDistanceLimit = root.Q<Slider>("min-distance-limit");
             minDistanceLimit.value = m_MinDistanceLimit;
             minDistanceLimit.RegisterValueChangedCallback(evt =>
             {
                 m_MinDistanceLimit = evt.newValue;
-                UpdateJoints();
+                if (m_MinDistanceLimit > m_MaxDistanceLimit)
+                {
+                    m_MinDistanceLimit = m_MaxDistanceLimit;
+                    minDistanceLimit.value = m_MinDistanceLimit;
+                    return;
+                }
+
+                SetupScene();
             });
             
             // Max Distance Limit.
@@ -158,7 +170,14 @@ public class DistanceJoint : MonoBehaviour
             maxDistanceLimit.RegisterValueChangedCallback(evt =>
             {
                 m_MaxDistanceLimit = evt.newValue;
-                UpdateJoints();
+                if (m_MaxDistanceLimit < m_MinDistanceLimit)
+                {
+                    m_MaxDistanceLimit = m_MinDistanceLimit;
+                    maxDistanceLimit.value = m_MaxDistanceLimit;
+                    return;
+                }
+
+                SetupScene();
             });
             
             // Reset Scene.
@@ -181,13 +200,10 @@ public class DistanceJoint : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
-        //const float scale = 0.5f;
-
         // Ground Body.
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
         bodies.Add(groundBody);
 
-#if false        
         const float radius = 0.25f;
         var geometry = new CircleGeometry { radius = radius };
         var shapeDef = new PhysicsShapeDefinition { density = 20f };
@@ -196,14 +212,15 @@ public class DistanceJoint : MonoBehaviour
             distance = m_JointDistance,
             enableSpring = m_EnableSpring,
             springFrequency = m_SpringFrequency,
-            springDampingRatio = m_SpringDamping,
+            springDamping = m_SpringDamping,
             springLowerForce = -m_SpringTension,
+            springUpperForce = m_SpringCompression,
+            enableLimit = m_EnableLimit,
+            minDistanceLimit = m_MinDistanceLimit,
+            maxDistanceLimit = m_MaxDistanceLimit,
         };
 
-        var offsetY = 20f;
-
-        
-
+        const float offsetY = 20f;
         var prevBody = groundBody;
 
         // Joints.
@@ -211,49 +228,41 @@ public class DistanceJoint : MonoBehaviour
             // Create the joints.
             for (var n = 0; n < m_JointCount; ++n)
             {
-                var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2((1f + 2f * n) * scale, JointCount * scale) };
+                var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, angularDamping = 1f, position = new Vector2(m_JointDistance * (n + 1f), offsetY) };
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
-
-                var geometry = new CapsuleGeometry { center1 = Vector2.left * scale, center2 = Vector2.right * scale, radius = 0.125f };
-                var shapeDef = new PhysicsShapeDefinition
-                {
-                    density = 20f,
-                    contactFilter = new PhysicsShape.ContactFilter { categories = 0x1, contacts = 0x2 },
-                    surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState }
-                };
+                
                 body.CreateShape(geometry, shapeDef);
 
-                var pivot = new Vector2(2f * n * scale, JointCount * scale);
-                var jointDef = new PhysicsHingeJointDefinition
-                {
-                    bodyA = prevBody,
-                    bodyB = body,
-                    localAnchorA = prevBody.GetLocalPoint(pivot),
-                    localAnchorB = body.GetLocalPoint(pivot),
-                    enableMotor = true,
-                    maxMotorTorque = m_MaxMotorTorque,
-                    enableSpring = n > 0,
-                    springFrequency = m_SpringFrequency,
-                    springDampingRatio = m_SpringDamping
-                };
+                var pivotA = new Vector2(m_JointDistance * n, offsetY);
+                var pivotB = new Vector2(m_JointDistance * (n + 1f), offsetY);
+                jointDef.bodyA = prevBody;
+                jointDef.bodyB = body;
+                jointDef.localAnchorA = new PhysicsTransform { position = prevBody.GetLocalPoint(pivotA) };
+                jointDef.localAnchorB = new PhysicsTransform { position = body.GetLocalPoint(pivotB) };
                 m_Joints.Add(world.CreateJoint(jointDef));
 
                 prevBody = body;
             }
         }
-#endif
     }
 
     private void UpdateJoints()
     {
-#if false        
         // Update the max motor torque.
         foreach (var joint in m_Joints)
         {
-            //joint.springFrequency = m_SpringFrequency;
-            //joint.springDamping = m_SpringDamping;
+            joint.distance = m_JointDistance;
+            joint.enableSpring = m_EnableSpring;
+            joint.springFrequency = m_SpringFrequency;
+            joint.springDamping = m_SpringDamping;
+            joint.springLowerForce = -m_SpringTension;
+            joint.springUpperForce = m_SpringCompression;
+            joint.enableLimit = m_EnableLimit;
+            joint.minDistanceLimit = m_MinDistanceLimit;
+            joint.maxDistanceLimit = m_MaxDistanceLimit;
+            
+            joint.WakeBodies();
         }
-#endif
     }
 }

@@ -3,7 +3,7 @@
     <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; justify-content: flex-end; align-content: auto; padding-left: 8px; padding-bottom: 8px;">
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
-                <ui:Tab label="Bounce House Options" tabindex="0" name="Tab">
+                <ui:Tab label="Distance Joint Options" tabindex="0" name="Tab">
                     <ui:SliderInt label="Joint Count" value="50" high-value="10" name="joint-count" low-value="1" fill="true" focusable="false" show-input-field="true"/>
                     <ui:Slider label="Distance" value="0" high-value="4" show-input-field="true" name="joint-distance" fill="true" low-value="0.1" focusable="false"/>
                     <ui:Toggle label="Enable Spring" name="enable-spring" focusable="false"/>

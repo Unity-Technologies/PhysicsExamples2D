@@ -32,6 +32,9 @@ public class BallAndChain : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideDrawOptions(PhysicsWorld.DrawOptions.DefaultAll | PhysicsWorld.DrawOptions.AllJoints);
+        
         m_Joints = new NativeList<PhysicsHingeJoint>(JointCount, Allocator.Persistent);
         
         m_SpringFrequency = 40f;
@@ -47,6 +50,9 @@ public class BallAndChain : MonoBehaviour
     {
         if (m_Joints.IsCreated)
             m_Joints.Dispose();
+        
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideDrawOptions();
     }
 
     private void SetupOptions()
@@ -227,6 +233,8 @@ public class BallAndChain : MonoBehaviour
             joint.springFrequency = m_SpringFrequency;
             joint.springDamping = m_SpringDamping;
             joint.maxMotorTorque = m_MaxMotorTorque;
+
+            joint.WakeBodies();
         }
     }
 }
