@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Benchmark/Spinner/Spinner.unity
     guid: 720b89258d7347e4aba0192fd6559b38
   - enabled: 1
+    path: Assets/Scenes/Benchmark/TriggerFunnel/TriggerFunnel.unity
+    guid: db1d9ec2a7974ad48a0528f29fa3ead3
+  - enabled: 1
     path: Assets/Scenes/Benchmark/Triggers/Triggers.unity
     guid: e6cf696615cc38c4ba042e26f68be47b
   - enabled: 1
@@ -56,9 +59,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Determinism/FallingHinges/FallingHinges.unity
     guid: 58eb55b4f78ad2d4998c5864c0ceb2bb
-  - enabled: 1
-    path: Assets/Scenes/Events/TriggerFunnel/TriggerFunnel.unity
-    guid: db1d9ec2a7974ad48a0528f29fa3ead3
   - enabled: 1
     path: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
     guid: ba1b1c7ba0ff09a44a8f4c6394869e1e
