@@ -126,7 +126,15 @@ public class IgnoreJoint : MonoBehaviour
     {
         // Destroy the joint if it's valid.
         if (m_Joint.isValid)
+        {
+            // NOTE: There seems to be a (reported) bug when deleting a joint not colliding both bodies is deleted. Both bodies won't collide again until moved significantly.
+            // A workaround is to disable/enable one of the bodies. This will suffice until a fix is available.
+            var body = m_Joint.bodyA;
+            body.enabled = false;
+            body.enabled = true;
+            
             m_Joint.Destroy();
+        }
 
         // Finish if the joint is not enabled.
         if (!m_EnableJoint)
