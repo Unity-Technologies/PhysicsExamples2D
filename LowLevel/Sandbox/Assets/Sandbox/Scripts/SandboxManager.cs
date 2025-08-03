@@ -208,10 +208,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     
     private void OnEnable()
     {
-#if false        
-        QualitySettings.vSyncCount = 1;
-        Application.targetFrameRate = 60;
-#endif
         // We don't want this appearing all the time.
         UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
         
