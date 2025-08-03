@@ -72,6 +72,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Joints/Ignore Joint/IgnoreJoint.unity
     guid: 941d029281a18194090e6a2a10dd1078
   - enabled: 1
+    path: Assets/Scenes/Joints/Slider Joint/SliderJoint.unity
+    guid: 8053bfd538096f344b3062526abdab0e
+  - enabled: 1
     path: Assets/Scenes/Joints/SoftBody/SoftBody.unity
     guid: c2e1d701eb1b050418fd3d3e033372fc
   - enabled: 1

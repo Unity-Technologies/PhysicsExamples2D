@@ -345,6 +345,10 @@ MonoBehaviour:
     Category: Joints
     Description: Demonstrating the IgnoreJoint to permanently ignore collisions between
       two bodies.
+  - ScenePath: Assets/Scenes/Joints/Slider Joint/SliderJoint.unity
+    Name: Slider Joint
+    Category: Joints
+    Description: Demonstrating the features of the Slider Joint.
   - ScenePath: Assets/Scenes/Joints/SoftBody/SoftBody.unity
     Name: Soft Body
     Category: Joints
