@@ -38,6 +38,7 @@ public class DistanceJoint : MonoBehaviour
 
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
+        m_SandboxManager.SetOverrideColorShapeState(true);
         
         m_JointCount = 1;
         m_JointDistance = 1f;
@@ -64,6 +65,7 @@ public class DistanceJoint : MonoBehaviour
         
         // Reset overrides.
         m_SandboxManager.ResetOverrideDrawOptions();
+        m_SandboxManager.ResetOverrideColorShapeState();
     }
 
     private void SetupOptions()
@@ -232,6 +234,7 @@ public class DistanceJoint : MonoBehaviour
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
                 
+                shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                 body.CreateShape(geometry, shapeDef);
 
                 var pivotA = new Vector2(m_JointDistance * n, offsetY);

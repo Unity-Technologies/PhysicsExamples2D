@@ -349,6 +349,10 @@ MonoBehaviour:
     Name: Soft Body
     Category: Joints
     Description: Demonstrating using joints to create a soft body.
+  - ScenePath: Assets/Scenes/Joints/Top Down Friction/TopDownFriction.unity
+    Name: Top Down Friction
+    Category: Joints
+    Description: Demonstrating using the RelativeJoint to achieve "top down " friction.
   - ScenePath: Assets/Scenes/Shapes/ChainShape/ChainShape.unity
     Name: Chain Shape
     Category: Shapes
@@ -409,7 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Ignore Joint
+  StartScene: Shooter
   DebuggingMenu: {fileID: 1603435387}
   ShortcutMenu: {fileID: 465066520}
   UpdatePeriodFPS: 0.1
