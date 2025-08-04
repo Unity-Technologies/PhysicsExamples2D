@@ -3,23 +3,22 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
-public class SliderJoint : MonoBehaviour
+public class WheelJoint : MonoBehaviour
 {
     private SandboxManager m_SandboxManager;	
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
-    private PhysicsSliderJoint m_Joint;
+    private PhysicsWheelJoint m_Joint;
 
-    private float m_SliderAngle;
+    private float m_WheelAngle;
     private bool m_EnableSpring;
-    private float m_SpringTargetTranslation;
     private float m_SpringFrequency;
     private float m_SpringDamping;
     private bool m_EnableMotor;
     private float m_MotorSpeed;
-    private float m_MaxMotorForce;
+    private float m_MaxMotorTorque;
     private bool m_EnableLimit;
     private float m_LowerTranslationLimit;
     private float m_UpperTranslationLimit;
@@ -31,8 +30,8 @@ public class SliderJoint : MonoBehaviour
         m_UIDocument = GetComponent<UIDocument>();
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 12f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 9f);
+        m_CameraManipulator.CameraSize = 4f;
+        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 10f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
@@ -41,17 +40,16 @@ public class SliderJoint : MonoBehaviour
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
         m_SandboxManager.SetOverrideColorShapeState(true);
 
-        m_SliderAngle = 45f;
-        m_EnableSpring = false;
-        m_SpringTargetTranslation = 0f;
-        m_SpringFrequency = 1f;
-        m_SpringDamping = 0.5f;
-        m_EnableMotor = false;
+        m_WheelAngle = 90f;
+        m_EnableSpring = true;
+        m_SpringFrequency = 1.5f;
+        m_SpringDamping = 0.7f;
+        m_EnableMotor = true;
         m_MotorSpeed = 2f;
-        m_MaxMotorForce = 50f;
+        m_MaxMotorTorque = 5f;
         m_EnableLimit = true;
-        m_LowerTranslationLimit = -10f;
-        m_UpperTranslationLimit = 10f;
+        m_LowerTranslationLimit = -1f;
+        m_UpperTranslationLimit = 1f;
 
         SetupOptions();
 
@@ -75,12 +73,12 @@ public class SliderJoint : MonoBehaviour
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
 
-            // Slider Angle.
-            var sliderAngle = root.Q<Slider>("slider-angle");
-            sliderAngle.value = m_SliderAngle;
-            sliderAngle.RegisterValueChangedCallback(evt =>
+            // Wheel Angle.
+            var wheelAngle = root.Q<Slider>("wheel-angle");
+            wheelAngle.value = m_WheelAngle;
+            wheelAngle.RegisterValueChangedCallback(evt =>
             {
-                m_SliderAngle = evt.newValue;
+                m_WheelAngle = evt.newValue;
                 SetupScene();
             });
             
@@ -93,16 +91,6 @@ public class SliderJoint : MonoBehaviour
                 m_Joint.enableSpring = m_EnableSpring;
                 m_Joint.WakeBodies();
             });    
-
-            // Spring Target Translation.
-            var springTargetTranslation = root.Q<Slider>("spring-target-translation");
-            springTargetTranslation.value = m_SpringTargetTranslation;
-            springTargetTranslation.RegisterValueChangedCallback(evt =>
-            {
-                m_SpringTargetTranslation = evt.newValue;
-                m_Joint.springTargetTranslation = m_SpringTargetTranslation;
-                m_Joint.WakeBodies();
-            });
             
             // Spring Frequency.
             var springFrequency = root.Q<Slider>("spring-frequency");
@@ -144,13 +132,13 @@ public class SliderJoint : MonoBehaviour
                 m_Joint.WakeBodies();
             });
             
-            // Max Motor Force.
-            var maxMotorForce = root.Q<Slider>("max-motor-force");
-            maxMotorForce.value = m_MaxMotorForce;
-            maxMotorForce.RegisterValueChangedCallback(evt =>
+            // Max Motor Torque.
+            var maxMotorTorque = root.Q<Slider>("max-motor-torque");
+            maxMotorTorque.value = m_MaxMotorTorque;
+            maxMotorTorque.RegisterValueChangedCallback(evt =>
             {
-                m_MaxMotorForce = evt.newValue;
-                m_Joint.maxMotorForce = m_MaxMotorForce;
+                m_MaxMotorTorque = evt.newValue;
+                m_Joint.maxMotorTorque = m_MaxMotorTorque;
                 m_Joint.WakeBodies();
             });            
             
@@ -224,30 +212,30 @@ public class SliderJoint : MonoBehaviour
         }
 
         {
-            var bodeDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 9f };
+            var bodeDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 10.25f, fastRotationAllowed = true };
             var body = world.CreateBody(bodeDef);
             bodies.Add(body);
 
-            var geometry = new CapsuleGeometry { center1 = Vector2.down * 2f, center2 = Vector2.up * 2f, radius = 1f };
+            //var geometry = new CapsuleGeometry { center1 = Vector2.down * 0.5f, center2 = Vector2.up * 0.5f, radius = 0.5f };
+            var geometry = new CircleGeometry { radius = 0.5f };
             body.CreateShape(geometry);
 
-            var slideRotation = new PhysicsRotate(angle: PhysicsMath.ToRadians(m_SliderAngle));
+            var wheelRotation = new PhysicsRotate(angle: PhysicsMath.ToRadians(m_WheelAngle));
             
-            var jointPivot = new Vector2(0f, 9f);
-            var jointDef = new PhysicsSliderJointDefinition
+            var jointPivot = new Vector2(0f, 10f);
+            var jointDef = new PhysicsWheelJointDefinition
             {
                 bodyA = groundBody,
                 bodyB = body,
-                localAnchorA = new PhysicsTransform(groundBody.GetLocalPoint(jointPivot), slideRotation),
-                localAnchorB = new PhysicsTransform(body.GetLocalPoint(jointPivot), slideRotation),
+                localAnchorA = new PhysicsTransform(groundBody.GetLocalPoint(jointPivot), wheelRotation),
+                localAnchorB = PhysicsTransform.identity,
                 drawScale = 2f,
                 enableSpring = m_EnableSpring,
-                springTargetTranslation = m_SpringTargetTranslation,
                 springFrequency = m_SpringFrequency,
                 springDamping = m_SpringDamping,
                 enableMotor = m_EnableMotor,
                 motorSpeed = m_MotorSpeed,
-                maxMotorForce = m_MaxMotorForce,
+                maxMotorTorque = m_MaxMotorTorque,
                 enableLimit = m_EnableLimit,
                 lowerTranslationLimit = m_LowerTranslationLimit,
                 upperTranslationLimit = m_UpperTranslationLimit

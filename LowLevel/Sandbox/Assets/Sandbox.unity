@@ -365,6 +365,10 @@ MonoBehaviour:
     Name: Top Down Friction
     Category: Joints
     Description: Demonstrating using the RelativeJoint to achieve "top down " friction.
+  - ScenePath: Assets/Scenes/Joints/Wheel Joint/WheelJoint.unity
+    Name: Wheel Joint
+    Category: Joints
+    Description: Demonstrating the features of the Wheel Joint.
   - ScenePath: Assets/Scenes/Shapes/ChainShape/ChainShape.unity
     Name: Chain Shape
     Category: Shapes
