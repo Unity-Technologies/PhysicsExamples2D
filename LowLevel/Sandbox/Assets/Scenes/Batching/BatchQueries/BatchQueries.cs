@@ -37,7 +37,7 @@ public class BatchQueries : MonoBehaviour
 
 		m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
 		m_CameraManipulator.CameraSize = 12f;
-		m_CameraManipulator.CameraStartPosition = Vector2.zero;
+		m_CameraManipulator.CameraPosition = Vector2.zero;
 
 		m_Camera = m_CameraManipulator.Camera;
 		m_OriginBounds = new PhysicsAABB { lowerBound = new Vector2(-14f, -11f), upperBound = new Vector2(14f, 10f) };

@@ -28,7 +28,7 @@ public class RollingResistance : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 35f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 20f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 20f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

@@ -31,7 +31,7 @@ public class Triggers : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 120f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0, 100f);
+        m_CameraManipulator.CameraPosition = new Vector2(0, 100f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

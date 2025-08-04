@@ -16,7 +16,7 @@ public class ParallelSimulate : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 70f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(5f, 0f);
+        m_CameraManipulator.CameraPosition = new Vector2(5f, 0f);
         
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

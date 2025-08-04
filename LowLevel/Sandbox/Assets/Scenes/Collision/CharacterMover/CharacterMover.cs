@@ -68,7 +68,7 @@ public class CharacterMover : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(20f, 9f);
+        m_CameraManipulator.CameraPosition = new Vector2(20f, 9f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
@@ -112,9 +112,10 @@ public class CharacterMover : MonoBehaviour
 		    return;
 
 	    // Fetch keyboard input.
-	    m_LeftPressed = Keyboard.current.leftArrowKey.isPressed;
-	    m_RightPressed = Keyboard.current.rightArrowKey.isPressed;
-	    m_JumpPressed = Keyboard.current.spaceKey.isPressed;
+	    var currentKeyboard = Keyboard.current;
+	    m_LeftPressed = currentKeyboard.leftArrowKey.isPressed;
+	    m_RightPressed = currentKeyboard.rightArrowKey.isPressed;
+	    m_JumpPressed = currentKeyboard.spaceKey.isPressed;
     }
     
     private void SetupOptions()

@@ -34,7 +34,7 @@ public class Friction : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 24f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 15f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 15f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

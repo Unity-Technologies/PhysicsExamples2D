@@ -24,7 +24,7 @@ public class IgnoreJoint : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 7f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 7f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

@@ -42,7 +42,7 @@ public class ContactManifold : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 11f;
-        m_CameraManipulator.CameraStartPosition = Vector2.zero;
+        m_CameraManipulator.CameraPosition = Vector2.zero;
         m_CameraManipulator.DisableManipulators = true;
 
         // Set up the scene reset action.

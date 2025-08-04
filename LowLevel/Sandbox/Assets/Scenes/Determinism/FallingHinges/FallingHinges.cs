@@ -31,7 +31,7 @@ public class FallingHinges : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 4f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 4f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

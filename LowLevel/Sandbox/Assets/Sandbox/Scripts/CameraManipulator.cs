@@ -14,10 +14,10 @@ public class CameraManipulator : MonoBehaviour
     
     public Camera Camera { get; private set; }
     
-    public Vector2 CameraStartPosition
+    public Vector2 CameraPosition
     {
-        get => m_CameraStartPosition;
-        set { m_CameraStartPosition = value; Camera.transform.position = new Vector3(m_CameraStartPosition.x, m_CameraStartPosition.y, Camera.transform.position.z); }
+        get => m_CameraPosition;
+        set { m_CameraPosition = value; Camera.transform.position = new Vector3(m_CameraPosition.x, m_CameraPosition.y, Camera.transform.position.z); }
     }
     
     public float CameraSize
@@ -65,7 +65,7 @@ public class CameraManipulator : MonoBehaviour
 
     private SandboxManager m_SandboxManager;	
     private bool m_DisableManipulators;
-    private Vector2 m_CameraStartPosition;
+    private Vector2 m_CameraPosition;
     private float m_CameraSize;
     private float m_CameraZoom;
     private InputMode m_TouchMode;
@@ -79,7 +79,7 @@ public class CameraManipulator : MonoBehaviour
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
         Camera = GetComponentInParent<Camera>();
-        CameraStartPosition = Vector2.zero;
+        CameraPosition = Vector2.zero;
         m_TouchMode = InputMode.Drag;
         CameraZoom = 1f;
         CameraSize = 6f;
@@ -244,7 +244,7 @@ public class CameraManipulator : MonoBehaviour
     
     public void ResetPanZoom()
     {
-        Camera.transform.position = new Vector3(m_CameraStartPosition.x, m_CameraStartPosition.y, Camera.transform.position.z);
+        Camera.transform.position = new Vector3(m_CameraPosition.x, m_CameraPosition.y, Camera.transform.position.z);
         CameraZoom = 1f;
     }
 }

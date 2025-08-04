@@ -32,7 +32,7 @@ public class SliderJoint : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 12f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 9f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 9f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

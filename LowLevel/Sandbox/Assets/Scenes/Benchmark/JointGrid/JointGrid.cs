@@ -21,7 +21,7 @@ public class JointGrid : MonoBehaviour
         m_UIDocument = GetComponent<UIDocument>();
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraStartPosition = new Vector2(-10f, -10f);
+        m_CameraManipulator.CameraPosition = new Vector2(-10f, -10f);
         m_CameraManipulator.CameraSize = 100f;
         
         // Set up the scene reset action.

@@ -29,7 +29,7 @@ public class Bounciness : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 28f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0f, 19f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 19f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

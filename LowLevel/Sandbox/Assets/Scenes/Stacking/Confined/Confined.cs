@@ -20,7 +20,7 @@ public class Confined : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 14f;
-        m_CameraManipulator.CameraStartPosition = new Vector2(0, 10f);
+        m_CameraManipulator.CameraPosition = new Vector2(0, 10f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

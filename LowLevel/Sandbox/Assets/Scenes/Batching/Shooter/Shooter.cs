@@ -35,7 +35,7 @@ public class Shooter : MonoBehaviour
 
 		m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
 		m_CameraManipulator.CameraSize = 12f;
-		m_CameraManipulator.CameraStartPosition = Vector2.zero;
+		m_CameraManipulator.CameraPosition = Vector2.zero;
 
 		// Set up the scene reset action.
 		m_SandboxManager.SceneResetAction = SetupScene;

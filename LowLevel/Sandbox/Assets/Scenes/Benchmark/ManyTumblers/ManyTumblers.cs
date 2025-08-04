@@ -27,7 +27,7 @@ public class ManyTumblers : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 90f;
-        m_CameraManipulator.CameraStartPosition = new Vector4(-4f, -4f);
+        m_CameraManipulator.CameraPosition = new Vector4(-4f, -4f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
