@@ -283,8 +283,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 1.0f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.25f * PhysicsMath.PI;
-                var upperAngleLimit = 0f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.25f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
@@ -330,8 +330,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 1.4f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.3f * PhysicsMath.PI;
-                var upperAngleLimit = 0.1f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.3f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.1f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
@@ -377,8 +377,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 0.9f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.05f * PhysicsMath.PI;
-                var upperAngleLimit = 0.4f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.05f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.4f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
@@ -437,8 +437,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 0.625f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.05f * PhysicsMath.PI;
-                var upperAngleLimit = 0.02f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.05f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.02f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
@@ -484,8 +484,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 0.9f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.05f * PhysicsMath.PI;
-                var upperAngleLimit = 0.4f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.05f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.4f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
@@ -534,8 +534,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 0.625f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.5f * PhysicsMath.PI;
-                var upperAngleLimit = 0.02f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.5f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.02f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
@@ -581,8 +581,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 1.35f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.1f * PhysicsMath.PI;
-                var upperAngleLimit = 0.8f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.1f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.8f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
@@ -628,16 +628,14 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 1.1f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.2f * PhysicsMath.PI;
-                var upperAngleLimit = 0.3f * PhysicsMath.PI;
-                var referenceAngle = 0.25f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.2f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.3f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
                     bodyB = bodyB,
                     localAnchorA = bodyA.GetLocalPoint(pivot),
                     localAnchorB = bodyB.GetLocalPoint(pivot),
-                    //referenceAngle = rightFacing ? referenceAngle : -referenceAngle,
                     enableLimit = enableLimit,
                     lowerAngleLimit = rightFacing ? lowerAngleLimit : -upperAngleLimit,
                     upperAngleLimit = rightFacing ? upperAngleLimit : -lowerAngleLimit,
@@ -677,8 +675,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 1.35f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.1f * PhysicsMath.PI;
-                var upperAngleLimit = 0.8f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.1f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.8f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
@@ -724,8 +722,8 @@ public static class SpawnFactory
                 var pivot = position + new Vector2(0f, 1.1f * scale);
                 var bodyA = bones[bone.parentBone].body;
                 var bodyB = bone.body;
-                var lowerAngleLimit = -0.2f * PhysicsMath.PI;
-                var upperAngleLimit = 0.3f * PhysicsMath.PI;
+                var lowerAngleLimit = PhysicsMath.ToDegrees(-0.2f * PhysicsMath.PI);
+                var upperAngleLimit = PhysicsMath.ToDegrees(0.3f * PhysicsMath.PI);
                 var jointDef = new PhysicsHingeJointDefinition
                 {
                     bodyA = bodyA,
