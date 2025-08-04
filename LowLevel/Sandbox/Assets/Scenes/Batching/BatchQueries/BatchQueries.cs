@@ -25,6 +25,9 @@ public class BatchQueries : MonoBehaviour
 	private float m_BatchSpread;
 	private float m_BatchDistance;
 	private float m_BatchForce;
+	private bool m_DrawRays;
+	private bool m_DrawPoints;
+	private bool m_DrawNormals;
 	
 	private void OnEnable()
 	{
@@ -52,6 +55,9 @@ public class BatchQueries : MonoBehaviour
 		m_BatchSpread = 10.0f;
 		m_BatchDistance = 50.0f;
 		m_BatchForce = 1f;
+		m_DrawRays = true;
+		m_DrawPoints = false;
+		m_DrawNormals = false;
 		
 		SetupOptions();
 
@@ -96,6 +102,21 @@ public class BatchQueries : MonoBehaviour
 			var batchForce = root.Q<Slider>("batch-force");
 			batchForce.value = m_BatchDistance;
 			batchForce.RegisterValueChangedCallback(evt => { m_BatchForce = evt.newValue; });			
+			
+			// Draw Rays.
+			var drawRays = root.Q<Toggle>("draw-rays");
+			drawRays.value = m_DrawRays;
+			drawRays.RegisterValueChangedCallback(evt => { m_DrawRays = evt.newValue; });
+
+			// Draw Points.
+			var drawPoints = root.Q<Toggle>("draw-points");
+			drawPoints.value = m_DrawPoints;
+			drawPoints.RegisterValueChangedCallback(evt => { m_DrawPoints = evt.newValue; });
+
+			// Draw Normals.
+			var drawNormals = root.Q<Toggle>("draw-normals");
+			drawNormals.value = m_DrawPoints;
+			drawNormals.RegisterValueChangedCallback(evt => { m_DrawNormals = evt.newValue; });
 			
 			// Reset Scene.
 			var resetScene = root.Q<Button>("reset-scene");
@@ -190,10 +211,28 @@ public class BatchQueries : MonoBehaviour
 			{
 				// Fetch the original query ray.
 				var queryRay = queries[i].Ray;
+				var hitPoint = result.point;
 				
-				// Draw the hit.
-				world.DrawLine(queryRay.origin, result.point, m_SandboxManager.ShapeColorState);
+				// Draw the rays.
+				if (m_DrawRays)
+				{
+					var intensity = random.NextFloat(0.2f, 0.5f);
+					world.DrawLine(queryRay.origin, hitPoint, new Color(intensity, intensity, intensity, 0.5f));
+				}
 
+				// Draw the points.
+				if (m_DrawPoints)
+				{
+					world.DrawPoint(hitPoint, 4f, m_SandboxManager.ShapeColorState);
+				}
+				
+				// Draw the normals.
+				if (m_DrawNormals)
+				{
+					world.DrawLine(hitPoint, hitPoint + result.normal, m_SandboxManager.ShapeColorState);
+				}
+
+				// Add a batch force if we're using it.
 				if (m_BatchForce > 0.0f)
 				{
 					// Add a force to the batch forces.
@@ -205,7 +244,7 @@ public class BatchQueries : MonoBehaviour
 		}
 
 		// Apply the batch forces.
-		if (m_BatchForce > 0.0f)
+		if (m_BatchForce > 0.0f && batchForces.Length > 0)
 			PhysicsBody.SetBatchForce(batchForces.AsArray());
 		
 		// Dispose.

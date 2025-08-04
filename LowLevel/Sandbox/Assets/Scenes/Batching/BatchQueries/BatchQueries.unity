@@ -164,13 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -326,10 +326,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 0
   CircleGeometry:
     m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
+    m_Radius: 1
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
     m_Center2: {x: 0, y: 0.5}
@@ -752,7 +752,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144729003}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 1.55, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -771,13 +771,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -865,168 +865,6 @@ MonoBehaviour:
     m_BodyConstraints: 0
     m_TransformWriteMode: 3
     m_Position: {x: 1.55, y: -6.84}
-    m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
---- !u!1 &145671236
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 145671237}
-  - component: {fileID: 145671239}
-  - component: {fileID: 145671238}
-  m_Layer: 0
-  m_Name: Pointy (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &145671237
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145671236}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -15.3, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1909275864}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &145671238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145671236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
-  CapsuleGeometry:
-    m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0
-      m_Bounciness: 0
-      m_FrictionCombine: 3
-      m_BouncinessCombine: 4
-      m_FrictionPriority: 0
-      m_BouncinessPriority: 0
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      m_Categories:
-        bitMask: 8
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 145671239}
---- !u!114 &145671239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 145671236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: 10.03, y: -1}
     m_Rotation:
       direction: {x: 0.70710707, y: 0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
@@ -1400,13 +1238,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264193408}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: -13.5, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1909275864}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &264193410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1419,13 +1257,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -1514,7 +1352,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 11.83, y: 8}
     m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
+      direction: {x: 0.70710707, y: -0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -1566,11 +1404,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 791107171}
-  - {fileID: 605148273}
   - {fileID: 1278892626}
   - {fileID: 507807930}
   - {fileID: 144729004}
-  - {fileID: 1860228195}
   - {fileID: 1115821534}
   m_Father: {fileID: 1249772078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1784,168 +1620,6 @@ MonoBehaviour:
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
---- !u!1 &477155087
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 477155088}
-  - component: {fileID: 477155090}
-  - component: {fileID: 477155089}
-  m_Layer: 0
-  m_Name: Pointy (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &477155088
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477155087}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -7, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1200223526}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &477155089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477155087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
-  CapsuleGeometry:
-    m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0
-      m_Bounciness: 0
-      m_FrictionCombine: 3
-      m_BouncinessCombine: 4
-      m_FrictionPriority: 0
-      m_BouncinessPriority: 0
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      m_Categories:
-        bitMask: 8
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 477155090}
---- !u!114 &477155090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477155087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: -7, y: 4.1}
-    m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
 --- !u!1 &507807929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,13 +1646,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507807929}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 4.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 354157184}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &507807931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1991,13 +1665,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -2086,7 +1760,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 0, y: -1.96}
     m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
+      direction: {x: 0.70710707, y: -0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -2153,14 +1827,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
+    m_Center2: {x: 0, y: -3}
+    m_Radius: 0.75
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
@@ -2550,10 +2224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 0
   CircleGeometry:
     m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
+    m_Radius: 1
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
     m_Center2: {x: 0, y: 0.5}
@@ -2667,168 +2341,6 @@ MonoBehaviour:
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
---- !u!1 &605148272
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 605148273}
-  - component: {fileID: 605148275}
-  - component: {fileID: 605148274}
-  m_Layer: 0
-  m_Name: Pointy (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &605148273
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605148272}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -7, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 354157184}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &605148274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605148272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
-  CapsuleGeometry:
-    m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0
-      m_Bounciness: 0
-      m_FrictionCombine: 3
-      m_BouncinessCombine: 4
-      m_FrictionPriority: 0
-      m_BouncinessPriority: 0
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      m_Categories:
-        bitMask: 8
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 605148275}
---- !u!114 &605148275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605148272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: -7, y: -10.5}
-    m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
 --- !u!1 &678265707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2874,13 +2386,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -3017,13 +2529,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791107170}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: -8.84, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 354157184}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &791107172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3036,13 +2548,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -3131,7 +2643,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -8.84, y: -6.84}
     m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
+      direction: {x: 0.70710707, y: -0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -3785,168 +3297,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -145.88}
---- !u!1 &1005381636
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1005381637}
-  - component: {fileID: 1005381639}
-  - component: {fileID: 1005381638}
-  m_Layer: 0
-  m_Name: Pointy (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1005381637
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005381636}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -11.7, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1552431570}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &1005381638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005381636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
-  CapsuleGeometry:
-    m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0
-      m_Bounciness: 0
-      m_FrictionCombine: 3
-      m_BouncinessCombine: 4
-      m_FrictionPriority: 0
-      m_BouncinessPriority: 0
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      m_Categories:
-        bitMask: 8
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 1005381639}
---- !u!114 &1005381639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005381636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: -9.9, y: -1}
-    m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
 --- !u!1 &1055976077
 GameObject:
   m_ObjectHideFlags: 0
@@ -4046,13 +3396,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062612405}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: -19, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1909275864}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &1062612407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4065,14 +3415,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
+    m_Center2: {x: 0, y: -3}
+    m_Radius: 0.75
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
@@ -4160,169 +3510,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 6.33, y: 0}
     m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
---- !u!1 &1086296359
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1086296360}
-  - component: {fileID: 1086296362}
-  - component: {fileID: 1086296361}
-  m_Layer: 0
-  m_Name: Pointy (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1086296360
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086296359}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -13.5, y: -8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1552431570}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &1086296361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086296359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
-  CapsuleGeometry:
-    m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -2}
-      m_Vertex1: {x: 0.5, y: -2}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0
-      m_Bounciness: 0
-      m_FrictionCombine: 3
-      m_BouncinessCombine: 4
-      m_FrictionPriority: 0
-      m_BouncinessPriority: 0
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      m_Categories:
-        bitMask: 8
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 1086296362}
---- !u!114 &1086296362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086296359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: -11.7, y: -8}
-    m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
+      direction: {x: 0.70710707, y: -0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -4580,7 +3768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115821533}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 8.64, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4599,13 +3787,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -4742,13 +3930,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135509225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -11.5, y: -3, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalPosition: {x: -11.84, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1909275864}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &1135509227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4761,13 +3949,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -2.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -4854,9 +4042,9 @@ MonoBehaviour:
     m_BodyType: 2
     m_BodyConstraints: 0
     m_TransformWriteMode: 3
-    m_Position: {x: 13.83, y: -3}
+    m_Position: {x: 13.49, y: -3}
     m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
+      direction: {x: 0.70710707, y: -0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -4907,11 +4095,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 477155088}
   - {fileID: 1305111615}
   - {fileID: 1750004568}
   - {fileID: 678265708}
-  - {fileID: 2040859082}
   m_Father: {fileID: 1249772078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1222623465
@@ -5303,13 +4489,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278892625}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: -1.16, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 354157184}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &1278892627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5322,13 +4508,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -5417,7 +4603,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -1.16, y: -6.84}
     m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
+      direction: {x: 0.70710707, y: -0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -5465,13 +4651,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305111614}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1200223526}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &1305111616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5484,13 +4670,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -5579,7 +4765,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -3, y: 4.1}
     m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
+      direction: {x: 0.70710707, y: -0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -5628,7 +4814,7 @@ Transform:
   m_GameObject: {fileID: 1309292288}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -15.5, y: -3, z: 0}
+  m_LocalPosition: {x: -15.2, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5646,13 +4832,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -2.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -5739,7 +4925,7 @@ MonoBehaviour:
     m_BodyType: 2
     m_BodyConstraints: 0
     m_TransformWriteMode: 3
-    m_Position: {x: -13.7, y: -3}
+    m_Position: {x: -13.4, y: -3}
     m_Rotation:
       direction: {x: 0.70710707, y: 0.70710653}
     m_LinearVelocity: {x: 0, y: 0}
@@ -6008,168 +5194,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1497156214
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1497156215}
-  - component: {fileID: 1497156217}
-  - component: {fileID: 1497156216}
-  m_Layer: 0
-  m_Name: Pointy (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1497156215
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497156214}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: -13.5, y: -8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1909275864}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &1497156216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497156214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
-  CapsuleGeometry:
-    m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -2, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -2, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0
-      m_Bounciness: 0
-      m_FrictionCombine: 3
-      m_BouncinessCombine: 4
-      m_FrictionPriority: 0
-      m_BouncinessPriority: 0
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      m_Categories:
-        bitMask: 8
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 1497156217}
---- !u!114 &1497156217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497156214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: 11.83, y: -8}
-    m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
 --- !u!1 &1551080460
 GameObject:
   m_ObjectHideFlags: 0
@@ -6364,9 +5388,7 @@ Transform:
   - {fileID: 7888147}
   - {fileID: 534109152}
   - {fileID: 601833515}
-  - {fileID: 1005381637}
   - {fileID: 1309292289}
-  - {fileID: 1086296360}
   m_Father: {fileID: 1249772078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1668601928
@@ -6948,13 +5970,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShapeType: 3
+  ShapeType: 1
   CircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
+    m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5
   SegmentGeometry:
     m_Point1: {x: -0.5, y: 0}
@@ -7262,168 +6284,6 @@ Transform:
   - {fileID: 835922287}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1860228194
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1860228195}
-  - component: {fileID: 1860228197}
-  - component: {fileID: 1860228196}
-  m_Layer: 0
-  m_Name: Pointy (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1860228195
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860228194}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 7, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 354157184}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &1860228196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860228194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
-  CapsuleGeometry:
-    m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0
-      m_Bounciness: 0
-      m_FrictionCombine: 3
-      m_BouncinessCombine: 4
-      m_FrictionPriority: 0
-      m_BouncinessPriority: 0
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      m_Categories:
-        bitMask: 8
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 1860228197}
---- !u!114 &1860228197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860228194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: 7, y: -10.5}
-    m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
 --- !u!1 &1909275863
 GameObject:
   m_ObjectHideFlags: 0
@@ -7456,9 +6316,7 @@ Transform:
   - {fileID: 264193409}
   - {fileID: 1062612406}
   - {fileID: 8792234}
-  - {fileID: 145671237}
   - {fileID: 1135509226}
-  - {fileID: 1497156215}
   m_Father: {fileID: 1249772078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1986502510
@@ -7785,168 +6643,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -145.88}
---- !u!1 &2040859081
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2040859082}
-  - component: {fileID: 2040859084}
-  - component: {fileID: 2040859083}
-  m_Layer: 0
-  m_Name: Pointy (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2040859082
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2040859081}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 7, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1200223526}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &2040859083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2040859081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1168452a08d24264b1891f3226b2c9c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShapeType: 3
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
-  CapsuleGeometry:
-    m_Center1: {x: 0, y: 0.5}
-    m_Center2: {x: 0, y: 0.5}
-    m_Radius: 0.5
-  SegmentGeometry:
-    m_Point1: {x: -0.5, y: 0}
-    m_Point2: {x: 0.5, y: 0}
-  ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
-    m_Segment:
-      m_Point1: {x: 0.5, y: 0}
-      m_Point2: {x: -0.5, y: 0}
-    m_Ghost2: {x: -1, y: 0}
-  PolygonGeometry:
-    vertices:
-      m_Vertex0: {x: -0.5, y: -0.5}
-      m_Vertex1: {x: 0.5, y: -0.5}
-      m_Vertex2: {x: 0.5, y: 0.5}
-      m_Vertex3: {x: -0.5, y: 0.5}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 0}
-    m_Radius: 0
-    m_Count: 4
-  ShapeDefinition:
-    surfaceMaterial:
-      m_Friction: 0
-      m_Bounciness: 0
-      m_FrictionCombine: 3
-      m_BouncinessCombine: 4
-      m_FrictionPriority: 0
-      m_BouncinessPriority: 0
-      m_RollingResistance: 0
-      m_TangentSpeed: 0
-      m_CustomColor:
-        serializedVersion: 2
-        rgba: 4282071353
-    contactFilter:
-      m_Categories:
-        bitMask: 8
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
-    m_Density: 1
-    m_IsTrigger: 0
-    m_TriggerEvents: 0
-    m_ContactEvents: 0
-    m_HitEvents: 0
-    m_ContactFilterCallbacks: 0
-    m_PreSolveCallbacks: 0
-    m_StartStaticContacts: 0
-    m_StartMassUpdate: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  ScaleRadius: 1
-  SceneBody: {fileID: 2040859084}
---- !u!114 &2040859084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2040859081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ef3e69136b45a18585c82a34198004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: 7, y: 4.1}
-    m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
-  UserData:
-    m_Object: {fileID: 0}
-    m_PhysicsMask:
-      bitMask: 0
-    m_Float: 0
-    m_Int: 0
-    m_Bool: 0
-  CallbackTarget: {fileID: 0}
-  UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
 --- !u!1 &2101177202
 GameObject:
   m_ObjectHideFlags: 0
