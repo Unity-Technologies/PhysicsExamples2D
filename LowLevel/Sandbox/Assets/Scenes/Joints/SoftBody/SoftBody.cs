@@ -75,7 +75,7 @@ public class SoftBody : MonoBehaviour
                 SetupScene();
             });
 
-            // Joint Frequency.
+            // Joint Damping.
             var jointDamping = root.Q<Slider>("joint-damping");
             jointDamping.value = m_JointDamping;
             jointDamping.RegisterValueChangedCallback(evt =>

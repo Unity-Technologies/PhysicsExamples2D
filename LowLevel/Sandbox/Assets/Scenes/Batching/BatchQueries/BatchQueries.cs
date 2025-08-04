@@ -233,7 +233,7 @@ public class BatchQueries : MonoBehaviour
 				}
 
 				// Add a batch force if we're using it.
-				if (m_BatchForce > 0.0f)
+				if (!m_SandboxManager.WorldPaused && m_BatchForce > 0.0f)
 				{
 					// Add a force to the batch forces.
 					var batchForce = new PhysicsBody.BatchForce(shape.body);
@@ -244,7 +244,7 @@ public class BatchQueries : MonoBehaviour
 		}
 
 		// Apply the batch forces.
-		if (m_BatchForce > 0.0f && batchForces.Length > 0)
+		if (!m_SandboxManager.WorldPaused && m_BatchForce > 0.0f && batchForces.Length > 0)
 			PhysicsBody.SetBatchForce(batchForces.AsArray());
 		
 		// Dispose.

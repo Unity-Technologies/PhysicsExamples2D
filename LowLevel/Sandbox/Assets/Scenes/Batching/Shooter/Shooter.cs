@@ -64,7 +64,6 @@ public class Shooter : MonoBehaviour
 
 	private void SetupOptions()
 	{
-		
 		var root = m_UIDocument.rootVisualElement;
 
 		{

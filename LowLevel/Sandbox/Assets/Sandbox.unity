@@ -357,6 +357,10 @@ MonoBehaviour:
     Name: Soft Body
     Category: Joints
     Description: Demonstrating using joints to create a soft body.
+  - ScenePath: Assets/Scenes/Joints/User Joint/UserJoint.unity
+    Name: User Joint
+    Category: Joints
+    Description: Demonstrating the implementation of a custom joint.
   - ScenePath: Assets/Scenes/Joints/Top Down Friction/TopDownFriction.unity
     Name: Top Down Friction
     Category: Joints
