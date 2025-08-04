@@ -171,12 +171,13 @@ public class Driving : MonoBehaviour
             x += 80.0f;
             groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x, 0f), point2 = new Vector2(x + 40f, 0f) });
 
-            // Jump ramp.
+            // Jump Ramp.
             x += 40.0f;
             groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x, 0f), point2 = new Vector2(x + 10f, 5f) });
 
-            // Final corner.
+            // Final Corner.
             x += 20.0f;
+            groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x, 0f), point2 = new Vector2(x, 2f) });
             groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x, 0f), point2 = new Vector2(x + 40f, 0f) });
 
             x += 40.0f;
