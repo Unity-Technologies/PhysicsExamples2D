@@ -36,7 +36,7 @@ public class Smash : MonoBehaviour
         m_Speed = 40f;
         m_Density = 25f;
         m_Bounciness = 0f;
-        m_Spacing = 0.2f;
+        m_Spacing = 0f;
         m_FastCollisionsAllowed = false;
 
         SetupOptions();

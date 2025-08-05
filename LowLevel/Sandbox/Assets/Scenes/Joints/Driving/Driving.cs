@@ -139,7 +139,7 @@ public class Driving : MonoBehaviour
             var pointIndex = 24;
 
             // Fill in reverse to match the chain convention.
-            points[pointIndex--] = new Vector2(-20f, -20f);
+            points[pointIndex--] = new Vector2(-20f, 20f);
             points[pointIndex--] = new Vector2(-20f, 0f);
             points[pointIndex--] = new Vector2(20f, 0f);
 
@@ -174,10 +174,9 @@ public class Driving : MonoBehaviour
             // Jump Ramp.
             x += 40.0f;
             groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x, 0f), point2 = new Vector2(x + 10f, 5f) });
+            groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x + 10f, 5f), point2 = new Vector2(x + 20f, 0f) });
 
             // Final Corner.
-            x += 20.0f;
-            groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x, 0f), point2 = new Vector2(x, 2f) });
             groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x, 0f), point2 = new Vector2(x + 40f, 0f) });
 
             x += 40.0f;
