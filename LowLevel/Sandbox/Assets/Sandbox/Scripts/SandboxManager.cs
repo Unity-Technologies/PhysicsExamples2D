@@ -288,6 +288,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 if (m_ShowDebuggingElement.value)
                     DebuggingMenu.gameObject.SetActive(m_ShowUI);
 
+                // Toggle Shortcut Men.
                 ShortcutMenu.gameObject.SetActive(!ShortcutMenu.gameObject.activeInHierarchy);
                 
                 // Main Menu.
@@ -540,7 +541,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
                 if (!m_DisableUIRestarts)
                     SceneResetAction?.Invoke();
-                    //m_SceneManifest.ReloadCurrentScene(ResetSceneState);
             }); 
             
             // Bodies.
@@ -632,6 +632,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_ScenesView.bindItem = (e, i) => { ((Label)e).text = m_ScenesView.GetItemDataForIndex<string>(i); };
         m_ScenesView.itemsChosen += _ => TreeSelection();
         m_ScenesView.selectionChanged += _ => TreeSelectionChanged();
+        m_ScenesView.itemExpandedChanged += TreeExpandedChanged;  
         m_ScenesView.Rebuild();
 
         // Load the start scene if specified.
@@ -651,7 +652,21 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             else
                 m_ScenesView.ExpandItem(selectedId);
         }
-    }    
+    }
+
+    private void TreeExpandedChanged(TreeViewExpansionChangedArgs arg)
+    {
+        // Ignore if not expanding.
+        if (!arg.isExpanded)
+            return;
+
+        // Collapse all other expanded items.
+        foreach (var rootId in m_ScenesView.GetRootIds())
+        {
+            if (arg.id != rootId && m_ScenesView.IsExpanded(rootId))
+                m_ScenesView.CollapseItem(rootId);
+        }
+    }
     
     private void TreeSelectionChanged()
     {
