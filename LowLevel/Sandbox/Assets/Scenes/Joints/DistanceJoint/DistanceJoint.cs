@@ -40,7 +40,7 @@ public class DistanceJoint : MonoBehaviour
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
         m_SandboxManager.SetOverrideColorShapeState(true);
         
-        m_JointCount = 1;
+        m_JointCount = 3;
         m_JointDistance = 1f;
         m_EnableSpring = false;
         m_SpringFrequency = 5f;

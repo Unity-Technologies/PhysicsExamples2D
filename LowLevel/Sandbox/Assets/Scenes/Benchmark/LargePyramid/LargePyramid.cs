@@ -67,6 +67,8 @@ public class LargePyramid : MonoBehaviour
             gravityScale.RegisterValueChangedCallback(evt =>
             {
                 m_GravityScale = evt.newValue;
+                var world = PhysicsWorld.defaultWorld;
+                world.gravity = m_OldGravity * m_GravityScale;
             });
 
             // Reset Scene.
@@ -101,7 +103,7 @@ public class LargePyramid : MonoBehaviour
 
         // Pyramid.
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = m_GravityScale };
+            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
             const float halfHeight = 0.5f;

@@ -36,6 +36,7 @@ public class ShortcutMenu : MonoBehaviour
                 $"[{color}LMB+LCtrl{endColor}]\t\tPan\n" +
                 $"[{color}LMB+Move{endColor}]\tDrag/Explode\n" +
                 $"[{color}Mouse Wheel{endColor}]\tZoom\n" +
+                $"[{color}Arrows+Space{endColor}]\tMisc Interaction\n" +
                 $"[{color}ESC{endColor}]\t\t\tQuit (Player)\n";
         }
     }
