@@ -66,8 +66,7 @@ public class LargeCompound : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
-        const int height = 400;
-        const int width = 400;
+        const int height = 300;
 
         const float gridSize = 1.0f;
         var gridBoxSize = new Vector2(gridSize, gridSize);
@@ -81,7 +80,7 @@ public class LargeCompound : MonoBehaviour
             for (var i = 0; i < height; ++i)
             {
                 var y = gridSize * i;
-                for (var j = i; j < width; ++j)
+                for (var j = i - 4; j < i; ++j)
                 {
                     body.CreateShape(PolygonGeometry.CreateBox(gridBoxSize, radius: 0f, new PhysicsTransform(new Vector2(gridSize * j, y), PhysicsRotate.identity)), shapeDef);
                     body.CreateShape(PolygonGeometry.CreateBox(gridBoxSize, radius: 0f, new PhysicsTransform(new Vector2(-gridSize * j, y), PhysicsRotate.identity)), shapeDef);
