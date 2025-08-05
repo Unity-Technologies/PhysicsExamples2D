@@ -354,6 +354,11 @@ MonoBehaviour:
     Category: Joints
     Description: Demonstrating the IgnoreJoint to permanently ignore collisions between
       two bodies.
+  - ScenePath: Assets/Scenes/Joints/ScaleRagdoll/ScaleRagdoll.unity
+    Name: Scale Ragdoll
+    Category: Joints
+    Description: Checking the stability of solving forced overlap due to scaling
+      a relatively complex setup.
   - ScenePath: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
     Name: Slider Joint
     Category: Joints

@@ -3,11 +3,8 @@
     <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; justify-content: flex-end; align-content: auto; padding-left: 8px; padding-bottom: 8px;">
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
-                <ui:Tab label="Soft Body Options" tabindex="0" name="Tab">
-                    <ui:SliderInt label="Body Sides" value="6" high-value="32" show-input-field="true" name="body-sides" fill="true" low-value="3" focusable="false"/>
-                    <ui:Slider label="Body Scale" value="2" high-value="3" show-input-field="true" name="body-scale" fill="true" low-value="1" focusable="false"/>
-                    <ui:Slider label="Joint Frequency" value="5" high-value="60" show-input-field="true" name="joint-frequency" fill="true" low-value="0" focusable="false"/>
-                    <ui:Slider label="Joint Damping" value="0" high-value="1" show-input-field="true" name="joint-damping" fill="true" low-value="0" focusable="false"/>
+                <ui:Tab label="Ragdoll Scale Options" tabindex="0" name="Tab">
+                    <ui:Slider label="Ragdoll Scale" value="1" high-value="10" show-input-field="true" name="ragdoll-scale" fill="true" low-value="0.5" focusable="false"/>
                     <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>

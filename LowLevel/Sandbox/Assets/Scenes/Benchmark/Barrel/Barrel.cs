@@ -132,7 +132,7 @@ public class Barrel : MonoBehaviour
 
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.5f } };
         
-        var ragDollConfiguration = new SpawnFactory.Ragdoll.Configuration
+        var ragDollConfiguration = new RagdollFactory.Configuration
         {
 	        ScaleRange = new Vector2(5f, 9f),
 	        JointFrequency = 1f,
@@ -244,8 +244,8 @@ public class Barrel : MonoBehaviour
             
 					case ObjectType.Ragdoll:
 					{
-						using var spawnedBodies = SpawnFactory.Ragdoll.SpawnRagdoll(world, bodyDef.position, ragDollConfiguration, true, ref random);
-						foreach (var body in spawnedBodies)
+						using var ragdoll = RagdollFactory.Spawn(world, bodyDef.position, ragDollConfiguration, true, ref random);
+						foreach (var body in ragdoll)
 							bodies.Add(body);
 						continue;
 					}

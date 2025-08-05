@@ -258,7 +258,7 @@ public class TriggerFunnel : MonoBehaviour
 
     private void CreateRagdoll(PhysicsWorld world, Vector2 spawnPosition, Random random, NativeHashSet<PhysicsBody> bodies)
     {
-        var ragDollConfiguration = new SpawnFactory.Ragdoll.Configuration
+        var ragDollConfiguration = new RagdollFactory.Configuration
         {
             ScaleRange = new Vector2(m_ObjectScale * 1.25f, m_ObjectScale * 1.25f),
             JointFrequency = 1f,
@@ -275,15 +275,15 @@ public class TriggerFunnel : MonoBehaviour
             EnableMotor = true
         };
 
-        using var spawnedBodies = SpawnFactory.Ragdoll.SpawnRagdoll(world, spawnPosition, ragDollConfiguration, true, ref random);
-        foreach (var body in spawnedBodies)
+        using var ragdoll = RagdollFactory.Spawn(world, spawnPosition, ragDollConfiguration, true, ref random);
+        foreach (var body in ragdoll)
             bodies.Add(body);
     }
 
     private void CreateDonut(PhysicsWorld world, Vector2 spawnPosition, NativeHashSet<PhysicsBody> bodies)
     {
-        using var spawnedBodies = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true, jointFrequency: 20f);
-        foreach (var body in spawnedBodies)
+        using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true, jointFrequency: 20f);
+        foreach (var body in donut)
             bodies.Add(body);
     }
 

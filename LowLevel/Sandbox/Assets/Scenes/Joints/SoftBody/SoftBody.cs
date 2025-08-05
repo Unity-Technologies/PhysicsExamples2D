@@ -58,9 +58,9 @@ public class SoftBody : MonoBehaviour
             });
 
             // Body Scale.
-            var bpdyScale = root.Q<Slider>("body-scale");
-            bpdyScale.value = m_BodyScale;
-            bpdyScale.RegisterValueChangedCallback(evt =>
+            var bodyScale = root.Q<Slider>("body-scale");
+            bodyScale.value = m_BodyScale;
+            bodyScale.RegisterValueChangedCallback(evt =>
             {
                 m_BodyScale = evt.newValue;
                 SetupScene();
@@ -123,8 +123,8 @@ public class SoftBody : MonoBehaviour
         
         // Soft Body.
         { 
-            using var spawnedBodies = SpawnFactory.Softbody.SpawnDonut(world, m_SandboxManager, Vector2.zero, m_BodySides, m_BodyScale, triggerEvents: false, jointFrequency: m_JointFrequency, jointDamping: m_JointDamping);
-            foreach (var body in spawnedBodies)
+            using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, Vector2.zero, m_BodySides, m_BodyScale, triggerEvents: false, jointFrequency: m_JointFrequency, jointDamping: m_JointDamping);
+            foreach (var body in donut)
                 bodies.Add(body);
         }
     }

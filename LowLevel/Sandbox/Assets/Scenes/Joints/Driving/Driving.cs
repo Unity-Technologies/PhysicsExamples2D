@@ -1,5 +1,4 @@
 using System;
-using NUnit.Framework;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -161,7 +160,8 @@ public class Driving : MonoBehaviour
             points[pointIndex--] = new Vector2(x + 40f, 0f);
             points[pointIndex--] = new Vector2(x + 40f, -20f);
 
-            Assert.AreEqual(-1, pointIndex);
+            if (pointIndex != -1)
+                throw new InvalidOperationException("Invalid Point Index");
 
             // Create chain.
             groundBody.CreateChain(new ChainGeometry(points), new PhysicsChainDefinition { isLoop = true });
@@ -292,8 +292,8 @@ public class Driving : MonoBehaviour
         
         // Car.
         {
-            using var carBodies = SpawnFactory.Car.SpawnCar(world, Vector2.zero, 1f, m_SpringFrequency, m_SpringDamping, m_MaxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
-            foreach (var body in carBodies)
+            using var car = CarFactory.Spawn(world, Vector2.zero, 1f, m_SpringFrequency, m_SpringDamping, m_MaxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
+            foreach (var body in car)
                 bodies.Add(body);
         }
     }

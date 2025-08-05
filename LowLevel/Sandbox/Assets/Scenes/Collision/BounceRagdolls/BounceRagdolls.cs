@@ -182,7 +182,7 @@ public class BounceRagdolls : MonoBehaviour
 		
 		m_RagdollCount++;
 		
-        var ragDollConfiguration = new SpawnFactory.Ragdoll.Configuration
+        var ragDollConfiguration = new RagdollFactory.Configuration
         {
 	        ScaleRange = new Vector2(1.75f, 1.75f),
 	        JointFrequency = 1f,
@@ -202,9 +202,9 @@ public class BounceRagdolls : MonoBehaviour
         ref var random = ref m_SandboxManager.Random;
         var position = new Vector2(random.NextFloat(-2f, 2f), random.NextFloat(-2f, 0f));
         
-        using var spawnedBodies = SpawnFactory.Ragdoll.SpawnRagdoll(world, position, ragDollConfiguration, true, ref random);
+        using var ragdoll = RagdollFactory.Spawn(world, position, ragDollConfiguration, true, ref random);
         var bodies = m_SandboxManager.Bodies;
-        foreach (var body in spawnedBodies)
+        foreach (var body in ragdoll)
         {
 	        bodies.Add(body);
         }
