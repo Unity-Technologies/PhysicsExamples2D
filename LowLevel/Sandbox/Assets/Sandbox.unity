@@ -359,6 +359,10 @@ MonoBehaviour:
     Category: Joints
     Description: Checking the stability of solving forced overlap due to scaling
       a relatively complex setup.
+  - ScenePath: Assets/Scenes/Joints/ScissorLift/ScissorLift.unity
+    Name: Scissor Lift
+    Category: Joints
+    Description: Checking the stability of solving a complex set of joints.
   - ScenePath: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
     Name: Slider Joint
     Category: Joints
@@ -439,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Large Compound
+  StartScene: Shooter
   DebuggingMenu: {fileID: 1603435387}
   ShortcutMenu: {fileID: 465066520}
   UpdatePeriodFPS: 0.1

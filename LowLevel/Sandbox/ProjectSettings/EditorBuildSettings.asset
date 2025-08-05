@@ -81,6 +81,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Joints/ScaleRagdoll/ScaleRagdoll.unity
     guid: 54f48b7529cca0045a26ea27ec580ae8
   - enabled: 1
+    path: Assets/Scenes/Joints/ScissorLift/ScissorLift.unity
+    guid: c4e99ff41d561a441b2d6f23fa050bb9
+  - enabled: 1
     path: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
     guid: 8053bfd538096f344b3062526abdab0e
   - enabled: 1
