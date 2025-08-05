@@ -349,12 +349,12 @@ MonoBehaviour:
     Name: Gear Lift
     Category: Joints
     Description: Complex Joint and Collision Iterations.
-  - ScenePath: Assets/Scenes/Joints/Ignore Joint/IgnoreJoint.unity
+  - ScenePath: Assets/Scenes/Joints/IgnoreJoint/IgnoreJoint.unity
     Name: Ignore Joint
     Category: Joints
     Description: Demonstrating the IgnoreJoint to permanently ignore collisions between
       two bodies.
-  - ScenePath: Assets/Scenes/Joints/Slider Joint/SliderJoint.unity
+  - ScenePath: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
     Name: Slider Joint
     Category: Joints
     Description: Demonstrating the features of the Slider Joint.
@@ -362,15 +362,15 @@ MonoBehaviour:
     Name: Soft Body
     Category: Joints
     Description: Demonstrating using joints to create a soft body.
-  - ScenePath: Assets/Scenes/Joints/User Joint/UserJoint.unity
+  - ScenePath: Assets/Scenes/Joints/TopDownFriction/TopDownFriction.unity
     Name: User Joint
     Category: Joints
     Description: Demonstrating the implementation of a custom joint.
-  - ScenePath: Assets/Scenes/Joints/Top Down Friction/TopDownFriction.unity
+  - ScenePath: Assets/Scenes/Joints/UserJoint/UserJoint.unity
     Name: Top Down Friction
     Category: Joints
     Description: Demonstrating using the RelativeJoint to achieve "top down " friction.
-  - ScenePath: Assets/Scenes/Joints/Wheel Joint/WheelJoint.unity
+  - ScenePath: Assets/Scenes/Joints/WheelJoint/WheelJoint.unity
     Name: Wheel Joint
     Category: Joints
     Description: Demonstrating the features of the Wheel Joint.
