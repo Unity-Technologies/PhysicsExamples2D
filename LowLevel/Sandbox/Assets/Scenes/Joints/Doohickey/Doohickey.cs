@@ -1,0 +1,93 @@
+using UnityEngine;
+using UnityEngine.LowLevelPhysics2D;
+using UnityEngine.UIElements;
+
+public class Doohickey : MonoBehaviour
+{
+    private SandboxManager m_SandboxManager;	
+    private SceneManifest m_SceneManifest;
+    private UIDocument m_UIDocument;
+    private CameraManipulator m_CameraManipulator;
+
+    private int m_DoohickeyCount;
+    
+    private void OnEnable()
+    {
+        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
+        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_UIDocument = GetComponent<UIDocument>();
+
+        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator.CameraSize = 9f;
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 5f);
+
+        // Set up the scene reset action.
+        m_SandboxManager.SceneResetAction = SetupScene;
+
+        m_DoohickeyCount = 4;
+        
+        SetupOptions();
+
+        SetupScene();
+    }
+
+    private void SetupOptions()
+    {
+        var root = m_UIDocument.rootVisualElement;
+        
+        {
+            // Menu Region (for camera manipulator).
+            var menuRegion = root.Q<VisualElement>("menu-region");
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            
+            // Doohickey Count.
+            var doohickeyCount = root.Q<SliderInt>("doohickey-count");
+            doohickeyCount.value = m_DoohickeyCount;
+            doohickeyCount.RegisterValueChangedCallback(evt =>
+            {
+                m_DoohickeyCount = evt.newValue;
+                SetupScene();
+            });
+            
+            // Reset Scene.
+            var resetScene = root.Q<Button>("reset-scene");
+            resetScene.clicked += SetupScene;
+            
+            // Fetch the scene description.
+            var sceneDescription = root.Q<Label>("scene-description");
+            sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
+        }
+    }
+    
+    private void SetupScene()
+    {
+	    // Reset the scene state.
+	    m_SandboxManager.ResetSceneState();
+        
+        var world = PhysicsWorld.defaultWorld;
+        var bodies = m_SandboxManager.Bodies;
+        
+        // Ground.
+        {
+            var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            bodies.Add(groundBody);
+
+            groundBody.CreateShape(new SegmentGeometry { point1 = Vector2.left * 20f, point2 = Vector2.right * 20f });
+            groundBody.CreateShape(PolygonGeometry.CreateBox(Vector2.one * 2f, 0.1f, new PhysicsTransform(Vector2.up), true));
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 50f), 0f, new PhysicsTransform(Vector2.up * 25f + Vector2.left * 14f)));
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 50f), 0f, new PhysicsTransform(Vector2.up * 25f + Vector2.right * 14f)));
+        }
+        
+        // Doohickey.
+        {
+            var y = 4f;
+            for (var n = 0; n < m_DoohickeyCount; ++n, y += 1.2f)
+            {
+                using var dumbbell = DoohickeyFactory.SpawnDumbbell(world, m_SandboxManager, new Vector2(0f, y), 0.5f);
+                foreach (var body in dumbbell)
+                    bodies.Add(body);
+            }
+        }
+    }
+}

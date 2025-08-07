@@ -69,6 +69,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Joints/DistanceJoint/DistanceJoint.unity
     guid: e35de1168d77d2746ba63b31de1d89a7
   - enabled: 1
+    path: Assets/Scenes/Joints/Doohickey/Doohickey.unity
+    guid: 43203e7eec0b42e48990c398be9338ce
+  - enabled: 1
     path: Assets/Scenes/Joints/Driving/Driving.unity
     guid: 6d94882244490e343a9d8efbf6de573d
   - enabled: 1

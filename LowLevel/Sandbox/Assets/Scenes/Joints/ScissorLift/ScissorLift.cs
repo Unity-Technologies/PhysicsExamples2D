@@ -32,7 +32,7 @@ public class ScissorLift : MonoBehaviour
         m_SandboxManager.SetOverrideColorShapeState(true);
         
         m_EnableMotor = false;
-        m_MotorSpeed = 1f;
+        m_MotorSpeed = 0.25f;
         
         SetupOptions();
 
@@ -218,7 +218,7 @@ public class ScissorLift : MonoBehaviour
 		{
 			bodyA = groundBody,
 			bodyB = linkBody1,
-			localAnchorA = new PhysicsTransform(new Vector2(2.5f, 0.2f)),
+			localAnchorA = new PhysicsTransform(new Vector2(-2.5f, 0.2f)),
 			localAnchorB = new PhysicsTransform(new Vector2(0.5f, 0.0f)),
 			enableSpring = true,
 			enableLimit = true,

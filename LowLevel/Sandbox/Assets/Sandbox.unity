@@ -340,6 +340,10 @@ MonoBehaviour:
     Name: Distance Joint
     Category: Joints
     Description: Demonstrating the features of the Distance Joint.
+  - ScenePath: Assets/Scenes/Joints/Doohickey/Doohickey.unity
+    Name: Doohickey
+    Category: Joints
+    Description: Demonstrating some fun contraptions using joints.
   - ScenePath: Assets/Scenes/Joints/Driving/Driving.unity
     Name: Driving
     Category: Joints
