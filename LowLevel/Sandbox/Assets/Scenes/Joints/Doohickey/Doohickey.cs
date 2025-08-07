@@ -24,11 +24,22 @@ public class Doohickey : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
+        m_SandboxManager.SetOverrideColorShapeState(true);
+        
         m_DoohickeyCount = 4;
         
         SetupOptions();
 
         SetupScene();
+    }
+
+    private void OnDisable()
+    {
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideDrawOptions();
+        m_SandboxManager.ResetOverrideColorShapeState();
     }
 
     private void SetupOptions()
