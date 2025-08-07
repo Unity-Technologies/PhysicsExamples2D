@@ -1,5 +1,3 @@
-using System;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -15,7 +13,6 @@ public class ScissorLift : MonoBehaviour
     
     private bool m_EnableMotor;
     private float m_MotorSpeed;
-    private float m_MaxMotorForce;
     
     private void OnEnable()
     {
@@ -35,8 +32,7 @@ public class ScissorLift : MonoBehaviour
         m_SandboxManager.SetOverrideColorShapeState(true);
         
         m_EnableMotor = false;
-        m_MotorSpeed = 0.25f;
-        m_MaxMotorForce = 2000f;
+        m_MotorSpeed = 1f;
         
         SetupOptions();
 
@@ -79,16 +75,6 @@ public class ScissorLift : MonoBehaviour
                 m_Joint.motorSpeed = m_MotorSpeed;
                 m_Joint.WakeBodies();
             });
-            
-            // Max Motor Force.
-            var maxMotorForce = root.Q<Slider>("max-motor-force");
-            maxMotorForce.value = m_MaxMotorForce;
-            maxMotorForce.RegisterValueChangedCallback(evt =>
-            {
-                m_MaxMotorForce = evt.newValue;
-                m_Joint.maxMotorForce = m_MaxMotorForce;
-                m_Joint.WakeBodies();
-            });            
             
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
@@ -241,7 +227,7 @@ public class ScissorLift : MonoBehaviour
 			collideConnected = true,
 			enableMotor = m_EnableMotor,
 			motorSpeed = m_MotorSpeed,
-			maxMotorForce = m_MaxMotorForce
+			maxMotorForce = 10000f
 		});
 
 		// Car.
