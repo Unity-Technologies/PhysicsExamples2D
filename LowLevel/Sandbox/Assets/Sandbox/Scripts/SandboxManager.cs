@@ -297,14 +297,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 return;
             }
 
-            // Reset the OverlapUI for when it occasionally doesn't work.
-            // NOTE: Will remove this when the source of the issue is fixed.
-            if (currentKeyboard.rKey.wasPressedThisFrame)
-            {
-                m_CameraManipulator.OverlapUI = 0;
-                return;
-            }
-
             // Single-Step.
             if (currentKeyboard.sKey.wasPressedThisFrame)
             {
@@ -684,6 +676,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
         
         DebuggingMenu.ResetStats();
+        m_CameraManipulator.OverlapUI = 0;
 
         SceneResetAction = null;
         m_SceneManifest.LoadScene(sceneName, ResetSceneState);

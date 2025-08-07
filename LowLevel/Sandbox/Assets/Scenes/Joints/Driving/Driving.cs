@@ -164,7 +164,7 @@ public class Driving : MonoBehaviour
                 throw new InvalidOperationException("Invalid Point Index");
 
             // Create chain.
-            groundBody.CreateChain(new ChainGeometry(points), new PhysicsChainDefinition { isLoop = true });
+            groundBody.CreateChain(new ChainGeometry(points), new PhysicsChainDefinition { isLoop = false });
             points.Dispose();
 
             // Flat after bridge.
