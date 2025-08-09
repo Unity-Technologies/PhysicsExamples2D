@@ -3,9 +3,6 @@
     --background: rgba(50, 50, 50, 0.9);
 }
 
-/*
--unity-font-definition: resource("UIToolkit/Fonts/Inter/Inter-Regular-SDF");
-*/
 VisualElement {
     -unity-font-definition: resource("Fonts/Cozette/CozetteVector");
 }
@@ -55,7 +52,6 @@ background-color: rgba(80, 100, 110, 1.0)
 .unity-tab__header {
     flex-grow: 1;
     align-content: center;
-    width: 33%;
     border-top-width: 1px;
     border-left-width: 1px;
     border-right-width: 1px;
@@ -82,3 +78,9 @@ background-color: rgba(80, 100, 110, 1.0)
     border-color: var(--foreground);
     background-color: var(--background);
 }
+
+.unity-tab-view__next-button {
+    height: 0;
+    width: 0;
+} 
+

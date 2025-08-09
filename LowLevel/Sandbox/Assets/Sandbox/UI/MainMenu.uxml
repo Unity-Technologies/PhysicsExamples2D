@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Sandbox/UI/Common/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides"/>
     <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; padding-left: 8px; padding-top: 8px;">
-        <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
+        <ui:VisualElement name="menu-region" style="width: auto; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" name="selected-tab" style="width: 100%; height: 100%;">
                 <ui:Tab label="Scenes" tabindex="0" name="Tab">
                     <ui:TreeView name="scenes" virtualization-method="DynamicHeight" focusable="false"/>

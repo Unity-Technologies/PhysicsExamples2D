@@ -26,18 +26,18 @@ public class ShortcutMenu : MonoBehaviour
             
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text =
-                $"[{color}P{endColor}]\t\t\tPause/Continue\n" +
-                $"[{color}S{endColor}]\t\t\tSingle Step\n" +
-                $"[{color}C{endColor}]\t\t\tToggle Color State\n" +
-                $"[{color}1{endColor}]\t\t\tLeft Mouse Drag\n" +
-                $"[{color}2{endColor}]\t\t\tLeft Mouse Explode\n" +
-                $"[{color}D{endColor}]\t\t\tToggle Debugging\n" +
-                $"[{color}TAB{endColor}]\t\t\tToggle Overlays\n" +
-                $"[{color}LMB+LCtrl{endColor}]\t\tPan\n" +
-                $"[{color}LMB+Move{endColor}]\tDrag/Explode\n" +
+                $"[{color}P{endColor}]\t\tPause/Continue\n" +
+                $"[{color}S{endColor}]\t\tSingle Step\n" +
+                $"[{color}C{endColor}]\t\tToggle Color State\n" +
+                $"[{color}1{endColor}]\t\tLeft Mouse Drag\n" +
+                $"[{color}2{endColor}]\t\tLeft Mouse Explode\n" +
+                $"[{color}D{endColor}]\t\tToggle Debugging\n" +
+                $"[{color}TAB{endColor}]\t\tToggle Overlays\n" +
+                $"[{color}LMB+LCtrl{endColor}]\tPan\n" +
+                $"[{color}LMB+Move{endColor}]\t\tDrag/Explode\n" +
                 $"[{color}Mouse Wheel{endColor}]\tZoom\n" +
                 $"[{color}Arrows+Space{endColor}]\tMisc Interaction\n" +
-                $"[{color}ESC{endColor}]\t\t\tQuit (Player)\n";
+                $"[{color}ESC{endColor}]\t\tQuit (Player)\n";
         }
     }
 }
