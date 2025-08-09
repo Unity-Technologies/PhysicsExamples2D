@@ -3,8 +3,11 @@
     --background: rgba(50, 50, 50, 0.9);
 }
 
+/*
+-unity-font-definition: resource("UIToolkit/Fonts/Inter/Inter-Regular-SDF");
+*/
 VisualElement {
-    -unity-font-definition: resource("UIToolkit/Fonts/Inter/Inter-Regular-SDF");
+    -unity-font-definition: resource("Fonts/Cozette/CozetteVector");
 }
 
 TreeView {
