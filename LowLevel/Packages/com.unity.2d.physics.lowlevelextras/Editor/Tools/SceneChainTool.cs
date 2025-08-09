@@ -14,7 +14,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             // Create overlay.
             m_Overlay = new SceneGeometryToolOverlay(this) { visible = true };
             SceneView.AddOverlayToActiveView(m_Overlay);
-            
+
             // Create the appropriate geometry tools.
             m_GeometryTools = new List<SceneChainGeometryEditorTool>(capacity: 1);
             foreach (var toolTarget in targets)
@@ -26,18 +26,18 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 }
             }
         }
-        
+
         public override void OnWillBeDeactivated()
         {
             // Remove overlay.
             SceneView.RemoveOverlayFromActiveView(m_Overlay);
             m_Overlay.visible = false;
             m_Overlay = null;
-            
+
             // Clear the tools.
             m_GeometryTools.Clear();
         }
-        
+
         public override void OnToolGUI(EditorWindow window)
         {
             // Finish if there are no tools available.
@@ -49,25 +49,25 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             {
                 // Update the tool in-case the target has been recreated. 
                 geometryTool.UpdateTool();
-                
+
                 // Let the tool handle the callback if it's valid.
                 if (geometryTool.isValid)
                     geometryTool.OnToolGUI(window);
             }
-            
+
             // If we're not playing then we should queue a player update.
             // NOTE: We do this, so we'll render the gizmos.
             if (!EditorApplication.isPlaying)
                 EditorApplication.QueuePlayerLoopUpdate();
         }
-        
+
         public IGeometryToolSettings.ShowLabelMode ShowLabels { get; set; }
         public Color LabelColor { get; set; }
         public Color GrabHandleVertexColor { get; set; }
         public Color GrabHandleMoveAllColor { get; set; }
         public Color GrabHandleAddColor { get; set; }
         public Color GrabHandleDeleteColor { get; set; }
-        
+
         public override GUIContent toolbarIcon => m_ToolIcon ??= new GUIContent(EditorGUIUtility.IconContent(IconUtility.IconPath + "SceneShapeTool.png").image, EditorGUIUtility.TrTextContent("Edit Geometry.").text);
 
         private static GUIContent m_ToolIcon;
@@ -80,7 +80,8 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         private sealed class ChainSceneChainGeometryEditorTool : SceneChainGeometryEditorTool
         {
             public ChainSceneChainGeometryEditorTool(SceneChain sceneChain, IGeometryToolSettings geometryToolSettings) : base(sceneChain, geometryToolSettings)
-            { }
+            {
+            }
 
             public override void OnToolGUI(EditorWindow window)
             {
@@ -91,27 +92,27 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 var pointCount = chainPoints.Length;
                 if (pointCount < 4)
                     return;
-                
+
                 var currentEvent = Event.current;
                 var currentEventType = currentEvent.type;
-                
+
                 // Are we in add/remove mode as opposed to move-only mode?
                 var addMode = (currentEvent.command || currentEvent.shift);
                 var removeMode = pointCount == 4 ? false : addMode;
-                
+
                 // Always consume the mouse-drag if we're adding/removing to suppress other function.
                 if ((addMode || removeMode) && currentEventType == EventType.MouseDrag)
                     currentEvent.Use();
-                
+
                 // Set-up handles.
                 var snap = GetSnapSettings();
                 var handleDirection = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
 
                 // Fetch the show labels option.
-                var showLabels = geometryToolSettings.ShowLabels; 
-                
+                var showLabels = geometryToolSettings.ShowLabels;
+
                 TargetShapeChanged = false;
-                
+
                 // Points.
                 for (int i = 0, j = pointCount - 1; i < pointCount; j = i++)
                 {
@@ -131,7 +132,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         {
                             // Set the handle color.
                             Handles.color = removeMode ? geometryToolSettings.GrabHandleDeleteColor : geometryToolSettings.GrabHandleVertexColor;
-                            
+
                             EditorGUI.BeginChangeCheck();
 
                             var controlId = GUIUtility.GetControlID(FocusType.Passive);
@@ -151,7 +152,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                 var labelVertices = showLabels == IGeometryToolSettings.ShowLabelMode.LocalSpace ? chainPoints[i] : Body.transform.TransformPoint(chainPoints[i]);
                                 Handles.Label(handleUp * handleSize * 2f, $"{labelVertices.ToString(LabelFloatFormat)}");
                             }
-                            
+
                             // Did we click to delete the point?
                             if (removeMode && currentEventType == EventType.MouseDown && GUIUtility.hotControl == controlId)
                             {
@@ -172,7 +173,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         var midPoint = (chainPoints[i] + chainPoints[j]) * 0.5f;
                         var point = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(midPoint), Target.transform.position, TransformPlane);
                         var handleSize = GetHandleSize(point);
-                        
+
                         // Draw the add point handle.
                         using (new Handles.DrawingScope(Matrix4x4.TRS(point, Quaternion.identity, Vector3.one)))
                         {
@@ -181,7 +182,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
                             var controlId = GUIUtility.GetControlID(FocusType.Passive);
                             Handles.Slider2D(controlId, Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
-                            
+
                             // Did we click to delete the point?
                             if (currentEventType == EventType.MouseDown && GUIUtility.hotControl == controlId)
                             {

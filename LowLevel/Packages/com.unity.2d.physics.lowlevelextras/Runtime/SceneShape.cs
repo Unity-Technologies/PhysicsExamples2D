@@ -6,7 +6,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneShape)]
     [AddComponentMenu("Physics 2D (LowLevel)/Scene Shape", 1)]
     [Icon(IconUtility.IconPath + "SceneShape.png")]
-    public sealed class SceneShape : MonoBehaviour, IWorldSceneTransformChanged, IWorldSceneDrawable 
+    public sealed class SceneShape : MonoBehaviour, IWorldSceneTransformChanged, IWorldSceneDrawable
     {
         public PhysicsShape.ShapeType ShapeType = PhysicsShape.ShapeType.Circle;
         public CircleGeometry CircleGeometry = new();
@@ -25,7 +25,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private int m_OwnerKey;
 
         public void UpdateShape() => CreateShape();
-        
+
         private void Reset()
         {
             // Finish if the scene body already set.
@@ -35,11 +35,11 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             // Set the scene body.
             SceneBody = SceneBody.FindSceneBody(gameObject);
         }
-        
+
         private void OnEnable()
         {
             Reset();
-            
+
             if (SceneBody != null)
             {
                 SceneBody.CreateBodyEvent += OnCreateBody;
@@ -47,7 +47,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             }
 
             CreateShape();
-            
+
 #if UNITY_EDITOR
             WorldSceneTransformMonitor.AddMonitor(this);
 #endif
@@ -62,7 +62,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 SceneBody.CreateBodyEvent -= OnCreateBody;
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
-            
+
 #if UNITY_EDITOR
             WorldSceneTransformMonitor.RemoveMonitor(this);
 #endif
@@ -75,24 +75,24 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
             CreateShape();
         }
-  
+
         private void CreateShape()
         {
             // Destroy any existing shape.
             DestroyShape();
-            
+
             if (!SceneBody)
                 return;
 
             var body = SceneBody.Body;
             if (!body.isValid)
                 return;
-            
+
             // Calculate the relative transform from the scene body to this scene shape.
             var relativeTransform = PhysicsMath.GetRelativeMatrix(SceneBody.transform, transform, SceneBody.Body.world.transformPlane);
-            
+
             // Create the appropriate shape.
-            switch(ShapeType)
+            switch (ShapeType)
             {
                 case PhysicsShape.ShapeType.Circle:
                 {
@@ -126,7 +126,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
                     break;
                 }
-                
+
                 case PhysicsShape.ShapeType.ChainSegment:
                 {
                     var geometry = ChainSegmentGeometry.Transform(relativeTransform);
@@ -136,7 +136,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                     }
 
                     break;
-                }                
+                }
 
                 case PhysicsShape.ShapeType.Polygon:
                 {
@@ -158,10 +158,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             {
                 // Set the user data.
                 m_Shape.userData = UserData;
-                
+
                 // Set the callback target.
                 m_Shape.callbackTarget = CallbackTarget;
-                
+
                 // Set the owner.
                 m_OwnerKey = m_Shape.SetOwner(this);
             }
@@ -177,7 +177,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 m_OwnerKey = 0;
             }
         }
-        
+
         private void OnCreateBody(SceneBody sceneBody)
         {
             if (sceneBody == SceneBody)
@@ -189,18 +189,18 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             if (sceneBody == SceneBody)
                 DestroyShape();
         }
- 
+
         void IWorldSceneTransformChanged.TransformChanged()
         {
             if (m_Shape.isValid)
                 CreateShape();
         }
-        
+
         void IWorldSceneDrawable.Draw()
         {
             if (!m_Shape.isValid)
                 return;
-            
+
             // Draw if we're drawing selections.
             if (m_Shape.world.drawOptions.HasFlag(PhysicsWorld.DrawOptions.SelectedShapes))
                 m_Shape.Draw();

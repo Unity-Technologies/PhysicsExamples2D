@@ -7,14 +7,14 @@ public class DebuggingMenu : MonoBehaviour
 {
     private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;
-    
+
     private int m_SampledCount;
     private PhysicsWorld.WorldCounters m_LastCounters;
     private PhysicsWorld.WorldCounters m_MaxCounters;
     private PhysicsWorld.WorldProfile m_LastProfile;
     private PhysicsWorld.WorldProfile m_TotalProfile;
     private PhysicsWorld.WorldProfile m_MaxProfile;
-	
+
     // Profile.
     private Label m_SimulationStepElement;
     private Label m_ContactPairsElement;
@@ -39,7 +39,7 @@ public class DebuggingMenu : MonoBehaviour
     private Label m_SleepIslandsElement;
     private Label m_UpdateTriggersElement;
     private Label m_WriteTransformsElement;
-    
+
     // Counters.
     private Label m_BodyCountElement;
     private Label m_ShapeCountElement;
@@ -57,7 +57,7 @@ public class DebuggingMenu : MonoBehaviour
         m_SampledCount = 0;
         m_TotalProfile = m_MaxProfile = default;
     }
-    
+
     private void OnEnable()
     {
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
@@ -66,17 +66,17 @@ public class DebuggingMenu : MonoBehaviour
 
         // Reset the stats.
         ResetStats();
-        
+
         // Update states when a world has finished simulating. 
         PhysicsEvents.PostSimulate += UpdateStats;
 
         // Menu Region.
         {
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
         }
-        
+
         // Profile.
         {
             m_SimulationStepElement = root.Q<Label>("simulation-step");
@@ -104,7 +104,7 @@ public class DebuggingMenu : MonoBehaviour
             m_UpdateTriggersElement = root.Q<Label>("update-Triggers");
             m_WriteTransformsElement = root.Q<Label>("write-transforms");
         }
-        
+
         // Counters.
         {
             m_BodyCountElement = root.Q<Label>("body-count");
@@ -118,7 +118,7 @@ public class DebuggingMenu : MonoBehaviour
             m_TotalBytesUsedElement = root.Q<Label>("total-bytes-used");
             m_SimulationTaskCountElement = root.Q<Label>("simulation-task-count");
         }
-        
+
         // Reset Stats.
         {
             var resetStats = root.Q<Button>("reset-stats");
@@ -136,10 +136,10 @@ public class DebuggingMenu : MonoBehaviour
     {
         var sampleScale = 1f / m_SampledCount;
         const float memoryScale = 1f / 1048576f;
-        
+
         const string color = "<color=#7FFFD4>";
         const string endColor = "</color>";
-        
+
         // Profile.
         m_SimulationStepElement.text = $"<b>Simulation Step</b>: {color}{m_LastProfile.simulationStep:F2}{endColor} ~[{color}{m_TotalProfile.simulationStep * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.simulationStep:F2}{endColor}]";
         m_ContactPairsElement.text = $"<b>Contact Pairs</b>: {color}{m_LastProfile.contactPairs:F2}{endColor} ~[{color}{m_TotalProfile.contactPairs * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactPairs:F2}{endColor}]";
@@ -164,7 +164,7 @@ public class DebuggingMenu : MonoBehaviour
         m_SleepIslandsElement.text = $"<b>Sleep Islands</b>: {color}{m_LastProfile.sleepIslands:F2}{endColor} ~[{color}{m_TotalProfile.sleepIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.sleepIslands:F2}{endColor}]";
         m_UpdateTriggersElement.text = $"<b>Update Triggers</b>: {color}{m_LastProfile.updateTriggers:F2}{endColor} ~[{color}{m_TotalProfile.updateTriggers * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.updateTriggers:F2}{endColor}]";
         m_WriteTransformsElement.text = $"<b>Write Transforms</b>: {color}{m_LastProfile.writeTransforms:F2}{endColor} ~[{color}{m_TotalProfile.writeTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.writeTransforms:F2}{endColor}]";
-        
+
         // Counters.
         m_BodyCountElement.text = $"<b>Bodies</b>: {color}{m_LastCounters.bodyCount}{endColor} >[{color}{m_MaxCounters.bodyCount}{endColor}]";
         m_ShapeCountElement.text = $"<b>Shapes</b>: {color}{m_LastCounters.shapeCount}{endColor} >[{color}{m_MaxCounters.shapeCount}{endColor}]";
@@ -172,12 +172,12 @@ public class DebuggingMenu : MonoBehaviour
         m_JointCountElement.text = $"<b>Joints</b>: {color}{m_LastCounters.jointCount}{endColor} >[{color}{m_MaxCounters.jointCount}{endColor}]";
         m_IslandCountElement.text = $"<b>Island</b>: {color}{m_LastCounters.islandCount}{endColor} >[{color}{m_MaxCounters.islandCount}{endColor}]";
         m_StaticBroadphaseHeightElement.text = $"<b>Static Tree</b>: {color}{m_LastCounters.staticBroadphaseHeight}{endColor} >[{color}{m_MaxCounters.staticBroadphaseHeight}{endColor}] <color=#696969>Height</color>";
-        m_MoveableBroadphaseHeightElement.text = $"<b>Moveable Tree</b>: {color}{m_LastCounters.broadphaseHeight}{endColor} >[{color}{m_MaxCounters.broadphaseHeight}{endColor}] <color=#696969>Height</color>"; 
+        m_MoveableBroadphaseHeightElement.text = $"<b>Moveable Tree</b>: {color}{m_LastCounters.broadphaseHeight}{endColor} >[{color}{m_MaxCounters.broadphaseHeight}{endColor}] <color=#696969>Height</color>";
         m_StackBytesUsedElement.text = $"<b>Stack Memory</b>: {color}{m_LastCounters.stackUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.stackUsed * memoryScale:F2}{endColor}] <color=#696969>MB</color>";
         m_TotalBytesUsedElement.text = $"<b>Total Memory</b>: {color}{m_LastCounters.memoryUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.memoryUsed * memoryScale:F2}{endColor}] <color=#696969>MB</color>";
         m_SimulationTaskCountElement.text = $"<b>Simulation Tasks</b>: {color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
     }
-    
+
     private void UpdateStats(PhysicsWorld world, float deltaTime)
     {
         if (!world.isDefaultWorld)
@@ -185,7 +185,7 @@ public class DebuggingMenu : MonoBehaviour
 
         // Bump the sample count.
         ++m_SampledCount;
-        
+
         // Profile.
         {
             m_LastProfile = PhysicsWorld.globalProfile;

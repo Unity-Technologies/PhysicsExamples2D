@@ -11,10 +11,10 @@ public class ParallelSimulateSpawner : MonoBehaviour
     [Range(1, 1000)] public int SpawnCount = 10;
     [Range(0, 1000)] public int Total = 1000;
     [Range(0f, 360f)] public float Spread = 30f;
-    public Vector2 Radius = new (0.1f, 0.5f);
-    public Vector2 Speed = new (5f, 10f);
+    public Vector2 Radius = new(0.1f, 0.5f);
+    public Vector2 Speed = new(5f, 10f);
     public Vector2 Direction = Vector2.up;
-    
+
     public PhysicsBodyDefinition BodyDef = PhysicsBodyDefinition.defaultDefinition;
     public PhysicsShapeDefinition ShapeDef = PhysicsShapeDefinition.defaultDefinition;
 
@@ -30,12 +30,12 @@ public class ParallelSimulateSpawner : MonoBehaviour
         m_DelayTime = 0f;
         m_Count = 0;
         m_Random = new Random(0x01234567);
-        
+
         m_SceneWorld = SceneWorld.FindSceneWorld(gameObject);
-        
+
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
     }
-    
+
     private void OnEnable()
     {
         ResetScene();
@@ -45,15 +45,15 @@ public class ParallelSimulateSpawner : MonoBehaviour
     {
         if (m_Count >= Total)
             return;
-        
+
         m_DelayTime += Time.deltaTime;
         if (m_DelayTime < Delay) return;
-        
+
         m_DelayTime = 0f;
 
         CreateFountainProjectiles();
     }
-    
+
     private void CreateFountainProjectiles()
     {
         var spawnCount = math.min(SpawnCount, Total - m_Count);
@@ -61,18 +61,18 @@ public class ParallelSimulateSpawner : MonoBehaviour
             return;
 
         m_Count += spawnCount;
-        
+
         var circleGeometry = new CircleGeometry()
         {
             center = Vector2.zero,
             radius = m_Random.NextFloat(Radius.x, Radius.y)
         };
-        
+
         var definitions = new NativeArray<PhysicsBodyDefinition>(spawnCount, Allocator.Temp);
 
         var directionAngle = new PhysicsRotate(Direction).angle;
         Vector2 position = transform.position;
-        
+
         // Fire all the projectiles.
         for (var i = 0; i < spawnCount; ++i)
         {
@@ -85,7 +85,7 @@ public class ParallelSimulateSpawner : MonoBehaviour
             BodyDef.position = position;
             BodyDef.rotation = new PhysicsRotate(m_Random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI));
             BodyDef.linearVelocity = direction * speed;
-            
+
             definitions[i] = BodyDef;
         }
 
@@ -96,7 +96,7 @@ public class ParallelSimulateSpawner : MonoBehaviour
         var bodies = m_SandboxManager.Bodies;
         foreach (var body in bodyBatch)
             bodies.Add(body);
-        
+
         // Create the projectiles.
         for (var i = 0; i < spawnCount; ++i)
         {

@@ -1,16 +1,16 @@
 {
-    "name": "Unity.2D.Physics.LowLevelExtras",
-    "rootNamespace": "",
-    "references": [
+  "name": "Unity.2D.Physics.LowLevelExtras",
+  "rootNamespace": "",
+  "references": [
     "Unity.Collections"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": true,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

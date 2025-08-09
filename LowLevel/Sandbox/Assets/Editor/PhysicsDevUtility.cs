@@ -13,12 +13,12 @@ public static class PhysicsDevUtility
             Application.dataPath, "*.unity", SearchOption.AllDirectories
         );
 
-        for (var i=0; i < allFiles.Length; ++i)
+        for (var i = 0; i < allFiles.Length; ++i)
         {
             allFiles[i] = "Assets" + allFiles[i].Replace(Application.dataPath, "");
         }
 
-        foreach(var file in allFiles)
+        foreach (var file in allFiles)
         {
             EditorSceneManager.OpenScene(file);
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene(), file);

@@ -18,7 +18,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public SceneBody SceneBody;
 
         public void UpdateShape() => CreateShapes();
-        
+
         private readonly List<Vector2> m_PhysicsShapeVertex = new();
 
         private struct OwnedShapes
@@ -26,29 +26,29 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             public PhysicsShape Shape;
             public int OwnerKey;
         }
-        
+
         private NativeList<OwnedShapes> m_OwnedShapes;
-        
+
         private void Reset()
         {
             if (SceneBody == null)
                 SceneBody = SceneBody.FindSceneBody(gameObject);
         }
-       
+
         private void OnEnable()
         {
             Reset();
-        
+
             if (SceneBody != null)
             {
                 SceneBody.CreateBodyEvent += OnCreateBody;
                 SceneBody.DestroyBodyEvent += OnDestroyBody;
             }
-            
+
             m_OwnedShapes = new NativeList<OwnedShapes>(Allocator.Persistent);
-            
+
             CreateShapes();
-            
+
 #if UNITY_EDITOR
             WorldSceneTransformMonitor.AddMonitor(this);
 #endif
@@ -60,13 +60,13 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
             if (m_OwnedShapes.IsCreated)
                 m_OwnedShapes.Dispose();
-            
+
             if (SceneBody != null)
             {
                 SceneBody.CreateBodyEvent -= OnCreateBody;
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
-            
+
 #if UNITY_EDITOR
             WorldSceneTransformMonitor.RemoveMonitor(this);
 #endif
@@ -88,7 +88,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
             if (!m_OwnedShapes.IsCreated)
                 return;
-            
+
             if (!SceneBody)
                 return;
 
@@ -116,20 +116,20 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                     // Add to something we can use.
                     foreach (var vertex in m_PhysicsShapeVertex)
                         vertexPath.Add(vertex);
-                    
+
                     // Add the layer to the composer.
                     composer.AddLayer(vertexPath.AsArray(), PhysicsTransform.identity);
                 }
 
                 vertexPath.Clear();
             }
-            
+
             // Calculate the polygons from the points.
             using var polygons = composer.CreatePolygonGeometry(vertexScale: transform.lossyScale, Allocator.Temp);
 
             vertexPath.Dispose();
             composer.Destroy();
-            
+
             // Calculate the relative transform from the scene body to this scene shape.
             var relativeTransform = PhysicsMath.GetRelativeMatrix(SceneBody.transform, transform, SceneBody.Body.world.transformPlane, useScale: false);
 
@@ -138,24 +138,24 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             {
                 if (!geometry.isValid)
                     continue;
-                
+
                 var shapeGeometry = geometry.Transform(relativeTransform, false);
                 if (!shapeGeometry.isValid)
                     continue;
-                
+
                 var shape = body.CreateShape(shapeGeometry, ShapeDefinition);
                 if (!shape.isValid)
                     continue;
 
                 // Set the user data.
                 shape.userData = UserData;
-                
+
                 // Set the callback target.
                 shape.callbackTarget = CallbackTarget;
-                
+
                 // Set the owner.
                 var ownerKey = shape.SetOwner(this);
-                
+
                 // Add to owned shapes.
                 m_OwnedShapes.Add(new OwnedShapes
                 {
@@ -164,12 +164,12 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 });
             }
         }
-        
+
         private void DestroyShapes()
         {
             if (!m_OwnedShapes.IsCreated)
                 return;
-            
+
             foreach (var ownedShape in m_OwnedShapes)
             {
                 if (ownedShape.Shape.isValid)
@@ -181,7 +181,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             if (SceneBody.Body.isValid)
                 SceneBody.Body.ApplyMassFromShapes();
         }
-        
+
         private void OnCreateBody(SceneBody sceneBody)
         {
             CreateShapes();
@@ -191,9 +191,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             DestroyShapes();
         }
- 
+
         void IWorldSceneTransformChanged.TransformChanged() => CreateShapes();
-        
+
         void IWorldSceneDrawable.Draw()
         {
             // Finish if we've nothing to draw.
@@ -207,6 +207,6 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             // Draw selections.
             foreach (var ownedShape in m_OwnedShapes)
                 ownedShape.Shape.Draw();
-        }        
+        }
     }
 }

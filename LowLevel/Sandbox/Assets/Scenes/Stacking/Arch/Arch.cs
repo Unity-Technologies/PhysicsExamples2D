@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class Arch : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -24,9 +24,9 @@ public class Arch : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_Friction = 1f;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -35,17 +35,17 @@ public class Arch : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Friction.
             var friction = root.Q<Slider>("friction");
             friction.value = m_Friction;
@@ -54,21 +54,21 @@ public class Arch : MonoBehaviour
                 m_Friction = evt.newValue;
                 SetupScene();
             });
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         var ps1 = new Vector2[]
         {
             new(16.0f, 0.0f),
@@ -94,16 +94,16 @@ public class Arch : MonoBehaviour
             new(7.752568160730571f, 40.30450679009583f),
             new(3.016931552701656f, 44.28891593799322f)
         };
-        
+
         const float scale = 0.25f;
-        for (var i = 0; i < 9; ++i )
+        for (var i = 0; i < 9; ++i)
         {
             ps1[i] *= scale;
             ps2[i] *= scale;
         }
 
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_Friction } };
-        
+
         // Ground.
         {
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
@@ -114,17 +114,17 @@ public class Arch : MonoBehaviour
         // Arch.
         {
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
-            
+
             for (var i = 0; i < 8; ++i)
             {
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                
+
                 var ps = new[] { ps1[i], ps2[i], ps2[i + 1], ps1[i + 1] };
                 body.CreateShape(PolygonGeometry.Create(ps.AsSpan(), 0f, PhysicsTransform.identity), shapeDef);
-            }                
+            }
 
             for (var i = 0; i < 8; ++i)
             {
@@ -132,7 +132,7 @@ public class Arch : MonoBehaviour
                 bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                
+
                 var ps = new[]
                 {
                     new Vector2(-ps2[i].x, ps2[i].y),
@@ -141,14 +141,14 @@ public class Arch : MonoBehaviour
                     new Vector2(-ps2[i + 1].x, ps2[i + 1].y)
                 };
                 body.CreateShape(PolygonGeometry.Create(ps.AsSpan(), 0f, PhysicsTransform.identity), shapeDef);
-            }                
+            }
 
             {
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
-                
+
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                
+
                 var ps = new[]
                 {
                     ps1[8],
@@ -166,7 +166,7 @@ public class Arch : MonoBehaviour
                 bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                
+
                 body.CreateShape(PolygonGeometry.CreateBox(new Vector2(4f, 1f)), shapeDef);
             }
         }

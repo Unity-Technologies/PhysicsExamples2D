@@ -20,10 +20,10 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 // Get the shape geometry. 
                 var geometry = Shape.capsuleGeometry;
                 var localGeometry = ShapeTarget.CapsuleGeometry;
-                
+
                 // Calculate the relative transform from the scene body to this scene shape.
                 var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.SceneBody.transform, ShapeTarget.transform, ShapeTarget.SceneBody.Body.world.transformPlane);
-                
+
                 // Set-up handles.
                 var snap = GetSnapSettings();
                 var handleDirection = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
@@ -34,8 +34,8 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisUp, TransformPlane)).normalized;
 
                 // Fetch the show labels option.
-                var showLabels = geometryToolSettings.ShowLabels; 
-                
+                var showLabels = geometryToolSettings.ShowLabels;
+
                 // Radius.
                 var shapeOrigin = PhysicsMath.ToPosition3D(Body.transform.TransformPoint((geometry.center1 + geometry.center2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
                 var handleSize = GetHandleSize(shapeOrigin);
@@ -43,7 +43,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var radiusValue = handleRight * geometry.radius;
                     var newRadiusValue = Handles.Slider2D(radiusValue, handleDirection, handleRight, handleUp, handleSize, Handles.SphereHandleCap, snap);
@@ -72,7 +72,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleMoveAllColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
@@ -94,7 +94,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
@@ -122,7 +122,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())

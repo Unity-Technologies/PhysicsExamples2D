@@ -5,7 +5,7 @@ public class ShortcutMenu : MonoBehaviour
 {
     private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;
-    
+
     private void OnEnable()
     {
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
@@ -15,15 +15,15 @@ public class ShortcutMenu : MonoBehaviour
         // Menu Region.
         {
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
         }
 
         // Shortcut Description.
         {
             const string color = "<color=#7FFFD4>";
             const string endColor = "</color>";
-            
+
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text =
                 $"[{color}P{endColor}]\t\tPause/Continue\n" +

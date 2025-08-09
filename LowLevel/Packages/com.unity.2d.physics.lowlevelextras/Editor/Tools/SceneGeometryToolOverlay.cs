@@ -34,7 +34,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         private ColorField m_GrabHandleAddColor;
         private ColorField m_GrabHandleDeleteColor;
         private Button m_ResetButton;
-        
+
         public SceneGeometryToolOverlay()
         {
         }
@@ -45,7 +45,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
             ReadToolSettings();
         }
-        
+
         public override VisualElement CreatePanelContent()
         {
             // Set-up fields.
@@ -59,14 +59,38 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             m_ResetButton = new Button() { text = "Reset" };
 
             // Register value changes.
-            m_ShowLabels.RegisterValueChangedCallback(valueChangeEvent => { m_GeometryToolSettings.ShowLabels = (IGeometryToolSettings.ShowLabelMode)valueChangeEvent.newValue; WriteToolSettings(); });
-            m_LabelColor.RegisterValueChangedCallback(valueChangeEvent => { m_GeometryToolSettings.LabelColor = valueChangeEvent.newValue; WriteToolSettings(); });
-            m_GrabHandleVertexColor.RegisterValueChangedCallback(valueChangeEvent => { m_GeometryToolSettings.GrabHandleVertexColor = valueChangeEvent.newValue; WriteToolSettings(); });
-            m_GrabHandleMoveAllColor.RegisterValueChangedCallback(valueChangeEvent => { m_GeometryToolSettings.GrabHandleMoveAllColor = valueChangeEvent.newValue; WriteToolSettings(); });
-            m_GrabHandleAddColor.RegisterValueChangedCallback(valueChangeEvent => { m_GeometryToolSettings.GrabHandleAddColor = valueChangeEvent.newValue; WriteToolSettings(); });
-            m_GrabHandleDeleteColor.RegisterValueChangedCallback(valueChangeEvent => { m_GeometryToolSettings.GrabHandleDeleteColor = valueChangeEvent.newValue; WriteToolSettings(); });
+            m_ShowLabels.RegisterValueChangedCallback(valueChangeEvent =>
+            {
+                m_GeometryToolSettings.ShowLabels = (IGeometryToolSettings.ShowLabelMode)valueChangeEvent.newValue;
+                WriteToolSettings();
+            });
+            m_LabelColor.RegisterValueChangedCallback(valueChangeEvent =>
+            {
+                m_GeometryToolSettings.LabelColor = valueChangeEvent.newValue;
+                WriteToolSettings();
+            });
+            m_GrabHandleVertexColor.RegisterValueChangedCallback(valueChangeEvent =>
+            {
+                m_GeometryToolSettings.GrabHandleVertexColor = valueChangeEvent.newValue;
+                WriteToolSettings();
+            });
+            m_GrabHandleMoveAllColor.RegisterValueChangedCallback(valueChangeEvent =>
+            {
+                m_GeometryToolSettings.GrabHandleMoveAllColor = valueChangeEvent.newValue;
+                WriteToolSettings();
+            });
+            m_GrabHandleAddColor.RegisterValueChangedCallback(valueChangeEvent =>
+            {
+                m_GeometryToolSettings.GrabHandleAddColor = valueChangeEvent.newValue;
+                WriteToolSettings();
+            });
+            m_GrabHandleDeleteColor.RegisterValueChangedCallback(valueChangeEvent =>
+            {
+                m_GeometryToolSettings.GrabHandleDeleteColor = valueChangeEvent.newValue;
+                WriteToolSettings();
+            });
             m_ResetButton.clicked += ResetToolSettings;
-            
+
             // Add elements.
             var root = new VisualElement { style = { width = new StyleLength(DefaultWidth) } };
             root.Add(m_LabelTitle);
@@ -79,7 +103,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             root.Add(m_ResetButton);
             return root;
         }
-        
+
         private void ReadToolSettings()
         {
             // Read the tool settings.
@@ -90,7 +114,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             m_GeometryToolSettings.GrabHandleAddColor = GetColor(nameof(m_GeometryToolSettings.GrabHandleAddColor), new Color(1f, 1f, 1f, 0.25f));
             m_GeometryToolSettings.GrabHandleDeleteColor = GetColor(nameof(m_GeometryToolSettings.GrabHandleDeleteColor), Color.softRed);
         }
-        
+
         private void WriteToolSettings()
         {
             // Read the tool settings.
@@ -111,7 +135,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             m_GrabHandleAddColor.value = new Color(1f, 1f, 1f, 0.25f);
             m_GrabHandleDeleteColor.value = Color.softRed;
         }
-        
+
         private static Color GetColor(string key, Color defaultColor)
         {
             return new Color(
@@ -127,7 +151,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             EditorPrefs.SetFloat(key + "_g", color.g);
             EditorPrefs.SetFloat(key + "_b", color.b);
             EditorPrefs.SetFloat(key + "_a", color.a);
-        }        
+        }
 
         public bool visible { get; set; }
     }

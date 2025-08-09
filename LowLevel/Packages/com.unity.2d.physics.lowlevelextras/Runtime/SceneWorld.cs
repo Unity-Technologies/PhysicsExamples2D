@@ -17,9 +17,11 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         public bool UseDefaultWorld = true;
         public PhysicsWorldDefinition WorldDefinition = PhysicsWorldDefinition.defaultDefinition;
         public PhysicsUserData UserData;
-        
+
         public delegate void SceneWorldCreateEventHandler(SceneWorld sceneWorld);
+
         public delegate void SceneWorldDestroyEventHandler(SceneWorld sceneWorld);
+
         public event SceneWorldCreateEventHandler CreateWorldEvent;
         public event SceneWorldDestroyEventHandler DestroyWorldEvent;
 
@@ -41,10 +43,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             {
                 xf.GetComponentsInChildren(SelectedDrawables);
                 foreach (var drawable in SelectedDrawables)
-                    drawable.Draw();                       
+                    drawable.Draw();
             }
         }
-#endif       
+#endif
         /// <summary>
         /// Find a SceneWorld.
         /// </summary>
@@ -91,12 +93,12 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 {
                     // Set the user data.
                     m_World.userData = UserData;
-                    
+
                     // Set the owner.
                     m_OwnerKey = m_World.SetOwner(this);
                 }
             }
-            
+
             // Notify.
             if (m_World.isValid)
                 CreateWorldEvent?.Invoke(this);
@@ -107,7 +109,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             // Nothing to destroy if invalid.
             if (!m_World.isValid)
                 return;
-            
+
             // Notify.
             DestroyWorldEvent?.Invoke(this);
 

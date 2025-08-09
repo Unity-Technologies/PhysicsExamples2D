@@ -7,25 +7,25 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     public sealed class SceneSliderJoint : SceneJointBase, IWorldSceneDrawable
     {
         public PhysicsSliderJointDefinition JointDefinition = PhysicsSliderJointDefinition.defaultDefinition;
-        
+
         private PhysicsSliderJoint m_Joint;
 
-        protected override  void CreateJoint()
+        protected override void CreateJoint()
         {
             DestroyJoint();
-            
+
             // Validate.
             if (!BodyA || !BodyA.Body.isValid || !BodyB || !BodyB.Body.isValid)
                 return;
-            
+
             // Set the definition.
             JointDefinition.bodyA = BodyA.Body;
             JointDefinition.bodyB = BodyB.Body;
-            
+
             // Clamp the limits.
             if (JointDefinition.lowerTranslationLimit > JointDefinition.upperTranslationLimit)
                 JointDefinition.lowerTranslationLimit = JointDefinition.upperTranslationLimit;
-            
+
             // Create the joint.
             m_Joint = PhysicsSliderJoint.Create(BodyA.Body.world, JointDefinition);
             if (m_Joint.isValid)
@@ -56,5 +56,4 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 m_Joint.Draw();
         }
     }
-
 }

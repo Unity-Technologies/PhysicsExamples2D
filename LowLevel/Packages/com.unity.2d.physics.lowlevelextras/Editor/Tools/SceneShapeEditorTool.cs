@@ -15,7 +15,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             // Create overlay.
             m_Overlay = new SceneGeometryToolOverlay(this) { visible = true };
             SceneView.AddOverlayToActiveView(m_Overlay);
-            
+
             // Create the appropriate geometry tools.
             m_SceneShapeTargets = new List<SceneShape>(capacity: 1);
             m_GeometryTools = new List<SceneShapeGeometryTool>(capacity: 1);
@@ -38,7 +38,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             SceneView.RemoveOverlayFromActiveView(m_Overlay);
             m_Overlay.visible = false;
             m_Overlay = null;
-            
+
             // Clear the tools.
             m_GeometryTools.Clear();
         }
@@ -50,11 +50,11 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 return;
 
             // Iterate the available tools.
-            for(var i = 0; i < m_GeometryTools.Count; ++i)
+            for (var i = 0; i < m_GeometryTools.Count; ++i)
             {
                 // Fetch the geometry tool.
                 var geometryTool = m_GeometryTools[i];
-                
+
                 // Update the tool in-case the target has been recreated or changed.
                 if (!geometryTool.UpdateTool())
                 {
@@ -86,7 +86,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 _ => throw new ArgumentOutOfRangeException(nameof(sceneShape.Shape.shapeType), sceneShape.Shape.shapeType, null)
             };
         }
-        
+
         public IGeometryToolSettings.ShowLabelMode ShowLabels { get; set; }
         public Color LabelColor { get; set; }
         public Color GrabHandleVertexColor { get; set; }
@@ -99,9 +99,9 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         private List<SceneShape> m_SceneShapeTargets;
         private List<SceneShapeGeometryTool> m_GeometryTools;
         private SceneGeometryToolOverlay m_Overlay;
-        
+
         #region Geometry Tools
-        
+
         /// <summary>
         /// Abstract Geometry Tool.
         /// </summary>
@@ -111,7 +111,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             {
                 ShapeTarget = sceneShape;
                 ShapeType = sceneShape.ShapeType;
-            
+
                 UpdateTool();
             }
 
@@ -130,20 +130,20 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 // Fail if the shape type changed.
                 if (ShapeTarget.ShapeType != ShapeType)
                     return false;
-                
+
                 if (Shape.isValid)
                     return true;
-            
+
                 Shape = ShapeTarget.Shape;
                 if (!Shape.isValid)
                     return true;
-                
+
                 Body = Shape.body;
                 World = Shape.world;
                 TransformPlane = World.transformPlane;
                 return true;
             }
-        
+
             /// <summary>
             /// Check the conditions of the target to ensure it's valid to edit or not.
             /// </summary>

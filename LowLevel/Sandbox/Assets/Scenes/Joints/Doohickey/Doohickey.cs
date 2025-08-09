@@ -4,13 +4,13 @@ using UnityEngine.UIElements;
 
 public class Doohickey : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
     private int m_DoohickeyCount;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -27,9 +27,9 @@ public class Doohickey : MonoBehaviour
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
         m_SandboxManager.SetOverrideColorShapeState(true);
-        
+
         m_DoohickeyCount = 4;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -45,13 +45,13 @@ public class Doohickey : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+
             // Doohickey Count.
             var doohickeyCount = root.Q<SliderInt>("doohickey-count");
             doohickeyCount.value = m_DoohickeyCount;
@@ -60,25 +60,25 @@ public class Doohickey : MonoBehaviour
                 m_DoohickeyCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
-	    // Reset the scene state.
-	    m_SandboxManager.ResetSceneState();
-        
+        // Reset the scene state.
+        m_SandboxManager.ResetSceneState();
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         // Ground.
         {
             var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
@@ -89,7 +89,7 @@ public class Doohickey : MonoBehaviour
             groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 50f), 0f, new PhysicsTransform(Vector2.up * 25f + Vector2.left * 14f)));
             groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 50f), 0f, new PhysicsTransform(Vector2.up * 25f + Vector2.right * 14f)));
         }
-        
+
         // Doohickey.
         {
             var y = 4f;

@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 public class RoundedPolygons : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -26,12 +26,12 @@ public class RoundedPolygons : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_ColumnCount = 10;
         m_RowCount = 10;
         m_Friction = 0.6f;
         m_Bounciness = 0f;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -40,13 +40,13 @@ public class RoundedPolygons : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+
             var columnCount = root.Q<SliderInt>("column-count");
             columnCount.value = m_ColumnCount;
             columnCount.RegisterValueChangedCallback(evt =>
@@ -62,7 +62,7 @@ public class RoundedPolygons : MonoBehaviour
                 m_RowCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Friction.
             var friction = root.Q<Slider>("friction");
             friction.value = m_Friction;
@@ -80,31 +80,31 @@ public class RoundedPolygons : MonoBehaviour
                 m_Bounciness = evt.newValue;
                 SetupScene();
             });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         ref var random = ref m_SandboxManager.Random;
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         // Ground.
         {
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
-            
+
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
             bodies.Add(body);
 
@@ -118,7 +118,7 @@ public class RoundedPolygons : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_Friction, bounciness = m_Bounciness } };
-            
+
             var y = 2.0f;
             for (var i = 0; i < m_RowCount; ++i, y += 1.0f)
             {
@@ -128,13 +128,13 @@ public class RoundedPolygons : MonoBehaviour
                     bodyDef.position = new Vector2(x, y);
                     var body = world.CreateBody(bodyDef);
                     bodies.Add(body);
-                    
+
                     shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 
                     var radius = random.NextFloat(0.05f, 0.25f);
                     body.CreateShape(SandboxUtility.CreateRandomPolygon(extent: 0.5f, radius: radius, ref random), shapeDef);
                 }
-            }            
+            }
         }
     }
 }

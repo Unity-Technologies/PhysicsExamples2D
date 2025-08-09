@@ -35,7 +35,7 @@ background-color: rgba(80, 100, 110, 1.0)
 .unity-progress-bar__progress {
     background-color: var(--foreground);
 }
- 
+
 #description {
     background-color: var(--background);
     border-color: var(--foreground);

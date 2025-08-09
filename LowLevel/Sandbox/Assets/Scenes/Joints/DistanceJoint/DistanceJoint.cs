@@ -5,13 +5,13 @@ using UnityEngine.UIElements;
 
 public class DistanceJoint : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
     private NativeList<PhysicsDistanceJoint> m_Joints;
-    
+
     private int m_JointCount;
     private float m_JointDistance;
     private bool m_EnableSpring;
@@ -22,7 +22,7 @@ public class DistanceJoint : MonoBehaviour
     private bool m_EnableLimit;
     private float m_MinDistanceLimit;
     private float m_MaxDistanceLimit;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -39,7 +39,7 @@ public class DistanceJoint : MonoBehaviour
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
         m_SandboxManager.SetOverrideColorShapeState(true);
-        
+
         m_JointCount = 3;
         m_JointDistance = 1f;
         m_EnableSpring = false;
@@ -50,9 +50,9 @@ public class DistanceJoint : MonoBehaviour
         m_EnableLimit = false;
         m_MinDistanceLimit = m_JointDistance;
         m_MaxDistanceLimit = m_JointDistance;
-            
+
         m_Joints = new NativeList<PhysicsDistanceJoint>(m_JointCount, Allocator.Persistent);
-    
+
         SetupOptions();
 
         SetupScene();
@@ -62,7 +62,7 @@ public class DistanceJoint : MonoBehaviour
     {
         if (m_Joints.IsCreated)
             m_Joints.Dispose();
-        
+
         // Reset overrides.
         m_SandboxManager.ResetOverrideDrawOptions();
         m_SandboxManager.ResetOverrideColorShapeState();
@@ -71,12 +71,12 @@ public class DistanceJoint : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Joint Count.
             var jointCount = root.Q<SliderInt>("joint-count");
@@ -86,7 +86,7 @@ public class DistanceJoint : MonoBehaviour
                 m_JointCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Joint Distance.
             var jointDistance = root.Q<Slider>("joint-distance");
             jointDistance.value = m_JointDistance;
@@ -95,7 +95,7 @@ public class DistanceJoint : MonoBehaviour
                 m_JointDistance = evt.newValue;
                 UpdateJoints();
             });
-            
+
             // Enable Spring.
             var enableSpring = root.Q<Toggle>("enable-spring");
             enableSpring.value = m_EnableSpring;
@@ -103,8 +103,8 @@ public class DistanceJoint : MonoBehaviour
             {
                 m_EnableSpring = evt.newValue;
                 UpdateJoints();
-            });              
-            
+            });
+
             // Spring Frequency.
             var springFrequency = root.Q<Slider>("spring-frequency");
             springFrequency.value = m_SpringFrequency;
@@ -113,7 +113,7 @@ public class DistanceJoint : MonoBehaviour
                 m_SpringFrequency = evt.newValue;
                 UpdateJoints();
             });
-            
+
             // Spring Damping.
             var springDamping = root.Q<Slider>("spring-damping");
             springDamping.value = m_SpringDamping;
@@ -122,7 +122,7 @@ public class DistanceJoint : MonoBehaviour
                 m_SpringDamping = evt.newValue;
                 UpdateJoints();
             });
-            
+
             // Spring Tension.
             var springTension = root.Q<Slider>("spring-tension");
             springTension.value = m_SpringTension;
@@ -148,7 +148,7 @@ public class DistanceJoint : MonoBehaviour
             {
                 m_EnableLimit = evt.newValue;
                 UpdateJoints();
-            });             
+            });
 
             // Min Distance Limit.
             var minDistanceLimit = root.Q<Slider>("min-distance-limit");
@@ -165,7 +165,7 @@ public class DistanceJoint : MonoBehaviour
 
                 SetupScene();
             });
-            
+
             // Max Distance Limit.
             var maxDistanceLimit = root.Q<Slider>("max-distance-limit");
             maxDistanceLimit.value = m_MaxDistanceLimit;
@@ -181,11 +181,11 @@ public class DistanceJoint : MonoBehaviour
 
                 SetupScene();
             });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
@@ -233,7 +233,7 @@ public class DistanceJoint : MonoBehaviour
                 var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, angularDamping = 1f, position = new Vector2(m_JointDistance * (n + 1f), offsetY) };
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
-                
+
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                 body.CreateShape(geometry, shapeDef);
 
@@ -264,7 +264,7 @@ public class DistanceJoint : MonoBehaviour
             joint.enableLimit = m_EnableLimit;
             joint.minDistanceLimit = m_MinDistanceLimit;
             joint.maxDistanceLimit = m_MaxDistanceLimit;
-            
+
             joint.WakeBodies();
         }
     }

@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class ChainShape : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -18,7 +18,7 @@ public class ChainShape : MonoBehaviour
         Capsule = 1,
         Box = 2
     }
-    
+
     private ObjectType m_ObjectType;
     private int m_ObjectCount;
     private const float Friction = 0.1f;
@@ -42,14 +42,14 @@ public class ChainShape : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_ObjectType = ObjectType.Box;
         m_ObjectCount = 100;
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 10f;
         m_FastCollisionsAllowed = false;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -60,28 +60,28 @@ public class ChainShape : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
         world.gravity = m_OldGravity;
     }
-    
+
     private void Update()
     {
         // Finish if the world is paused.
         if (m_SandboxManager.WorldPaused)
             return;
-        
+
         if (m_ItemsSpawned >= m_ObjectCount)
             return;
-        
+
         m_SpawnTime -= Time.deltaTime;
         if (m_SpawnTime > 0)
             return;
 
         m_SpawnTime = SpawnPeriod / math.sqrt(m_GravityScale);
         ++m_ItemsSpawned;
-        
+
         // Sliding Object.
         {
             var world = PhysicsWorld.defaultWorld;
             var bodies = m_SandboxManager.Bodies;
-            
+
             var startPosition = new Vector2(-55f, 13.5f);
             var startLinearVelocity = new Vector2(2f, -1f);
 
@@ -110,24 +110,24 @@ public class ChainShape : MonoBehaviour
                     body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 2f)), shapeDef);
                     break;
                 }
-                
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }        
+        }
     }
 
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
         var world = PhysicsWorld.defaultWorld;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+
             // Object Type.
             var objectType = root.Q<DropdownField>("object-type");
             objectType.index = (int)m_ObjectType;
@@ -145,7 +145,7 @@ public class ChainShape : MonoBehaviour
                 m_ObjectCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Gravity Scale.
             var gravityScale = root.Q<Slider>("gravity-scale");
             gravityScale.RegisterValueChangedCallback(evt =>
@@ -155,7 +155,7 @@ public class ChainShape : MonoBehaviour
                 SetupScene();
             });
             gravityScale.value = m_GravityScale;
-            
+
             // Fast Collisions.
             var fastCollisions = root.Q<Toggle>("fast-collisions");
             fastCollisions.value = m_FastCollisionsAllowed;
@@ -163,18 +163,18 @@ public class ChainShape : MonoBehaviour
             {
                 m_FastCollisionsAllowed = evt.newValue;
                 SetupScene();
-            });            
-            
+            });
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
@@ -182,15 +182,15 @@ public class ChainShape : MonoBehaviour
 
         m_ItemsSpawned = 0;
         m_SpawnTime = 0f;
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         // Ground.
         {
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
             bodies.Add(body);
-            
+
             using var points = new NativeList<Vector2>(Allocator.Temp)
             {
                 new(-60.885498f, 12.8985004f), new(-60.885498f, 16.2057495f), new(60.885498f, 16.2057495f), new(60.885498f, -30.2057514f),

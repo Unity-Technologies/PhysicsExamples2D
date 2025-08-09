@@ -4,8 +4,7 @@ using UnityEngine.UIElements;
 
 public class ManyTumblers : MonoBehaviour
 {
-   
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -31,7 +30,7 @@ public class ManyTumblers : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_RowCount = 15;
         m_ColumnCount = 15;
         m_SpawnCount = 10;
@@ -47,16 +46,16 @@ public class ManyTumblers : MonoBehaviour
         // Finish if the world is paused.
         if (m_SandboxManager.WorldPaused)
             return;
-        
+
         // Limit spawn count.
         if (m_CurrentSpawnCounter >= m_SpawnCount)
             return;
-        
+
         // Limit spawn period.
         m_SpawnTime -= Time.deltaTime;
         if (m_SpawnTime > 0f)
             return;
-        
+
         m_SpawnTime = m_SpawnPeriod;
         m_CurrentSpawnCounter++;
 
@@ -67,12 +66,12 @@ public class ManyTumblers : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Row Count.
             var rowCount = root.Q<SliderInt>("row-count");
@@ -82,7 +81,7 @@ public class ManyTumblers : MonoBehaviour
                 m_RowCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Row Count.
             var columnCount = root.Q<SliderInt>("column-count");
             columnCount.value = m_ColumnCount;
@@ -91,7 +90,7 @@ public class ManyTumblers : MonoBehaviour
                 m_ColumnCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Angular Velocity.
             var angularVelocity = root.Q<Slider>("angular-velocity");
             angularVelocity.value = m_AngularVelocity;
@@ -100,7 +99,7 @@ public class ManyTumblers : MonoBehaviour
                 m_AngularVelocity = evt.newValue;
                 SetupScene();
             });
-            
+
             // Row Count.
             var spawnCount = root.Q<SliderInt>("spawn-count");
             spawnCount.value = m_SpawnCount;
@@ -108,28 +107,28 @@ public class ManyTumblers : MonoBehaviour
             {
                 m_SpawnCount = evt.newValue;
                 SetupScene();
-            });            
-            
+            });
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
         m_CurrentSpawnCounter = 0;
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         // Tumblers.
         {
             var x = -4.0f * m_ColumnCount;
@@ -168,11 +167,11 @@ public class ManyTumblers : MonoBehaviour
     {
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
         var shapeDef = PhysicsShapeDefinition.defaultDefinition;
         var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(-0.1f, 0.0f), center2 = new Vector2(0.1f, 0.0f), radius = 0.075f };
-        
+
         var x = -4.0f * m_ColumnCount;
         for (var i = 0; i < m_ColumnCount; ++i, x += 8f)
         {

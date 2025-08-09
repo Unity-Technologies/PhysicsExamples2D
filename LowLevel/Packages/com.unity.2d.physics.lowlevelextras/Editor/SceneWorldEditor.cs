@@ -14,7 +14,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         private Foldout m_InfoFoldout;
         private const float InfoUpdatePeriod = 0.25f;
         private float m_InfoUpdateTime;
-        
+
         public PhysicsWorld.WorldProfile WorldProfile;
         public PhysicsWorld.WorldCounters WorldCounters;
 
@@ -43,11 +43,11 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             m_InfoUpdateTime += deltaTime;
             if (!EditorApplication.isPaused && m_InfoUpdateTime < InfoUpdatePeriod)
                 return;
-            
+
             // Update the info.
             WorldProfile = world.profile;
             WorldCounters = world.counters;
-                
+
             // Reset update time.
             m_InfoUpdateTime = 0.0f;
         }
@@ -55,12 +55,12 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         public override VisualElement CreateInspectorGUI()
         {
             m_SceneWorldEditorSerializedObject = new SerializedObject(this);
-            
+
             var root = new VisualElement();
             m_ShowHideWorldDefinition = new VisualElement();
 
             // Default World.
-            var defaultWorldProperty = serializedObject.FindProperty(nameof(SceneWorld.UseDefaultWorld));            
+            var defaultWorldProperty = serializedObject.FindProperty(nameof(SceneWorld.UseDefaultWorld));
             var defaultWorldPropertyField = new PropertyField(defaultWorldProperty);
             root.Add(defaultWorldPropertyField);
             defaultWorldPropertyField.RegisterValueChangeCallback(_ => { m_ShowHideWorldDefinition.style.display = defaultWorldProperty.boolValue ? DisplayStyle.None : DisplayStyle.Flex; });
@@ -79,7 +79,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             m_InfoFoldout.Add(profilePropertyField);
             m_InfoFoldout.Add(countersPropertyField);
             root.Add(m_InfoFoldout);
-            
+
             return root;
         }
     }

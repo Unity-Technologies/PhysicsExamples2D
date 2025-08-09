@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class CardHouse : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -19,10 +19,10 @@ public class CardHouse : MonoBehaviour
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 1f;
         m_CameraManipulator.CameraPosition = new Vector2(0.7f, 0.9f);
-        
+
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -31,28 +31,28 @@ public class CardHouse : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
@@ -83,7 +83,7 @@ public class CardHouse : MonoBehaviour
             while (nb > 0)
             {
                 var z = z0;
-                for (var i = 0; i < nb; i++ )
+                for (var i = 0; i < nb; i++)
                 {
                     if (i != nb - 1)
                     {
@@ -91,7 +91,7 @@ public class CardHouse : MonoBehaviour
                         bodyDef.rotation = new PhysicsRotate(angle2);
                         var body = world.CreateBody(bodyDef);
                         bodies.Add(body);
-                        
+
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                         body.CreateShape(cardBox, shapeDef);
                     }
@@ -101,7 +101,7 @@ public class CardHouse : MonoBehaviour
                         bodyDef.rotation = new PhysicsRotate(angle1);
                         var body = world.CreateBody(bodyDef);
                         bodies.Add(body);
-                        
+
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                         body.CreateShape(cardBox, shapeDef);
                     }
@@ -113,14 +113,14 @@ public class CardHouse : MonoBehaviour
                         bodyDef.rotation = new PhysicsRotate(angle0);
                         var body = world.CreateBody(bodyDef);
                         bodies.Add(body);
-                        
+
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                         body.CreateShape(cardBox, shapeDef);
                     }
 
                     z += 0.175f;
                 }
-                
+
                 y += cardHeight * 2.0f - 0.03f;
                 z0 += 0.175f;
                 nb--;

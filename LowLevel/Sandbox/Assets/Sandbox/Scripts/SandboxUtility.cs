@@ -9,7 +9,7 @@ public static class SandboxUtility
         PolygonGeometry geometry = default;
         geometry.radius = radius;
         ref var vertices = ref geometry.vertices;
-        
+
         var count = 3 + random.NextInt() % 6;
         geometry.count = count;
         for (var n = 0; n < count; ++n)
@@ -21,5 +21,5 @@ public static class SandboxUtility
         geometry = geometry.Validate();
 
         return geometry.count > 0 ? geometry : PolygonGeometry.CreateBox(new Vector2(extent, extent), radius: radius);
-    }    
+    }
 }

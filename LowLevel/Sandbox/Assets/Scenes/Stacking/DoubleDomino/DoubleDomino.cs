@@ -4,13 +4,13 @@ using UnityEngine.UIElements;
 
 public class DoubleDomino : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
     private const int DominoCount = 20;
-    
+
     private Vector2 m_OldGravity;
 
     private void OnEnable()
@@ -25,7 +25,7 @@ public class DoubleDomino : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -34,28 +34,28 @@ public class DoubleDomino : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         // Create the domino shelves.
         for (var n = 0; n < 5; ++n)
             CreateDominoShelf((n % 2) == 0, 2.5f - n * 2f);
@@ -85,17 +85,17 @@ public class DoubleDomino : MonoBehaviour
                 bodyDef.position = new Vector2(x, positionY + 0.75f);
                 var dominoBody = world.CreateBody(bodyDef);
                 bodies.Add(dominoBody);
-                
+
                 // Fetch the appropriate shape color.
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                
+
                 dominoBody.CreateShape(boxGeometry, shapeDef);
 
                 if (tipRight && i == 0)
                     dominoBody.ApplyLinearImpulse(new Vector2(0.2f, 0f), new Vector2(x, positionY + 1f));
-                else if (!tipRight && i == (DominoCount-1))
+                else if (!tipRight && i == (DominoCount - 1))
                     dominoBody.ApplyLinearImpulse(new Vector2(-0.2f, 0f), new Vector2(x, positionY + 1f));
             }
-        }        
+        }
     }
 }

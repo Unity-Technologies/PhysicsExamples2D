@@ -11,7 +11,7 @@ public class GearComponent : MonoBehaviour
     public Color GearColor = Color.saddleBrown;
     public Color ToothColor = Color.gray;
     [Range(2, 64)] public int ToothCount = 16;
-    [Range(0.1f, 10f)]  public float ToothWidth = 0.5f;
+    [Range(0.1f, 10f)] public float ToothWidth = 0.5f;
     [Range(0.1f, 10f)] public float ToothHeight = 0.5f;
     [Range(0f, 10f)] public float ToothRadius = 0.1f;
     public bool EnableGearMotor = false;
@@ -20,7 +20,7 @@ public class GearComponent : MonoBehaviour
     public PhysicsShape.ContactFilter GearContactFilter = PhysicsShape.ContactFilter.defaultFilter;
 
     public SceneWorld SceneWorld;
-    
+
     private PhysicsWorld m_PhysicsWorld;
     private PhysicsBody m_GearBody;
     private PhysicsBody m_GroundBody;
@@ -34,7 +34,7 @@ public class GearComponent : MonoBehaviour
     {
         if (!Application.isPlaying || !isActiveAndEnabled)
             return;
-        
+
         CreateGear();
     }
 
@@ -53,7 +53,7 @@ public class GearComponent : MonoBehaviour
             CreateGear();
         }
     }
-    
+
     private void CreateGear()
     {
         // Destroy any existing gear.
@@ -63,14 +63,14 @@ public class GearComponent : MonoBehaviour
             Reset();
 
         m_PhysicsWorld = SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
-        
+
         // Finish if no valid world.
         if (!m_PhysicsWorld.isValid)
             return;
 
         // Calculate gear position.
         var gearPosition = PhysicsMath.ToPosition2D(transform.position, m_PhysicsWorld.transformPlane);
-        
+
         // Create the gear body.
         m_GearBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition
         {
@@ -78,13 +78,13 @@ public class GearComponent : MonoBehaviour
             position = gearPosition
         });
         m_GearBodyOwnerKey = m_GearBody.SetOwner(this);
-        
+
         // Create the gear shape.
         var shapeDef = new PhysicsShapeDefinition { contactFilter = GearContactFilter, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = GearFriction, customColor = GearColor } };
         var circle = new CircleGeometry { radius = GearRadius };
         var gearShape = m_GearBody.CreateShape(circle, shapeDef);
         gearShape.SetOwner(this);
-        
+
         // Create the gear teeth.
         var toothAngle = new PhysicsRotate(PhysicsMath.TAU / ToothCount);
         var center = new Vector2(GearRadius + ToothHeight * 0.5f, 0f);
@@ -93,7 +93,7 @@ public class GearComponent : MonoBehaviour
         for (var i = 0; i < ToothCount; ++i)
         {
             var tooth = PolygonGeometry.CreateBox(
-                size: new Vector2(ToothHeight, ToothWidth) ,
+                size: new Vector2(ToothHeight, ToothWidth),
                 radius: ToothRadius,
                 transform: new PhysicsTransform(center, toothRotation));
 
@@ -103,7 +103,7 @@ public class GearComponent : MonoBehaviour
             toothRotation = toothAngle.MultiplyRotation(toothRotation);
             center = toothRotation.RotateVector(new Vector2(GearRadius + ToothHeight * 0.5f, 0.0f));
         }
-        
+
         // Create the gear motor.
         m_GroundBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Static, position = gearPosition });
         m_GroundBodyOwnerKey = m_GroundBody.SetOwner(this);
@@ -122,7 +122,7 @@ public class GearComponent : MonoBehaviour
     {
         if (m_GearBody.isValid)
             m_GearBody.Destroy(m_GearBodyOwnerKey);
-        
+
         if (m_GroundBody.isValid)
             m_GroundBody.Destroy(m_GroundBodyOwnerKey);
     }

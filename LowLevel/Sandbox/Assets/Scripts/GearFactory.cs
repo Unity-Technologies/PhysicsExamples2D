@@ -7,15 +7,15 @@ public static class GearFactory
     public static NativeList<PhysicsBody> Spawn(PhysicsWorld world, IShapeColorProvider colorProvider, PhysicsShape.ContactFilter contactFilter, Vector2 gearPosition, float gearRadius, bool useMotor = false, float motorSpeed = 0f, Allocator allocator = Allocator.Temp)
     {
         NativeList<PhysicsBody> bodies = new(allocator);
-        
+
         var toothHalfWidth = 0.09f * gearRadius;
         var toothHalfHeight = 0.06f * gearRadius;
         var toothRadius = 0.03f * gearRadius;
-        
+
         // Ground Body.
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
         bodies.Add(groundBody);
-        
+
         var bodyDef = new PhysicsBodyDefinition
         {
             bodyType = RigidbodyType2D.Dynamic,
@@ -46,7 +46,7 @@ public static class GearFactory
         shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f };
         if (colorProvider is not { IsShapeColorActive: true })
             shapeDef.surfaceMaterial.customColor = Color.gray;
-        
+
         for (var i = 0; i < count; ++i)
         {
             var tooth = PolygonGeometry.CreateBox(
@@ -70,7 +70,7 @@ public static class GearFactory
             maxMotorTorque = 100000f,
             motorSpeed = motorSpeed
         };
-		
+
         // Create the gear hinge.
         world.CreateJoint(jointDef);
 

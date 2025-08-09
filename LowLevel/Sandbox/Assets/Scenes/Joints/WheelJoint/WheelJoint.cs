@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class WheelJoint : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -22,7 +22,7 @@ public class WheelJoint : MonoBehaviour
     private bool m_EnableLimit;
     private float m_LowerTranslationLimit;
     private float m_UpperTranslationLimit;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -66,12 +66,12 @@ public class WheelJoint : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Wheel Angle.
             var wheelAngle = root.Q<Slider>("wheel-angle");
@@ -81,7 +81,7 @@ public class WheelJoint : MonoBehaviour
                 m_WheelAngle = evt.newValue;
                 SetupScene();
             });
-            
+
             // Enable Spring.
             var enableSpring = root.Q<Toggle>("enable-spring");
             enableSpring.value = m_EnableSpring;
@@ -90,8 +90,8 @@ public class WheelJoint : MonoBehaviour
                 m_EnableSpring = evt.newValue;
                 m_Joint.enableSpring = m_EnableSpring;
                 m_Joint.WakeBodies();
-            });    
-            
+            });
+
             // Spring Frequency.
             var springFrequency = root.Q<Slider>("spring-frequency");
             springFrequency.value = m_SpringFrequency;
@@ -101,7 +101,7 @@ public class WheelJoint : MonoBehaviour
                 m_Joint.springFrequency = m_SpringFrequency;
                 m_Joint.WakeBodies();
             });
-            
+
             // Spring Damping.
             var springDamping = root.Q<Slider>("spring-damping");
             springDamping.value = m_SpringDamping;
@@ -111,7 +111,7 @@ public class WheelJoint : MonoBehaviour
                 m_Joint.springDamping = m_SpringDamping;
                 m_Joint.WakeBodies();
             });
-            
+
             // Enable Motor.
             var enableMotor = root.Q<Toggle>("enable-motor");
             enableMotor.value = m_EnableMotor;
@@ -120,7 +120,7 @@ public class WheelJoint : MonoBehaviour
                 m_EnableMotor = evt.newValue;
                 m_Joint.enableMotor = m_EnableMotor;
                 m_Joint.WakeBodies();
-            });    
+            });
 
             // Motor Speed.
             var motorSpeed = root.Q<Slider>("motor-speed");
@@ -131,7 +131,7 @@ public class WheelJoint : MonoBehaviour
                 m_Joint.motorSpeed = m_MotorSpeed;
                 m_Joint.WakeBodies();
             });
-            
+
             // Max Motor Torque.
             var maxMotorTorque = root.Q<Slider>("max-motor-torque");
             maxMotorTorque.value = m_MaxMotorTorque;
@@ -140,8 +140,8 @@ public class WheelJoint : MonoBehaviour
                 m_MaxMotorTorque = evt.newValue;
                 m_Joint.maxMotorTorque = m_MaxMotorTorque;
                 m_Joint.WakeBodies();
-            });            
-            
+            });
+
             // Enable Limit.
             var enableLimit = root.Q<Toggle>("enable-limit");
             enableLimit.value = m_EnableLimit;
@@ -150,8 +150,8 @@ public class WheelJoint : MonoBehaviour
                 m_EnableLimit = evt.newValue;
                 m_Joint.enableLimit = m_EnableLimit;
                 m_Joint.WakeBodies();
-            });             
-            
+            });
+
             // Lower Translation Limit.
             var lowerTranslationLimit = root.Q<Slider>("min-translation-limit");
             lowerTranslationLimit.value = m_LowerTranslationLimit;
@@ -185,11 +185,11 @@ public class WheelJoint : MonoBehaviour
                 m_Joint.upperTranslationLimit = m_UpperTranslationLimit;
                 m_Joint.WakeBodies();
             });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
@@ -221,7 +221,7 @@ public class WheelJoint : MonoBehaviour
             body.CreateShape(geometry);
 
             var wheelRotation = new PhysicsRotate(angle: PhysicsMath.ToRadians(m_WheelAngle));
-            
+
             var jointPivot = new Vector2(0f, 10f);
             var jointDef = new PhysicsWheelJointDefinition
             {

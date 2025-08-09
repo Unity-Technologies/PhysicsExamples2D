@@ -25,25 +25,25 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             Points = points;
             CreateShape();
         }
-        
+
         private void Reset()
         {
             if (SceneBody == null)
                 SceneBody = SceneBody.FindSceneBody(gameObject);
         }
-       
+
         private void OnEnable()
         {
             Reset();
-        
+
             if (SceneBody != null)
             {
                 SceneBody.CreateBodyEvent += OnCreateBody;
                 SceneBody.DestroyBodyEvent += OnDestroyBody;
             }
-            
+
             CreateShape();
-            
+
 #if UNITY_EDITOR
             WorldSceneTransformMonitor.AddMonitor(this);
 #endif
@@ -52,13 +52,13 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private void OnDisable()
         {
             DestroyShape();
-            
+
             if (SceneBody != null)
             {
                 SceneBody.CreateBodyEvent -= OnCreateBody;
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
-            
+
 #if UNITY_EDITOR
             WorldSceneTransformMonitor.RemoveMonitor(this);
 #endif
@@ -71,12 +71,12 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
             CreateShape();
         }
-        
+
         private void CreateShape()
         {
             // Destroy any existing shape.
             DestroyShape();
-            
+
             if (!SceneBody)
                 return;
 
@@ -86,7 +86,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 
             // Create the chain geometry.
             var chainGeometry = new ChainGeometry(ReverseChain ? Points.Reverse().ToArray() : Points);
-            
+
             // Create the chain shape.
             m_ChainShape = body.CreateChain(chainGeometry, ChainDefinition);
 
@@ -94,10 +94,10 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             {
                 // Set the user data.
                 m_ChainShape.userData = UserData;
-             
+
                 // Set the callback target.
                 m_ChainShape.callbackTarget = CallbackTarget;
-                
+
                 // Set the owner.
                 m_OwnerKey = m_ChainShape.SetOwner(this);
             }
@@ -112,7 +112,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 m_OwnerKey = 0;
             }
         }
-        
+
         private void OnCreateBody(SceneBody sceneBody)
         {
             CreateShape();
@@ -121,14 +121,14 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         private void OnDestroyBody(SceneBody sceneBody)
         {
             DestroyShape();
-        }        
- 
+        }
+
         void IWorldSceneTransformChanged.TransformChanged()
         {
             if (m_ChainShape.isValid)
                 CreateShape();
         }
-        
+
         public override string ToString() => m_ChainShape.ToString();
     }
 }

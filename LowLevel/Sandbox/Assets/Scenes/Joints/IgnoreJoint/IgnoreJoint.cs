@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class IgnoreJoint : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -15,7 +15,7 @@ public class IgnoreJoint : MonoBehaviour
     private PhysicsBody m_BodyB;
 
     private bool m_EnableJoint;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -33,7 +33,7 @@ public class IgnoreJoint : MonoBehaviour
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
 
         m_EnableJoint = true;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -48,13 +48,13 @@ public class IgnoreJoint : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+
             // Enable Joint.
             var enableJoint = root.Q<Toggle>("enable-joint");
             enableJoint.value = m_EnableJoint;
@@ -62,12 +62,12 @@ public class IgnoreJoint : MonoBehaviour
             {
                 m_EnableJoint = evt.newValue;
                 UpdateJoint();
-            });              
-            
+            });
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
@@ -86,7 +86,7 @@ public class IgnoreJoint : MonoBehaviour
         {
             var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
             bodies.Add(groundBody);
-            
+
             var vertices = new NativeList<Vector2>(Allocator.Temp);
             vertices.Add(Vector2.right * 17f + Vector2.up * 17f);
             vertices.Add(Vector2.right * 17f);
@@ -100,21 +100,21 @@ public class IgnoreJoint : MonoBehaviour
         // Obstacle Body.
         {
             var geometry = PolygonGeometry.CreateBox(size: new Vector2(2f, 6f));
-            
-            var body = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(0f, 3f)});
+
+            var body = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(0f, 3f) });
             bodies.Add(body);
             body.CreateShape(geometry);
         }
-        
+
         // Ignored Bodies.
         {
             var geometry = PolygonGeometry.CreateBox(size: new Vector2(4f, 4f));
-            
-            m_BodyA = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-4f, 2f)});
+
+            m_BodyA = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-4f, 2f) });
             bodies.Add(m_BodyA);
             m_BodyA.CreateShape(geometry);
 
-            m_BodyB = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(4f, 2f)});
+            m_BodyB = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(4f, 2f) });
             bodies.Add(m_BodyB);
             m_BodyB.CreateShape(geometry);
 
@@ -132,14 +132,14 @@ public class IgnoreJoint : MonoBehaviour
             var body = m_Joint.bodyA;
             body.enabled = false;
             body.enabled = true;
-            
+
             m_Joint.Destroy();
         }
 
         // Finish if the joint is not enabled.
         if (!m_EnableJoint)
             return;
-        
+
         // Create the joint.
         var world = PhysicsWorld.defaultWorld;
         m_Joint = world.CreateJoint(new PhysicsIgnoreJointDefinition { bodyA = m_BodyA, bodyB = m_BodyB });

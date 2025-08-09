@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class SoftBody : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -14,7 +14,7 @@ public class SoftBody : MonoBehaviour
     private float m_BodyScale;
     private float m_JointFrequency;
     private float m_JointDamping;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -27,12 +27,12 @@ public class SoftBody : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_BodySides = 10;
         m_BodyScale = 2f;
         m_JointFrequency = 7f;
         m_JointDamping = 0f;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -41,13 +41,13 @@ public class SoftBody : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+
             // Body Sides.
             var bodySides = root.Q<SliderInt>("body-sides");
             bodySides.value = m_BodySides;
@@ -65,7 +65,7 @@ public class SoftBody : MonoBehaviour
                 m_BodyScale = evt.newValue;
                 SetupScene();
             });
-            
+
             // Joint Frequency.
             var jointFrequency = root.Q<Slider>("joint-frequency");
             jointFrequency.value = m_JointFrequency;
@@ -83,46 +83,46 @@ public class SoftBody : MonoBehaviour
                 m_JointDamping = evt.newValue;
                 SetupScene();
             });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
-	    // Reset the scene state.
-	    m_SandboxManager.ResetSceneState();
-        
+        // Reset the scene state.
+        m_SandboxManager.ResetSceneState();
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
         bodies.Add(groundBody);
-        
+
         // Ground.
         {
-	        var bodyDef = PhysicsBodyDefinition.defaultDefinition;
-	        var body = world.CreateBody(bodyDef);
+            var bodyDef = PhysicsBodyDefinition.defaultDefinition;
+            var body = world.CreateBody(bodyDef);
             bodies.Add(body);
 
             using var vertices = new NativeList<Vector2>(4, Allocator.Temp)
             {
-                new (-5.5f, 4.5f),
-                new (5.5f, 4.5f),
-                new (5.5f, -4.5f),
-                new (-5.5f, -4.5f)
+                new(-5.5f, 4.5f),
+                new(5.5f, 4.5f),
+                new(5.5f, -4.5f),
+                new(-5.5f, -4.5f)
             };
             body.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
         }
-        
+
         // Soft Body.
-        { 
+        {
             using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, Vector2.zero, m_BodySides, m_BodyScale, triggerEvents: false, jointFrequency: m_JointFrequency, jointDamping: m_JointDamping);
             foreach (var body in donut)
                 bodies.Add(body);

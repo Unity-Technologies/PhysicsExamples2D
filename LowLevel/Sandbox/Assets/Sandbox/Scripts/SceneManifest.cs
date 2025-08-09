@@ -15,15 +15,15 @@ public class SceneManifest : MonoBehaviour
         public string Category;
         public string Description;
     }
-    
+
     public List<SceneItem> SceneItems = new();
-    
+
     public int LoadedSceneIndex { get; private set; }
     public string LoadedSceneName { get; private set; }
     public string LoadedSceneDescription { get; private set; }
 
     private Coroutine m_LoadSceneRoutine;
-    
+
     public List<string> GetCategories() => SceneItems.Select(item => item.Category).Distinct().ToList();
     public List<string> GetScenes(string category) => SceneItems.Where(item => item.Category == category).Select(item => item.Name).ToList();
     public SceneItem GetSceneItem(string sceneName) => SceneItems.Select((item) => new { Item = item }).First(x => x.Item.Name == sceneName).Item;
@@ -47,14 +47,14 @@ public class SceneManifest : MonoBehaviour
     {
         if (LoadedSceneName == string.Empty)
             return;
-        
+
         LoadScene(LoadedSceneName, action);
     }
 
     private IEnumerator LoadSceneCoroutine(string sceneName, Action action)
     {
         var sceneIndex = FindSceneIndex(sceneName);
-        
+
         // Unload any previous scene.
         if (LoadedSceneIndex != -1)
         {
@@ -65,7 +65,7 @@ public class SceneManifest : MonoBehaviour
 
         // Call the action.
         action();
-        
+
         // Load the new scene.
         {
             LoadedSceneIndex = sceneIndex;
@@ -80,13 +80,13 @@ public class SceneManifest : MonoBehaviour
         var sampleCamera = GameObject.Find("SampleCamera");
         if (sampleCamera)
             sampleCamera.SetActive(false);
-        
+
         // Indicate we're done.
         m_LoadSceneRoutine = null;
     }
 
     private int FindSceneIndex(string sceneName) => SceneItems.Select((item, i) => new { Item = item, Index = i }).First(x => x.Item.Name == sceneName).Index;
-    
+
     private AsyncOperation LoadSceneIndex(int sceneIndex, LoadSceneMode loadSceneMode)
     {
         var buildIndex = SceneUtility.GetBuildIndexByScenePath(SceneItems[sceneIndex].ScenePath);
@@ -95,13 +95,13 @@ public class SceneManifest : MonoBehaviour
 
         throw new ArgumentException("Invalid Scene Index", nameof(sceneIndex));
     }
-    
+
     private AsyncOperation UnloadSceneIndex(int sceneIndex)
     {
         var buildIndex = SceneUtility.GetBuildIndexByScenePath(SceneItems[sceneIndex].ScenePath);
         if (buildIndex != -1)
             return SceneManager.UnloadSceneAsync(buildIndex);
-        
+
         throw new ArgumentException("Invalid Scene Index", nameof(sceneIndex));
     }
 }

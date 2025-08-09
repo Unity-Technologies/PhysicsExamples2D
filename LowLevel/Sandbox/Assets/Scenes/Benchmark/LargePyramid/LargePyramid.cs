@@ -4,7 +4,6 @@ using UnityEngine.UIElements;
 
 public class LargePyramid : MonoBehaviour
 {
-
     private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
@@ -26,7 +25,7 @@ public class LargePyramid : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_BaseCount = 100;
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;
@@ -39,7 +38,7 @@ public class LargePyramid : MonoBehaviour
     private void OnDisable()
     {
         var world = PhysicsWorld.defaultWorld;
-	    world.gravity = m_OldGravity;
+        world.gravity = m_OldGravity;
     }
 
     private void SetupOptions()
@@ -49,8 +48,8 @@ public class LargePyramid : MonoBehaviour
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Base Count.
             var baseCount = root.Q<SliderInt>("base-count");
@@ -118,7 +117,7 @@ public class LargePyramid : MonoBehaviour
 
                 for (var j = i; j < m_BaseCount; ++j)
                 {
-                    var x = ( i + 1.0f ) * shift + 2.0f * ( j - i ) * shift - halfHeight * m_BaseCount;
+                    var x = (i + 1.0f) * shift + 2.0f * (j - i) * shift - halfHeight * m_BaseCount;
 
                     bodyDef.position = new Vector2(x, y);
                     var body = world.CreateBody(bodyDef);

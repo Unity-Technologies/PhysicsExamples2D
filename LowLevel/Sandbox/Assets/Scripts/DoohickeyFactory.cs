@@ -10,7 +10,7 @@ public static class DoohickeyFactory
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { rollingResistance = 0.1f } };
-        
+
         var circle = new CircleGeometry { radius = 1f * scale };
         var capsule = new CapsuleGeometry { center1 = Vector2.left * 3.5f * scale, center2 = Vector2.right * 3.5f * scale, radius = 0.15f * scale };
 
@@ -19,19 +19,19 @@ public static class DoohickeyFactory
         bodies.Add(wheelBody1);
         shapeDef.surfaceMaterial.customColor = colorProvider.ShapeColorState;
         wheelBody1.CreateShape(circle, shapeDef);
-        
+
         bodyDef.position = position + new Vector2(5f, 3.0f) * scale;
         var wheelBody2 = world.CreateBody(bodyDef);
         bodies.Add(wheelBody2);
         shapeDef.surfaceMaterial.customColor = colorProvider.ShapeColorState;
         wheelBody2.CreateShape(circle, shapeDef);
-        
+
         bodyDef.position = position + new Vector2(-1.5f, 3.0f) * scale;
         var barBody1 = world.CreateBody(bodyDef);
         bodies.Add(barBody1);
         shapeDef.surfaceMaterial.customColor = colorProvider.ShapeColorState;
         barBody1.CreateShape(capsule, shapeDef);
-        
+
         bodyDef.position = position + new Vector2(1.5f, 3.0f) * scale;
         var barBody2 = world.CreateBody(bodyDef);
         bodies.Add(barBody2);
@@ -73,7 +73,7 @@ public static class DoohickeyFactory
             springFrequency = 1f,
             springDamping = 0.5f
         });
-        
+
         return bodies;
     }
 }

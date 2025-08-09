@@ -4,14 +4,14 @@ using UnityEngine.UIElements;
 
 public class Smash : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
     private const int Columns = 100;
     private const int Rows = 60;
-    
+
     private Vector2 m_OldGravity;
     private float m_Speed;
     private float m_Density;
@@ -28,10 +28,10 @@ public class Smash : MonoBehaviour
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 60f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
-        
+
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_Speed = 40f;
         m_Density = 25f;
@@ -47,23 +47,23 @@ public class Smash : MonoBehaviour
     private void OnDisable()
     {
         var world = PhysicsWorld.defaultWorld;
-	    world.gravity = m_OldGravity;
+        world.gravity = m_OldGravity;
     }
 
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Speed.
             var speed = root.Q<Slider>("speed");
             speed.value = m_Speed;
@@ -90,7 +90,7 @@ public class Smash : MonoBehaviour
                 m_Bounciness = evt.newValue;
                 SetupScene();
             });
-            
+
             // Spacing.
             var spacing = root.Q<Slider>("spacing");
             spacing.value = m_Spacing;
@@ -99,7 +99,7 @@ public class Smash : MonoBehaviour
                 m_Spacing = evt.newValue;
                 SetupScene();
             });
-            
+
             // Fast Collisions.
             var fastCollisions = root.Q<Toggle>("fast-collisions");
             fastCollisions.value = m_FastCollisionsAllowed;
@@ -108,21 +108,21 @@ public class Smash : MonoBehaviour
                 m_FastCollisionsAllowed = evt.newValue;
                 SetupScene();
             });
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         // Reset the gravity.
         world.gravity = Vector2.zero;
 
@@ -139,7 +139,7 @@ public class Smash : MonoBehaviour
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(extents.x * 2f, 10f), radius: 0f, new PhysicsTransform(new Vector2(0f, -extents.y), PhysicsRotate.identity)), shapeDef);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(extents.x * 2f, 10f), radius: 0f, new PhysicsTransform(new Vector2(0f, extents.y), PhysicsRotate.identity)), shapeDef);
         }
-        
+
         // Large dense object.
         {
             var bodyDef = new PhysicsBodyDefinition
@@ -156,7 +156,7 @@ public class Smash : MonoBehaviour
                 PolygonGeometry.CreateBox(new Vector2(8f, 8f)),
                 new PhysicsShapeDefinition { density = m_Density, surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = m_Bounciness } });
         }
-        
+
         // Small objects.
         {
             var bodyDef = new PhysicsBodyDefinition
@@ -174,20 +174,20 @@ public class Smash : MonoBehaviour
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = m_Bounciness } };
 
             var spacing = boxDimension + m_Spacing;
-            for (var i = 0; i < Columns; ++i )
+            for (var i = 0; i < Columns; ++i)
             {
-                for (var j = 0; j < Rows; ++j )
+                for (var j = 0; j < Rows; ++j)
                 {
                     bodyDef.position = new Vector2(i * spacing - 60f, (j - Rows / 2.0f) * spacing);
                     var boxBody = world.CreateBody(bodyDef);
                     bodies.Add(boxBody);
-                    
+
                     // Fetch the appropriate shape color.
                     shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                    
+
                     boxBody.CreateShape(boxGeometry, shapeDef);
                 }
             }
-        }        
+        }
     }
 }

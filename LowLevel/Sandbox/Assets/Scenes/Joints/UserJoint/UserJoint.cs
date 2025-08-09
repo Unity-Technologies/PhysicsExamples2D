@@ -33,8 +33,7 @@ public class UserJoint : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        
-        
+
         m_JointFrequency = 3f;
         m_JointDamping = 0.7f;
         m_JointMaxForce = 1000f;
@@ -66,8 +65,8 @@ public class UserJoint : MonoBehaviour
             // Joint Frequency.
             var jointFrequency = root.Q<Slider>("joint-frequency");
             jointFrequency.value = m_JointFrequency;
-            jointFrequency.RegisterValueChangedCallback(evt => {  m_JointFrequency = evt.newValue; });
-            
+            jointFrequency.RegisterValueChangedCallback(evt => { m_JointFrequency = evt.newValue; });
+
             // Joint Damping.
             var jointDamping = root.Q<Slider>("joint-damping");
             jointDamping.value = m_JointDamping;
@@ -82,7 +81,7 @@ public class UserJoint : MonoBehaviour
             var anchorOffsetX = root.Q<Slider>("anchor-offset-x");
             anchorOffsetX.value = m_AnchorOffsetX;
             anchorOffsetX.RegisterValueChangedCallback(evt => { m_AnchorOffsetX = evt.newValue; });
-            
+
             // Anchor Offset Y.
             var anchorOffsetY = root.Q<Slider>("anchor-offset-y");
             anchorOffsetY.value = m_AnchorOffsetY;
@@ -91,7 +90,7 @@ public class UserJoint : MonoBehaviour
             // Impulse Display.
             m_DisplayImpulse0 = root.Q<FloatField>("impulse-0");
             m_DisplayImpulse1 = root.Q<FloatField>("impulse-1");
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
@@ -142,7 +141,7 @@ public class UserJoint : MonoBehaviour
         var impulseCoefficient = 1.0f / (1.0f + s);
         var massCoefficient = s * impulseCoefficient;
         var biasCoefficient = omega / sigma;
-        
+
         var mass = m_Body.mass;
         var invMass = mass < 0.0001f ? 0.0f : 1.0f / mass;
         var inertiaTensor = m_Body.rotationalInertia;
@@ -152,13 +151,13 @@ public class UserJoint : MonoBehaviour
         var bodyLinearVelocity = m_Body.linearVelocity;
         var bodyAngularVelocity = PhysicsMath.ToRadians(m_Body.angularVelocity);
         var bodyWorldCenterOfMass = m_Body.worldCenterOfMass;
-        
+
         var localAnchors = new[] { new(m_AnchorOffsetY, -m_AnchorOffsetX), new Vector2(m_AnchorOffsetY, m_AnchorOffsetX) };
-        
+
         // Draw the ground anchor.
         var anchorA = Vector2.zero;
         world.DrawPoint(anchorA, 8f, Color.azure, deltaTime);
-        
+
         // Iterate the two impulses.
         for (var i = 0; i < 2; ++i)
         {
@@ -180,7 +179,7 @@ public class UserJoint : MonoBehaviour
 
             // Draw constraint.
             world.DrawLine(anchorA, anchorB, Color.yellow, deltaTime);
-            
+
             // Mass.
             var axis = deltaAnchor.normalized;
             var rB = anchorB - bodyWorldCenterOfMass;
@@ -204,7 +203,7 @@ public class UserJoint : MonoBehaviour
         // Update impulse display.
         m_DisplayImpulse0.value = m_Impulses[0];
         m_DisplayImpulse1.value = m_Impulses[1];
-        
+
         // Update the body.
         m_Body.linearVelocity = bodyLinearVelocity;
         m_Body.angularVelocity = PhysicsMath.ToDegrees(bodyAngularVelocity);

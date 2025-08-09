@@ -5,24 +5,24 @@ using UnityEngine.UIElements;
 
 public class Triggers : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
-    
+
     private int m_StepCount;
     private const int SpawnPeriod = 31;
-    
+
     private int m_ColumnCount = 80;
     private const float ColumnSpacing = 2.5f;
     private const int RowCount = 40;
-    
+
     private const UInt64 DestroyLayer = 1 << 0;
     private const UInt64 TriggerLayer = 1 << 1;
     private const UInt64 VisitorLayer = 1 << 2;
 
     private readonly Color m_DefaultFallingColor = Color.gray4;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -35,7 +35,7 @@ public class Triggers : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -51,12 +51,12 @@ public class Triggers : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Column Count.
             var columnCount = root.Q<SliderInt>("column-count");
@@ -65,27 +65,27 @@ public class Triggers : MonoBehaviour
             {
                 m_ColumnCount = evt.newValue;
                 SetupScene();
-            });            
+            });
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         m_StepCount = 0;
-        
+
         var shapeDef = new PhysicsShapeDefinition
         {
             isTrigger = true,
@@ -101,12 +101,12 @@ public class Triggers : MonoBehaviour
         // Ground Body. 
         var groundBody = world.CreateBody();
         bodies.Add(groundBody);
-        
+
         // Ground.
         {
             var gridSize = 3f;
             var gridArea = new Vector2(gridSize, gridSize);
-            
+
             var y = 0.0f;
             var groundCount = (m_ColumnCount * ColumnSpacing) / gridSize;
             var x = (groundCount / 2f) * -gridSize;
@@ -119,9 +119,9 @@ public class Triggers : MonoBehaviour
 
                 groundBody.CreateShape(box, shapeDef);
                 x += gridSize;
-            }            
+            }
         }
-        
+
         // Triggers.
         {
             var xCenter = 0.5f * ColumnSpacing * m_ColumnCount;
@@ -134,10 +134,10 @@ public class Triggers : MonoBehaviour
 
             const float yStart = 10.0f;
 
-            for ( var j = 0; j < RowCount; ++j )
+            for (var j = 0; j < RowCount; ++j)
             {
                 var y = j * 5f + yStart;
-                for ( var i = 0; i < m_ColumnCount; ++i )
+                for (var i = 0; i < m_ColumnCount; ++i)
                 {
                     var x = i * ColumnSpacing - xCenter;
                     var yOffset = m_SandboxManager.Random.NextFloat(-1.0f, 1.0f);
@@ -146,7 +146,7 @@ public class Triggers : MonoBehaviour
                         size: Vector2.one,
                         radius: 0.1f,
                         transform: new PhysicsTransform(new Vector2(x, y + yOffset), new PhysicsRotate(m_SandboxManager.Random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI))));
-                    
+
                     groundBody.CreateShape(box, shapeDef);
                 }
             }
@@ -177,7 +177,7 @@ public class Triggers : MonoBehaviour
             },
             surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_DefaultFallingColor }
         };
-        
+
         var circle = new CircleGeometry { radius = 0.5f };
 
         for (var i = 0; i < m_ColumnCount; ++i)
@@ -206,16 +206,16 @@ public class Triggers : MonoBehaviour
         // Events.
         {
             var bodies = m_SandboxManager.Bodies;
-            
+
             // Begin.
             foreach (var beginEvent in world.triggerBeginEvents)
             {
                 var shape = beginEvent.visitorShape;
                 if (!shape.isValid)
                     continue;
-                
+
                 var triggerShape = beginEvent.triggerShape;
-                
+
                 if ((triggerShape.contactFilter.categories & DestroyLayer) != 0)
                 {
                     var body = shape.body;
@@ -228,14 +228,14 @@ public class Triggers : MonoBehaviour
                 surfaceMaterial.customColor = Color.limeGreen;
                 shape.surfaceMaterial = surfaceMaterial;
             }
-            
+
             // End.
             foreach (var endEvent in world.triggerEndEvents)
             {
                 var shape = endEvent.visitorShape;
                 if (!shape.isValid)
                     continue;
-                
+
                 var surfaceMaterial = shape.surfaceMaterial;
                 surfaceMaterial.customColor = m_DefaultFallingColor;
                 shape.surfaceMaterial = surfaceMaterial;

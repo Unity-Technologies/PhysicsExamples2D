@@ -14,7 +14,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             protected SceneOutlineShapeGeometryEditorTool(SceneOutlineShape sceneOutlineShape, IGeometryToolSettings geometryToolSettings) : base(geometryToolSettings)
             {
                 Target = sceneOutlineShape;
-                
+
                 UpdateTool();
             }
 
@@ -31,12 +31,12 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 TransformPlane = World.transformPlane;
                 return true;
             }
-            
+
             /// <summary>
             /// Check the conditions of the target to ensure it's valid to edit or not.
             /// </summary>
             /// <returns>If the target is valid to edit or not.</returns>
-            public override bool isValid => Target != null &&  Target.isActiveAndEnabled && !Mathf.Approximately(Vector3.Scale(PhysicsMath.GetTranslationAxes(World.transformPlane), Target.transform.lossyScale).sqrMagnitude, 0.0f);
+            public override bool isValid => Target != null && Target.isActiveAndEnabled && !Mathf.Approximately(Vector3.Scale(PhysicsMath.GetTranslationAxes(World.transformPlane), Target.transform.lossyScale).sqrMagnitude, 0.0f);
         }
     }
 }

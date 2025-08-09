@@ -11,33 +11,49 @@ public class CameraManipulator : MonoBehaviour
         Drag,
         Explode
     };
-    
+
     public Camera Camera { get; private set; }
-    
+
     public Vector2 CameraPosition
     {
         get => m_CameraPosition;
-        set { m_CameraPosition = value; Camera.transform.position = new Vector3(m_CameraPosition.x, m_CameraPosition.y, Camera.transform.position.z); }
+        set
+        {
+            m_CameraPosition = value;
+            Camera.transform.position = new Vector3(m_CameraPosition.x, m_CameraPosition.y, Camera.transform.position.z);
+        }
     }
-    
+
     public float CameraSize
     {
         get => m_CameraSize;
-        set { m_CameraSize = value; Camera.orthographicSize = m_CameraSize / math.max(m_CameraZoom, 0f); }
+        set
+        {
+            m_CameraSize = value;
+            Camera.orthographicSize = m_CameraSize / math.max(m_CameraZoom, 0f);
+        }
     }
-    
+
     public float CameraZoom
     {
         get => m_CameraZoom;
-        set { m_CameraZoom = value; Camera.orthographicSize = m_CameraSize / math.max(m_CameraZoom, 0.00001f); }
+        set
+        {
+            m_CameraZoom = value;
+            Camera.orthographicSize = m_CameraSize / math.max(m_CameraZoom, 0.00001f);
+        }
     }
 
     public InputMode TouchMode
     {
         get => m_TouchMode;
-        set { m_TouchMode = value; m_ManipulatorState = ManipulatorState.None; }
+        set
+        {
+            m_TouchMode = value;
+            m_ManipulatorState = ManipulatorState.None;
+        }
     }
-    
+
     public bool DisableManipulators
     {
         get => m_DisableManipulators;
@@ -47,7 +63,7 @@ public class CameraManipulator : MonoBehaviour
             m_ManipulatorState = ManipulatorState.None;
         }
     }
-    
+
     public float ExplodeImpulse { get; set; }
 
     public int OverlapUI
@@ -63,7 +79,7 @@ public class CameraManipulator : MonoBehaviour
         ObjectDrag
     }
 
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private bool m_DisableManipulators;
     private Vector2 m_CameraPosition;
     private float m_CameraSize;
@@ -93,11 +109,11 @@ public class CameraManipulator : MonoBehaviour
             ResetInputMode();
             return;
         }
-        
+
         // Fetch input devices.
         var currentKeyboard = Keyboard.current;
         var currentMouse = Mouse.current;
-        
+
         // Handle the manipulator mode.
         switch (m_ManipulatorState)
         {
@@ -105,7 +121,7 @@ public class CameraManipulator : MonoBehaviour
             {
                 // Yes, so fetch the world mouse position.
                 var worldPosition = Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
-                
+
                 // Was the left button pressed?
                 if (!DisableManipulators && currentMouse.leftButton.wasPressedThisFrame)
                 {
@@ -116,7 +132,7 @@ public class CameraManipulator : MonoBehaviour
                         m_WorldLastPosition = worldPosition;
                         return;
                     }
-                    
+
                     // Handle the touch behaviour.
                     switch (TouchMode)
                     {
@@ -158,7 +174,7 @@ public class CameraManipulator : MonoBehaviour
                             const float radius = 10f;
                             PhysicsWorld.defaultWorld.DrawCircle(worldPosition, radius, Color.orangeRed, 0.02f);
                             var explodeDef = new PhysicsWorld.ExplosionDefinition { position = worldPosition, radius = radius, falloff = 2f, impulsePerLength = ExplodeImpulse };
-                            
+
                             // Explode in all the worlds.
                             using var worlds = PhysicsWorld.GetWorlds();
                             foreach (var world in worlds)
@@ -166,7 +182,7 @@ public class CameraManipulator : MonoBehaviour
 
                             return;
                         }
-                        
+
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -196,7 +212,7 @@ public class CameraManipulator : MonoBehaviour
                 var worldDelta = worldPosition - m_WorldLastPosition;
                 if (worldDelta.sqrMagnitude < 0.01f)
                     return;
-    
+
                 m_WorldLastPosition = worldPosition - worldDelta;
                 Camera.transform.position -= worldDelta;
                 return;
@@ -209,7 +225,7 @@ public class CameraManipulator : MonoBehaviour
                     ResetInputMode();
                     return;
                 }
-                
+
                 // Update drag target.
                 var oldTarget = m_DragJoint.bodyA.GetWorldPoint(m_DragJoint.localAnchorA.position);
                 var target = Camera.ScreenToWorldPoint(currentMouse.position.value);
@@ -219,13 +235,13 @@ public class CameraManipulator : MonoBehaviour
                 var world = PhysicsWorld.defaultWorld;
                 var bodyB = m_DragJoint.bodyB;
                 world.DrawLine(target, bodyB.GetWorldPoint(m_DragJoint.localAnchorB.position), Color.grey);
-                world.DrawLine(oldTarget, target, Color.whiteSmoke);                
+                world.DrawLine(oldTarget, target, Color.whiteSmoke);
                 world.DrawPoint(oldTarget, 0.05f, Color.darkGreen);
                 world.DrawPoint(target, 0.05f, Color.green);
 
                 return;
             }
-            
+
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -235,13 +251,13 @@ public class CameraManipulator : MonoBehaviour
     {
         if (m_DragGroundBody.isValid)
             m_DragGroundBody.Destroy();
-            
+
         if (m_DragJoint.isValid)
             m_DragJoint.Destroy();
-        
+
         m_ManipulatorState = ManipulatorState.None;
     }
-    
+
     public void ResetPanZoom()
     {
         Camera.transform.position = new Vector3(m_CameraPosition.x, m_CameraPosition.y, Camera.transform.position.z);

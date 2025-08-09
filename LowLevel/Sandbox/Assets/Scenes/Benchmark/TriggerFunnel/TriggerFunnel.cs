@@ -4,7 +4,6 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
-
 using Random = Unity.Mathematics.Random;
 
 public class TriggerFunnel : MonoBehaviour
@@ -47,10 +46,10 @@ public class TriggerFunnel : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
-        
+
         m_ObjectType = ObjectType.Ragdoll;
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
@@ -68,9 +67,9 @@ public class TriggerFunnel : MonoBehaviour
     {
         var world = PhysicsWorld.defaultWorld;
         world.gravity = m_OldGravity;
-        
+
         // Reset overrides.
-        m_SandboxManager.ResetOverrideDrawOptions();        
+        m_SandboxManager.ResetOverrideDrawOptions();
     }
 
     private void Update()
@@ -305,32 +304,23 @@ public class TriggerFunnel : MonoBehaviour
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Object Type.
             var objectType = root.Q<DropdownField>("object-type");
             objectType.index = (int)m_ObjectType;
-            objectType.RegisterValueChangedCallback(evt =>
-            {
-                m_ObjectType = Enum.Parse<ObjectType>(evt.newValue);
-            });
+            objectType.RegisterValueChangedCallback(evt => { m_ObjectType = Enum.Parse<ObjectType>(evt.newValue); });
 
             // Object Scale.
             var objectScale = root.Q<Slider>("object-scale");
             objectScale.value = m_ObjectScale;
-            objectScale.RegisterValueChangedCallback(evt =>
-            {
-                m_ObjectScale = evt.newValue;
-            });
+            objectScale.RegisterValueChangedCallback(evt => { m_ObjectScale = evt.newValue; });
 
             // Spawn Period.
             var spawnPeriod = root.Q<Slider>("spawn-period");
             spawnPeriod.value = m_SpawnPeriod;
-            spawnPeriod.RegisterValueChangedCallback(evt =>
-            {
-                m_SpawnPeriod = evt.newValue;
-            });
+            spawnPeriod.RegisterValueChangedCallback(evt => { m_SpawnPeriod = evt.newValue; });
 
             // Gravity Scale.
             var gravityScale = root.Q<Slider>("gravity-scale");
@@ -344,10 +334,7 @@ public class TriggerFunnel : MonoBehaviour
             // Fast Collisions.
             var fastCollisions = root.Q<Toggle>("fast-collisions");
             fastCollisions.value = m_FastCollisions;
-            fastCollisions.RegisterValueChangedCallback(evt =>
-            {
-                m_FastCollisions = evt.newValue;
-            });
+            fastCollisions.RegisterValueChangedCallback(evt => { m_FastCollisions = evt.newValue; });
 
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");

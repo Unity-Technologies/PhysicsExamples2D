@@ -7,21 +7,21 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     public sealed class SceneIgnoreJoint : SceneJointBase, IWorldSceneDrawable
     {
         public PhysicsIgnoreJointDefinition JointDefinition = PhysicsIgnoreJointDefinition.defaultDefinition;
-        
+
         private PhysicsIgnoreJoint m_Joint;
 
-        protected override  void CreateJoint()
+        protected override void CreateJoint()
         {
             DestroyJoint();
-            
+
             // Validate.
             if (!BodyA || !BodyA.Body.isValid || !BodyB || !BodyB.Body.isValid)
                 return;
-            
+
             // Set the definition.
             JointDefinition.bodyA = BodyA.Body;
             JointDefinition.bodyB = BodyB.Body;
-            
+
             // Create the joint.
             m_Joint = PhysicsIgnoreJoint.Create(BodyA.Body.world, JointDefinition);
             if (m_Joint.isValid)
@@ -32,7 +32,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             }
         }
 
-        protected override  void DestroyJoint()
+        protected override void DestroyJoint()
         {
             // Destroy the joint.
             if (m_Joint.isValid)
@@ -52,5 +52,4 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 m_Joint.Draw();
         }
     }
-
 }

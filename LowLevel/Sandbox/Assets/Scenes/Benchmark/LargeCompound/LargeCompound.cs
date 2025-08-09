@@ -23,7 +23,7 @@ public class LargeCompound : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -47,7 +47,7 @@ public class LargeCompound : MonoBehaviour
                 m_CompoundCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;

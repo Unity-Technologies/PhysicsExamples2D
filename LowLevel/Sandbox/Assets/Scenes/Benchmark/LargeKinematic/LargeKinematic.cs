@@ -4,11 +4,11 @@ using UnityEngine.UIElements;
 
 public class LargeKinematic : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
-    
+
     private int m_GridSize;
     private float m_GridSpacing;
     private float m_AngularVelocity;
@@ -25,7 +25,7 @@ public class LargeKinematic : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_GridSize = 100;
         m_GridSpacing = 0f;
         m_AngularVelocity = 90f;
@@ -38,12 +38,12 @@ public class LargeKinematic : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Grid Size.
             var gridSize = root.Q<SliderInt>("grid-size");
@@ -53,7 +53,7 @@ public class LargeKinematic : MonoBehaviour
                 m_GridSize = evt.newValue;
                 SetupScene();
             });
-            
+
             // Grid Spacing.
             var gridSpacing = root.Q<Slider>("grid-spacing");
             gridSpacing.value = m_GridSpacing;
@@ -62,7 +62,7 @@ public class LargeKinematic : MonoBehaviour
                 m_GridSpacing = evt.newValue;
                 SetupScene();
             });
-            
+
             // Angular Velocity.
             var angularVelocity = root.Q<Slider>("angular-velocity");
             angularVelocity.value = m_AngularVelocity;
@@ -70,23 +70,23 @@ public class LargeKinematic : MonoBehaviour
             {
                 m_AngularVelocity = evt.newValue;
                 SetupScene();
-            });            
-            
+            });
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
@@ -101,7 +101,7 @@ public class LargeKinematic : MonoBehaviour
             const float grid = 1f;
             var gridBox = new Vector2(grid, grid);
             var span = m_GridSize / 2;
-            
+
             for (var i = -span; i < span; ++i)
             {
                 var y = i * (grid + m_GridSpacing);
@@ -118,6 +118,6 @@ public class LargeKinematic : MonoBehaviour
 
             // All shapes have been added, so we can efficiently compute the mass properties.
             body.ApplyMassFromShapes();
-        }        
+        }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class Driving : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -16,11 +16,11 @@ public class Driving : MonoBehaviour
     private float m_SpringDamping;
     private float m_MotorSpeed;
     private float m_MaxMotorTorque;
-    
+
     private PhysicsWheelJoint m_RearWheelJoint;
     private PhysicsWheelJoint m_FrontWheelJoint;
     private float m_Throttle;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -62,13 +62,13 @@ public class Driving : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+
             // Spring Frequency.
             var springFrequency = root.Q<Slider>("spring-frequency");
             springFrequency.value = m_SpringFrequency;
@@ -79,7 +79,7 @@ public class Driving : MonoBehaviour
                 m_FrontWheelJoint.springFrequency = m_SpringFrequency;
                 m_RearWheelJoint.WakeBodies();
             });
-            
+
             // Spring Damping.
             var springDamping = root.Q<Slider>("spring-damping");
             springDamping.value = m_SpringDamping;
@@ -90,7 +90,7 @@ public class Driving : MonoBehaviour
                 m_FrontWheelJoint.springDamping = m_SpringDamping;
                 m_RearWheelJoint.WakeBodies();
             });
-            
+
             // Motor Speed.
             var motorSpeed = root.Q<Slider>("motor-speed");
             motorSpeed.value = m_MotorSpeed;
@@ -99,7 +99,7 @@ public class Driving : MonoBehaviour
                 m_MotorSpeed = evt.newValue;
                 SetCarSpeed(m_MotorSpeed * m_Throttle);
             });
-            
+
             // Max Motor Torque.
             var maxMotorTorque = root.Q<Slider>("max-motor-torque");
             maxMotorTorque.value = m_MaxMotorTorque;
@@ -109,12 +109,12 @@ public class Driving : MonoBehaviour
                 m_RearWheelJoint.maxMotorTorque = m_MaxMotorTorque;
                 m_FrontWheelJoint.maxMotorTorque = m_MaxMotorTorque;
                 m_RearWheelJoint.WakeBodies();
-            });            
-            
+            });
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
@@ -134,7 +134,7 @@ public class Driving : MonoBehaviour
         {
             groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
             bodies.Add(groundBody);
-            
+
             var points = new NativeArray<Vector2>(25, Allocator.Temp);
             var pointIndex = 24;
 
@@ -146,9 +146,9 @@ public class Driving : MonoBehaviour
             var heightShift = stackalloc float[] { 0.25f, 1.0f, 4.0f, 0.0f, 0.0f, -1.0f, -2.0f, -2.0f, -1.25f, 0.0f };
             var x = 20f;
             var dx = 5f;
-            for (var j = 0; j < 2; ++j )
+            for (var j = 0; j < 2; ++j)
             {
-                for (var i = 0; i < 10; ++i )
+                for (var i = 0; i < 10; ++i)
                 {
                     var y = heightShift[i];
                     points[pointIndex--] = new Vector2(x + dx, y);
@@ -182,14 +182,14 @@ public class Driving : MonoBehaviour
             x += 40.0f;
             groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(x, 0f), point2 = new Vector2(x, 20f) });
         }
-        
+
         // Teeter
         {
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(140f, 1f), angularVelocity = 60 };
             var body = world.CreateBody(bodyDef);
             bodies.Add(body);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(20.0f, 0.5f)));
-            
+
             var pivot = bodyDef.position;
             world.CreateJoint(new PhysicsHingeJointDefinition
             {
@@ -202,11 +202,11 @@ public class Driving : MonoBehaviour
                 upperAngleLimit = 8f
             });
         }
-        
+
         // Bridge.
         {
             var geometry = new CapsuleGeometry { center1 = Vector2.left, center2 = Vector2.right, radius = 0.125f };
-            
+
             var prevBody = groundBody;
             const int count = 20;
             for (var n = 0; n < count; ++n)
@@ -224,7 +224,7 @@ public class Driving : MonoBehaviour
                     localAnchorA = prevBody.GetLocalPoint(pivot),
                     localAnchorB = body.GetLocalPoint(pivot),
                 });
-                
+
                 prevBody = body;
             }
 
@@ -241,7 +241,7 @@ public class Driving : MonoBehaviour
                 });
             }
         }
-        
+
         // Boxes
         {
             var box = PolygonGeometry.CreateBox(Vector2.one);
@@ -266,14 +266,14 @@ public class Driving : MonoBehaviour
                 bodies.Add(body);
                 body.CreateShape(box, shapeDef);
             }
-            
+
             {
                 bodyDef.position = new Vector2(230.0f, 0.5f);
                 var body = world.CreateBody(bodyDef);
                 bodies.Add(body);
                 body.CreateShape(box, shapeDef);
             }
-            
+
             {
                 bodyDef.position = new Vector2(230.0f, 2.5f);
                 var body = world.CreateBody(bodyDef);
@@ -288,7 +288,7 @@ public class Driving : MonoBehaviour
                 body.CreateShape(box, shapeDef);
             }
         }
-        
+
         // Car.
         {
             using var car = CarFactory.Spawn(world, Vector2.zero, 1f, m_SpringFrequency, m_SpringDamping, m_MaxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
@@ -301,7 +301,7 @@ public class Driving : MonoBehaviour
     {
         // Fetch keyboard input.
         var currentKeyboard = Keyboard.current;
-        
+
         // Reverse.
         if (currentKeyboard.leftArrowKey.isPressed)
         {

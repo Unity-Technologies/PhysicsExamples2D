@@ -14,7 +14,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             private Vector2 m_HotVertex1;
             private Vector2 m_HotVertex2;
             private int m_HotVertexCount;
-            
+
             public PolygonShapeGeometryTool(SceneShape sceneShape, IGeometryToolSettings geometryToolSettings) : base(sceneShape, geometryToolSettings)
             {
             }
@@ -27,9 +27,9 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
                 // Calculate the relative transform from the scene body to this scene shape.
                 var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.SceneBody.transform, ShapeTarget.transform, ShapeTarget.SceneBody.Body.world.transformPlane);
-                
+
                 TargetShapeChanged = false;
-                
+
                 // Fetch the point count.
                 var pointCount = geometry.count;
                 if (pointCount < 3 || pointCount > PhysicsConstants.MaxPolygonVertices)
@@ -58,8 +58,8 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 var handleDirection = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
 
                 // Fetch the show labels option.
-                var showLabels = geometryToolSettings.ShowLabels; 
-                
+                var showLabels = geometryToolSettings.ShowLabels;
+
                 // Points.
                 for (int i = 0, j = pointCount - 1; i < pointCount; j = i++)
                 {
@@ -80,9 +80,9 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         {
                             // Set the handle color.
                             Handles.color = removeMode ? geometryToolSettings.GrabHandleDeleteColor : geometryToolSettings.GrabHandleVertexColor;
-                            
+
                             EditorGUI.BeginChangeCheck();
-                            
+
                             var controlId = GUIUtility.GetControlID(FocusType.Passive);
 
                             // If this is the current hot vertex then set this as the hot-control.
@@ -91,7 +91,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                 if (vertices[i] == m_HotVertex1)
                                     GUIUtility.hotControl = controlId;
                             }
-                            
+
                             var newCenterValue = Handles.Slider2D(controlId, Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
 
                             if (EditorGUI.EndChangeCheck())
@@ -99,7 +99,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                 Undo.RecordObject(ShapeTarget, "Change PolygonGeometry Point");
                                 vertices[i] += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                                 localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
-                                
+
                                 m_HotVertexCount = 1;
                                 m_HotVertex1 = vertices[i];
                                 TargetShapeChanged = true;
@@ -112,7 +112,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                 var labelVertices = showLabels == IGeometryToolSettings.ShowLabelMode.LocalSpace ? localGeometry.vertices[i] : Body.transform.TransformPoint(geometry.vertices[i]);
                                 Handles.Label(handleUp * handleSize * 2f, $"{labelVertices.ToString(LabelFloatFormat)}");
                             }
-                            
+
                             // Did we click to delete the point?
                             if (removeMode && currentEventType == EventType.MouseDown && GUIUtility.hotControl == controlId)
                             {
@@ -127,7 +127,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                             }
                         }
                     }
-                           
+
                     // Add.
                     if (addMode)
                     {
@@ -151,7 +151,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                             if (currentEventType == EventType.MouseDown && GUIUtility.hotControl == controlId)
                             {
                                 Undo.RecordObject(ShapeTarget, "Add PolygonGeometry Point");
-                                
+
                                 geometry = PolygonGeometry.InsertVertex(geometry, i, midPoint).Validate();
                                 localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
 
@@ -161,7 +161,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                             }
                         }
                     }
-                    
+
                     // Radius.
                     if (!addMode && !removeMode)
                     {
@@ -183,7 +183,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                     Undo.RecordObject(ShapeTarget, "Change PolygonGeometry Radius");
                                     geometry.radius = Vector3.Dot(handleRight, newRadiusValue) > 0f ? newRadiusValue.magnitude : 0f;
                                     localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
-                                    
+
                                     ShapeTarget.PolygonGeometry = localGeometry;
                                     ShapeTarget.UpdateShape();
                                     return;
@@ -214,7 +214,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                     var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                                     geometry = geometry.Transform(new PhysicsTransform(centerOffset, PhysicsRotate.identity));
                                     localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
-                                    ShapeTarget.PolygonGeometry = localGeometry; 
+                                    ShapeTarget.PolygonGeometry = localGeometry;
                                     ShapeTarget.UpdateShape();
                                     return;
                                 }
@@ -233,9 +233,9 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                             {
                                 // Set handle color.
                                 Handles.color = geometryToolSettings.GrabHandleMoveAllColor;
-                                
+
                                 EditorGUI.BeginChangeCheck();
-                                
+
                                 var controlId = GUIUtility.GetControlID(FocusType.Passive);
 
                                 // If this is the current hot vertex then set this as the hot-control.
@@ -253,9 +253,9 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                     var vertexOffset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(projectedOffset, TransformPlane));
                                     vertices[i] += vertexOffset;
                                     vertices[j] += vertexOffset;
-                                    
+
                                     localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
-                                    
+
                                     m_HotVertexCount = 2;
                                     m_HotVertex1 = vertices[i];
                                     m_HotVertex2 = vertices[j];
@@ -263,12 +263,12 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                                 }
                             }
                         }
-                    }                            
+                    }
                 }
 
                 var drawGeometryColor = Color.green;
                 var drawGeometryFilled = false;
-                
+
                 // Update shape if changed.
                 if (TargetShapeChanged)
                 {
@@ -278,7 +278,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                     if (newGeometry.isValid && newGeometry.count == geometry.count)
                     {
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
-                        
+
                         ShapeTarget.PolygonGeometry = localGeometry;
                         ShapeTarget.UpdateShape();
                     }
@@ -288,7 +288,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         drawGeometryFilled = true;
                     }
                 }
-                
+
                 // Draw the geometry.
                 World.SetElementDepth3D(PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.centroid), ShapeTarget.transform.position, TransformPlane));
                 World.DrawGeometry(geometry, Body.transform, drawGeometryColor, 0.0f, drawGeometryFilled ? PhysicsWorld.DrawFillOptions.All : PhysicsWorld.DrawFillOptions.Outline);

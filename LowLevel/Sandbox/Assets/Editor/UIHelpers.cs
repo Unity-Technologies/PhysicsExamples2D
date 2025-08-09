@@ -14,7 +14,7 @@ public static class UIHelpers
         // Finish if no removals specified.
         if (names == null || names.Length == 0)
             return;
-        
+
         // Remove named properties.
         var removals = new List<VisualElement>();
         FindRemovedProperties(container, removals, names);
@@ -23,7 +23,7 @@ public static class UIHelpers
         foreach (var property in removals)
             property.RemoveFromHierarchy();
     }
-        
+
     private static void FindRemovedProperties(VisualElement container, List<VisualElement> removals, params string[] names)
     {
         // Is this a named property?
@@ -31,10 +31,10 @@ public static class UIHelpers
         {
             // Yes, so add to removals.
             removals.Add(container);
-                
+
             return;
         }
-            
+
         // Search children.
         foreach (var element in container.Children())
             FindRemovedProperties(element, removals, names);

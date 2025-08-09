@@ -12,7 +12,8 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         private sealed class ChainSegmentShapeGeometryTool : SceneShapeGeometryTool
         {
             public ChainSegmentShapeGeometryTool(SceneShape sceneShape, IGeometryToolSettings geometryToolSettings) : base(sceneShape, geometryToolSettings)
-            { }
+            {
+            }
 
             public override void OnToolGUI(EditorWindow window)
             {
@@ -20,10 +21,10 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 var geometry = Shape.chainSegmentGeometry;
                 var geometrySegment = geometry.segment;
                 var localGeometry = ShapeTarget.ChainSegmentGeometry;
-                
+
                 // Calculate the relative transform from the scene body to this scene shape.
                 var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.SceneBody.transform, ShapeTarget.transform, ShapeTarget.SceneBody.Body.world.transformPlane);
-                
+
                 // Set-up handles.
                 var snap = GetSnapSettings();
                 var handleDirection = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
@@ -32,10 +33,10 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 var axisRight = new Vector3(axisUp.y, -axisUp.x, 0f);
                 var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisRight, TransformPlane)).normalized;
                 var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisUp, TransformPlane)).normalized;
-                
+
                 // Fetch the show labels option.
-                var showLabels = geometryToolSettings.ShowLabels; 
-                
+                var showLabels = geometryToolSettings.ShowLabels;
+
                 // Segment Mid.
                 var centerOriginMid = PhysicsMath.ToPosition3D(Body.transform.TransformPoint((geometrySegment.point1 + geometrySegment.point2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
                 var handleSize = GetHandleSize(centerOriginMid);
@@ -43,7 +44,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleMoveAllColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
@@ -59,7 +60,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
-                }                
+                }
 
                 // Segment Point #1.
                 var pointOrigin1 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometrySegment.point1), ShapeTarget.transform.position, TransformPlane);
@@ -68,7 +69,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
@@ -82,7 +83,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
-                    
+
                     // Draw center label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
@@ -91,7 +92,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         Handles.Label(handleUp * handleSize * 2f, $"Point1 = {labelGeometry.segment.point1.ToString(LabelFloatFormat)}");
                     }
                 }
-                
+
                 // Segment Point #2.
                 var pointOrigin2 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometrySegment.point2), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(pointOrigin2);
@@ -99,7 +100,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
@@ -113,7 +114,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
-                    
+
                     // Draw center label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
@@ -122,7 +123,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         Handles.Label(handleUp * handleSize * 2f, $"Point2 = {labelGeometry.segment.point2.ToString(LabelFloatFormat)}");
                     }
                 }
-                
+
                 // Ghost Point #1.
                 var ghostPointOrigin1 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.ghost1), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(ghostPointOrigin1);
@@ -130,7 +131,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
@@ -141,7 +142,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
-                    
+
                     // Draw center label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
@@ -150,7 +151,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         Handles.Label(handleUp * handleSize * 2f, $"Ghost1 = {labelGeometry.ghost1.ToString(LabelFloatFormat)}");
                     }
                 }
-                
+
                 // Ghost Point #2.
                 var ghostPointOrigin2 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.ghost2), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(ghostPointOrigin2);
@@ -158,7 +159,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
-                    
+
                     EditorGUI.BeginChangeCheck();
                     var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
@@ -169,7 +170,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
-                    
+
                     // Draw center label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
@@ -177,12 +178,12 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         var labelGeometry = showLabels == IGeometryToolSettings.ShowLabelMode.LocalSpace ? localGeometry : geometry.Transform(Body.transform);
                         Handles.Label(handleUp * handleSize * 2f, $"Ghost1 = {labelGeometry.ghost2.ToString(LabelFloatFormat)}");
                     }
-                }                  
-                
+                }
+
                 // Update shape if changed.
                 if (TargetShapeChanged)
                     ShapeTarget.UpdateShape();
-                
+
                 // Draw the geometry.
                 World.SetElementDepth3D(centerOriginMid);
                 World.DrawLine(Body.transform.TransformPoint(geometrySegment.point1), Body.transform.TransformPoint(geometrySegment.point2), Color.green);

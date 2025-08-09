@@ -56,7 +56,10 @@ public static class RagdollFactory
         public int ContactGroupIndex;
         public IShapeColorProvider ColorProvider;
         public bool TriggerEvents;
-        [FormerlySerializedAs("FastCollisions")] public bool FastCollisionsAllowed;
+
+        [FormerlySerializedAs("FastCollisions")]
+        public bool FastCollisionsAllowed;
+
         public bool EnableMotor;
         public bool EnableLimits;
     }
@@ -109,26 +112,26 @@ public static class RagdollFactory
             this.scale = originalScale = scale;
             this.configuration = configuration;
         }
-        
+
         public Configuration configuration { get; set; }
-        public float originalScale { get; set; } 
+        public float originalScale { get; set; }
         public float scale { get; set; }
         public float boneCount => m_BoneArray.Length;
 
         public bool IsCreated => m_BoneArray.IsCreated;
-        
+
         public Bone this[BoneType boneType]
         {
             get => m_BoneArray[(int)boneType];
             set => m_BoneArray[(int)boneType] = value;
         }
-        
+
         public Bone this[int boneIndex]
         {
             get => m_BoneArray[boneIndex];
             set => m_BoneArray[boneIndex] = value;
         }
-        
+
         public IEnumerator<PhysicsBody> GetEnumerator()
         {
             foreach (var bone in m_BoneArray)
@@ -136,30 +139,30 @@ public static class RagdollFactory
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        
+
         public void Dispose()
         {
             m_BoneArray.Dispose();
         }
-        
+
         public void Rescale(float newScale)
         {
             if (newScale < 0.01f || scale <= 0.0f)
                 throw new InvalidOperationException("Scale must be greater than zero.");
-            
-	        var scaleRatio = newScale / scale;
 
-	        var originalRatio = newScale / originalScale;
+            var scaleRatio = newScale / scale;
+
+            var originalRatio = newScale / originalScale;
             var jointFriction = originalRatio * originalRatio * originalRatio * configuration.JointFriction;
 
             var origin = this[0].body.position;
 
-	        for (var boneIndex = 0; boneIndex < boneCount; ++boneIndex)
-	        {
-		        var bone = this[boneIndex];
+            for (var boneIndex = 0; boneIndex < boneCount; ++boneIndex)
+            {
+                var bone = this[boneIndex];
                 var body = bone.body;
-                
-		        if (boneIndex > 0)
+
+                if (boneIndex > 0)
                 {
                     // Update the transform.
                     var transform = body.transform;
@@ -175,16 +178,16 @@ public static class RagdollFactory
                     joint.localAnchorB = localAnchorB;
 
                     joint.maxMotorTorque = bone.frictionScale * jointFriction;
-		        }
+                }
 
                 // Handle thw shapes.
                 using var shapes = body.GetShapes();
                 var shapeCount = shapes.Length;
-		        for (var shapeIndex = 0; shapeIndex < shapeCount; ++shapeIndex)
+                for (var shapeIndex = 0; shapeIndex < shapeCount; ++shapeIndex)
                 {
                     var shape = shapes[shapeIndex];
                     var shapeType = shape.shapeType;
-			        if (shapeType == PhysicsShape.ShapeType.Capsule)
+                    if (shapeType == PhysicsShape.ShapeType.Capsule)
                     {
                         var geometry = shape.capsuleGeometry;
                         shape.capsuleGeometry = new CapsuleGeometry
@@ -193,18 +196,18 @@ public static class RagdollFactory
                             center2 = geometry.center2 * scaleRatio,
                             radius = geometry.radius * scaleRatio
                         };
-			        }
-			        else if (shapeType == PhysicsShape.ShapeType.Polygon)
+                    }
+                    else if (shapeType == PhysicsShape.ShapeType.Polygon)
                     {
                         var scaledPolygon = shape.polygonGeometry.Transform(transform: Matrix4x4.Scale(new Vector3(scaleRatio, scaleRatio, scaleRatio)), scaleRadius: true);
                         shape.polygonGeometry = scaledPolygon;
                     }
-		        }
+                }
 
                 body.ApplyMassFromShapes();
-	        }
+            }
 
-	        scale = newScale;
+            scale = newScale;
         }
     }
 
@@ -260,7 +263,7 @@ public static class RagdollFactory
 
         // Create the ragdoll.
         var ragdoll = new Ragdoll(allocator, scale, configuration);
-        
+
         // Hip.
         {
             // Fetch the bone.
@@ -293,7 +296,7 @@ public static class RagdollFactory
             bodyDef.position = position + new Vector2(0f, 1.2f * scale);
             bodyDef.linearDamping = 0f;
             bone.body = world.CreateBody(bodyDef);
-            
+
             // Create shape.
             if (configuration.ColorProvider is not { IsShapeColorActive: true })
                 shapeDef.surfaceMaterial.customColor = shirtColor;
@@ -327,7 +330,7 @@ public static class RagdollFactory
             // Apply the angular impulse.
             if (angularImpulse != 0.0f)
                 bone.body.ApplyAngularImpulse(angularImpulse);
-            
+
             // Set the bone.
             ragdoll[BoneType.Torso] = bone;
         }

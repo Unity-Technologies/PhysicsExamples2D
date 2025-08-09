@@ -4,7 +4,7 @@
     public class ScenePickerEditor : Editor
     {
         private SerializedProperty m_SceneItemsProperty;
-        
+
         private void OnEnable()
         {
             m_SceneItemsProperty = serializedObject.FindProperty("SceneItems");
@@ -19,7 +19,7 @@
             serializedObject.Update();
 
             EditorGUILayout.PropertyField(m_SceneItemsProperty);
-            
+
             for (var i = 0; i < picker.SceneItems.Count; ++i)
             {
                 var sceneItemProperty = m_SceneItemsProperty.GetArrayElementAtIndex(i);
@@ -31,7 +31,7 @@
                 if (EditorGUI.EndChangeCheck())
                     scenePathProperty.stringValue = AssetDatabase.GetAssetPath(newScene);
             }
-            
+
             serializedObject.ApplyModifiedProperties();
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
@@ -12,17 +11,17 @@ public class LargeWorld : MonoBehaviour
     private CameraManipulator m_CameraManipulator;
 
     private bool m_FollowCar;
-    
+
     private float m_WavePeriod;
     private float m_GridSize;
     private float m_GridCount;
     private int m_CycleCount;
     private float m_CameraPanSpeed;
-    
+
     private Vector2 m_CameraPosition;
     private PhysicsWheelJoint m_RearWheelJoint;
     private PhysicsWheelJoint m_FrontWheelJoint;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -32,14 +31,14 @@ public class LargeWorld : MonoBehaviour
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 25f;
         m_CameraManipulator.CameraPosition = Vector2.zero;
-        
+
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
         m_CameraManipulator.DisableManipulators = true;
-        
+
         m_WavePeriod = 40f;
         m_GridSize = 1f;
         m_GridCount = (int)(m_CycleCount * m_WavePeriod / m_GridSize);
@@ -47,7 +46,7 @@ public class LargeWorld : MonoBehaviour
         m_CameraPanSpeed = 0f;
 
         m_FollowCar = true;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -67,19 +66,19 @@ public class LargeWorld : MonoBehaviour
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Follow Car.
             var followCar = root.Q<Toggle>("follow-car");
             followCar.value = m_FollowCar;
-            followCar.RegisterValueChangedCallback(evt => { m_FollowCar = evt.newValue; });    
+            followCar.RegisterValueChangedCallback(evt => { m_FollowCar = evt.newValue; });
 
             // Camera Pan Speed.
             var cameraPanSpeed = root.Q<Slider>("camera-pan-speed");
             cameraPanSpeed.value = m_CameraPanSpeed;
             cameraPanSpeed.RegisterValueChangedCallback(evt => { m_CameraPanSpeed = evt.newValue; });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
@@ -105,172 +104,171 @@ public class LargeWorld : MonoBehaviour
         // Set the camera position.
         m_CameraPosition = new Vector2(startX, 15f);
         m_CameraManipulator.CameraPosition = m_CameraPosition;
-        
+
         {
-	        var bodyDef = PhysicsBodyDefinition.defaultDefinition;
-			var shapeDef = PhysicsShapeDefinition.defaultDefinition;
+            var bodyDef = PhysicsBodyDefinition.defaultDefinition;
+            var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
-			// Setting this to false significantly reduces the cost of creating
-			// static bodies and shapes.
-			shapeDef.startStaticContacts = false;
+            // Setting this to false significantly reduces the cost of creating
+            // static bodies and shapes.
+            shapeDef.startStaticContacts = false;
 
-			const float height = 4f;
-			var bodyX = startX;
-			var shapeX = startX;
+            const float height = 4f;
+            var bodyX = startX;
+            var shapeX = startX;
 
-			PhysicsBody groundBody = default;
+            PhysicsBody groundBody = default;
 
-			for (var i = 0; i < m_GridCount; ++i)
-			{
-				// Create a new body regularly so that shapes are not too far from the body origin.
-				// Most algorithms in physics work in local coordinates, but contact points are computed relative to the body origin.
-				// This makes a noticeable improvement in stability far from the origin.
-				if (i % 10 == 0)
-				{
-					bodyDef.position = new Vector2(bodyX, bodyDef.position.y);
-					groundBody = world.CreateBody(bodyDef);
-					bodies.Add(groundBody);
-					shapeX = 0.0f;
-				}
+            for (var i = 0; i < m_GridCount; ++i)
+            {
+                // Create a new body regularly so that shapes are not too far from the body origin.
+                // Most algorithms in physics work in local coordinates, but contact points are computed relative to the body origin.
+                // This makes a noticeable improvement in stability far from the origin.
+                if (i % 10 == 0)
+                {
+                    bodyDef.position = new Vector2(bodyX, bodyDef.position.y);
+                    groundBody = world.CreateBody(bodyDef);
+                    bodies.Add(groundBody);
+                    shapeX = 0.0f;
+                }
 
-				var y = 0.0f;
-				var countY = Mathf.RoundToInt(height * Mathf.Cos(omega * bodyX)) + 12;
+                var y = 0.0f;
+                var countY = Mathf.RoundToInt(height * Mathf.Cos(omega * bodyX)) + 12;
 
-				for (var j = 0; j < countY; ++j)
-				{
-					var squareGeometry = PolygonGeometry.CreateBox(Vector2.one * 0.8f * m_GridSize, 0.1f, new Vector2(shapeX, y));
-					groundBody.CreateShape(squareGeometry, shapeDef);
+                for (var j = 0; j < countY; ++j)
+                {
+                    var squareGeometry = PolygonGeometry.CreateBox(Vector2.one * 0.8f * m_GridSize, 0.1f, new Vector2(shapeX, y));
+                    groundBody.CreateShape(squareGeometry, shapeDef);
 
-					y += m_GridSize;
-				}
+                    y += m_GridSize;
+                }
 
-				bodyX += m_GridSize;
-				shapeX += m_GridSize;
-			}
-		}
+                bodyX += m_GridSize;
+                shapeX += m_GridSize;
+            }
+        }
 
-		{
-			var ragdollIndex = 0;
-			
-			var ragDollConfiguration = new RagdollFactory.Configuration
-			{
-				ScaleRange = new Vector2(1.5f, 1.5f),
-				JointFrequency = 0f,
-				JointDamping = 0f,
-				JointFriction = 0.05f,
-				GravityScale = 1f,
-				ContactBodyLayer = 2,
-				ContactFeetLayer = 1,
-				ContactGroupIndex = 1,
-				ColorProvider = m_SandboxManager,
-				FastCollisionsAllowed = false,
-				TriggerEvents = false,
-				EnableLimits = true,
-				EnableMotor = true
-			};
-			
-			for (var cycleIndex = 0; cycleIndex < m_CycleCount; ++cycleIndex)
-			{
-				var baseX = (0.5f + cycleIndex) * m_WavePeriod + startX;
+        {
+            var ragdollIndex = 0;
 
-				var remainder = cycleIndex % 3;
-				if (remainder == 0)
-				{
-					var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(baseX - 3f, 10f) };
+            var ragDollConfiguration = new RagdollFactory.Configuration
+            {
+                ScaleRange = new Vector2(1.5f, 1.5f),
+                JointFrequency = 0f,
+                JointDamping = 0f,
+                JointFriction = 0.05f,
+                GravityScale = 1f,
+                ContactBodyLayer = 2,
+                ContactFeetLayer = 1,
+                ContactGroupIndex = 1,
+                ColorProvider = m_SandboxManager,
+                FastCollisionsAllowed = false,
+                TriggerEvents = false,
+                EnableLimits = true,
+                EnableMotor = true
+            };
 
-					var boxGeometry = PolygonGeometry.CreateBox(new Vector2(0.6f, 0.4f));
-					for (var i = 0; i < 10; ++i)
-					{
-						bodyDef.position = new Vector2(bodyDef.position.x, 10f);
-						for (var j = 0; j < 5; ++j)
-						{
-							var body = world.CreateBody(bodyDef);
-							bodies.Add(body);
-							body.CreateShape(boxGeometry);
+            for (var cycleIndex = 0; cycleIndex < m_CycleCount; ++cycleIndex)
+            {
+                var baseX = (0.5f + cycleIndex) * m_WavePeriod + startX;
 
-							bodyDef.position = new Vector2(bodyDef.position.x, bodyDef.position.y + 0.5f);
-						}
+                var remainder = cycleIndex % 3;
+                if (remainder == 0)
+                {
+                    var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(baseX - 3f, 10f) };
 
-						bodyDef.position = new Vector2(bodyDef.position.x + 0.6f, bodyDef.position.y);
-					}
-				}
-				else if (remainder == 1)
-				{
-					var position = new Vector2(baseX - 2f, 10f);
-					for (var i = 0; i < 5; ++i)
-					{
-						ragDollConfiguration.ContactGroupIndex = ragdollIndex++;
-						using var ragdoll = RagdollFactory.Spawn(world, position, ragDollConfiguration, true, ref random);
-						foreach (var body in ragdoll)
-							bodies.Add(body);
+                    var boxGeometry = PolygonGeometry.CreateBox(new Vector2(0.6f, 0.4f));
+                    for (var i = 0; i < 10; ++i)
+                    {
+                        bodyDef.position = new Vector2(bodyDef.position.x, 10f);
+                        for (var j = 0; j < 5; ++j)
+                        {
+                            var body = world.CreateBody(bodyDef);
+                            bodies.Add(body);
+                            body.CreateShape(boxGeometry);
 
-						position.x += 1f;
-					}
-				}
-				else
-				{
-					var position = new Vector2(baseX - 4f, 12f);
-					for (var i = 0; i < 5; ++i)
-					{
-						using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, position, 7, 0.75f);
-						foreach (var body in donut)
-							bodies.Add(body);
+                            bodyDef.position = new Vector2(bodyDef.position.x, bodyDef.position.y + 0.5f);
+                        }
 
-						position.x += 2f;
-					}
-				}
-			}
-		}
+                        bodyDef.position = new Vector2(bodyDef.position.x + 0.6f, bodyDef.position.y);
+                    }
+                }
+                else if (remainder == 1)
+                {
+                    var position = new Vector2(baseX - 2f, 10f);
+                    for (var i = 0; i < 5; ++i)
+                    {
+                        ragDollConfiguration.ContactGroupIndex = ragdollIndex++;
+                        using var ragdoll = RagdollFactory.Spawn(world, position, ragDollConfiguration, true, ref random);
+                        foreach (var body in ragdoll)
+                            bodies.Add(body);
 
-		// Car.
-		{
-			const float springFrequency = 10f;
-			const float springDamping = 0.7f;
-			const float maxMotorTorque = 2000f;
-			using var car = CarFactory.Spawn(world, new Vector2(startX + 20f, 40f), 10f, springFrequency, springDamping, maxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
-			foreach (var body in car)
-				bodies.Add(body);
-		}
+                        position.x += 1f;
+                    }
+                }
+                else
+                {
+                    var position = new Vector2(baseX - 4f, 12f);
+                    for (var i = 0; i < 5; ++i)
+                    {
+                        using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, position, 7, 0.75f);
+                        foreach (var body in donut)
+                            bodies.Add(body);
+
+                        position.x += 2f;
+                    }
+                }
+            }
+        }
+
+        // Car.
+        {
+            const float springFrequency = 10f;
+            const float springDamping = 0.7f;
+            const float maxMotorTorque = 2000f;
+            using var car = CarFactory.Spawn(world, new Vector2(startX + 20f, 40f), 10f, springFrequency, springDamping, maxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
+            foreach (var body in car)
+                bodies.Add(body);
+        }
     }
 
     private void Update()
     {
-	    // Fetch keyboard input.
-	    var currentKeyboard = Keyboard.current;
-        
-	    // Reverse.
-	    if (currentKeyboard.leftArrowKey.isPressed)
-	    {
-		    SetCarSpeed(20f);
-	    }
+        // Fetch keyboard input.
+        var currentKeyboard = Keyboard.current;
 
-	    // Forward.
-	    if (currentKeyboard.rightArrowKey.isPressed)
-	    {
-		    SetCarSpeed(-5);
-	    }
+        // Reverse.
+        if (currentKeyboard.leftArrowKey.isPressed)
+        {
+            SetCarSpeed(20f);
+        }
 
-	    // Brake.
-	    if (currentKeyboard.spaceKey.isPressed)
-	    {
-		    SetCarSpeed(0f);
-	    }
-	    
-	    var cameraBound = 0.5f * m_WavePeriod * m_CycleCount;
-	    m_CameraPosition.x = Mathf.Clamp(m_CameraPosition.x + Time.deltaTime * m_CameraPanSpeed, -cameraBound, cameraBound);
+        // Forward.
+        if (currentKeyboard.rightArrowKey.isPressed)
+        {
+            SetCarSpeed(-5);
+        }
 
-	    if (m_CameraPanSpeed != 0.0f)
-		    m_CameraManipulator.CameraPosition = m_CameraPosition;
+        // Brake.
+        if (currentKeyboard.spaceKey.isPressed)
+        {
+            SetCarSpeed(0f);
+        }
 
-	    if (m_FollowCar)
-		    m_CameraManipulator.CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraManipulator.CameraPosition.y);
+        var cameraBound = 0.5f * m_WavePeriod * m_CycleCount;
+        m_CameraPosition.x = Mathf.Clamp(m_CameraPosition.x + Time.deltaTime * m_CameraPanSpeed, -cameraBound, cameraBound);
 
+        if (m_CameraPanSpeed != 0.0f)
+            m_CameraManipulator.CameraPosition = m_CameraPosition;
+
+        if (m_FollowCar)
+            m_CameraManipulator.CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraManipulator.CameraPosition.y);
     }
-    
+
     private void SetCarSpeed(float speed)
     {
-	    m_RearWheelJoint.motorSpeed = speed;
-	    m_FrontWheelJoint.motorSpeed = speed;
-	    m_RearWheelJoint.WakeBodies();
+        m_RearWheelJoint.motorSpeed = speed;
+        m_FrontWheelJoint.motorSpeed = speed;
+        m_RearWheelJoint.WakeBodies();
     }
 }

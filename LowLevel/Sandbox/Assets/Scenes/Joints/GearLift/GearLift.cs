@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class GearLift : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -29,11 +29,11 @@ public class GearLift : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_UseMotor = false;
         m_MotorSpeed = -0.5f;
         m_MaxMotorTorque = 80f;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -64,9 +64,9 @@ public class GearLift : MonoBehaviour
             motorSpeed.value = m_MotorSpeed;
             motorSpeed.RegisterValueChangedCallback(evt =>
             {
-	            m_MotorSpeed = evt.newValue;
-	            m_GearMotor.motorSpeed = m_MotorSpeed;
-	            m_GearMotor.WakeBodies();
+                m_MotorSpeed = evt.newValue;
+                m_GearMotor.motorSpeed = m_MotorSpeed;
+                m_GearMotor.WakeBodies();
             });
 
             // Max Motor Torque.
@@ -74,9 +74,9 @@ public class GearLift : MonoBehaviour
             maxMotorTorque.value = m_MaxMotorTorque;
             maxMotorTorque.RegisterValueChangedCallback(evt =>
             {
-	            m_MaxMotorTorque = evt.newValue;
-	            m_GearMotor.maxMotorTorque = m_MaxMotorTorque;
-	            m_GearMotor.WakeBodies();
+                m_MaxMotorTorque = evt.newValue;
+                m_GearMotor.maxMotorTorque = m_MaxMotorTorque;
+                m_GearMotor.WakeBodies();
             });
 
             // Reset Scene.
@@ -93,7 +93,7 @@ public class GearLift : MonoBehaviour
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
@@ -102,7 +102,7 @@ public class GearLift : MonoBehaviour
         // Ground Body.
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
         bodies.Add(groundBody);
-        
+
         // Ground.
         {
             var points = new NativeList<Vector2>(Allocator.Temp)
@@ -132,7 +132,7 @@ public class GearLift : MonoBehaviour
                 new(-3.89166570f, 5.07500029f),
                 new(-4.42083311f, 5.07500029f),
                 new(-4.42083311f, 5.60416889f),
-#if false                
+#if false
                 new(-4.95000029f, 5.60416555f),
                 new(-4.95000029f, 6.13333464f),
                 new(-5.47916555f, 6.13333464f),
@@ -161,262 +161,262 @@ public class GearLift : MonoBehaviour
             points.Dispose();
         }
 
-		const float gearRadius = 1.0f;
-		const float toothHalfWidth = 0.09f;
-		const float toothHalfHeight = 0.06f;
-		const float toothRadius = 0.03f;
-		const float linkHalfLength = 0.07f;
-		const float linkRadius = 0.05f;
-		const int linkCount = 40;
-		const float doorHalfHeight = 1.5f;
+        const float gearRadius = 1.0f;
+        const float toothHalfWidth = 0.09f;
+        const float toothHalfHeight = 0.06f;
+        const float toothRadius = 0.03f;
+        const float linkHalfLength = 0.07f;
+        const float linkRadius = 0.05f;
+        const int linkCount = 40;
+        const float doorHalfHeight = 1.5f;
 
-		var gearPosition1 = new Vector2(-4.25f + 0.15f, 10.25f - 1.6f);
-		var gearPosition2 = gearPosition1 + new Vector2(2.0f + 0.15f, 1.0f - 1.6f);
-		var linkAttachPosition = gearPosition2 + new Vector2(gearRadius + 2.0f * toothHalfWidth + toothRadius, 0.0f);
-		var doorPosition = linkAttachPosition - new Vector2(0.0f, 2.0f * linkCount * linkHalfLength + doorHalfHeight);
+        var gearPosition1 = new Vector2(-4.25f + 0.15f, 10.25f - 1.6f);
+        var gearPosition2 = gearPosition1 + new Vector2(2.0f + 0.15f, 1.0f - 1.6f);
+        var linkAttachPosition = gearPosition2 + new Vector2(gearRadius + 2.0f * toothHalfWidth + toothRadius, 0.0f);
+        var doorPosition = linkAttachPosition - new Vector2(0.0f, 2.0f * linkCount * linkHalfLength + doorHalfHeight);
 
-		{
-			var bodyDef = new PhysicsBodyDefinition
-			{
-				bodyType = RigidbodyType2D.Dynamic,
-				position = gearPosition1
-			};
+        {
+            var bodyDef = new PhysicsBodyDefinition
+            {
+                bodyType = RigidbodyType2D.Dynamic,
+                position = gearPosition1
+            };
 
-			var gearBody = world.CreateBody(bodyDef);
-			bodies.Add(gearBody);
+            var gearBody = world.CreateBody(bodyDef);
+            bodies.Add(gearBody);
 
-			var shapeDef = new PhysicsShapeDefinition
-			{
-				surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.saddleBrown }
-			};
+            var shapeDef = new PhysicsShapeDefinition
+            {
+                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.saddleBrown }
+            };
 
-			var circle = new CircleGeometry { radius = gearRadius };
-			gearBody.CreateShape(circle, shapeDef);
+            var circle = new CircleGeometry { radius = gearRadius };
+            gearBody.CreateShape(circle, shapeDef);
 
-			const int count = 16;
-			var deltaAngle = PhysicsMath.TAU / 16f;
-			var dq = new PhysicsRotate(deltaAngle);
-			var center = new Vector2(gearRadius + toothHalfHeight, 0f);
-			var rotation = PhysicsRotate.identity;
+            const int count = 16;
+            var deltaAngle = PhysicsMath.TAU / 16f;
+            var dq = new PhysicsRotate(deltaAngle);
+            var center = new Vector2(gearRadius + toothHalfHeight, 0f);
+            var rotation = PhysicsRotate.identity;
 
-			for (var i = 0; i < count; ++i)
-			{
-				var tooth = PolygonGeometry.CreateBox(
-					size: new Vector2(toothHalfWidth, toothHalfHeight) * 2f,
-					radius: toothRadius,
-					transform: new PhysicsTransform(center, rotation));
+            for (var i = 0; i < count; ++i)
+            {
+                var tooth = PolygonGeometry.CreateBox(
+                    size: new Vector2(toothHalfWidth, toothHalfHeight) * 2f,
+                    radius: toothRadius,
+                    transform: new PhysicsTransform(center, rotation));
 
-				shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.gray };
-				gearBody.CreateShape(tooth, shapeDef);
+                shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.gray };
+                gearBody.CreateShape(tooth, shapeDef);
 
-				rotation = dq.MultiplyRotation(rotation);
-				center = rotation.RotateVector(new Vector2(gearRadius + toothHalfHeight, 0.0f));
-			}
+                rotation = dq.MultiplyRotation(rotation);
+                center = rotation.RotateVector(new Vector2(gearRadius + toothHalfHeight, 0.0f));
+            }
 
-			var jointDef = new PhysicsHingeJointDefinition
-			{
-				bodyA = groundBody,
-				bodyB = gearBody,
-				localAnchorA = groundBody.GetLocalPoint(gearPosition1),
-				localAnchorB = Vector2.zero,
-				enableMotor = m_UseMotor,
-				maxMotorTorque = m_MaxMotorTorque,
-				motorSpeed = m_MotorSpeed
-			};
-			
-			m_GearMotor = world.CreateJoint(jointDef);
-		}
+            var jointDef = new PhysicsHingeJointDefinition
+            {
+                bodyA = groundBody,
+                bodyB = gearBody,
+                localAnchorA = groundBody.GetLocalPoint(gearPosition1),
+                localAnchorB = Vector2.zero,
+                enableMotor = m_UseMotor,
+                maxMotorTorque = m_MaxMotorTorque,
+                motorSpeed = m_MotorSpeed
+            };
 
-		PhysicsBody followerBody;
-		{
-			var position = gearPosition2;
-			var bodyDef = new PhysicsBodyDefinition
-			{
-				bodyType = RigidbodyType2D.Dynamic,
-				position = position
-			};
+            m_GearMotor = world.CreateJoint(jointDef);
+        }
 
-			followerBody = world.CreateBody(bodyDef);
-			bodies.Add(followerBody);
+        PhysicsBody followerBody;
+        {
+            var position = gearPosition2;
+            var bodyDef = new PhysicsBodyDefinition
+            {
+                bodyType = RigidbodyType2D.Dynamic,
+                position = position
+            };
 
-			var shapeDef = new PhysicsShapeDefinition
-			{
-				surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.saddleBrown }
-			};
+            followerBody = world.CreateBody(bodyDef);
+            bodies.Add(followerBody);
 
-			var circle = new CircleGeometry { radius = gearRadius };
-			followerBody.CreateShape(circle, shapeDef);
+            var shapeDef = new PhysicsShapeDefinition
+            {
+                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.saddleBrown }
+            };
 
-			const int count = 16;
-			var deltaAngle = PhysicsMath.TAU / 16f;
-			var dq = new PhysicsRotate(deltaAngle);
-			var center = new Vector2(gearRadius + toothHalfWidth, 0f);
-			var rotation = PhysicsRotate.identity;
+            var circle = new CircleGeometry { radius = gearRadius };
+            followerBody.CreateShape(circle, shapeDef);
 
-			for (var i = 0; i < count; ++i)
-			{
-				var tooth = PolygonGeometry.CreateBox(
-					size: new Vector2(toothHalfWidth, toothHalfHeight) * 2f,
-					radius: toothRadius,
-					transform: new PhysicsTransform(center, rotation));
-				
-				shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.gray };
-				followerBody.CreateShape(tooth, shapeDef);
+            const int count = 16;
+            var deltaAngle = PhysicsMath.TAU / 16f;
+            var dq = new PhysicsRotate(deltaAngle);
+            var center = new Vector2(gearRadius + toothHalfWidth, 0f);
+            var rotation = PhysicsRotate.identity;
 
-				rotation = dq.MultiplyRotation(rotation);
-				center = rotation.RotateVector(new Vector2(gearRadius + toothHalfHeight, 0f));
-			}
+            for (var i = 0; i < count; ++i)
+            {
+                var tooth = PolygonGeometry.CreateBox(
+                    size: new Vector2(toothHalfWidth, toothHalfHeight) * 2f,
+                    radius: toothRadius,
+                    transform: new PhysicsTransform(center, rotation));
 
-			var jointDef = new PhysicsHingeJointDefinition
-			{
-				bodyA = groundBody,
-				bodyB = followerBody,
-				localAnchorA = groundBody.GetLocalPoint(position),
-				localAnchorB = PhysicsTransform.identity,
-				enableMotor = true,
-				maxMotorTorque = 0.5f,
-				enableLimit = true,
-				lowerAngleLimit = -0.3f * PhysicsMath.PI,
-				upperAngleLimit = 0.8f * PhysicsMath.PI
-			};
-			
-			world.CreateJoint(jointDef);
-		}
+                shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.gray };
+                followerBody.CreateShape(tooth, shapeDef);
 
-		PhysicsBody lastLinkBody;
-		{
-			var capsule = new CapsuleGeometry
-			{
-				center1 = new Vector2(0f, -linkHalfLength),
-				center2 = new Vector2(0f, linkHalfLength),
-				radius = linkRadius
-			};
+                rotation = dq.MultiplyRotation(rotation);
+                center = rotation.RotateVector(new Vector2(gearRadius + toothHalfHeight, 0f));
+            }
 
-			var shapeDef = new PhysicsShapeDefinition
-			{
-				density = 2f,
-				surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = Color.lightSteelBlue }
-			};
+            var jointDef = new PhysicsHingeJointDefinition
+            {
+                bodyA = groundBody,
+                bodyB = followerBody,
+                localAnchorA = groundBody.GetLocalPoint(position),
+                localAnchorB = PhysicsTransform.identity,
+                enableMotor = true,
+                maxMotorTorque = 0.5f,
+                enableLimit = true,
+                lowerAngleLimit = PhysicsMath.ToDegrees(-0.3f * PhysicsMath.PI),
+                upperAngleLimit = PhysicsMath.ToDegrees(0.8f * PhysicsMath.PI)
+            };
 
-			var jointDef = new PhysicsHingeJointDefinition
-			{
-				maxMotorTorque = 0.05f,
-				enableMotor = true
-			};
+            world.CreateJoint(jointDef);
+        }
 
-			var bodyDef = new PhysicsBodyDefinition
-			{
-				bodyType = RigidbodyType2D.Dynamic,
-			};
-			
-			var position = linkAttachPosition + new Vector2(0f, -linkHalfLength);
+        PhysicsBody lastLinkBody;
+        {
+            var capsule = new CapsuleGeometry
+            {
+                center1 = new Vector2(0f, -linkHalfLength),
+                center2 = new Vector2(0f, linkHalfLength),
+                radius = linkRadius
+            };
 
-			const int count = 40;
-			var prevBody = followerBody;
-			for (var i = 0; i < count; ++i)
-			{
-				bodyDef.position = position;
+            var shapeDef = new PhysicsShapeDefinition
+            {
+                density = 2f,
+                surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = Color.lightSteelBlue }
+            };
 
-				var body = world.CreateBody(bodyDef);
-				bodies.Add(body);
-				body.CreateShape(capsule, shapeDef);
+            var jointDef = new PhysicsHingeJointDefinition
+            {
+                maxMotorTorque = 0.05f,
+                enableMotor = true
+            };
 
-				var pivot = new Vector2(position.x, position.y + linkHalfLength);
-				jointDef.bodyA = prevBody;
-				jointDef.bodyB = body;
-				jointDef.localAnchorA = jointDef.bodyA.GetLocalPoint(pivot);
-				jointDef.localAnchorB = jointDef.bodyB.GetLocalPoint(pivot);
-				world.CreateJoint(jointDef);
+            var bodyDef = new PhysicsBodyDefinition
+            {
+                bodyType = RigidbodyType2D.Dynamic,
+            };
 
-				position.y -= 2.0f * linkHalfLength;
-				prevBody = body;
-			}
+            var position = linkAttachPosition + new Vector2(0f, -linkHalfLength);
 
-			lastLinkBody = prevBody;
-		}
+            const int count = 40;
+            var prevBody = followerBody;
+            for (var i = 0; i < count; ++i)
+            {
+                bodyDef.position = position;
 
-		{
-			var bodyDef = new PhysicsBodyDefinition
-			{
-				bodyType = RigidbodyType2D.Dynamic,
-				position = doorPosition
-			};
+                var body = world.CreateBody(bodyDef);
+                bodies.Add(body);
+                body.CreateShape(capsule, shapeDef);
 
-			var body = world.CreateBody(bodyDef);
-			bodies.Add(body);
+                var pivot = new Vector2(position.x, position.y + linkHalfLength);
+                jointDef.bodyA = prevBody;
+                jointDef.bodyB = body;
+                jointDef.localAnchorA = jointDef.bodyA.GetLocalPoint(pivot);
+                jointDef.localAnchorB = jointDef.bodyB.GetLocalPoint(pivot);
+                world.CreateJoint(jointDef);
 
-			var capsule = new CapsuleGeometry
-			{
-				center1 = new Vector2(0f, doorHalfHeight),
-				center2 = new Vector2(0f, -doorHalfHeight),
-				radius = 0.15f
-			};
-			
-			var shapeDef = new PhysicsShapeDefinition
-			{
-				surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.darkCyan }
-			};
-			body.CreateShape(capsule, shapeDef);
+                position.y -= 2.0f * linkHalfLength;
+                prevBody = body;
+            }
 
-			{
-				var pivot = doorPosition + new Vector2(0f, doorHalfHeight);
-				var jointDef = new PhysicsHingeJointDefinition
-				{
-					bodyA = lastLinkBody,
-					bodyB = body,
-					localAnchorA = lastLinkBody.GetLocalPoint(pivot),
-					localAnchorB = new Vector2(0f, doorHalfHeight),
-					enableMotor = true,
-					maxMotorTorque = 0.05f
-				};
-				world.CreateJoint(jointDef);
-			}
+            lastLinkBody = prevBody;
+        }
 
-			{
-				var localAxis = Vector2.up;
-				var jointDef = new PhysicsSliderJointDefinition
-				{
-					bodyA = groundBody,
-					bodyB = body,
-					localAnchorA = new PhysicsTransform(groundBody.GetLocalPoint(doorPosition), PhysicsRotate.up),
-					localAnchorB = new PhysicsTransform(Vector2.zero, PhysicsRotate.up),
-					maxMotorForce = 0.2f,
-					enableMotor = true,
-					collideConnected = true
-				};
-				world.CreateJoint(jointDef);	
-			}
-		}
+        {
+            var bodyDef = new PhysicsBodyDefinition
+            {
+                bodyType = RigidbodyType2D.Dynamic,
+                position = doorPosition
+            };
 
-		{
-			var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
-			
-			var y = 2.5f;
-			const int xCount = 25;
-			const int yCount = 20;
-			for (var i = 0; i < yCount; ++i)
-			{
-				var x = -6.8f + 5.5f;
-				for (var j = 0; j < xCount; ++j)
-				{
-					bodyDef.position = new Vector2(x, y);
-					var body = world.CreateBody(bodyDef);
-					bodies.Add(body);
+            var body = world.CreateBody(bodyDef);
+            bodies.Add(body);
 
-					var poly = SandboxUtility.CreateRandomPolygon(extent: 0.14f, radius: random.NextFloat(0.02f, 0.03f), ref random);
+            var capsule = new CapsuleGeometry
+            {
+                center1 = new Vector2(0f, doorHalfHeight),
+                center2 = new Vector2(0f, -doorHalfHeight),
+                radius = 0.15f
+            };
 
-					var shapeDef = new PhysicsShapeDefinition
-					{
-						surfaceMaterial = new PhysicsShape.SurfaceMaterial { rollingResistance = 0.3f, customColor = m_SandboxManager.ShapeColorState }
-					};
-					
-					body.CreateShape(poly, shapeDef);
-					
-					x -= 0.2f;
-				}
+            var shapeDef = new PhysicsShapeDefinition
+            {
+                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.darkCyan }
+            };
+            body.CreateShape(capsule, shapeDef);
 
-				y += 0.2f;
-			}
-		}
+            {
+                var pivot = doorPosition + new Vector2(0f, doorHalfHeight);
+                var jointDef = new PhysicsHingeJointDefinition
+                {
+                    bodyA = lastLinkBody,
+                    bodyB = body,
+                    localAnchorA = lastLinkBody.GetLocalPoint(pivot),
+                    localAnchorB = new Vector2(0f, doorHalfHeight),
+                    enableMotor = true,
+                    maxMotorTorque = 0.05f
+                };
+                world.CreateJoint(jointDef);
+            }
+
+            {
+                var localAxis = Vector2.up;
+                var jointDef = new PhysicsSliderJointDefinition
+                {
+                    bodyA = groundBody,
+                    bodyB = body,
+                    localAnchorA = new PhysicsTransform(groundBody.GetLocalPoint(doorPosition), PhysicsRotate.up),
+                    localAnchorB = new PhysicsTransform(Vector2.zero, PhysicsRotate.up),
+                    maxMotorForce = 0.2f,
+                    enableMotor = true,
+                    collideConnected = true
+                };
+                world.CreateJoint(jointDef);
+            }
+        }
+
+        {
+            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+
+            var y = 2.5f;
+            const int xCount = 25;
+            const int yCount = 20;
+            for (var i = 0; i < yCount; ++i)
+            {
+                var x = -6.8f + 5.5f;
+                for (var j = 0; j < xCount; ++j)
+                {
+                    bodyDef.position = new Vector2(x, y);
+                    var body = world.CreateBody(bodyDef);
+                    bodies.Add(body);
+
+                    var poly = SandboxUtility.CreateRandomPolygon(extent: 0.14f, radius: random.NextFloat(0.02f, 0.03f), ref random);
+
+                    var shapeDef = new PhysicsShapeDefinition
+                    {
+                        surfaceMaterial = new PhysicsShape.SurfaceMaterial { rollingResistance = 0.3f, customColor = m_SandboxManager.ShapeColorState }
+                    };
+
+                    body.CreateShape(poly, shapeDef);
+
+                    x -= 0.2f;
+                }
+
+                y += 0.2f;
+            }
+        }
     }
 }

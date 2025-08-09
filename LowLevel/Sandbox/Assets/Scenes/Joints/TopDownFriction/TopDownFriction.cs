@@ -5,16 +5,16 @@ using UnityEngine.UIElements;
 
 public class TopDownFriction : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
     private NativeList<PhysicsRelativeJoint> m_Joints;
-    
+
     private float m_MaxForce;
     private float m_MaxTorque;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -36,7 +36,7 @@ public class TopDownFriction : MonoBehaviour
         m_MaxTorque = 10f;
 
         m_Joints = new NativeList<PhysicsRelativeJoint>(initialCapacity: 100, Allocator.Persistent);
-        
+
         SetupOptions();
 
         SetupScene();
@@ -46,7 +46,7 @@ public class TopDownFriction : MonoBehaviour
     {
         if (m_Joints.IsCreated)
             m_Joints.Dispose();
-        
+
         // Reset overrides.
         m_SandboxManager.ResetOverrideDrawOptions();
         m_SandboxManager.ResetOverrideColorShapeState();
@@ -55,13 +55,13 @@ public class TopDownFriction : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+
             // Max Force.
             var maxForce = root.Q<Slider>("max-force");
             maxForce.value = m_MaxForce;
@@ -69,7 +69,7 @@ public class TopDownFriction : MonoBehaviour
             {
                 m_MaxForce = evt.newValue;
                 UpdateJoints();
-            });           
+            });
 
             // Max Torque.
             var maxTorque = root.Q<Slider>("max-torque");
@@ -78,12 +78,12 @@ public class TopDownFriction : MonoBehaviour
             {
                 m_MaxTorque = evt.newValue;
                 UpdateJoints();
-            });           
-            
+            });
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
@@ -96,9 +96,9 @@ public class TopDownFriction : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         m_Joints.Clear();
-        
+
         ref var random = ref m_SandboxManager.Random;
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
@@ -107,7 +107,7 @@ public class TopDownFriction : MonoBehaviour
         {
             groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
             bodies.Add(groundBody);
-            
+
             var vertices = new NativeList<Vector2>(Allocator.Temp);
             vertices.Add(Vector2.right * 10f + Vector2.up * 20f);
             vertices.Add(Vector2.right * 10f);
@@ -133,19 +133,19 @@ public class TopDownFriction : MonoBehaviour
 
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = 0f };
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 0.8f } };
-            
+
             const int order = 10;
             var offset = new Vector2(-5f, 15f);
-            for (var i = 0; i < order; ++i )
+            for (var i = 0; i < order; ++i)
             {
-                for (var j = 0; j < order; ++j )
+                for (var j = 0; j < order; ++j)
                 {
                     bodyDef.position = offset;
                     var body = world.CreateBody(bodyDef);
                     bodies.Add(body);
 
                     shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                    
+
                     // Create a shape.
                     var shapeIndex = (order * i + j) % 4;
                     if (shapeIndex == 0)
@@ -170,7 +170,7 @@ public class TopDownFriction : MonoBehaviour
             }
         }
     }
-    
+
     private void UpdateJoints()
     {
         // Update the max motor torque.
@@ -178,7 +178,7 @@ public class TopDownFriction : MonoBehaviour
         {
             joint.maxForce = m_MaxForce;
             joint.maxTorque = m_MaxTorque;
-            
+
             joint.WakeBodies();
         }
     }

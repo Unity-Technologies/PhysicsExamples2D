@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class Spinner : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -36,7 +36,7 @@ public class Spinner : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;
         m_MotorSpeed = 5f;
@@ -54,19 +54,19 @@ public class Spinner : MonoBehaviour
     private void OnDisable()
     {
         var world = PhysicsWorld.defaultWorld;
-	    world.gravity = m_OldGravity;
+        world.gravity = m_OldGravity;
     }
 
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
         var world = PhysicsWorld.defaultWorld;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Motor Speed.
             var motorSpeed = root.Q<Slider>("motor-speed");
@@ -80,7 +80,7 @@ public class Spinner : MonoBehaviour
                 else
                     m_SpinnerHinge.motorSpeed = m_MotorSpeed;
             });
-            
+
             // Max Motor Torque.
             m_MotorTorqueElement = root.Q<Slider>("motor-torque");
             m_MotorTorqueElement.value = m_MaxMotorTorque;
@@ -95,7 +95,7 @@ public class Spinner : MonoBehaviour
                 SetupScene();
             });
             kinematicSpinner.value = m_KinematicSpinner;
-            
+
             // Debris Count.
             var debrisCount = root.Q<SliderInt>("debris-count");
             debrisCount.value = m_DebrisCount;
@@ -104,7 +104,7 @@ public class Spinner : MonoBehaviour
                 m_DebrisCount = evt.newValue;
                 SetupScene();
             });
-            
+
             // Debris Friction.
             var debrisFriction = root.Q<Slider>("debris-friction");
             debrisFriction.value = m_DebrisFriction;
@@ -122,32 +122,36 @@ public class Spinner : MonoBehaviour
                 m_DebrisBounciness = evt.newValue;
                 SetupScene();
             });
-            
+
             // Gravity Scale.
             var gravityScale = root.Q<Slider>("gravity-scale");
             gravityScale.value = m_GravityScale;
-            gravityScale.RegisterValueChangedCallback(evt => { m_GravityScale = evt.newValue; world.gravity = m_OldGravity * m_GravityScale; });
-            
+            gravityScale.RegisterValueChangedCallback(evt =>
+            {
+                m_GravityScale = evt.newValue;
+                world.gravity = m_OldGravity * m_GravityScale;
+            });
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
 
         PhysicsBody groundBody;
-        
+
         // Chain Surround.
         {
             groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
@@ -179,7 +183,7 @@ public class Spinner : MonoBehaviour
                 position = new Vector2(0f, -20f),
                 sleepingAllowed = false
             };
-            
+
             m_SpinnerBody = world.CreateBody(bodyDef);
             bodies.Add(m_SpinnerBody);
 
@@ -214,7 +218,7 @@ public class Spinner : MonoBehaviour
 
             var x = -23f;
             var y = -30f;
-            
+
             for (var i = 0; i < m_DebrisCount; ++i)
             {
                 bodyDef.position = new Vector2(x, y);
@@ -222,29 +226,29 @@ public class Spinner : MonoBehaviour
                 bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                
+
                 var remainder = i % 3;
                 if (remainder == 0)
                 {
                     body.CreateShape(capsule, shapeDef);
                 }
-                else if ( remainder == 1 )
+                else if (remainder == 1)
                 {
                     body.CreateShape(circle, shapeDef);
                 }
-                else if ( remainder == 2 )
+                else if (remainder == 2)
                 {
                     body.CreateShape(square, shapeDef);
                 }
-                
+
                 x += 0.5f;
 
-                if ( x >= 23.0f )
+                if (x >= 23.0f)
                 {
                     x = -23.0f;
                     y += 0.5f;
                 }
-            }            
+            }
         }
     }
 }

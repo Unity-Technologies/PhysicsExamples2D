@@ -12,33 +12,34 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
         private sealed class CircleShapeGeometryTool : SceneShapeGeometryTool
         {
             public CircleShapeGeometryTool(SceneShape sceneShape, IGeometryToolSettings geometryToolSettings) : base(sceneShape, geometryToolSettings)
-            { }
+            {
+            }
 
             public override void OnToolGUI(EditorWindow window)
             {
                 // Get the shape geometry. 
                 var geometry = Shape.circleGeometry;
                 var localGeometry = ShapeTarget.CircleGeometry;
-                
+
                 // Calculate the relative transform from the scene body to this scene shape.
                 var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.SceneBody.transform, ShapeTarget.transform, ShapeTarget.SceneBody.Body.world.transformPlane);
-                
+
                 // Set-up handles.
                 var snap = GetSnapSettings();
                 var handleDirection = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
                 var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(Vector3.right, TransformPlane)).normalized;
                 var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(Vector3.up, TransformPlane)).normalized;
-                
+
                 // Fetch the show labels option.
-                var showLabels = geometryToolSettings.ShowLabels; 
-                
+                var showLabels = geometryToolSettings.ShowLabels;
+
                 var shapeOrigin = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.center), ShapeTarget.transform.position, TransformPlane);
                 var handleSize = GetHandleSize(shapeOrigin);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(shapeOrigin, Quaternion.identity, Vector3.one)))
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
-                    
+
                     // Radius.
                     {
                         EditorGUI.BeginChangeCheck();
@@ -47,7 +48,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         if (EditorGUI.EndChangeCheck())
                         {
                             Undo.RecordObject(ShapeTarget, "Change CircleGeometry Radius");
-                            
+
                             geometry.radius = newRadiusValue.magnitude;
                             localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                             ShapeTarget.CircleGeometry = localGeometry;
@@ -65,7 +66,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleMoveAllColor;
-                    
+
                     // Center.
                     {
                         EditorGUI.BeginChangeCheck();
@@ -73,7 +74,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                         if (EditorGUI.EndChangeCheck())
                         {
                             Undo.RecordObject(ShapeTarget, "Change CircleGeometry Center");
-                            
+
                             geometry.center += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                             localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                             ShapeTarget.CircleGeometry = localGeometry;
@@ -93,7 +94,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 // Update shape if changed.
                 if (TargetShapeChanged)
                     ShapeTarget.UpdateShape();
-                
+
                 // Draw the geometry.
                 World.SetElementDepth3D(shapeOrigin);
                 World.DrawCircle(PhysicsMath.ToPosition2D(shapeOrigin, TransformPlane), geometry.radius, Color.green);

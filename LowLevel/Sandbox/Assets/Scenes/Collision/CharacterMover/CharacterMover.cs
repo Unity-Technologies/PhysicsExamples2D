@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class CharacterMover : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -18,40 +18,40 @@ public class CharacterMover : MonoBehaviour
         Circle = 1,
         Segment = 2
     }
-    
+
     private struct CollisionBits
     {
-	    public static readonly PhysicsMask StaticBit = new(0);
-	    public static readonly PhysicsMask MoverBit = new (1);
-	    public static readonly PhysicsMask DynamicBit = new(2);
-	    public static readonly PhysicsMask AllBits = PhysicsMask.All;
+        public static readonly PhysicsMask StaticBit = new(0);
+        public static readonly PhysicsMask MoverBit = new(1);
+        public static readonly PhysicsMask DynamicBit = new(2);
+        public static readonly PhysicsMask AllBits = PhysicsMask.All;
     }
 
     private const int MaxSolverIterations = 5;
     private const float DrawLifetime = 1f;
     private const float VelocityDrawScale = 2f;
-    private readonly Vector2 m_ElevatorOffset = new (112f, 10f);
+    private readonly Vector2 m_ElevatorOffset = new(112f, 10f);
     private const float ElevatorAmplitude = 4f;
 
     private float m_JumpSpeed;
-    private float m_MinSpeed ;
+    private float m_MinSpeed;
     private float m_MaxSpeed;
     private float m_StopSpeed;
     private float m_Accelerate;
     private float m_AirSteer;
-    private float m_Friction; 
+    private float m_Friction;
     private float m_Gravity;
     private float m_PogoScale;
-    private float m_PogoFrequency;    
-    private float m_PogoDamping;    
+    private float m_PogoFrequency;
+    private float m_PogoDamping;
     private PogoType m_PogoType;
-    
+
     private PhysicsTransform m_Transform;
     private Vector2 m_Velocity;
     private CapsuleGeometry m_Geometry;
 
     private PhysicsBody m_ElevatorBody;
-    
+
     private float m_Time;
     private float m_PogoVelocity;
     private bool m_OnGround;
@@ -59,7 +59,7 @@ public class CharacterMover : MonoBehaviour
     private bool m_LeftPressed;
     private bool m_RightPressed;
     private bool m_JumpPressed;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -73,10 +73,10 @@ public class CharacterMover : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
-	        
+
         // Reset Option State.
         m_JumpSpeed = 15f;
         m_MinSpeed = 0.1f;
@@ -88,48 +88,48 @@ public class CharacterMover : MonoBehaviour
         m_Gravity = 50f;
         m_PogoScale = 3f;
         m_PogoFrequency = 5f;
-        m_PogoDamping = 0.8f;    
+        m_PogoDamping = 0.8f;
         m_PogoType = PogoType.Circle;
-        
+
         SetupOptions();
 
         SetupScene();
-        
+
         PhysicsEvents.PreSimulate += CharacterMove;
     }
 
     private void OnDisable()
     {
-	    PhysicsEvents.PreSimulate -= CharacterMove;
-	    
-	    // Reset overrides.
-	    m_SandboxManager.ResetOverrideDrawOptions();
-	    m_CameraManipulator.DisableManipulators = false;
+        PhysicsEvents.PreSimulate -= CharacterMove;
+
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideDrawOptions();
+        m_CameraManipulator.DisableManipulators = false;
     }
 
     private void Update()
     {
-	    // Finish if the world is paused.
-	    if (m_SandboxManager.WorldPaused)
-		    return;
+        // Finish if the world is paused.
+        if (m_SandboxManager.WorldPaused)
+            return;
 
-	    // Fetch keyboard input.
-	    var currentKeyboard = Keyboard.current;
-	    m_LeftPressed = currentKeyboard.leftArrowKey.isPressed;
-	    m_RightPressed = currentKeyboard.rightArrowKey.isPressed;
-	    m_JumpPressed = currentKeyboard.spaceKey.isPressed;
+        // Fetch keyboard input.
+        var currentKeyboard = Keyboard.current;
+        m_LeftPressed = currentKeyboard.leftArrowKey.isPressed;
+        m_RightPressed = currentKeyboard.rightArrowKey.isPressed;
+        m_JumpPressed = currentKeyboard.spaceKey.isPressed;
     }
-    
+
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
-            
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+
             // Jump Speed.
             var jumpSpeed = root.Q<Slider>("jump-speed");
             jumpSpeed.RegisterValueChangedCallback(evt => { m_JumpSpeed = evt.newValue; });
@@ -139,31 +139,31 @@ public class CharacterMover : MonoBehaviour
             var minSpeed = root.Q<Slider>("min-speed");
             minSpeed.RegisterValueChangedCallback(evt => { m_MinSpeed = evt.newValue; });
             minSpeed.value = m_MinSpeed;
-            
+
             // Max Speed.
             var maxSpeed = root.Q<Slider>("max-speed");
             maxSpeed.RegisterValueChangedCallback(evt => { m_MaxSpeed = evt.newValue; });
-            maxSpeed.value = m_MaxSpeed;            
-            
+            maxSpeed.value = m_MaxSpeed;
+
             // Stop Speed.
             var stopSpeed = root.Q<Slider>("stop-speed");
             stopSpeed.RegisterValueChangedCallback(evt => { m_StopSpeed = evt.newValue; });
             stopSpeed.value = m_StopSpeed;
-            
+
             // Accelerate.
             var accelerate = root.Q<Slider>("accelerate");
             accelerate.RegisterValueChangedCallback(evt => { m_Accelerate = evt.newValue; });
-            accelerate.value = m_Accelerate;            
+            accelerate.value = m_Accelerate;
 
             // Air Steer.
             var airSteer = root.Q<Slider>("air-steer");
             airSteer.RegisterValueChangedCallback(evt => { m_AirSteer = evt.newValue; });
-            airSteer.value = m_AirSteer;            
-            
+            airSteer.value = m_AirSteer;
+
             // Friction.
             var friction = root.Q<Slider>("friction");
             friction.RegisterValueChangedCallback(evt => { m_Friction = evt.newValue; });
-            friction.value = m_Friction;                
+            friction.value = m_Friction;
 
             // Gravity.
             var gravity = root.Q<Slider>("gravity");
@@ -173,33 +173,33 @@ public class CharacterMover : MonoBehaviour
             // Pogo Scale.
             var pogoScale = root.Q<Slider>("pogo-scale");
             pogoScale.RegisterValueChangedCallback(evt => { m_PogoScale = evt.newValue; });
-            pogoScale.value = m_PogoScale;                
-            
+            pogoScale.value = m_PogoScale;
+
             // Pogo Frequency.
             var pogoFrequency = root.Q<Slider>("pogo-frequency");
             pogoFrequency.RegisterValueChangedCallback(evt => { m_PogoFrequency = evt.newValue; });
-            pogoFrequency.value = m_PogoFrequency;                
-            
+            pogoFrequency.value = m_PogoFrequency;
+
             // Pogo Damping.
             var pogoDamping = root.Q<Slider>("pogo-damping");
             pogoDamping.RegisterValueChangedCallback(evt => { m_PogoDamping = evt.newValue; });
-            pogoDamping.value = m_PogoDamping;                
-            
+            pogoDamping.value = m_PogoDamping;
+
             // Pogo Type.
             var pogoType = root.Q<EnumField>("pogo-type");
             pogoType.value = m_PogoType;
             pogoType.RegisterValueChangedCallback(evt => { m_PogoType = (PogoType)evt.newValue; });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
@@ -217,7 +217,7 @@ public class CharacterMover : MonoBehaviour
         m_LeftPressed = false;
         m_RightPressed = false;
         m_JumpPressed = false;
-        
+
         // Fetch the scene manager detail.
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
@@ -270,13 +270,13 @@ public class CharacterMover : MonoBehaviour
                 new(-8.94166660f, 2.42916870f),
                 new(-8.94166660f, 9.30833435f),
                 new(-9.47083378f, 9.30833435f),
-                new(-9.47083378f, -0.216665655f)        
+                new(-9.47083378f, -0.216665655f)
             };
 
             var chainGeometry = new ChainGeometry(points.AsArray());
             groundBody1.CreateChain(chainGeometry, PhysicsChainDefinition.defaultDefinition);
         }
-        
+
         // Ground #2.
         PhysicsBody groundBody2;
         {
@@ -331,7 +331,7 @@ public class CharacterMover : MonoBehaviour
                 new(2.64583349f, 8.25000000f),
                 new(1.05833340f, 9.30833435f),
                 new(0.529166698f, 9.30833435f),
-                new(0.529166698f, -0.216665655f)            
+                new(0.529166698f, -0.216665655f)
             };
 
             var chainGeometry = new ChainGeometry(points.AsArray());
@@ -340,380 +340,380 @@ public class CharacterMover : MonoBehaviour
 
         // Create the Bridge.
         {
-	        var box = PolygonGeometry.CreateBox(new Vector2(1f, 0.25f));
-	        var shapeDef = PhysicsShapeDefinition.defaultDefinition;
+            var box = PolygonGeometry.CreateBox(new Vector2(1f, 0.25f));
+            var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
-	        var jointDef = new PhysicsHingeJointDefinition
-	        {
-		        maxMotorTorque = 10f,
-		        enableMotor = true,
-		        springFrequency = 3f,
-		        springDamping = 0.8f,
-		        enableSpring = true
-	        };
+            var jointDef = new PhysicsHingeJointDefinition
+            {
+                maxMotorTorque = 10f,
+                enableMotor = true,
+                springFrequency = 3f,
+                springDamping = 0.8f,
+                enableSpring = true
+            };
 
-	        var offset = new Vector2(48.7f, 9.2f);
-			var count = 50;
+            var offset = new Vector2(48.7f, 9.2f);
+            var count = 50;
 
-			var prevBody = groundBody1;
-			for (var n = 0; n < count; ++n)
-			{
-				var bodyDef = new PhysicsBodyDefinition
-				{
-					bodyType = RigidbodyType2D.Dynamic,
-					position = new Vector2(offset.x + 0.5f + 1f * n, offset.y),
-					angularDamping = 0.2f
-				};
+            var prevBody = groundBody1;
+            for (var n = 0; n < count; ++n)
+            {
+                var bodyDef = new PhysicsBodyDefinition
+                {
+                    bodyType = RigidbodyType2D.Dynamic,
+                    position = new Vector2(offset.x + 0.5f + 1f * n, offset.y),
+                    angularDamping = 0.2f
+                };
 
-				var body = world.CreateBody(bodyDef);
-				bodies.Add(body);
+                var body = world.CreateBody(bodyDef);
+                bodies.Add(body);
 
-				body.CreateShape(box, shapeDef);
+                body.CreateShape(box, shapeDef);
 
-				var pivot = new Vector2(offset.x + 1.0f * n, offset.y);
-				jointDef.bodyA = prevBody;
-				jointDef.bodyB = body;
-				jointDef.localAnchorA = new PhysicsTransform(jointDef.bodyA.GetLocalPoint(pivot));
-				jointDef.localAnchorB = new PhysicsTransform(jointDef.bodyB.GetLocalPoint(pivot));
-				world.CreateJoint(jointDef);
+                var pivot = new Vector2(offset.x + 1.0f * n, offset.y);
+                jointDef.bodyA = prevBody;
+                jointDef.bodyB = body;
+                jointDef.localAnchorA = new PhysicsTransform(jointDef.bodyA.GetLocalPoint(pivot));
+                jointDef.localAnchorB = new PhysicsTransform(jointDef.bodyB.GetLocalPoint(pivot));
+                world.CreateJoint(jointDef);
 
-				prevBody = body;
-			}
+                prevBody = body;
+            }
 
-			{
-				var pivot = new Vector2(offset.x + 1.0f * count, offset.y);
-				jointDef.bodyA = prevBody;
-				jointDef.bodyB = groundBody2;
-				jointDef.localAnchorA = new PhysicsTransform(jointDef.bodyA.GetLocalPoint(pivot));
-				jointDef.localAnchorB = new PhysicsTransform(jointDef.bodyB.GetLocalPoint(pivot));
-				world.CreateJoint(jointDef);
-			}
+            {
+                var pivot = new Vector2(offset.x + 1.0f * count, offset.y);
+                jointDef.bodyA = prevBody;
+                jointDef.bodyB = groundBody2;
+                jointDef.localAnchorA = new PhysicsTransform(jointDef.bodyA.GetLocalPoint(pivot));
+                jointDef.localAnchorB = new PhysicsTransform(jointDef.bodyB.GetLocalPoint(pivot));
+                world.CreateJoint(jointDef);
+            }
         }
-	    
-	    // Create some random dynamic debris.
-		{
-			ref var random = ref m_SandboxManager.Random;
-			
-			for (var n = -70f; n < 75f; n += 2f)
-			{
-				var bodyDef = new PhysicsBodyDefinition
-				{
-					bodyType = RigidbodyType2D.Dynamic,
-					position = new Vector2(75f + n, 12f + random.NextFloat(0f, 6f)),
-					rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)),
-					angularVelocity = random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI),
-					fastCollisionsAllowed = true
-				};
-				var body = world.CreateBody(bodyDef);
-				bodies.Add(body);
-				
-				var shapeDef = new PhysicsShapeDefinition
-				{
-					contactFilter = new PhysicsShape.ContactFilter
-					{
-						categories = CollisionBits.DynamicBit,
-						contacts = CollisionBits.AllBits
-					},
-					surfaceMaterial = new PhysicsShape.SurfaceMaterial
-					{
-						bounciness = 0.0f,
-						friction = 0.6f,
-						rollingResistance = 0.2f
-					}
-				};
 
-				var box = PolygonGeometry.CreateBox(new Vector2(random.NextFloat(0.1f, 0.5f), random.NextFloat(0.5f, 1.5f)));
-				body.CreateShape(box, shapeDef);
-			}
-		}
+        // Create some random dynamic debris.
+        {
+            ref var random = ref m_SandboxManager.Random;
 
-		// Create the elevator.
-		{
-			var bodyDef = new PhysicsBodyDefinition
-			{
-				bodyType = RigidbodyType2D.Kinematic,
-				position = new Vector2(m_ElevatorOffset.x, m_ElevatorOffset.y - ElevatorAmplitude)
-			};
-			m_ElevatorBody = world.CreateBody(bodyDef);
-			bodies.Add(m_ElevatorBody);
+            for (var n = -70f; n < 75f; n += 2f)
+            {
+                var bodyDef = new PhysicsBodyDefinition
+                {
+                    bodyType = RigidbodyType2D.Dynamic,
+                    position = new Vector2(75f + n, 12f + random.NextFloat(0f, 6f)),
+                    rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)),
+                    angularVelocity = random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI),
+                    fastCollisionsAllowed = true
+                };
+                var body = world.CreateBody(bodyDef);
+                bodies.Add(body);
 
-			var shapeDef = new PhysicsShapeDefinition
-			{
-				contactFilter = new PhysicsShape.ContactFilter
-				{
-					categories = CollisionBits.DynamicBit,
-					contacts = CollisionBits.AllBits
-				},
-				moverData = new PhysicsShape.MoverData
-				{
-					pushLimit = 0.01f,
-					clipVelocity = true
-				}
-			};
-			
-			var box = PolygonGeometry.CreateBox(new Vector2(4f, 0.2f));
-			m_ElevatorBody.CreateShape(box, shapeDef);
-		}        
+                var shapeDef = new PhysicsShapeDefinition
+                {
+                    contactFilter = new PhysicsShape.ContactFilter
+                    {
+                        categories = CollisionBits.DynamicBit,
+                        contacts = CollisionBits.AllBits
+                    },
+                    surfaceMaterial = new PhysicsShape.SurfaceMaterial
+                    {
+                        bounciness = 0.0f,
+                        friction = 0.6f,
+                        rollingResistance = 0.2f
+                    }
+                };
+
+                var box = PolygonGeometry.CreateBox(new Vector2(random.NextFloat(0.1f, 0.5f), random.NextFloat(0.5f, 1.5f)));
+                body.CreateShape(box, shapeDef);
+            }
+        }
+
+        // Create the elevator.
+        {
+            var bodyDef = new PhysicsBodyDefinition
+            {
+                bodyType = RigidbodyType2D.Kinematic,
+                position = new Vector2(m_ElevatorOffset.x, m_ElevatorOffset.y - ElevatorAmplitude)
+            };
+            m_ElevatorBody = world.CreateBody(bodyDef);
+            bodies.Add(m_ElevatorBody);
+
+            var shapeDef = new PhysicsShapeDefinition
+            {
+                contactFilter = new PhysicsShape.ContactFilter
+                {
+                    categories = CollisionBits.DynamicBit,
+                    contacts = CollisionBits.AllBits
+                },
+                moverData = new PhysicsShape.MoverData
+                {
+                    pushLimit = 0.01f,
+                    clipVelocity = true
+                }
+            };
+
+            var box = PolygonGeometry.CreateBox(new Vector2(4f, 0.2f));
+            m_ElevatorBody.CreateShape(box, shapeDef);
+        }
     }
 
     private void CharacterMove(PhysicsWorld world, float deltaTime)
     {
-	    // Clear any drawing (specifically here the custom-drawing with lifetime).
-	    PhysicsWorld.defaultWorld.ClearDraw();
-	    
-	    // Finish if the world is paused.
-	    if (m_SandboxManager.WorldPaused || !world.isDefaultWorld)
-		    return;
-	    
-	    // Animate the elevator.
-	    var target = new PhysicsTransform(new Vector2(m_ElevatorOffset.x, ElevatorAmplitude * Mathf.Cos(1f * m_Time + PhysicsMath.PI) + m_ElevatorOffset.y));
-	    m_ElevatorBody.SetTransformTarget(target, deltaTime);
+        // Clear any drawing (specifically here the custom-drawing with lifetime).
+        PhysicsWorld.defaultWorld.ClearDraw();
 
-	    // Bump the time.
-	    m_Time += deltaTime;
+        // Finish if the world is paused.
+        if (m_SandboxManager.WorldPaused || !world.isDefaultWorld)
+            return;
 
-	    // Character Input.
-	    {
-		    var throttle = 0f;
+        // Animate the elevator.
+        var target = new PhysicsTransform(new Vector2(m_ElevatorOffset.x, ElevatorAmplitude * Mathf.Cos(1f * m_Time + PhysicsMath.PI) + m_ElevatorOffset.y));
+        m_ElevatorBody.SetTransformTarget(target, deltaTime);
 
-		    // Left?
-		    if (m_LeftPressed)
-			    throttle -= 1f;
+        // Bump the time.
+        m_Time += deltaTime;
 
-		    // Right?
-		    if (m_RightPressed)
-			    throttle += 1f;
+        // Character Input.
+        {
+            var throttle = 0f;
 
-		    // Jump?
-		    if (m_JumpPressed)
-		    {
-			    if (m_OnGround && m_JumpReleased)
-			    {
-				    m_Velocity.y = m_JumpSpeed;
-				    m_OnGround = false;
-				    m_JumpReleased = false;
-			    }
-		    }
-		    else
-		    {
-			    m_JumpReleased = true;
-		    }
+            // Left?
+            if (m_LeftPressed)
+                throttle -= 1f;
 
-		    // Solve the movement.
-		    SolveMove(world, deltaTime, throttle);
-	    }
+            // Right?
+            if (m_RightPressed)
+                throttle += 1f;
 
-	    // Update the camera position X to the character.
-	    m_CameraManipulator.CameraPosition = new Vector2(m_Transform.position.x, m_CameraManipulator.CameraPosition.y);
-	    
-	    // Draw.
-	    world.DrawGeometry(m_Geometry, m_Transform, m_OnGround ? Color.orange : Color.aquamarine, DrawLifetime);
-	    world.DrawLine(m_Transform.position, m_Transform.position + m_Velocity.normalized * VelocityDrawScale, m_SandboxManager.ShapeColorState, DrawLifetime);
+            // Jump?
+            if (m_JumpPressed)
+            {
+                if (m_OnGround && m_JumpReleased)
+                {
+                    m_Velocity.y = m_JumpSpeed;
+                    m_OnGround = false;
+                    m_JumpReleased = false;
+                }
+            }
+            else
+            {
+                m_JumpReleased = true;
+            }
+
+            // Solve the movement.
+            SolveMove(world, deltaTime, throttle);
+        }
+
+        // Update the camera position X to the character.
+        m_CameraManipulator.CameraPosition = new Vector2(m_Transform.position.x, m_CameraManipulator.CameraPosition.y);
+
+        // Draw.
+        world.DrawGeometry(m_Geometry, m_Transform, m_OnGround ? Color.orange : Color.aquamarine, DrawLifetime);
+        world.DrawLine(m_Transform.position, m_Transform.position + m_Velocity.normalized * VelocityDrawScale, m_SandboxManager.ShapeColorState, DrawLifetime);
     }
 
     /// Reference: https://github.com/id-Software/Quake/blob/master/QW/client/pmove.c#L390
     private void SolveMove(PhysicsWorld world, float deltaTime, float throttle)
     {
-		// Friction
-		var speed = m_Velocity.magnitude;
-		if (speed < m_MinSpeed)
-		{
-			m_Velocity = Vector2.zero;
-		}
-		else if (m_OnGround)
-		{
-			// Linear damping above stopSpeed and fixed reduction below stopSpeed.
-			var control = speed < m_StopSpeed ? m_StopSpeed : speed;
+        // Friction
+        var speed = m_Velocity.magnitude;
+        if (speed < m_MinSpeed)
+        {
+            m_Velocity = Vector2.zero;
+        }
+        else if (m_OnGround)
+        {
+            // Linear damping above stopSpeed and fixed reduction below stopSpeed.
+            var control = speed < m_StopSpeed ? m_StopSpeed : speed;
 
-			// Friction has units of 1/time.
-			var drop = control * m_Friction * deltaTime;
-			var newSpeed = Mathf.Max(0f, speed - drop);
-			m_Velocity *= newSpeed / speed;
-		}
+            // Friction has units of 1/time.
+            var drop = control * m_Friction * deltaTime;
+            var newSpeed = Mathf.Max(0f, speed - drop);
+            m_Velocity *= newSpeed / speed;
+        }
 
-		// If we're on the ground, stop any vertical velocity.
-		if (m_OnGround)
-			m_Velocity.y = 0f;
-		
-		// Calculate the desired movement.
-		var desiredVelocity = new Vector2(m_MaxSpeed * throttle, 0f);
-		var desiredSpeed = Mathf.Min(desiredVelocity.magnitude, m_MaxSpeed);
-		var desiredDirection = desiredVelocity.normalized;
-		
-		// Accelerate
-		var currentSpeed = Vector2.Dot(m_Velocity, desiredDirection);
-		var addSpeed = desiredSpeed - currentSpeed;
-		if (addSpeed > 0f)
-		{
-			var steer = m_OnGround ? 1f : m_AirSteer;
-			var accelSpeed = Mathf.Min(steer * m_Accelerate * m_MaxSpeed * deltaTime, addSpeed);
-			
-			m_Velocity += accelSpeed * desiredDirection;
-		}
+        // If we're on the ground, stop any vertical velocity.
+        if (m_OnGround)
+            m_Velocity.y = 0f;
 
-		// Add gravity.
-		m_Velocity.y -= m_Gravity * deltaTime;
+        // Calculate the desired movement.
+        var desiredVelocity = new Vector2(m_MaxSpeed * throttle, 0f);
+        var desiredSpeed = Mathf.Min(desiredVelocity.magnitude, m_MaxSpeed);
+        var desiredDirection = desiredVelocity.normalized;
 
-		// Calculate Pogo details.
-		var pogoRestLength = m_PogoScale * m_Geometry.radius;
-		var rayLength = pogoRestLength + m_Geometry.radius;
-		var origin = m_Transform.TransformPoint(m_Geometry.center1);
-		var circle = new CircleGeometry { center = origin, radius = 0.5f * m_Geometry.radius };
-		var segmentOffset = new Vector2(0.75f * m_Geometry.radius, 0f);
-		var segment = new SegmentGeometry { point1 = origin - segmentOffset, point2 = origin + segmentOffset };
-		
-		var pogoFilter = new PhysicsQuery.QueryFilter
-		{
-			categories = CollisionBits.MoverBit,
-			hitCategories = CollisionBits.StaticBit | CollisionBits.DynamicBit
-		};
+        // Accelerate
+        var currentSpeed = Vector2.Dot(m_Velocity, desiredDirection);
+        var addSpeed = desiredSpeed - currentSpeed;
+        if (addSpeed > 0f)
+        {
+            var steer = m_OnGround ? 1f : m_AirSteer;
+            var accelSpeed = Mathf.Min(steer * m_Accelerate * m_MaxSpeed * deltaTime, addSpeed);
 
-		// Fetch appropriate shape proxy and translation.
-		PhysicsShape.ShapeProxy shapeProxy;
-		Vector2 translation;
-		switch (m_PogoType)
-		{
-			case PogoType.Point:
-			{
-				shapeProxy = new PhysicsShape.ShapeProxy
-				{
-					vertices = new PhysicsShape.ShapeArray { vertex0 = origin },
-					count = 1,
-					radius = 0
-				};
-				
-				translation = new Vector2(0f, -rayLength);
-				
-				break;
-			}
+            m_Velocity += accelSpeed * desiredDirection;
+        }
 
-			case PogoType.Circle:
-			{
-				shapeProxy = new PhysicsShape.ShapeProxy(circle);
-				translation = new Vector2(0f, -rayLength + circle.radius);
-				
-				break;
-			}
-			
-			case PogoType.Segment:
-			{
-				shapeProxy = new PhysicsShape.ShapeProxy(segment);
-				translation = new Vector2(0f, -rayLength);
-				
-				break;
-			}
+        // Add gravity.
+        m_Velocity.y -= m_Gravity * deltaTime;
 
-			default:
-				throw new ArgumentOutOfRangeException();
-		}
+        // Calculate Pogo details.
+        var pogoRestLength = m_PogoScale * m_Geometry.radius;
+        var rayLength = pogoRestLength + m_Geometry.radius;
+        var origin = m_Transform.TransformPoint(m_Geometry.center1);
+        var circle = new CircleGeometry { center = origin, radius = 0.5f * m_Geometry.radius };
+        var segmentOffset = new Vector2(0.75f * m_Geometry.radius, 0f);
+        var segment = new SegmentGeometry { point1 = origin - segmentOffset, point2 = origin + segmentOffset };
 
-		// Find a hit for the Pogo shape.
-		using var hit = world.CastShapeProxy(shapeProxy, translation, pogoFilter);
-		var castResult = hit.Length > 0 ? hit[0] : default;
+        var pogoFilter = new PhysicsQuery.QueryFilter
+        {
+            categories = CollisionBits.MoverBit,
+            hitCategories = CollisionBits.StaticBit | CollisionBits.DynamicBit
+        };
 
-		// Update grounded flag.
-		if (m_OnGround)
-		{
-			m_OnGround = castResult.isValid;
-		}
-		else
-		{
-			// Avoid snapping to ground if still going up.
-			m_OnGround = castResult.isValid && m_Velocity.y <= 0.01f;
-		}
+        // Fetch appropriate shape proxy and translation.
+        PhysicsShape.ShapeProxy shapeProxy;
+        Vector2 translation;
+        switch (m_PogoType)
+        {
+            case PogoType.Point:
+            {
+                shapeProxy = new PhysicsShape.ShapeProxy
+                {
+                    vertices = new PhysicsShape.ShapeArray { vertex0 = origin },
+                    count = 1,
+                    radius = 0
+                };
 
-		// Did the Pogo hit something?
-		if (castResult.isValid)
-		{
-			// Yes, so handle the pogo spring-damper
-			var pogoCurrentLength = castResult.fraction * rayLength;
-			var offset = pogoCurrentLength - pogoRestLength;
-			m_PogoVelocity = PhysicsMath.SpringDamper(
-				frequency: m_PogoFrequency,
-				damping: m_PogoDamping,
-				translation: offset,
-				speed: m_PogoVelocity,
-				deltaTime: deltaTime);
+                translation = new Vector2(0f, -rayLength);
 
-			var delta = castResult.fraction * translation;
-			world.DrawLine(origin, origin + delta, Color.gray, DrawLifetime);
+                break;
+            }
 
-			// Draw the Pogo.
-			DrawPogo(world, origin, delta, circle, segment, Color.plum);
+            case PogoType.Circle:
+            {
+                shapeProxy = new PhysicsShape.ShapeProxy(circle);
+                translation = new Vector2(0f, -rayLength + circle.radius);
 
-			// Apply a downward force from the Pogo.
-			castResult.shape.body.ApplyForce(Vector2.down * 50f, castResult.point);
-		}
-		else
-		{
-			// No, so reset the pogo velocity.
-			m_PogoVelocity = 0.0f;
+                break;
+            }
 
-			var delta = translation;
-			world.DrawLine(origin, origin + delta, Color.gray, DrawLifetime);
+            case PogoType.Segment:
+            {
+                shapeProxy = new PhysicsShape.ShapeProxy(segment);
+                translation = new Vector2(0f, -rayLength);
 
-			// Draw the Pogo.
-			DrawPogo(world, origin, delta, circle, segment, Color.gray);
-		}
+                break;
+            }
 
-		// Calculate the new target position.
-		var targetPosition = m_Transform.position + (deltaTime * m_Velocity) + (deltaTime * m_PogoVelocity * Vector2.up);
-		
-		var worldMoverInput = new PhysicsQuery.WorldMoverInput
-		{
-			geometry = m_Geometry,
-			maxIterations = MaxSolverIterations,
-			overlapFilter = new PhysicsQuery.QueryFilter
-			{
-				categories = CollisionBits.MoverBit,
-				hitCategories = CollisionBits.StaticBit | CollisionBits.DynamicBit | CollisionBits.MoverBit
-			},
-			
-			// Movers don't sweep against other movers, allows for soft collision.
-			castFilter = new PhysicsQuery.QueryFilter
-			{
-				categories = CollisionBits.MoverBit,
-				hitCategories = CollisionBits.StaticBit | CollisionBits.DynamicBit
-			},
-			
-			moveTolerance = 0.01f,
-			targetPosition = targetPosition,
-			transform = m_Transform,
-			velocity = m_Velocity
-		};
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
 
-		var moverResult = world.CastMover(worldMoverInput);
+        // Find a hit for the Pogo shape.
+        using var hit = world.CastShapeProxy(shapeProxy, translation, pogoFilter);
+        var castResult = hit.Length > 0 ? hit[0] : default;
 
-		m_Transform = moverResult.transform;
-		m_Velocity = moverResult.velocity;
+        // Update grounded flag.
+        if (m_OnGround)
+        {
+            m_OnGround = castResult.isValid;
+        }
+        else
+        {
+            // Avoid snapping to ground if still going up.
+            m_OnGround = castResult.isValid && m_Velocity.y <= 0.01f;
+        }
+
+        // Did the Pogo hit something?
+        if (castResult.isValid)
+        {
+            // Yes, so handle the pogo spring-damper
+            var pogoCurrentLength = castResult.fraction * rayLength;
+            var offset = pogoCurrentLength - pogoRestLength;
+            m_PogoVelocity = PhysicsMath.SpringDamper(
+                frequency: m_PogoFrequency,
+                damping: m_PogoDamping,
+                translation: offset,
+                speed: m_PogoVelocity,
+                deltaTime: deltaTime);
+
+            var delta = castResult.fraction * translation;
+            world.DrawLine(origin, origin + delta, Color.gray, DrawLifetime);
+
+            // Draw the Pogo.
+            DrawPogo(world, origin, delta, circle, segment, Color.plum);
+
+            // Apply a downward force from the Pogo.
+            castResult.shape.body.ApplyForce(Vector2.down * 50f, castResult.point);
+        }
+        else
+        {
+            // No, so reset the pogo velocity.
+            m_PogoVelocity = 0.0f;
+
+            var delta = translation;
+            world.DrawLine(origin, origin + delta, Color.gray, DrawLifetime);
+
+            // Draw the Pogo.
+            DrawPogo(world, origin, delta, circle, segment, Color.gray);
+        }
+
+        // Calculate the new target position.
+        var targetPosition = m_Transform.position + (deltaTime * m_Velocity) + (deltaTime * m_PogoVelocity * Vector2.up);
+
+        var worldMoverInput = new PhysicsQuery.WorldMoverInput
+        {
+            geometry = m_Geometry,
+            maxIterations = MaxSolverIterations,
+            overlapFilter = new PhysicsQuery.QueryFilter
+            {
+                categories = CollisionBits.MoverBit,
+                hitCategories = CollisionBits.StaticBit | CollisionBits.DynamicBit | CollisionBits.MoverBit
+            },
+
+            // Movers don't sweep against other movers, allows for soft collision.
+            castFilter = new PhysicsQuery.QueryFilter
+            {
+                categories = CollisionBits.MoverBit,
+                hitCategories = CollisionBits.StaticBit | CollisionBits.DynamicBit
+            },
+
+            moveTolerance = 0.01f,
+            targetPosition = targetPosition,
+            transform = m_Transform,
+            velocity = m_Velocity
+        };
+
+        var moverResult = world.CastMover(worldMoverInput);
+
+        m_Transform = moverResult.transform;
+        m_Velocity = moverResult.velocity;
     }
 
     // Draw the Pogo.
     private void DrawPogo(PhysicsWorld world, Vector2 origin, Vector2 delta, CircleGeometry circle, SegmentGeometry segment, Color pogoColor)
     {
-	    // Draw the Pogo.
-	    switch (m_PogoType)
-	    {
-		    case PogoType.Point:
-		    {
-			    world.DrawPoint(origin + delta, 10f, pogoColor, DrawLifetime);
-			    return;
-		    }
+        // Draw the Pogo.
+        switch (m_PogoType)
+        {
+            case PogoType.Point:
+            {
+                world.DrawPoint(origin + delta, 10f, pogoColor, DrawLifetime);
+                return;
+            }
 
-		    case PogoType.Circle:
-		    {
-			    world.DrawCircle(origin + delta, circle.radius, pogoColor, DrawLifetime);
-			    return;
-		    }
-			
-		    case PogoType.Segment:
-		    {
-			    world.DrawLine(segment.point1 + delta, segment.point2 + delta, pogoColor, DrawLifetime);
-			    return;
-		    }
+            case PogoType.Circle:
+            {
+                world.DrawCircle(origin + delta, circle.radius, pogoColor, DrawLifetime);
+                return;
+            }
 
-		    default:
-			    throw new ArgumentOutOfRangeException();
-	    }
+            case PogoType.Segment:
+            {
+                world.DrawLine(segment.point1 + delta, segment.point2 + delta, pogoColor, DrawLifetime);
+                return;
+            }
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 }

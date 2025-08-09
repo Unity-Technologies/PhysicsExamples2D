@@ -10,7 +10,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     {
         private static readonly Dictionary<Component, IWorldSceneTransformChanged> Monitors = new();
         private static readonly List<Transform> ChangedTransforms = new();
-        
+
         [InitializeOnLoadMethod]
         public static void InitializeAllWatchers()
         {
@@ -36,7 +36,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 // Add to transforms that have changed.
                 // We may get duplicates here, but it doesn't matter.
                 ChangedTransforms.Add(transform);
-                
+
                 // Call the monitor.
                 monitor.Value.TransformChanged();
             }
@@ -44,7 +44,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             // Reset changed transforms.
             foreach (var transform in ChangedTransforms)
                 transform.hasChanged = false;
-            
+
             // Reset the list.
             ChangedTransforms.Clear();
         }
@@ -53,7 +53,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             if (component is not IWorldSceneTransformChanged worldSceneTransformChanged)
                 throw new ArgumentException(nameof(component), $"Component must implement {nameof(IWorldSceneTransformChanged)}.");
-            
+
             Monitors.Add(component, worldSceneTransformChanged);
         }
 
@@ -61,7 +61,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
         {
             if (component is not IWorldSceneTransformChanged worldSceneTransformChanged)
                 throw new ArgumentException(nameof(component), $"Component must implement {nameof(IWorldSceneTransformChanged)}.");
-            
+
             Monitors.Remove(component);
         }
     }

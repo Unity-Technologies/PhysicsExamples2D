@@ -7,14 +7,14 @@ using UnityEngine.UIElements;
 
 public class ContactManifold : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
     private Vector2 m_ManipulatorStartPoint;
     private Vector2 m_ManipulatorBasePosition;
     private float m_ManipulatorBaseAngle;
-    
+
     private PhysicsTransform m_Transform;
     private float m_Angle;
     private float m_ShapeRadius;
@@ -31,9 +31,9 @@ public class ContactManifold : MonoBehaviour
     }
 
     private ManipulatorState m_ManipulatorState;
-    
+
     private const float PointScale = 0.01f;
-    
+
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -47,9 +47,9 @@ public class ContactManifold : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_ManipulatorState = ManipulatorState.None;
-        
+
         m_Transform = new PhysicsTransform { position = new Vector2(0f, 0.5f), rotation = PhysicsRotate.identity };
         m_Angle = 0f;
         m_ShapeRadius = 0.1f;
@@ -75,16 +75,16 @@ public class ContactManifold : MonoBehaviour
     private void Update()
     {
         HandleInput();
-        
+
         var world = PhysicsWorld.defaultWorld;
-        
+
         var offset = new Vector2(-12f, -5f);
         var nextColumn = new Vector2(4f, 0f);
 
         var color1 = Color.cornflowerBlue;
         var noHitColor = Color.lightSalmon;
         var hitColor = Color.lightGreen;
-        
+
         // Circle vs Circle.
         {
             var circle1 = new CircleGeometry { center = Vector2.zero, radius = 0.5f };
@@ -92,15 +92,15 @@ public class ContactManifold : MonoBehaviour
 
             var transform1 = new PhysicsTransform { position = offset, rotation = PhysicsRotate.identity };
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
-            
+
             var manifold = PhysicsQuery.CircleAndCircle(circle1, transform1, circle2, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(circle1, transform1, color1);
             world.DrawGeometry(circle2, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
 
@@ -113,16 +113,16 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.CapsuleAndCircle(capsule, transform1, circle, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(capsule, transform1, color1);
             world.DrawGeometry(circle, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Segment and Circle.
         {
             var segment = new SegmentGeometry { point1 = new Vector2(-0.5f, 0f), point2 = new Vector2(0.5f, 0f) };
@@ -132,13 +132,13 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.SegmentAndCircle(segment, transform1, circle, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(segment, transform1, color1);
             world.DrawGeometry(circle, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
 
@@ -151,16 +151,16 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.PolygonAndCircle(box, transform1, circle, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(box, transform1, color1);
             world.DrawGeometry(circle, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Capsule and Capsule.
         {
             var capsule1 = new CapsuleGeometry { center1 = new Vector2(-0.5f, 0f), center2 = new Vector2(0.5f, 0f), radius = 0.25f };
@@ -170,16 +170,16 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.CapsuleAndCapsule(capsule1, transform1, capsule2, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(capsule1, transform1, color1);
             world.DrawGeometry(capsule2, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Box and Capsule.
         {
             var box = PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, 0f), new PhysicsRotate(0.25f * PhysicsMath.PI)));
@@ -189,16 +189,16 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.PolygonAndCapsule(box, transform1, capsule, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(box, transform1, color1);
             world.DrawGeometry(capsule, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Segment and Capsule.
         {
             var segment = new SegmentGeometry { point1 = new Vector2(-1f, 0.3f), point2 = new Vector2(1f, 0.3f) };
@@ -227,13 +227,13 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.PolygonAndPolygon(box1, transform1, box2, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(box1, transform1, color1);
             world.DrawGeometry(box2, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
 
@@ -246,16 +246,16 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.PolygonAndPolygon(box1, transform1, box2, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(box1, transform1, color1);
             world.DrawGeometry(box2, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Rounded-Box and Rounded-Box.
         {
             var box = PolygonGeometry.CreateBox(Vector2.one, radius: m_ShapeRadius, inscribe: true);
@@ -264,15 +264,15 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.PolygonAndPolygon(box, transform1, box, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(box, transform1, color1);
             world.DrawGeometry(box, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
-        }        
+        }
 
         // Segment and Rounded-Box.
         {
@@ -283,25 +283,25 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.SegmentAndPolygon(segment, transform1, box, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(segment, transform1, color1);
             world.DrawGeometry(box, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
-        }           
+        }
 
         // Wedge and Wedge.
         {
             var wedge = PolygonGeometry.Create(new Vector2[] { new(-0.1f, -0.5f), new(0.1f, -0.5f), new(0f, 0.5f) }, radius: m_ShapeRadius);
-            
+
             var transform1 = new PhysicsTransform { position = offset, rotation = PhysicsRotate.identity };
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.PolygonAndPolygon(wedge, transform1, wedge, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(wedge, transform1, color1);
             world.DrawGeometry(wedge, transform2, touchColor);
@@ -310,20 +310,20 @@ public class ContactManifold : MonoBehaviour
             world.DrawGeometry(wedge, transform2, touchColor, 0.0f, PhysicsWorld.DrawFillOptions.Outline);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Rounded-Triangle and Rounded-Triangle.
         {
-            var triangle1 = PolygonGeometry.Create(new Vector2[] { new(0.175740838f, 0.224936664f), new(-0.301293969f, 0.194021404f),  new(-0.105151534f, -0.432157338f) }, radius: m_ShapeRadius);
+            var triangle1 = PolygonGeometry.Create(new Vector2[] { new(0.175740838f, 0.224936664f), new(-0.301293969f, 0.194021404f), new(-0.105151534f, -0.432157338f) }, radius: m_ShapeRadius);
             var triangle2 = PolygonGeometry.Create(new Vector2[] { new(-0.427884758f, -0.225028217f), new(0.0566576123f, -0.128772855f), new(0.176625848f, 0.338923335f) }, radius: m_ShapeRadius);
-            
+
             var transform1 = new PhysicsTransform { position = offset, rotation = PhysicsRotate.identity };
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.PolygonAndPolygon(triangle1, transform1, triangle2, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(triangle1, transform1, color1);
             world.DrawGeometry(triangle2, transform2, touchColor);
@@ -334,28 +334,28 @@ public class ContactManifold : MonoBehaviour
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
         }
-        
+
         offset = new Vector2(-10f, 5f);
-        
+
         // Box and Triangle.
         {
             var box = PolygonGeometry.CreateBox(new Vector2(2f, 2f));
             var triangle = PolygonGeometry.Create(new Vector2[] { new(-0.5f, 0.2f), new(0.5f, 0.2f), new(0f, 1.5f) });
-            
+
             var transform1 = new PhysicsTransform { position = offset, rotation = PhysicsRotate.identity };
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.PolygonAndPolygon(box, transform1, triangle, transform2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(box, transform1, color1);
             world.DrawGeometry(triangle, transform2, touchColor);
-            
+
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Chain-Segment and Circle.
         {
             var chainSegment = new ChainSegmentGeometry
@@ -369,12 +369,12 @@ public class ContactManifold : MonoBehaviour
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
 
             var manifold = PhysicsQuery.ChainSegmentAndCircle(chainSegment, transform1, circle, transform2);
-            
+
             var ghost1 = transform1.TransformPoint(chainSegment.ghost1);
             var ghost2 = transform1.TransformPoint(chainSegment.ghost2);
             var point1 = transform1.TransformPoint(chainSegment.segment.point1);
             var point2 = transform1.TransformPoint(chainSegment.segment.point2);
-            
+
             var touchColor = manifold.pointCount > 0 ? hitColor : noHitColor;
             world.DrawLine(ghost1, point1, Color.lightGray);
             world.DrawLine(point1, point2, color1);
@@ -382,14 +382,14 @@ public class ContactManifold : MonoBehaviour
             world.DrawGeometry(circle, transform2, touchColor);
 
             DrawManifold(ref manifold, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Chain-Segment and Rounded-Box.
         {
             offset += nextColumn;
-            
+
             var chainSegment1 = new ChainSegmentGeometry
             {
                 ghost1 = new Vector2(2f, 1f), ghost2 = new Vector2(-2f, 0f),
@@ -404,7 +404,7 @@ public class ContactManifold : MonoBehaviour
 
             var transform1 = new PhysicsTransform { position = offset, rotation = PhysicsRotate.identity };
             var transform2 = new PhysicsTransform { position = m_Transform.position + offset, rotation = m_Transform.rotation };
-            
+
             // Segment#1.
             {
                 var ghost2 = transform1.TransformPoint(chainSegment1.ghost2);
@@ -428,23 +428,23 @@ public class ContactManifold : MonoBehaviour
                 world.DrawPoint(point1, 4f * PointScale, color1);
                 world.DrawPoint(point2, 4f * PointScale, color1);
             }
-            
+
             var manifold1 = PhysicsQuery.ChainSegmentAndPolygon(chainSegment1, transform1, box, transform2);
             var manifold2 = PhysicsQuery.ChainSegmentAndPolygon(chainSegment2, transform1, box, transform2);
-            
+
             var touchColor = manifold1.pointCount > 0 || manifold2.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(box, transform2, touchColor);
-            
+
             DrawManifold(ref manifold1, transform1.position, transform2.position);
             DrawManifold(ref manifold2, transform1.position, transform2.position);
-            
+
             offset += nextColumn;
         }
-        
+
         // Chain-Segment and Capsule.
         {
             offset += nextColumn;
-            
+
             var chainSegment1 = new ChainSegmentGeometry
             {
                 ghost1 = new Vector2(2f, 1f), ghost2 = new Vector2(-2f, 0f),
@@ -454,7 +454,7 @@ public class ContactManifold : MonoBehaviour
             {
                 ghost1 = new Vector2(3f, 1f), ghost2 = new Vector2(-1f, 0f),
                 segment = new SegmentGeometry { point1 = new Vector2(2f, 1f), point2 = new Vector2(1f, 1f) }
-            };            
+            };
             var capsule = new CapsuleGeometry { center1 = new Vector2(-0.5f, 0.25f), center2 = new Vector2(0.5f, 0.25f), radius = 0.25f };
 
             var transform1 = new PhysicsTransform { position = offset, rotation = PhysicsRotate.identity };
@@ -483,23 +483,22 @@ public class ContactManifold : MonoBehaviour
                 world.DrawPoint(point1, 4f * PointScale, color1);
                 world.DrawPoint(point2, 4f * PointScale, color1);
             }
-            
+
             var manifold1 = PhysicsQuery.ChainSegmentAndCapsule(chainSegment1, transform1, capsule, transform2);
             var manifold2 = PhysicsQuery.ChainSegmentAndCapsule(chainSegment2, transform1, capsule, transform2);
-            
+
             var touchColor = manifold1.pointCount > 0 || manifold2.pointCount > 0 ? hitColor : noHitColor;
             world.DrawGeometry(capsule, transform2, touchColor);
-            
+
             DrawManifold(ref manifold1, transform1.position, transform2.position);
             DrawManifold(ref manifold2, transform1.position, transform2.position);
-        }        
-        
+        }
     }
 
-    private void DrawManifold(ref PhysicsShape.ContactManifold manifold, Vector2 origin1, Vector2 origin2 )
+    private void DrawManifold(ref PhysicsShape.ContactManifold manifold, Vector2 origin1, Vector2 origin2)
     {
         var world = PhysicsWorld.defaultWorld;
-        
+
         for (var i = 0; i < manifold.pointCount; ++i)
         {
             var contact = manifold[i];
@@ -507,8 +506,8 @@ public class ContactManifold : MonoBehaviour
             var p1 = contact.point;
             var p2 = p1 + manifold.normal * 0.5f;
             world.DrawLine(p1, p2, Color.white);
-            
-            if ( m_ShowAnchors )
+
+            if (m_ShowAnchors)
             {
                 world.DrawPoint(origin1 + contact.anchorA, 5f * PointScale, Color.red);
                 world.DrawPoint(origin2 + contact.anchorB, 5f * PointScale, Color.red);
@@ -517,8 +516,8 @@ public class ContactManifold : MonoBehaviour
             {
                 world.DrawPoint(p1, 5f * PointScale, Color.blue);
             }
-   
-            if ( m_ShowIds )
+
+            if (m_ShowIds)
             {
                 //var p = new Vector2(p1.x + 0.05f, p1.y - 0.02f);
                 //g_draw.DrawString( p, "0x%04x", mp->id );
@@ -544,10 +543,10 @@ public class ContactManifold : MonoBehaviour
             m_ManipulatorState = ManipulatorState.None;
             return;
         }
-        
+
         // Fetch the world mouse position.
         var worldPosition = (Vector2)m_CameraManipulator.Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
-        
+
         // Handle manipulator state.
         switch (m_ManipulatorState)
         {
@@ -555,7 +554,7 @@ public class ContactManifold : MonoBehaviour
             {
                 if (!currentMouse.leftButton.wasPressedThisFrame)
                     return;
-                
+
                 // Rotate.
                 if (currentKeyboard.leftCtrlKey.isPressed)
                 {
@@ -564,7 +563,7 @@ public class ContactManifold : MonoBehaviour
                     m_ManipulatorBaseAngle = m_Angle;
                     return;
                 }
-                
+
                 // Dragging.
                 m_ManipulatorState = ManipulatorState.Dragging;
                 m_ManipulatorStartPoint = worldPosition;
@@ -587,32 +586,32 @@ public class ContactManifold : MonoBehaviour
                 m_Transform.rotation = new PhysicsRotate(m_Angle);
                 return;
             }
-            
+
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
-    
+
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.

@@ -14,7 +14,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
 
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(SceneRelativeJoint.JointDefinition))));
             AddBaseInspectorGUI(root);
-            
+
             return root;
         }
     }

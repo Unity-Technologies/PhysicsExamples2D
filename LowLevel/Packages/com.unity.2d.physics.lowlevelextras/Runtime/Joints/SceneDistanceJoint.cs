@@ -7,13 +7,13 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     public sealed class SceneDistanceJoint : SceneJointBase, IWorldSceneDrawable
     {
         public PhysicsDistanceJointDefinition JointDefinition = PhysicsDistanceJointDefinition.defaultDefinition;
-        
+
         private PhysicsDistanceJoint m_Joint;
 
         protected override void CreateJoint()
         {
             DestroyJoint();
-            
+
             // Validate.
             if (!BodyA || !BodyA.Body.isValid || !BodyB || !BodyB.Body.isValid)
                 return;
@@ -21,11 +21,11 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             // Set the definition.
             JointDefinition.bodyA = BodyA.Body;
             JointDefinition.bodyB = BodyB.Body;
-            
+
             // Clamp the limits.
             if (JointDefinition.minDistanceLimit > JointDefinition.maxDistanceLimit)
                 JointDefinition.minDistanceLimit = JointDefinition.maxDistanceLimit;
-            
+
             // Create the joint.
             m_Joint = PhysicsDistanceJoint.Create(BodyA.Body.world, JointDefinition);
             if (m_Joint.isValid)
@@ -46,7 +46,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 m_OwnerKey = 0;
             }
         }
-        
+
         // Draw the joint.
         public void Draw()
         {

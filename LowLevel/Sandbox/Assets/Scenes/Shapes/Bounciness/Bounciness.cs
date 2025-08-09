@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class Bounciness : MonoBehaviour
 {
-    private SandboxManager m_SandboxManager;	
+    private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
@@ -16,7 +16,7 @@ public class Bounciness : MonoBehaviour
         Capsule = 1,
         Box = 2
     }
-    
+
     private ObjectType m_ObjectType;
     private Vector2 m_OldGravity;
     private float m_GravityScale;
@@ -33,11 +33,11 @@ public class Bounciness : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-        
+
         m_ObjectType = ObjectType.Circle;
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;
-        
+
         SetupOptions();
 
         SetupScene();
@@ -48,17 +48,17 @@ public class Bounciness : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
         world.gravity = m_OldGravity;
     }
-    
+
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
         var world = PhysicsWorld.defaultWorld;
-        
+
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Object Type.
             var objectType = root.Q<DropdownField>("object-type");
@@ -68,7 +68,7 @@ public class Bounciness : MonoBehaviour
                 m_ObjectType = Enum.Parse<ObjectType>(evt.newValue);
                 SetupScene();
             });
-            
+
             // Gravity Scale.
             var gravityScale = root.Q<Slider>("gravity-scale");
             gravityScale.value = m_GravityScale;
@@ -78,29 +78,29 @@ public class Bounciness : MonoBehaviour
                 world.gravity = m_OldGravity * m_GravityScale;
                 SetupScene();
             });
-            
+
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
-            
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
         }
     }
-    
+
     private void SetupScene()
     {
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-        
+
         var world = PhysicsWorld.defaultWorld;
         var bodies = m_SandboxManager.Bodies;
-        
+
         // Ground.
         {
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
-            
+
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
             bodies.Add(body);
 
@@ -117,10 +117,10 @@ public class Bounciness : MonoBehaviour
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 0f } };
 
             const int ShapeCount = 40;
-            
-            const float dr = 1.0f / ( ShapeCount > 1 ? ShapeCount - 1 : 1 );
+
+            const float dr = 1.0f / (ShapeCount > 1 ? ShapeCount - 1 : 1);
             const float dx = 2.0f;
-            var x = -1.0f * ( ShapeCount - 1 );
+            var x = -1.0f * (ShapeCount - 1);
 
             for (var i = 0; i < ShapeCount; ++i)
             {
@@ -130,8 +130,8 @@ public class Bounciness : MonoBehaviour
                 bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
-                
-                switch(m_ObjectType)
+
+                switch (m_ObjectType)
                 {
                     case ObjectType.Circle:
                     {
@@ -149,14 +149,14 @@ public class Bounciness : MonoBehaviour
                         body.CreateShape(boxGeometry, shapeDef);
                         break;
                     }
-                    
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                
+
                 shapeDef.surfaceMaterial.bounciness += dr;
                 x += dx;
-            }            
+            }
         }
     }
 }

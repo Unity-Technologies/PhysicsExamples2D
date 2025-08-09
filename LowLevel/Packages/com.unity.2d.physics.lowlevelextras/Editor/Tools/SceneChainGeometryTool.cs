@@ -14,7 +14,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             protected SceneChainGeometryEditorTool(SceneChain sceneChain, IGeometryToolSettings geometryToolSettings) : base(geometryToolSettings)
             {
                 Target = sceneChain;
-                
+
                 UpdateTool();
             }
 
@@ -29,17 +29,17 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             {
                 if (Chain.isValid)
                     return true;
-                
+
                 Chain = Target.ChainShape;
                 if (!Chain.isValid)
                     return true;
-                
+
                 Body = Chain.body;
                 World = Chain.world;
                 TransformPlane = World.transformPlane;
                 return true;
             }
-            
+
             /// <summary>
             /// Check the conditions of the target to ensure it's valid to edit or not.
             /// </summary>

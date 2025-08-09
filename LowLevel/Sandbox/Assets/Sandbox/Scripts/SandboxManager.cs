@@ -16,7 +16,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public NativeHashSet<PhysicsBody> Bodies;
     public ref Random Random => ref m_Random;
     public bool WorldPaused { get; private set; }
-    public float CameraZoom { get => m_CameraZoomElement.value; set => m_CameraZoomElement.value = value; }
+
+    public float CameraZoom
+    {
+        get => m_CameraZoomElement.value;
+        set => m_CameraZoomElement.value = value;
+    }
+
     public bool ColorShapeState { get; private set; }
 
     public string StartScene = string.Empty;
@@ -24,7 +30,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public DebuggingMenu DebuggingMenu;
     public ShortcutMenu ShortcutMenu;
     public float UpdatePeriodFPS = 0.1f;
-    
+
     public void SetOverrideDrawOptions(PhysicsWorld.DrawOptions overridenOptions, PhysicsWorld.DrawOptions fixedOptions)
     {
         // Finish if we're already overriding.
@@ -55,29 +61,29 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Enable all the elements.
         foreach (var item in m_DrawFlagElements)
             item.Value.enabledSelf = true;
-        
+
         // Restore previous draw flags.
         UpdateOverrideWorldDrawOptions(m_OverridePreviousDrawOptions);
         m_OverridePreviousDrawOptions = m_OverrideDrawOptions = PhysicsWorld.DrawOptions.Off;
     }
-    
+
     private void UpdateOverrideWorldDrawOptions(PhysicsWorld.DrawOptions fixedOptions)
     {
         // Calculate new draw flags.
         var newDrawOptions = (PhysicsWorld.defaultWorld.drawOptions & ~m_OverrideDrawOptions) | fixedOptions;
-        
+
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();
         foreach (var world in worlds)
             world.drawOptions = newDrawOptions;
     }
-    
+
     public void SetOverrideColorShapeState(bool colorShapeState)
     {
         // Finish if we're already in the requested state.
         if (m_OverrideColorShapeState)
             return;
-        
+
         // Set the override.
         m_OverridePreviousColorShapeState = ColorShapeState;
         m_ColorShapeStateElement.enabledSelf = false;
@@ -92,13 +98,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         ColorShapeState = m_OverridePreviousColorShapeState;
         m_OverrideColorShapeState = m_OverridePreviousColorShapeState = false;
     }
-    
+
     // Override state.
     private PhysicsWorld.DrawOptions m_OverrideDrawOptions;
     private PhysicsWorld.DrawOptions m_OverridePreviousDrawOptions;
     private bool m_OverrideColorShapeState;
     private bool m_OverridePreviousColorShapeState;
-    
+
     private struct MenuDefaults
     {
         // PhysicsWorld.
@@ -108,7 +114,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         public bool WarmStarting;
         public bool Sleeping;
         public bool Continuous;
-        
+
         // Draw.
         public bool ShowDebugging;
         public string InputDrag;
@@ -121,7 +127,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         public float DrawImpulseScale;
         public PhysicsWorld.DrawOptions DrawOptions;
     }
-    
+
     private CameraManipulator m_CameraManipulator;
     private SceneManifest m_SceneManifest;
     private UIDocument m_MainMenuDocument;
@@ -134,7 +140,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private bool m_DisableUIRestarts;
     private bool m_ShowUI;
     private Dictionary<PhysicsWorld.DrawOptions, Toggle> m_DrawFlagElements;
-    
+
     // PhysicsWorld Elements.
     private SliderInt m_WorkersElement;
     private SliderInt m_SubStepsElement;
@@ -144,7 +150,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private Toggle m_ContinuousElement;
     private Button m_SingleStepElement;
     private Button m_PauseContinueElement;
-    
+
     // Draw Elements.
     private Toggle m_ShowDebuggingElement;
     private DropdownField m_InputModeElement;
@@ -164,7 +170,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private Toggle m_DrawContactNormalsElement;
     private Toggle m_DrawContactTangentsElement;
     private Toggle m_DrawContactImpulsesElement;
-    
+
     private readonly List<TreeViewItemData<string>> m_ViewItems = new();
     private Random m_Random;
 
@@ -176,11 +182,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Disable any "SceneBody".
         foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             sceneBody.enabled = false;
-        
+
         // Disable any "SceneWorlds".
         foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
             sceneWorld.enabled = false;
-        
+
         // Destroy any current bodies.
         if (Bodies.IsCreated && Bodies.Count > 0)
         {
@@ -196,21 +202,21 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         // Reset the default world.
         PhysicsWorld.defaultWorld.Reset();
-        
+
         // Enable any "SceneWorlds".
         foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
             sceneWorld.enabled = true;
-        
+
         // Enable all bodies again.
         foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             sceneBody.enabled = true;
     }
-    
+
     private void OnEnable()
     {
         // We don't want this appearing all the time.
         UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
-        
+
         Bodies = new NativeHashSet<PhysicsBody>(500, Allocator.Persistent);
         m_DrawFlagElements = new Dictionary<PhysicsWorld.DrawOptions, Toggle>(capacity: 8);
 
@@ -229,13 +235,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_SceneManifest = GetComponent<SceneManifest>();
         m_MainMenuDocument = GetComponent<UIDocument>();
-        
+
         ColorShapeState = false;
         m_ShowUI = true;
 
         // Show the Shortcut menu by default.
         ShortcutMenu.gameObject.SetActive(true);
-        
+
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
         {
@@ -265,7 +271,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         m_UpdateTimeFPS = UpdatePeriodFPS;
     }
-    
+
     private void Update()
     {
         // Keyboard Controls.
@@ -290,7 +296,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
                 // Toggle Shortcut Men.
                 ShortcutMenu.gameObject.SetActive(!ShortcutMenu.gameObject.activeInHierarchy);
-                
+
                 // Main Menu.
                 m_MainMenuDocument.rootVisualElement.style.display = m_ShowUI ? DisplayStyle.Flex : DisplayStyle.None;
 
@@ -313,20 +319,20 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             {
                 TogglePauseContinue();
             }
-            
+
             // Debugging.
             if (currentKeyboard.dKey.wasPressedThisFrame)
             {
                 m_ShowDebuggingElement.value = !m_ShowDebuggingElement.value;
             }
-            
+
             // Toggle Color PhysicsShape State.
             if (currentKeyboard.cKey.wasPressedThisFrame)
             {
                 if (!m_OverrideColorShapeState)
                     m_ColorShapeStateElement.value = !m_ColorShapeStateElement.value;
             }
-            
+
             // Touch State.
             {
                 // Drag Mode.
@@ -344,16 +350,16 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             m_UpdateTimeFPS -= deltaTime;
             if (m_UpdateTimeFPS >= 0f)
                 return;
-            
+
             m_UpdateTimeFPS = UpdatePeriodFPS;
-     
+
             const string color = "<color=#7FFFD4>";
             const string endColor = "</color>";
-            
+
             var fps = 1f / deltaTime;
             m_BarFPS.highValue = m_MaxFPS = math.max(m_MaxFPS, fps);
             m_BarFPS.value = fps;
-            m_BarFPS.title = $"{color}{fps:F1}{endColor} fps ({color}{1000f/fps:F1}{endColor} ms)";
+            m_BarFPS.title = $"{color}{fps:F1}{endColor} fps ({color}{1000f / fps:F1}{endColor} ms)";
         }
     }
 
@@ -364,10 +370,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Menu Region.
         {
             var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI );
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI );
+            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
         }
-        
+
         // PhysicsWorld.
         {
             // Workers.
@@ -409,7 +415,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 foreach (var world in worlds)
                     world.warmStartingAllowed = evt.newValue;
             });
-            
+
             // Sleeping.
             m_SleepingElement = root.Q<Toggle>("sleeping");
             m_SleepingElement.value = m_MenuDefaults.Sleeping;
@@ -431,11 +437,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 foreach (var world in worlds)
                     world.continuousAllowed = evt.newValue;
             });
-            
+
             // Restart.
             var restart = root.Q<Button>("restart");
             restart.clicked += Restart;
-            
+
             // Single-step.
             m_SingleStepElement = root.Q<Button>("single-step");
             m_SingleStepElement.clicked += SingleStep;
@@ -445,7 +451,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             m_PauseContinueElement.enabledSelf = !WorldPaused;
             m_PauseContinueElement.text = WorldPaused ? "Continue (P)" : "Pause (P)";
             m_PauseContinueElement.clicked += TogglePauseContinue;
-            
+
             // Quit.
             var quit = root.Q<Button>("quit-application");
             quit.clicked += Application.Quit;
@@ -455,9 +461,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         {
             // Show Debugging.
             m_ShowDebuggingElement = root.Q<Toggle>("show-debugging");
-            m_ShowDebuggingElement.RegisterValueChangedCallback(evt => { DebuggingMenu.gameObject.SetActive(evt.newValue); }); 
+            m_ShowDebuggingElement.RegisterValueChangedCallback(evt => { DebuggingMenu.gameObject.SetActive(evt.newValue); });
             m_ShowDebuggingElement.value = m_MenuDefaults.ShowDebugging;
-            
+
             // Input Mode.
             m_InputModeElement = root.Q<DropdownField>("input-mode");
             m_InputModeElement.RegisterValueChangedCallback(evt =>
@@ -466,20 +472,17 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 m_CameraManipulator.TouchMode = touchMode;
             });
             m_InputModeElement.value = m_MenuDefaults.InputDrag;
-            
+
             // Explode Impulse.
             m_ExplodeImpulseElement = root.Q<Slider>("explode-impulse");
-            m_ExplodeImpulseElement.RegisterValueChangedCallback(evt =>
-            {
-                m_CameraManipulator.ExplodeImpulse = evt.newValue;
-            });
+            m_ExplodeImpulseElement.RegisterValueChangedCallback(evt => { m_CameraManipulator.ExplodeImpulse = evt.newValue; });
             m_ExplodeImpulseElement.value = m_MenuDefaults.ExplodeImpulse;
-            
+
             // Camera Zoom.
             m_CameraZoomElement = root.Q<Slider>("camera-zoom");
             m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
             m_CameraZoomElement.RegisterValueChangedCallback(evt => m_CameraManipulator.CameraZoom = evt.newValue);
-            
+
             // Draw Thickness.
             m_DrawThicknessElement = root.Q<Slider>("draw-thickness");
             m_DrawThicknessElement.RegisterValueChangedCallback(evt =>
@@ -523,7 +526,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                     world.drawImpulseScale = evt.newValue;
             });
             m_DrawImpulseScaleElement.value = m_MenuDefaults.DrawImpulseScale;
-            
+
             // PhysicsShape State Color.
             m_ColorShapeStateElement = root.Q<Toggle>("color-shape-state");
             m_ColorShapeStateElement.value = m_MenuDefaults.ColorShapeState;
@@ -533,20 +536,20 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
                 if (!m_DisableUIRestarts)
                     SceneResetAction?.Invoke();
-            }); 
-            
+            });
+
             // Bodies.
             m_DrawBodiesElement = ConfigureDrawFlag(root, "draw-bodies", PhysicsWorld.DrawOptions.AllBodies);
             m_DrawShapesElement = ConfigureDrawFlag(root, "draw-shapes", PhysicsWorld.DrawOptions.AllShapes);
             m_DrawJointsElement = ConfigureDrawFlag(root, "draw-joints", PhysicsWorld.DrawOptions.AllJoints);
             m_DrawBoundsElement = ConfigureDrawFlag(root, "draw-shape-bounds", PhysicsWorld.DrawOptions.AllShapeBounds);
-            m_DrawIslandsElement= ConfigureDrawFlag(root, "draw-solver-islands", PhysicsWorld.DrawOptions.AllSolverIslands);
+            m_DrawIslandsElement = ConfigureDrawFlag(root, "draw-solver-islands", PhysicsWorld.DrawOptions.AllSolverIslands);
             m_DrawContactPointsElement = ConfigureDrawFlag(root, "draw-contact-points", PhysicsWorld.DrawOptions.AllContactPoints);
             m_DrawContactNormalsElement = ConfigureDrawFlag(root, "draw-contact-normals", PhysicsWorld.DrawOptions.AllContactNormal);
             m_DrawContactTangentsElement = ConfigureDrawFlag(root, "draw-contact-tangents", PhysicsWorld.DrawOptions.AllContactFriction);
             m_DrawContactImpulsesElement = ConfigureDrawFlag(root, "draw-contact-impulses", PhysicsWorld.DrawOptions.AllContactImpulse);
         }
-        
+
         // FPS.
         {
             m_BarFPS = root.Q<ProgressBar>("fps");
@@ -556,7 +559,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private Toggle ConfigureDrawFlag(VisualElement root, string elementName, PhysicsWorld.DrawOptions targetDrawFlag)
     {
         var defaultWorld = PhysicsWorld.defaultWorld;
-        
+
         var drawFlagElement = root.Q<Toggle>(elementName);
         drawFlagElement.value = defaultWorld.drawOptions.HasFlag(targetDrawFlag);
         drawFlagElement.RegisterValueChangedCallback(evt =>
@@ -567,15 +570,15 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
             var currentDrawOptions = defaultWorld.drawOptions;
             var newDrawOptions = evt.newValue ? currentDrawOptions | targetDrawFlag : currentDrawOptions & ~targetDrawFlag;
-            
+
             // Update the worlds.
             using var worlds = PhysicsWorld.GetWorlds();
             foreach (var world in worlds)
-                world.drawOptions = newDrawOptions;            
+                world.drawOptions = newDrawOptions;
         });
 
         m_DrawFlagElements.Add(targetDrawFlag, drawFlagElement);
-        
+
         return drawFlagElement;
     }
 
@@ -613,18 +616,18 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         {
             var sceneList = new List<TreeViewItemData<string>>();
             foreach (var sceneName in m_SceneManifest.GetScenes(category))
-                sceneList.Add(new TreeViewItemData<string>(listId++, sceneName) );
+                sceneList.Add(new TreeViewItemData<string>(listId++, sceneName));
 
             m_ViewItems.Add(new TreeViewItemData<string>(-listId++, category, sceneList));
-        }        
-        
+        }
+
         // Set-up tree.
         m_ScenesView.SetRootItems(m_ViewItems);
         m_ScenesView.makeItem = () => new Label();
         m_ScenesView.bindItem = (e, i) => { ((Label)e).text = m_ScenesView.GetItemDataForIndex<string>(i); };
         m_ScenesView.itemsChosen += _ => TreeSelection();
         m_ScenesView.selectionChanged += _ => TreeSelectionChanged();
-        m_ScenesView.itemExpandedChanged += TreeExpandedChanged;  
+        m_ScenesView.itemExpandedChanged += TreeExpandedChanged;
         m_ScenesView.Rebuild();
 
         // Load the start scene if specified.
@@ -659,12 +662,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 m_ScenesView.CollapseItem(rootId);
         }
     }
-    
+
     private void TreeSelectionChanged()
     {
         if (!m_ScenesView.selectedIds.Any(selectedId => selectedId > 0))
             return;
-        
+
         var sceneName = (string)m_ScenesView.selectedItem;
 
         // Ignore if invalid scene or the same as the currently loaded one.
@@ -674,7 +677,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         m_CameraManipulator.ResetPanZoom();
         m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
-        
+
         DebuggingMenu.ResetStats();
         m_CameraManipulator.OverlapUI = 0;
 
@@ -686,11 +689,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private void Restart()
     {
         m_DisableUIRestarts = true;
-        
+
         // Reset overrides.
         ResetOverrideDrawOptions();
         ResetOverrideColorShapeState();
-        
+
         // Worlds.
         m_WorkersElement.value = m_MenuDefaults.Workers;
         m_SubStepsElement.value = m_MenuDefaults.SubSteps;
@@ -698,12 +701,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_WarmStartingElement.value = m_MenuDefaults.WarmStarting;
         m_SleepingElement.value = m_MenuDefaults.Sleeping;
         m_ContinuousElement.value = m_MenuDefaults.Continuous;
-        
+
         // Drawing.
         m_ShowDebuggingElement.value = m_MenuDefaults.ShowDebugging;
         m_InputModeElement.value = m_MenuDefaults.InputDrag;
         m_ExplodeImpulseElement.value = m_MenuDefaults.ExplodeImpulse;
-        m_CameraManipulator.ResetPanZoom(); m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
+        m_CameraManipulator.ResetPanZoom();
+        m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
         m_DrawThicknessElement.value = m_MenuDefaults.DrawThickness;
         m_DrawPointScaleElement.value = m_MenuDefaults.DrawPointScale;
         m_ColorShapeStateElement.value = m_MenuDefaults.ColorShapeState;
@@ -718,7 +722,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactImpulse);
 
         DebuggingMenu.ResetStats();
-        
+
         // Reload the scene.
         SceneResetAction = null;
         m_SceneManifest.ReloadCurrentScene(ResetSceneState);
@@ -740,14 +744,14 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private void SingleStep()
     {
         var defaultWorld = PhysicsWorld.defaultWorld;
-        
+
         var oldPaused = defaultWorld.paused;
         var oldSimulationMode = defaultWorld.simulationMode;
 
         // Pause thw world if we're not already paused.
         if (!WorldPaused)
             TogglePauseContinue();
-                
+
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();
         foreach (var world in worlds)
