@@ -40,9 +40,9 @@ public class LargeWorld : MonoBehaviour
         m_CameraManipulator.DisableManipulators = true;
 
         m_WavePeriod = 40f;
+        m_CycleCount = 600;
         m_GridSize = 1f;
         m_GridCount = (int)(m_CycleCount * m_WavePeriod / m_GridSize);
-        m_CycleCount = 600;
         m_CameraPanSpeed = 0f;
 
         m_FollowCar = true;
