@@ -69,13 +69,14 @@ public class CharacterMover : MonoBehaviour
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
         m_CameraManipulator.CameraPosition = new Vector2(20f, 9f);
+        m_CameraManipulator.DisableManipulators = true;
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
         
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
-        
+	        
         // Reset Option State.
         m_JumpSpeed = 15f;
         m_MinSpeed = 0.1f;
@@ -103,6 +104,7 @@ public class CharacterMover : MonoBehaviour
 	    
 	    // Reset overrides.
 	    m_SandboxManager.ResetOverrideDrawOptions();
+	    m_CameraManipulator.DisableManipulators = false;
     }
 
     private void Update()
@@ -502,8 +504,7 @@ public class CharacterMover : MonoBehaviour
 	    }
 
 	    // Update the camera position X to the character.
-	    var cameraPosition = m_CameraManipulator.Camera.transform.position;
-	    m_CameraManipulator.Camera.transform.position = new Vector3(m_Transform.position.x, cameraPosition.y, cameraPosition.z);
+	    m_CameraManipulator.CameraPosition = new Vector2(m_Transform.position.x, m_CameraManipulator.CameraPosition.y);
 	    
 	    // Draw.
 	    world.DrawGeometry(m_Geometry, m_Transform, m_OnGround ? Color.orange : Color.aquamarine, DrawLifetime);

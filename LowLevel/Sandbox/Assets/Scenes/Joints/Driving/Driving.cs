@@ -97,7 +97,7 @@ public class Driving : MonoBehaviour
             motorSpeed.RegisterValueChangedCallback(evt =>
             {
                 m_MotorSpeed = evt.newValue;
-                SetSpeed(m_MotorSpeed * m_Throttle);
+                SetCarSpeed(m_MotorSpeed * m_Throttle);
             });
             
             // Max Motor Torque.
@@ -306,28 +306,28 @@ public class Driving : MonoBehaviour
         if (currentKeyboard.leftArrowKey.isPressed)
         {
             m_Throttle = 1f;
-            SetSpeed(m_MotorSpeed);
+            SetCarSpeed(m_MotorSpeed);
         }
 
         // Forward.
         if (currentKeyboard.rightArrowKey.isPressed)
         {
             m_Throttle = -1f;
-            SetSpeed(-m_MotorSpeed);
+            SetCarSpeed(-m_MotorSpeed);
         }
 
         // Brake.
         if (currentKeyboard.spaceKey.isPressed)
         {
             m_Throttle = 0f;
-            SetSpeed(0f);
+            SetCarSpeed(0f);
         }
 
         // The Camera should follow the car.
         m_CameraManipulator.CameraPosition = m_FrontWheelJoint.bodyA.position;
     }
 
-    private void SetSpeed(float speed)
+    private void SetCarSpeed(float speed)
     {
         m_RearWheelJoint.motorSpeed = speed;
         m_FrontWheelJoint.motorSpeed = speed;

@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Benchmark/LargePyramid/LargePyramid.unity
     guid: 75539700f28b9de479bb3f795d49c9cc
   - enabled: 1
+    path: Assets/Scenes/Benchmark/LargeWorld/LargeWorld.unity
+    guid: 40014d64d8edfc94f847d6b01f5bae54
+  - enabled: 1
     path: Assets/Scenes/Benchmark/ManyTumblers/ManyTumblers.unity
     guid: e3dad047f60abd74cbbda22b00499c5e
   - enabled: 1
