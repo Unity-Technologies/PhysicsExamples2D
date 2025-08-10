@@ -76,7 +76,7 @@ public class Spinner : MonoBehaviour
                 m_MotorSpeed = evt.newValue;
 
                 if (m_KinematicSpinner)
-                    m_SpinnerBody.angularVelocity = m_MotorSpeed;
+                    m_SpinnerBody.angularVelocity = PhysicsMath.ToDegrees(m_MotorSpeed);
                 else
                     m_SpinnerHinge.motorSpeed = m_MotorSpeed;
             });
@@ -179,7 +179,7 @@ public class Spinner : MonoBehaviour
             var bodyDef = new PhysicsBodyDefinition
             {
                 bodyType = m_KinematicSpinner ? RigidbodyType2D.Kinematic : RigidbodyType2D.Dynamic,
-                angularVelocity = m_KinematicSpinner ? m_MotorSpeed : 0f,
+                angularVelocity = m_KinematicSpinner ? PhysicsMath.ToDegrees(m_MotorSpeed) : 0f,
                 position = new Vector2(0f, -20f),
                 sleepingAllowed = false
             };
