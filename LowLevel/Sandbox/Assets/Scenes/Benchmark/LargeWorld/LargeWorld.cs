@@ -39,6 +39,7 @@ public class LargeWorld : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
 
         // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
         m_CameraManipulator.DisableManipulators = true;
 
@@ -58,6 +59,7 @@ public class LargeWorld : MonoBehaviour
     private void OnDisable()
     {
         // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
         m_SandboxManager.ResetOverrideDrawOptions();
         m_CameraManipulator.DisableManipulators = false;
     }

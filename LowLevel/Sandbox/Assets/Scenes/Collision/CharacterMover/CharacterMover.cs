@@ -75,6 +75,7 @@ public class CharacterMover : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
 
         // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
 
         // Reset Option State.
@@ -103,6 +104,7 @@ public class CharacterMover : MonoBehaviour
         PhysicsEvents.PreSimulate -= CharacterMove;
 
         // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
         m_SandboxManager.ResetOverrideDrawOptions();
         m_CameraManipulator.DisableManipulators = false;
     }
