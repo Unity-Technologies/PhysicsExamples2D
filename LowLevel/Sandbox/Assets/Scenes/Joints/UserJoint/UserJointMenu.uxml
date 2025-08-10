@@ -9,8 +9,8 @@
                     <ui:Slider label="Joint Max Force" value="0" high-value="1000" show-input-field="true" name="joint-max-force" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Anchor Offset X" value="0" high-value="0.7" show-input-field="true" name="anchor-offset-x" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Anchor Offset Y" value="0" high-value="1" show-input-field="true" name="anchor-offset-y" fill="true" low-value="-1" focusable="false"/>
-                    <ui:FloatField label="Impulse #0" value="0" name="impulse-0" enabled="true" focusable="false"/>
-                    <ui:FloatField label="Impulse #1" value="0" name="impulse-1" enabled="true" focusable="false"/>
+                    <ui:FloatField label="Impulse #0" value="0" name="impulse-0" enabled="true" focusable="false" readonly="true"/>
+                    <ui:FloatField label="Impulse #1" value="0" name="impulse-1" enabled="true" focusable="false" readonly="true"/>
                     <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>

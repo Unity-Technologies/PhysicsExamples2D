@@ -21,6 +21,9 @@ public class LargeWorld : MonoBehaviour
     private Vector2 m_CameraPosition;
     private PhysicsWheelJoint m_RearWheelJoint;
     private PhysicsWheelJoint m_FrontWheelJoint;
+    
+    private FloatField m_WorldPosition;
+    private FloatField m_WorldSize;
 
     private void OnEnable()
     {
@@ -29,8 +32,8 @@ public class LargeWorld : MonoBehaviour
         m_UIDocument = GetComponent<UIDocument>();
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 25f;
-        m_CameraManipulator.CameraPosition = Vector2.zero;
+        m_CameraManipulator.CameraSize = 20f;
+        m_CameraManipulator.CameraPosition = new Vector2(0f, -5f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
@@ -43,7 +46,7 @@ public class LargeWorld : MonoBehaviour
         m_CycleCount = 600;
         m_GridSize = 1f;
         m_GridCount = (int)(m_CycleCount * m_WavePeriod / m_GridSize);
-        m_CameraPanSpeed = 0f;
+        m_CameraPanSpeed = 25f;
 
         m_FollowCar = true;
 
@@ -79,6 +82,13 @@ public class LargeWorld : MonoBehaviour
             cameraPanSpeed.value = m_CameraPanSpeed;
             cameraPanSpeed.RegisterValueChangedCallback(evt => { m_CameraPanSpeed = evt.newValue; });
 
+            // World Position.
+            m_WorldPosition = root.Q<FloatField>("world-position");
+            
+            // World Size.
+            m_WorldSize = root.Q<FloatField>("world-size");
+            m_WorldSize.value = m_GridSize * m_GridCount / 1000.0f;
+            
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
             resetScene.clicked += SetupScene;
@@ -263,6 +273,9 @@ public class LargeWorld : MonoBehaviour
 
         if (m_FollowCar)
             m_CameraManipulator.CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraManipulator.CameraPosition.y);
+
+        // Show world position.
+        m_WorldPosition.value = m_CameraManipulator.CameraPosition.x / 1000.0f;
     }
 
     private void SetCarSpeed(float speed)
