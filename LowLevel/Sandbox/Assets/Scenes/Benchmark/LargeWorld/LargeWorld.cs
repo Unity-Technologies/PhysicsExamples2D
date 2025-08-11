@@ -246,6 +246,10 @@ public class LargeWorld : MonoBehaviour
 
     private void Update()
     {
+        // Finish if the world is paused.
+        if (m_SandboxManager.WorldPaused)
+            return;
+        
         // Fetch keyboard input.
         var currentKeyboard = Keyboard.current;
 

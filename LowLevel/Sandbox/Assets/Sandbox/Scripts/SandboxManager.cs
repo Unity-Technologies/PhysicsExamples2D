@@ -675,6 +675,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             sceneName == m_SceneManifest.LoadedSceneName)
             return;
 
+        // Unpause the world if paused.
+        if (WorldPaused)
+            TogglePauseContinue();
+        
         m_CameraManipulator.ResetPanZoom();
         m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
 
