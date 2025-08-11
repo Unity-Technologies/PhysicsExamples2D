@@ -391,6 +391,10 @@ MonoBehaviour:
     Name: Wheel Joint
     Category: Joints
     Description: Demonstrating the features of the Wheel Joint.
+  - ScenePath: Assets/Scenes/Shapes/Bounciness/Bounciness.unity
+    Name: Bounciness
+    Category: Shapes
+    Description: Demonstrating the effect of Bounciness on shapes.
   - ScenePath: Assets/Scenes/Shapes/ChainShape/ChainShape.unity
     Name: Chain Shape
     Category: Shapes
@@ -412,22 +416,22 @@ MonoBehaviour:
     Name: Ellipse Polygons
     Category: Shapes
     Description: Demonstrating creating pseudo-ellipse shapes as Polygons.
-  - ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
-    Name: Rounded Polygons
-    Category: Shapes
-    Description: Demonstrating rounded polygons.
   - ScenePath: Assets/Scenes/Shapes/Friction/Friction.unity
     Name: Friction
     Category: Shapes
     Description: Demonstrating the effect of Friction on shapes.
-  - ScenePath: Assets/Scenes/Shapes/Bounciness/Bounciness.unity
-    Name: Bounciness
+  - ScenePath: Assets/Scenes/Shapes/ModifyGeometry/ModifyGeometry.unity
+    Name: Modify Geometry
     Category: Shapes
-    Description: Demonstrating the effect of Bounciness on shapes.
+    Description: Demonstrates modifying the geometry of existing shapes.
   - ScenePath: Assets/Scenes/Shapes/RollingResistance/RollingResistance.unity
     Name: Rolling Resistance
     Category: Shapes
     Description: Demonstrating Rolling Resistance Surface Property.
+  - ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
+    Name: Rounded Polygons
+    Category: Shapes
+    Description: Demonstrating rounded polygons.
   - ScenePath: Assets/Scenes/Simulate/Parallel/ParallelSimulate.unity
     Name: Parallel Simulate
     Category: Simulation

@@ -126,6 +126,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
     guid: 495604bee386d264fb5e0a889d37e8d6
   - enabled: 1
+    path: Assets/Scenes/Shapes/ModifyGeometry/ModifyGeometry.unity
+    guid: 8fd1e3bc45ed31340a863b6381830700
+  - enabled: 1
     path: Assets/Scenes/Shapes/RollingResistance/RollingResistance.unity
     guid: 7024004c57eff984c828c46303385ed0
   - enabled: 1
