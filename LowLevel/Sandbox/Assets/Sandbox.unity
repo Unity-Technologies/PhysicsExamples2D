@@ -395,6 +395,11 @@ MonoBehaviour:
     Name: Chain Shape
     Category: Shapes
     Description: Demonstrates how a Chain Shape doesn't produce "ghost" collisions.
+  - ScenePath: Assets/Scenes/Shapes/Compound/Compound.unity
+    Name: Compound
+    Category: Shapes
+    Description: Demonstrates how multiple shapes on a single body produce a compound
+      shape and how to mitigate overlaps.
   - ScenePath: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
     Name: Ellipse Polygons
     Category: Shapes

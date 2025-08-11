@@ -108,6 +108,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Shapes/ChainShape/ChainShape.unity
     guid: 668e090d51c70d543afabbdc14ef1015
   - enabled: 1
+    path: Assets/Scenes/Shapes/Compound/Compound.unity
+    guid: 262edbc7fc45c26408296e61899c53c2
+  - enabled: 1
     path: Assets/Scenes/Shapes/Friction/Friction.unity
     guid: 9f24719bc9196724190879eaa79f9690
   - enabled: 1
