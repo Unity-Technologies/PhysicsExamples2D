@@ -303,8 +303,8 @@ MonoBehaviour:
     Name: Spinner
     Category: Benchmarks
     Description: A simulation of Centripetal forces.
-  - ScenePath: Assets/Scenes/Benchmark/TriggerFunnel/TriggerFunnel.unity
-    Name: Trigger Funnel
+  - ScenePath: Assets/Scenes/Benchmark/Funnel/Funnel.unity
+    Name: Funnel
     Category: Benchmarks
     Description: Checking the performance of various collision interactions in a
       constrained space.

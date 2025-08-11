@@ -41,6 +41,7 @@ public class Shooter : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
 
         // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
@@ -59,6 +60,8 @@ public class Shooter : MonoBehaviour
 
         PhysicsEvents.PreSimulate -= OnPreSimulation;
 
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
         m_SandboxManager.ResetOverrideDrawOptions();
     }
 

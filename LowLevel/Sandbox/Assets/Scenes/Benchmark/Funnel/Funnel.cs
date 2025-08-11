@@ -6,7 +6,7 @@ using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
-public class TriggerFunnel : MonoBehaviour
+public class Funnel : MonoBehaviour
 {
     private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;

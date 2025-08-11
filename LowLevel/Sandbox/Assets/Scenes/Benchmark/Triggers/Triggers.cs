@@ -36,6 +36,9 @@ public class Triggers : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(true);
+        
         SetupOptions();
 
         SetupScene();
@@ -46,6 +49,9 @@ public class Triggers : MonoBehaviour
     private void OnDisable()
     {
         PhysicsEvents.PostSimulate -= OnPostSimulation;
+        
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
     }
 
     private void SetupOptions()
