@@ -400,6 +400,10 @@ MonoBehaviour:
     Category: Shapes
     Description: Demonstrates how multiple shapes on a single body produce a compound
       shape and how to mitigate overlaps.
+  - ScenePath: Assets/Scenes/Shapes/ConveyorBelt/ConveyorBelt.unity
+    Name: Conveyor Belt
+    Category: Shapes
+    Description: Demonstrates the use of the Tangent Speed surface material property.
   - ScenePath: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
     Name: Ellipse Polygons
     Category: Shapes
