@@ -114,6 +114,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Shapes/ConveyorBelt/ConveyorBelt.unity
     guid: 016614ea68528a148bd41f6c36dd2266
   - enabled: 1
+    path: Assets/Scenes/Shapes/CustomFilter/CustomFilter.unity
+    guid: 4e2737d97000b5648b93664f3688fbb9
+  - enabled: 1
     path: Assets/Scenes/Shapes/Friction/Friction.unity
     guid: 9f24719bc9196724190879eaa79f9690
   - enabled: 1

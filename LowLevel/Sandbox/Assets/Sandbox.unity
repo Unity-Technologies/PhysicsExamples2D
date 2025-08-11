@@ -404,6 +404,10 @@ MonoBehaviour:
     Name: Conveyor Belt
     Category: Shapes
     Description: Demonstrates the use of the Tangent Speed surface material property.
+  - ScenePath: Assets/Scenes/Shapes/CustomFilter/CustomFilter.unity
+    Name: Custom Filter
+    Category: Shapes
+    Description: Demonstrates the use of a custom shape filter.
   - ScenePath: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
     Name: Ellipse Polygons
     Category: Shapes
