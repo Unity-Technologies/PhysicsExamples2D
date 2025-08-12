@@ -32,23 +32,14 @@ public class ConveyorBelt : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        // Set Overrides.
-        m_SandboxManager.SetOverrideColorShapeState(false);
-
         m_PhysicsWorld = PhysicsWorld.defaultWorld;
 
-        m_ConveyorSpeed = 20f;
+        m_ConveyorSpeed = 3f;
         m_ConveyorAngle = 0f;
         
         SetupOptions();
 
         SetupScene();
-    }
-
-    private void OnDisable()
-    {
-	    // Reset overrides.
-	    m_SandboxManager.ResetOverrideColorShapeState();        
     }
 
     private void SetupOptions()
@@ -133,11 +124,23 @@ public class ConveyorBelt : MonoBehaviour
 	    for (var n = 0; n < spawnCount; ++n)
 	    {
 		    var spawnPosition = new Vector2(random.NextFloat(-5f, 5f), random.NextFloat(9f, 20f));
-		    var scale = random.NextFloat(0.05f, 1f);
-		    var radius = random.NextFloat(0f, 0.2f);
-		    
-		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition });
-		    body.CreateShape(PolygonGeometry.CreateBox(Vector2.one * scale, radius));
+		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition, rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)) });
+
+		    var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState } };
+
+		    if (random.NextBool())
+		    {
+			    var scaleX = random.NextFloat(0.05f, 1.0f);
+			    var scaleY = random.NextFloat(0.05f, 1.0f);
+			    var radius = random.NextFloat(0f, 0.2f);
+			    body.CreateShape(PolygonGeometry.CreateBox(new Vector2(scaleX, scaleY), radius), shapeDef);
+		    }
+		    else
+		    {
+			    var scale = random.NextFloat(0.2f, 0.6f);
+			    var radius = random.NextFloat(0.2f, 0.4f);
+			    body.CreateShape(new CapsuleGeometry { center1 = Vector2.left * scale, center2 = Vector2.right * scale, radius = radius }, shapeDef);
+		    }
 	    }
     }
 
