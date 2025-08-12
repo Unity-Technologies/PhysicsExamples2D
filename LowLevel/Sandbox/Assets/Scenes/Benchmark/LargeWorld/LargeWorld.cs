@@ -22,8 +22,8 @@ public class LargeWorld : MonoBehaviour
     private PhysicsWheelJoint m_RearWheelJoint;
     private PhysicsWheelJoint m_FrontWheelJoint;
     
-    private FloatField m_WorldPosition;
-    private FloatField m_WorldSize;
+    private FloatField m_WorldPositionField;
+    private FloatField m_WorldSizeField;
 
     private void OnEnable()
     {
@@ -77,7 +77,14 @@ public class LargeWorld : MonoBehaviour
             // Follow Car.
             var followCar = root.Q<Toggle>("follow-car");
             followCar.value = m_FollowCar;
-            followCar.RegisterValueChangedCallback(evt => { m_FollowCar = evt.newValue; });
+            followCar.RegisterValueChangedCallback(evt =>
+            {
+                m_FollowCar = evt.newValue;
+                
+                // If we're no longer following the car then set the current camera position to the car position.
+                if (!m_FollowCar)
+                    m_CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraPosition.y);                    
+            });
 
             // Camera Pan Speed.
             var cameraPanSpeed = root.Q<Slider>("camera-pan-speed");
@@ -85,11 +92,11 @@ public class LargeWorld : MonoBehaviour
             cameraPanSpeed.RegisterValueChangedCallback(evt => { m_CameraPanSpeed = evt.newValue; });
 
             // World Position.
-            m_WorldPosition = root.Q<FloatField>("world-position");
+            m_WorldPositionField = root.Q<FloatField>("world-position");
             
             // World Size.
-            m_WorldSize = root.Q<FloatField>("world-size");
-            m_WorldSize.value = m_GridSize * m_GridCount / 1000.0f;
+            m_WorldSizeField = root.Q<FloatField>("world-size");
+            m_WorldSizeField.value = m_GridSize * m_GridCount / 1000.0f;
             
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
@@ -272,7 +279,7 @@ public class LargeWorld : MonoBehaviour
             m_CameraManipulator.CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraManipulator.CameraPosition.y);
 
         // Show world position.
-        m_WorldPosition.value = m_CameraManipulator.CameraPosition.x / 1000.0f;
+        m_WorldPositionField.value = m_CameraManipulator.CameraPosition.x / 1000.0f;
     }
 
     private void SetCarSpeed(float speed)
