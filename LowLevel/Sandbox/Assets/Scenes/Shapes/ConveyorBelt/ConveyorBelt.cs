@@ -67,11 +67,7 @@ public class ConveyorBelt : MonoBehaviour
             conveyorSpeed.RegisterValueChangedCallback(evt =>
             {
 	            m_ConveyorSpeed = evt.newValue;
-	            
-	            // Update the tangent speed.
-	            var surfaceMaterial = m_ConveyorBeltShape.surfaceMaterial;
-				surfaceMaterial.tangentSpeed = m_ConveyorSpeed;
-	            m_ConveyorBeltShape.surfaceMaterial = surfaceMaterial;
+	            UpdateConveyorSpeed();
             });
 
             // Conveyor Angle.
@@ -80,9 +76,7 @@ public class ConveyorBelt : MonoBehaviour
             conveyorAngle.RegisterValueChangedCallback(evt =>
             {
 	            m_ConveyorAngle = evt.newValue;
-	            
-	            // Update the conveyor angle.
-	            m_ConveyorBeltBody.rotation = new PhysicsRotate(PhysicsMath.ToRadians(m_ConveyorAngle));
+	            UpdateConveyorAngle();
             });
             
             // Spawn.
@@ -119,10 +113,10 @@ public class ConveyorBelt : MonoBehaviour
         
 		// Platform.
 		{
-			m_ConveyorBeltBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f });
+			m_ConveyorBeltBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f, rotation = new PhysicsRotate(PhysicsMath.ToRadians(m_ConveyorAngle)) });
 
 			var geometry = PolygonGeometry.CreateBox(new Vector2(20f, 0.5f), 0.25f);
-			var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.8f, tangentSpeed = 2f } };
+			var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.8f, tangentSpeed = m_ConveyorSpeed } };
 			m_ConveyorBeltShape = m_ConveyorBeltBody.CreateShape(geometry, shapeDef);
 		}
 		
@@ -145,5 +139,19 @@ public class ConveyorBelt : MonoBehaviour
 		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition });
 		    body.CreateShape(PolygonGeometry.CreateBox(Vector2.one * scale, radius));
 	    }
+    }
+
+    private void UpdateConveyorAngle()
+    {
+	    // Update the conveyor angle.
+	    m_ConveyorBeltBody.rotation = new PhysicsRotate(PhysicsMath.ToRadians(m_ConveyorAngle));
+    }
+    
+    private void UpdateConveyorSpeed()
+    {
+	    // Update the tangent speed.
+	    var surfaceMaterial = m_ConveyorBeltShape.surfaceMaterial;
+	    surfaceMaterial.tangentSpeed = m_ConveyorSpeed;
+	    m_ConveyorBeltShape.surfaceMaterial = surfaceMaterial;
     }
 }
