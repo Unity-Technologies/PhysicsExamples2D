@@ -64,12 +64,10 @@ public class DoubleDomino : MonoBehaviour
     private void CreateDominoShelf(bool tipRight, float positionY)
     {
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         {
             var bodyDef = new PhysicsBodyDefinition { position = new Vector2(0f, positionY) };
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = Color.dimGray } };
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(200f, 0.5f)), shapeDef);
         }
@@ -84,7 +82,6 @@ public class DoubleDomino : MonoBehaviour
             {
                 bodyDef.position = new Vector2(x, positionY + 0.75f);
                 var dominoBody = world.CreateBody(bodyDef);
-                bodies.Add(dominoBody);
 
                 // Fetch the appropriate shape color.
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;

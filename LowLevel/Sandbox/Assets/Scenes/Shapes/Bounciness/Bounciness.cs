@@ -95,14 +95,12 @@ public class Bounciness : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground.
         {
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
 
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 1f), radius: 0f, new PhysicsTransform(new Vector2(0f, 3f), PhysicsRotate.identity)), shapeDef);
         }
@@ -127,7 +125,6 @@ public class Bounciness : MonoBehaviour
                 bodyDef.position = new Vector2(x, 44.0f);
 
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 

@@ -92,11 +92,6 @@ public class ParallelSimulateSpawner : MonoBehaviour
         // Create the bodies.
         using var bodyBatch = m_SceneWorld.World.CreateBodyBatch(definitions);
 
-        // Add the bodies to the sandbox manager.
-        var bodies = m_SandboxManager.Bodies;
-        foreach (var body in bodyBatch)
-            bodies.Add(body);
-
         // Create the projectiles.
         for (var i = 0; i < spawnCount; ++i)
         {

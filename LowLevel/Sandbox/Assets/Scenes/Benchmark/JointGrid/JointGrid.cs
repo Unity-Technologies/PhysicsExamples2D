@@ -94,7 +94,6 @@ public class JointGrid : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var bodyDef = PhysicsBodyDefinition.defaultDefinition;
         var hingeJointDef = PhysicsHingeJointDefinition.defaultDefinition;
@@ -148,11 +147,6 @@ public class JointGrid : MonoBehaviour
 
                 bodyArray[index++] = body;
             }
-        }
-
-        foreach (var body in bodyArray)
-        {
-            bodies.Add(body);
         }
 
         bodyArray.Dispose();

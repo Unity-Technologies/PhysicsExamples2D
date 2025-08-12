@@ -77,12 +77,10 @@ public class Doohickey : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground.
         {
             var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(groundBody);
 
             groundBody.CreateShape(new SegmentGeometry { point1 = Vector2.left * 20f, point2 = Vector2.right * 20f });
             groundBody.CreateShape(PolygonGeometry.CreateBox(Vector2.one * 2f, 0.1f, new PhysicsTransform(Vector2.up), true));
@@ -96,8 +94,6 @@ public class Doohickey : MonoBehaviour
             for (var n = 0; n < m_DoohickeyCount; ++n, y += 1.2f)
             {
                 using var dumbbell = DoohickeyFactory.SpawnDumbbell(world, m_SandboxManager, new Vector2(0f, y), 0.5f);
-                foreach (var body in dumbbell)
-                    bodies.Add(body);
             }
         }
     }

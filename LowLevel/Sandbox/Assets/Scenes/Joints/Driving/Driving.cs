@@ -127,13 +127,11 @@ public class Driving : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground Body.
         PhysicsBody groundBody;
         {
             groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(groundBody);
 
             var points = new NativeArray<Vector2>(25, Allocator.Temp);
             var pointIndex = 24;
@@ -187,7 +185,6 @@ public class Driving : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(140f, 1f), angularVelocity = 60 };
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(20.0f, 0.5f)));
 
             var pivot = bodyDef.position;
@@ -213,7 +210,6 @@ public class Driving : MonoBehaviour
             {
                 var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(161f + 2f * n, -0.125f) };
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 body.CreateShape(geometry);
 
                 var pivot = new Vector2(160f + 2f * n, -0.125f);
@@ -256,35 +252,30 @@ public class Driving : MonoBehaviour
             {
                 bodyDef.position = new Vector2(230.0f, 0.5f);
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 body.CreateShape(box, shapeDef);
             }
 
             {
                 bodyDef.position = new Vector2(230.0f, 1.5f);
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 body.CreateShape(box, shapeDef);
             }
 
             {
                 bodyDef.position = new Vector2(230.0f, 0.5f);
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 body.CreateShape(box, shapeDef);
             }
 
             {
                 bodyDef.position = new Vector2(230.0f, 2.5f);
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 body.CreateShape(box, shapeDef);
             }
 
             {
                 bodyDef.position = new Vector2(230.0f, 4.5f);
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 body.CreateShape(box, shapeDef);
             }
         }
@@ -292,8 +283,6 @@ public class Driving : MonoBehaviour
         // Car.
         {
             using var car = CarFactory.Spawn(world, Vector2.zero, 1f, m_SpringFrequency, m_SpringDamping, m_MaxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
-            foreach (var body in car)
-                bodies.Add(body);
         }
     }
 

@@ -80,14 +80,12 @@ public class ChainShape : MonoBehaviour
         // Sliding Object.
         {
             var world = PhysicsWorld.defaultWorld;
-            var bodies = m_SandboxManager.Bodies;
 
             var startPosition = new Vector2(-55f, 13.5f);
             var startLinearVelocity = new Vector2(2f, -1f);
 
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed, position = startPosition, linearVelocity = startLinearVelocity };
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
 
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = Friction, bounciness = 0f, customColor = m_SandboxManager.ShapeColorState } };
 
@@ -184,12 +182,10 @@ public class ChainShape : MonoBehaviour
         m_SpawnTime = 0f;
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground.
         {
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
 
             using var points = new NativeList<Vector2>(Allocator.Temp)
             {

@@ -200,11 +200,9 @@ public class DistanceJoint : MonoBehaviour
         m_Joints.Clear();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground Body.
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-        bodies.Add(groundBody);
 
         const float radius = 0.25f;
         var geometry = new CircleGeometry { radius = radius };
@@ -232,7 +230,6 @@ public class DistanceJoint : MonoBehaviour
             {
                 var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, angularDamping = 1f, position = new Vector2(m_JointDistance * (n + 1f), offsetY) };
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                 body.CreateShape(geometry, shapeDef);

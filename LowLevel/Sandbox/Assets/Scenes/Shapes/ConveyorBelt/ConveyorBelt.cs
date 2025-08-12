@@ -104,12 +104,9 @@ public class ConveyorBelt : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
-        var bodies = m_SandboxManager.Bodies;
-
         // Ground.
         {
             var body = m_PhysicsWorld.CreateBody();
-            bodies.Add(body);
             using var vertices = new NativeList<Vector2>(Allocator.Temp)
             {
 	            new(-20f, 0f),
@@ -123,7 +120,6 @@ public class ConveyorBelt : MonoBehaviour
 		// Platform.
 		{
 			m_ConveyorBeltBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f });
-			bodies.Add(m_ConveyorBeltBody);
 
 			var geometry = PolygonGeometry.CreateBox(new Vector2(20f, 0.5f), 0.25f);
 			var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.8f, tangentSpeed = 2f } };
@@ -138,7 +134,6 @@ public class ConveyorBelt : MonoBehaviour
 
     private void Spawn(int spawnCount)
     {
-	    var bodies = m_SandboxManager.Bodies;
 	    ref var random = ref m_SandboxManager.Random;
 
 	    for (var n = 0; n < spawnCount; ++n)
@@ -148,7 +143,6 @@ public class ConveyorBelt : MonoBehaviour
 		    var radius = random.NextFloat(0f, 0.2f);
 		    
 		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition });
-		    bodies.Add(body);
 		    body.CreateShape(PolygonGeometry.CreateBox(Vector2.one * scale, radius));
 	    }
     }

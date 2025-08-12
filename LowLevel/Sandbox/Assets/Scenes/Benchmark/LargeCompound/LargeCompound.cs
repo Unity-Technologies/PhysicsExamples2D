@@ -64,7 +64,6 @@ public class LargeCompound : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         const int height = 300;
 
@@ -74,7 +73,6 @@ public class LargeCompound : MonoBehaviour
         // Ground.
         {
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
             for (var i = 0; i < height; ++i)
@@ -104,7 +102,6 @@ public class LargeCompound : MonoBehaviour
                     var bodyX = -0.5f * gridSize * m_CompoundCount * span + n * span * gridSize;
                     bodyDef.position = new Vector2(bodyX, bodyY);
                     var body = world.CreateBody(bodyDef);
-                    bodies.Add(body);
 
                     for (var i = 0; i < span; ++i)
                     {

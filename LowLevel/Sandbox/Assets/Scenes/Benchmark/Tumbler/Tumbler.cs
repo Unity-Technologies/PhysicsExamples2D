@@ -117,16 +117,13 @@ public class Tumbler : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-        bodies.Add(groundBody);
 
         // Tumbler.
         {
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Kinematic, angularVelocity = m_AngularVelocity };
             m_TumblerBody = world.CreateBody(bodyDef);
-            bodies.Add(m_TumblerBody);
 
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
             m_TumblerBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 42f), radius: 0f, new PhysicsTransform(new Vector2(20f, 0f), PhysicsRotate.identity)), shapeDef);
@@ -149,7 +146,6 @@ public class Tumbler : MonoBehaviour
             {
                 bodyDef.position = new Vector2(random.NextFloat(-18f, 18f), random.NextFloat(-18f, 18f));
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 
@@ -181,7 +177,7 @@ public class Tumbler : MonoBehaviour
 
                     case ObjectType.Random:
                     {
-                        switch (bodies.Count % 4)
+                        switch (i % 4)
                         {
                             case 0:
                             {

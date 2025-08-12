@@ -127,7 +127,6 @@ public class ManyTumblers : MonoBehaviour
         m_CurrentSpawnCounter = 0;
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Tumblers.
         {
@@ -141,7 +140,6 @@ public class ManyTumblers : MonoBehaviour
                     {
                         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Kinematic, position = position, angularVelocity = m_AngularVelocity };
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
 
                         var shapeDef = new PhysicsShapeDefinition { density = 50f, surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState } };
 
@@ -166,7 +164,6 @@ public class ManyTumblers : MonoBehaviour
     private void SpawnDebris()
     {
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
         var shapeDef = PhysicsShapeDefinition.defaultDefinition;
@@ -180,7 +177,6 @@ public class ManyTumblers : MonoBehaviour
             {
                 bodyDef.position = new Vector2(x, y);
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                 body.CreateShape(capsuleGeometry, shapeDef);

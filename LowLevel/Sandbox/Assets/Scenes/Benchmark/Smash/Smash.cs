@@ -121,7 +121,6 @@ public class Smash : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Reset the gravity.
         world.gravity = Vector2.zero;
@@ -129,7 +128,6 @@ public class Smash : MonoBehaviour
         // Border
         {
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
 
             var extents = new Vector2(110f, 63f);
 
@@ -151,7 +149,6 @@ public class Smash : MonoBehaviour
                 fastCollisionsAllowed = m_FastCollisionsAllowed
             };
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
             body.CreateShape(
                 PolygonGeometry.CreateBox(new Vector2(8f, 8f)),
                 new PhysicsShapeDefinition { density = m_Density, surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = m_Bounciness } });
@@ -166,7 +163,6 @@ public class Smash : MonoBehaviour
                 awake = false
             };
             var largeBody = world.CreateBody(bodyDef);
-            bodies.Add(largeBody);
 
             const float boxDimension = 0.4f;
             var boxGeometry = PolygonGeometry.CreateBox(new Vector2(boxDimension, boxDimension));
@@ -180,7 +176,6 @@ public class Smash : MonoBehaviour
                 {
                     bodyDef.position = new Vector2(i * spacing - 60f, (j - Rows / 2.0f) * spacing);
                     var boxBody = world.CreateBody(bodyDef);
-                    bodies.Add(boxBody);
 
                     // Fetch the appropriate shape color.
                     shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;

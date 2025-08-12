@@ -107,7 +107,6 @@ public class LargeWorld : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
         ref var random = ref m_SandboxManager.Random;
 
         var omega = PhysicsMath.TAU / m_WavePeriod;
@@ -140,7 +139,6 @@ public class LargeWorld : MonoBehaviour
                 {
                     bodyDef.position = new Vector2(bodyX, bodyDef.position.y);
                     groundBody = world.CreateBody(bodyDef);
-                    bodies.Add(groundBody);
                     shapeX = 0.0f;
                 }
 
@@ -196,7 +194,6 @@ public class LargeWorld : MonoBehaviour
                         for (var j = 0; j < 5; ++j)
                         {
                             var body = world.CreateBody(bodyDef);
-                            bodies.Add(body);
                             body.CreateShape(boxGeometry);
 
                             bodyDef.position = new Vector2(bodyDef.position.x, bodyDef.position.y + 0.5f);
@@ -212,8 +209,6 @@ public class LargeWorld : MonoBehaviour
                     {
                         ragDollConfiguration.ContactGroupIndex = ragdollIndex++;
                         using var ragdoll = RagdollFactory.Spawn(world, position, ragDollConfiguration, true, ref random);
-                        foreach (var body in ragdoll)
-                            bodies.Add(body);
 
                         position.x += 1f;
                     }
@@ -224,8 +219,6 @@ public class LargeWorld : MonoBehaviour
                     for (var i = 0; i < 5; ++i)
                     {
                         using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, position, 7, 0.75f);
-                        foreach (var body in donut)
-                            bodies.Add(body);
 
                         position.x += 2f;
                     }
@@ -239,8 +232,6 @@ public class LargeWorld : MonoBehaviour
             const float springDamping = 0.7f;
             const float maxMotorTorque = 2000f;
             using var car = CarFactory.Spawn(world, new Vector2(startX + 20f, 40f), 10f, springFrequency, springDamping, maxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
-            foreach (var body in car)
-                bodies.Add(body);
         }
     }
 

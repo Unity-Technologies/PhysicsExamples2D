@@ -78,13 +78,11 @@ public class ScaleRagdoll : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
         ref var random = ref m_SandboxManager.Random;
 
         // Ground.
         {
             var groundBody = world.CreateBody();
-            bodies.Add(groundBody);
 
             groundBody.CreateShape(PolygonGeometry.CreateBox(size: new Vector2(40f, 20f), radius: 0, transform: new PhysicsTransform(Vector2.down * 10f)));
             groundBody.CreateShape(PolygonGeometry.CreateBox(size: new Vector2(20f, 100f), radius: 0, transform: new PhysicsTransform(Vector2.left * 20f)));
@@ -113,8 +111,6 @@ public class ScaleRagdoll : MonoBehaviour
             };
 
             m_Ragdoll = RagdollFactory.Spawn(world, Vector2.up * 5f, ragDollConfiguration, true, ref random, Allocator.Persistent);
-            foreach (var body in m_Ragdoll)
-                bodies.Add(body);
         }
     }
 }

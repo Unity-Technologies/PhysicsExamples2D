@@ -95,13 +95,11 @@ public class GearLift : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         ref var random = ref m_SandboxManager.Random;
 
         // Ground Body.
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-        bodies.Add(groundBody);
 
         // Ground.
         {
@@ -183,7 +181,6 @@ public class GearLift : MonoBehaviour
             };
 
             var gearBody = world.CreateBody(bodyDef);
-            bodies.Add(gearBody);
 
             var shapeDef = new PhysicsShapeDefinition
             {
@@ -237,7 +234,6 @@ public class GearLift : MonoBehaviour
             };
 
             followerBody = world.CreateBody(bodyDef);
-            bodies.Add(followerBody);
 
             var shapeDef = new PhysicsShapeDefinition
             {
@@ -318,7 +314,6 @@ public class GearLift : MonoBehaviour
                 bodyDef.position = position;
 
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 body.CreateShape(capsule, shapeDef);
 
                 var pivot = new Vector2(position.x, position.y + linkHalfLength);
@@ -343,7 +338,6 @@ public class GearLift : MonoBehaviour
             };
 
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
 
             var capsule = new CapsuleGeometry
             {
@@ -373,7 +367,6 @@ public class GearLift : MonoBehaviour
             }
 
             {
-                var localAxis = Vector2.up;
                 var jointDef = new PhysicsSliderJointDefinition
                 {
                     bodyA = groundBody,
@@ -401,7 +394,6 @@ public class GearLift : MonoBehaviour
                 {
                     bodyDef.position = new Vector2(x, y);
                     var body = world.CreateBody(bodyDef);
-                    bodies.Add(body);
 
                     var poly = SandboxUtility.CreateRandomPolygon(extent: 0.14f, radius: random.NextFloat(0.02f, 0.03f), ref random);
 

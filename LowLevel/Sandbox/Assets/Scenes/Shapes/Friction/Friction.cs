@@ -73,7 +73,6 @@ public class Friction : MonoBehaviour
         // Sliding Object.
         {
             var world = PhysicsWorld.defaultWorld;
-            var bodies = m_SandboxManager.Bodies;
 
             var bodyDef = new PhysicsBodyDefinition
             {
@@ -83,7 +82,6 @@ public class Friction : MonoBehaviour
             };
 
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
 
             const float frictionDelta = 1.0f / (ObjectCount > 1 ? ObjectCount - 1 : 1);
             var friction = frictionDelta * (m_ItemsSpawned - 1);
@@ -160,14 +158,12 @@ public class Friction : MonoBehaviour
         m_SpawnTime = 0f;
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground.
         {
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f } };
 
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
 
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 1f)), shapeDef);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 1f), radius: 0f, new PhysicsTransform(new Vector2(-40f, 1f), PhysicsRotate.identity)), shapeDef);

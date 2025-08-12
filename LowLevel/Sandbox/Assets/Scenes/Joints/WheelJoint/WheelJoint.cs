@@ -202,19 +202,13 @@ public class WheelJoint : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground Body.
-        PhysicsBody groundBody;
-        {
-            groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(groundBody);
-        }
+        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
 
         {
             var bodeDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 10.25f, fastRotationAllowed = true };
             var body = world.CreateBody(bodeDef);
-            bodies.Add(body);
 
             //var geometry = new CapsuleGeometry { center1 = Vector2.down * 0.5f, center2 = Vector2.up * 0.5f, radius = 0.5f };
             var geometry = new CircleGeometry { radius = 0.5f };

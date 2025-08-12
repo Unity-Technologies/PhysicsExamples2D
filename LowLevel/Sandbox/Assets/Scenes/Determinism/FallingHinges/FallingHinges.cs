@@ -1,4 +1,5 @@
 using System;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -16,6 +17,7 @@ public class FallingHinges : MonoBehaviour
     private const int Columns = 8;
     private const int Rows = 40;
 
+    private NativeList<PhysicsBody> m_Bodies;
     private const UInt32 BaseSceneHash = 5381;
     private UInt32 m_StartHash;
     private UInt32 m_EndHash;
@@ -35,6 +37,9 @@ public class FallingHinges : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
+        
+        // Create bodies list.
+        m_Bodies =  new NativeList<PhysicsBody>(Allocator.Persistent);
 
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
@@ -51,6 +56,10 @@ public class FallingHinges : MonoBehaviour
     {
         PhysicsEvents.PostSimulate -= PostSimulate;
 
+        // Dispose of the bodies list.
+        if (m_Bodies.IsCreated)
+            m_Bodies.Dispose();
+        
         // Reset overrides.
         m_SandboxManager.ResetOverrideDrawOptions();
         m_SandboxManager.ResetOverrideColorShapeState();
@@ -61,9 +70,8 @@ public class FallingHinges : MonoBehaviour
         if (m_EverythingAsleep || world != PhysicsWorld.defaultWorld)
             return;
 
-        var bodies = m_SandboxManager.Bodies;
         const int expectedBodyCount = Rows * Columns + 1;
-        if (bodies.Count != expectedBodyCount)
+        if (m_Bodies.Length != expectedBodyCount)
         {
             m_EndHashElement.text = $"Expected PhysicsBody Count Invalid!";
             return;
@@ -112,19 +120,21 @@ public class FallingHinges : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Clear the bodies.
+        m_Bodies.Clear();
+        
         m_StartHash = 0;
         m_EndHash = 0;
         m_SimulationSteps = 0;
         m_EverythingAsleep = false;
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground.
         {
             var bodyDef = new PhysicsBodyDefinition { position = new Vector2(0f, -1f) };
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
+            m_Bodies.Add(body);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(32f, 2f)), PhysicsShapeDefinition.defaultDefinition);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 15f), radius: 0f, new PhysicsTransform(new Vector2(-15f, 6.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 15f), radius: 0f, new PhysicsTransform(new Vector2(15f, 6.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
@@ -172,7 +182,7 @@ public class FallingHinges : MonoBehaviour
                     };
 
                     var body = world.CreateBody(bodyDef);
-                    bodies.Add(body);
+                    m_Bodies.Add(body);
 
                     if ((i & 1) == 0)
                     {
@@ -199,21 +209,19 @@ public class FallingHinges : MonoBehaviour
     private void UpdateHashStatus(bool everythingAsleep)
     {
         var color = everythingAsleep ? "#7FFFD4" : "#999999";
-        var colortag = $"<color={color}>";
+        var colorTag = $"<color={color}>";
         const string endColorTag = "</color>";
 
-        m_SimulationStepsElement.text = $"Simulation Steps: {colortag}{m_SimulationSteps}{endColorTag}";
+        m_SimulationStepsElement.text = $"Simulation Steps: {colorTag}{m_SimulationSteps}{endColorTag}";
 
-        m_StartHashElement.text = $"Start Hash: {colortag}0x{m_StartHash:X8}{endColorTag}";
-        m_EndHashElement.text = $"End Hash: {colortag}0x{m_EndHash:X8}{endColorTag}";
+        m_StartHashElement.text = $"Start Hash: {colorTag}0x{m_StartHash:X8}{endColorTag}";
+        m_EndHashElement.text = $"End Hash: {colorTag}0x{m_EndHash:X8}{endColorTag}";
     }
 
     private UInt32 CalculateTransformHash()
     {
-        var bodies = m_SandboxManager.Bodies;
-
         var hash = BaseSceneHash;
-        foreach (var body in bodies)
+        foreach (var body in m_Bodies)
         {
             var bodyTransform = body.transform;
             hash = TransformHash(hash, ref bodyTransform);

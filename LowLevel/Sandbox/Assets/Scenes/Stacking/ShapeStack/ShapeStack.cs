@@ -152,15 +152,12 @@ public class ShapeStack : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-        bodies.Add(groundBody);
 
         // Ground.
         {
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
             body.CreateShape(new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) }, PhysicsShapeDefinition.defaultDefinition);
         }
 
@@ -173,7 +170,6 @@ public class ShapeStack : MonoBehaviour
     private void CreateStack(Vector2 position)
     {
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.3f } };
@@ -182,7 +178,6 @@ public class ShapeStack : MonoBehaviour
         {
             bodyDef.position = position + new Vector2(0f, i * 1.2f);
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
 
             shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 
@@ -208,7 +203,7 @@ public class ShapeStack : MonoBehaviour
 
                 case ObjectType.Mix:
                 {
-                    switch (bodies.Count % 4)
+                    switch (i % 4)
                     {
                         case 0:
                         {

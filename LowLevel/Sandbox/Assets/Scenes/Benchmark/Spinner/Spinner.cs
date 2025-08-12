@@ -148,14 +148,12 @@ public class Spinner : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         PhysicsBody groundBody;
 
         // Chain Surround.
         {
             groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(groundBody);
 
             const int pointCount = 360;
 
@@ -185,7 +183,6 @@ public class Spinner : MonoBehaviour
             };
 
             m_SpinnerBody = world.CreateBody(bodyDef);
-            bodies.Add(m_SpinnerBody);
 
             var box = PolygonGeometry.CreateBox(size: new Vector2(0.8f, 39f), radius: 0.2f);
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f } };
@@ -223,7 +220,6 @@ public class Spinner : MonoBehaviour
             {
                 bodyDef.position = new Vector2(x, y);
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 

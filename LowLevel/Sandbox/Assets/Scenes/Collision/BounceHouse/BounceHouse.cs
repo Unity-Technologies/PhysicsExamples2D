@@ -94,16 +94,13 @@ public class BounceHouse : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-        bodies.Add(groundBody);
 
         // Ground.
         {
             var bodyDef = PhysicsBodyDefinition.defaultDefinition;
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
 
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
             body.CreateShape(new SegmentGeometry { point1 = new Vector2(-10f, -10f), point2 = new Vector2(10f, -10f) }, shapeDef);
@@ -125,8 +122,7 @@ public class BounceHouse : MonoBehaviour
             };
 
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
-
+            
             var shapeDef = new PhysicsShapeDefinition
             {
                 density = 1f,

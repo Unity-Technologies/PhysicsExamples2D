@@ -153,7 +153,6 @@ public class Barrel : MonoBehaviour
         var rightGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(1.0f, 0f), new(-0.5f, 1f), new(0f, 2f) }.AsSpan());
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         ref var random = ref m_SandboxManager.Random;
 
@@ -178,8 +177,6 @@ public class Barrel : MonoBehaviour
                     case ObjectType.Circle:
                     {
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
-
                         CreateCircle(body, shapeDef, ref random);
                         continue;
                     }
@@ -187,8 +184,6 @@ public class Barrel : MonoBehaviour
                     case ObjectType.Capsule:
                     {
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
-
                         CreateCapsule(body, shapeDef, ref random);
                         continue;
                     }
@@ -196,8 +191,6 @@ public class Barrel : MonoBehaviour
                     case ObjectType.Polygon:
                     {
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
-
                         CreatePolygon(body, shapeDef, ref random);
                         continue;
                     }
@@ -205,9 +198,7 @@ public class Barrel : MonoBehaviour
                     case ObjectType.PrimitiveMix:
                     {
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
-
-                        switch (bodies.Count % 3)
+                        switch (i % 3)
                         {
                             case 0:
                             {
@@ -235,7 +226,6 @@ public class Barrel : MonoBehaviour
                     case ObjectType.Compound:
                     {
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
 
                         body.CreateShape(leftGeometry, shapeDef);
                         body.CreateShape(rightGeometry, shapeDef);
@@ -245,8 +235,6 @@ public class Barrel : MonoBehaviour
                     case ObjectType.Ragdoll:
                     {
                         using var ragdoll = RagdollFactory.Spawn(world, bodyDef.position, ragDollConfiguration, true, ref random);
-                        foreach (var body in ragdoll)
-                            bodies.Add(body);
                         continue;
                     }
 
@@ -289,9 +277,6 @@ public class Barrel : MonoBehaviour
         var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
         var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-
-        var bodies = m_SandboxManager.Bodies;
-        bodies.Add(body);
 
         {
             var boxTransform = new PhysicsTransform(new Vector2(0f, 4f), PhysicsRotate.identity);

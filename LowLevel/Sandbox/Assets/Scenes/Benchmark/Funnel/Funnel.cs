@@ -118,7 +118,6 @@ public class Funnel : MonoBehaviour
 
         // Spawn Object.
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
         ref var random = ref m_SandboxManager.Random;
 
         var spawnPosition = new Vector2(random.NextFloat(-SpawnSide, SpawnSide), 35f);
@@ -135,7 +134,6 @@ public class Funnel : MonoBehaviour
             case ObjectType.Circle:
             {
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 CreateCircle(body, shapeDef, ref random);
                 return;
             }
@@ -143,7 +141,6 @@ public class Funnel : MonoBehaviour
             case ObjectType.Capsule:
             {
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 CreateCapsule(body, shapeDef, ref random);
                 return;
             }
@@ -151,7 +148,6 @@ public class Funnel : MonoBehaviour
             case ObjectType.Polygon:
             {
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 CreatePolygon(body, shapeDef, ref random);
                 return;
             }
@@ -159,27 +155,25 @@ public class Funnel : MonoBehaviour
             case ObjectType.Compound:
             {
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
                 CreateCompound(body, shapeDef);
                 return;
             }
 
             case ObjectType.Ragdoll:
             {
-                CreateRagdoll(world, spawnPosition, random, bodies);
+                CreateRagdoll(world, spawnPosition, random);
                 return;
             }
 
             case ObjectType.Softbody:
             {
-                CreateDonut(world, spawnPosition, bodies);
+                CreateDonut(world, spawnPosition);
                 return;
             }
 
             case ObjectType.Random:
             {
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 switch (random.NextInt(0, 7))
                 {
@@ -209,13 +203,13 @@ public class Funnel : MonoBehaviour
 
                     case 5:
                     {
-                        CreateRagdoll(world, spawnPosition, random, bodies);
+                        CreateRagdoll(world, spawnPosition, random);
                         return;
                     }
 
                     case 6:
                     {
-                        CreateDonut(world, spawnPosition, bodies);
+                        CreateDonut(world, spawnPosition);
                         return;
                     }
                 }
@@ -255,7 +249,7 @@ public class Funnel : MonoBehaviour
         body.CreateShape(polygonGeometry, shapeDef);
     }
 
-    private void CreateRagdoll(PhysicsWorld world, Vector2 spawnPosition, Random random, NativeHashSet<PhysicsBody> bodies)
+    private void CreateRagdoll(PhysicsWorld world, Vector2 spawnPosition, Random random)
     {
         var ragDollConfiguration = new RagdollFactory.Configuration
         {
@@ -275,15 +269,11 @@ public class Funnel : MonoBehaviour
         };
 
         using var ragdoll = RagdollFactory.Spawn(world, spawnPosition, ragDollConfiguration, true, ref random);
-        foreach (var body in ragdoll)
-            bodies.Add(body);
     }
 
-    private void CreateDonut(PhysicsWorld world, Vector2 spawnPosition, NativeHashSet<PhysicsBody> bodies)
+    private void CreateDonut(PhysicsWorld world, Vector2 spawnPosition)
     {
         using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true, jointFrequency: 20f);
-        foreach (var body in donut)
-            bodies.Add(body);
     }
 
     private void CreateCompound(PhysicsBody body, PhysicsShapeDefinition shapeDef)
@@ -354,12 +344,10 @@ public class Funnel : MonoBehaviour
         m_SpawnTime = 0f;
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground.
         {
             var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(groundBody);
 
             using var points = new NativeList<Vector2>(Allocator.Temp)
             {
@@ -385,7 +373,6 @@ public class Funnel : MonoBehaviour
                     bodyDef.position = new Vector2(0f, y);
 
                     var body = world.CreateBody(bodyDef);
-                    bodies.Add(body);
 
                     var boxGeometry = PolygonGeometry.CreateBox(new Vector2(11f, 1f), radius: 0.5f);
                     var shapeDef = new PhysicsShapeDefinition { density = 1f, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 1f } };

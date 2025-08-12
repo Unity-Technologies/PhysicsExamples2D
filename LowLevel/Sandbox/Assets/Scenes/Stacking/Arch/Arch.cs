@@ -67,7 +67,6 @@ public class Arch : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var ps1 = new Vector2[]
         {
@@ -107,7 +106,6 @@ public class Arch : MonoBehaviour
         // Ground.
         {
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
             body.CreateShape(new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) }, shapeDef);
         }
 
@@ -118,7 +116,6 @@ public class Arch : MonoBehaviour
             for (var i = 0; i < 8; ++i)
             {
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 
@@ -129,7 +126,6 @@ public class Arch : MonoBehaviour
             for (var i = 0; i < 8; ++i)
             {
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 
@@ -145,7 +141,6 @@ public class Arch : MonoBehaviour
 
             {
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 
@@ -163,7 +158,6 @@ public class Arch : MonoBehaviour
             {
                 bodyDef.position = new Vector2(0.0f, 0.5f + ps2[8].y + 1.0f * i);
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 

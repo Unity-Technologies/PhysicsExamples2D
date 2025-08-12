@@ -78,12 +78,9 @@ public class CustomFilter : MonoBehaviour, PhysicsCallbacks.IContactFilterCallba
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
-        var bodies = m_SandboxManager.Bodies;
-
         // Ground.
         {
             var body = m_PhysicsWorld.CreateBody();
-            bodies.Add(body);
             using var vertices = new NativeList<Vector2>(Allocator.Temp)
             {
 	            new(-20f, 0f),
@@ -102,7 +99,6 @@ public class CustomFilter : MonoBehaviour, PhysicsCallbacks.IContactFilterCallba
             for (var n = 0; n < 15; ++n)
             {
                 var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = 4f, position = new Vector2(-17.5f + n * 2.5f, 4f) });
-                bodies.Add(body);
 
                 var colorGroup = n % 3;
 

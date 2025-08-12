@@ -154,7 +154,6 @@ public class Shooter : MonoBehaviour
 
                 // Create the Batch.
                 {
-                    var worldBodies = m_SandboxManager.Bodies;
                     ref var random = ref m_SandboxManager.Random;
 
                     var capsuleRadius = random.NextFloat(m_BatchRadius.x, m_BatchRadius.y);
@@ -197,8 +196,6 @@ public class Shooter : MonoBehaviour
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                         var body = bodies[i];
                         body.CreateShape(capsuleGeometry, shapeDef);
-
-                        worldBodies.Add(body);
                     }
 
                     // Dispose.

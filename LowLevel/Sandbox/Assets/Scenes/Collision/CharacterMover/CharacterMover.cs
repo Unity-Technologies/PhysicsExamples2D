@@ -19,6 +19,16 @@ public class CharacterMover : MonoBehaviour
         Segment = 2
     }
 
+    private struct PogoDraw
+    {
+        public Vector2 origin;
+        public Vector2 deltaTranslation;
+        public CircleGeometry circle;
+        public SegmentGeometry segment;
+        public Color pogoColor;
+        public bool isValid;
+    }
+    
     private struct CollisionBits
     {
         public static readonly PhysicsMask StaticBit = new(0);
@@ -28,7 +38,6 @@ public class CharacterMover : MonoBehaviour
     }
 
     private const int MaxSolverIterations = 5;
-    private const float DrawLifetime = 1f;
     private const float VelocityDrawScale = 2f;
     private readonly Vector2 m_ElevatorOffset = new(112f, 10f);
     private const float ElevatorAmplitude = 4f;
@@ -49,6 +58,7 @@ public class CharacterMover : MonoBehaviour
     private PhysicsTransform m_Transform;
     private Vector2 m_Velocity;
     private CapsuleGeometry m_Geometry;
+    private PogoDraw m_PogoDraw;
 
     private PhysicsBody m_ElevatorBody;
 
@@ -111,6 +121,14 @@ public class CharacterMover : MonoBehaviour
 
     private void Update()
     {
+        // Fetch the scene manager detail.
+        var world = PhysicsWorld.defaultWorld;
+        
+        // Draw.
+        world.DrawGeometry(m_Geometry, m_Transform, m_OnGround ? Color.orange : Color.aquamarine);
+        world.DrawLine(m_Transform.position, m_Transform.position + m_Velocity.normalized * VelocityDrawScale, m_SandboxManager.ShapeColorState);
+        DrawPogo(world, m_PogoDraw);
+        
         // Finish if the world is paused.
         if (m_SandboxManager.WorldPaused)
             return;
@@ -208,7 +226,6 @@ public class CharacterMover : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         m_Transform = new PhysicsTransform(new Vector2(2f, 8f));
-        //m_Transform = new PhysicsTransform(new Vector2(75f, 15f));
         m_Velocity = Vector2.zero;
         m_Geometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.5f), center2 = new Vector2(0f, 0.5f), radius = 0.3f };
 
@@ -222,13 +239,11 @@ public class CharacterMover : MonoBehaviour
 
         // Fetch the scene manager detail.
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground #1.
         PhysicsBody groundBody1;
         {
             groundBody1 = world.CreateBody();
-            bodies.Add(groundBody1);
 
             using var points = new NativeList<Vector2>(Allocator.Temp)
             {
@@ -283,7 +298,6 @@ public class CharacterMover : MonoBehaviour
         PhysicsBody groundBody2;
         {
             groundBody2 = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(98f, 0f) });
-            bodies.Add(groundBody2);
 
             using var points = new NativeList<Vector2>(Allocator.Temp)
             {
@@ -368,7 +382,6 @@ public class CharacterMover : MonoBehaviour
                 };
 
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 body.CreateShape(box, shapeDef);
 
@@ -407,7 +420,6 @@ public class CharacterMover : MonoBehaviour
                     fastCollisionsAllowed = true
                 };
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 var shapeDef = new PhysicsShapeDefinition
                 {
@@ -437,7 +449,6 @@ public class CharacterMover : MonoBehaviour
                 position = new Vector2(m_ElevatorOffset.x, m_ElevatorOffset.y - ElevatorAmplitude)
             };
             m_ElevatorBody = world.CreateBody(bodyDef);
-            bodies.Add(m_ElevatorBody);
 
             var shapeDef = new PhysicsShapeDefinition
             {
@@ -460,9 +471,6 @@ public class CharacterMover : MonoBehaviour
 
     private void CharacterMove(PhysicsWorld world, float deltaTime)
     {
-        // Clear any drawing (specifically here the custom-drawing with lifetime).
-        PhysicsWorld.defaultWorld.ClearDraw();
-
         // Finish if the world is paused.
         if (m_SandboxManager.WorldPaused || !world.isDefaultWorld)
             return;
@@ -507,10 +515,6 @@ public class CharacterMover : MonoBehaviour
 
         // Update the camera position X to the character.
         m_CameraManipulator.CameraPosition = new Vector2(m_Transform.position.x, m_CameraManipulator.CameraPosition.y);
-
-        // Draw.
-        world.DrawGeometry(m_Geometry, m_Transform, m_OnGround ? Color.orange : Color.aquamarine, DrawLifetime);
-        world.DrawLine(m_Transform.position, m_Transform.position + m_Velocity.normalized * VelocityDrawScale, m_SandboxManager.ShapeColorState, DrawLifetime);
     }
 
     /// Reference: https://github.com/id-Software/Quake/blob/master/QW/client/pmove.c#L390
@@ -637,12 +641,19 @@ public class CharacterMover : MonoBehaviour
                 speed: m_PogoVelocity,
                 deltaTime: deltaTime);
 
-            var delta = castResult.fraction * translation;
-            world.DrawLine(origin, origin + delta, Color.gray, DrawLifetime);
+            var deltaTranslation = castResult.fraction * translation;
 
-            // Draw the Pogo.
-            DrawPogo(world, origin, delta, circle, segment, Color.plum);
-
+            // Set the pogo draw.
+            m_PogoDraw = new PogoDraw
+            {
+                origin = origin,
+                deltaTranslation = deltaTranslation,
+                circle = circle,
+                segment = segment,
+                pogoColor = Color.plum,
+                isValid = true
+            };
+            
             // Apply a downward force from the Pogo.
             castResult.shape.body.ApplyForce(Vector2.down * 50f, castResult.point);
         }
@@ -651,11 +662,16 @@ public class CharacterMover : MonoBehaviour
             // No, so reset the pogo velocity.
             m_PogoVelocity = 0.0f;
 
-            var delta = translation;
-            world.DrawLine(origin, origin + delta, Color.gray, DrawLifetime);
-
-            // Draw the Pogo.
-            DrawPogo(world, origin, delta, circle, segment, Color.gray);
+            // Set the pogo draw.
+            m_PogoDraw = new PogoDraw
+            {
+                origin = origin,
+                deltaTranslation = translation,
+                circle = circle,
+                segment = segment,
+                pogoColor = Color.gray,
+                isValid = true
+            };
         }
 
         // Calculate the new target position.
@@ -691,26 +707,32 @@ public class CharacterMover : MonoBehaviour
     }
 
     // Draw the Pogo.
-    private void DrawPogo(PhysicsWorld world, Vector2 origin, Vector2 delta, CircleGeometry circle, SegmentGeometry segment, Color pogoColor)
+    private void DrawPogo(PhysicsWorld world, PogoDraw pogoDraw)
     {
+        if (!pogoDraw.isValid)
+            return;
+
+        // Draw the pogo line.
+        world.DrawLine(pogoDraw.origin, pogoDraw.origin + pogoDraw.deltaTranslation, Color.gray);
+        
         // Draw the Pogo.
         switch (m_PogoType)
         {
             case PogoType.Point:
             {
-                world.DrawPoint(origin + delta, 10f, pogoColor, DrawLifetime);
+                world.DrawPoint(pogoDraw.origin + pogoDraw.deltaTranslation, 10f, pogoDraw.pogoColor);
                 return;
             }
 
             case PogoType.Circle:
             {
-                world.DrawCircle(origin + delta, circle.radius, pogoColor, DrawLifetime);
+                world.DrawCircle(pogoDraw.origin + pogoDraw.deltaTranslation, pogoDraw.circle.radius, pogoDraw.pogoColor);
                 return;
             }
 
             case PogoType.Segment:
             {
-                world.DrawLine(segment.point1 + delta, segment.point2 + delta, pogoColor, DrawLifetime);
+                world.DrawLine(pogoDraw.segment.point1 + pogoDraw.deltaTranslation, pogoDraw.segment.point2 + pogoDraw.deltaTranslation, pogoDraw.pogoColor);
                 return;
             }
 

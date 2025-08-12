@@ -54,14 +54,12 @@ public class CardHouse : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.7f } };
 
         // Ground.
         {
             var body = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(0f, -2f) });
-            bodies.Add(body);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(80f, 4f)), shapeDef);
         }
 
@@ -90,7 +88,6 @@ public class CardHouse : MonoBehaviour
                         bodyDef.position = new Vector2(z + 0.25f, y + cardHeight - 0.015f);
                         bodyDef.rotation = new PhysicsRotate(angle2);
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                         body.CreateShape(cardBox, shapeDef);
@@ -100,7 +97,6 @@ public class CardHouse : MonoBehaviour
                         bodyDef.position = new Vector2(z, y);
                         bodyDef.rotation = new PhysicsRotate(angle1);
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                         body.CreateShape(cardBox, shapeDef);
@@ -112,7 +108,6 @@ public class CardHouse : MonoBehaviour
                         bodyDef.position = new Vector2(z, y);
                         bodyDef.rotation = new PhysicsRotate(angle0);
                         var body = world.CreateBody(bodyDef);
-                        bodies.Add(body);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                         body.CreateShape(cardBox, shapeDef);

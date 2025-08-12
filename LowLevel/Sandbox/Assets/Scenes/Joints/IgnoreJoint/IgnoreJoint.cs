@@ -80,12 +80,10 @@ public class IgnoreJoint : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground Body.
         {
             var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(groundBody);
 
             var vertices = new NativeList<Vector2>(Allocator.Temp);
             vertices.Add(Vector2.right * 17f + Vector2.up * 17f);
@@ -102,7 +100,6 @@ public class IgnoreJoint : MonoBehaviour
             var geometry = PolygonGeometry.CreateBox(size: new Vector2(2f, 6f));
 
             var body = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(0f, 3f) });
-            bodies.Add(body);
             body.CreateShape(geometry);
         }
 
@@ -111,11 +108,9 @@ public class IgnoreJoint : MonoBehaviour
             var geometry = PolygonGeometry.CreateBox(size: new Vector2(4f, 4f));
 
             m_BodyA = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-4f, 2f) });
-            bodies.Add(m_BodyA);
             m_BodyA.CreateShape(geometry);
 
             m_BodyB = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(4f, 2f) });
-            bodies.Add(m_BodyB);
             m_BodyB.CreateShape(geometry);
 
             UpdateJoint();

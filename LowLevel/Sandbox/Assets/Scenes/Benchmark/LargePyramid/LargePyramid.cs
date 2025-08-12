@@ -86,12 +86,10 @@ public class LargePyramid : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground.
         {
             var body = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(0f, -1f) });
-            bodies.Add(body);
 
             const float groundLength = 1000f;
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(groundLength, 2f)), PhysicsShapeDefinition.defaultDefinition);
@@ -121,7 +119,6 @@ public class LargePyramid : MonoBehaviour
 
                     bodyDef.position = new Vector2(x, y);
                     var body = world.CreateBody(bodyDef);
-                    bodies.Add(body);
 
                     shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                     body.CreateShape(boxGeometry, shapeDef);

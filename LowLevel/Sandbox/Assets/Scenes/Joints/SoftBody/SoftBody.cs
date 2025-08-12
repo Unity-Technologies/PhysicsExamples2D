@@ -100,16 +100,13 @@ public class SoftBody : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-        bodies.Add(groundBody);
 
         // Ground.
         {
             var bodyDef = PhysicsBodyDefinition.defaultDefinition;
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
 
             using var vertices = new NativeList<Vector2>(4, Allocator.Temp)
             {
@@ -124,8 +121,6 @@ public class SoftBody : MonoBehaviour
         // Soft Body.
         {
             using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, Vector2.zero, m_BodySides, m_BodyScale, triggerEvents: false, jointFrequency: m_JointFrequency, jointDamping: m_JointDamping);
-            foreach (var body in donut)
-                bodies.Add(body);
         }
     }
 }

@@ -107,7 +107,6 @@ public class UserJoint : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var bodyDef = new PhysicsBodyDefinition
         {
@@ -118,7 +117,6 @@ public class UserJoint : MonoBehaviour
         };
 
         m_Body = world.CreateBody(bodyDef);
-        bodies.Add(m_Body);
 
         var geometry = PolygonGeometry.CreateBox(new Vector2(2f, 1f), 0.2f);
         var shapeDef = new PhysicsShapeDefinition { density = 20f };

@@ -74,7 +74,6 @@ public class Confined : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Reset the gravity.
         world.gravity = Vector2.zero;
@@ -82,7 +81,6 @@ public class Confined : MonoBehaviour
         // Confining Border.
         {
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
 
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
             body.CreateShape(new CapsuleGeometry { center1 = new Vector2(-10.5f, 0f), center2 = new Vector2(10.5f, 0f), radius = 0.5f }, shapeDef);
@@ -111,7 +109,6 @@ public class Confined : MonoBehaviour
                 {
                     bodyDef.position = new Vector2(-8.75f + column * 18.0f / m_GridCount, 1.5f + row * 18.0f / m_GridCount);
                     var body = world.CreateBody(bodyDef);
-                    bodies.Add(body);
 
                     var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState } };
                     body.CreateShape(circleGeometry, shapeDef);

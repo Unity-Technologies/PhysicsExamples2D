@@ -99,14 +99,12 @@ public class RoundedPolygons : MonoBehaviour
         ref var random = ref m_SandboxManager.Random;
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground.
         {
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
             var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(body);
 
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(40f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, -1f), PhysicsRotate.identity)), shapeDef);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(40f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, 101f), PhysicsRotate.identity)), shapeDef);
@@ -127,7 +125,6 @@ public class RoundedPolygons : MonoBehaviour
                 {
                     bodyDef.position = new Vector2(x, y);
                     var body = world.CreateBody(bodyDef);
-                    bodies.Add(body);
 
                     shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 

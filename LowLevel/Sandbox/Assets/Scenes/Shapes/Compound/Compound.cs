@@ -76,12 +76,9 @@ public class Compound : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
-        var bodies = m_SandboxManager.Bodies;
-
         // Ground.
         {
             var body = m_PhysicsWorld.CreateBody();
-            bodies.Add(body);
             using var vertices = new NativeList<Vector2>(Allocator.Temp)
             {
 	            new(-25f, 0f),
@@ -95,7 +92,6 @@ public class Compound : MonoBehaviour
 		// Table 1.
 		{
 			m_Table1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-15f, 1f) });
-			bodies.Add(m_Table1);
 
 			m_Table1.CreateShape(PolygonGeometry.CreateBox(new Vector2(6f, 1f), 0f, new Vector2(0f, 3.5f)));
 			m_Table1.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f, 3f), 0f, new Vector2(-2.5f, 1.5f)));
@@ -105,7 +101,6 @@ public class Compound : MonoBehaviour
 		// Table 2.
 		{
 			m_Table2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-5f, 1f) });
-			bodies.Add(m_Table2);
 
 			m_Table2.CreateShape(PolygonGeometry.CreateBox(new Vector2(6f, 1f), 0f, new Vector2(0f, 3.5f)));
 			m_Table2.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f, 4f), 0f, new Vector2(-2.5f, 2f)));
@@ -115,7 +110,6 @@ public class Compound : MonoBehaviour
 		// Spaceship 1.
 		{
 			m_Ship1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(5f, 1f) });
-			bodies.Add(m_Ship1);
 
 			{
 				using var vertices = new NativeList<Vector2>(Allocator.Temp)
@@ -141,7 +135,6 @@ public class Compound : MonoBehaviour
 		// Spaceship 2.
 		{
 			m_Ship2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(15f, 1f) });
-			bodies.Add(m_Ship2);
 
 			{
 				using var vertices = new NativeList<Vector2>(Allocator.Temp)
@@ -167,33 +160,27 @@ public class Compound : MonoBehaviour
 
     private void IntrudeShape()
     {
-	    var bodies = m_SandboxManager.Bodies;
-	    
 	    // Table 1 intrusion.
 	    {
 		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = m_Table1.position, rotation = m_Table1.rotation });
-		    bodies.Add(body);
 		    body.CreateShape(PolygonGeometry.CreateBox(new Vector2(8f, 0.2f), 0f, new Vector2(0f, 3.0f)));
 	    }
 
 	    // Table 2 intrusion.
 	    {
 		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = m_Table2.position, rotation = m_Table2.rotation });
-		    bodies.Add(body);
 		    body.CreateShape(PolygonGeometry.CreateBox(new Vector2(8f, 0.2f), 0f, new Vector2(0f, 3.0f)));
 	    }
 
 	    // Ship 1 intrusion.
 	    {
 		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = m_Ship1.position, rotation = m_Ship1.rotation });
-		    bodies.Add(body);
 		    body.CreateShape(new CircleGeometry { center = new Vector2(0f, 2f), radius = 0.5f });
 	    }
 
 	    // Ship 2 intrusion.
 	    {
 		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = m_Ship2.position, rotation = m_Ship2.rotation });
-		    bodies.Add(body);
 		    body.CreateShape(new CircleGeometry { center = new Vector2(0f, 2f), radius = 0.5f });
 	    }	    
     }

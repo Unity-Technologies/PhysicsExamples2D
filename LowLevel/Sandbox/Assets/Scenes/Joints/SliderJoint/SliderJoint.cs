@@ -214,19 +214,13 @@ public class SliderJoint : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground Body.
-        PhysicsBody groundBody;
-        {
-            groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(groundBody);
-        }
+        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
 
         {
             var bodeDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 9f };
             var body = world.CreateBody(bodeDef);
-            bodies.Add(body);
 
             var geometry = new CapsuleGeometry { center1 = Vector2.down * 2f, center2 = Vector2.up * 2f, radius = 1f };
             body.CreateShape(geometry);

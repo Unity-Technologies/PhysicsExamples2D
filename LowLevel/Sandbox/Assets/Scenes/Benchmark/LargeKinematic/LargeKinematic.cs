@@ -88,7 +88,6 @@ public class LargeKinematic : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Rotating Kinematic.
         {
@@ -96,7 +95,6 @@ public class LargeKinematic : MonoBehaviour
             var shapeDef = new PhysicsShapeDefinition { startMassUpdate = false };
 
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
 
             const float grid = 1f;
             var gridBox = new Vector2(grid, grid);

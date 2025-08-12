@@ -119,13 +119,11 @@ public class BallAndChain : MonoBehaviour
         m_Joints.Clear();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         const float scale = 0.5f;
 
         // Ground Body.
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-        bodies.Add(groundBody);
 
         var prevBody = groundBody;
 
@@ -136,7 +134,6 @@ public class BallAndChain : MonoBehaviour
             {
                 var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2((1f + 2f * n) * scale, JointCount * scale) };
                 var body = world.CreateBody(bodyDef);
-                bodies.Add(body);
 
                 var geometry = new CapsuleGeometry { center1 = Vector2.left * scale, center2 = Vector2.right * scale, radius = 0.125f };
                 var shapeDef = new PhysicsShapeDefinition
@@ -178,7 +175,6 @@ public class BallAndChain : MonoBehaviour
             };
 
             var body = world.CreateBody(bodyDef);
-            bodies.Add(body);
 
             var shapeDef = new PhysicsShapeDefinition
             {

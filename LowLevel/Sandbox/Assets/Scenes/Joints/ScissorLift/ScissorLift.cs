@@ -92,16 +92,12 @@ public class ScissorLift : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-        bodies.Add(groundBody);
 
         // Ground.
         {
             var body = world.CreateBody();
-            bodies.Add(body);
-
             body.CreateShape(new SegmentGeometry { point1 = Vector2.left * 20f, point2 = Vector2.right * 20f });
         }
 
@@ -123,12 +119,10 @@ public class ScissorLift : MonoBehaviour
             bodyDef.position = new Vector2(0f, y);
             bodyDef.rotation = new PhysicsRotate(0.15f);
             var body1 = world.CreateBody(bodyDef);
-            bodies.Add(body1);
             body1.CreateShape(capsule);
 
             bodyDef.rotation = new PhysicsRotate(0.15f);
             var body2 = world.CreateBody(bodyDef);
-            bodies.Add(body2);
             body2.CreateShape(capsule);
 
             if (n == 1)
@@ -188,7 +182,6 @@ public class ScissorLift : MonoBehaviour
         bodyDef.rotation = PhysicsRotate.identity;
 
         var platform = world.CreateBody(bodyDef);
-        bodies.Add(platform);
 
         var box = PolygonGeometry.CreateBox(new Vector2(6.0f, 0.4f));
         platform.CreateShape(box);
@@ -236,8 +229,6 @@ public class ScissorLift : MonoBehaviour
             const float springDamping = 0.7f;
             const float maxMotorTorque = 0f;
             using var car = CarFactory.Spawn(world, new Vector2(0f, y + 2f), 1f, springFrequency, springDamping, maxMotorTorque, 1f, out var rearWheelJoint, out var frontWheelJoint);
-            foreach (var body in car)
-                bodies.Add(body);
         }
     }
 }

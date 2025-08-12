@@ -13,7 +13,6 @@ using Random = Unity.Mathematics.Random;
 
 public class SandboxManager : MonoBehaviour, IShapeColorProvider
 {
-    public NativeHashSet<PhysicsBody> Bodies;
     public ref Random Random => ref m_Random;
     public bool WorldPaused { get; private set; }
 
@@ -187,11 +186,27 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
             sceneWorld.enabled = false;
 
-        // Destroy any current bodies.
-        if (Bodies.IsCreated && Bodies.Count > 0)
         {
-            PhysicsWorld.DestroyBodyBatch(Bodies.ToNativeArray(Allocator.Temp));
-            Bodies.Clear();
+            var destroyBodies = new NativeList<PhysicsBody>(1000, Allocator.Temp);
+            
+            // Iterate all worlds.
+            using var allWorlds = PhysicsWorld.GetWorlds();
+            foreach (var world in allWorlds)
+            {
+                // Iterate all non-owned bodies.
+                using var bodies = world.GetBodies();
+                foreach (var body in bodies)
+                {
+                    if (!body.isOwned)
+                        destroyBodies.Add(body);
+                }
+            }
+
+            if (destroyBodies.Length > 0)
+                PhysicsWorld.DestroyBodyBatch(destroyBodies.AsArray());
+            
+            // Dispose.
+            destroyBodies.Dispose();
         }
 
         // Clear the debug draw.
@@ -217,17 +232,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // We don't want this appearing all the time.
         UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
 
-        Bodies = new NativeHashSet<PhysicsBody>(500, Allocator.Persistent);
         m_DrawFlagElements = new Dictionary<PhysicsWorld.DrawOptions, Toggle>(capacity: 8);
 
         // Overrides.
         m_OverrideDrawOptions = PhysicsWorld.DrawOptions.Off;
         m_OverridePreviousDrawOptions = PhysicsWorld.DrawOptions.Off;
-    }
-
-    private void OnDisable()
-    {
-        Bodies.Dispose();
     }
 
     private void Start()

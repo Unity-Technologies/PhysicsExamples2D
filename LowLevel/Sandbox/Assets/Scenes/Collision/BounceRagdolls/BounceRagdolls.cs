@@ -111,7 +111,6 @@ public class BounceRagdolls : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         m_RagdollCount = 0;
         m_UpdateTime = m_UpdatePeriod;
@@ -119,7 +118,6 @@ public class BounceRagdolls : MonoBehaviour
 
         // Ground Body. 
         var groundBody = world.CreateBody();
-        bodies.Add(groundBody);
 
         var extent = 10f;
         using var extentPoints = new NativeList<Vector2>(Allocator.Temp)
@@ -205,10 +203,5 @@ public class BounceRagdolls : MonoBehaviour
         var position = new Vector2(random.NextFloat(-2f, 2f), random.NextFloat(-2f, 0f));
 
         using var ragdoll = RagdollFactory.Spawn(world, position, ragDollConfiguration, true, ref random);
-        var bodies = m_SandboxManager.Bodies;
-        foreach (var body in ragdoll)
-        {
-            bodies.Add(body);
-        }
     }
 }

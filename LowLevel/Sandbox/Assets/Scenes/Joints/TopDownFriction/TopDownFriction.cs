@@ -100,13 +100,11 @@ public class TopDownFriction : MonoBehaviour
         ref var random = ref m_SandboxManager.Random;
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Ground Body.
         PhysicsBody groundBody;
         {
             groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            bodies.Add(groundBody);
 
             var vertices = new NativeList<Vector2>(Allocator.Temp);
             vertices.Add(Vector2.right * 10f + Vector2.up * 20f);
@@ -142,7 +140,6 @@ public class TopDownFriction : MonoBehaviour
                 {
                     bodyDef.position = offset;
                     var body = world.CreateBody(bodyDef);
-                    bodies.Add(body);
 
                     shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
 

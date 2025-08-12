@@ -77,7 +77,6 @@ public class RollingResistance : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         // Slopes.
         {
@@ -99,7 +98,6 @@ public class RollingResistance : MonoBehaviour
             {
                 // Create Slope.
                 var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-                bodies.Add(groundBody);
                 groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-40f, 2f * n), point2 = new Vector2(-40f, 2f * n + 1.5f) }, slopeShapeDef);
                 groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-40f, 2f * n), point2 = new Vector2(40f, 2f * n + slopeAngle) }, slopeShapeDef);
                 groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(40f, 2f * n + slopeAngle), point2 = new Vector2(40f, 2f * n + slopeAngle + 1.5f) }, slopeShapeDef);
@@ -107,7 +105,6 @@ public class RollingResistance : MonoBehaviour
                 // Create Ball.
                 bodyDef.position = new Vector2(-39.5f, 2f * n + 0.75f);
                 var ballBody = world.CreateBody(bodyDef);
-                bodies.Add(ballBody);
                 ballShapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                 ballShapeDef.surfaceMaterial.rollingResistance = 0.02f * n;
                 ballBody.CreateShape(circle, ballShapeDef);

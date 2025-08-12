@@ -111,26 +111,21 @@ public class ModifyGeometry : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
-        var bodies = m_SandboxManager.Bodies;
-
         // Ground.
         {
             var body = m_PhysicsWorld.CreateBody();
-            bodies.Add(body);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 50f), 0f, Vector2.down * 25f));
         }
 
         // Interact Shape.
         {
             var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 4f });
-            bodies.Add(body);
             body.CreateShape(PolygonGeometry.CreateBox(Vector2.one * 2f));
         }
 
         // Shape Changer.
         {
             m_ChangerBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = m_BodyType, position = Vector2.up });
-            bodies.Add(m_ChangerBody);
             m_ChangerShape = m_ChangerBody.CreateShape(circleGeometry);
             
             // Update the geometry if this isn't the current default.

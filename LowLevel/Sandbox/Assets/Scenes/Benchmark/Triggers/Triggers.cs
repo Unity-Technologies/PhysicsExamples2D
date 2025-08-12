@@ -88,7 +88,6 @@ public class Triggers : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         m_StepCount = 0;
 
@@ -106,7 +105,6 @@ public class Triggers : MonoBehaviour
 
         // Ground Body. 
         var groundBody = world.CreateBody();
-        bodies.Add(groundBody);
 
         // Ground.
         {
@@ -162,7 +160,6 @@ public class Triggers : MonoBehaviour
     private void CreateRow(float y)
     {
         var world = PhysicsWorld.defaultWorld;
-        var bodies = m_SandboxManager.Bodies;
 
         var xCenter = 0.5f * ColumnSpacing * m_ColumnCount;
 
@@ -191,8 +188,6 @@ public class Triggers : MonoBehaviour
             bodyDef.position = new Vector2(ColumnSpacing * i - xCenter, y);
             var body = world.CreateBody(bodyDef);
             body.CreateShape(circle, shapeDef);
-
-            bodies.Add(body);
         }
     }
 
@@ -211,8 +206,6 @@ public class Triggers : MonoBehaviour
 
         // Events.
         {
-            var bodies = m_SandboxManager.Bodies;
-
             // Begin.
             foreach (var beginEvent in world.triggerBeginEvents)
             {
@@ -224,9 +217,7 @@ public class Triggers : MonoBehaviour
 
                 if ((triggerShape.contactFilter.categories & DestroyLayer) != 0)
                 {
-                    var body = shape.body;
-                    bodies.Remove(body);
-                    body.Destroy();
+                    shape.body.Destroy();
                     continue;
                 }
 
