@@ -21,12 +21,11 @@ In each sample there is at least a single ".cs" file containing all the sample c
 
 The structure of the ".cs" script file is consistent for all samples and typically contains the following methods:
 
-- OnEnable - Grabs the Sandbox Manager and Camera Manipulator and initializes any sample fields. Also, other global physics or sandbox state may be overriden here. Here we always call "SetupOptions" and "SetupScene" (see below).
-- OnDisable - Typically destroys any temporary storage and restores any global physics or Sandbox state.
-- SetupOptions - This is always called from "OnEnable" and always configures the sample UI to dynamically control the sample (sample option in the lower-level UI).
-- SetupScene - This is always called from "OnEnable" but is also called from the sample UI when pressing the "ResetScene" button on all samples. Here is where all the sample physics objects are created.
-- Update - Some samples use this to perform per-frame updates such as world drawing.
-- Misc - Some samples have miscellaneous methods (sometimes used in "SetupScene") to spawn or control the physics objects. Some are hooked into the pre/post simulate to perform an action when the simulation is about to or has run.  
+- **OnEnable()** - Grabs the Sandbox Manager and Camera Manipulator and initializes any sample fields. Also, other global physics or sandbox state may be overriden here. Here we always call "SetupOptions" and "SetupScene" (see below).
+- **OnDisable()** - Typically destroys any temporary storage and restores any global physics or Sandbox state.
+- **SetupOptions()** - This is always called from "OnEnable" and always configures the sample UI to dynamically control the sample (sample option in the lower-level UI).
+- **SetupScene** - This is always called from "OnEnable" but is also called from the sample UI when pressing the "ResetScene" button on all samples. Here is where all the sample physics objects are created.
+- **Update()** - Some samples use this to perform per-frame updates such as world drawing.
+- **Misc** - Some samples have miscellaneous methods (sometimes used in "SetupScene") to spawn or control the physics objects. Some are hooked into the pre/post simulate to perform an action when the simulation is about to or has run.  
 
-The "Scripts" folder are typically utility scripts used by various scenes such as spawning physics objects i.e. ragdolls, softbodies etc.
-
+The "Scripts" folder typically contains utility scripts only used by various scenes such as spawning physics objects i.e. ragdolls, softbodies etc.
