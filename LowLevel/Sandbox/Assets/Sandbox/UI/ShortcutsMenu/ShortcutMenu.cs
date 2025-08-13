@@ -31,13 +31,13 @@ public class ShortcutMenu : MonoBehaviour
                 $"[{color}C{endColor}]\t\tToggle Color State\n" +
                 $"[{color}1{endColor}]\t\tLeft Mouse Drag\n" +
                 $"[{color}2{endColor}]\t\tLeft Mouse Explode\n" +
-                $"[{color}D{endColor}]\t\tToggle Debugging\n" +
-                $"[{color}TAB{endColor}]\t\tToggle Overlays\n" +
+                $"[{color}D{endColor}]\t\tToggle Debug\n" +
+                $"[{color}TAB{endColor}]\t\tToggle UI\n" +
                 $"[{color}LMB+LCtrl{endColor}]\tPan\n" +
                 $"[{color}LMB+Move{endColor}]\t\tDrag/Explode\n" +
                 $"[{color}Mouse Wheel{endColor}]\tZoom\n" +
                 $"[{color}Arrows+Space{endColor}]\tMisc Interaction\n" +
-                $"[{color}ESC{endColor}]\t\tQuit (Player)\n";
+                $"[{color}ESC{endColor}]\t\tQuit\n";
         }
     }
 }

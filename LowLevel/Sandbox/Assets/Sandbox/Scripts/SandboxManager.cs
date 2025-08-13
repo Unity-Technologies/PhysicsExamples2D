@@ -26,6 +26,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public UIDocument SceneOptionsUI { get; set; }
     
     private bool ColorShapeState { get; set; }
+    private ControlsMenu.CustomButton m_PausePlayButton;    
+    private ControlsMenu.CustomButton m_StepButton;    
+    private ControlsMenu.CustomButton m_DebugButton;    
+    private ControlsMenu.CustomButton m_UIButton;
     private ControlsMenu.CustomButton m_QuitButton;
 
     public string StartScene = string.Empty;
@@ -181,6 +185,177 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public Color32 ShapeColorState => ColorShapeState ? new Color32() : new Color32((byte)m_Random.NextUInt(0, 256), (byte)m_Random.NextUInt(0, 256), (byte)m_Random.NextUInt(0, 256), 255);
     bool IShapeColorProvider.IsShapeColorActive => ColorShapeState;
 
+    private void Start()
+    {
+        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_SceneManifest = GetComponent<SceneManifest>();
+        m_MainMenuDocument = GetComponent<UIDocument>();
+
+        ColorShapeState = true;
+        m_ShowUI = true;
+
+        // Show the Shortcut menu by default.
+        ShortcutMenu.gameObject.SetActive(true);
+        
+        // Reset the controls.
+        ControlsMenu.ResetControls();
+        m_PausePlayButton = ControlsMenu.pausePlayButton;
+        m_StepButton = ControlsMenu.stepButton;
+        m_DebugButton = ControlsMenu.debugButton;
+        m_UIButton = ControlsMenu.uiButton;
+        m_QuitButton = ControlsMenu.quitButton;
+        
+        m_PausePlayButton.button.clickable.clicked += TogglePauseContinue;
+        m_StepButton.button.clickable.clicked += SingleStep;
+        m_DebugButton.button.clickable.clicked += ToggleDebugging; 
+        m_UIButton.button.clickable.clicked += ToggleUI;
+            
+        var defaultWorld = PhysicsWorld.defaultWorld;
+        m_MenuDefaults = new MenuDefaults
+        {
+            // PhysicsWorld.
+            Workers = defaultWorld.simulationWorkers,
+            SubSteps = defaultWorld.simulationSubSteps,
+            Frequency = "60",
+            WarmStarting = defaultWorld.warmStartingAllowed,
+            Sleeping = defaultWorld.sleepingAllowed,
+            Continuous = defaultWorld.continuousAllowed,
+
+            // Drawing.
+            ShowDebugging = false,
+            InputDrag = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag),
+            ExplodeImpulse = 30f,
+            CameraZoom = 1f,
+            ColorShapeState = ColorShapeState,
+            DrawThickness = defaultWorld.drawThickness,
+            DrawPointScale = defaultWorld.drawPointScale,
+            DrawNormalScale = defaultWorld.drawNormalScale,
+            DrawImpulseScale = defaultWorld.drawImpulseScale,
+            DrawOptions = defaultWorld.drawOptions
+        };
+
+        SetupSceneTree();
+        SetupOptions();
+
+        m_UpdateTimeFPS = UpdatePeriodFPS;
+    }
+
+    private void OnEnable()
+    {
+        // We don't want this appearing all the time.
+        UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
+
+        m_DrawFlagElements = new Dictionary<PhysicsWorld.DrawOptions, Toggle>(capacity: 8);
+
+        // Overrides.
+        m_OverrideDrawOptions = PhysicsWorld.DrawOptions.Off;
+        m_OverridePreviousDrawOptions = PhysicsWorld.DrawOptions.Off;
+    }
+    
+    private void Update()
+    {
+        // Controls.
+        {
+            var currentKeyboard = Keyboard.current;
+
+            // Quit.
+            if (m_QuitButton.isPressed || currentKeyboard.escapeKey.wasPressedThisFrame)
+            {
+#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+#else
+                Application.Quit();
+#endif
+                return;
+            }
+
+            // Toggle UI.
+            if (currentKeyboard.tabKey.wasPressedThisFrame)
+            {
+                ToggleUI();
+                return;
+            }
+
+            // Single-Step.
+            if (currentKeyboard.sKey.wasPressedThisFrame)
+            {
+                // Single-step.
+                SingleStep();
+            }
+
+            // Pause/Continue.
+            if (currentKeyboard.pKey.wasPressedThisFrame)
+            {
+                TogglePauseContinue();
+            }
+
+            // Debugging.
+            if (currentKeyboard.dKey.wasPressedThisFrame)
+            {
+                ToggleDebugging();
+            }
+
+            // Toggle Color PhysicsShape State.
+            if (currentKeyboard.cKey.wasPressedThisFrame)
+            {
+                if (!m_OverrideColorShapeState)
+                    m_ColorShapeStateElement.value = !m_ColorShapeStateElement.value;
+            }
+
+            // Touch State.
+            {
+                // Drag Mode.
+                if (currentKeyboard.digit1Key.wasPressedThisFrame)
+                    m_InputModeElement.value = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag);
+                else if (currentKeyboard.digit2Key.wasPressedThisFrame)
+                    m_InputModeElement.value = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Explode);
+            }
+        }
+
+        // Fps.
+        var deltaTime = Time.smoothDeltaTime;
+        if (m_BarFPS != null & deltaTime > 0f)
+        {
+            m_UpdateTimeFPS -= deltaTime;
+            if (m_UpdateTimeFPS >= 0f)
+                return;
+
+            m_UpdateTimeFPS = UpdatePeriodFPS;
+
+            const string color = "<color=#7FFFD4>";
+            const string endColor = "</color>";
+
+            var fps = 1f / deltaTime;
+            m_BarFPS.highValue = m_MaxFPS = math.max(m_MaxFPS, fps);
+            m_BarFPS.value = fps;
+            m_BarFPS.title = $"{color}{fps:F1}{endColor} fps ({color}{1000f / fps:F1}{endColor} ms)";
+        }
+    }
+
+    private void ToggleUI()
+    {
+        m_ShowUI = !m_ShowUI;
+
+        // Debugging Menu.
+        if (m_ShowDebuggingElement.value)
+            DebuggingMenu.gameObject.SetActive(m_ShowUI);
+
+        // Toggle Shortcut Menu.
+        ShortcutMenu.gameObject.SetActive(!ShortcutMenu.gameObject.activeInHierarchy);
+                
+        // Main Menu.
+        m_MainMenuDocument.rootVisualElement.style.display = m_ShowUI ? DisplayStyle.Flex : DisplayStyle.None;
+
+        // If we have an assigned scene options UI then toggle it.
+        if (SceneOptionsUI != null)
+            SceneOptionsUI.enabled = m_ShowUI;
+    }
+
+    private void ToggleDebugging()
+    {
+        m_ShowDebuggingElement.value = !m_ShowDebuggingElement.value;
+    }
+    
     public void ResetSceneState()
     {
         // Disable any "SceneBody".
@@ -231,164 +406,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             sceneBody.enabled = true;
     }
-
-    private void OnEnable()
-    {
-        // We don't want this appearing all the time.
-        UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
-
-        m_DrawFlagElements = new Dictionary<PhysicsWorld.DrawOptions, Toggle>(capacity: 8);
-
-        // Overrides.
-        m_OverrideDrawOptions = PhysicsWorld.DrawOptions.Off;
-        m_OverridePreviousDrawOptions = PhysicsWorld.DrawOptions.Off;
-    }
-
-    private void Start()
-    {
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_SceneManifest = GetComponent<SceneManifest>();
-        m_MainMenuDocument = GetComponent<UIDocument>();
-
-        ColorShapeState = true;
-        m_ShowUI = true;
-
-        // Show the Shortcut menu by default.
-        ShortcutMenu.gameObject.SetActive(true);
-        
-        // Reset the controls.
-        ControlsMenu.ResetControls();
-        m_QuitButton = ControlsMenu.quitButton;
-
-        var defaultWorld = PhysicsWorld.defaultWorld;
-        m_MenuDefaults = new MenuDefaults
-        {
-            // PhysicsWorld.
-            Workers = defaultWorld.simulationWorkers,
-            SubSteps = defaultWorld.simulationSubSteps,
-            Frequency = "60",
-            WarmStarting = defaultWorld.warmStartingAllowed,
-            Sleeping = defaultWorld.sleepingAllowed,
-            Continuous = defaultWorld.continuousAllowed,
-
-            // Drawing.
-            ShowDebugging = false,
-            InputDrag = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag),
-            ExplodeImpulse = 30f,
-            CameraZoom = 1f,
-            ColorShapeState = ColorShapeState,
-            DrawThickness = defaultWorld.drawThickness,
-            DrawPointScale = defaultWorld.drawPointScale,
-            DrawNormalScale = defaultWorld.drawNormalScale,
-            DrawImpulseScale = defaultWorld.drawImpulseScale,
-            DrawOptions = defaultWorld.drawOptions
-        };
-
-        SetupSceneTree();
-        SetupOptions();
-
-        m_UpdateTimeFPS = UpdatePeriodFPS;
-    }
-
-    private void Update()
-    {
-        // Keyboard Controls.
-        {
-            var currentKeyboard = Keyboard.current;
-
-            // Quit.
-            if (m_QuitButton.isPressed || currentKeyboard.escapeKey.wasPressedThisFrame)
-            {
-#if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
-#else
-                Application.Quit();
-#endif
-                return;
-            }
-
-            // Toggle UI.
-            if (currentKeyboard.tabKey.wasPressedThisFrame)
-            {
-                m_ShowUI = !m_ShowUI;
-
-                // Debugging Menu.
-                if (m_ShowDebuggingElement.value)
-                    DebuggingMenu.gameObject.SetActive(m_ShowUI);
-
-                // Toggle Shortcut Menu.
-                ShortcutMenu.gameObject.SetActive(!ShortcutMenu.gameObject.activeInHierarchy);
-                
-                // Main Menu.
-                m_MainMenuDocument.rootVisualElement.style.display = m_ShowUI ? DisplayStyle.Flex : DisplayStyle.None;
-
-                // If we have an assigned scene options UI then toggle it.
-                if (SceneOptionsUI != null)
-                    SceneOptionsUI.enabled = m_ShowUI;
-
-                return;
-            }
-
-            // Single-Step.
-            if (currentKeyboard.sKey.wasPressedThisFrame)
-            {
-                // Pause the world if we're not already paused.
-                if (!WorldPaused)
-                    TogglePauseContinue();
-
-                // Single-step.
-                SingleStep();
-            }
-
-            // Pause/Continue.
-            if (currentKeyboard.pKey.wasPressedThisFrame)
-            {
-                TogglePauseContinue();
-            }
-
-            // Debugging.
-            if (currentKeyboard.dKey.wasPressedThisFrame)
-            {
-                m_ShowDebuggingElement.value = !m_ShowDebuggingElement.value;
-            }
-
-            // Toggle Color PhysicsShape State.
-            if (currentKeyboard.cKey.wasPressedThisFrame)
-            {
-                if (!m_OverrideColorShapeState)
-                    m_ColorShapeStateElement.value = !m_ColorShapeStateElement.value;
-            }
-
-            // Touch State.
-            {
-                // Drag Mode.
-                if (currentKeyboard.digit1Key.wasPressedThisFrame)
-                    m_InputModeElement.value = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag);
-                else if (currentKeyboard.digit2Key.wasPressedThisFrame)
-                    m_InputModeElement.value = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Explode);
-            }
-        }
-
-        // Fps.
-        var deltaTime = Time.smoothDeltaTime;
-        if (m_BarFPS != null & deltaTime > 0f)
-        {
-            m_UpdateTimeFPS -= deltaTime;
-            if (m_UpdateTimeFPS >= 0f)
-                return;
-
-            m_UpdateTimeFPS = UpdatePeriodFPS;
-
-            const string color = "<color=#7FFFD4>";
-            const string endColor = "</color>";
-
-            var fps = 1f / deltaTime;
-            m_BarFPS.highValue = m_MaxFPS = math.max(m_MaxFPS, fps);
-            m_BarFPS.value = fps;
-            m_BarFPS.title = $"{color}{fps:F1}{endColor} fps ({color}{1000f / fps:F1}{endColor} ms)";
-        }
-    }
-
+    
     private void SetupOptions()
     {
         var root = m_MainMenuDocument.rootVisualElement;
@@ -777,14 +795,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     private void SingleStep()
     {
+        if (!WorldPaused)
+            return;
+        
         var defaultWorld = PhysicsWorld.defaultWorld;
 
         var oldPaused = defaultWorld.paused;
         var oldSimulationMode = defaultWorld.simulationMode;
-
-        // Pause thw world if we're not already paused.
-        if (!WorldPaused)
-            TogglePauseContinue();
 
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();

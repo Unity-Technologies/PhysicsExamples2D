@@ -16,7 +16,7 @@
                         <ui:DropdownField label="Frequency" choices="15,30,60,120,Variable" index="2" name="frequency" focusable="false"/>
                         <ui:Button text="Restart" name="restart" focusable="false" enabled="true"/>
                         <ui:Button text="Pause/Continue (P)" name="pause-continue" focusable="false"/>
-                        <ui:Button text="Single-Step (S)" name="single-step" focusable="false" enabled="false"/>
+                        <ui:Button text="Single-Step (S)" name="single-step" focusable="false" enabled="true"/>
                         <ui:Button text="Quit " name="quit-application" focusable="false"/>
                     </ui:VisualElement>
                 </ui:Tab>
