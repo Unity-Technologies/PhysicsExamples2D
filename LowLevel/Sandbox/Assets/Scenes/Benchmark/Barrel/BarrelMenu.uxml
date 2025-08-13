@@ -4,7 +4,7 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Barrel Options" tabindex="0" name="Tab">
-                    <ui:DropdownField label="Object Type" name="object-type" choices="Circle,Capsule,Polygon,PrimitiveMix,Compound,Ragdoll" index="0" focusable="false"/>
+                    <ui:EnumField label="Object Type" value="Center" type="Barrel+ObjectType, Assembly-CSharp" name="object-type" focusable="false"/>
                     <ui:Toggle label="Fast Collisions" name="fast-collisions" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>

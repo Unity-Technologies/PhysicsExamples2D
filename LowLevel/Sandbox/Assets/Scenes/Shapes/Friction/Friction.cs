@@ -122,11 +122,11 @@ public class Friction : MonoBehaviour
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Object Type.
-            var objectType = root.Q<DropdownField>("object-type");
-            objectType.index = (int)m_ObjectType;
+            var objectType = root.Q<EnumField>("object-type");
+            objectType.value = m_ObjectType;
             objectType.RegisterValueChangedCallback(evt =>
             {
-                m_ObjectType = Enum.Parse<ObjectType>(evt.newValue);
+                m_ObjectType = (ObjectType)evt.newValue;
                 SetupScene();
             });
 

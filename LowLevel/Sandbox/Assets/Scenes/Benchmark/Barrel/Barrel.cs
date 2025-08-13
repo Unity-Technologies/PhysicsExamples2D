@@ -19,7 +19,7 @@ public class Barrel : MonoBehaviour
         Circle = 0,
         Capsule = 1,
         Polygon = 2,
-        PrimitiveMix = 3,
+        Mix = 3,
         Compound = 4,
         Ragdoll = 5
     }
@@ -59,11 +59,11 @@ public class Barrel : MonoBehaviour
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Object Type.
-            var objectType = root.Q<DropdownField>("object-type");
-            objectType.index = (int)m_ObjectType;
+            var objectType = root.Q<EnumField>("object-type");
+            objectType.value = m_ObjectType;
             objectType.RegisterValueChangedCallback(evt =>
             {
-                m_ObjectType = Enum.Parse<ObjectType>(evt.newValue);
+                m_ObjectType = (ObjectType)evt.newValue;
                 SetupScene();
             });
 
@@ -124,7 +124,7 @@ public class Barrel : MonoBehaviour
         }
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed };
-        if (m_ObjectType == ObjectType.PrimitiveMix)
+        if (m_ObjectType == ObjectType.Mix)
             bodyDef.angularDamping = 0.3f;
 
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.5f } };
@@ -192,7 +192,7 @@ public class Barrel : MonoBehaviour
                         continue;
                     }
 
-                    case ObjectType.PrimitiveMix:
+                    case ObjectType.Mix:
                     {
                         var body = world.CreateBody(bodyDef);
                         switch (i % 3)

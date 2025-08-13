@@ -86,7 +86,7 @@ public class Funnel : MonoBehaviour
         DestroyTriggerDetections();
     }
 
-    private void DestroyTriggerDetections()
+    private static void DestroyTriggerDetections()
     {
         var world = PhysicsWorld.defaultWorld;
         var triggerEvents = world.triggerBeginEvents;
@@ -301,9 +301,9 @@ public class Funnel : MonoBehaviour
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
             // Object Type.
-            var objectType = root.Q<DropdownField>("object-type");
-            objectType.index = (int)m_ObjectType;
-            objectType.RegisterValueChangedCallback(evt => { m_ObjectType = Enum.Parse<ObjectType>(evt.newValue); });
+            var objectType = root.Q<EnumField>("object-type");
+            objectType.value = m_ObjectType;
+            objectType.RegisterValueChangedCallback(evt => { m_ObjectType = (ObjectType)evt.newValue; });
 
             // Object Scale.
             var objectScale = root.Q<Slider>("object-scale");
