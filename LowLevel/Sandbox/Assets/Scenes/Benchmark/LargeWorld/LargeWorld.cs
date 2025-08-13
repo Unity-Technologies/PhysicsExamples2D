@@ -102,11 +102,7 @@ public class LargeWorld : MonoBehaviour
                 
                 // If we're no longer following the car then set the current camera position to the car position.
                 if (!m_FollowCar)
-                {
-                    //m_CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraPosition.y);
-                    var startX = -0.5f * m_CycleCount * m_WavePeriod;
-                    m_CameraPosition = new Vector2(startX + m_GridCount * m_GridSize, m_CameraPosition.y);
-                }
+                    m_CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraPosition.y);
             });
 
             // Camera Pan Speed.
