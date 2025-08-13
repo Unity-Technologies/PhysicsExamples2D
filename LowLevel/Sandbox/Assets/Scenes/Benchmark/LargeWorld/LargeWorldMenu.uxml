@@ -8,7 +8,6 @@
                     <ui:Slider label="Camera Pan Speed" value="0" high-value="400" name="camera-pan-speed" fill="true" show-input-field="true" low-value="-400" focusable="false"/>
                     <ui:FloatField label="World Position (Km)" value="0" name="world-position" enabled="true" focusable="false" readonly="true"/>
                     <ui:FloatField label="World Size (Km)" value="0" name="world-size" enabled="true" focusable="false" readonly="true"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

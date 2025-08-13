@@ -6,7 +6,6 @@
                 <ui:Tab label="Spinner Options" tabindex="0" name="Tab">
                     <ui:SliderInt label="Grid Size" value="64" high-value="100" name="grid-size" low-value="10" fill="true" focusable="false" show-input-field="true"/>
                     <ui:Slider label="Gravity Scale" value="1" high-value="2" name="gravity-scale" show-input-field="true" low-value="0" fill="true" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

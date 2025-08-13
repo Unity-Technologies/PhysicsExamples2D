@@ -229,10 +229,6 @@ public class CharacterMover : MonoBehaviour
             pogoType.value = m_PogoType;
             pogoType.RegisterValueChangedCallback(evt => { m_PogoType = (PogoType)evt.newValue; });
 
-            // Reset Scene.
-            var resetScene = root.Q<Button>("reset-scene");
-            resetScene.clicked += SetupScene;
-
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";

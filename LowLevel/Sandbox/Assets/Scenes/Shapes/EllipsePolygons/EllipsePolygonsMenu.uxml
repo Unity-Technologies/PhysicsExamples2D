@@ -8,7 +8,6 @@
                     <ui:SliderInt label="Row Count" high-value="20" name="row-count" low-value="1" fill="true" focusable="false" show-input-field="true"/>
                     <ui:Slider label="Friction" high-value="1" name="friction" fill="true" show-input-field="true" focusable="false"/>
                     <ui:Slider label="Restitution" high-value="1" name="bounciness" fill="true" show-input-field="true" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

@@ -6,7 +6,6 @@
                 <ui:Tab label="Top Down Friction Options" tabindex="0" name="Tab">
                     <ui:Slider label="Max Force" value="0" high-value="50" show-input-field="true" name="max-force" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Max Torque" value="0" high-value="50" show-input-field="true" name="max-torque" fill="true" low-value="0" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

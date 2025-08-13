@@ -105,11 +105,7 @@ public class Shooter : MonoBehaviour
             var gravityScale = root.Q<Slider>("gravity-scale");
             gravityScale.value = m_GravityScale;
             gravityScale.RegisterValueChangedCallback(evt => { m_GravityScale = evt.newValue; });
-
-            // Reset Scene.
-            var resetScene = root.Q<Button>("reset-scene");
-            resetScene.clicked += SetupScene;
-
+            
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";

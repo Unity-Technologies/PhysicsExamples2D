@@ -30,6 +30,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private ControlsMenu.CustomButton m_SingleStepButton;    
     private ControlsMenu.CustomButton m_DebugButton;    
     private ControlsMenu.CustomButton m_UIButton;
+    private ControlsMenu.CustomButton m_ResetButton;
     private ControlsMenu.CustomButton m_QuitButton;
 
     public string StartScene = string.Empty;
@@ -135,15 +136,18 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_SingleStepButton = ControlsMenu.singleStepButton;
         m_DebugButton = ControlsMenu.debugButton;
         m_UIButton = ControlsMenu.uiButton;
+        m_ResetButton = ControlsMenu.resetButton;
         m_QuitButton = ControlsMenu.quitButton;
         
         m_PausePlayButton.button.clickable.clicked += TogglePausePlay;
         m_SingleStepButton.button.clickable.clicked += SingleStep;
         m_DebugButton.button.clickable.clicked += ToggleDebugging; 
         m_UIButton.button.clickable.clicked += ToggleUI;
-
+        m_ResetButton.button.clickable.clicked += ResetScene;
+        
         m_PausePlayButton.button.text = WorldPaused ? "Play" : "Pause";
         m_SingleStepButton.button.enabledSelf = WorldPaused;
+
             
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
@@ -512,8 +516,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             {
                 ColorShapeState = evt.newValue;
 
-                if (!m_DisableUIRestarts)
-                    SceneResetAction?.Invoke();
+                ResetScene();
             });
 
             // Bodies.
@@ -671,6 +674,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_SceneManifest.LoadScene(sceneName, ResetSceneState);
     }
 
+    private void ResetScene()
+    {
+        if (!m_DisableUIRestarts)
+            SceneResetAction?.Invoke();
+    }
+    
     // Reset the settings and reload the current scene.
     private void Restart()
     {

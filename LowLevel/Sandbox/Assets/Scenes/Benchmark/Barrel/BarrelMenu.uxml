@@ -6,7 +6,6 @@
                 <ui:Tab label="Barrel Options" tabindex="0" name="Tab">
                     <ui:DropdownField label="Object Type" name="object-type" choices="Circle,Capsule,Polygon,PrimitiveMix,Compound,Ragdoll" index="0" focusable="false"/>
                     <ui:Toggle label="Fast Collisions" name="fast-collisions" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

@@ -8,7 +8,6 @@
                     <ui:SliderInt label="Object Count" value="1" high-value="100" show-input-field="true" name="object-count" fill="true" low-value="1" focusable="false"/>
                     <ui:Slider label="Gravity Scale" value="1" high-value="20" name="gravity-scale" show-input-field="true" low-value="1" fill="true" focusable="false"/>
                     <ui:Toggle label="Fast Collisions" name="fast-collisions" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

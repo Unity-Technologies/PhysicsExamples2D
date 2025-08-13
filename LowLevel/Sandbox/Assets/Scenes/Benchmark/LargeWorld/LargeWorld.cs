@@ -121,10 +121,6 @@ public class LargeWorld : MonoBehaviour
             m_WorldSizeField = root.Q<FloatField>("world-size");
             m_WorldSizeField.value = m_GridSize * m_GridCount / 1000.0f;
             
-            // Reset Scene.
-            var resetScene = root.Q<Button>("reset-scene");
-            resetScene.clicked += SetupScene;
-
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";

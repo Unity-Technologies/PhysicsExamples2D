@@ -52,10 +52,6 @@ public class Arch : MonoBehaviour
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
-            // Reset Scene.
-            var resetScene = root.Q<Button>("reset-scene");
-            resetScene.clicked += SetupScene;
-
             // Friction.
             var friction = root.Q<Slider>("friction");
             friction.value = m_Friction;

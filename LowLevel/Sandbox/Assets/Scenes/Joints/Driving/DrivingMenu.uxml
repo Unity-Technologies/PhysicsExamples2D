@@ -8,7 +8,6 @@
                     <ui:Slider label="Spring Damping" value="0" high-value="4" show-input-field="true" name="spring-damping" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Motor Speed" value="0" high-value="50" show-input-field="true" name="motor-speed" fill="true" low-value="-50" focusable="false"/>
                     <ui:Slider label="Max Motor Torque" value="0" high-value="20" show-input-field="true" name="max-motor-torque" fill="true" low-value="0" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

@@ -14,7 +14,6 @@
                     <ui:Toggle label="Enable Limit" name="enable-limit" focusable="false"/>
                     <ui:Slider label="Min Distance Limit" value="-10" high-value="0" show-input-field="true" name="min-translation-limit" fill="true" low-value="-4" focusable="false"/>
                     <ui:Slider label="Max Distance Limit" value="10" high-value="4" show-input-field="true" name="max-translation-limit" fill="true" low-value="0" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

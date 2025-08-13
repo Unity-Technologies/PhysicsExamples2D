@@ -97,10 +97,6 @@ public class UserJoint : MonoBehaviour
             m_DisplayImpulse0 = root.Q<FloatField>("impulse-0");
             m_DisplayImpulse1 = root.Q<FloatField>("impulse-1");
 
-            // Reset Scene.
-            var resetScene = root.Q<Button>("reset-scene");
-            resetScene.clicked += SetupScene;
-
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";

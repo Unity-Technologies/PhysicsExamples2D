@@ -10,6 +10,7 @@
                 <ui:Button text="Step" name="single-step" enable-rich-text="false" emoji-fallback-support="false" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" focusable="false" enabled="false" style="margin-left: 1px; margin-right: 1px;"/>
                 <ui:Button text="Debug" name="debug" enable-rich-text="false" emoji-fallback-support="false" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" focusable="false" style="margin-left: 1px; margin-right: 1px;"/>
                 <ui:Button text="UI" name="ui" enable-rich-text="false" emoji-fallback-support="false" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" focusable="false" style="margin-left: 1px; margin-right: 1px;"/>
+                <ui:Button text="Reset" name="reset" enable-rich-text="false" emoji-fallback-support="false" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" focusable="false" style="margin-left: 1px; margin-right: 1px;"/>
                 <ui:Button text="Quit" name="quit" enable-rich-text="false" emoji-fallback-support="false" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" focusable="false" style="margin-left: 16px;"/>
             </ui:VisualElement>
         </ui:VisualElement>

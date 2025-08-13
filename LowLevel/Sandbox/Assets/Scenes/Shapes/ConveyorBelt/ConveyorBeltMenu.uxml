@@ -6,7 +6,6 @@
                 <ui:Tab label="Conveyor Belt Options" tabindex="0" name="Tab">
                     <ui:Slider label="Conveyor Speed" high-value="30" name="conveyor-speed" fill="true" show-input-field="true" focusable="false" value="1" low-value="-30"/>
                     <ui:Slider label="Conveyor Angle" high-value="25" name="conveyor-angle" fill="true" show-input-field="true" focusable="false" value="1" low-value="-25"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

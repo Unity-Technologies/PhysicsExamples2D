@@ -62,10 +62,6 @@ public class Compound : MonoBehaviour
             m_IntrudeShapeButton = root.Q<Button>("intrude-shape");
             m_IntrudeShapeButton.clicked += IntrudeShape;
             
-            // Reset Scene.
-            var resetScene = root.Q<Button>("reset-scene");
-            resetScene.clicked += SetupScene;
-
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";

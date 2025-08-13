@@ -9,7 +9,6 @@
                     <ui:Slider label="Spawn Period" value="1" high-value="1" name="spawn-period" show-input-field="true" low-value="0.1" fill="true" focusable="false"/>
                     <ui:Slider label="Gravity Scale" value="1" high-value="10" name="gravity-scale" show-input-field="true" low-value="1" fill="true" focusable="false"/>
                     <ui:Toggle label="Fast Collisions" name="fast-collisions" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

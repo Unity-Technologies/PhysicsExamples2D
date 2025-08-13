@@ -11,7 +11,6 @@
                     <ui:Toggle label="Draw Rays" name="draw-rays" focusable="false"/>
                     <ui:Toggle label="Draw Points" name="draw-points" focusable="false"/>
                     <ui:Toggle label="Draw Normals" name="draw-normals" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

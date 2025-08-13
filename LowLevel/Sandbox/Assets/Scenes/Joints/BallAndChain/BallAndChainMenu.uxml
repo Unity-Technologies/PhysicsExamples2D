@@ -8,7 +8,6 @@
                     <ui:Slider label="Spring Damping" value="0" high-value="10" show-input-field="true" name="spring-damping" fill="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Max Motor Torque " value="0" high-value="1000" show-input-field="true" name="max-motor-torque" fill="true" low-value="0" focusable="false"/>
                     <ui:Toggle label="Fix Chain Length" name="fix-chain-length" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

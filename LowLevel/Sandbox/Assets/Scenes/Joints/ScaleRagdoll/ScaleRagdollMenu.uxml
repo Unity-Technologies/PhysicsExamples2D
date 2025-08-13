@@ -5,7 +5,6 @@
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Ragdoll Scale Options" tabindex="0" name="Tab">
                     <ui:Slider label="Ragdoll Scale" value="1" high-value="10" show-input-field="true" name="ragdoll-scale" fill="true" low-value="0.5" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

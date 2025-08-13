@@ -6,7 +6,6 @@
                 <ui:Tab label="Friction Options" tabindex="0" name="Tab">
                     <ui:DropdownField label="Object Type" name="object-type" choices="Capsule,Box" index="0"/>
                     <ui:Slider label="Gravity Scale" high-value="10" name="gravity-scale" fill="true" show-input-field="true" focusable="false" value="1" low-value="1"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

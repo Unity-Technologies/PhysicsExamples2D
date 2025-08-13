@@ -5,7 +5,6 @@
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Doohickey Options" tabindex="0" name="Tab">
                     <ui:SliderInt label="Doohickey Count" value="6" high-value="10" show-input-field="true" name="doohickey-count" fill="true" low-value="1" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

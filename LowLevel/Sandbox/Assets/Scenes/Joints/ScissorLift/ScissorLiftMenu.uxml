@@ -6,7 +6,6 @@
                 <ui:Tab label="Scissor Lift Options" tabindex="0" name="Tab">
                     <ui:Toggle label="Enable Motor" name="enable-motor" focusable="false"/>
                     <ui:Slider label="Motor Speed" value="0" high-value="2" show-input-field="true" name="motor-speed" fill="true" low-value="-2" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

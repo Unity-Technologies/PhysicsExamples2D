@@ -8,7 +8,6 @@
                     <ui:Slider label="Angular Velocity" value="0" high-value="90" name="angular-velocity" fill="true" show-input-field="true" low-value="-90" focusable="false"/>
                     <ui:SliderInt label="Debris Count" value="1" high-value="2000" show-input-field="true" name="debris-count" fill="true" low-value="1" focusable="false"/>
                     <ui:Slider label="Gravity Scale" value="1" high-value="2" name="gravity-scale" show-input-field="true" low-value="0" fill="true" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

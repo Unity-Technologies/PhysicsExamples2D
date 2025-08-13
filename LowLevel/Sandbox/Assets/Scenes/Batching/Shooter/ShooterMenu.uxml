@@ -10,7 +10,6 @@
                     <ui:MinMaxSlider label="Batch Speed" value="3,550" low-limit="10" high-limit="50" focusable="false" name="batch-speed"/>
                     <ui:MinMaxSlider label="Batch Size" value="0.01,0.1" low-limit="0.01" high-limit="0.5" focusable="false" name="batch-size"/>
                     <ui:Slider label="Gravity Scale" value="1" high-value="5" name="gravity-scale" fill="true" show-input-field="true" low-value="1" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

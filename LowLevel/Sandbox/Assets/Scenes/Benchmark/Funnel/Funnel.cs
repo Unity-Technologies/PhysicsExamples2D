@@ -329,10 +329,6 @@ public class Funnel : MonoBehaviour
             fastCollisions.value = m_FastCollisions;
             fastCollisions.RegisterValueChangedCallback(evt => { m_FastCollisions = evt.newValue; });
 
-            // Reset Scene.
-            var resetScene = root.Q<Button>("reset-scene");
-            resetScene.clicked += SetupScene;
-
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";

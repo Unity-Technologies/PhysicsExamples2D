@@ -7,7 +7,6 @@
                     <ui:Toggle label="Use Motor" name="use-motor" focusable="false"/>
                     <ui:Slider label="Motor Speed" value="1" high-value="1" name="motor-speed" show-input-field="true" low-value="-1" fill="true" focusable="false"/>
                     <ui:Slider label="Motor Max Torque" value="80" high-value="100" name="motor-torque" show-input-field="true" low-value="0" fill="true" focusable="false"/>
-                    <ui:Button text="Reset Scene" name="reset-scene" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

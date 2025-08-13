@@ -38,6 +38,7 @@ public class ControlsMenu : MonoBehaviour
     public CustomButton singleStepButton { get; private set; }
     public CustomButton debugButton { get; private set; }
     public CustomButton uiButton { get; private set; }
+    public CustomButton resetButton { get; private set; }
     public CustomButton quitButton { get; private set; }
     
     public CustomButton this[int index]
@@ -84,6 +85,7 @@ public class ControlsMenu : MonoBehaviour
             pausePlayButton = new CustomButton(root.Q<Button>("pause-play"));
             singleStepButton = new CustomButton(root.Q<Button>("single-step"));
             debugButton = new CustomButton(root.Q<Button>("debug"));
+            resetButton = new CustomButton(root.Q<Button>("reset"));
             uiButton = new CustomButton(root.Q<Button>("ui"));
             quitButton = new CustomButton(root.Q<Button>("quit"));
 
