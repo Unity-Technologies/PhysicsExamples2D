@@ -24,7 +24,7 @@ public class ShortcutMenu : MonoBehaviour
             const string color = "<color=#7FFFD4>";
             const string endColor = "</color>";
 
-            var sceneDescription = root.Q<Label>("scene-description");
+            var sceneDescription = root.Q<Label>("shortcuts-description");
             sceneDescription.text =
                 $"[{color}P{endColor}]\t\tPause/Continue\n" +
                 $"[{color}S{endColor}]\t\tSingle Step\n" +

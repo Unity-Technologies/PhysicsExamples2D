@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Sandbox/UI/Styling/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides"/>
+    <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; justify-content: flex-end; align-content: auto; padding-right: 8px; padding-bottom: 8px;">
+        <ui:VisualElement name="menu-region" style="margin-top: 0; margin-right: 0; margin-bottom: 2px; margin-left: 0; align-items: auto; align-self: center; align-content: flex-end; width: auto; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; height: 6%; justify-content: center;">
+            <ui:VisualElement name="controls" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch; padding-top: 3px; padding-left: 2px; padding-right: 2px; padding-bottom: 3px; flex-direction: row;">
+                <ui:Button text="..." name="button0" enabled="true" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" enable-rich-text="false" emoji-fallback-support="false" focusable="false"/>
+                <ui:Button text="..." name="button1" emoji-fallback-support="false" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" enable-rich-text="false" focusable="false"/>
+                <ui:Button text="..." name="button2" enable-rich-text="false" emoji-fallback-support="false" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" focusable="false"/>
+                <ui:Button text="Quit" name="quit" enable-rich-text="false" emoji-fallback-support="false" double-click-selects-word="false" triple-click-selects-line="false" display-tooltip-when-elided="false" focusable="false"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

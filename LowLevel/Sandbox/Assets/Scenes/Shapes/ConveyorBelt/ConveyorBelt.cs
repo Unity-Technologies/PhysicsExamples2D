@@ -1,4 +1,6 @@
+using System;
 using Unity.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -11,8 +13,9 @@ public class ConveyorBelt : MonoBehaviour
     private CameraManipulator m_CameraManipulator;
 
     private PhysicsWorld m_PhysicsWorld;
-    
-    private Button m_SpawnButton;
+
+    private const int SpawnCount = 10;
+    private ControlsMenu.CustomButton m_SpawnButton;
     private PhysicsBody m_ConveyorBeltBody;
     private PhysicsShape m_ConveyorBeltShape;
     
@@ -30,6 +33,16 @@ public class ConveyorBelt : MonoBehaviour
         m_CameraManipulator.CameraSize = 12;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 7f);
 
+        // Set controls.
+        {
+	        var controlsMenu = m_SandboxManager.ControlsMenu;
+	        controlsMenu.gameObject.SetActive(true);
+
+	        m_SpawnButton = m_SandboxManager.ControlsMenu[0];
+	        m_SpawnButton.Set("Spawn");
+	        m_SpawnButton.button.clickable.clicked += SpawnDebris;
+        }
+        
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
@@ -41,6 +54,11 @@ public class ConveyorBelt : MonoBehaviour
         SetupOptions();
 
         SetupScene();
+    }
+
+    private void OnDisable()
+    {
+	    m_SpawnButton.button.clickable.clicked -= SpawnDebris;
     }
 
     private void SetupOptions()
@@ -70,10 +88,6 @@ public class ConveyorBelt : MonoBehaviour
 	            m_ConveyorAngle = evt.newValue;
 	            UpdateConveyorAngle();
             });
-            
-            // Spawn.
-            m_SpawnButton = root.Q<Button>("spawn");
-            m_SpawnButton.clicked += () => Spawn(10);
             
             // Reset Scene.
             var resetScene = root.Q<Button>("reset-scene");
@@ -112,17 +126,17 @@ public class ConveyorBelt : MonoBehaviour
 			m_ConveyorBeltShape = m_ConveyorBeltBody.CreateShape(geometry, shapeDef);
 		}
 		
-		// Boxes.
+		// Spawn Debris.
 		{
-			Spawn(10);
+			SpawnDebris();
 		}
     }
 
-    private void Spawn(int spawnCount)
+    private void SpawnDebris()
     {
 	    ref var random = ref m_SandboxManager.Random;
 
-	    for (var n = 0; n < spawnCount; ++n)
+	    for (var n = 0; n < SpawnCount; ++n)
 	    {
 		    var spawnPosition = new Vector2(random.NextFloat(-5f, 5f), random.NextFloat(9f, 20f));
 		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition, rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)) });

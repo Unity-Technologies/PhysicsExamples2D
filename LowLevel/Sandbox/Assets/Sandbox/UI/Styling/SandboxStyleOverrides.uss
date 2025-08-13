@@ -83,5 +83,8 @@ TabView, .unity-tab-view__content-container, Tab, .unity-tab__content-container 
 .unity-tab-view__next-button {
     height: 0;
     width: 0;
-} 
+}
 
+.unity-tab-view__content-viewport {
+    background-color: rgba(0, 0, 0, 0);
+} 

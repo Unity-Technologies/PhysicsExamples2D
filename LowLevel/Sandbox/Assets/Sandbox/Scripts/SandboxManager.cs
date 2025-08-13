@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.Collections;
 using Unity.Jobs.LowLevel.Unsafe;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
@@ -25,11 +26,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public UIDocument SceneOptionsUI { get; set; }
     
     private bool ColorShapeState { get; set; }
+    private ControlsMenu.CustomButton m_QuitButton;
 
     public string StartScene = string.Empty;
     public Action SceneResetAction;
     public DebuggingMenu DebuggingMenu;
     public ShortcutMenu ShortcutMenu;
+    public ControlsMenu ControlsMenu;
     public float UpdatePeriodFPS = 0.1f;
 
     public void SetOverrideDrawOptions(PhysicsWorld.DrawOptions overridenOptions, PhysicsWorld.DrawOptions fixedOptions)
@@ -252,6 +255,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         // Show the Shortcut menu by default.
         ShortcutMenu.gameObject.SetActive(true);
+        
+        // Reset the controls.
+        ControlsMenu.ResetControls();
+        m_QuitButton = ControlsMenu.quitButton;
 
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
@@ -290,9 +297,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             var currentKeyboard = Keyboard.current;
 
             // Quit.
-            if (currentKeyboard.escapeKey.wasPressedThisFrame)
+            if (m_QuitButton.isPressed || currentKeyboard.escapeKey.wasPressedThisFrame)
             {
+#if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+#else
                 Application.Quit();
+#endif
                 return;
             }
 
@@ -305,7 +316,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 if (m_ShowDebuggingElement.value)
                     DebuggingMenu.gameObject.SetActive(m_ShowUI);
 
-                // Toggle Shortcut Men.
+                // Toggle Shortcut Menu.
                 ShortcutMenu.gameObject.SetActive(!ShortcutMenu.gameObject.activeInHierarchy);
                 
                 // Main Menu.
@@ -700,6 +711,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         DebuggingMenu.ResetStats();
         m_CameraManipulator.OverlapUI = 0;
 
+        // Reset the controls.
+        ControlsMenu.ResetControls();
+        
         SceneOptionsUI = null;
         SceneResetAction = null;
         m_SceneManifest.LoadScene(sceneName, ResetSceneState);

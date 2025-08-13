@@ -70,6 +70,10 @@ public class CharacterMover : MonoBehaviour
     private bool m_RightPressed;
     private bool m_JumpPressed;
 
+    private ControlsMenu.CustomButton m_LeftButton;
+    private ControlsMenu.CustomButton m_RightButton;
+    private ControlsMenu.CustomButton m_JumpButton;
+    
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -82,6 +86,20 @@ public class CharacterMover : MonoBehaviour
         m_CameraManipulator.CameraPosition = new Vector2(20f, 9f);
         m_CameraManipulator.DisableManipulators = true;
 
+        // Set controls.
+        {
+            var controlsMenu = m_SandboxManager.ControlsMenu;
+            controlsMenu.gameObject.SetActive(true);
+
+            m_LeftButton = m_SandboxManager.ControlsMenu[0];
+            m_RightButton = m_SandboxManager.ControlsMenu[1];
+            m_JumpButton = m_SandboxManager.ControlsMenu[2];
+            
+            m_LeftButton.Set("Left");
+            m_RightButton.Set("Right");
+            m_JumpButton.Set("Jump");
+        }
+        
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
@@ -134,11 +152,11 @@ public class CharacterMover : MonoBehaviour
         if (m_SandboxManager.WorldPaused)
             return;
 
-        // Fetch keyboard input.
+        // Fetch input.
         var currentKeyboard = Keyboard.current;
-        m_LeftPressed = currentKeyboard.leftArrowKey.isPressed;
-        m_RightPressed = currentKeyboard.rightArrowKey.isPressed;
-        m_JumpPressed = currentKeyboard.spaceKey.isPressed;
+        m_LeftPressed = m_LeftButton.isPressed || currentKeyboard.leftArrowKey.isPressed;
+        m_RightPressed = m_RightButton.isPressed || currentKeyboard.rightArrowKey.isPressed;
+        m_JumpPressed = m_JumpButton.isPressed || currentKeyboard.spaceKey.isPressed;
     }
 
     private void SetupOptions()

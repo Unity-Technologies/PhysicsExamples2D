@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Sandbox/UI/Common/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides"/>
+    <Style src="project://database/Assets/Sandbox/UI/Styling/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides"/>
     <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: auto; margin-right: 0; padding-right: 8px; padding-top: 8px;">
         <ui:VisualElement name="menu-region" style="width: auto; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto; align-self: flex-end;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">

@@ -25,6 +25,10 @@ public class LargeWorld : MonoBehaviour
     private FloatField m_WorldPositionField;
     private FloatField m_WorldSizeField;
 
+    private ControlsMenu.CustomButton m_ReverseButton;
+    private ControlsMenu.CustomButton m_ForwardButton;
+    private ControlsMenu.CustomButton m_BrakeButton;
+    
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -36,6 +40,20 @@ public class LargeWorld : MonoBehaviour
         m_CameraManipulator.CameraSize = 20f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, -5f);
 
+        // Set controls.
+        {
+            var controlsMenu = m_SandboxManager.ControlsMenu;
+            controlsMenu.gameObject.SetActive(true);
+
+            m_ReverseButton = m_SandboxManager.ControlsMenu[0];
+            m_ForwardButton = m_SandboxManager.ControlsMenu[1];
+            m_BrakeButton = m_SandboxManager.ControlsMenu[2];
+            
+            m_ReverseButton.Set("Reverse");
+            m_ForwardButton.Set("Forward");
+            m_BrakeButton.Set("Brake");
+        }
+        
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
@@ -84,7 +102,11 @@ public class LargeWorld : MonoBehaviour
                 
                 // If we're no longer following the car then set the current camera position to the car position.
                 if (!m_FollowCar)
-                    m_CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraPosition.y);                    
+                {
+                    //m_CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraPosition.y);
+                    var startX = -0.5f * m_CycleCount * m_WavePeriod;
+                    m_CameraPosition = new Vector2(startX + m_GridCount * m_GridSize, m_CameraPosition.y);
+                }
             });
 
             // Camera Pan Speed.
@@ -128,8 +150,7 @@ public class LargeWorld : MonoBehaviour
             var bodyDef = PhysicsBodyDefinition.defaultDefinition;
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
-            // Setting this to false significantly reduces the cost of creating
-            // static bodies and shapes.
+            // Setting this to false significantly reduces the cost of creating static bodies and shapes.
             shapeDef.startStaticContacts = false;
 
             const float height = 4f;
@@ -138,6 +159,13 @@ public class LargeWorld : MonoBehaviour
 
             PhysicsBody groundBody = default;
 
+            // Limits.
+            {
+                var body = world.CreateBody();
+                body.CreateShape(new SegmentGeometry { point1 = new Vector2(startX - m_GridSize, 0f), point2 = new Vector2(startX - m_GridSize, 100f) });
+                body.CreateShape(new SegmentGeometry { point1 = new Vector2(startX + m_GridCount * m_GridSize, 0f), point2 = new Vector2(startX + m_GridCount * m_GridSize, 100f) });
+            }
+            
             for (var i = 0; i < m_GridCount; ++i)
             {
                 // Create a new body regularly so that shapes are not too far from the body origin.
@@ -253,32 +281,29 @@ public class LargeWorld : MonoBehaviour
         var currentKeyboard = Keyboard.current;
 
         // Reverse.
-        if (currentKeyboard.leftArrowKey.isPressed)
-        {
+        if (m_ReverseButton.isPressed || currentKeyboard.leftArrowKey.isPressed)
             SetCarSpeed(20f);
-        }
 
         // Forward.
-        if (currentKeyboard.rightArrowKey.isPressed)
-        {
+        if (m_ForwardButton.isPressed || currentKeyboard.rightArrowKey.isPressed)
             SetCarSpeed(-5);
-        }
 
         // Brake.
-        if (currentKeyboard.spaceKey.isPressed)
-        {
+        if (m_BrakeButton.isPressed || currentKeyboard.spaceKey.isPressed)
             SetCarSpeed(0f);
+
+        // Camera Pan.
+        {
+            var cameraBound = 0.5f * m_WavePeriod * m_CycleCount;
+            m_CameraPosition.x = Mathf.Clamp(m_CameraPosition.x + Time.deltaTime * m_CameraPanSpeed, -cameraBound, cameraBound);
+
+            if (m_CameraPanSpeed != 0.0f)
+                m_CameraManipulator.CameraPosition = m_CameraPosition;
+
+            if (m_FollowCar)
+                m_CameraManipulator.CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraManipulator.CameraPosition.y);
         }
-
-        var cameraBound = 0.5f * m_WavePeriod * m_CycleCount;
-        m_CameraPosition.x = Mathf.Clamp(m_CameraPosition.x + Time.deltaTime * m_CameraPanSpeed, -cameraBound, cameraBound);
-
-        if (m_CameraPanSpeed != 0.0f)
-            m_CameraManipulator.CameraPosition = m_CameraPosition;
-
-        if (m_FollowCar)
-            m_CameraManipulator.CameraPosition = new Vector2(m_FrontWheelJoint.bodyA.position.x, m_CameraManipulator.CameraPosition.y);
-
+        
         // Show world position.
         m_WorldPositionField.value = m_CameraManipulator.CameraPosition.x / 1000.0f;
     }
