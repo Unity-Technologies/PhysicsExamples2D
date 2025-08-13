@@ -141,41 +141,41 @@ public class DebuggingMenu : MonoBehaviour
         const string endColor = "</color>";
 
         // Profile.
-        m_SimulationStepElement.text = $"<b>Simulation Step</b>: {color}{m_LastProfile.simulationStep:F2}{endColor} ~[{color}{m_TotalProfile.simulationStep * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.simulationStep:F2}{endColor}]";
-        m_ContactPairsElement.text = $"<b>Contact Pairs</b>: {color}{m_LastProfile.contactPairs:F2}{endColor} ~[{color}{m_TotalProfile.contactPairs * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactPairs:F2}{endColor}]";
-        m_ContactUpdatesElement.text = $"<b>Contact Updates</b>: {color}{m_LastProfile.contactUpdates:F2}{endColor} ~[{color}{m_TotalProfile.contactUpdates * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactUpdates:F2}{endColor}]";
-        m_SolvingElement.text = $"<b>Solving</b>: {color}{m_LastProfile.solving:F2}{endColor} ~[{color}{m_TotalProfile.solving * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solving:F2}{endColor}]";
-        m_PrepareStagesElement.text = $"<b>Prepare Stages</b>: {color}{m_LastProfile.prepareStages:F2}{endColor} ~[{color}{m_TotalProfile.prepareStages * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.prepareStages:F2}{endColor}]";
-        m_PrepareConstraintsElement.text = $"<b>Prepare Constraints</b>: {color}{m_LastProfile.prepareConstraints:F2}{endColor} ~[{color}{m_TotalProfile.prepareConstraints * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.prepareConstraints:F2}{endColor}]";
-        m_SolveConstraintsElement.text = $"<b>Solve Constraints</b>: {color}{m_LastProfile.solveConstraints:F2}{endColor} ~[{color}{m_TotalProfile.solveConstraints * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solveConstraints:F2}{endColor}]";
-        m_IntegrateVelocitiesElement.text = $"<b>Integrate Velocities</b>: {color}{m_LastProfile.integrateVelocities:F2}{endColor} ~[{color}{m_TotalProfile.integrateVelocities * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.integrateVelocities:F2}{endColor}]";
-        m_WarmStartingElement.text = $"<b>Warm Starting</b>: {color}{m_LastProfile.warmStarting:F2}{endColor} ~[{color}{m_TotalProfile.warmStarting * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.warmStarting:F2}{endColor}]";
-        m_SolveImpulsesElement.text = $"<b>Solve Impulses</b>: {color}{m_LastProfile.solveImpulses:F2}{endColor} ~[{color}{m_TotalProfile.solveImpulses * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solveImpulses:F2}{endColor}]";
-        m_IntegrateTransformsElement.text = $"<b>Integrate Transforms</b>: {color}{m_LastProfile.integrateTransforms:F2}{endColor} ~[{color}{m_TotalProfile.integrateTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.integrateTransforms:F2}{endColor}]";
-        m_RelaxImpulsesElement.text = $"<b>Relax Impulses</b>: {color}{m_LastProfile.relaxImpulses:F2}{endColor} ~[{color}{m_TotalProfile.relaxImpulses * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.relaxImpulses:F2}{endColor}]";
-        m_ApplyBouncinessElement.text = $"<b>Apply Bounciness</b>: {color}{m_LastProfile.applyBounciness:F2}{endColor} ~[{color}{m_TotalProfile.applyBounciness * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.applyBounciness:F2}{endColor}]";
-        m_StoreImpulsesElement.text = $"<b>Store Impulses</b>: {color}{m_LastProfile.storeImpulses:F2}{endColor} ~[{color}{m_TotalProfile.storeImpulses * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.storeImpulses:F2}{endColor}]";
-        m_SplitIslandsElement.text = $"<b>Split Islands</b>: {color}{m_LastProfile.splitIslands:F2}{endColor} ~[{color}{m_TotalProfile.splitIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.splitIslands:F2}{endColor}]";
-        m_BodyTransformsElement.text = $"<b>PhysicsBody Transforms</b>: {color}{m_LastProfile.bodyTransforms:F2}{endColor} ~[{color}{m_TotalProfile.bodyTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.bodyTransforms:F2}{endColor}]";
-        m_JointEventsElement.text = $"<b>Joint Events</b>: {color}{m_LastProfile.jointEvents:F2}{endColor} ~[{color}{m_TotalProfile.jointEvents * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.jointEvents:F2}{endColor}]";
-        m_HitEventsElement.text = $"<b>Hit Events</b>: {color}{m_LastProfile.hitEvents:F2}{endColor} ~[{color}{m_TotalProfile.hitEvents * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.hitEvents:F2}{endColor}]";
-        m_BroadphaseUpdatesElement.text = $"<b>Broadphase Updates</b>: {color}{m_LastProfile.broadphaseUpdates:F2}{endColor} ~[{color}{m_TotalProfile.broadphaseUpdates * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.broadphaseUpdates:F2}{endColor}]";
-        m_SolveContinuousElement.text = $"<b>Solve Continuous</b>: {color}{m_LastProfile.solveContinuous:F2}{endColor} ~[{color}{m_TotalProfile.solveContinuous * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solveContinuous:F2}{endColor}]";
-        m_SleepIslandsElement.text = $"<b>Sleep Islands</b>: {color}{m_LastProfile.sleepIslands:F2}{endColor} ~[{color}{m_TotalProfile.sleepIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.sleepIslands:F2}{endColor}]";
-        m_UpdateTriggersElement.text = $"<b>Update Triggers</b>: {color}{m_LastProfile.updateTriggers:F2}{endColor} ~[{color}{m_TotalProfile.updateTriggers * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.updateTriggers:F2}{endColor}]";
-        m_WriteTransformsElement.text = $"<b>Write Transforms</b>: {color}{m_LastProfile.writeTransforms:F2}{endColor} ~[{color}{m_TotalProfile.writeTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.writeTransforms:F2}{endColor}]";
+        m_SimulationStepElement.text = $"Simulation Step: {color}{m_LastProfile.simulationStep:F2}{endColor} ~[{color}{m_TotalProfile.simulationStep * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.simulationStep:F2}{endColor}]";
+        m_ContactPairsElement.text = $"Contact Pairs: {color}{m_LastProfile.contactPairs:F2}{endColor} ~[{color}{m_TotalProfile.contactPairs * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactPairs:F2}{endColor}]";
+        m_ContactUpdatesElement.text = $"Contact Updates: {color}{m_LastProfile.contactUpdates:F2}{endColor} ~[{color}{m_TotalProfile.contactUpdates * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactUpdates:F2}{endColor}]";
+        m_SolvingElement.text = $"Solving: {color}{m_LastProfile.solving:F2}{endColor} ~[{color}{m_TotalProfile.solving * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solving:F2}{endColor}]";
+        m_PrepareStagesElement.text = $"Prepare Stages: {color}{m_LastProfile.prepareStages:F2}{endColor} ~[{color}{m_TotalProfile.prepareStages * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.prepareStages:F2}{endColor}]";
+        m_PrepareConstraintsElement.text = $"Prepare Constraints: {color}{m_LastProfile.prepareConstraints:F2}{endColor} ~[{color}{m_TotalProfile.prepareConstraints * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.prepareConstraints:F2}{endColor}]";
+        m_SolveConstraintsElement.text = $"Solve Constraints: {color}{m_LastProfile.solveConstraints:F2}{endColor} ~[{color}{m_TotalProfile.solveConstraints * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solveConstraints:F2}{endColor}]";
+        m_IntegrateVelocitiesElement.text = $"Integrate Velocities: {color}{m_LastProfile.integrateVelocities:F2}{endColor} ~[{color}{m_TotalProfile.integrateVelocities * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.integrateVelocities:F2}{endColor}]";
+        m_WarmStartingElement.text = $"Warm Starting: {color}{m_LastProfile.warmStarting:F2}{endColor} ~[{color}{m_TotalProfile.warmStarting * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.warmStarting:F2}{endColor}]";
+        m_SolveImpulsesElement.text = $"Solve Impulses: {color}{m_LastProfile.solveImpulses:F2}{endColor} ~[{color}{m_TotalProfile.solveImpulses * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solveImpulses:F2}{endColor}]";
+        m_IntegrateTransformsElement.text = $"Integrate Transforms: {color}{m_LastProfile.integrateTransforms:F2}{endColor} ~[{color}{m_TotalProfile.integrateTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.integrateTransforms:F2}{endColor}]";
+        m_RelaxImpulsesElement.text = $"Relax Impulses: {color}{m_LastProfile.relaxImpulses:F2}{endColor} ~[{color}{m_TotalProfile.relaxImpulses * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.relaxImpulses:F2}{endColor}]";
+        m_ApplyBouncinessElement.text = $"Apply Bounciness: {color}{m_LastProfile.applyBounciness:F2}{endColor} ~[{color}{m_TotalProfile.applyBounciness * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.applyBounciness:F2}{endColor}]";
+        m_StoreImpulsesElement.text = $"Store Impulses: {color}{m_LastProfile.storeImpulses:F2}{endColor} ~[{color}{m_TotalProfile.storeImpulses * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.storeImpulses:F2}{endColor}]";
+        m_SplitIslandsElement.text = $"Split Islands: {color}{m_LastProfile.splitIslands:F2}{endColor} ~[{color}{m_TotalProfile.splitIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.splitIslands:F2}{endColor}]";
+        m_BodyTransformsElement.text = $"PhysicsBody Transforms: {color}{m_LastProfile.bodyTransforms:F2}{endColor} ~[{color}{m_TotalProfile.bodyTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.bodyTransforms:F2}{endColor}]";
+        m_JointEventsElement.text = $"Joint Events: {color}{m_LastProfile.jointEvents:F2}{endColor} ~[{color}{m_TotalProfile.jointEvents * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.jointEvents:F2}{endColor}]";
+        m_HitEventsElement.text = $"Hit Events: {color}{m_LastProfile.hitEvents:F2}{endColor} ~[{color}{m_TotalProfile.hitEvents * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.hitEvents:F2}{endColor}]";
+        m_BroadphaseUpdatesElement.text = $"Broadphase Updates: {color}{m_LastProfile.broadphaseUpdates:F2}{endColor} ~[{color}{m_TotalProfile.broadphaseUpdates * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.broadphaseUpdates:F2}{endColor}]";
+        m_SolveContinuousElement.text = $"Solve Continuous: {color}{m_LastProfile.solveContinuous:F2}{endColor} ~[{color}{m_TotalProfile.solveContinuous * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solveContinuous:F2}{endColor}]";
+        m_SleepIslandsElement.text = $"Sleep Islands: {color}{m_LastProfile.sleepIslands:F2}{endColor} ~[{color}{m_TotalProfile.sleepIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.sleepIslands:F2}{endColor}]";
+        m_UpdateTriggersElement.text = $"Update Triggers: {color}{m_LastProfile.updateTriggers:F2}{endColor} ~[{color}{m_TotalProfile.updateTriggers * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.updateTriggers:F2}{endColor}]";
+        m_WriteTransformsElement.text = $"Write Transforms: {color}{m_LastProfile.writeTransforms:F2}{endColor} ~[{color}{m_TotalProfile.writeTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.writeTransforms:F2}{endColor}]";
 
         // Counters.
-        m_BodyCountElement.text = $"<b>Bodies</b>: {color}{m_LastCounters.bodyCount}{endColor} >[{color}{m_MaxCounters.bodyCount}{endColor}]";
-        m_ShapeCountElement.text = $"<b>Shapes</b>: {color}{m_LastCounters.shapeCount}{endColor} >[{color}{m_MaxCounters.shapeCount}{endColor}]";
-        m_ContactCountElement.text = $"<b>Contacts</b>: {color}{m_LastCounters.contactCount}{endColor} >[{color}{m_MaxCounters.contactCount}{endColor}]";
-        m_JointCountElement.text = $"<b>Joints</b>: {color}{m_LastCounters.jointCount}{endColor} >[{color}{m_MaxCounters.jointCount}{endColor}]";
-        m_IslandCountElement.text = $"<b>Island</b>: {color}{m_LastCounters.islandCount}{endColor} >[{color}{m_MaxCounters.islandCount}{endColor}]";
-        m_StaticBroadphaseHeightElement.text = $"<b>Static Tree</b>: {color}{m_LastCounters.staticBroadphaseHeight}{endColor} >[{color}{m_MaxCounters.staticBroadphaseHeight}{endColor}] <color=#696969>Height</color>";
-        m_MoveableBroadphaseHeightElement.text = $"<b>Moveable Tree</b>: {color}{m_LastCounters.broadphaseHeight}{endColor} >[{color}{m_MaxCounters.broadphaseHeight}{endColor}] <color=#696969>Height</color>";
-        m_StackBytesUsedElement.text = $"<b>Stack Memory</b>: {color}{m_LastCounters.stackUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.stackUsed * memoryScale:F2}{endColor}] <color=#696969>MB</color>";
-        m_TotalBytesUsedElement.text = $"<b>Total Memory</b>: {color}{m_LastCounters.memoryUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.memoryUsed * memoryScale:F2}{endColor}] <color=#696969>MB</color>";
-        m_SimulationTaskCountElement.text = $"<b>Simulation Tasks</b>: {color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
+        m_BodyCountElement.text = $"Bodies: {color}{m_LastCounters.bodyCount}{endColor} >[{color}{m_MaxCounters.bodyCount}{endColor}]";
+        m_ShapeCountElement.text = $"Shapes: {color}{m_LastCounters.shapeCount}{endColor} >[{color}{m_MaxCounters.shapeCount}{endColor}]";
+        m_ContactCountElement.text = $"Contacts: {color}{m_LastCounters.contactCount}{endColor} >[{color}{m_MaxCounters.contactCount}{endColor}]";
+        m_JointCountElement.text = $"Joints: {color}{m_LastCounters.jointCount}{endColor} >[{color}{m_MaxCounters.jointCount}{endColor}]";
+        m_IslandCountElement.text = $"Island: {color}{m_LastCounters.islandCount}{endColor} >[{color}{m_MaxCounters.islandCount}{endColor}]";
+        m_StaticBroadphaseHeightElement.text = $"Static Tree: {color}{m_LastCounters.staticBroadphaseHeight}{endColor} >[{color}{m_MaxCounters.staticBroadphaseHeight}{endColor}] <color=#696969>Height</color>";
+        m_MoveableBroadphaseHeightElement.text = $"Moveable Tree: {color}{m_LastCounters.broadphaseHeight}{endColor} >[{color}{m_MaxCounters.broadphaseHeight}{endColor}] <color=#696969>Height</color>";
+        m_StackBytesUsedElement.text = $"Stack Memory: {color}{m_LastCounters.stackUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.stackUsed * memoryScale:F2}{endColor}] <color=#696969>MB</color>";
+        m_TotalBytesUsedElement.text = $"Total Memory: {color}{m_LastCounters.memoryUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.memoryUsed * memoryScale:F2}{endColor}] <color=#696969>MB</color>";
+        m_SimulationTaskCountElement.text = $"Simulation Tasks: {color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
     }
 
     private void UpdateStats(PhysicsWorld world, float deltaTime)
