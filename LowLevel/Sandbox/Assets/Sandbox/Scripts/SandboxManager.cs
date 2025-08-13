@@ -22,6 +22,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         set => m_CameraZoomElement.value = value;
     }
 
+    public UIDocument SceneOptionsUI { get; set; }
+    
     private bool ColorShapeState { get; set; }
 
     public string StartScene = string.Empty;
@@ -305,9 +307,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
                 // Toggle Shortcut Men.
                 ShortcutMenu.gameObject.SetActive(!ShortcutMenu.gameObject.activeInHierarchy);
-
+                
                 // Main Menu.
                 m_MainMenuDocument.rootVisualElement.style.display = m_ShowUI ? DisplayStyle.Flex : DisplayStyle.None;
+
+                // If we have an assigned scene options UI then toggle it.
+                if (SceneOptionsUI != null)
+                    SceneOptionsUI.enabled = m_ShowUI;
 
                 return;
             }
@@ -694,6 +700,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         DebuggingMenu.ResetStats();
         m_CameraManipulator.OverlapUI = 0;
 
+        SceneOptionsUI = null;
         SceneResetAction = null;
         m_SceneManifest.LoadScene(sceneName, ResetSceneState);
     }

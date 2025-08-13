@@ -23,6 +23,7 @@ public class Compound : MonoBehaviour
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
         m_SceneManifest = FindFirstObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
+        m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 15;

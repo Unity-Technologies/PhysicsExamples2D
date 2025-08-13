@@ -28,10 +28,6 @@ Label {
     justify-content: center;
 }
 
-/*
-background-color: rgba(80, 100, 110, 1.0)
-*/
-
 .unity-progress-bar__progress {
     background-color: var(--foreground);
 }
@@ -42,6 +38,11 @@ background-color: rgba(80, 100, 110, 1.0)
     border-width: 1px;
     border-radius: 6px;
     margin-top: 2px;
+}
+
+/* Make TabView fill whole window */
+TabView, .unity-tab-view__content-container, Tab, .unity-tab__content-container {
+    flex-grow: 1;
 }
 
 /* By default, each tab header has an underline. This hides the header underline  */
