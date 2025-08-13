@@ -27,7 +27,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     
     private bool ColorShapeState { get; set; }
     private ControlsMenu.CustomButton m_PausePlayButton;    
-    private ControlsMenu.CustomButton m_StepButton;    
+    private ControlsMenu.CustomButton m_SingleStepButton;    
     private ControlsMenu.CustomButton m_DebugButton;    
     private ControlsMenu.CustomButton m_UIButton;
     private ControlsMenu.CustomButton m_QuitButton;
@@ -38,74 +38,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public ShortcutMenu ShortcutMenu;
     public ControlsMenu ControlsMenu;
     public float UpdatePeriodFPS = 0.1f;
-
-    public void SetOverrideDrawOptions(PhysicsWorld.DrawOptions overridenOptions, PhysicsWorld.DrawOptions fixedOptions)
-    {
-        // Finish if we're already overriding.
-        if (m_OverrideDrawOptions != PhysicsWorld.DrawOptions.Off)
-            return;
-
-        // Disable the appropriate elements.
-        foreach (var item in m_DrawFlagElements)
-        {
-            if ((item.Key & overridenOptions) == 0)
-                continue;
-
-            item.Value.enabledSelf = false;
-        }
-
-        // Set the override.
-        m_OverridePreviousDrawOptions = PhysicsWorld.defaultWorld.drawOptions;
-        m_OverrideDrawOptions = overridenOptions;
-        UpdateOverrideWorldDrawOptions(fixedOptions);
-    }
-
-    public void ResetOverrideDrawOptions()
-    {
-        // Finish if we're not overriding.
-        if (m_OverrideDrawOptions == PhysicsWorld.DrawOptions.Off)
-            return;
-
-        // Enable all the elements.
-        foreach (var item in m_DrawFlagElements)
-            item.Value.enabledSelf = true;
-
-        // Restore previous draw flags.
-        UpdateOverrideWorldDrawOptions(m_OverridePreviousDrawOptions);
-        m_OverridePreviousDrawOptions = m_OverrideDrawOptions = PhysicsWorld.DrawOptions.Off;
-    }
-
-    private void UpdateOverrideWorldDrawOptions(PhysicsWorld.DrawOptions fixedOptions)
-    {
-        // Calculate new draw flags.
-        var newDrawOptions = (PhysicsWorld.defaultWorld.drawOptions & ~m_OverrideDrawOptions) | fixedOptions;
-
-        // Update the worlds.
-        using var worlds = PhysicsWorld.GetWorlds();
-        foreach (var world in worlds)
-            world.drawOptions = newDrawOptions;
-    }
-
-    public void SetOverrideColorShapeState(bool colorShapeState)
-    {
-        // Finish if we're already in the requested state.
-        if (m_OverrideColorShapeState)
-            return;
-
-        // Set the override.
-        m_OverridePreviousColorShapeState = ColorShapeState;
-        m_ColorShapeStateElement.enabledSelf = false;
-        ColorShapeState = colorShapeState;
-        m_OverrideColorShapeState = true;
-    }
-
-    public void ResetOverrideColorShapeState()
-    {
-        // Restore previous flag.
-        m_ColorShapeStateElement.enabledSelf = true;
-        ColorShapeState = m_OverridePreviousColorShapeState;
-        m_OverrideColorShapeState = m_OverridePreviousColorShapeState = false;
-    }
 
     // Override state.
     private PhysicsWorld.DrawOptions m_OverrideDrawOptions;
@@ -157,7 +89,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private Toggle m_SleepingElement;
     private Toggle m_ContinuousElement;
     private Button m_SingleStepElement;
-    private Button m_PauseContinueElement;
+    private Button m_PausePlayElement;
 
     // Draw Elements.
     private Toggle m_ShowDebuggingElement;
@@ -200,15 +132,18 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Reset the controls.
         ControlsMenu.ResetControls();
         m_PausePlayButton = ControlsMenu.pausePlayButton;
-        m_StepButton = ControlsMenu.stepButton;
+        m_SingleStepButton = ControlsMenu.singleStepButton;
         m_DebugButton = ControlsMenu.debugButton;
         m_UIButton = ControlsMenu.uiButton;
         m_QuitButton = ControlsMenu.quitButton;
         
-        m_PausePlayButton.button.clickable.clicked += TogglePauseContinue;
-        m_StepButton.button.clickable.clicked += SingleStep;
+        m_PausePlayButton.button.clickable.clicked += TogglePausePlay;
+        m_SingleStepButton.button.clickable.clicked += SingleStep;
         m_DebugButton.button.clickable.clicked += ToggleDebugging; 
         m_UIButton.button.clickable.clicked += ToggleUI;
+
+        m_PausePlayButton.button.text = WorldPaused ? "Play" : "Pause";
+        m_SingleStepButton.button.enabledSelf = WorldPaused;
             
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
@@ -283,10 +218,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 SingleStep();
             }
 
-            // Pause/Continue.
+            // Pause/Play.
             if (currentKeyboard.pKey.wasPressedThisFrame)
             {
-                TogglePauseContinue();
+                TogglePausePlay();
             }
 
             // Debugging.
@@ -490,11 +425,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             m_SingleStepElement = root.Q<Button>("single-step");
             m_SingleStepElement.clicked += SingleStep;
 
-            // Pause/Continue.
-            m_PauseContinueElement = root.Q<Button>("pause-continue");
-            m_PauseContinueElement.enabledSelf = !WorldPaused;
-            m_PauseContinueElement.text = WorldPaused ? "Continue (P)" : "Pause (P)";
-            m_PauseContinueElement.clicked += TogglePauseContinue;
+            // Pause/Play.
+            m_PausePlayElement = root.Q<Button>("pause-play");
+            m_PausePlayElement.text = WorldPaused ? "Play" : "Pause";
+            m_PausePlayElement.clicked += TogglePausePlay;
 
             // Quit.
             var quit = root.Q<Button>("quit-application");
@@ -721,7 +655,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         // Unpause the world if paused.
         if (WorldPaused)
-            TogglePauseContinue();
+            TogglePausePlay();
         
         m_CameraManipulator.ResetPanZoom();
         m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
@@ -782,10 +716,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_DisableUIRestarts = false;
     }
 
-    private void TogglePauseContinue()
+    private void TogglePausePlay()
     {
         WorldPaused = !WorldPaused;
-        m_PauseContinueElement.text = WorldPaused ? "Continue (P)" : "Pause (P)";
+        m_PausePlayElement.text = m_PausePlayButton.button.text = WorldPaused ? "Play" : "Pause";
+        m_SingleStepElement.enabledSelf = WorldPaused;
+        m_SingleStepButton.button.enabledSelf = WorldPaused;
 
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();
@@ -822,4 +758,72 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         foreach (var world in worlds)
             world.ClearDraw();
     }
+
+    public void SetOverrideDrawOptions(PhysicsWorld.DrawOptions overridenOptions, PhysicsWorld.DrawOptions fixedOptions)
+    {
+        // Finish if we're already overriding.
+        if (m_OverrideDrawOptions != PhysicsWorld.DrawOptions.Off)
+            return;
+
+        // Disable the appropriate elements.
+        foreach (var item in m_DrawFlagElements)
+        {
+            if ((item.Key & overridenOptions) == 0)
+                continue;
+
+            item.Value.enabledSelf = false;
+        }
+
+        // Set the override.
+        m_OverridePreviousDrawOptions = PhysicsWorld.defaultWorld.drawOptions;
+        m_OverrideDrawOptions = overridenOptions;
+        UpdateOverrideWorldDrawOptions(fixedOptions);
+    }
+
+    public void ResetOverrideDrawOptions()
+    {
+        // Finish if we're not overriding.
+        if (m_OverrideDrawOptions == PhysicsWorld.DrawOptions.Off)
+            return;
+
+        // Enable all the elements.
+        foreach (var item in m_DrawFlagElements)
+            item.Value.enabledSelf = true;
+
+        // Restore previous draw flags.
+        UpdateOverrideWorldDrawOptions(m_OverridePreviousDrawOptions);
+        m_OverridePreviousDrawOptions = m_OverrideDrawOptions = PhysicsWorld.DrawOptions.Off;
+    }
+
+    private void UpdateOverrideWorldDrawOptions(PhysicsWorld.DrawOptions fixedOptions)
+    {
+        // Calculate new draw flags.
+        var newDrawOptions = (PhysicsWorld.defaultWorld.drawOptions & ~m_OverrideDrawOptions) | fixedOptions;
+
+        // Update the worlds.
+        using var worlds = PhysicsWorld.GetWorlds();
+        foreach (var world in worlds)
+            world.drawOptions = newDrawOptions;
+    }
+
+    public void SetOverrideColorShapeState(bool colorShapeState)
+    {
+        // Finish if we're already in the requested state.
+        if (m_OverrideColorShapeState)
+            return;
+
+        // Set the override.
+        m_OverridePreviousColorShapeState = ColorShapeState;
+        m_ColorShapeStateElement.enabledSelf = false;
+        ColorShapeState = colorShapeState;
+        m_OverrideColorShapeState = true;
+    }
+
+    public void ResetOverrideColorShapeState()
+    {
+        // Restore previous flag.
+        m_ColorShapeStateElement.enabledSelf = true;
+        ColorShapeState = m_OverridePreviousColorShapeState;
+        m_OverrideColorShapeState = m_OverridePreviousColorShapeState = false;
+    }    
 }
