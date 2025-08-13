@@ -42,12 +42,9 @@ public class LargeWorld : MonoBehaviour
 
         // Set controls.
         {
-            var controlsMenu = m_SandboxManager.ControlsMenu;
-            controlsMenu.gameObject.SetActive(true);
-
-            m_ReverseButton = m_SandboxManager.ControlsMenu[0];
+            m_ReverseButton = m_SandboxManager.ControlsMenu[2];
             m_ForwardButton = m_SandboxManager.ControlsMenu[1];
-            m_BrakeButton = m_SandboxManager.ControlsMenu[2];
+            m_BrakeButton = m_SandboxManager.ControlsMenu[0];
             
             m_ReverseButton.Set("Reverse");
             m_ForwardButton.Set("Forward");

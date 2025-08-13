@@ -35,9 +35,6 @@ public class ConveyorBelt : MonoBehaviour
 
         // Set controls.
         {
-	        var controlsMenu = m_SandboxManager.ControlsMenu;
-	        controlsMenu.gameObject.SetActive(true);
-
 	        m_SpawnButton = m_SandboxManager.ControlsMenu[0];
 	        m_SpawnButton.Set("Spawn");
 	        m_SpawnButton.button.clickable.clicked += SpawnDebris;

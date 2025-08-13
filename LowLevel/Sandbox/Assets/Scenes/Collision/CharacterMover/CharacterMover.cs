@@ -88,12 +88,9 @@ public class CharacterMover : MonoBehaviour
 
         // Set controls.
         {
-            var controlsMenu = m_SandboxManager.ControlsMenu;
-            controlsMenu.gameObject.SetActive(true);
-
-            m_LeftButton = m_SandboxManager.ControlsMenu[0];
+            m_LeftButton = m_SandboxManager.ControlsMenu[2];
             m_RightButton = m_SandboxManager.ControlsMenu[1];
-            m_JumpButton = m_SandboxManager.ControlsMenu[2];
+            m_JumpButton = m_SandboxManager.ControlsMenu[0];
             
             m_LeftButton.Set("Left");
             m_RightButton.Set("Right");

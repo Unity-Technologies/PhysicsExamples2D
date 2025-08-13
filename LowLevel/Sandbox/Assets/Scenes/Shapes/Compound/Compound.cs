@@ -11,7 +11,7 @@ public class Compound : MonoBehaviour
     private CameraManipulator m_CameraManipulator;
 
     private PhysicsWorld m_PhysicsWorld;
-    private Button m_IntrudeShapeButton;
+    private ControlsMenu.CustomButton m_IntrudeButton;
     
     private PhysicsBody m_Table1;
     private PhysicsBody m_Table2;
@@ -29,6 +29,13 @@ public class Compound : MonoBehaviour
         m_CameraManipulator.CameraSize = 15;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 9f);
 
+        // Set controls.
+        {
+	        m_IntrudeButton = m_SandboxManager.ControlsMenu[0];
+	        m_IntrudeButton.Set("Intrude");
+	        m_IntrudeButton.button.clickable.clicked += IntrudeShape;
+        }
+        
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
@@ -44,6 +51,8 @@ public class Compound : MonoBehaviour
 
     private void OnDisable()
     {
+	    m_IntrudeButton.button.clickable.clicked -= IntrudeShape;
+
 	    // Reset overrides.
 	    m_SandboxManager.ResetOverrideColorShapeState();        
     }
@@ -58,10 +67,6 @@ public class Compound : MonoBehaviour
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
-            // Intrude Shape.
-            m_IntrudeShapeButton = root.Q<Button>("intrude-shape");
-            m_IntrudeShapeButton.clicked += IntrudeShape;
-            
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
