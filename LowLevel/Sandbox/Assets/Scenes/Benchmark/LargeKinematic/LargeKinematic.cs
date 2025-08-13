@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -27,6 +28,9 @@ public class LargeKinematic : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
+        
         m_GridSize = 100;
         m_GridSpacing = 0f;
         m_AngularVelocity = 90f;
@@ -34,6 +38,12 @@ public class LargeKinematic : MonoBehaviour
         SetupOptions();
 
         SetupScene();
+    }
+
+    private void OnDisable()
+    {
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
     }
 
     private void SetupOptions()

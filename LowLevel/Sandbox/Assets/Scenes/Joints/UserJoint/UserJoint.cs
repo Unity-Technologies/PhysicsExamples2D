@@ -33,8 +33,10 @@ public class UserJoint : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-
-
+        
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
+        
         m_JointFrequency = 3f;
         m_JointDamping = 0.7f;
         m_JointMaxForce = 1000f;
@@ -51,6 +53,9 @@ public class UserJoint : MonoBehaviour
     private void OnDisable()
     {
         PhysicsEvents.PostSimulate -= OnUpdateJoint;
+        
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();
     }
 
     private void SetupOptions()

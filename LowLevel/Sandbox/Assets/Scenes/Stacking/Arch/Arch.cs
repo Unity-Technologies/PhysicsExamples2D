@@ -26,6 +26,9 @@ public class Arch : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(true);
+        
         m_Friction = 1f;
 
         SetupOptions();
@@ -33,6 +36,12 @@ public class Arch : MonoBehaviour
         SetupScene();
     }
 
+    private void OnDisable()
+    {
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();
+    }
+    
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;

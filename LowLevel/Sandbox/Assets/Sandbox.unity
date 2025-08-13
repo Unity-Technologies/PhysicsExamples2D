@@ -270,6 +270,11 @@ MonoBehaviour:
     Category: Benchmarks
     Description: A collection of objects falling into and constrained by a region.
     ScenePath: Assets/Scenes/Benchmark/Barrel/Barrel.unity
+  - Name: Funnel
+    Category: Benchmarks
+    Description: Checking the performance of various collision interactions in a
+      constrained space.
+    ScenePath: Assets/Scenes/Benchmark/Funnel/Funnel.unity
   - Name: Joint Grid
     Category: Benchmarks
     Description: A large grid of connected joints.
@@ -303,11 +308,6 @@ MonoBehaviour:
     Category: Benchmarks
     Description: A simulation of Centripetal forces.
     ScenePath: Assets/Scenes/Benchmark/Spinner/Spinner.unity
-  - Name: Funnel
-    Category: Benchmarks
-    Description: Checking the performance of various collision interactions in a
-      constrained space.
-    ScenePath: Assets/Scenes/Benchmark/Funnel/Funnel.unity
   - Name: Triggers
     Category: Benchmarks
     Description: Checking the performance of lots of trigger events.

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -32,6 +33,9 @@ public class ManyTumblers : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
+        
         m_RowCount = 15;
         m_ColumnCount = 15;
         m_SpawnCount = 10;
@@ -40,6 +44,12 @@ public class ManyTumblers : MonoBehaviour
         SetupOptions();
 
         SetupScene();
+    }
+
+    private void OnDisable()
+    {
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
     }
 
     private void Update()

@@ -29,8 +29,9 @@ public class IgnoreJoint : MonoBehaviour
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
-
+        
         // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
 
         m_EnableJoint = true;
@@ -43,6 +44,7 @@ public class IgnoreJoint : MonoBehaviour
     private void OnDisable()
     {
         // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();
         m_SandboxManager.ResetOverrideDrawOptions();
     }
 

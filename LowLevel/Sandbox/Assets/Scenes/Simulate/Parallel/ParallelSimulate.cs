@@ -22,11 +22,20 @@ public class ParallelSimulate : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
+        
         SetupOptions();
 
         SetupScene();
     }
 
+    private void OnDisable()
+    {
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();
+    }
+    
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;

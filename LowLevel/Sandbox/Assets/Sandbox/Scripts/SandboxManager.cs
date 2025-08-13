@@ -250,7 +250,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_SceneManifest = GetComponent<SceneManifest>();
         m_MainMenuDocument = GetComponent<UIDocument>();
 
-        ColorShapeState = false;
+        ColorShapeState = true;
         m_ShowUI = true;
 
         // Show the Shortcut menu by default.

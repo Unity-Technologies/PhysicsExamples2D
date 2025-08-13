@@ -49,13 +49,14 @@ public class Funnel : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
 
         // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
 
         m_ObjectType = ObjectType.Ragdoll;
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 2f;
-        m_ObjectScale = 2f;
+        m_ObjectScale = 2.5f;
         m_SpawnPeriod = 0.75f;
         m_FastCollisions = false;
 
@@ -70,6 +71,7 @@ public class Funnel : MonoBehaviour
         world.gravity = m_OldGravity;
 
         // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
         m_SandboxManager.ResetOverrideDrawOptions();
     }
 

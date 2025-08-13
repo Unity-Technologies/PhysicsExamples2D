@@ -37,6 +37,7 @@ public class BounceRagdolls : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
 
         // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
@@ -55,6 +56,8 @@ public class BounceRagdolls : MonoBehaviour
 
         PhysicsEvents.PreSimulate -= OnPreSimulation;
 
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
         m_SandboxManager.ResetOverrideDrawOptions();
     }
 

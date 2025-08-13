@@ -49,6 +49,9 @@ public class ContactManifold : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
+        
         m_ManipulatorState = ManipulatorState.None;
 
         m_Transform = new PhysicsTransform { position = new Vector2(0f, 0.5f), rotation = PhysicsRotate.identity };
@@ -70,6 +73,9 @@ public class ContactManifold : MonoBehaviour
 
     private void OnDisable()
     {
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();
+        
         m_CameraManipulator.DisableManipulators = false;
     }
 
