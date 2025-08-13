@@ -10,17 +10,17 @@ public class SceneManifest : MonoBehaviour
     [Serializable]
     public struct SceneItem
     {
-        public string ScenePath;
         public string Name;
         public string Category;
         public string Description;
+        public string ScenePath;
     }
 
     public List<SceneItem> SceneItems = new();
 
-    public int LoadedSceneIndex { get; private set; }
     public string LoadedSceneName { get; private set; }
     public string LoadedSceneDescription { get; private set; }
+    private int LoadedSceneIndex { get; set; }
 
     private Coroutine m_LoadSceneRoutine;
 

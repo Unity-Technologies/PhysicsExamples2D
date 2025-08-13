@@ -257,205 +257,205 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneItems:
-  - ScenePath: Assets/Scenes/Batching/BatchQueries/BatchQueries.unity
-    Name: Batch Queries
+  - Name: Batch Queries
     Category: Batching
     Description: Demonstrating how to batch queries using the job system.
-  - ScenePath: Assets/Scenes/Batching/Shooter/Shooter.unity
-    Name: Shooter
+    ScenePath: Assets/Scenes/Batching/BatchQueries/BatchQueries.unity
+  - Name: Shooter
     Category: Batching
     Description: Demonstrate the batch creation and destruction of lots of bodies
       and shapes.
-  - ScenePath: Assets/Scenes/Benchmark/Barrel/Barrel.unity
-    Name: Barrel
+    ScenePath: Assets/Scenes/Batching/Shooter/Shooter.unity
+  - Name: Barrel
     Category: Benchmarks
     Description: A collection of objects falling into and constrained by a region.
-  - ScenePath: Assets/Scenes/Benchmark/JointGrid/JointGrid.unity
-    Name: Joint Grid
+    ScenePath: Assets/Scenes/Benchmark/Barrel/Barrel.unity
+  - Name: Joint Grid
     Category: Benchmarks
     Description: A large grid of connected joints.
-  - ScenePath: Assets/Scenes/Benchmark/LargeCompound/LargeCompound.unity
-    Name: Large Compound
+    ScenePath: Assets/Scenes/Benchmark/JointGrid/JointGrid.unity
+  - Name: Large Compound
     Category: Benchmarks
     Description: Checking the performance of several large Dynamic compound bodies.
-  - ScenePath: Assets/Scenes/Benchmark/LargeKinematic/LargeKinematic.unity
-    Name: Large Kinematic
+    ScenePath: Assets/Scenes/Benchmark/LargeCompound/LargeCompound.unity
+  - Name: Large Kinematic
     Category: Benchmarks
     Description: Checkinf the performance of a single large rotating compound Kinematic
       body.
-  - ScenePath: Assets/Scenes/Benchmark/LargePyramid/LargePyramid.unity
-    Name: Large Pyramid
+    ScenePath: Assets/Scenes/Benchmark/LargeKinematic/LargeKinematic.unity
+  - Name: Large Pyramid
     Category: Benchmarks
     Description: A large-scale test for performance and stability of stacking objects.
-  - ScenePath: Assets/Scenes/Benchmark/LargeWorld/LargeWorld.unity
-    Name: Large World
+    ScenePath: Assets/Scenes/Benchmark/LargePyramid/LargePyramid.unity
+  - Name: Large World
     Category: Benchmarks
     Description: A large-scale world test with a lot of objects.
-  - ScenePath: Assets/Scenes/Benchmark/ManyTumblers/ManyTumblers.unity
-    Name: Many Tumblers
+    ScenePath: Assets/Scenes/Benchmark/LargeWorld/LargeWorld.unity
+  - Name: Many Tumblers
     Category: Benchmarks
     Description: Multiple tumbling, confined bodies.
-  - ScenePath: Assets/Scenes/Benchmark/Smash/Smash.unity
-    Name: Smash
+    ScenePath: Assets/Scenes/Benchmark/ManyTumblers/ManyTumblers.unity
+  - Name: Smash
     Category: Benchmarks
     Description: A large dense shape smashing into lots of smaller shapes.
-  - ScenePath: Assets/Scenes/Benchmark/Spinner/Spinner.unity
-    Name: Spinner
+    ScenePath: Assets/Scenes/Benchmark/Smash/Smash.unity
+  - Name: Spinner
     Category: Benchmarks
     Description: A simulation of Centripetal forces.
-  - ScenePath: Assets/Scenes/Benchmark/Funnel/Funnel.unity
-    Name: Funnel
+    ScenePath: Assets/Scenes/Benchmark/Spinner/Spinner.unity
+  - Name: Funnel
     Category: Benchmarks
     Description: Checking the performance of various collision interactions in a
       constrained space.
-  - ScenePath: Assets/Scenes/Benchmark/Triggers/Triggers.unity
-    Name: Triggers
+    ScenePath: Assets/Scenes/Benchmark/Funnel/Funnel.unity
+  - Name: Triggers
     Category: Benchmarks
     Description: Checking the performance of lots of trigger events.
-  - ScenePath: Assets/Scenes/Benchmark/Tumbler/Tumbler.unity
-    Name: Tumbler
+    ScenePath: Assets/Scenes/Benchmark/Triggers/Triggers.unity
+  - Name: Tumbler
     Category: Benchmarks
     Description: Lots of interacting bodies confined to a tumbling region.
-  - ScenePath: Assets/Scenes/Collision/BounceHouse/BounceHouse.unity
-    Name: Bounce House
+    ScenePath: Assets/Scenes/Benchmark/Tumbler/Tumbler.unity
+  - Name: Bounce House
     Category: Collision
     Description: Checking the stability of very fast continuous collision.
-  - ScenePath: Assets/Scenes/Collision/BounceRagdolls/BounceRagdolls.unity
-    Name: Bounce Ragdolls
+    ScenePath: Assets/Scenes/Collision/BounceHouse/BounceHouse.unity
+  - Name: Bounce Ragdolls
     Category: Collision
     Description: Checking the stability of very fast continuous collision.
-  - ScenePath: Assets/Scenes/Collision/CharacterMover/CharacterMover.unity
-    Name: Character Mover
+    ScenePath: Assets/Scenes/Collision/BounceRagdolls/BounceRagdolls.unity
+  - Name: Character Mover
     Category: Collision
     Description: Demonstrating the Cast Mover feature.
-  - ScenePath: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
-    Name: Contact Manifold
+    ScenePath: Assets/Scenes/Collision/CharacterMover/CharacterMover.unity
+  - Name: Contact Manifold
     Category: Collision
     Description: Showing contacts manifolds between various shapes.
-  - ScenePath: Assets/Scenes/Determinism/FallingHinges/FallingHinges.unity
-    Name: Falling Hinges
+    ScenePath: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
+  - Name: Falling Hinges
     Category: Determinism
     Description: Checking cross-platform determinism using a complex joint set-up.
-  - ScenePath: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
-    Name: Ball and Chain
+    ScenePath: Assets/Scenes/Determinism/FallingHinges/FallingHinges.unity
+  - Name: Ball and Chain
     Category: Joints
     Description: Demonstrating a chain of joints.
-  - ScenePath: Assets/Scenes/Joints/DistanceJoint/DistanceJoint.unity
-    Name: Distance Joint
+    ScenePath: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
+  - Name: Distance Joint
     Category: Joints
     Description: Demonstrating the features of the Distance Joint.
-  - ScenePath: Assets/Scenes/Joints/Doohickey/Doohickey.unity
-    Name: Doohickey
+    ScenePath: Assets/Scenes/Joints/DistanceJoint/DistanceJoint.unity
+  - Name: Doohickey
     Category: Joints
     Description: Demonstrating some fun contraptions using joints.
-  - ScenePath: Assets/Scenes/Joints/Driving/Driving.unity
-    Name: Driving
+    ScenePath: Assets/Scenes/Joints/Doohickey/Doohickey.unity
+  - Name: Driving
     Category: Joints
     Description: Demonstrating the use of a Wheel Joint for suspension when driving
       a car.
-  - ScenePath: Assets/Scenes/Joints/GearLift/GearLift.unity
-    Name: Gear Lift
+    ScenePath: Assets/Scenes/Joints/Driving/Driving.unity
+  - Name: Gear Lift
     Category: Joints
     Description: Complex Joint and Collision Iterations.
-  - ScenePath: Assets/Scenes/Joints/IgnoreJoint/IgnoreJoint.unity
-    Name: Ignore Joint
+    ScenePath: Assets/Scenes/Joints/GearLift/GearLift.unity
+  - Name: Ignore Joint
     Category: Joints
     Description: Demonstrating the IgnoreJoint to permanently ignore collisions between
       two bodies.
-  - ScenePath: Assets/Scenes/Joints/ScaleRagdoll/ScaleRagdoll.unity
-    Name: Scale Ragdoll
+    ScenePath: Assets/Scenes/Joints/IgnoreJoint/IgnoreJoint.unity
+  - Name: Scale Ragdoll
     Category: Joints
     Description: Checking the stability of solving forced overlap due to scaling
       a relatively complex setup.
-  - ScenePath: Assets/Scenes/Joints/ScissorLift/ScissorLift.unity
-    Name: Scissor Lift
+    ScenePath: Assets/Scenes/Joints/ScaleRagdoll/ScaleRagdoll.unity
+  - Name: Scissor Lift
     Category: Joints
     Description: Checking the stability of solving a complex set of joints.
-  - ScenePath: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
-    Name: Slider Joint
+    ScenePath: Assets/Scenes/Joints/ScissorLift/ScissorLift.unity
+  - Name: Slider Joint
     Category: Joints
     Description: Demonstrating the features of the Slider Joint.
-  - ScenePath: Assets/Scenes/Joints/SoftBody/SoftBody.unity
-    Name: Soft Body
+    ScenePath: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
+  - Name: Soft Body
     Category: Joints
     Description: Demonstrating using joints to create a soft body.
-  - ScenePath: Assets/Scenes/Joints/TopDownFriction/TopDownFriction.unity
-    Name: Top Down Friction
+    ScenePath: Assets/Scenes/Joints/SoftBody/SoftBody.unity
+  - Name: Top Down Friction
     Category: Joints
     Description: Demonstrating using the RelativeJoint to achieve "top down" friction.
-  - ScenePath: Assets/Scenes/Joints/UserJoint/UserJoint.unity
-    Name: User Joint
+    ScenePath: Assets/Scenes/Joints/TopDownFriction/TopDownFriction.unity
+  - Name: User Joint
     Category: Joints
     Description: Demonstrating the implementation of a custom joint.
-  - ScenePath: Assets/Scenes/Joints/WheelJoint/WheelJoint.unity
-    Name: Wheel Joint
+    ScenePath: Assets/Scenes/Joints/UserJoint/UserJoint.unity
+  - Name: Wheel Joint
     Category: Joints
     Description: Demonstrating the features of the Wheel Joint.
-  - ScenePath: Assets/Scenes/Shapes/Bounciness/Bounciness.unity
-    Name: Bounciness
+    ScenePath: Assets/Scenes/Joints/WheelJoint/WheelJoint.unity
+  - Name: Bounciness
     Category: Shapes
     Description: Demonstrating the effect of Bounciness on shapes.
-  - ScenePath: Assets/Scenes/Shapes/ChainShape/ChainShape.unity
-    Name: Chain Shape
+    ScenePath: Assets/Scenes/Shapes/Bounciness/Bounciness.unity
+  - Name: Chain Shape
     Category: Shapes
     Description: Demonstrates how a Chain Shape doesn't produce "ghost" collisions.
-  - ScenePath: Assets/Scenes/Shapes/Compound/Compound.unity
-    Name: Compound
+    ScenePath: Assets/Scenes/Shapes/ChainShape/ChainShape.unity
+  - Name: Compound
     Category: Shapes
     Description: Demonstrates how multiple shapes on a single body produce a compound
       shape and how to mitigate overlaps.
-  - ScenePath: Assets/Scenes/Shapes/ConveyorBelt/ConveyorBelt.unity
-    Name: Conveyor Belt
+    ScenePath: Assets/Scenes/Shapes/Compound/Compound.unity
+  - Name: Conveyor Belt
     Category: Shapes
     Description: Demonstrates the use of the Tangent Speed surface material property.
-  - ScenePath: Assets/Scenes/Shapes/CustomFilter/CustomFilter.unity
-    Name: Custom Filter
+    ScenePath: Assets/Scenes/Shapes/ConveyorBelt/ConveyorBelt.unity
+  - Name: Custom Filter
     Category: Shapes
     Description: Demonstrates the use of a custom shape filter.
-  - ScenePath: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
-    Name: Ellipse Polygons
+    ScenePath: Assets/Scenes/Shapes/CustomFilter/CustomFilter.unity
+  - Name: Ellipse Polygons
     Category: Shapes
     Description: Demonstrating creating pseudo-ellipse shapes as Polygons.
-  - ScenePath: Assets/Scenes/Shapes/Friction/Friction.unity
-    Name: Friction
+    ScenePath: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
+  - Name: Friction
     Category: Shapes
     Description: Demonstrating the effect of Friction on shapes.
-  - ScenePath: Assets/Scenes/Shapes/ModifyGeometry/ModifyGeometry.unity
-    Name: Modify Geometry
+    ScenePath: Assets/Scenes/Shapes/Friction/Friction.unity
+  - Name: Modify Geometry
     Category: Shapes
     Description: Demonstrates modifying the geometry of existing shapes.
-  - ScenePath: Assets/Scenes/Shapes/RollingResistance/RollingResistance.unity
-    Name: Rolling Resistance
+    ScenePath: Assets/Scenes/Shapes/ModifyGeometry/ModifyGeometry.unity
+  - Name: Rolling Resistance
     Category: Shapes
     Description: Demonstrating Rolling Resistance Surface Property.
-  - ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
-    Name: Rounded Polygons
+    ScenePath: Assets/Scenes/Shapes/RollingResistance/RollingResistance.unity
+  - Name: Rounded Polygons
     Category: Shapes
     Description: Demonstrating rounded polygons.
-  - ScenePath: Assets/Scenes/Simulate/Parallel/ParallelSimulate.unity
-    Name: Parallel Simulate
+    ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
+  - Name: Parallel Simulate
     Category: Simulation
     Description: Simulating multiple worlds in parallel.
-  - ScenePath: Assets/Scenes/Stacking/Arch/Arch.unity
-    Name: Arch
+    ScenePath: Assets/Scenes/Simulate/Parallel/ParallelSimulate.unity
+  - Name: Arch
     Category: Stacking
     Description: A delicate balance of forces.
-  - ScenePath: Assets/Scenes/Stacking/Confined/Confined.unity
-    Name: Confined
+    ScenePath: Assets/Scenes/Stacking/Arch/Arch.unity
+  - Name: Confined
     Category: Stacking
     Description: Showing the solver dealing with tight/overlapping confinement.
-  - ScenePath: Assets/Scenes/Stacking/CardHouse/CardHouse.unity
-    Name: Card House
+    ScenePath: Assets/Scenes/Stacking/Confined/Confined.unity
+  - Name: Card House
     Category: Stacking
     Description: A delicate balance of forces.
-  - ScenePath: Assets/Scenes/Stacking/DoubleDomino/DoubleDomino.unity
-    Name: Double Domino
+    ScenePath: Assets/Scenes/Stacking/CardHouse/CardHouse.unity
+  - Name: Double Domino
     Category: Stacking
     Description: Demonstrating accuracy by simulating the classic double-domino wave.
-  - ScenePath: Assets/Scenes/Stacking/ShapeStack/ShapeStack.unity
-    Name: Shape Stack
+    ScenePath: Assets/Scenes/Stacking/DoubleDomino/DoubleDomino.unity
+  - Name: Shape Stack
     Category: Stacking
     Description: Checking the stability of stacking shapes.
+    ScenePath: Assets/Scenes/Stacking/ShapeStack/ShapeStack.unity
 --- !u!114 &633824032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Large World
+  StartScene: Shooter
   DebuggingMenu: {fileID: 1603435387}
   ShortcutMenu: {fileID: 465066520}
   UpdatePeriodFPS: 0.1
