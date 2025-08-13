@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
 namespace UnityEditor
@@ -19,12 +20,13 @@ namespace UnityEditor
 
             // Add Start Scene.
             var sandboxManager = (target as SandboxManager);
-            var sceneItems = sandboxManager.GetComponent<SceneManifest>().SceneItems;
+            var sceneItems = sandboxManager?.GetComponent<SceneManifest>().SceneItems;
             var sceneNames = sceneItems.Select(item => item.Name).ToList();
+            sceneNames.Sort();
             var sceneNamesField = new DropdownField { label = m_StartSceneNameProperty.displayName, choices = sceneNames, bindingPath = m_StartSceneNameProperty.propertyPath };
             root.Add(sceneNamesField);
 
-            UIHelpers.FillDefaultInspector(root, serializedObject, this, m_StartSceneNameProperty.propertyPath);
+            InspectorElement.FillDefaultInspector(root, serializedObject, this, m_StartSceneNameProperty.propertyPath);
 
             return root;
         }

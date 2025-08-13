@@ -196,9 +196,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 633824030}
-  - component: {fileID: 633824029}
   - component: {fileID: 633824032}
   - component: {fileID: 633824031}
+  - component: {fileID: 633824029}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Shooter
+  StartScene: Large World
   DebuggingMenu: {fileID: 1603435387}
   ShortcutMenu: {fileID: 465066520}
   UpdatePeriodFPS: 0.1

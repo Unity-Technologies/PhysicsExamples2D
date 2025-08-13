@@ -22,7 +22,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         set => m_CameraZoomElement.value = value;
     }
 
-    public bool ColorShapeState { get; private set; }
+    private bool ColorShapeState { get; set; }
 
     public string StartScene = string.Empty;
     public Action SceneResetAction;

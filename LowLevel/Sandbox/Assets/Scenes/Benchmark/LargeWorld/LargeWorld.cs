@@ -43,7 +43,7 @@ public class LargeWorld : MonoBehaviour
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
         m_CameraManipulator.DisableManipulators = true;
 
-        m_WavePeriod = 40f;
+        m_WavePeriod = 80f;
         m_CycleCount = 600;
         m_GridSize = 1f;
         m_GridCount = (int)(m_CycleCount * m_WavePeriod / m_GridSize);
