@@ -28,6 +28,9 @@ public class ScaleRagdoll : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
+        
         m_RagdollScale = 1f;
 
         SetupOptions();
@@ -39,6 +42,9 @@ public class ScaleRagdoll : MonoBehaviour
     {
         if (m_Ragdoll.IsCreated)
             m_Ragdoll.Dispose();
+        
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
     }
 
     private void SetupOptions()
