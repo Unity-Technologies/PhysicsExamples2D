@@ -36,8 +36,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     public string StartScene = string.Empty;
     public Action SceneResetAction;
-    public DebuggingMenu DebuggingMenu;
-    public ShortcutMenu ShortcutMenu;
+    public DebugView DebugView;
+    public ShortcutsView ShortcutsView;
     public ControlsMenu ControlsMenu;
     public float UpdatePeriodFPS = 0.1f;
 
@@ -58,7 +58,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         public bool Continuous;
 
         // Draw.
-        public bool ShowDebugging;
+        public bool ShowDebugView;
         public string InputDrag;
         public float ExplodeImpulse;
         public float CameraZoom;
@@ -94,7 +94,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private Button m_PausePlayElement;
 
     // Draw Elements.
-    private Toggle m_ShowDebuggingElement;
+    private Toggle m_ShowDebugElement;
     private DropdownField m_InputModeElement;
     private Slider m_ExplodeImpulseElement;
     private Slider m_CameraZoomElement;
@@ -128,8 +128,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         ColorShapeState = true;
         m_ShowUI = true;
 
-        // Show the Shortcut menu by default.
-        ShortcutMenu.gameObject.SetActive(true);
+        // Show the Shortcut view by default.
+        ShortcutsView.gameObject.SetActive(true);
         
         // Reset the controls.
         ControlsMenu.ResetControls();
@@ -142,7 +142,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         
         m_PausePlayButton.button.clickable.clicked += TogglePausePlay;
         m_SingleStepButton.button.clickable.clicked += SingleStep;
-        m_DebugButton.button.clickable.clicked += ToggleDebugging; 
+        m_DebugButton.button.clickable.clicked += ToggleDebugView; 
         m_UIButton.button.clickable.clicked += ToggleUI;
         m_ResetButton.button.clickable.clicked += ResetScene;
         
@@ -162,7 +162,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             Continuous = defaultWorld.continuousAllowed,
 
             // Drawing.
-            ShowDebugging = false,
+            ShowDebugView = false,
             InputDrag = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag),
             ExplodeImpulse = 30f,
             CameraZoom = 1f,
@@ -229,10 +229,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 TogglePausePlay();
             }
 
-            // Debugging.
+            // Debug View.
             if (currentKeyboard.dKey.wasPressedThisFrame)
             {
-                ToggleDebugging();
+                ToggleDebugView();
             }
 
             // Toggle Color PhysicsShape State.
@@ -282,20 +282,20 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     {
         m_ShowUI = !m_ShowUI;
 
-        // Debugging Menu.
-        if (m_ShowDebuggingElement.value)
-            DebuggingMenu.gameObject.SetActive(m_ShowUI);
+        // Debug View.
+        if (m_ShowDebugElement.value)
+            DebugView.gameObject.SetActive(m_ShowUI);
 
-        // Toggle Shortcut Menu.
-        ShortcutMenu.gameObject.SetActive(!ShortcutMenu.gameObject.activeInHierarchy);
+        // Toggle Shortcut View.
+        ShortcutsView.gameObject.SetActive(!ShortcutsView.gameObject.activeInHierarchy);
                 
         // Main Menu.
         m_MainMenuDocument.rootVisualElement.style.display = m_ShowUI ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
-    private void ToggleDebugging()
+    private void ToggleDebugView()
     {
-        m_ShowDebuggingElement.value = !m_ShowDebuggingElement.value;
+        m_ShowDebugElement.value = !m_ShowDebugElement.value;
     }
     
     public void ResetSceneState()
@@ -444,10 +444,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         // Options.
         {
-            // Show Debugging.
-            m_ShowDebuggingElement = root.Q<Toggle>("show-debugging");
-            m_ShowDebuggingElement.RegisterValueChangedCallback(evt => { DebuggingMenu.gameObject.SetActive(evt.newValue); });
-            m_ShowDebuggingElement.value = m_MenuDefaults.ShowDebugging;
+            // Show Debug View.
+            m_ShowDebugElement = root.Q<Toggle>("show-debug");
+            m_ShowDebugElement.RegisterValueChangedCallback(evt => { DebugView.gameObject.SetActive(evt.newValue); });
+            m_ShowDebugElement.value = m_MenuDefaults.ShowDebugView;
 
             // Input Mode.
             m_InputModeElement = root.Q<DropdownField>("input-mode");
@@ -608,7 +608,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Load the start scene if specified.
         if (StartScene != string.Empty)
         {
-            DebuggingMenu.ResetStats();
+            DebugView.ResetStats();
             m_SceneManifest.LoadScene(StartScene, ResetSceneState);
         }
     }
@@ -657,7 +657,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_CameraManipulator.ResetPanZoom();
         m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
 
-        DebuggingMenu.ResetStats();
+        DebugView.ResetStats();
         m_CameraManipulator.OverlapUI = 0;
 
         // Reset the controls.
@@ -692,7 +692,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_ContinuousElement.value = m_MenuDefaults.Continuous;
 
         // Drawing.
-        m_ShowDebuggingElement.value = m_MenuDefaults.ShowDebugging;
+        m_ShowDebugElement.value = m_MenuDefaults.ShowDebugView;
         m_InputModeElement.value = m_MenuDefaults.InputDrag;
         m_ExplodeImpulseElement.value = m_MenuDefaults.ExplodeImpulse;
         m_CameraManipulator.ResetPanZoom();
@@ -710,7 +710,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_DrawContactTangentsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactFriction);
         m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactImpulse);
 
-        DebuggingMenu.ResetStats();
+        DebugView.ResetStats();
 
         // Reload the scene.
         SceneResetAction = null;

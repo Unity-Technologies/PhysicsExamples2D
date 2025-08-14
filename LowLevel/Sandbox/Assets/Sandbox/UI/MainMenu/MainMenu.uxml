@@ -22,7 +22,7 @@
                 </ui:Tab>
                 <ui:Tab label="Options" name="Tab" tabindex="2" style="border-top-right-radius: 0;">
                     <ui:VisualElement name="options">
-                        <ui:Toggle label="Show Debugging" name="show-debugging" value="false" focusable="false"/>
+                        <ui:Toggle label="Show Debugging" name="show-debug" value="false" focusable="false"/>
                         <ui:DropdownField label="Input Mode" name="input-mode" choices="Drag Object,Explode" index="1"/>
                         <ui:Slider label="Explode Impulse" value="0" high-value="100" name="explode-impulse" low-value="1" show-input-field="true" focusable="false" inverted="false" fill="true"/>
                         <ui:Slider label="Camera Zoom" value="1" high-value="20" name="camera-zoom" low-value="0.1" show-input-field="true" focusable="false" inverted="false" fill="true"/>

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
-public class DebuggingMenu : MonoBehaviour
+public class DebugView : MonoBehaviour
 {
     private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;

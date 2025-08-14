@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ShortcutMenu : MonoBehaviour
+public class ShortcutsView : MonoBehaviour
 {
     private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;

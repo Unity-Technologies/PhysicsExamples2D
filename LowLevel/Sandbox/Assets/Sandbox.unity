@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 465066521}
   - component: {fileID: 465066520}
   m_Layer: 0
-  m_Name: ShortcutMenu
+  m_Name: ShortcutsView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -474,8 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartScene: Shooter
-  DebuggingMenu: {fileID: 1603435387}
-  ShortcutMenu: {fileID: 465066520}
+  DebugView: {fileID: 1603435387}
+  ShortcutsView: {fileID: 465066520}
   ControlsMenu: {fileID: 931634909}
   UpdatePeriodFPS: 0.1
 --- !u!1 &931634905
@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: 1603435386}
   - component: {fileID: 1603435387}
   m_Layer: 0
-  m_Name: DebuggingMenu
+  m_Name: DebugView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -799,7 +799,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9c543dcb12519f44b0620a75f540b67, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::DebuggingMenu
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
