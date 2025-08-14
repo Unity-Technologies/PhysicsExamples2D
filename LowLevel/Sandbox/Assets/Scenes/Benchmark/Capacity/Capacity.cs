@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -15,7 +16,11 @@ public class Capacity : MonoBehaviour
     private ProgressBar m_TestIndicator;
     private VisualElement m_TestIndicatorProgress;
     
-    private PolygonGeometry m_PolygonBox;
+    private PolygonGeometry m_PolygonGeometry;
+    private CircleGeometry m_CircleGeometry;
+    private CapsuleGeometry m_CapsuleGeometry;
+    private float m_SpawnOffset;
+    
     private float m_OldMaximumDeltaTime;
     private bool m_OldWorldSleeping;
     
@@ -24,8 +29,16 @@ public class Capacity : MonoBehaviour
     private int m_LimitReachedCount;
     private bool m_Finished;
 
+    private ShapeType m_ShapeType;
     private int m_SimulationLimit;
     private bool m_RenderingOn;
+
+    private enum ShapeType
+    {
+        Circle,
+        Polygon,
+        Capsule
+    }
     
     private void OnEnable()
     {
@@ -41,7 +54,10 @@ public class Capacity : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        m_PolygonBox = PolygonGeometry.CreateBox(Vector2.one);
+        m_PolygonGeometry = PolygonGeometry.CreateBox(Vector2.one);
+        m_CircleGeometry = new CircleGeometry { radius = 0.5f };
+        m_CapsuleGeometry = new CapsuleGeometry { center1 = Vector2.left * 0.5f, center2 = Vector2.right * 0.5f, radius = 0.5f };
+        m_SpawnOffset = 0f; 
 
         // Attempt to stop multiple fixed-updates.
         // We do not care about keeping game-time here.
@@ -55,7 +71,8 @@ public class Capacity : MonoBehaviour
         m_SimulationCounter = 0;
         m_LimitReachedCount = 0;
         m_Finished = false;
-        
+
+        m_ShapeType = ShapeType.Circle;
         m_SimulationLimit = 20;
         m_RenderingOn = false;        
         
@@ -93,6 +110,15 @@ public class Capacity : MonoBehaviour
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
+            // Shape Type.
+            var shapeType = root.Q<EnumField>("shape-type");
+            shapeType.value = m_ShapeType;
+            shapeType.RegisterValueChangedCallback(evt =>
+            {
+                m_ShapeType = (ShapeType)evt.newValue;
+                SetupScene();
+            });
+            
             // Simulation Limit.
             var simulationLimit = root.Q<SliderInt>("simulation-limit");
             simulationLimit.value = m_SimulationLimit;
@@ -178,7 +204,7 @@ public class Capacity : MonoBehaviour
         if (simulationStep > m_SimulationLimit)
         {
             // If we've reached the limit over a period of time then flag as finished.
-            if (++m_LimitReachedCount > 30)
+            if (++m_LimitReachedCount > 60)
             {
                 // Update indicator.
                 m_TestIndicator.title = $"Simulation limit of {m_TestIndicator.highValue:F0} ms reached.";
@@ -200,20 +226,38 @@ public class Capacity : MonoBehaviour
 
         // Spawn.
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, bodyConstraints = RigidbodyConstraints2D.FreezeRotation };
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState } };
 
             const int count = 200;
-            var position = new Vector2(-count, 200f);
+            var position = new Vector2(-count + m_SpawnOffset, 200f);
             for (var n = 0; n < count; ++n)
             {
                 position.y += 0.5f;
                 bodyDef.position = position;
-                
-                world.CreateBody(bodyDef).CreateShape(m_PolygonBox, shapeDef);
-                
                 position.x += 2f;
+
+                // Create the appropriate geometry.
+                switch (m_ShapeType)
+                {
+                    case ShapeType.Circle:
+                        world.CreateBody(bodyDef).CreateShape(m_CircleGeometry, shapeDef);
+                        continue;
+                    
+                    case ShapeType.Polygon:
+                        world.CreateBody(bodyDef).CreateShape(m_PolygonGeometry, shapeDef);
+                        continue;
+                    
+                    case ShapeType.Capsule:
+                        world.CreateBody(bodyDef).CreateShape(m_CapsuleGeometry, shapeDef);
+                        continue;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+
+            m_SpawnOffset = 0.5f - m_SpawnOffset;
         }
         
         // Update Display Counts.

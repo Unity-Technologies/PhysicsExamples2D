@@ -272,12 +272,13 @@ MonoBehaviour:
     ScenePath: Assets/Scenes/Benchmark/Barrel/Barrel.unity
   - Name: Capacity
     Category: Benchmarks
-    Description: Benchmark the capacity of large quantity of bodies, shapes and contacts.
-      Spawning will continue until the simulation limit is consistently reached.
-      At this point, you will have an idea for a worse-case scenarios for lots of
-      bodies and shapes all in contact with each other on the current device. The
-      debug rendering defaults to being turned off as the FPS is irrelevant and may
-      result in the Sandbox UI becoming sluggish or unusable on some system.
+    Description: Benchmark the capacity of a large quantity of bodies, shapes and
+      contacts, spawning until the simulation limit has been reached. This provides
+      an approximate limit for a worse-case scenario with bodies and shapes all in
+      contact with each other on the current device. The available threads has a
+      huge impact on this limit. The debug rendering defaults to being turned off
+      as the FPS is irrelevant and may result in the Sandbox UI becoming sluggish
+      on some devices.
     ScenePath: Assets/Scenes/Benchmark/Capacity/Capacity.unity
   - Name: Funnel
     Category: Benchmarks
