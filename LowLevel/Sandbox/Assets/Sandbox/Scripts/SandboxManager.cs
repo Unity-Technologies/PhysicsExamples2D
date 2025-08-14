@@ -291,10 +291,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 
         // Main Menu.
         m_MainMenuDocument.rootVisualElement.style.display = m_ShowUI ? DisplayStyle.Flex : DisplayStyle.None;
-
-        // If we have an assigned scene options UI then toggle it.
-        if (SceneOptionsUI != null)
-            SceneOptionsUI.enabled = m_ShowUI;
     }
 
     private void ToggleDebugging()
