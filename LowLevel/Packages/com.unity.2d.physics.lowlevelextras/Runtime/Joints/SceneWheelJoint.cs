@@ -2,7 +2,7 @@
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
-    [AddComponentMenu("Physics 2D (LowLevel)/Joints/Scene WheelJoint", 6)]
+    [AddComponentMenu("Physics 2D/LowLevel/Joints/Scene Wheel Joint", 40)]
     [Icon(IconUtility.IconPath + "SceneWheelJoint.png")]
     public sealed class SceneWheelJoint : SceneJointBase, IWorldSceneDrawable
     {

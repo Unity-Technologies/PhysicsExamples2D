@@ -10,7 +10,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
     [DisallowMultipleComponent]
     [ExecuteAlways]
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneWorld)]
-    [AddComponentMenu("Physics 2D (LowLevel)/Scene World", 2)]
+    [AddComponentMenu("Physics 2D/LowLevel/Scene World", 0)]
     [Icon(IconUtility.IconPath + "SceneWorld.png")]
     public sealed class SceneWorld : MonoBehaviour
     {

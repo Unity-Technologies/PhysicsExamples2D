@@ -2,7 +2,7 @@
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
-    [AddComponentMenu("Physics 2D (LowLevel)/Joints/Scene SliderJoint", 2)]
+    [AddComponentMenu("Physics 2D/LowLevel/Joints/Scene Slider Joint", 40)]
     [Icon(IconUtility.IconPath + "SceneSliderJoint.png")]
     public sealed class SceneSliderJoint : SceneJointBase, IWorldSceneDrawable
     {

@@ -6,7 +6,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
     [ExecuteAlways]
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneShape)]
-    [AddComponentMenu("Physics 2D (LowLevel)/Scene Sprite Shape", 1)]
+    [AddComponentMenu("Physics 2D/LowLevel/Scene Sprite Shape", 22)]
     [Icon(IconUtility.IconPath + "SceneShape.png")]
     public sealed class SceneSpriteShape : MonoBehaviour, IWorldSceneTransformChanged, IWorldSceneDrawable
     {

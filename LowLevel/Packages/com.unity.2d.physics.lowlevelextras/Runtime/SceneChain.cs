@@ -5,7 +5,7 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
     [ExecuteAlways]
     [DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneShape)]
-    [AddComponentMenu("Physics 2D (LowLevel)/Scene Chain", 1)]
+    [AddComponentMenu("Physics 2D/LowLevel/Scene Chain", 30)]
     [Icon(IconUtility.IconPath + "SceneChain.png")]
     public sealed class SceneChain : MonoBehaviour, IWorldSceneTransformChanged
     {

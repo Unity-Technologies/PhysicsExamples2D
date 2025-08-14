@@ -2,7 +2,7 @@
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
-    [AddComponentMenu("Physics 2D (LowLevel)/Joints/Scene HingeJoint", 1)]
+    [AddComponentMenu("Physics 2D/LowLevel/Joints/Scene Hinge Joint", 40)]
     [Icon(IconUtility.IconPath + "SceneHingeJoint.png")]
     public sealed class SceneHingeJoint : SceneJointBase, IWorldSceneDrawable
     {

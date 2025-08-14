@@ -2,7 +2,7 @@
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
-    [AddComponentMenu("Physics 2D (LowLevel)/Joints/Scene DistanceJoint")]
+    [AddComponentMenu("Physics 2D/LowLevel/Joints/Scene Distance Joint", 40)]
     [Icon(IconUtility.IconPath + "SceneDistanceJoint.png")]
     public sealed class SceneDistanceJoint : SceneJointBase, IWorldSceneDrawable
     {

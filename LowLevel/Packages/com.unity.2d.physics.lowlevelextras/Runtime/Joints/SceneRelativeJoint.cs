@@ -2,7 +2,7 @@
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
-    [AddComponentMenu("Physics 2D (LowLevel)/Joints/Scene RelativeJoint", 4)]
+    [AddComponentMenu("Physics 2D/LowLevel/Joints/Scene Relative Joint", 40)]
     [Icon(IconUtility.IconPath + "SceneRelativeJoint.png")]
     public sealed class SceneRelativeJoint : SceneJointBase, IWorldSceneDrawable
     {
