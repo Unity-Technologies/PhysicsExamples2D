@@ -162,7 +162,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             Continuous = defaultWorld.continuousAllowed,
 
             // Drawing.
-            ShowDebugView = false,
+            ShowDebugView = true,
             InputDrag = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag),
             ExplodeImpulse = 30f,
             CameraZoom = 1f,
