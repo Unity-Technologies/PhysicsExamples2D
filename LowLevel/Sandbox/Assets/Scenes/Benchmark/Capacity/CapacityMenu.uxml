@@ -4,7 +4,7 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Capacity Options" tabindex="0" name="Tab">
-                    <ui:SliderInt label="Simulation Limit (ms)" value="0" high-value="100" name="simulation-limit" low-value="1" fill="true" focusable="false" show-input-field="true"/>
+                    <ui:SliderInt label="Simulation Limit (ms)" value="0" high-value="50" name="simulation-limit" low-value="1" fill="true" focusable="false" show-input-field="true"/>
                     <ui:EnumField label="Shape Type" value="Center" type="Capacity+ShapeType, Assembly-CSharp" name="shape-type" focusable="false"/>
                     <ui:Toggle label="Rendering On" name="rendering-on" focusable="false"/>
                     <ui:FloatField label="Body Count" value="0" name="body-count" enabled="true" focusable="false" readonly="true"/>

@@ -23,6 +23,8 @@ public class Capacity : MonoBehaviour
     
     private float m_OldMaximumDeltaTime;
     private bool m_OldWorldSleeping;
+
+    private Color[] m_ProgressColors;
     
     private const int SimulationSpawnPeriod = 30;
     private int m_SimulationCounter;
@@ -57,8 +59,17 @@ public class Capacity : MonoBehaviour
         m_PolygonGeometry = PolygonGeometry.CreateBox(Vector2.one);
         m_CircleGeometry = new CircleGeometry { radius = 0.5f };
         m_CapsuleGeometry = new CapsuleGeometry { center1 = Vector2.left * 0.5f, center2 = Vector2.right * 0.5f, radius = 0.5f };
-        m_SpawnOffset = 0f; 
+        m_SpawnOffset = 0f;
 
+        m_ProgressColors = new []
+        {
+            Color.softGreen,
+            Color.yellowNice,
+            Color.orange,
+            Color.indianRed,
+            Color.softRed
+        };
+        
         // Attempt to stop multiple fixed-updates.
         // We do not care about keeping game-time here.
         m_OldMaximumDeltaTime = Time.maximumDeltaTime;
@@ -66,7 +77,6 @@ public class Capacity : MonoBehaviour
 
         // Turn-off world-sleeping here.
         m_OldWorldSleeping = m_SandboxManager.WorldSleeping;
-        m_SandboxManager.WorldSleeping = false;
         
         m_SimulationCounter = 0;
         m_LimitReachedCount = 0;
@@ -176,6 +186,9 @@ public class Capacity : MonoBehaviour
         m_TestIndicator.highValue = m_SimulationLimit;
         m_TestIndicator.title = $"Waiting for {m_TestIndicator.highValue:F0} ms ...";
         m_TestIndicatorProgress.style.backgroundColor = Color.clear;
+
+        // Don't allow sleeping during testing.
+        m_SandboxManager.WorldSleeping = false;
         
         // Ground.
         {
@@ -200,11 +213,6 @@ public class Capacity : MonoBehaviour
         // Fetch the simulation step time,
         var simulationStep = world.profile.simulationStep;
         
-        // Update the test indicator.
-        m_TestIndicator.value = simulationStep;
-        var progress = simulationStep / m_SimulationLimit;
-        m_TestIndicatorProgress.style.backgroundColor = progress < 0.33f ? Color.forestGreen : progress > 0.66f ? Color.orange : Color.yellow;
-        
         // Finish if we're above the simulation limit.
         if (simulationStep > m_SimulationLimit)
         {
@@ -213,10 +221,15 @@ public class Capacity : MonoBehaviour
             {
                 // Update indicator.
                 m_TestIndicator.title = $"Simulation limit of {m_TestIndicator.highValue:F0} ms reached.";
-                m_TestIndicatorProgress.style.backgroundColor = Color.red;
+                m_TestIndicatorProgress.style.backgroundColor = m_ProgressColors[4];
+
+                // Allow sleeping again.
+                m_SandboxManager.WorldSleeping = true;
                 
                 // Flag as finished.
                 m_Finished = true;
+
+                return;
             }
         }
         else
@@ -225,6 +238,17 @@ public class Capacity : MonoBehaviour
             m_LimitReachedCount = Mathf.Max(0, m_LimitReachedCount - 1);
         }
 
+        // Update the test indicator.
+        m_TestIndicator.value = simulationStep;
+        var progress = simulationStep / m_SimulationLimit;
+        m_TestIndicatorProgress.style.backgroundColor = progress switch
+        {
+            < 0.33f => m_ProgressColors[0],
+            < 0.50f => m_ProgressColors[1],
+            < 0.80f => m_ProgressColors[2],
+            _ => m_ProgressColors[3]
+        };
+        
         // Finish if we're not ready to spawn.
         if (++m_SimulationCounter % SimulationSpawnPeriod != 0)
             return;
