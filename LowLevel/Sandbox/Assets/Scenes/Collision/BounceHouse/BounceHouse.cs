@@ -1,4 +1,5 @@
 using System;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -91,19 +92,23 @@ public class BounceHouse : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-
+        
         // Ground.
         {
-            var bodyDef = PhysicsBodyDefinition.defaultDefinition;
-            var body = world.CreateBody(bodyDef);
+            var groundBody = world.CreateBody();
 
-            var shapeDef = PhysicsShapeDefinition.defaultDefinition;
-            body.CreateShape(new SegmentGeometry { point1 = new Vector2(-10f, -10f), point2 = new Vector2(10f, -10f) }, shapeDef);
-            body.CreateShape(new SegmentGeometry { point1 = new Vector2(10f, -10f), point2 = new Vector2(10f, 10f) }, shapeDef);
-            body.CreateShape(new SegmentGeometry { point1 = new Vector2(10f, 10f), point2 = new Vector2(-10f, 10f) }, shapeDef);
-            body.CreateShape(new SegmentGeometry { point1 = new Vector2(-10f, 10f), point2 = new Vector2(-10f, -10f) }, shapeDef);
+            var vertices = new NativeList<Vector2>(Allocator.Temp)
+            {
+                new (-10f, 10f),
+                new (10f, 10f),
+                new (10f, -9f),
+                new (-10f, -9f)
+            };
+
+            var geometry = new ChainGeometry(vertices.AsArray());
+            groundBody.CreateChain(geometry, PhysicsChainDefinition.defaultDefinition);
+            
+            vertices.Dispose();
         }
 
         // Bouncing PhysicsShape.
