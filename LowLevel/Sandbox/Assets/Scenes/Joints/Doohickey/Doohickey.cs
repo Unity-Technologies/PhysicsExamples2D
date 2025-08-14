@@ -29,7 +29,7 @@ public class Doohickey : MonoBehaviour
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.AllJoints);
         m_SandboxManager.SetOverrideColorShapeState(true);
 
-        m_DoohickeyCount = 4;
+        m_DoohickeyCount = 5;
 
         SetupOptions();
 
@@ -81,8 +81,8 @@ public class Doohickey : MonoBehaviour
 
             groundBody.CreateShape(new SegmentGeometry { point1 = Vector2.left * 20f, point2 = Vector2.right * 20f });
             groundBody.CreateShape(PolygonGeometry.CreateBox(Vector2.one * 2f, 0.1f, new PhysicsTransform(Vector2.up), true));
-            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 50f), 0f, new PhysicsTransform(Vector2.up * 25f + Vector2.left * 14f)));
-            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 50f), 0f, new PhysicsTransform(Vector2.up * 25f + Vector2.right * 14f)));
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 50f), 0f, new PhysicsTransform(Vector2.left * 8f + Vector2.up * 25f)));
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 50f), 0f, new PhysicsTransform(Vector2.right * 8f + Vector2.up * 25f)));
         }
 
         // Doohickey.
