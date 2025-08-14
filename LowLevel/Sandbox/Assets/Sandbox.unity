@@ -270,6 +270,15 @@ MonoBehaviour:
     Category: Benchmarks
     Description: A collection of objects falling into and constrained by a region.
     ScenePath: Assets/Scenes/Benchmark/Barrel/Barrel.unity
+  - Name: Capacity
+    Category: Benchmarks
+    Description: Benchmarking the capacity of large quantity of bodies, shapes and
+      contacts. Consider turning debug rendering off as the FPS is irrelevant here
+      given that there is a large rendering overhead. Spawning will continue until
+      the simulation limit is consistently reached. At this point, you will have
+      an idea for a worse-case scenarios of lots of bodies and shapes in contact
+      on the current device. The debugger will also provide more detail.
+    ScenePath: Assets/Scenes/Benchmark/Capacity/Capacity.unity
   - Name: Funnel
     Category: Benchmarks
     Description: Checking the performance of various collision interactions in a
@@ -468,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Shooter
+  StartScene: Capacity
   DebuggingMenu: {fileID: 1603435387}
   ShortcutMenu: {fileID: 465066520}
   ControlsMenu: {fileID: 931634909}

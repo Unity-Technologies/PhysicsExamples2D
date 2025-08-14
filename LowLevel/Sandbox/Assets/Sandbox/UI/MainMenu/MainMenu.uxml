@@ -3,10 +3,10 @@
     <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; padding-left: 8px; padding-top: 8px;">
         <ui:VisualElement name="menu-region" style="width: auto; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" name="selected-tab" style="width: 100%; height: 100%;">
-                <ui:Tab label="Scenes" tabindex="0" name="Tab">
+                <ui:Tab label="Scenes" tabindex="0" name="Tab" style="border-top-right-radius: 0;">
                     <ui:TreeView name="scenes" virtualization-method="DynamicHeight" focusable="false"/>
                 </ui:Tab>
-                <ui:Tab label="World" name="Tab" tabindex="1">
+                <ui:Tab label="World" name="Tab" tabindex="1" style="border-top-right-radius: 0;">
                     <ui:VisualElement name="world">
                         <ui:SliderInt label="Workers" value="64" high-value="64" show-input-field="true" name="workers" fill="true"/>
                         <ui:SliderInt label="Sub-steps" value="4" high-value="64" show-input-field="true" low-value="1" inverted="false" name="sub-steps" focusable="false" fill="true"/>
@@ -20,7 +20,7 @@
                         <ui:Button text="Quit " name="quit-application" focusable="false"/>
                     </ui:VisualElement>
                 </ui:Tab>
-                <ui:Tab label="Options" name="Tab" tabindex="2">
+                <ui:Tab label="Options" name="Tab" tabindex="2" style="border-top-right-radius: 0;">
                     <ui:VisualElement name="options">
                         <ui:Toggle label="Show Debugging" name="show-debugging" value="false" focusable="false"/>
                         <ui:DropdownField label="Input Mode" name="input-mode" choices="Drag Object,Explode" index="1"/>

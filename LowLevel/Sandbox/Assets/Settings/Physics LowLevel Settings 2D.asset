@@ -84,7 +84,7 @@ MonoBehaviour:
     m_SimulationMode: 0
     m_SimulationSubSteps: 4
     m_SimulationWorkers: 64
-    m_TransformWriteMode: 1
+    m_TransformWriteMode: 0
     m_TransformPlane: 0
     m_TransformTweening: 1
     m_SleepingAllowed: 1

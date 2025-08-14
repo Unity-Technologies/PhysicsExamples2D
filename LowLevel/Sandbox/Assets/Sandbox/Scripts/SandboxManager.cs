@@ -16,13 +16,14 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 {
     public ref Random Random => ref m_Random;
     public bool WorldPaused { get; private set; }
+    public bool WorldSleeping { get => m_SleepingElement.value; set => m_SleepingElement.value = value; }
 
     public float CameraZoom
     {
         get => m_CameraZoomElement.value;
         set => m_CameraZoomElement.value = value;
     }
-
+    
     public UIDocument SceneOptionsUI { get; set; }
     
     private bool ColorShapeState { get; set; }
@@ -251,6 +252,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             }
         }
 
+        // Update the FPS.
+        UpdateFPS();
+    }
+
+    private void UpdateFPS()
+    {
         // Fps.
         var deltaTime = Time.smoothDeltaTime;
         if (m_BarFPS != null & deltaTime > 0f)
@@ -572,16 +579,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();
         foreach (var world in worlds)
-        {
-            if (fixedRate)
-            {
-                world.simulationMode = SimulationMode2D.FixedUpdate;
-                Time.fixedDeltaTime = 1.0f / float.Parse(frequency);
-                continue;
-            }
-
-            world.simulationMode = SimulationMode2D.Update;
-        }
+            world.simulationMode = fixedRate ? SimulationMode2D.FixedUpdate : SimulationMode2D.Update;
     }
 
     private void SetupSceneTree()
@@ -745,16 +743,19 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         
         var defaultWorld = PhysicsWorld.defaultWorld;
 
-        var oldPaused = defaultWorld.paused;
-        var oldSimulationMode = defaultWorld.simulationMode;
-
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();
         foreach (var world in worlds)
         {
-            world.simulationMode = SimulationMode2D.Script;
-            world.paused = false;
-            world.Simulate(oldSimulationMode == SimulationMode2D.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
+            var oldPaused = defaultWorld.paused;
+            var oldSimulationMode = defaultWorld.simulationMode;
+
+            {
+                world.simulationMode = SimulationMode2D.Script;
+                world.paused = false;
+                world.Simulate(oldSimulationMode == SimulationMode2D.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
+            }
+
             world.paused = oldPaused;
             world.simulationMode = oldSimulationMode;
         }

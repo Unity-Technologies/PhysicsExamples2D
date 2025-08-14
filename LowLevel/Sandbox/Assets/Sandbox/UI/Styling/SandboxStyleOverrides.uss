@@ -76,6 +76,7 @@ TabView, .unity-tab-view__content-container, Tab, .unity-tab__content-container 
     border-width: 1px;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
     border-color: var(--foreground);
     background-color: var(--background);
 }
