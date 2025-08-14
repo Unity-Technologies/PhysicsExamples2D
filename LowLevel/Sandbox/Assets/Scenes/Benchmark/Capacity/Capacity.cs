@@ -87,7 +87,6 @@ public class Capacity : MonoBehaviour
         m_RenderingOn = false;        
         
         // Set Overrides.
-        m_SandboxManager.SetOverrideColorShapeState(true);
         if (!m_RenderingOn)
             m_SandboxManager.SetOverrideDrawOptions(overridenOptions: ~PhysicsWorld.DrawOptions.Off, fixedOptions: PhysicsWorld.DrawOptions.Off);
         
@@ -107,7 +106,6 @@ public class Capacity : MonoBehaviour
         PhysicsEvents.PostSimulate -= OnPostSimulation;
 
         // Reset overrides.
-        m_SandboxManager.ResetOverrideColorShapeState();        
         if (!m_RenderingOn)
             m_SandboxManager.ResetOverrideDrawOptions();
         
