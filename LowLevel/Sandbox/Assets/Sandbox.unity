@@ -272,12 +272,12 @@ MonoBehaviour:
     ScenePath: Assets/Scenes/Benchmark/Barrel/Barrel.unity
   - Name: Capacity
     Category: Benchmarks
-    Description: Benchmarking the capacity of large quantity of bodies, shapes and
-      contacts. Consider turning debug rendering off as the FPS is irrelevant here
-      given that there is a large rendering overhead. Spawning will continue until
-      the simulation limit is consistently reached. At this point, you will have
-      an idea for a worse-case scenarios of lots of bodies and shapes in contact
-      on the current device. The debugger will also provide more detail.
+    Description: Benchmark the capacity of large quantity of bodies, shapes and contacts.
+      Spawning will continue until the simulation limit is consistently reached.
+      At this point, you will have an idea for a worse-case scenarios for lots of
+      bodies and shapes all in contact with each other on the current device. The
+      debug rendering defaults to being turned off as the FPS is irrelevant and may
+      result in the Sandbox UI becoming sluggish or unusable on some system.
     ScenePath: Assets/Scenes/Benchmark/Capacity/Capacity.unity
   - Name: Funnel
     Category: Benchmarks
@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Capacity
+  StartScene: Shooter
   DebuggingMenu: {fileID: 1603435387}
   ShortcutMenu: {fileID: 465066520}
   ControlsMenu: {fileID: 931634909}
