@@ -49,7 +49,7 @@ public class DebugView : MonoBehaviour
     private Label m_MoveableBroadphaseHeightElement;
     private Label m_StackBytesUsedElement;
     private Label m_TotalBytesUsedElement;
-    private Label m_SimulationTaskCountElement;
+    private Label m_TaskCountElement;
 
     public void ResetStats()
     {
@@ -115,7 +115,7 @@ public class DebugView : MonoBehaviour
             m_MoveableBroadphaseHeightElement = root.Q<Label>("moveable-broadphase-height");
             m_StackBytesUsedElement = root.Q<Label>("stack-bytes-used");
             m_TotalBytesUsedElement = root.Q<Label>("total-bytes-used");
-            m_SimulationTaskCountElement = root.Q<Label>("simulation-task-count");
+            m_TaskCountElement = root.Q<Label>("task-count");
         }
 
         // Reset Stats.
@@ -174,7 +174,7 @@ public class DebugView : MonoBehaviour
         m_MoveableBroadphaseHeightElement.text = $"{color}{m_LastCounters.broadphaseHeight}{endColor} >[{color}{m_MaxCounters.broadphaseHeight}{endColor}]";
         m_StackBytesUsedElement.text = $"{color}{m_LastCounters.stackUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.stackUsed * memoryScale:F2}{endColor}]";
         m_TotalBytesUsedElement.text = $"{color}{m_LastCounters.memoryUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.memoryUsed * memoryScale:F2}{endColor}]";
-        m_SimulationTaskCountElement.text = $"{color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
+        m_TaskCountElement.text = $"{color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
     }
 
     private void UpdateStats(PhysicsWorld world, float deltaTime)
