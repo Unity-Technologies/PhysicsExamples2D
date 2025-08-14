@@ -49,7 +49,7 @@ public class Capacity : MonoBehaviour
         
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 280f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 50f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 200f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
@@ -76,10 +76,11 @@ public class Capacity : MonoBehaviour
         m_SimulationLimit = 20;
         m_RenderingOn = false;        
         
-        // Set Overrides (if not rendering).
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(true);
         if (!m_RenderingOn)
             m_SandboxManager.SetOverrideDrawOptions(overridenOptions: ~PhysicsWorld.DrawOptions.Off, fixedOptions: PhysicsWorld.DrawOptions.Off);
-
+        
         SetupOptions();
 
         SetupScene();
@@ -96,8 +97,10 @@ public class Capacity : MonoBehaviour
         PhysicsEvents.PostSimulate -= OnPostSimulation;
 
         // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
         if (!m_RenderingOn)
             m_SandboxManager.ResetOverrideDrawOptions();
+        
     }
     
     private void SetupOptions()
@@ -178,7 +181,9 @@ public class Capacity : MonoBehaviour
         {
             var world = PhysicsWorld.defaultWorld;
             var body = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.down * 5f });
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1600f, 10f)));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(550f, 10f)));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(10f, 400f), 0f, Vector2.left * 270f + Vector2.up * 195f));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(10f, 400f), 0f, Vector2.right * 270f + Vector2.up * 195f));
         }
     }
 
