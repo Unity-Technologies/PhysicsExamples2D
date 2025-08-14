@@ -21,6 +21,10 @@ public class Driving : MonoBehaviour
     private PhysicsWheelJoint m_FrontWheelJoint;
     private float m_Throttle;
 
+    private ControlsMenu.CustomButton m_ReverseButton;
+    private ControlsMenu.CustomButton m_ForwardButton;
+    private ControlsMenu.CustomButton m_BrakeButton;
+    
     private void OnEnable()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -33,6 +37,17 @@ public class Driving : MonoBehaviour
         m_CameraManipulator.CameraPosition = new Vector2(0f, 5f);
         m_CameraManipulator.DisableManipulators = true;
 
+        // Set controls.
+        {
+            m_ReverseButton = m_SandboxManager.ControlsMenu[2];
+            m_ForwardButton = m_SandboxManager.ControlsMenu[1];
+            m_BrakeButton = m_SandboxManager.ControlsMenu[0];
+            
+            m_ReverseButton.Set("Reverse");
+            m_ForwardButton.Set("Forward");
+            m_BrakeButton.Set("Brake");
+        }
+        
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
@@ -130,10 +145,11 @@ public class Driving : MonoBehaviour
         {
             groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
 
-            var points = new NativeArray<Vector2>(25, Allocator.Temp);
-            var pointIndex = 24;
+            var pointIndex = 25;
+            var points = new NativeArray<Vector2>(pointIndex + 1, Allocator.Temp);
 
             // Fill in reverse to match the chain convention.
+            points[pointIndex--] = new Vector2(-20f, 40f);
             points[pointIndex--] = new Vector2(-20f, 20f);
             points[pointIndex--] = new Vector2(-20f, 0f);
             points[pointIndex--] = new Vector2(20f, 0f);
@@ -289,21 +305,21 @@ public class Driving : MonoBehaviour
         var currentKeyboard = Keyboard.current;
 
         // Reverse.
-        if (currentKeyboard.leftArrowKey.isPressed)
+        if (m_ReverseButton.isPressed || currentKeyboard.leftArrowKey.isPressed)
         {
             m_Throttle = 1f;
             SetCarSpeed(m_MotorSpeed);
         }
 
         // Forward.
-        if (currentKeyboard.rightArrowKey.isPressed)
+        if (m_ForwardButton.isPressed || currentKeyboard.rightArrowKey.isPressed)
         {
             m_Throttle = -1f;
             SetCarSpeed(-m_MotorSpeed);
         }
 
         // Brake.
-        if (currentKeyboard.spaceKey.isPressed)
+        if (m_BrakeButton.isPressed || currentKeyboard.spaceKey.isPressed)
         {
             m_Throttle = 0f;
             SetCarSpeed(0f);
