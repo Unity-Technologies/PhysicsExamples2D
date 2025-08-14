@@ -23,7 +23,7 @@ public class SoftBody : MonoBehaviour
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 5f;
+        m_CameraManipulator.CameraSize = 6f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
 
         // Set up the scene reset action.

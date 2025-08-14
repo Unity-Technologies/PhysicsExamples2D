@@ -104,10 +104,10 @@ public class TopDownFriction : MonoBehaviour
             groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
 
             var vertices = new NativeList<Vector2>(Allocator.Temp);
-            vertices.Add(Vector2.right * 10f + Vector2.up * 20f);
-            vertices.Add(Vector2.right * 10f);
-            vertices.Add(Vector2.left * 10f);
-            vertices.Add(Vector2.left * 10f + Vector2.up * 20f);
+            vertices.Add(new Vector2(10f, 19f));
+            vertices.Add(new Vector2(10f, 3f));
+            vertices.Add(new Vector2(-10f, 3f));
+            vertices.Add(new Vector2(-10f, 19f));
 
             var geometry = new ChainGeometry(vertices.AsArray());
             groundBody.CreateChain(geometry, PhysicsChainDefinition.defaultDefinition);

@@ -23,7 +23,7 @@ public class ScissorLift : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 9f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 8f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

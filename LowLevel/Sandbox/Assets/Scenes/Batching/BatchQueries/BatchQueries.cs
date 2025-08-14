@@ -37,7 +37,7 @@ public class BatchQueries : MonoBehaviour
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 12f;
+        m_CameraManipulator.CameraSize = 14f;
         m_CameraManipulator.CameraPosition = Vector2.zero;
 
         m_Camera = m_CameraManipulator.Camera;
