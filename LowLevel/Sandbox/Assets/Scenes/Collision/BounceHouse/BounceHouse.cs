@@ -32,11 +32,14 @@ public class BounceHouse : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 11f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, -1f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Set Overrides.
+        m_SandboxManager.SetOverrideColorShapeState(false);
+        
         m_ObjectType = ObjectType.Polygon;
 
         SetupOptions();
@@ -44,6 +47,12 @@ public class BounceHouse : MonoBehaviour
         SetupScene();
     }
 
+    private void OnDisable()
+    {
+        // Reset overrides.
+        m_SandboxManager.ResetOverrideColorShapeState();        
+    }
+    
     private void Update()
     {
         var world = PhysicsWorld.defaultWorld;
@@ -97,10 +106,16 @@ public class BounceHouse : MonoBehaviour
         {
             var groundBody = world.CreateBody();
 
+            groundBody.CreateShape(new CircleGeometry { radius = 2.5f });
+            groundBody.CreateShape(new CircleGeometry { center = new Vector2(-10f, -9f), radius = 1f });
+            groundBody.CreateShape(new CircleGeometry { center = new Vector2(10f, -9f), radius = 1f });
+            groundBody.CreateShape(new CircleGeometry { center = new Vector2(10f, 9f), radius = 1f });
+            groundBody.CreateShape(new CircleGeometry { center = new Vector2(-10f, 9f), radius = 1f });
+
             var vertices = new NativeList<Vector2>(Allocator.Temp)
             {
-                new (-10f, 10f),
-                new (10f, 10f),
+                new (-10f, 9f),
+                new (10f, 9f),
                 new (10f, -9f),
                 new (-10f, -9f)
             };
@@ -116,11 +131,11 @@ public class BounceHouse : MonoBehaviour
             var bodyDef = new PhysicsBodyDefinition
             {
                 bodyType = RigidbodyType2D.Dynamic,
-                linearVelocity = new Vector2(20f, 30f),
+                linearVelocity = new Vector2(50f, 40f),
                 fastCollisionsAllowed = true,
                 fastRotationAllowed = m_ObjectType == ObjectType.Circle,
                 gravityScale = 0f,
-                position = Vector2.zero
+                position = Vector2.up * 5f
             };
 
             var body = world.CreateBody(bodyDef);
@@ -132,7 +147,7 @@ public class BounceHouse : MonoBehaviour
                 surfaceMaterial = new PhysicsShape.SurfaceMaterial
                 {
                     bounciness = 1.2f,
-                    friction = 0.3f,
+                    friction = 0f,
                     customColor = m_SandboxManager.ShapeColorState
                 }
             };
@@ -141,19 +156,19 @@ public class BounceHouse : MonoBehaviour
             {
                 case ObjectType.Circle:
                 {
-                    body.CreateShape(new CircleGeometry { center = Vector2.zero, radius = 0.5f }, shapeDef);
+                    body.CreateShape(new CircleGeometry { center = Vector2.zero, radius = 1f }, shapeDef);
                     return;
                 }
 
                 case ObjectType.Capsule:
                 {
-                    body.CreateShape(new CapsuleGeometry { center1 = new Vector2(-0.5f, 0f), center2 = new Vector2(0.5f, 0f), radius = 0.25f }, shapeDef);
+                    body.CreateShape(new CapsuleGeometry { center1 = new Vector2(-2.5f, 0f), center2 = new Vector2(2.5f, 0f), radius = 0.5f }, shapeDef);
                     return;
                 }
                 case ObjectType.Polygon:
                 {
-                    const float h = 0.2f;
-                    body.CreateShape(PolygonGeometry.CreateBox(new Vector2(40f * h, h)), shapeDef);
+                    const float h = 0.5f;
+                    body.CreateShape(PolygonGeometry.CreateBox(new Vector2(10f * h, h)), shapeDef);
                     return;
                 }
 
