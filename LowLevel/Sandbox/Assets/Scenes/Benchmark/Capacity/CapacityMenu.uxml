@@ -8,8 +8,8 @@
                     <ui:EnumField label="Shape Type" value="Center" type="Capacity+ShapeType, Assembly-CSharp" name="shape-type" focusable="false"/>
                     <ui:Toggle label="Rendering On" name="rendering-on" focusable="false"/>
                     <ui:FloatField label="Body Count" value="0" name="body-count" enabled="true" focusable="false" readonly="true"/>
-                    <ui:FloatField label="Shape  Count" value="0" name="shape-count" enabled="true" focusable="false" readonly="true"/>
-                    <ui:FloatField label="Contact  Count" value="0" name="contact-count" enabled="true" focusable="false" readonly="true"/>
+                    <ui:FloatField label="Shape Count" value="0" name="shape-count" enabled="true" focusable="false" readonly="true"/>
+                    <ui:FloatField label="Contact Count" value="0" name="contact-count" enabled="true" focusable="false" readonly="true"/>
                     <ui:ProgressBar value="0" title="" name="test-indicator" high-value="1"/>
                 </ui:Tab>
             </ui:TabView>
