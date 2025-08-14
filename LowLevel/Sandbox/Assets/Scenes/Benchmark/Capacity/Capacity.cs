@@ -80,8 +80,9 @@ public class Capacity : MonoBehaviour
         m_OldMaximumDeltaTime = Time.maximumDeltaTime;
         Time.maximumDeltaTime = Time.fixedDeltaTime;
 
-        // Turn-off world-sleeping here.
+        // Don't allow sleeping during testing.
         m_OldWorldSleeping = m_SandboxManager.WorldSleeping;
+        m_SandboxManager.WorldSleeping = false;
         
         m_SimulationCounter = 0;
         m_LimitReachedCount = 0;
@@ -189,9 +190,6 @@ public class Capacity : MonoBehaviour
         m_TestIndicator.highValue = m_SimulationLimit;
         m_TestIndicator.title = $"Waiting for {m_TestIndicator.highValue:F0} ms ...";
         m_TestIndicatorProgress.style.backgroundColor = Color.clear;
-
-        // Don't allow sleeping during testing.
-        m_SandboxManager.WorldSleeping = false;
         
         // Ground.
         {
@@ -226,9 +224,6 @@ public class Capacity : MonoBehaviour
                 m_TestIndicator.title = $"Simulation limit of {m_TestIndicator.highValue:F0} ms reached.";
                 m_TestIndicatorProgress.style.backgroundColor = m_ProgressColors[4];
 
-                // Allow sleeping again.
-                m_SandboxManager.WorldSleeping = true;
-                
                 // Flag as finished.
                 m_Finished = true;
 
