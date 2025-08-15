@@ -337,10 +337,10 @@ MonoBehaviour:
     Category: Collision
     Description: Showing contacts manifolds between various shapes.
     ScenePath: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
-  - Name: Falling Hinges
-    Category: Determinism
+  - Name: Determinism
+    Category: Collision
     Description: Checking cross-platform determinism using a complex joint set-up.
-    ScenePath: Assets/Scenes/Determinism/FallingHinges/FallingHinges.unity
+    ScenePath: Assets/Scenes/Collision/Determinism/Determinism.unity
   - Name: Ball and Chain
     Category: Joints
     Description: Demonstrating a chain of joints.

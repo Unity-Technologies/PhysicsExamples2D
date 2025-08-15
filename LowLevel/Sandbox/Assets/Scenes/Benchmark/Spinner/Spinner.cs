@@ -32,7 +32,7 @@ public class Spinner : MonoBehaviour
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 42f;
+        m_CameraManipulator.CameraSize = 48f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
 
         // Set up the scene reset action.

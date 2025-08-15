@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
-public class FallingHinges : MonoBehaviour
+public class Determinism : MonoBehaviour
 {
     private SandboxManager m_SandboxManager;
     private SceneManifest m_SceneManifest;
@@ -34,7 +34,7 @@ public class FallingHinges : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 16f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 4f);
+        m_CameraManipulator.CameraPosition = new Vector2(0.5f, 4f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

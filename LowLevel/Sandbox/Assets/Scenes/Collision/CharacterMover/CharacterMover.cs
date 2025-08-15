@@ -83,7 +83,7 @@ public class CharacterMover : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
-        m_CameraManipulator.CameraPosition = new Vector2(20f, 9f);
+        m_CameraManipulator.CameraPosition = new Vector2(20f, 5f);
         m_CameraManipulator.DisableManipulators = true;
 
         // Set controls.

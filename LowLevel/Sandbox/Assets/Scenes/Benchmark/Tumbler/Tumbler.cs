@@ -36,8 +36,8 @@ public class Tumbler : MonoBehaviour
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 30f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
+        m_CameraManipulator.CameraSize = 34f;
+        m_CameraManipulator.CameraPosition = Vector2.down;
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;

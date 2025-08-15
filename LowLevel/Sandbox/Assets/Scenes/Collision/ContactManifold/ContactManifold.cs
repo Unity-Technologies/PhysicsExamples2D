@@ -42,8 +42,8 @@ public class ContactManifold : MonoBehaviour
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 11f;
-        m_CameraManipulator.CameraPosition = Vector2.zero;
+        m_CameraManipulator.CameraSize = 14f;
+        m_CameraManipulator.CameraPosition = Vector2.right;
         m_CameraManipulator.DisableManipulators = true;
 
         // Set up the scene reset action.

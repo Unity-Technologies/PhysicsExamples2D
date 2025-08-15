@@ -66,7 +66,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
     guid: a40d1ed7d2a9d69458c3b8055816fea9
   - enabled: 1
-    path: Assets/Scenes/Determinism/FallingHinges/FallingHinges.unity
+    path: Assets/Scenes/Collision/Determinism/Determinism.unity
     guid: 58eb55b4f78ad2d4998c5864c0ceb2bb
   - enabled: 1
     path: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
