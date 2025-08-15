@@ -840,5 +840,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_ColorShapeStateElement.enabledSelf = true;
         ColorShapeState = m_OverridePreviousColorShapeState;
         m_OverrideColorShapeState = m_OverridePreviousColorShapeState = false;
-    }    
+    }
+
+    public void ShowFPS() => m_BarFPS.style.display = DisplayStyle.Flex;
+    
+    public void HideFPS() => m_BarFPS.style.display = DisplayStyle.None;
 }

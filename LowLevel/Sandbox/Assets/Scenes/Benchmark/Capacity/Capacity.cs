@@ -62,6 +62,9 @@ public class Capacity : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        // Showing FPS is not important here.
+        m_SandboxManager.HideFPS();
+
         m_PolygonGeometry = PolygonGeometry.CreateBox(Vector2.one);
         m_CircleGeometry = new CircleGeometry { radius = 0.5f };
         m_CapsuleGeometry = new CapsuleGeometry { center1 = Vector2.left * 0.5f, center2 = Vector2.right * 0.5f, radius = 0.5f };
@@ -115,7 +118,9 @@ public class Capacity : MonoBehaviour
         // Reset overrides.
         if (!m_RenderingOn)
             m_SandboxManager.ResetOverrideDrawOptions();
-        
+
+        // Restore the FPS again.
+        m_SandboxManager.ShowFPS();
     }
     
     private void SetupOptions()
