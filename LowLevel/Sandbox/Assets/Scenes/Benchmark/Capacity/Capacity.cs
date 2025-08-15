@@ -57,7 +57,7 @@ public class Capacity : MonoBehaviour
         
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 300f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 70f);
+        m_CameraManipulator.CameraPosition = new Vector2(10f, 70f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
