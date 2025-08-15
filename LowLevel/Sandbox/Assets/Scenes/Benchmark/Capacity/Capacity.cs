@@ -56,8 +56,8 @@ public class Capacity : MonoBehaviour
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
         
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 280f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 200f);
+        m_CameraManipulator.CameraSize = 300f;
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 70f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
@@ -231,8 +231,8 @@ public class Capacity : MonoBehaviour
         }
         else
         {
-            // Reduce the limit reached.
-            m_LimitReachedCount = Mathf.Max(0, m_LimitReachedCount - 1);
+            // Reset the limit reached count.
+            m_LimitReachedCount = 0;
         }
 
         // Update the test indicator.
