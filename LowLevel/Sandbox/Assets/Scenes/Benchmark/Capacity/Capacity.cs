@@ -30,8 +30,9 @@ public class Capacity : MonoBehaviour
     private bool m_OldWorldSleeping;
 
     private Color[] m_ProgressColors;
-    
-    private const int SimulationSpawnPeriod = 30;
+
+    private const int LimitReachedCount = 60;
+    private const int SimulationSpawnPeriod = 0x1F;
     private int m_SimulationCounter;
     private int m_LimitReachedCount;
     private bool m_Finished;
@@ -195,9 +196,7 @@ public class Capacity : MonoBehaviour
         {
             var world = PhysicsWorld.defaultWorld;
             var body = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.down * 5f });
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(550f, 10f)));
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(10f, 800f), 0f, Vector2.left * 270f + Vector2.up * 395f));
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(10f, 800f), 0f, Vector2.right * 270f + Vector2.up * 395f));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1600f, 10f)));
         }
     }
 
@@ -218,7 +217,7 @@ public class Capacity : MonoBehaviour
         if (simulationStep > m_SimulationLimit)
         {
             // If we've reached the limit over a period of time then flag as finished.
-            if (++m_LimitReachedCount > 60)
+            if (++m_LimitReachedCount > LimitReachedCount)
             {
                 // Update indicator.
                 m_TestIndicator.title = $"Simulation limit of {m_TestIndicator.highValue:F0} ms reached.";
@@ -253,14 +252,14 @@ public class Capacity : MonoBehaviour
 
         // Spawn.
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, bodyConstraints = RigidbodyConstraints2D.FreezeRotation };
+            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState } };
 
             const int count = 200;
-            var position = new Vector2(-count + m_SpawnOffset, 420f);
+            var position = new Vector2(-count + m_SpawnOffset, 200f);
             for (var n = 0; n < count; ++n)
             {
-                position.y += 0.25f;
+                position.y += 0.5f;
                 bodyDef.position = position;
                 position.x += 2f;
 
