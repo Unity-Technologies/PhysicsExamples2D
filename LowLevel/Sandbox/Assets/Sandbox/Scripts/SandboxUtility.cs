@@ -4,6 +4,9 @@ using Random = Unity.Mathematics.Random;
 
 public static class SandboxUtility
 {
+    public const string HighlightColor = "<color=#7FFFD4>";
+    public const string EndHighlightColor = "</color>";
+    
     public static PolygonGeometry CreateRandomPolygon(float extent, float radius, ref Random random)
     {
         PolygonGeometry geometry = default;

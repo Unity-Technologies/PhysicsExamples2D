@@ -133,11 +133,11 @@ public class DebugView : MonoBehaviour
 
     private void Update()
     {
-        var sampleScale = 1f / m_SampledCount;
+        var sampleScale = 1f / Mathf.Max(1, m_SampledCount);
         const float memoryScale = 1f / 1048576f;
 
-        const string color = "<color=#7FFFD4>";
-        const string endColor = "</color>";
+        const string color = SandboxUtility.HighlightColor;
+        const string endColor = SandboxUtility.EndHighlightColor;
 
         // Profile.
         m_SimulationStepElement.text = $"{color}{m_LastProfile.simulationStep:F2}{endColor} ~[{color}{m_TotalProfile.simulationStep * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.simulationStep:F2}{endColor}]";

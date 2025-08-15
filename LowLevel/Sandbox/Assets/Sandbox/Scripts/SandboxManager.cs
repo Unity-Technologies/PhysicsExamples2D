@@ -29,9 +29,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private bool ColorShapeState { get; set; }
     private ControlsMenu.CustomButton m_PausePlayButton;    
     private ControlsMenu.CustomButton m_SingleStepButton;    
+    private ControlsMenu.CustomButton m_ResetButton;
     private ControlsMenu.CustomButton m_DebugButton;    
     private ControlsMenu.CustomButton m_UIButton;
-    private ControlsMenu.CustomButton m_ResetButton;
     private ControlsMenu.CustomButton m_QuitButton;
 
     public string StartScene = string.Empty;
@@ -135,21 +135,25 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         ControlsMenu.ResetControls();
         m_PausePlayButton = ControlsMenu.pausePlayButton;
         m_SingleStepButton = ControlsMenu.singleStepButton;
+        m_ResetButton = ControlsMenu.resetButton;
         m_DebugButton = ControlsMenu.debugButton;
         m_UIButton = ControlsMenu.uiButton;
-        m_ResetButton = ControlsMenu.resetButton;
         m_QuitButton = ControlsMenu.quitButton;
         
         m_PausePlayButton.button.clickable.clicked += TogglePausePlay;
         m_SingleStepButton.button.clickable.clicked += SingleStep;
+        m_ResetButton.button.clickable.clicked += ResetScene;
         m_DebugButton.button.clickable.clicked += ToggleDebugView; 
         m_UIButton.button.clickable.clicked += ToggleUI;
-        m_ResetButton.button.clickable.clicked += ResetScene;
         
-        m_PausePlayButton.button.text = WorldPaused ? "Play" : "Pause";
+        m_PausePlayButton.button.text = WorldPaused ? $"Play [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]" : $"Pause [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]";
         m_SingleStepButton.button.enabledSelf = WorldPaused;
-
-            
+        m_SingleStepButton.button.text = $"Single-Step [{SandboxUtility.HighlightColor}S{SandboxUtility.EndHighlightColor}]";
+        m_ResetButton.button.text = $"Reset [{SandboxUtility.HighlightColor}R{SandboxUtility.EndHighlightColor}]";
+        m_DebugButton.button.text = $"Debug UI [{SandboxUtility.HighlightColor}D{SandboxUtility.EndHighlightColor}]";
+        m_UIButton.button.text = $"All UI [{SandboxUtility.HighlightColor}Tab{SandboxUtility.EndHighlightColor}]";
+        m_QuitButton.button.text = $"Quit [{SandboxUtility.HighlightColor}Esc{SandboxUtility.EndHighlightColor}]";
+        
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
         {
@@ -209,13 +213,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 return;
             }
 
-            // Toggle UI.
-            if (currentKeyboard.tabKey.wasPressedThisFrame)
-            {
-                ToggleUI();
-                return;
-            }
-
             // Single-Step.
             if (currentKeyboard.sKey.wasPressedThisFrame)
             {
@@ -235,6 +232,19 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 ToggleDebugView();
             }
 
+            // Reset.
+            if (currentKeyboard.rKey.wasPressedThisFrame)
+            {
+                ResetScene();
+            }
+
+            // Toggle UI.
+            if (currentKeyboard.tabKey.wasPressedThisFrame)
+            {
+                ToggleUI();
+                return;
+            }
+            
             // Toggle Color PhysicsShape State.
             if (currentKeyboard.cKey.wasPressedThisFrame)
             {
@@ -268,13 +278,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
             m_UpdateTimeFPS = UpdatePeriodFPS;
 
-            const string color = "<color=#7FFFD4>";
-            const string endColor = "</color>";
-
             var fps = 1f / deltaTime;
             m_BarFPS.highValue = m_MaxFPS = math.max(m_MaxFPS, fps);
             m_BarFPS.value = fps;
-            m_BarFPS.title = $"{color}{fps:F1}{endColor} fps ({color}{1000f / fps:F1}{endColor} ms)";
+            m_BarFPS.title = $"{SandboxUtility.HighlightColor}{fps:F1}{SandboxUtility.EndHighlightColor} fps ({SandboxUtility.HighlightColor}{1000f / fps:F1}{SandboxUtility.EndHighlightColor} ms)";
         }
     }
 
@@ -430,15 +437,17 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
             // Single-step.
             m_SingleStepElement = root.Q<Button>("single-step");
+            m_SingleStepElement.text = m_SingleStepButton.button.text;
             m_SingleStepElement.clicked += SingleStep;
 
             // Pause/Play.
             m_PausePlayElement = root.Q<Button>("pause-play");
-            m_PausePlayElement.text = WorldPaused ? "Play" : "Pause";
+            m_PausePlayElement.text = m_PausePlayButton.button.text;
             m_PausePlayElement.clicked += TogglePausePlay;
 
             // Quit.
             var quit = root.Q<Button>("quit-application");
+            quit.text = m_QuitButton.button.text;
             quit.clicked += Application.Quit;
         }
 
@@ -722,7 +731,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private void TogglePausePlay()
     {
         WorldPaused = !WorldPaused;
-        m_PausePlayElement.text = m_PausePlayButton.button.text = WorldPaused ? "Play" : "Pause";
+        m_PausePlayElement.text = m_PausePlayButton.button.text = WorldPaused ? $"Play [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]" : $"Pause [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]";
         m_SingleStepElement.enabledSelf = WorldPaused;
         m_SingleStepButton.button.enabledSelf = WorldPaused;
 
