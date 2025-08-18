@@ -20,7 +20,7 @@ public class LargeCompound : MonoBehaviour
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 100f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 99f);
+        m_CameraManipulator.CameraPosition = new Vector2(0f, 50f);
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
@@ -61,30 +61,18 @@ public class LargeCompound : MonoBehaviour
         m_SandboxManager.ResetSceneState();
 
         var world = PhysicsWorld.defaultWorld;
-
-        const int height = 300;
-
-        const float gridSize = 1.0f;
-        var gridBoxSize = new Vector2(gridSize, gridSize);
-
+        
         // Ground.
         {
-            var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            var shapeDef = PhysicsShapeDefinition.defaultDefinition;
-
-            for (var i = 0; i < height; ++i)
-            {
-                var y = gridSize * i;
-                for (var j = i - 4; j < i; ++j)
-                {
-                    body.CreateShape(PolygonGeometry.CreateBox(gridBoxSize, radius: 0f, new PhysicsTransform(new Vector2(gridSize * j, y), PhysicsRotate.identity)), shapeDef);
-                    body.CreateShape(PolygonGeometry.CreateBox(gridBoxSize, radius: 0f, new PhysicsTransform(new Vector2(-gridSize * j, y), PhysicsRotate.identity)), shapeDef);
-                }
-            }
+            var body = world.CreateBody();
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(500f, 1f)));
         }
 
         // Large Dynamic Compounds. 
         {
+            const float gridSize = 1.0f;
+            var gridBoxSize = new Vector2(gridSize, gridSize);
+            
             var span = 50 / m_CompoundCount;
 
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
@@ -92,7 +80,7 @@ public class LargeCompound : MonoBehaviour
 
             for (var m = 0; m < m_CompoundCount; ++m)
             {
-                var bodyY = (200.0f + m * span) * gridSize;
+                var bodyY = (100.0f + m * span) * gridSize;
 
                 for (var n = 0; n < m_CompoundCount; ++n)
                 {
