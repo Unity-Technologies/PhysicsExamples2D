@@ -137,7 +137,7 @@ public class CharacterMover : MonoBehaviour
 
     private void Update()
     {
-        // Fetch the scene manager detail.
+        // Fetch the default world.
         var world = PhysicsWorld.defaultWorld;
         
         // Draw.
@@ -249,7 +249,7 @@ public class CharacterMover : MonoBehaviour
         m_RightPressed = false;
         m_JumpPressed = false;
 
-        // Fetch the scene manager detail.
+        // Fetch the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground #1.
