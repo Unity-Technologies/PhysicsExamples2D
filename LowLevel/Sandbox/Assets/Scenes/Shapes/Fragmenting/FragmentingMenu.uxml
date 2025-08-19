@@ -4,9 +4,9 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Fragmenting Options" tabindex="0" name="Tab">
-                    <ui:Slider label="Fragment  Radius" high-value="4" name="fragment-radius" fill="true" show-input-field="true" focusable="false" value="1" low-value="0.5"/>
-                    <ui:SliderInt label="Fragment Count" value="0" high-value="100" name="fragment-count" focusable="false" show-input-field="true" low-value="1"/>
-                    <ui:Toggle label="Fragment Colors" name="fragment-colors" focusable="false" value="false"/>
+                    <ui:Slider label="Fragment  Radius" high-value="3" name="fragment-radius" fill="true" show-input-field="true" focusable="false" value="1" low-value="0.5"/>
+                    <ui:SliderInt label="Fragment Count" value="0" high-value="300" name="fragment-count" focusable="false" show-input-field="true" low-value="1"/>
+                    <ui:EnumField label="Fragment Colors" value="Center" type="Fragmenting+FragmentColors, Assembly-CSharp" name="fragment-colors" focusable="false" include-obsolete-values="false"/>
                     <ui:Toggle label="Fragment Explode" name="fragment-explode" focusable="false" value="false"/>
                 </ui:Tab>
             </ui:TabView>

@@ -1,3 +1,4 @@
+using System;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -33,11 +34,19 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
     private CapsuleGeometry m_PlayerGeometry;
     private CircleGeometry m_FireGeometry;
     private PolygonGeometry m_DestructGeometry;
-    private NativeArray<PolygonGeometry> m_FragmentGeometryMask; 
+    private NativeArray<PolygonGeometry> m_FragmentGeometryMask;
+
+    private enum FragmentColors
+    {
+        Off,
+        White,
+        Group,
+        Individual
+    };
     
     private float m_FragmentRadius;
     private int m_FragmentCount;
-    private bool m_FragmentColors;
+    private FragmentColors m_FragmentColors;
     private bool m_FragmentExplode;
 
     private void OnEnable()
@@ -84,9 +93,9 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
         m_PlayerPosition = new Vector2(0f, -8f);
         
         m_FragmentRadius = 1.5f;
-        m_FragmentCount = 10;
-        m_FragmentColors = true;
-        m_FragmentExplode = true;
+        m_FragmentCount = 25;
+        m_FragmentColors = FragmentColors.Group;
+        m_FragmentExplode = false;
         
         UpdateFragmentGeometry();
         
@@ -140,9 +149,9 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
             fragmentCount.RegisterValueChangedCallback(evt => { m_FragmentCount = evt.newValue; });
             
             // Fragment Colors.
-            var fragmentColors = root.Q<Toggle>("fragment-colors");
+            var fragmentColors = root.Q<EnumField>("fragment-colors");
             fragmentColors.value = m_FragmentColors;
-            fragmentColors.RegisterValueChangedCallback(evt => m_FragmentColors = evt.newValue);
+            fragmentColors.RegisterValueChangedCallback(evt => m_FragmentColors = (FragmentColors)evt.newValue);
 
             // Fragment Explode.
             var fragmentExplode = root.Q<Toggle>("fragment-explode");
@@ -175,18 +184,25 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
         
         // Obstacles.
         {
-            var body = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.left * 20f });
+            var body = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(-23f, 1f) });
             var shapeDef = new PhysicsShapeDefinition
             {
                 contactFilter = new PhysicsShape.ContactFilter { categories = m_ObstacleMask, contacts = m_DebrisMask },
-                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f, bounciness = 0.4f, tangentSpeed = 0.1f, customColor = Color.gray2}
+                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f, bounciness = 0.4f, tangentSpeed = 0.5f, customColor = Color.gray2}
             };
 
-            for (var n = 0; n < 5; ++n)
+            const float radius = 1.5f;
+            for (var n = 0; n < 7; ++n)
             {
-                body.CreateShape(new CircleGeometry { center = new Vector2(n * 10f, -5f), radius = 2f }, shapeDef);
-                body.CreateShape(new CircleGeometry { center = new Vector2(n * 10f - 5f, 5f), radius = 2f }, shapeDef);
-                body.CreateShape(new CircleGeometry { center = new Vector2(n * 10f, 15f), radius = 2f }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f, -8f), radius = radius }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f - 4f, -5f), radius = radius }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f, -2f), radius = radius }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f - 4f, 1f), radius = radius }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f, 4f), radius = radius }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f - 4f, 7f), radius = radius }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f, 10f), radius = radius }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f - 4f, 13f), radius = radius }, shapeDef);
+                body.CreateShape(new CircleGeometry { center = new Vector2(n * 8f, 16f), radius = radius }, shapeDef);
             }
         }
         
@@ -263,7 +279,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
         {
             contactFilter = new PhysicsShape.ContactFilter { categories = m_ProjectileMask, contacts = m_DestructibleMask | m_GroundMask },
             contactEvents = true,
-            surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState }
+            surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = Color.ghostWhite }
         };
         var shape = body.CreateShape(new CircleGeometry { radius = ProjectileRadius }, shapeDef);
         shape.callbackTarget = this;
@@ -325,7 +341,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
             var world = PhysicsWorld.defaultWorld;
 
             // Draw the fragment radius.            
-            world.DrawCircle(hitPosition, m_FragmentRadius, Color.orangeRed, 2f / 60f, PhysicsWorld.DrawFillOptions.Interior);
+            world.DrawCircle(hitPosition, m_FragmentRadius, Color.ivory, 2f / 60f, PhysicsWorld.DrawFillOptions.Outline);
             
             // Fetch the destructible shapes.
             var destructibleShape = categoryA == m_DestructibleMask ? shapeA : shapeB;
@@ -377,7 +393,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
                 var shapeDef = new PhysicsShapeDefinition
                 {
                     contactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_ProjectileMask | m_DebrisMask },
-                    surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_DestructibleColor }
+                    surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f, bounciness = 0.4f, tangentSpeed = 0.1f, customColor = m_DestructibleColor }
                 };
 
                 foreach (var geometry in fragmentResults.unbrokenGeometry)
@@ -398,11 +414,19 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
                 };
                 using var bodies = world.CreateBodyBatch(bodyDef, brokenCount);
 
+                var shapeColor = m_FragmentColors switch
+                {
+                    FragmentColors.Off or FragmentColors.Individual => m_DestructibleColor,
+                    FragmentColors.White => Color.ivory,
+                    FragmentColors.Group => m_SandboxManager.ShapeColorState,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                
                 var shapeDef = new PhysicsShapeDefinition
                 {
                     contactFilter = new PhysicsShape.ContactFilter { categories = m_DebrisMask, contacts = m_GroundMask | m_DestructibleMask | m_ObstacleMask },
                     contactEvents = true,
-                    surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_DestructibleColor }
+                    surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = shapeColor }
                 };
                 
                 // Add a shape for each body.
@@ -411,7 +435,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
                     var body = bodies[i];
                     var geometry = fragmentResults.brokenGeometry[i];
 
-                    if (m_FragmentColors)
+                    if (m_FragmentColors == FragmentColors.Individual)
                         shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState };
                     
                     var shape = body.CreateShape(geometry, shapeDef);
@@ -424,7 +448,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
                 if (m_FragmentExplode)
                 {
                     var explodePosition = hitPosition + Vector2.up * m_FragmentRadius; 
-                    world.Explode(new PhysicsWorld.ExplosionDefinition { position = explodePosition, hitCategories = m_DebrisMask, impulsePerLength = 8f, radius = m_FragmentRadius * 2f });
+                    world.Explode(new PhysicsWorld.ExplosionDefinition { position = explodePosition, hitCategories = m_DebrisMask, impulsePerLength = 4f, radius = m_FragmentRadius * 3f });
                 }
             }
         }
