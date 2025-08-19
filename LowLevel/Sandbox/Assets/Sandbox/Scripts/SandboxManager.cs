@@ -18,6 +18,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public bool WorldPaused { get; private set; }
     public bool WorldSleeping { get => m_SleepingElement.value; set => m_SleepingElement.value = value; }
 
+    public Color ShapeColorState => ColorShapeState ? new Color() : Color.HSVToRGB(H: m_Random.NextFloat(0f, 1f), S: m_Random.NextFloat(0.5f, 1f), V: 1f);
+    bool IShapeColorProvider.IsShapeColorActive => ColorShapeState;
+
     public float CameraZoom
     {
         get => m_CameraZoomElement.value;
@@ -115,10 +118,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     private readonly List<TreeViewItemData<string>> m_ViewItems = new();
     private Random m_Random;
-
-    public Color32 ShapeColorState => ColorShapeState ? new Color32() : new Color32((byte)m_Random.NextUInt(0, 256), (byte)m_Random.NextUInt(0, 256), (byte)m_Random.NextUInt(0, 256), 255);
-    bool IShapeColorProvider.IsShapeColorActive => ColorShapeState;
-
+    
     private void Start()
     {
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();

@@ -2,6 +2,6 @@
 
 public interface IShapeColorProvider
 {
-    Color32 ShapeColorState { get; }
+    Color ShapeColorState { get; }
     bool IsShapeColorActive { get; }
 }
