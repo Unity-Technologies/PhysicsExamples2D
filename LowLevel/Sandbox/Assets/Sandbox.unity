@@ -275,6 +275,10 @@ MonoBehaviour:
     Description: Benchmark a large quantity of bodies, shapes and contacts, spawning
       until the simulation limit has been reached.
     ScenePath: Assets/Scenes/Benchmark/Capacity/Capacity.unity
+  - Name: Drawing
+    Category: Benchmarks
+    Description: Checking the performance of custom drawing..
+    ScenePath: Assets/Scenes/Benchmark/Drawing/Drawing.unity
   - Name: Funnel
     Category: Benchmarks
     Description: Checking the performance of various collision interactions in a

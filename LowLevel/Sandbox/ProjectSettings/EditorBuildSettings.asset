@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Benchmark/Capacity/Capacity.unity
     guid: 4aaff0443bcce4f46a49c1c9799effac
   - enabled: 1
+    path: Assets/Scenes/Benchmark/Drawing/Drawing.unity
+    guid: 7d5df83e606abc64d8b4b5973f86aba9
+  - enabled: 1
     path: Assets/Scenes/Benchmark/JointGrid/JointGrid.unity
     guid: 4ce96d504cbf8464c9db6687690de1d6
   - enabled: 1
