@@ -4,7 +4,8 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Large Compound Options" tabindex="0" name="Tab">
-                    <ui:SliderInt label="Compound Count" value="1" high-value="10" name="compound-count" low-value="1" fill="true" focusable="false" show-input-field="true"/>
+                    <ui:SliderInt label="Compound Splits" value="1" high-value="20" name="compound-splits" low-value="1" fill="true" focusable="false" show-input-field="true"/>
+                    <ui:SliderInt label="Compound Size" value="1" high-value="150" name="compound-size" low-value="50" fill="true" focusable="false" show-input-field="true"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -9,7 +10,8 @@ public class LargeCompound : MonoBehaviour
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
-    private int m_CompoundCount = 5;
+    private int m_CompoundSize;
+    private int m_CompoundSplits;
 
     private void OnEnable()
     {
@@ -25,6 +27,9 @@ public class LargeCompound : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
+        m_CompoundSize = 100;
+        m_CompoundSplits = 5;
+        
         SetupOptions();
 
         SetupScene();
@@ -40,15 +45,24 @@ public class LargeCompound : MonoBehaviour
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
-            // Compound Count.
-            var compoundCount = root.Q<SliderInt>("compound-count");
-            compoundCount.value = m_CompoundCount;
-            compoundCount.RegisterValueChangedCallback(evt =>
+            // Compound Splits.
+            var compoundSplits = root.Q<SliderInt>("compound-splits");
+            compoundSplits.value = m_CompoundSplits;
+            compoundSplits.RegisterValueChangedCallback(evt =>
             {
-                m_CompoundCount = evt.newValue;
+                m_CompoundSplits = evt.newValue;
                 SetupScene();
             });
 
+            // Compound Size.
+            var compoundSize = root.Q<SliderInt>("compound-size");
+            compoundSize.value = m_CompoundSize;
+            compoundSize.RegisterValueChangedCallback(evt =>
+            {
+                m_CompoundSize = evt.newValue;
+                SetupScene();
+            });
+            
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
@@ -64,27 +78,41 @@ public class LargeCompound : MonoBehaviour
         
         // Ground.
         {
-            var body = world.CreateBody();
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(500f, 1f)));
+            var groundBody = world.CreateBody();
+
+            var span = new Vector2(100f, 500f);
+            
+            var vertices = new NativeList<Vector2>(Allocator.Temp);
+            vertices.Add(Vector2.right * span.x + Vector2.up * (span.y + 1f));
+            vertices.Add(Vector2.right * span.x + Vector2.up * span.y);
+            vertices.Add(Vector2.right * span.x);
+            vertices.Add(Vector2.left * span.x);
+            vertices.Add(Vector2.left * span.x + Vector2.up * span.y);
+            vertices.Add(Vector2.left * span.x + Vector2.up * (span.y + 1f));
+
+            var geometry = new ChainGeometry(vertices.AsArray());
+            groundBody.CreateChain(geometry, new  PhysicsChainDefinition { isLoop = false });
         }
 
         // Large Dynamic Compounds. 
         {
             const float gridSize = 1.0f;
             var gridBoxSize = new Vector2(gridSize, gridSize);
+
+            var splits = m_CompoundSplits + 1;
             
-            var span = 50 / m_CompoundCount;
+            var span = m_CompoundSize / splits;
 
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { startMassUpdate = false };
 
-            for (var m = 0; m < m_CompoundCount; ++m)
+            for (var m = 0; m < splits; ++m)
             {
-                var bodyY = (100.0f + m * span) * gridSize;
+                var bodyY = (m_CompoundSize + 1 + m * span) * gridSize;
 
-                for (var n = 0; n < m_CompoundCount; ++n)
+                for (var n = 0; n < splits; ++n)
                 {
-                    var bodyX = -0.5f * gridSize * m_CompoundCount * span + n * span * gridSize;
+                    var bodyX = -0.5f * gridSize * splits * span + n * span * gridSize;
                     bodyDef.position = new Vector2(bodyX, bodyY);
                     var body = world.CreateBody(bodyDef);
 
