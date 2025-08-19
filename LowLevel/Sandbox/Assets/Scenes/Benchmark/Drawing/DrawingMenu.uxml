@@ -9,7 +9,6 @@
                     <ui:Slider label="Lifetime" value="1" high-value="60" name="drawing-lifetime" fill="true" show-input-field="true" low-value="1" focusable="false"/>
                     <ui:Toggle label="Spread lifetime" name="spread-lifetime" focusable="false" value="false"/>
                     <ui:Toggle label="Draw Outline" name="drawing-outline" focusable="false" value="false"/>
-                    <ui:Toggle label="Draw Orientation" name="drawing-orientation" focusable="false" value="false"/>
                     <ui:Toggle label="Draw Interior" name="drawing-interior" focusable="false" value="false"/>
                 </ui:Tab>
             </ui:TabView>

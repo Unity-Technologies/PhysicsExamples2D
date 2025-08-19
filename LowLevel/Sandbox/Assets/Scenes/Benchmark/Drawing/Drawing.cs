@@ -30,7 +30,6 @@ public class Drawing : MonoBehaviour
     private float m_DrawingLifetime;
     private bool m_SpreadLifetime;
     private bool m_DrawOutline;
-    private bool m_DrawOrientation;
     private bool m_DrawInterior;
 
     private void OnEnable()
@@ -55,7 +54,6 @@ public class Drawing : MonoBehaviour
         m_DrawingLifetime = 10f;
         m_SpreadLifetime = true;
         m_DrawOutline = true;
-        m_DrawOrientation = true;
         m_DrawInterior = true;
         
         SetupOptions();
@@ -123,15 +121,6 @@ public class Drawing : MonoBehaviour
                 SetupScene();
             });
 
-            // Draw Orientation.
-            var drawOrientation = root.Q<Toggle>("drawing-orientation");
-            drawOrientation.value = m_DrawOrientation;
-            drawOrientation.RegisterValueChangedCallback(evt =>
-            {
-                m_DrawOrientation = evt.newValue;
-                SetupScene();
-            });
-            
             // Draw Interior.
             var drawInterior = root.Q<Toggle>("drawing-interior");
             drawInterior.value = m_DrawInterior;
@@ -158,10 +147,8 @@ public class Drawing : MonoBehaviour
 
         // Draw options.
         PhysicsWorld.DrawFillOptions drawOptions = default;
-        if (m_DrawOutline || m_DrawOrientation)
+        if (m_DrawOutline)
             drawOptions |= PhysicsWorld.DrawFillOptions.Outline;
-        if (m_DrawOrientation)
-            drawOptions |= PhysicsWorld.DrawFillOptions.Orientation;
         if (m_DrawInterior)
             drawOptions |= PhysicsWorld.DrawFillOptions.Interior;
 
