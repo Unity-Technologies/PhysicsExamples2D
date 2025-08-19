@@ -13,7 +13,7 @@ public static class GearFactory
         var toothRadius = 0.03f * gearRadius;
 
         // Ground Body.
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        var groundBody = world.CreateBody();
         bodies.Add(groundBody);
 
         var bodyDef = new PhysicsBodyDefinition

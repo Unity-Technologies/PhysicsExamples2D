@@ -213,7 +213,7 @@ public class SliderJoint : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
 
         // Ground Body.
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        var groundBody = world.CreateBody();
 
         {
             var bodeDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 9f };

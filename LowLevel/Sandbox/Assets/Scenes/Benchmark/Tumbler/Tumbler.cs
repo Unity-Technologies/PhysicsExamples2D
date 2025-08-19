@@ -115,8 +115,6 @@ public class Tumbler : MonoBehaviour
 
         var world = PhysicsWorld.defaultWorld;
 
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-
         // Tumbler.
         {
             var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Kinematic, angularVelocity = m_AngularVelocity };

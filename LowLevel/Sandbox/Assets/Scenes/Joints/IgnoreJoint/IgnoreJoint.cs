@@ -82,7 +82,7 @@ public class IgnoreJoint : MonoBehaviour
 
         // Ground Body.
         {
-            var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            var groundBody = world.CreateBody();
 
             var vertices = new NativeList<Vector2>(Allocator.Temp);
             vertices.Add(Vector2.right * 17f + Vector2.up * 17f);

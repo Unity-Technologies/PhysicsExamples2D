@@ -101,7 +101,7 @@ public class TopDownFriction : MonoBehaviour
         // Ground Body.
         PhysicsBody groundBody;
         {
-            groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            groundBody = world.CreateBody();
 
             var vertices = new NativeList<Vector2>(Allocator.Temp);
             vertices.Add(new Vector2(10f, 19f));

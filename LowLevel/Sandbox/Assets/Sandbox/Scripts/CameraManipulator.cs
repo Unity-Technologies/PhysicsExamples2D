@@ -146,7 +146,7 @@ public class CameraManipulator : MonoBehaviour
                                 if (hitBody.bodyType != RigidbodyType2D.Dynamic)
                                     continue;
 
-                                m_DragGroundBody = defaultWorld.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+                                m_DragGroundBody = defaultWorld.CreateBody();
                                 var relativeDefinition = new PhysicsRelativeJointDefinition
                                 {
                                     bodyA = m_DragGroundBody,

@@ -199,7 +199,7 @@ public class DistanceJoint : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
 
         // Ground Body.
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        var groundBody = world.CreateBody();
 
         const float radius = 0.25f;
         var geometry = new CircleGeometry { radius = radius };

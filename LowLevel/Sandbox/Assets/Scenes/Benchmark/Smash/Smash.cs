@@ -124,7 +124,7 @@ public class Smash : MonoBehaviour
 
         // Border
         {
-            var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            var body = world.CreateBody();
 
             var extents = new Vector2(110f, 63f);
 

@@ -125,7 +125,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_SceneManifest = GetComponent<SceneManifest>();
         m_MainMenuDocument = GetComponent<UIDocument>();
 
-        ColorShapeState = true;
         m_ShowUI = true;
 
         // Show the Shortcut view by default.
@@ -170,7 +169,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             InputDrag = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag),
             ExplodeImpulse = 30f,
             CameraZoom = 1f,
-            ColorShapeState = ColorShapeState,
+            ColorShapeState = true,
             DrawThickness = defaultWorld.drawThickness,
             DrawPointScale = defaultWorld.drawPointScale,
             DrawNormalScale = defaultWorld.drawNormalScale,
@@ -523,7 +522,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
             // PhysicsShape State Color.
             m_ColorShapeStateElement = root.Q<Toggle>("color-shape-state");
-            m_ColorShapeStateElement.value = m_MenuDefaults.ColorShapeState;
+            ColorShapeState = m_ColorShapeStateElement.value = m_MenuDefaults.ColorShapeState;
             m_ColorShapeStateElement.RegisterValueChangedCallback(evt =>
             {
                 ColorShapeState = evt.newValue;
@@ -687,10 +686,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private void Restart()
     {
         m_DisableUIRestarts = true;
-
-        // Reset overrides.
-        ResetOverrideDrawOptions();
-        ResetOverrideColorShapeState();
 
         // Worlds.
         m_WorkersElement.value = m_MenuDefaults.Workers;

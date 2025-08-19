@@ -273,7 +273,7 @@ public class Barrel : MonoBehaviour
 
         var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
-        var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        var body = world.CreateBody();
 
         {
             var boxTransform = new PhysicsTransform(new Vector2(0f, 4f), PhysicsRotate.identity);

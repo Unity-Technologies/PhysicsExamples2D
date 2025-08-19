@@ -346,7 +346,7 @@ public class Funnel : MonoBehaviour
 
         // Ground.
         {
-            var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            var groundBody = world.CreateBody();
 
             using var points = new NativeList<Vector2>(Allocator.Temp)
             {

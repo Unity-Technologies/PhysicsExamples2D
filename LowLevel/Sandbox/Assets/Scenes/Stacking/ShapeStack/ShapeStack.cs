@@ -150,12 +150,10 @@ public class ShapeStack : MonoBehaviour
 
         var world = PhysicsWorld.defaultWorld;
 
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-
         // Ground.
         {
-            var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            body.CreateShape(new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) }, PhysicsShapeDefinition.defaultDefinition);
+            var groundBody = world.CreateBody();
+            groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) }, PhysicsShapeDefinition.defaultDefinition);
         }
 
         // Stack.

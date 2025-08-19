@@ -201,7 +201,7 @@ public class WheelJoint : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
 
         // Ground Body.
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        var groundBody = world.CreateBody();
 
         {
             var bodeDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 10.25f, fastRotationAllowed = true };

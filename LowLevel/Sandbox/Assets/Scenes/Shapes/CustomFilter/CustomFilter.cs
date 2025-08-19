@@ -77,7 +77,7 @@ public class CustomFilter : MonoBehaviour, PhysicsCallbacks.IContactFilterCallba
 
         // Ground.
         {
-            var body = m_PhysicsWorld.CreateBody();
+            var groundBody = m_PhysicsWorld.CreateBody();
             using var vertices = new NativeList<Vector2>(Allocator.Temp)
             {
 	            new(-20f, 0f),
@@ -85,7 +85,7 @@ public class CustomFilter : MonoBehaviour, PhysicsCallbacks.IContactFilterCallba
 	            new(20f, 10f),
 	            new(20f, 0f)
             };
-            body.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
+            groundBody.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
         }
 
         // Create even/odd bodies.

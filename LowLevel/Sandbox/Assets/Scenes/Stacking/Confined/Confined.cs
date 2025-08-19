@@ -77,7 +77,7 @@ public class Confined : MonoBehaviour
 
         // Confining Border.
         {
-            var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            var body = world.CreateBody();
 
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
             body.CreateShape(new CapsuleGeometry { center1 = new Vector2(-10.5f, 0f), center2 = new Vector2(10.5f, 0f), radius = 0.5f }, shapeDef);

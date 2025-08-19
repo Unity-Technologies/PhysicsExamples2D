@@ -90,12 +90,11 @@ public class ScissorLift : MonoBehaviour
 
         var world = PhysicsWorld.defaultWorld;
 
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        var groundBody = world.CreateBody();
 
         // Ground.
         {
-            var body = world.CreateBody();
-            body.CreateShape(new SegmentGeometry { point1 = Vector2.left * 20f, point2 = Vector2.right * 20f });
+            groundBody.CreateShape(new SegmentGeometry { point1 = Vector2.left * 20f, point2 = Vector2.right * 20f });
         }
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, sleepThreshold = 0.01f };

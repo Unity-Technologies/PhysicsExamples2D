@@ -150,7 +150,7 @@ public class Spinner : MonoBehaviour
 
         // Chain Surround.
         {
-            groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            groundBody = world.CreateBody();
 
             const int pointCount = 360;
 

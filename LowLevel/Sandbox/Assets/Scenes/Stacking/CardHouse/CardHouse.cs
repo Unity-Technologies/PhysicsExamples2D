@@ -65,8 +65,8 @@ public class CardHouse : MonoBehaviour
 
         // Ground.
         {
-            var body = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(0f, -2f) });
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(80f, 4f)), shapeDef);
+            var groundBody = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(0f, -2f) });
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(80f, 4f)), shapeDef);
         }
 
         // Cards.

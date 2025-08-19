@@ -200,8 +200,8 @@ public class Capacity : MonoBehaviour
         // Ground.
         {
             var world = PhysicsWorld.defaultWorld;
-            var body = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.down * 5f });
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1600f, 10f)));
+            var groundBody = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.down * 5f });
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(1600f, 10f)));
         }
     }
 

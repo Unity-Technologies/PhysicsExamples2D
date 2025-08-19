@@ -143,7 +143,7 @@ public class Driving : MonoBehaviour
         // Ground Body.
         PhysicsBody groundBody;
         {
-            groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            groundBody = world.CreateBody();
 
             var pointIndex = 25;
             var points = new NativeArray<Vector2>(pointIndex + 1, Allocator.Temp);

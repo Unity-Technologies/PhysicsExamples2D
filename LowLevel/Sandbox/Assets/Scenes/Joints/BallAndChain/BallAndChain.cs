@@ -120,7 +120,7 @@ public class BallAndChain : MonoBehaviour
         const float scale = 0.5f;
 
         // Ground Body.
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        var groundBody = world.CreateBody();
 
         var prevBody = groundBody;
 

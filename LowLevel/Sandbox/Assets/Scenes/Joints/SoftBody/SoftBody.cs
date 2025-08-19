@@ -98,12 +98,10 @@ public class SoftBody : MonoBehaviour
 
         var world = PhysicsWorld.defaultWorld;
 
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-
         // Ground.
         {
             var bodyDef = PhysicsBodyDefinition.defaultDefinition;
-            var body = world.CreateBody(bodyDef);
+            var groundBody = world.CreateBody(bodyDef);
 
             using var vertices = new NativeList<Vector2>(4, Allocator.Temp)
             {
@@ -112,7 +110,7 @@ public class SoftBody : MonoBehaviour
                 new(5.5f, -4.5f),
                 new(-5.5f, -4.5f)
             };
-            body.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
+            groundBody.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
         }
 
         // Soft Body.

@@ -95,11 +95,9 @@ public class Bounciness : MonoBehaviour
 
         // Ground.
         {
+            var groundBody = world.CreateBody();
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
-
-            var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 1f), radius: 0f, new PhysicsTransform(new Vector2(0f, 3f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 1f), radius: 0f, new PhysicsTransform(new Vector2(0f, 3f), PhysicsRotate.identity)), shapeDef);
         }
 
         // Bounciness Objects.

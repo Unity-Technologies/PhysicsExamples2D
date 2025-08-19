@@ -80,7 +80,7 @@ public class Compound : MonoBehaviour
 
         // Ground.
         {
-            var body = m_PhysicsWorld.CreateBody();
+            var groundBody = m_PhysicsWorld.CreateBody();
             using var vertices = new NativeList<Vector2>(Allocator.Temp)
             {
 	            new(-25f, 0f),
@@ -88,7 +88,7 @@ public class Compound : MonoBehaviour
 	            new(25f, 23f),
 	            new(25f, 0f)
             };
-            body.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
+            groundBody.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
         }
         
 		// Table 1.

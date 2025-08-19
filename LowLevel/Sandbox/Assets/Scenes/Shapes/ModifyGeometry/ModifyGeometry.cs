@@ -110,8 +110,8 @@ public class ModifyGeometry : MonoBehaviour
 
         // Ground.
         {
-            var body = m_PhysicsWorld.CreateBody();
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 50f), 0f, Vector2.down * 25f));
+            var groundBody = m_PhysicsWorld.CreateBody();
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 50f), 0f, Vector2.down * 25f));
         }
 
         // Interact Shape.

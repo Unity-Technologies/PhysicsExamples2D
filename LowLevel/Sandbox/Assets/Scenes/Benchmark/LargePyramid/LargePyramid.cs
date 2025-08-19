@@ -86,13 +86,13 @@ public class LargePyramid : MonoBehaviour
 
         // Ground.
         {
-            var body = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(0f, -1f) });
+            var groundBody = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(0f, -1f) });
 
             const float groundLength = 1000f;
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(groundLength, 2f)), PhysicsShapeDefinition.defaultDefinition);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(groundLength, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, groundLength), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, groundLength), radius: 0f, new PhysicsTransform(new Vector2(groundLength * -0.5f, groundLength * 0.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, groundLength), radius: 0f, new PhysicsTransform(new Vector2(groundLength * 0.5f, groundLength * 0.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(groundLength, 2f)), PhysicsShapeDefinition.defaultDefinition);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(groundLength, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, groundLength), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, groundLength), radius: 0f, new PhysicsTransform(new Vector2(groundLength * -0.5f, groundLength * 0.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, groundLength), radius: 0f, new PhysicsTransform(new Vector2(groundLength * 0.5f, groundLength * 0.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
         }
 
         // Pyramid.

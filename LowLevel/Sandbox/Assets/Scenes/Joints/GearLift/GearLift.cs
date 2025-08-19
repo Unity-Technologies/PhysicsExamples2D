@@ -96,7 +96,7 @@ public class GearLift : MonoBehaviour
         ref var random = ref m_SandboxManager.Random;
 
         // Ground Body.
-        var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+        var groundBody = world.CreateBody();
 
         // Ground.
         {

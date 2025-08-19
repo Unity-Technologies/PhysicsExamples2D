@@ -101,12 +101,12 @@ public class RoundedPolygons : MonoBehaviour
         {
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
-            var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            var groundBody = world.CreateBody();
 
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(40f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, -1f), PhysicsRotate.identity)), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(40f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, 101f), PhysicsRotate.identity)), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 100f), radius: 0f, new PhysicsTransform(new Vector2(19f, 50f), PhysicsRotate.identity)), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 100f), radius: 0f, new PhysicsTransform(new Vector2(-19f, 50f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(40f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, -1f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(40f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, 101f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 100f), radius: 0f, new PhysicsTransform(new Vector2(19f, 50f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 100f), radius: 0f, new PhysicsTransform(new Vector2(-19f, 50f), PhysicsRotate.identity)), shapeDef);
         }
 
         // Rounded Polygons.

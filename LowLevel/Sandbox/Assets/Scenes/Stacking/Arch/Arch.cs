@@ -111,8 +111,8 @@ public class Arch : MonoBehaviour
 
         // Ground.
         {
-            var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
-            body.CreateShape(new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) }, shapeDef);
+            var groundBody = world.CreateBody();
+            groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) }, shapeDef);
         }
 
         // Arch.

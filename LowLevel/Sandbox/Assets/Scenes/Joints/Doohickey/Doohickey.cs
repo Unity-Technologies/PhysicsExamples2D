@@ -77,7 +77,7 @@ public class Doohickey : MonoBehaviour
 
         // Ground.
         {
-            var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            var groundBody = world.CreateBody();
 
             groundBody.CreateShape(new SegmentGeometry { point1 = Vector2.left * 20f, point2 = Vector2.right * 20f });
             groundBody.CreateShape(PolygonGeometry.CreateBox(Vector2.one * 2f, 0.1f, new PhysicsTransform(Vector2.up), true));

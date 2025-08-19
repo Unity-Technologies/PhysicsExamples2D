@@ -160,19 +160,19 @@ public class Friction : MonoBehaviour
         {
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f } };
 
-            var body = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+            var groundBody = world.CreateBody();
 
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 1f)), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 1f), radius: 0f, new PhysicsTransform(new Vector2(-40f, 1f), PhysicsRotate.identity)), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 1f), radius: 0f, new PhysicsTransform(new Vector2(40f, 1f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 1f)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 1f), radius: 0f, new PhysicsTransform(new Vector2(-40f, 1f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 1f), radius: 0f, new PhysicsTransform(new Vector2(40f, 1f), PhysicsRotate.identity)), shapeDef);
 
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(26f, 0.5f), radius: 0f, new PhysicsTransform(new Vector2(4f, 31f), new PhysicsRotate(0.25f))), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(-11f, 28f), PhysicsRotate.identity)), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(26f, 0.5f), radius: 0f, new PhysicsTransform(new Vector2(-4f, 22f), new PhysicsRotate(-0.25f))), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(11.5f, 19f), PhysicsRotate.identity)), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(26f, 0.5f), radius: 0f, new PhysicsTransform(new Vector2(4f, 14f), new PhysicsRotate(0.25f))), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(-11f, 11f), PhysicsRotate.identity)), shapeDef);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(26f, 0.5f), radius: 0f, new PhysicsTransform(new Vector2(-4f, 6f), new PhysicsRotate(-0.25f))), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(26f, 0.5f), radius: 0f, new PhysicsTransform(new Vector2(4f, 31f), new PhysicsRotate(0.25f))), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(-11f, 28f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(26f, 0.5f), radius: 0f, new PhysicsTransform(new Vector2(-4f, 22f), new PhysicsRotate(-0.25f))), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(11.5f, 19f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(26f, 0.5f), radius: 0f, new PhysicsTransform(new Vector2(4f, 14f), new PhysicsRotate(0.25f))), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(-11f, 11f), PhysicsRotate.identity)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(26f, 0.5f), radius: 0f, new PhysicsTransform(new Vector2(-4f, 6f), new PhysicsRotate(-0.25f))), shapeDef);
         }
     }
 }

@@ -130,11 +130,11 @@ public class Determinism : MonoBehaviour
         // Ground.
         {
             var bodyDef = new PhysicsBodyDefinition { position = new Vector2(0f, -1f) };
-            var body = world.CreateBody(bodyDef);
-            m_Bodies.Add(body);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(32f, 2f)), PhysicsShapeDefinition.defaultDefinition);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 15f), radius: 0f, new PhysicsTransform(new Vector2(-15f, 6.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 15f), radius: 0f, new PhysicsTransform(new Vector2(15f, 6.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
+            var groundBody = world.CreateBody(bodyDef);
+            m_Bodies.Add(groundBody);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(32f, 2f)), PhysicsShapeDefinition.defaultDefinition);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 15f), radius: 0f, new PhysicsTransform(new Vector2(-15f, 6.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(2f, 15f), radius: 0f, new PhysicsTransform(new Vector2(15f, 6.5f), PhysicsRotate.identity)), PhysicsShapeDefinition.defaultDefinition);
         }
 
         // Hinges.

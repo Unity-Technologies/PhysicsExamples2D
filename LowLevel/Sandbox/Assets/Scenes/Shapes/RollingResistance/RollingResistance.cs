@@ -93,7 +93,7 @@ public class RollingResistance : MonoBehaviour
             for (var n = 0; n < 20; ++n)
             {
                 // Create Slope.
-                var groundBody = world.CreateBody(PhysicsBodyDefinition.defaultDefinition);
+                var groundBody = world.CreateBody();
                 groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-40f, 2f * n), point2 = new Vector2(-40f, 2f * n + 1.5f) }, slopeShapeDef);
                 groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(-40f, 2f * n), point2 = new Vector2(40f, 2f * n + slopeAngle) }, slopeShapeDef);
                 groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(40f, 2f * n + slopeAngle), point2 = new Vector2(40f, 2f * n + slopeAngle + 1.5f) }, slopeShapeDef);

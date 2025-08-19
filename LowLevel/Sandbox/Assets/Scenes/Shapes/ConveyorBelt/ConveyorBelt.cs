@@ -99,7 +99,7 @@ public class ConveyorBelt : MonoBehaviour
 
         // Ground.
         {
-            var body = m_PhysicsWorld.CreateBody();
+            var groundBody = m_PhysicsWorld.CreateBody();
             using var vertices = new NativeList<Vector2>(Allocator.Temp)
             {
 	            new(-20f, 0f),
@@ -107,7 +107,7 @@ public class ConveyorBelt : MonoBehaviour
 	            new(20f, 23f),
 	            new(20f, 0f)
             };
-            body.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
+            groundBody.CreateChain(new ChainGeometry(vertices.AsArray()), PhysicsChainDefinition.defaultDefinition);
         }
         
 		// Platform.
