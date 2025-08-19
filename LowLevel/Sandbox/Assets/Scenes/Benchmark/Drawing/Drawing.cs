@@ -22,8 +22,7 @@ public class Drawing : MonoBehaviour
         Capsule,
         Point,
         Line,
-        LineStrip,
-        LineStripLoop
+        LineStrip
     }
 
     private DrawingType m_DrawingType;
@@ -166,10 +165,9 @@ public class Drawing : MonoBehaviour
         if (m_DrawInterior)
             drawOptions |= PhysicsWorld.DrawFillOptions.Interior;
 
-        // Line Strip / Line Strip Loop.
-        if (m_DrawingType == DrawingType.LineStrip || m_DrawingType == DrawingType.LineStripLoop)
+        // Line Strip.
+        if (m_DrawingType == DrawingType.LineStrip)
         {
-            var loop = m_DrawingType == DrawingType.LineStripLoop;
             var color = m_SandboxManager.ShapeColorState;
             var vertices = new NativeArray<Vector2>(m_DrawingCount, Allocator.Temp);
             for (var i = 0; i < m_DrawingCount; ++i)
@@ -177,7 +175,7 @@ public class Drawing : MonoBehaviour
                 vertices[i] = new Vector2(random.NextFloat(-extents.x, extents.x), random.NextFloat(-extents.y, extents.y));
             }
 
-            world.DrawLineStrip(PhysicsTransform.identity, vertices, loop, color, m_DrawingLifetime);
+            world.DrawLineStrip(PhysicsTransform.identity, vertices, true, color, m_DrawingLifetime);
             vertices.Dispose();
             
             return;
@@ -287,7 +285,6 @@ public class Drawing : MonoBehaviour
                 }
                 
                 case DrawingType.LineStrip:
-                case DrawingType.LineStripLoop:
                 default:
                     throw new ArgumentOutOfRangeException();
             }
