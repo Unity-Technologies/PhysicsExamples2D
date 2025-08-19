@@ -426,7 +426,7 @@ MonoBehaviour:
     Description: Demonstrating creating pseudo-ellipse shapes as Polygons.
     ScenePath: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
   - Name: Fragmenting
-    Category: Fragmenting
+    Category: Shapes
     Description: Demonstrates the use of geometry fragmenting.
     ScenePath: Assets/Scenes/Shapes/Fragmenting/Fragmenting.unity
   - Name: Friction
