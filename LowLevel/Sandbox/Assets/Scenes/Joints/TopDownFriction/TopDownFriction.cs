@@ -10,6 +10,7 @@ public class TopDownFriction : MonoBehaviour
     private UIDocument m_UIDocument;
     private CameraManipulator m_CameraManipulator;
 
+    private ControlsMenu.CustomButton m_ExplodeButton;    
     private NativeList<PhysicsRelativeJoint> m_Joints;
 
     private float m_MaxForce;
@@ -26,6 +27,13 @@ public class TopDownFriction : MonoBehaviour
         m_CameraManipulator.CameraSize = 10f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 10f);
 
+        // Set controls.
+        {
+            m_ExplodeButton = m_SandboxManager.ControlsMenu[0];
+            m_ExplodeButton.Set("Explode");
+            m_ExplodeButton.button.clickable.clicked += Explode;
+        }
+        
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
@@ -45,12 +53,16 @@ public class TopDownFriction : MonoBehaviour
 
     private void OnDisable()
     {
-        if (m_Joints.IsCreated)
-            m_Joints.Dispose();
-
+        // Unregister.
+        m_ExplodeButton.button.clickable.clicked -= Explode;
+        
         // Reset overrides.
         m_SandboxManager.ResetOverrideDrawOptions();
         m_SandboxManager.ResetOverrideColorShapeState();
+        
+        // Dispose.
+        if (m_Joints.IsCreated)
+            m_Joints.Dispose();
     }
 
     private void SetupOptions()
@@ -96,6 +108,7 @@ public class TopDownFriction : MonoBehaviour
 
         ref var random = ref m_SandboxManager.Random;
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground Body.
@@ -118,8 +131,8 @@ public class TopDownFriction : MonoBehaviour
             {
                 bodyA = groundBody,
                 collideConnected = true,
-                maxForce = 10f,
-                maxTorque = 10f
+                maxForce = m_MaxForce,
+                maxTorque = m_MaxTorque
             };
 
             var capsule = new CapsuleGeometry { center1 = Vector2.left * 0.25f, center2 = Vector2.right * 0.25f, radius = 0.25f };
@@ -175,5 +188,22 @@ public class TopDownFriction : MonoBehaviour
 
             joint.WakeBodies();
         }
+    }
+
+    private static void Explode()
+    {
+        var explosionDef = new PhysicsWorld.ExplosionDefinition
+        {
+            position = Vector2.up * 10f,
+            radius = 10f,
+            falloff = 5f,
+            impulsePerLength = 10f
+        };
+        PhysicsWorld.defaultWorld.Explode(explosionDef);
+
+        // Get the default world.
+        var world = PhysicsWorld.defaultWorld;
+
+        world.DrawCircle(explosionDef.position, 10f, Color.softRed, 2f / 60f);
     }
 }
