@@ -125,6 +125,7 @@ public class Determinism : MonoBehaviour
         m_SimulationSteps = 0;
         m_EverythingAsleep = false;
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground.

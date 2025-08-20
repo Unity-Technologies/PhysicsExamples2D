@@ -55,6 +55,7 @@ public class BounceHouse : MonoBehaviour
     
     private void Update()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var hitEvents = world.contactHitEvents;
@@ -100,6 +101,7 @@ public class BounceHouse : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
         
         // Ground.

@@ -196,6 +196,7 @@ public class DistanceJoint : MonoBehaviour
 
         m_Joints.Clear();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground Body.

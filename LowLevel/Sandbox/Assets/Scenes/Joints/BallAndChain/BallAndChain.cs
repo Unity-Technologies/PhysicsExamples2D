@@ -115,6 +115,7 @@ public class BallAndChain : MonoBehaviour
 
         m_Joints.Clear();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         const float scale = 0.5f;

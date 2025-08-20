@@ -51,7 +51,9 @@ public class Friction : MonoBehaviour
 
     private void OnDisable()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         world.gravity = m_OldGravity;
     }
 
@@ -73,6 +75,7 @@ public class Friction : MonoBehaviour
 
         // Sliding Object.
         {
+            // Get the default world.
             var world = PhysicsWorld.defaultWorld;
 
             var bodyDef = new PhysicsBodyDefinition
@@ -113,6 +116,8 @@ public class Friction : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
+        
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         {
@@ -154,6 +159,7 @@ public class Friction : MonoBehaviour
         m_ItemsSpawned = 0;
         m_SpawnTime = 0f;
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground.

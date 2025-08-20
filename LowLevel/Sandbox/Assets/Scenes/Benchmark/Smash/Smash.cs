@@ -47,7 +47,9 @@ public class Smash : MonoBehaviour
 
     private void OnDisable()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         world.gravity = m_OldGravity;
     }
 
@@ -117,6 +119,7 @@ public class Smash : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Reset the gravity.

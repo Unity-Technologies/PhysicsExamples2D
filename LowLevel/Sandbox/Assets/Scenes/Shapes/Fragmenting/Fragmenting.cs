@@ -60,8 +60,10 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
         m_CameraManipulator.CameraSize = 28f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 14f);
 
-        // Turn-on auto contact callbacks.
+        // Get the default world.        
         var world = PhysicsWorld.defaultWorld;
+        
+        // Turn-on auto contact callbacks.
         m_OldAutoContactCallbacks = world.autoContactCallbacks;
         world.autoContactCallbacks = true;
 
@@ -109,8 +111,10 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
         // Reset overrides.
         m_SandboxManager.ResetOverrideColorShapeState();        
 
-        // Reset the callbacks.
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
+        // Reset the callbacks.
         world.autoContactCallbacks = m_OldAutoContactCallbacks;
         
         // Reset the draw fill options.
@@ -169,6 +173,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground.
@@ -220,7 +225,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
     
     private void Update()
     {
-        // Fetch the default world.
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
         
         // Only allow player movement/fire if the world is not paused.
@@ -261,7 +266,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
         if (m_SandboxManager.WorldPaused)
             return;
     
-        // Fetch the default world.
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var bodyDef = new PhysicsBodyDefinition
@@ -337,7 +342,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
             var contact = beginEvent.contactId.contact;
             var hitPosition = contact.manifold.points[0].point;
             
-            // Fetch the default world.
+            // Get the default world.
             var world = PhysicsWorld.defaultWorld;
 
             // Draw the fragment radius.            

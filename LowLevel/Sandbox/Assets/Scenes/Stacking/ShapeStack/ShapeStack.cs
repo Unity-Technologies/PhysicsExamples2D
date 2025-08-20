@@ -47,7 +47,9 @@ public class ShapeStack : MonoBehaviour
         m_ObjectType = ObjectType.Circle;
         m_StackHeight = 8;
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         m_OldContactFrequency = world.contactFrequency;
         m_OldContactDamping = world.contactDamping;
         m_OldContactSpeed = world.contactSpeed;
@@ -65,7 +67,9 @@ public class ShapeStack : MonoBehaviour
 
     private void OnDisable()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         world.contactFrequency = m_OldContactFrequency;
         world.contactDamping = m_OldContactDamping;
         world.contactSpeed = m_OldContactSpeed;
@@ -75,6 +79,8 @@ public class ShapeStack : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
+        
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         {
@@ -148,6 +154,7 @@ public class ShapeStack : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground.
@@ -164,6 +171,7 @@ public class ShapeStack : MonoBehaviour
 
     private void CreateStack(Vector2 position)
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };

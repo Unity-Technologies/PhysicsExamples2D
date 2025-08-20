@@ -72,6 +72,7 @@ public class Arch : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var ps1 = new Vector2[]

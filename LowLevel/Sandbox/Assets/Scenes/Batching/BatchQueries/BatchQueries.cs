@@ -130,7 +130,9 @@ public class BatchQueries : MonoBehaviour
 
     private void Update()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         ref var random = ref m_SandboxManager.Random;
 
         // Fetch the world mouse position.

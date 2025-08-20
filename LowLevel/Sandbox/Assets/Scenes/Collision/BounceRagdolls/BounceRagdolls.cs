@@ -51,7 +51,9 @@ public class BounceRagdolls : MonoBehaviour
 
     private void OnDisable()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         world.gravity = m_OldGravity;
 
         PhysicsEvents.PreSimulate -= OnPreSimulation;
@@ -110,6 +112,7 @@ public class BounceRagdolls : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         m_RagdollCount = 0;
@@ -148,6 +151,7 @@ public class BounceRagdolls : MonoBehaviour
 
     private void Update()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var segment = new SegmentGeometry { point1 = Vector2.zero, point2 = world.gravity * 3f };

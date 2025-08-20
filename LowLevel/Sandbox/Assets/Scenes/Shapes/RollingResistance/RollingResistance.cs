@@ -44,8 +44,7 @@ public class RollingResistance : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
-        var world = PhysicsWorld.defaultWorld;
-
+        
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
@@ -72,6 +71,7 @@ public class RollingResistance : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Slopes.

@@ -199,7 +199,9 @@ public class Capacity : MonoBehaviour
         
         // Ground.
         {
+            // Get the default world.
             var world = PhysicsWorld.defaultWorld;
+            
             var groundBody = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.down * 5f });
             groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(1600f, 10f)));
         }

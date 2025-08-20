@@ -85,6 +85,7 @@ public class Triggers : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         m_StepCount = 0;
@@ -157,6 +158,7 @@ public class Triggers : MonoBehaviour
 
     private void CreateRow(float y)
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var xCenter = 0.5f * ColumnSpacing * m_ColumnCount;

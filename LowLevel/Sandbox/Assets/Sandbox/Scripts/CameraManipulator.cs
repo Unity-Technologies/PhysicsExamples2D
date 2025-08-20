@@ -232,7 +232,9 @@ public class CameraManipulator : MonoBehaviour
                 m_DragJoint.localAnchorA = new PhysicsTransform(target);
                 m_DragJoint.WakeBodies();
 
+                // Get the default world.
                 var world = PhysicsWorld.defaultWorld;
+                
                 var bodyB = m_DragJoint.bodyB;
                 world.DrawLine(target, bodyB.GetWorldPoint(m_DragJoint.localAnchorB.position), Color.grey);
                 world.DrawLine(oldTarget, target, Color.whiteSmoke);

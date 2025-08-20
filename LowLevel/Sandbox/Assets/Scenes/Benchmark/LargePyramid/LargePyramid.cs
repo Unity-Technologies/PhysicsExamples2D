@@ -38,7 +38,9 @@ public class LargePyramid : MonoBehaviour
 
     private void OnDisable()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         world.gravity = m_OldGravity;
     }
 
@@ -67,7 +69,10 @@ public class LargePyramid : MonoBehaviour
             gravityScale.RegisterValueChangedCallback(evt =>
             {
                 m_GravityScale = evt.newValue;
+                
+                // Get the default world.
                 var world = PhysicsWorld.defaultWorld;
+                
                 world.gravity = m_OldGravity * m_GravityScale;
             });
 
@@ -82,6 +87,7 @@ public class LargePyramid : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground.

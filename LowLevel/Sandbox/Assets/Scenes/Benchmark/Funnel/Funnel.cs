@@ -67,7 +67,9 @@ public class Funnel : MonoBehaviour
 
     private void OnDisable()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         world.gravity = m_OldGravity;
 
         // Reset overrides.
@@ -88,7 +90,9 @@ public class Funnel : MonoBehaviour
 
     private static void DestroyTriggerDetections()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         var triggerEvents = world.triggerBeginEvents;
         foreach (var triggerEvent in triggerEvents)
         {
@@ -118,11 +122,13 @@ public class Funnel : MonoBehaviour
             return;
 
         m_SpawnTime = m_SpawnPeriod / math.sqrt(m_GravityScale);
-
-        // Spawn Object.
+        
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         ref var random = ref m_SandboxManager.Random;
 
+        // Spawn Object.        
         var spawnPosition = new Vector2(random.NextFloat(-SpawnSide, SpawnSide), 35f);
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition };
@@ -292,6 +298,8 @@ public class Funnel : MonoBehaviour
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
+        
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         {
@@ -342,6 +350,7 @@ public class Funnel : MonoBehaviour
 
         m_SpawnTime = 0f;
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground.

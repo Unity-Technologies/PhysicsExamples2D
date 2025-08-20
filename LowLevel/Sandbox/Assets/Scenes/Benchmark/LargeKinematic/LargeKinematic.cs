@@ -93,6 +93,7 @@ public class LargeKinematic : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Rotating Kinematic.

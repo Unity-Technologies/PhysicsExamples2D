@@ -133,6 +133,7 @@ public class ManyTumblers : MonoBehaviour
 
         m_CurrentSpawnCounter = 0;
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Tumblers.
@@ -170,6 +171,7 @@ public class ManyTumblers : MonoBehaviour
 
     private void SpawnDebris()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };

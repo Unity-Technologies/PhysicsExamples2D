@@ -149,6 +149,7 @@ public class Barrel : MonoBehaviour
         var leftGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(-1.0f, 0f), new(0.5f, 1f), new(0f, 2f) }.AsSpan());
         var rightGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(1.0f, 0f), new(-0.5f, 1f), new(0f, 2f) }.AsSpan());
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         ref var random = ref m_SandboxManager.Random;
@@ -267,8 +268,9 @@ public class Barrel : MonoBehaviour
         body.CreateShape(polygonGeometry, shapeDef);
     }
 
-    private void CreateBarrel()
+    private static void CreateBarrel()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var shapeDef = PhysicsShapeDefinition.defaultDefinition;

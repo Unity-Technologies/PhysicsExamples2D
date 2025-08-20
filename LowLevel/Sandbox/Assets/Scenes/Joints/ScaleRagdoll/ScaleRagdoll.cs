@@ -80,7 +80,9 @@ public class ScaleRagdoll : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         ref var random = ref m_SandboxManager.Random;
 
         // Ground.

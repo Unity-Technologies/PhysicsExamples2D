@@ -108,6 +108,7 @@ public class UserJoint : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var bodyDef = new PhysicsBodyDefinition

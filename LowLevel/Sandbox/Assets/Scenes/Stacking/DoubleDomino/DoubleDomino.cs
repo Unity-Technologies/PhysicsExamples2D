@@ -60,6 +60,7 @@ public class DoubleDomino : MonoBehaviour
 
     private void CreateDominoShelf(bool tipRight, float positionY)
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         {

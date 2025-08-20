@@ -95,6 +95,7 @@ public class RoundedPolygons : MonoBehaviour
 
         ref var random = ref m_SandboxManager.Random;
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground.

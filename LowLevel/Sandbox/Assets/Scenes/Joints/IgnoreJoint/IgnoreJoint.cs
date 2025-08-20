@@ -78,6 +78,7 @@ public class IgnoreJoint : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground Body.
@@ -134,8 +135,10 @@ public class IgnoreJoint : MonoBehaviour
         if (!m_EnableJoint)
             return;
 
-        // Create the joint.
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
+        // Create the joint.
         m_Joint = world.CreateJoint(new PhysicsIgnoreJointDefinition { bodyA = m_BodyA, bodyB = m_BodyB });
     }
 }

@@ -83,6 +83,7 @@ public class ContactManifold : MonoBehaviour
     {
         HandleInput();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         var offset = new Vector2(-12f, -5f);
@@ -504,6 +505,7 @@ public class ContactManifold : MonoBehaviour
 
     private void DrawManifold(ref PhysicsShape.ContactManifold manifold, Vector2 origin1, Vector2 origin2)
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         for (var i = 0; i < manifold.pointCount; ++i)

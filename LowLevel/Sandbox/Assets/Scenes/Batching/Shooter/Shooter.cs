@@ -56,7 +56,9 @@ public class Shooter : MonoBehaviour
 
     private void OnDisable()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         world.gravity = m_OldGravity;
 
         PhysicsEvents.PreSimulate -= OnPreSimulation;
@@ -124,7 +126,9 @@ public class Shooter : MonoBehaviour
         var segment = new SegmentGeometry { point1 = Vector2.zero, point2 = m_FireDirection };
         if (segment.isValid)
         {
+            // Get the default world.
             var world = PhysicsWorld.defaultWorld;
+            
             world.DrawGeometry(segment, PhysicsTransform.identity, Color.azure);
         }
     }
@@ -204,8 +208,10 @@ public class Shooter : MonoBehaviour
 
     private void DestroyBatch()
     {
-        // Fetch hit events and destroy any dynamic bodies in the event.
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
+        // Fetch hit events and destroy any dynamic bodies in the event.
         var beginEvents = world.contactBeginEvents;
 
         // Finish if no events.

@@ -46,13 +46,17 @@ public class Bounciness : MonoBehaviour
 
     private void OnDisable()
     {
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         world.gravity = m_OldGravity;
     }
 
     private void SetupOptions()
     {
         var root = m_UIDocument.rootVisualElement;
+        
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         {
@@ -91,6 +95,7 @@ public class Bounciness : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
         // Ground.

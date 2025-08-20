@@ -51,6 +51,7 @@ public class Compound : MonoBehaviour
 
     private void OnDisable()
     {
+	    // Unregister.
 	    m_IntrudeButton.button.clickable.clicked -= IntrudeShape;
 
 	    // Reset overrides.

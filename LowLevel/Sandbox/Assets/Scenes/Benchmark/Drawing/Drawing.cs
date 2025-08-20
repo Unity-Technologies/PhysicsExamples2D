@@ -141,7 +141,9 @@ public class Drawing : MonoBehaviour
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        // Get the default world.
         var world = PhysicsWorld.defaultWorld;
+        
         ref var random = ref m_SandboxManager.Random;
         var extents = new Vector2(9f, 7f);
 
