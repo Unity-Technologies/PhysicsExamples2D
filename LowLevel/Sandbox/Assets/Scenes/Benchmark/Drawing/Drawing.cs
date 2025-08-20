@@ -219,11 +219,11 @@ public class Drawing : MonoBehaviour
                 {
                     SegmentGeometry geometry = new()
                     {
-                        point1 = new Vector2(random.NextFloat(-5f, 5f), random.NextFloat(-5f, 5f)),
-                        point2 = new Vector2(random.NextFloat(-5f, 5f), random.NextFloat(-5f, 5f))
+                        point1 = new Vector2(random.NextFloat(-extents.x, extents.x), random.NextFloat(-extents.y, extents.y)),
+                        point2 = new Vector2(random.NextFloat(-extents.x, extents.x), random.NextFloat(-extents.y, extents.y)),
                     };
                     if (geometry.isValid)
-                        world.DrawGeometry(geometry, physicsTransform, color, lifetime);
+                        world.DrawGeometry(geometry, PhysicsTransform.identity, color, lifetime);
                     
                     continue;
                 }
