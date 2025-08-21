@@ -13,7 +13,11 @@ https://github.com/erincatto/box2d
 
 ### Physics 2D LowLevel Sandbox
 
-This repository contains examples that can be built to a player. To run, load the main "Sandbox" scene and press "Play". Alternately, build to a player and run.
+This repository contains examples that can be built to a player.
+
+You MUST first enable "Development Build" in the build options for the debug rendering to display anything as debug rendering is only available in the Editor and Development Players.
+
+To run, load the main "Sandbox" scene and press "Play". Alternately, build to a player and run.
 
 Each sample can be found in `Assets/Scenes/<Category>/<SampleName>` and all share the same configuration.
 
