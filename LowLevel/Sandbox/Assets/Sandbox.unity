@@ -343,7 +343,8 @@ MonoBehaviour:
     ScenePath: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
   - Name: Determinism
     Category: Collision
-    Description: Checking cross-platform determinism using a complex joint set-up.
+    Description: 'Checking cross-platform determinism using a complex joint set-up.
+      <b><color=#FF0000>NOTE: Cross-platform determinism is not supported yet!</color></b>'
     ScenePath: Assets/Scenes/Collision/Determinism/Determinism.unity
   - Name: Ball and Chain
     Category: Joints
