@@ -163,7 +163,7 @@ public class Spinner : MonoBehaviour
 
             var tau = PhysicsMath.TAU;
             var rotate = new PhysicsRotate(-tau / pointCount);
-            var offset = new Vector2(40.0f, 0f);
+            var offset = Vector2.right * 40f;
             for (var i = 0; i < pointCount; ++i)
             {
                 chainPoints[i] = new Vector2(offset.x, offset.y);

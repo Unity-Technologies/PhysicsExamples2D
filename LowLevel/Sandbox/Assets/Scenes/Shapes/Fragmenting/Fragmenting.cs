@@ -25,7 +25,9 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
     private readonly PhysicsMask m_DebrisMask = new(4);
     private readonly PhysicsMask m_ProjectileMask = new(5);
 
-    private readonly Color m_DestructibleColor = Color.seaGreen;
+    private Color m_DestructibleColor;
+    private PhysicsShape.ContactFilter m_DestructibleContactFilter;
+    private PhysicsShape.SurfaceMaterial m_DestructibleSurfaceMaterial;
     
     private const float ProjectileRadius = 0.2f;
     private const float PlayerSpeed = 60f;
@@ -88,6 +90,10 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
 
         // Set Overrides.
         m_SandboxManager.SetOverrideColorShapeState(false);
+        
+        m_DestructibleColor = Color.seaGreen;
+        m_DestructibleContactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_ProjectileMask | m_DebrisMask };
+        m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f, bounciness = 0.4f, tangentSpeed = 0.1f, customColor = m_DestructibleColor };
         
         m_PlayerGeometry = new CapsuleGeometry { center1 = Vector2.zero, center2 = Vector2.up, radius = 0.5f };
         m_DestructGeometry = PolygonGeometry.CreateBox(new Vector2(50f, 20f));
@@ -216,8 +222,8 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
             var body = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 30f });
             var shapeDef = new PhysicsShapeDefinition
             {
-                contactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_ProjectileMask },
-                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f, bounciness = 0.4f, tangentSpeed = 0.1f, customColor = m_DestructibleColor }
+                contactFilter = m_DestructibleContactFilter,
+                surfaceMaterial = m_DestructibleSurfaceMaterial
             };
             body.CreateShape(m_DestructGeometry, shapeDef);
         }
@@ -305,7 +311,6 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
             m_FragmentGeometryMask = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Persistent);
             composer.Destroy();
         }
-        
     }
     
     public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
@@ -397,8 +402,8 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
                 var body = world.CreateBody(new PhysicsBodyDefinition { position = fragmentTransform.position, rotation = fragmentTransform.rotation });
                 var shapeDef = new PhysicsShapeDefinition
                 {
-                    contactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_ProjectileMask | m_DebrisMask },
-                    surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f, bounciness = 0.4f, tangentSpeed = 0.1f, customColor = m_DestructibleColor }
+                    contactFilter = m_DestructibleContactFilter,
+                    surfaceMaterial = m_DestructibleSurfaceMaterial
                 };
 
                 foreach (var geometry in fragmentResults.unbrokenGeometry)
@@ -449,12 +454,15 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
             }
 
             // Explode the debris.
+            if (m_FragmentExplode)
             {
-                if (m_FragmentExplode)
+                world.Explode(new PhysicsWorld.ExplosionDefinition
                 {
-                    var explodePosition = hitPosition + Vector2.up * m_FragmentRadius; 
-                    world.Explode(new PhysicsWorld.ExplosionDefinition { position = explodePosition, hitCategories = m_DebrisMask, impulsePerLength = 4f, radius = m_FragmentRadius * 3f });
-                }
+                    position = hitPosition + Vector2.up * m_FragmentRadius,
+                    hitCategories = m_DebrisMask,
+                    impulsePerLength = 4f,
+                    radius = m_FragmentRadius * 3f
+                });
             }
         }
     }

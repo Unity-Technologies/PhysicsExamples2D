@@ -175,7 +175,7 @@ public class Shooter : MonoBehaviour
                     {
                         // Calculate the fire spread.
                         var halfSpread = m_BatchSpread * 0.5f;
-                        var fireDirection = new PhysicsRotate(math.radians(random.NextFloat(-halfSpread, halfSpread)) + fireAngle).direction;
+                        var fireDirection = new PhysicsRotate(PhysicsMath.ToRadians(random.NextFloat(-halfSpread, halfSpread) + fireAngle)).direction;
                         var fireOffset = random.NextFloat(m_BatchOffset.x, m_BatchOffset.y);
                         var fireSpeed = random.NextFloat(m_BatchSpeed.x, m_BatchSpeed.y);
 

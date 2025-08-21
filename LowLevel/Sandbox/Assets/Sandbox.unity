@@ -445,6 +445,10 @@ MonoBehaviour:
     Category: Shapes
     Description: Demonstrating rounded polygons.
     ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
+  - Name: Slicing
+    Category: Shapes
+    Description: Demonstrates the use of geometry slicing.
+    ScenePath: Assets/Scenes/Shapes/Slicing/Slicing.unity
   - Name: Parallel Simulate
     Category: Simulation
     Description: Simulating multiple worlds in parallel.
