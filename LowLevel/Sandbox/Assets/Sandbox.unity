@@ -447,7 +447,8 @@ MonoBehaviour:
     ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
   - Name: Slicing
     Category: Shapes
-    Description: Demonstrates the use of geometry slicing.
+    Description: 'Demonstrates the use of geometry slicing. <b><color=#FF0000>NOTE:
+      Slicing has an issue fixed in 6000.3a6!</color></b>'
     ScenePath: Assets/Scenes/Shapes/Slicing/Slicing.unity
   - Name: Parallel Simulate
     Category: Simulation
