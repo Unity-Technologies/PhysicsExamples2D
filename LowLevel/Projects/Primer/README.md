@@ -47,6 +47,7 @@ These do not require deallocation as they are direct memory access.
 When you create an object, it is far more efficient to create it with all its properties already set.
 Creating an object and then changing multiple properties is slower than having it setup correctly initially, more so if the properties have side-effects causing recalculations.
 To this end, whenever you create an object you can specify a definition with all object types having their own dedicated definition type.
+
 For instance, a [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.htm) has a [PhysicsWorldDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition.html)
 and a [PhysicsBody](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.html), a [PhysicsBodyDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition.html) etc.
 
@@ -56,7 +57,7 @@ All definitions also have a default which can always be accessed via a static `.
 
 Also, methods used to create objects that accept the appropriate definition, also accept no arguments which will mean the object will implicitly use the appropriate default definition for convenience.
 
-It should be noticed that even these defaults are <b>not</b> hardwired but can themselves be configured via a dedicated asset of [PhysicsLowLevelSettings](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLowLevelSettings2D.html).
+Even more powerful is that even these defaults are <b>not</b> hardwired but can themselves be configured via a dedicated asset of [PhysicsLowLevelSettings](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLowLevelSettings2D.html).
 This asset can be created via the Assets menu under `Create > 2D > Physics LowLevel Settings`:
 
 ![Physics LowLevel Settings Asset](./Images/LowLevelPhysicsSettings2D.png)
