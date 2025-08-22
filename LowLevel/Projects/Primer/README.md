@@ -4,13 +4,13 @@
 
 ### Namespace
 
-The low-level physics API discussed below exists entirely in `UnityEngine.LowLevelPhysics2D`.
+The low-level physics API discussed below exists entirely in the `UnityEngine.LowLevelPhysics2D` namespace
 A good jumping off point is the `PhysicsWorld` type found [here](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.html).
  
 ### Objects
-The low-level physics in Unity directly exposes a high-performance physics engine [Box2D v3](https://github.com/erincatto/box2d) in a way that is not tied to using GameObjects or Components.
+The low-level physics in Unity (referred to as the "API") directly exposes a high-performance physics engine [Box2D v3](https://github.com/erincatto/box2d) in a way that is not tied to using GameObjects or Components.
 For this reason, the objects do not exist in the Unity Editor Inspector, however they can be used in scripts and as components so they can be exposed and therefore configured in the inspector.
-All physics API types are `structs` and many are serializable allowing them to be persisted and edited in components in the Editor inspector.
+All the API types are `structs` and many are serializable allowing them to be persisted and edited in components in the Editor inspector.
 
 The API is designed to present a friendly, object-oriented way to create, configure and destroy objects however behind the scenes things are quite different!
 All objects that are created are actually `read-only structs` that contain only a 64-bit opaque handle to the actual object that is stored inside the engine in an efficient, memory-access friendly way.
@@ -26,15 +26,21 @@ This is achieved by the use of WORM (Write-Once / Read-Many) lock system. This m
 The locking mechanism tries not to "starve" writers as when a write-operation is required, it blocks further reads, processes all current readers, performs the write-operation then processes readers again.
 This locking has an extremely low overhead and provides the huge benefit of being able to use most of the API in C# Jobs.
 Nevertheless, care must be taken when performing mixed read/write operations across many threads as performance can suffer if you're not careful.
-A final note is that locking is per-world so for instance, you can perform write operations on different worlds in parallel without issue.
+
+A final note is that locking is per-world so for instance, you can perform write operations on different worlds in parallel without any read/write contentions.
 
 ### GC
 All the API is GC friendly meaning no C# heap allocations are made.
-This is primarily due to the fact that everything that is allocated is done inside the engine with only the readonly `struct` containing a handle being used in C#.
-Another reason is that any method or property that returns a set of values or accepts a set of values use `Span<T>` and `NativeArray<T>`.
-For instance, performing a query will return a `NativeArray<T>` of results which you must dispose i.e. `using var results = world.CastRay(...);`
-or when asking for events in the which can be accessed directly inside the engine you can use `Span<BodyEvent> events = world.`
-Additionally, when performing any operation that returns multiple results, irrelevant of what is being returned, offers the option to allocate using the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html), [TempJob](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.TempJob.html) or [Persistent](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Persistent.html) allocator with the default being the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html) allocator.
+This is primarily due to everything being allocated in native engine with objects being returned to C# as a `readonly struct` containing only  64-bit handle.
+
+Another reason is that any method or property that returns a set of values or accepts a set of values uses `NativeArray<T>` and `ReadOnlySpan<T>` respectively.
+
+For instance, performing a query will return a `NativeArray<T>` of results which you must dispose i.e. `using var results = world.CastRay(...);`.
+The operations that return multiple results such as this (irrelevant of what is being returned) all offer the option to allocate using the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html), [TempJob](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.TempJob.html) or [Persistent](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Persistent.html) allocator with the default being the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html) allocator.
+
+When asking for events, those are not copied but are instead accessed <b>directly</b> from inside the engine itself so you can use `ReadOnlySpan<ContactBeginEvent> events = world.contactBeginEvents;` or `var events = world.contactBeginEvents;` as you prefer.
+These do not require deallocation as they are direct memory access.
+
 
 ## Definitions
 
