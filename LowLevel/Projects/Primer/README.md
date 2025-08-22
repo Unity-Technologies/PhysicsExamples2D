@@ -34,6 +34,7 @@ This is primarily due to the fact that everything that is allocated is done insi
 Another reason is that any method or property that returns a set of values or accepts a set of values use `Span<T>` and `NativeArray<T>`.
 For instance, performing a query will return a `NativeArray<T>` of results which you must dispose i.e. `using var results = world.CastRay(...);`
 or when asking for events in the which can be accessed directly inside the engine you can use `Span<BodyEvent> events = world.`
+Additionally, when performing any operation that returns multiple results, irrelevant of what is being returned, offers the option to allocate using the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html), [TempJob](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.TempJob.html) or [Persistent](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Persistent.html) allocator with the default being the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html) allocator.
 
 ## Definitions
 
