@@ -47,7 +47,7 @@ These do not require deallocation as they are direct memory access.
 ---
 ## Definitions
 When you create an object, it is far more efficient to create it with all its properties already set.
-Creating an object and then changing multiple properties is slower than having it setup correctly initially, more so if the properties have side-effects causing recalculations.
+Creating an object and then changing multiple properties is slower than having it setup correctly initially, more so if the properties have side effects causing recalculations.
 To this end, whenever you create an object you can specify a definition with all object types having their own dedicated definition type. For instance, a [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.htm) has a [PhysicsWorldDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition.html)
 and a [PhysicsBody](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.html), a [PhysicsBodyDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition.html) etc.
 
@@ -85,9 +85,9 @@ You can be seen in both the `Sandbox` and `Primer` projects.
 ---
 ## Important New Features
 
-- Ability to work with 2D planes other than the standard XY plane such as the more common to 3D, [PhysicsWorld.TransformPlane.XZ](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformPlane.XZ.html) plane
+- Ability to work with 2D planes other than the standard XY plane such as the more common to 3D, [PhysicsWorld.TransformPlane.XZ](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformPlane.XZ.html) plane.
   Each `PhysicsWorld` has support for working in a selected [TransformPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformPlane.html) with [PhysicsWorld.transformPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-transformPlane.html).
-  Whilst the physics system will render in the selected plane, it is still a 2D physics engine only works with `Vector2` therefore it is 
+  Whilst the physics system will render in the selected plane, it is still a 2D physics engine which only works with `Vector2` therefore it is 
   your responsibility to convert the `Vector2` to/from `Vector3` however there are many `PhysicsMath` utilities to help make this easy such as:
   - [PhysicsMath.ToPhysicsTransform](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMath.ToPhysicsTransform.html)
   - [PhysicsMath.ToPosition3D](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMath.ToPosition3D.html)
@@ -98,19 +98,19 @@ You can be seen in both the `Sandbox` and `Primer` projects.
   - [PhysicsMath.GetRotationAxes](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMath.GetRotationAxes.html)
   - [PhysicsMath.GetTranslationAxes](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMath.GetTranslationAxes.html)
   - Others!
-- Ability to control how many additional worker threads are used (from 0 to 63) to solve the simulation of each world via [PhysicsWorld.simulationWorkers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-simulationWorkers.html)
+- Ability to control how many additional worker threads are used (from 0 to 63) to solve the simulation of each world via [PhysicsWorld.simulationWorkers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-simulationWorkers.html).
   This value is always clamped to the available threads on the device at runtime.
 - Ability to simulate multiple worlds in parallel controlled via [PhysicsWorld.concurrentSimulations](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-concurrentSimulations.html)
 - Ability to use more than the standard 32 layers when controlling contacts and performing queries, now increased to 64 layers via [PhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.html), [PhysicsLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLayers.html) and [PhysicsWorld.useFullLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-useFullLayers.html).
 - Ability to pause a world simulation via [PhysicsWorld.paused](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-paused.html)
 - Dedicated types for physics operations:
   - [PhysicsTransform](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsTransform.html) - Handles three degrees of freedom (position and rotation)
-  - [PhysicsRotate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsRotate.html) - Handles single axis rotation (a sub-component of `PhysicsTransform`)
+  - [PhysicsRotate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsRotate.html) - Handles single axis rotation (a subcomponent of `PhysicsTransform`)
   - [PhysicsLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLayers.html) - Handles 64 named layers using `PhysicsMask`. This is a 64-bit equivalent of `LayerMask`. 
-  - [PhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.html) - Handles 64-bit masking for layers, contact control, queries etc (a new UIElement type of [Mask64Field](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/UIElements.Mask64Field.html) was created for this).
+  - [PhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.html) - Handles 64-bit masking for layers, contact control, queries etc. (a new UIElement type of [Mask64Field](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/UIElements.Mask64Field.html) was created for this).
   - [PhysicsPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsPlane.html) - Handles a 2D plane (limited use for now but future use with `PhysicsWorld.CastMover`)
   - [PhysicsAABB](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsAABB.html) - Handles 2D bounds
-- Event system (read as `Span<T>`):
+- Event system (read as `ReadOnlySpan<T>`):
   - [PhysicsEvents.PreSimulate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsEvents.PreSimulate.html) - Callback per-world called prior to any simulation step
   - [PhysicsEvents.PostSimulate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsEvents.PostSimulate.html) - Callback per-world called after any simulation step
   - [PhysicsWorld.bodyUpdateEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-bodyUpdateEvents.html) - Event produced when a `PhysicsBody` is updated by the simulation
@@ -141,8 +141,8 @@ You can be seen in both the `Sandbox` and `Primer` projects.
     - [PhysicsWorld.sendJointThresholdCallbacks()](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendJointThresholdCallbacks.html)
 - Dedicated math utilities: [PhysicsMath](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMath.html).
 - Speculative contact system via [PhysicsWorld.speculativeContactDistance](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-speculativeContactDistance.html).
-- Definition-based configuration for all objects including the `[PhysicsWorld]` meaning each world can be configured independently.
-- Support for per-object custom data to aid in scripting logic for identification, debugging (etc) via [PhysicsUserData](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsUserData.html).
+- Definition-based configuration for all objects including the `PhysicsWorld` meaning each world can be configured independently.
+- Support for per-object custom data to aid in scripting logic for identification, debugging (etc.) via [PhysicsUserData](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsUserData.html).
   - [PhysicsWorld.userData](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-userData.html)
   - [PhysicsBody.userData](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-userData.html)
   - [PhysicsShape.userData](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape-userData.html)
@@ -275,7 +275,7 @@ There are many properties available in each world to control the world drawing i
 [PhysicsWorld.drawThickness](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-drawThickness.html)
 and many more.
 
-In addition to drawing the automatic drawing contents of a world you can explicitly perform draw operations yourself, specifying colors, fill-options, lifetime (etc) for the drawing:
+In addition to drawing the automatic drawing contents of a world you can explicitly perform draw operations yourself, specifying colors, fill-options, lifetime (etc.) for the drawing:
 - [PhysicsWorld.DrawBox](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.DrawBox.html)
 - [PhysicsWorld.DrawCapsule](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.DrawCapsule.html)
 - [PhysicsWorld.DrawCircle](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.DrawCircle.html)
@@ -305,8 +305,8 @@ Here's an example showing the component on a GameObject. No children GameObject 
 ---
 ## Ownership
 
-When authoring components, especially when providing them to external developers, you want to ensure that objects you create with the API i.e. `PhysicsWorld`, `PhysicsBody`, `PhysicsShape`, `PhysicsChain`, `PhysicsJoint` etc are not deleted.
-For example, if you provide the "Gear" component above and it is happily working in a scene and a developer performs a world query and detects one of the `PhysicsShape` which is a "tooth" in your gear.
+When authoring components, especially when providing them to external developers, you want to ensure that objects you create with the API i.e. `PhysicsWorld`, `PhysicsBody`, `PhysicsShape`, `PhysicsChain`, `PhysicsJoint` etc. are not deleted.
+For example, if you provide the "Gear" component above, and it is happily working in a scene and a developer performs a world query and detects one of the `PhysicsShape` which is a "tooth" in your gear.
 The user decides this is a shape they wish to destroy so they perform a [PhysicsShape.Destroy()](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.Destroy.html) call.
 This is a perfectly fine thing to do from the devs point-of-view however suddenly, the "Gear" component is missing a tooth both visibly (via the debug renderer) and no longer collides at that tooth position!
 The dev may have accidentally destroyed this but from their point-of-view, the "Gear" component has "randomly" stopped working correctly!
@@ -380,7 +380,7 @@ class GearComponent : MonoBehaviour
 
 This would allow the `PhysicsBody` to be destroyed.
 As a component author, you may wish to allow this so you simply don't set yourself as an owner.
-Typically such components want their lifetime controlled by the component lifetime.
+Typically, such components want their lifetime controlled by the component lifetime.
 The aim here is not to provide cryptographic security but instead provide a deterrent mechanism which makes it difficult to perform actions which would lead to undesirable results.
 A prime example of this is where Unity creates a default World, however it is owned by Unity and cannot be destroyed for this reason.
 
