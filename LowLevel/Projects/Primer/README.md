@@ -6,7 +6,8 @@
 
 The low-level physics API discussed below exists entirely in the `UnityEngine.LowLevelPhysics2D` namespace
 A good jumping off point is the `PhysicsWorld` type found [here](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.html).
- 
+
+---
 ### Objects
 The low-level physics in Unity (referred to as the "API") directly exposes a high-performance physics engine [Box2D v3](https://github.com/erincatto/box2d) in a way that is not tied to using GameObjects or Components.
 For this reason, the objects do not exist in the Unity Editor Inspector, however they can be used in scripts and as components so they can be exposed and therefore configured in the inspector.
@@ -20,6 +21,7 @@ Because everything is a `struct`, they can also be store in native-containers wh
 Finally, if an object is destroyed, its handle simply becomes invalid and any subsequent access using that handle will result in a nice clear message in the console indicating the issue.
 The same is applied to all arguments for all methods on such an object; if any are out-of-range or invalid, a clear message will be displayed in the console.
 
+---
 ### Multi-threading Support
 Most of the API is thread-safe therefore you can freely perform read and write operations off the main-thread.
 This is achieved by the use of WORM (Write-Once / Read-Many) lock system. This means you can perform unlimited read operations in parallel but only a single thread can perform a write operation.
@@ -29,6 +31,7 @@ Nevertheless, care must be taken when performing mixed read/write operations acr
 
 A final note is that locking is per-world so for instance, you can perform write operations on different worlds in parallel without any read/write contentions.
 
+---
 ### GC
 All the API is GC friendly meaning no C# heap allocations are made.
 This is primarily due to everything being allocated in native engine with objects being returned to C# as a `readonly struct` containing only  64-bit handle.
@@ -41,9 +44,8 @@ The operations that return multiple results such as this (irrelevant of what is 
 When asking for events, those are not copied but are instead accessed <b>directly</b> from inside the engine itself so you can use `ReadOnlySpan<ContactBeginEvent> events = world.contactBeginEvents;` or `var events = world.contactBeginEvents;` as you prefer.
 These do not require deallocation as they are direct memory access.
 
-
+---
 ## Definitions
-
 When you create an object, it is far more efficient to create it with all its properties already set.
 Creating an object and then changing multiple properties is slower than having it setup correctly initially, more so if the properties have side-effects causing recalculations.
 To this end, whenever you create an object you can specify a definition with all object types having their own dedicated definition type.
@@ -81,27 +83,11 @@ This provides all the available defaults for all definitions and other important
 
 You can see this being used in both the `Sandbox` project and the `Primer` projects.
 
-## Primary Physics Types
-
-### PhysicsWorld
-
-A [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.htm) also known simply as a "world" is an isolated container for all other objects.
-Multiple worlds can be created and simulated concurrently with the maximum number of worlds allowed being specified by [PhysicsConstants.MaxWorlds](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsConstants.MaxWorlds.html).
-The `PhysicsWorld` is the only object that has a fixed limit, all other objects created in a world can be created without limit.
-
-Any objects in one world cannot (in any way) be affected by objects in another world and thus are completely isolated in behaviour and in memory.
-This is why multiple worlds can be simulated concurrently.
-All objects created encode the world they exist in inside their handle so it is not possible to accidentally work with an object outside a world it exists. The context is permanent and safe.
-
-All worlds can control when and how they simulate via [PhysicsWorld.simulationMode](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-simulationMode.html) or
-[PhysicsWorldDefinition.simulationMode](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition-simulationMode.html).
-When the simulation mode is either [SimulationMode.FixedUpdate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SimulationMode2D.FixedUpdate.html) or
-[SimulationMode.Update](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SimulationMode2D.Update.html), the world will automatically be simulated at those times.
-
-#### Important New Features
+---
+## Important New Features
 
 - Ability to work with 2D planes other than the standard XY plane such as the more common to 3D, [PhysicsWorld.TransformPlane.XZ](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformPlane.XZ.html) plane.
-Each `PhysicsWorld` has support for working in a selected [TransformPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformPlane.html) with [PhysicsWorld.transformPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-transformPlane.html).
+  Each `PhysicsWorld` has support for working in a selected [TransformPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformPlane.html) with [PhysicsWorld.transformPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-transformPlane.html).
 - Ability to control how many additional worker threads are used (from 0 to 63) to solve the simulation of each world via [PhysicsWorld.simulationWorkers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-simulationWorkers.html).
 - Ability to simulate multiple worlds in parallel controlled via [PhysicsWorld.concurrentSimulations](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-concurrentSimulations.html).
 - Ability to use more than the standard 32 layers when controlling contacts and performing queries, now increased to 64 layers via [PhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.html), [PhysicsLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLayers.html) and [PhysicsWorld.useFullLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-useFullLayers.html).
@@ -113,19 +99,19 @@ Each `PhysicsWorld` has support for working in a selected [TransformPlane](https
   - [PhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.html) - Handles 64-bit masking for layers, contact control, queries etc.
   - [PhysicsPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsPlane.html) - Handles a 2D plane (limited use for now but future use with `PhysicsWorld.CastMover`)
   - [PhysicsAABB](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsAABB.html) - Handles a 2D bounds
-  Event system (read as `Span<T>`):
+    Event system (read as `Span<T>`):
   - [PhysicsEvents.PreSimulate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsEvents.PreSimulate.html) - Callback per-world called prior to any simulation step
-  - [PhysicsEvents.PostSimulate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsEvents.PostSimulate.html) - Callback per-world called after any simulation step 
+  - [PhysicsEvents.PostSimulate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsEvents.PostSimulate.html) - Callback per-world called after any simulation step
   - [PhysicsWorld.bodyUpdateEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-bodyUpdateEvents.html) - Event produced when a `PhysicsBody` is updated by the simulation
   - [PhysicsWorld.contactBeginEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-contactBeginEvents.html) - Event produced when a pair of `PhysicsShape` come into contact
   - [PhysicsWorld.contactEndEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-contactEndEvents.html) - Event produced when a pair of `PhysicsShape` stop contacting
   - [PhysicsWorld.contactHitEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-contactHitEvents.html) - Event produced when a pair of `PhysicsShape` come into contact beyond a specified threshold
-  - [PhysicsWorld.triggerBeginEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-triggerBeginEvents.html) - Event produced when a pair of `PhysicsShape` (configured as a [trigger](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape-isTrigger.html)) start overlapping 
+  - [PhysicsWorld.triggerBeginEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-triggerBeginEvents.html) - Event produced when a pair of `PhysicsShape` (configured as a [trigger](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape-isTrigger.html)) start overlapping
   - [PhysicsWorld.triggerEndEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-triggerEndEvents.html) - Event produced when a pair of `PhysicsShape` (configured as a [trigger](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape-isTrigger.html)) stop overlapping
   - [PhysicsWorld.jointThresholdEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-jointThresholdEvents.html) - Event produced when a `PhysicsJoint` exceeds its [force](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsJoint-forceThreshold.html) or [torque](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsJoint-torqueThreshold.html) threshold
 - Callback system producing callbacks to specified [MonoBehaviour](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/MonoBehaviour.html) relevant objects:
   - Callback targets set via [xxx.callbackTarget](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/30_search.html?q=callbacktarget) and called if object implements:
-    - [PhysicsCallbacks.IContactFilterCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IContactFilterCallback.html) - Allows controlling if a contact will be allowed or not prior to being sent to the solver 
+    - [PhysicsCallbacks.IContactFilterCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IContactFilterCallback.html) - Allows controlling if a contact will be allowed or not prior to being sent to the solver
     - [PhysicsCallbacks.IPreSolveCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IPreSolveCallback.html) - Allows controlling if a contact is enabled or disabled prior to solving
     - [PhysicsCallbacks.IBodyUpdateCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IBodyUpdateCallback.html) - Provides notification that a `PhysicsBody` was updated in position/rotation or fell asleep during the simulation step
     - [PhysicsCallbacks.IContactCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IContactCallback.html) - Provides notification of both contact begin and contact end ends for a pair of `PhysicsShape`
@@ -137,11 +123,11 @@ Each `PhysicsWorld` has support for working in a selected [TransformPlane](https
     - [PhysicsWorld.autoTriggerCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-autoTriggerCallbacks.html)
     - [PhysicsWorld.autoJointThresholdCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-autoJointThresholdCallbacks.html)
   - Event-related callbacks can be manually sent from a world at any time via:
-      - [PhysicsWorld.sendAllCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendAllCallbacks.html)
-      - [PhysicsWorld.sendBodyUpdateCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendBodyUpdateCallbacks.html)
-      - [PhysicsWorld.sendContactCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendContactCallbacks.html)
-      - [PhysicsWorld.sendTriggerCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendTriggerCallbacks.html)
-      - [PhysicsWorld.sendJointThresholdCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendJointThresholdCallbacks.html)
+    - [PhysicsWorld.sendAllCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendAllCallbacks.html)
+    - [PhysicsWorld.sendBodyUpdateCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendBodyUpdateCallbacks.html)
+    - [PhysicsWorld.sendContactCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendContactCallbacks.html)
+    - [PhysicsWorld.sendTriggerCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendTriggerCallbacks.html)
+    - [PhysicsWorld.sendJointThresholdCallbacks](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-sendJointThresholdCallbacks.html)
 - Dedicated math utilities: [PhysicsMath](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMath.html).
 - Speculative contact system via [PhysicsWorld.speculativeContactDistance](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-speculativeContactDistance.html).
 - Definition-based configuration for all objects including the `[PhysicsWorld]` meaning each world can be configured independently.
@@ -152,7 +138,7 @@ Each `PhysicsWorld` has support for working in a selected [TransformPlane](https
   - [PhysicsChain.userData](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsChain-userData.html)
   - [PhysicsJoint.userData](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsJoint-userData.html)
 - Dedicated Geometry types used for creating `PhysicsShape`, queries and debug drawing:
-  - Types: 
+  - Types:
     - [CircleGeometry](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.CircleGeometry.html)
     - [CapsuleGeometry](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.CapsuleGeometry.html)
     - [PolygonGeometry](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PolygonGeometry.html)
@@ -176,17 +162,34 @@ Each `PhysicsWorld` has support for working in a selected [TransformPlane](https
   - Ability to <b>destruct `PolygonGeometry`</b> in two ways:
     - Fragment geometry using specified fracture points with masking support (for carving) via [PhysicsDestructor.Fragment](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsDestructor.Fragment.html)
     - Slice geometry in two along a ray via [PhysicsDestructor.Slice](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsDestructor.Slice.html)
- - Much more! 
+- Much more!
+
+---
+## Primary Physics Types
+### PhysicsWorld
+
+A [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.htm) also known simply as a "world" is an isolated container for all other objects.
+Multiple worlds can be created and simulated concurrently with the maximum number of worlds allowed being specified by [PhysicsConstants.MaxWorlds](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsConstants.MaxWorlds.html).
+The `PhysicsWorld` is the only object that has a fixed limit, all other objects created in a world can be created without limit.
+
+Any objects in one world cannot (in any way) be affected by objects in another world and thus are completely isolated in behaviour and in memory.
+This is why multiple worlds can be simulated concurrently.
+All objects created encode the world they exist in inside their handle so it is not possible to accidentally work with an object outside a world it exists. The context is permanent and safe.
+
+All worlds can control when and how they simulate via [PhysicsWorld.simulationMode](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-simulationMode.html) or
+[PhysicsWorldDefinition.simulationMode](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition-simulationMode.html).
+When the simulation mode is either [SimulationMode.FixedUpdate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SimulationMode2D.FixedUpdate.html) or
+[SimulationMode.Update](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SimulationMode2D.Update.html), the world will automatically be simulated at those times.
+
  
 Each world also has many other properties to control a wide range of behaviour options for the objects contained within it.
-
 
 Whilst you can create a new `PhysicsWorld`, <b>it is far more common to use a single world, therefore a single world is automatically created for you</b> and is known as the "default world" and can always be accessed via [PhysicsWorld.defaultWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-defaultWorld.html).
 
 It is common to see code that uses `var world = PhysicsWorld.defaultWorld;` and then proceeds to use the `world` variable to access the world, create/destroy objects etc.
 
+---
 ### PhysicsBody
-
 A [PhysicsBody](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.html) also known simply as a "body" exists within a specific world.
 The role of a body is to maintain a position and rotation within a world and allow both shapes and joints (constraints) to be connected to them.
 
@@ -195,6 +198,7 @@ A body is the only object in a world that can move as it is the only object that
 properties such as [PhysicsBody.linearVelocity](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-linearVelocity.html) or
 [PhysicsBody.angularVelocity](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-angularVelocity.html) etc.
 
+---
 ### PhysicsShape
 A [PhysicsShape](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.html) represents a primitive shape type attached to a `PhysicsBody`.
 The role of a shape is to specify both a region relative to the `PhysicsBody` it is attached to and dynamic behaviour for when that region touches or overlaps another `PhysicsShape` on another `PhysicsBody`.
@@ -206,6 +210,7 @@ Each shape type has its own geometry type i.e. [PhysicsShape.ShapeType.Circle](h
 
 A shape is created via a body in the world with code such as `var shape = body.CreateShape(geometry);` or `var shape = PhysicsShape.Create(body, geometry);` etc.
 
+---
 ### PhysicsJoint
 A [PhysicsJoint](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsJoint.html) represents a dynamic constraint between two `PhysicsBody`.
 The role of a joint is one of a constraint behaviour ranging from maintaining a distance, restricting motions along an axis and/or rotation to ignoring contacts between two bodies.
@@ -214,13 +219,12 @@ There are a fixed set of joint types as indicated by [PhysicsJoint.jointType](ht
 
 A joint is created in a world with code such as `var joint = world.CreateJoint(definition);` or the concrete call (depending on the joint type) of `var joint = PhysicsDistanceJoint.Create(world, definition);`.
 
+---
 ### Queries
-
 Many spatial queries are provided to allow interrogating the world and its contents, specifically the `PhysicsShape` that exist attached to `PhysicsBody`.
 All queries are provided as methods of the `PhysicsWorld` type and are used on any instance of a `PhysicsWorld`.
 
 #### Overlap Queries
-
 An overlap takes geometry and queries if it overlaps any `PhysicsShape` in the world, returning what it overlapped.
 Each overlap query has an alterative which performs the same action however it only returns true/false (bool) if the overlap found anything, these are all prefixed with "Test".
 
@@ -236,7 +240,6 @@ Each overlap query has an alterative which performs the same action however it o
 - [PhysicsWorld.TestOverlapShapeProxy](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TestOverlapShapeProxy.html)
 
 #### Cast Queries
-
 A cast takes geometry, sweeps it through the world and queries if it contacts any `PhysicsShape`, returning what it contacted.
 
 - [PhysicsWorld.CastRay](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastRay.html)
@@ -245,8 +248,8 @@ A cast takes geometry, sweeps it through the world and queries if it contacts an
 - [PhysicsWorld.CastShapeProxy](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastShapeProxy.html)
 - [PhysicsWorld.CastMover](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastMover.html)
 
+---
 ### Debug Drawing
-
 A `PhysicsWorld` has its own debug drawing capabilities allowing its contents to be automatically drawn and therefore visualised within the Editor Game and Scene windows.
 The drawing system uses a high-performance set of compute-based shaders with multi-instancing support to render as efficiently as possible.
 
