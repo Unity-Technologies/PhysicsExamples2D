@@ -12,9 +12,9 @@ The low-level physics in Unity directly exposes a high-performance physics engin
 For this reason, the objects do not exist in the Unity Editor Inspector, however they can be used in scripts and as components so they can be exposed and therefore configured in the inspector.
 All physics API types are `structs` and many are serializable allowing them to be persisted and edited in components in the Editor inspector.
 
-The API is designed to present a friendly, object-oriented way to create, configure and destroy objects however behind the scene things are quite different.
-All objects that are created are actually read-only structs that contain only a handle to the actual object that is stored inside the engine in an efficient, memory-access friendly way.
-This has the benefit that objects can be passed around efficiently, even off the main-thread in C# Jobs.
+The API is designed to present a friendly, object-oriented way to create, configure and destroy objects however behind the scenes things are quite different!
+All objects that are created are actually `read-only structs` that contain only a 64-bit opaque handle to the actual object that is stored inside the engine in an efficient, memory-access friendly way.
+You should never explicitly care about this handle as it's implicitly used for you by the API however, this handle-based approach has the benefit that objects can be passed around efficiently, even off the main-thread in C# Jobs.
 Because everything is a `struct`, they can also be store in native-containers which only support struct storage.
 
 Finally, if an object is destroyed, its handle simply becomes invalid and any subsequent access using that handle will result in a nice clear message in the console indicating the issue.
