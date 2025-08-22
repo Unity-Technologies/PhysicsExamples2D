@@ -203,7 +203,18 @@ It is common to see code that uses `var world = PhysicsWorld.defaultWorld;` and 
 A [PhysicsBody](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.html) also known simply as a "body" exists within a specific world.
 The role of a body is to maintain a position and rotation within a world and allow both shapes and joints (constraints) to be connected to them.
 
-A body is created in a world with code such as `var body = world.CreateBody();` or `var body = PhysicsBody.Create(world);`
+A body can be created like so:
+```csharp
+void Create()
+{
+    // Fetch the default world.
+    var world = PhysicsWorld.defaultWorld;
+
+    // Create a body.
+    var body = world.CreateBody(); 
+}
+```
+
 A body is the only object in a world that can move as it is the only object that knows about position and rotation and as such it contains many properties that control movement with
 properties such as [PhysicsBody.linearVelocity](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-linearVelocity.html) or
 [PhysicsBody.angularVelocity](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-angularVelocity.html) etc.
@@ -218,7 +229,19 @@ When creating a `PhysicsShape`, along with a [PhysicsShapeDefinition](https://do
 Each shape type has its own geometry type i.e. [PhysicsShape.ShapeType.Circle](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.ShapeType.Circle.html) uses [CircleGeometry](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.CircleGeometry.html),
 [PhysicsShape.ShapeType.Capsule](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.ShapeType.Capsule.html) uses [CapsuleGeometry](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.CapsuleGeometry.html) etc.
 
-A shape is created via a body in the world with code such as `var shape = body.CreateShape(geometry);` or `var shape = PhysicsShape.Create(body, geometry);` etc.
+```csharp
+void Create()
+{
+    // Fetch the default world.
+    var world = PhysicsWorld.defaultWorld;
+
+    // Create a body.
+    var body = world.CreateBody();
+    
+    // Create a shape.
+    var shape = body.CreateShape(CircleGeometry.defaultGeometry)
+}
+```
 
 ---
 ### PhysicsJoint
