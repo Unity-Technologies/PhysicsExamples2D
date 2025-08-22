@@ -276,7 +276,7 @@ There are many properties available in each world to control the world drawing i
 [PhysicsWorld.drawThickness](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-drawThickness.html)
 and many more.
 
-In addition to drawing the contents of the world you can explicitly draw yourself, specifying colors, fill-options and even lifetime for the drawing:
+In addition to drawing the automatic drawing contents of a world you can explicitly perform draw operations yourself, specifying colors, fill-options, lifetime (etc) for the drawing:
 - [PhysicsWorld.DrawBox](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.DrawBox.html)
 - [PhysicsWorld.DrawCapsule](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.DrawCapsule.html)
 - [PhysicsWorld.DrawCircle](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.DrawCircle.html)
@@ -287,5 +287,103 @@ In addition to drawing the contents of the world you can explicitly draw yoursel
 - [PhysicsWorld.DrawTransformAxis](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.DrawTransformAxis.html)
 - [PhysicsWorld.ClearDraw](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.ClearDraw.html)
 
+---
+### Authoring Components
 
+The API has been designed not only to provide a fast physics system but also to provide developers with the ability to create and package new higher-level componentry composed of the "low level" types provided in this API.
+For instance, it is entirely possible to create a single Unity script component that exposes a handful of public properties that would allow a technical artist or game designer to configure the component.
+There is nothing new in this however this API makes that process much cleaner, only exposing what the properties required with no other visible components appearing the scene. 
 
+For example, let's say we want a "Gear" component. We want properties to configure the gear radius, how many teeth, the size of the teeth, gear motor properties, what it can contact with etc.
+
+With this API, this can be created as a single component, generating the appropriate `PhysicsBody`, `PhysicsShape`, `PhysicsJoint` (etc.) which are not visible external to the component.
+This component can be placed in a scene and it will just work. Many of these components can be created and provided (for example) on the Asset Store and again, they will just work out-of-the-box.
+
+Here's an example showing the component on a GameObject. No children GameObject are required to "hide" other components to support it, it's completely self-contained:
+
+![Gear Component Custom](./Images/GearComponent-Custom.png)
+
+---
+### Ownership
+
+When authoring components, especially when providing them to external developers, you want to ensure that objects you create with the API i.e. `PhysicsWorld`, `PhysicsBody`, `PhysicsShape`, `PhysicsChain`, `PhysicsJoint` etc are not deleted.
+For example, if you provide the "Gear" component above and it is happily working in a scene and a developer performs a world query and detects one of the `PhysicsShape` which is a "tooth" in your gear.
+The user decides this is a shape they wish to destroy so they perform a [PhysicsShape.Destroy()](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.Destroy.html) call.
+This is a perfectly fine thing to do from the devs point-of-view however suddenly, the "Gear" component is missing a tooth both visibly (via the debug renderer) and no longer collides at that tooth position!
+The dev may have accidentally destroyed this but from their point-of-view, the "Gear" component has "randomly" stopped working correctly!
+
+To aid in stopping this helping this situation where components are authored containing "low level" types from the API, a feature known as "ownership" or "owning" is available.
+This is simple feature but offers some gate-keeping measures to help the previously described situation.
+
+Whenever you create an object such as a `PhysicsWorld`, `PhysicsBody`, `PhysicsShape`, `PhysicsChain` or `PhysicsJoint`, you can choose to "own" it.
+To do this, you simply set ownership. As an example with a `PhysicsBody`, you can do the following:
+```csharp
+class GearComponent : MonoBehaviour
+{
+    PhysicsBody m_PhysicsBody;
+    int m_OwnerKey;
+    
+    void OnEnable()
+    {
+        // Get the default world.
+        var world = PhysicsWorld.defaultWorld;
+          
+        // Create a body.
+        m_PhysicsBody = world.CreateBody();
+        
+        // Assign my component script as the owner (optional) and return an "owner key" (integer).
+        // Once ownership is set, it cannot be changed!
+        m_OwnerKey = m_PhysicsBody.SetOwner(this);
+    }
+}
+```
+
+That's it, but what has this done?  Well, if anyone were to perform the following script:
+
+```csharp
+// Be gone shape!
+body.Destroy();
+```
+... the body would <b>not</b> be destroyed!
+
+Instead, the API would output link to the object with a console warning of:
+`UnityEngine.LowLevelPhysics2D.PhysicsBody.Destroy was called but encountered a problem: Cannot destroy a body that is owned without a valid owner key being specified.`
+
+This means that to destroy that `PhysicsBody`, you must specify the "owner key" that was returned when you originally asked for ownership.
+
+This is done like this:
+```csharp
+class GearComponent : MonoBehaviour
+{
+    PhysicsBody m_PhysicsBody;
+    int m_OwnerKey;
+    
+    void OnEnable()
+    {
+        // Get the default world.
+        var world = PhysicsWorld.defaultWorld;
+          
+        // Create a body.
+        m_PhysicsBody = world.CreateBody();
+        
+        // Assign my component script as the owner (optional) and return an "owner key" (integer).
+        // Once ownership is set, it cannot be changed!
+        m_OwnerKey = m_PhysicsBody.SetOwner(this);
+    }
+    
+    void OnDisable()
+    {
+      // Destroy the body.
+      m_PhysicsBody.Destroy(m_OwnerKey);        
+    }
+}
+```
+
+This would allow the `PhysicsBody` to be destroyed.
+As a component author, you may wish to allow this so you simply don't set yourself as an owner.
+Typically such components want their lifetime controlled by the component lifetime.
+The aim here is not to provide cryptographic security but instead provide a deterrent mechanism which makes it difficult to perform actions which would lead to undesirable results.
+A prime example of this is where Unity creates a default World, however it is owned by Unity and cannot be destroyed for this reason.
+
+---
+### WIP
