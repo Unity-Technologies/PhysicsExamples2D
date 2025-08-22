@@ -48,9 +48,7 @@ These do not require deallocation as they are direct memory access.
 ## Definitions
 When you create an object, it is far more efficient to create it with all its properties already set.
 Creating an object and then changing multiple properties is slower than having it setup correctly initially, more so if the properties have side-effects causing recalculations.
-To this end, whenever you create an object you can specify a definition with all object types having their own dedicated definition type.
-
-For instance, a [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.htm) has a [PhysicsWorldDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition.html)
+To this end, whenever you create an object you can specify a definition with all object types having their own dedicated definition type. For instance, a [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.htm) has a [PhysicsWorldDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition.html)
 and a [PhysicsBody](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.html), a [PhysicsBodyDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition.html) etc.
 
 All definitions also have a default which can always be accessed via a static `.defaultDefinition` property on the definition type itself i.e.
@@ -59,7 +57,8 @@ All definitions also have a default which can always be accessed via a static `.
 
 Also, methods used to create objects that accept the appropriate definition, also accept no arguments which will mean the object will implicitly use the appropriate default definition for convenience.
 
-Even more powerful is that even these defaults are <b>not</b> hardwired but can themselves be configured via a dedicated asset of [PhysicsLowLevelSettings](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLowLevelSettings2D.html).
+Even more powerful is that even these defaults are <b>not</b> hardwired but can themselves be configured via a dedicated asset of [PhysicsLowLevelSettings2D](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLowLevelSettings2D.html) (the only `class` type in the API!)
+
 This asset can be created via the Assets menu under `Create > 2D > Physics LowLevel Settings`:
 
 ![Physics LowLevel Settings Asset](./Images/LowLevelPhysicsSettings2D.png)
@@ -73,15 +72,15 @@ You can then select the asset and edit it directly in the Editor:
 ![Physics LowLevel Settings Inspector](./Images/LowLevelPhysicsSettings2D-Inspector.png)
 
 This provides all the available defaults for all definitions and other important global settings such as:
-- The number of concurrent world simulations that should happen
-- The lengths units-per-meter (used when larger scales are required i.e. pixels as meters etc)
+- The number of concurrent world simulations that are allowed
+- The length units-per-meter (used when larger scales are required i.e. pixels as meters etc)
 - If the debug renderer is available in player builds
-- If the whole low-level physics system is bypassed (no simulation and rendering allowed)
-- If the full 64-bit layer system should be used in which case, all the property drawers will display `PhysicsLayers`
+- If the whole low-level physics system should be bypassed (no simulation and rendering allowed)
+- If the full 64-bit layer system should be used in which case, all the property drawers will display names from the specified `PhysicsLayers`
 - The `PhysicsLayer` names
 - etc.
 
-You can see this being used in both the `Sandbox` project and the `Primer` projects.
+You can be seen in both the `Sandbox` and `Primer` projects.
 
 ---
 ## Important New Features
