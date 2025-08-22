@@ -8,8 +8,8 @@ The low-level physics API discussed below exists entirely in `UnityEngine.LowLev
 A good jumping off point is the `PhysicsWorld` type found [here](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.html).
  
 ### Objects
-The low-level physics in Unity, directly exposes a high-performance physics engine in a way that is not tied to using GameObjects or Components.
-For this reason, the objects do exist in the Unity Editor inspector however they can be used in scripts and as components they can be exposed in the inspector.
+The low-level physics in Unity directly exposes a high-performance physics engine [Box2D v3](https://github.com/erincatto/box2d) in a way that is not tied to using GameObjects or Components.
+For this reason, the objects do not exist in the Unity Editor Inspector, however they can be used in scripts and as components so they can be exposed and therefore configured in the inspector.
 All physics API types are `structs` and many are serializable allowing them to be persisted and edited in components in the Editor inspector.
 
 The API is designed to present a friendly, object-oriented way to create, configure and destroy objects however behind the scene things are quite different.
