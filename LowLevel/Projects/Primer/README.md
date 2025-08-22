@@ -291,7 +291,7 @@ In addition to drawing the automatic drawing contents of a world you can explici
 
 The API has been designed not only to provide a fast physics system but also to provide developers with the ability to create and package new higher-level componentry composed of the "low level" types provided in this API.
 For instance, it is entirely possible to create a single Unity script component that exposes a handful of public properties that would allow a technical artist or game designer to configure the component.
-There is nothing new in this however this API makes that process much cleaner, only exposing what the properties required with no other visible components appearing the scene. 
+There is nothing new in this however this API makes that process much cleaner, only exposing the properties required with no other visible components appearing the scene. 
 
 For example, let's say we want a "Gear" component. We want properties to configure the gear radius, how many teeth, the size of the teeth, gear motor properties, what it can contact with etc.
 
