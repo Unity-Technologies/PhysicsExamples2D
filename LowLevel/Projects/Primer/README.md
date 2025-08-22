@@ -22,7 +22,7 @@ The same is applied to all arguments for all methods on such an object; if any a
 
 ### Multi-threading Support
 Most of the API is thread-safe therefore you can freely perform read and write operations off the main-thread.
-This is achieved by the use of WORM (Write-once, Read-many) locks. This means you can perform unlimited read operations in parallel but only a single thread and perform a write operation.
+This is achieved by the use of WORM (Write-once, Read-many) locks. This means you can perform unlimited read operations in parallel but only a single thread can perform a write operation.
 The locking mechanism tries not to "starve" writers as when a write-operation is required, it blocks further reads, processes all current readers, performs the write-operation then processes readers again.
 This locking has an extremely low overhead and provides the huge benefit of being able to use most of the API in C# Jobs.
 Nevertheless, care must be taken when performing mixed read/write operations across many threads as performance can suffer if you're not careful.
