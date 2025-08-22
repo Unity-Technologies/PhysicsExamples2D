@@ -1,4 +1,4 @@
-### Physics 2D LowLevel Sandbox
+# Physics 2D LowLevel Sandbox
 
 This repository contains examples that can be built to a player.
 
@@ -9,6 +9,8 @@ To run, load the main "Sandbox" scene and press "Play". Alternately, build to a 
 Each sample can be found in `Assets/Scenes/<Category>/<SampleName>` and all share the same configuration.
 
 In each sample there is at least a single ".cs" file containing all the sample code. There's also a ".unity" scene and finally a ".uxml" for the sample UI.
+
+---
 
 The structure of the ".cs" script file is consistent for all samples and typically contains the following methods:
 
