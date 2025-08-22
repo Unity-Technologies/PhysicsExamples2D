@@ -192,8 +192,7 @@ All worlds can control when and how they simulate via [PhysicsWorld.simulationMo
 When the simulation mode is either [SimulationMode.FixedUpdate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SimulationMode2D.FixedUpdate.html) or
 [SimulationMode.Update](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/SimulationMode2D.Update.html), the world will automatically be simulated at those times.
 
- 
-Each world also has many other properties to control a wide range of behaviour options for the objects contained within it.
+ Each world also has many other properties to control a wide range of behaviour options for the objects contained within it.
 
 Whilst you can create a new `PhysicsWorld`, <b>it is far more common to use a single world, therefore a single world is automatically created for you</b> and is known as the "default world" and can always be accessed via [PhysicsWorld.defaultWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-defaultWorld.html).
 
@@ -231,11 +230,11 @@ There are a fixed set of joint types as indicated by [PhysicsJoint.jointType](ht
 A joint is created in a world with code such as `var joint = world.CreateJoint(definition);` or the concrete call (depending on the joint type) of `var joint = PhysicsDistanceJoint.Create(world, definition);`.
 
 ---
-### Queries
+## Queries
 Many spatial queries are provided to allow interrogating the world and its contents, specifically the `PhysicsShape` that exist attached to `PhysicsBody`.
 All queries are provided as methods of the `PhysicsWorld` type and are used on any instance of a `PhysicsWorld`.
 
-#### Overlap Queries
+### Overlap Queries
 An overlap takes geometry and queries if it overlaps any `PhysicsShape` in the world, returning what it overlapped.
 Each overlap query has an alterative which performs the same action however it only returns true/false (bool) if the overlap found anything, these are all prefixed with "Test".
 
@@ -250,7 +249,7 @@ Each overlap query has an alterative which performs the same action however it o
 - [PhysicsWorld.TestOverlapShape](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TestOverlapShape.html)
 - [PhysicsWorld.TestOverlapShapeProxy](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TestOverlapShapeProxy.html)
 
-#### Cast Queries
+### Cast Queries
 A cast takes geometry, sweeps it through the world and queries if it contacts any `PhysicsShape`, returning what it contacted.
 
 - [PhysicsWorld.CastRay](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastRay.html)
@@ -260,7 +259,7 @@ A cast takes geometry, sweeps it through the world and queries if it contacts an
 - [PhysicsWorld.CastMover](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastMover.html)
 
 ---
-### Debug Drawing
+## Debug Drawing
 A `PhysicsWorld` has its own debug drawing capabilities allowing its contents to be automatically drawn and therefore visualised within the Editor Game and Scene windows.
 The drawing system uses a high-performance set of compute-based shaders with multi-instancing support to render as efficiently as possible.
 
@@ -288,7 +287,7 @@ In addition to drawing the automatic drawing contents of a world you can explici
 - [PhysicsWorld.ClearDraw](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.ClearDraw.html)
 
 ---
-### Authoring Components
+## Authoring Components
 
 The API has been designed not only to provide a fast physics system but also to provide developers with the ability to create and package new higher-level componentry composed of the "low level" types provided in this API.
 For instance, it is entirely possible to create a single Unity script component that exposes a handful of public properties that would allow a technical artist or game designer to configure the component.
@@ -304,7 +303,7 @@ Here's an example showing the component on a GameObject. No children GameObject 
 ![Gear Component Custom](./Images/GearComponent-Custom.png)
 
 ---
-### Ownership
+## Ownership
 
 When authoring components, especially when providing them to external developers, you want to ensure that objects you create with the API i.e. `PhysicsWorld`, `PhysicsBody`, `PhysicsShape`, `PhysicsChain`, `PhysicsJoint` etc are not deleted.
 For example, if you provide the "Gear" component above and it is happily working in a scene and a developer performs a world query and detects one of the `PhysicsShape` which is a "tooth" in your gear.
