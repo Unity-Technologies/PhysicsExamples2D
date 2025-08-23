@@ -121,7 +121,7 @@ void Run()
     var bodyDef2 = new PhysicsBodyDefinition();
     
     // Create a default body definition using the default constructor and override specific properties.
-    var bodyDef2 = new PhysicsBodyDefinition
+    var bodyDef3 = new PhysicsBodyDefinition
     {
         linearVelocity = Vector2.right * 4f,
         gravityScale = 0f
