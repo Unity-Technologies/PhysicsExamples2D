@@ -94,9 +94,13 @@ void Run()
     // Iterate the current contact begin events.
     // NOTE: These do not require deallocation as they are direct memory access!
     foreach(var evt in world.contactBeginEvents)
-        Debug.Log(${evt.shapeA} hit {evt.shapeB});
+        Debug.Log($"{evt.shapeA} hit {evt.shapeB}");
 }
 ```
+As noted in the documentation, when using values returned as `ReadOnlySpan<T>`, care should be taken as you are accessing memory directly from inside the engine.
+Using spans provides a huge performance benefit however you should not perform any write operations as they can modify the memory that the span is accessing so will almost certainly result in a crash.
+For instance, iterating on contact begin events and destroying a shape (write operation) while iterating can alter the events therefore you're likely to cause a crash.
+A safer alternative to iterating raw events are callbacks which consume events and send them to the relevant objects if they are configured to receive them. 
 
 ---
 ## Definitions
@@ -157,7 +161,7 @@ void Run()
     var body5 = world.CreateBody(bodyDef);
 }
 ```
-Like everything else in the API, definitions are `structs` so as shown above, are used by-value meaning they can be reused, passed around etc.
+Like everything else in the API, definitions are `structs` so as shown above, they are used by-value meaning they can be reused, passed around etc.
 All definitions are serializable which makes it very useful in exposing them as fields to be edited in the Editor inspector when creating components.
 All `structs` involved in configuring configuring objects or specifying queries are also serializable for this reason.
 
@@ -404,6 +408,86 @@ A cast takes geometry, sweeps it through the world and queries if it contacts an
 - [PhysicsWorld.CastShape](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastShape.html)
 - [PhysicsWorld.CastShapeProxy](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastShapeProxy.html)
 - [PhysicsWorld.CastMover](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastMover.html)
+
+---
+## Callbacks
+As seen above, the `PhysicsWorld` produces various events which can be quickly read using a `ReadOnlySpan<(event-type)>`.
+All events produced have a corresponding callback however there are also callbacks unrelated to events such as [PhysicsCallbacks.IContactFilterCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IContactFilterCallback.html) and [PhysicsCallbacks.IPreSolveCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IPreSolveCallback.html).
+The most common types of callbacks used are both the contact and trigger callbacks.
+Callbacks can be sent explicitly by calling the appropriate `PhysisWorld.sendXXXCallback` method (as shown in "New Features" above) or automatically by enabling the appropriate `PhysicsWorld.autoSendXXXCallback` option (also shown in "New Features" above). 
+
+With callbacks being sent explicitly or automatically, relevant events are gathered and dispatched to objects which are related to that event.
+Before an object can receive callbacks, it must specify that is  a "callback target" by setting its "callbackTarget" property.
+Currently, `PhysicsBody`, `PhysicsShape` and `PhysicsJoint` can receive callbacks.
+
+As a concrete example, let's see the most common use-cast which is receiving a callback for a contact begin and contact end for a pair of `PhysicsShape`:
+```csharp
+// The test class that implements IContactCallback.
+class MyTest : MonoBehaviour, PhysicsCallbacks.IContactCallback
+{
+    PhysicsBody m_PhysicsBody;
+    PhysicsShape m_PhysicsShape;
+    
+    void OnEnable()
+    {
+        // Fetch the default world.
+        var world = PhysicsWorld.defaultWorld;
+        
+        // Create a body/shape.
+        m_PhysicsBody = world.CreateBody();
+        m_PhysicsShape = m_PhysicsBody.CreateShape(CircleGeometry.defaultGeometry);
+        
+        // Assign the script as a callback target for the shape.
+        // This is all that is required to designate this script as a target for shape events for this specific shape.
+        // If the callback target implements an appropriate interface for the callback event, it'll be called or not if it doesn't.
+        // In our case, we implement IContactCallback so both ContactBeginEvent and ContactEndEvent will be called.
+        // A PhysicsShape can also receive TriggerBeginEvent and TriggerEndEvent but the shape isn't a trigger and we have not implemented ITriggerCallback.
+        m_PhysicsShape.callbackTarget = this;
+    }
+    
+    void OnDisable()
+    {
+        // Destroy the body (this destroys the shape too).
+        m_PhysicsBody.Destroy();
+    }
+    
+    // Called when our shape starts to contact another shape.
+    public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
+    {
+        Debug.Log("OnContactBegin2D");
+    }
+
+    // Called when our shape stops contacting another shape.
+    public void OnContactEnd2D(PhysicsEvents.ContactEndEvent endEvent)
+    {
+        Debug.Log("OnContactEnd2D");
+    }
+}
+```
+
+As seen above, our shape will get contact begin/end event callbacks. This event is sent to both `PhysicsShape` but only to each one if it has a "callback target" assigned and that target implements the [PhysicsCallbacks.IContactFilterCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IContactFilterCallback.html) interface.
+This means if only one of the `PhysicsShape` involved in a contact event has a "callback target" assigned, only it will get a callback. It is not a requirement that both use the feature.
+
+The use of interfaces here is more robust than relying on a correctly spelled and "magic" methods that are called. Indeed, an IDE will ensure everything is correct otherwise it will not ccompile.
+The previous example shows public implicit interface implementation but C# also offers explicit interface implementation which, whilst slightly more verbose, is only visible when accessing the object via its interface so is somewhat hidden like so:
+```csharp
+class MyTest : MonoBehaviour, PhysicsCallbacks.IContactCallback
+{
+    ...
+        
+    // Called when our shape starts to contact another shape.
+    PhysicsCallbacks.IContactCallback.OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
+    {
+        Debug.Log("OnContactBegin2D");
+    }
+
+    // Called when our shape stops contacting another shape.
+    PhysicsCallbacks.IContactCallback.OnContactEnd2D(PhysicsEvents.ContactEndEvent endEvent)
+    {
+        Debug.Log("OnContactEnd2D");
+    }
+}
+```
 
 ---
 ## Debug Drawing
