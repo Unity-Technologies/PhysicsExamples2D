@@ -5,7 +5,6 @@ using UnityEngine.LowLevelPhysics2D;
 /// Demonstrates the basics of creating and destroying a body.
 /// See the comments for more information.
 /// </summary>
-
 public class CreatePhysicsBody : MonoBehaviour
 {
     /// <summary>

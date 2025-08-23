@@ -5,7 +5,6 @@ using UnityEngine.LowLevelPhysics2D;
 /// Demonstrates the basics of creating and destroying a shape.
 /// See the comments for more information.
 /// </summary>
-
 public class CreatePhysicsShape : MonoBehaviour
 {
     /// <summary>

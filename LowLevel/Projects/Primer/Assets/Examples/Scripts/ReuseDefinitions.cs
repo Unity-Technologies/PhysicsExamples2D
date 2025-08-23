@@ -5,7 +5,6 @@ using UnityEngine.LowLevelPhysics2D;
 /// Demonstrates the basics of creating bodies/shapes and reusing definitions.
 /// See the comments for more information.
 /// </summary>
-
 public class ReuseDefinitions : MonoBehaviour
 {
     /// <summary>
