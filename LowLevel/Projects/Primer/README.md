@@ -410,17 +410,36 @@ A cast takes geometry, sweeps it through the world and queries if it contacts an
 - [PhysicsWorld.CastMover](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.CastMover.html)
 
 ---
-## Callbacks
+## Events and Callbacks
 As seen above, the `PhysicsWorld` produces various events which can be quickly read using a `ReadOnlySpan<(event-type)>`.
-All events produced have a corresponding callback however there are also callbacks unrelated to events such as [PhysicsCallbacks.IContactFilterCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IContactFilterCallback.html) and [PhysicsCallbacks.IPreSolveCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IPreSolveCallback.html).
-The most common types of callbacks used are both the contact and trigger callbacks.
+For an event to be produced for a `PhysicsShap', it must first enable that type of event with:
+
+- [PhysicsShape.contactEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape-contactEvents.html)
+- [PhysicsShape.triggerEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape-triggerEvents.html)
+
+When these are enabled, the respective events are produced and can be read after a simulation step from the `PhysicsWorld` the shapes are in with:
+
+- [PhysicsWorld.contactBeginEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-contactBeginEvents.html)
+- [PhysicsWorld.contactEndEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-contactEndEvents.html)
+- [PhysicsWorld.triggerBeginEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-triggerBeginEvents.html)
+- [PhysicsWorld.triggerEndEvents](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-triggerEndEvents.html)
+
+Reading events can be really useful however they are not collated or sorted in any way.
+A far more powerful way to receive these kinds of events is when they are send directly to the `PhysicsShape` involved in the event.
+This is what event callbacks are for.
+
+All events have a corresponding callback however there are also callbacks unrelated to events such as [PhysicsCallbacks.IContactFilterCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IContactFilterCallback.html) and [PhysicsCallbacks.IPreSolveCallback](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsCallbacks.IPreSolveCallback.html).
+The most common types of callbacks used are both the contact and trigger callbacks shown above which relate to `PhysicsShape` only.
 Callbacks can be sent explicitly by calling the appropriate `PhysisWorld.sendXXXCallback` method (as shown in "New Features" above) or automatically by enabling the appropriate `PhysicsWorld.autoSendXXXCallback` option (also shown in "New Features" above). 
 
 With callbacks being sent explicitly or automatically, relevant events are gathered and dispatched to objects which are related to that event.
-Before an object can receive callbacks, it must specify that is  a "callback target" by setting its "callbackTarget" property.
-Currently, `PhysicsBody`, `PhysicsShape` and `PhysicsJoint` can receive callbacks.
+Before an object can receive callbacks, it must specify the "callback target" which is the script that will receive the callbacks, known as the "callback Target".
 
-As a concrete example, let's see the most common use-cast which is receiving a callback for a contact begin and contact end for a pair of `PhysicsShape`:
+To do this, you use [PhysicsShape.callbackTarget](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape-callbackTarget.html)
+
+Currently, `PhysicsBody`, `PhysicsShape` and `PhysicsJoint` can receive event callbacks.
+
+As a concrete example, let's see the most common use-case which is receiving a callback for a contact begin and contact end for a pair of `PhysicsShape`:
 ```csharp
 // The test class that implements IContactCallback.
 class MyTest : MonoBehaviour, PhysicsCallbacks.IContactCallback
@@ -436,6 +455,12 @@ class MyTest : MonoBehaviour, PhysicsCallbacks.IContactCallback
         // Create a body/shape.
         m_PhysicsBody = world.CreateBody();
         m_PhysicsShape = m_PhysicsBody.CreateShape(CircleGeometry.defaultGeometry);
+        
+        // Enable contact events on the shape.
+        // Without this, no events will be produced for this shape therefore no event callbacks.
+        // With that said, this is only half true as if the shape this shape contacts does have contact-events enabled, then it will generate a callback.
+        // However, without a callback target set on this shape, it won't receive a callback (see below).
+        m_PhysicsShape.contactEvents = true;
         
         // Assign the script as a callback target for the shape.
         // This is all that is required to designate this script as a target for shape events for this specific shape.

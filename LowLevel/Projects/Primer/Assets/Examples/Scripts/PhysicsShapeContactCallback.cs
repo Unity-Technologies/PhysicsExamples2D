@@ -5,7 +5,7 @@ using UnityEngine.LowLevelPhysics2D;
 /// <summary>
 /// Demonstrates how shapes can request callbacks for when they come into contact with other shapes.
 /// Press "Play" to see the two bodies/shapes contact each other.
-/// When a shape contacts anything, a point will be drawn at the contact point,
+/// When a shape contact anything, a point will be drawn at the contact point,
 /// See the comments for more information.
 /// </summary>
 public class PhysicsShapeContactCallback : MonoBehaviour, PhysicsCallbacks.IContactCallback
