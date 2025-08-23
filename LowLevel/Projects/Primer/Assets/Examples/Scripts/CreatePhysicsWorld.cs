@@ -6,7 +6,7 @@ using UnityEngine.LowLevelPhysics2D;
 /// Pressing "Play" will result in multiple world IDs being shown in the console.
 /// See the comments for more information.
 /// </summary>
-public class PhysicsWorld_CreateDestroy : MonoBehaviour
+public class CreatePhysicsWorld : MonoBehaviour
 {
     public PhysicsWorldDefinition WorldDefinition = PhysicsWorldDefinition.defaultDefinition;
     
