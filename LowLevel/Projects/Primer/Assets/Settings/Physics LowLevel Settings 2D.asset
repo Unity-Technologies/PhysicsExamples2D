@@ -92,8 +92,8 @@ MonoBehaviour:
     m_ContactFilterCallbacks: 0
     m_PreSolveCallbacks: 0
     m_AutoBodyUpdateCallbacks: 0
-    m_AutoContactCallbacks: 0
-    m_AutoTriggerCallbacks: 0
+    m_AutoContactCallbacks: 1
+    m_AutoTriggerCallbacks: 1
     m_AutoJointThresholdCallbacks: 0
     m_BounceThreshold: 1
     m_ContactHitEventThreshold: 1
