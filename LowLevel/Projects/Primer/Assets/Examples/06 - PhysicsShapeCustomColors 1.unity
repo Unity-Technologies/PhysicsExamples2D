@@ -160,27 +160,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 371619038}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84547460c34f6e3458bde1edd62ef11b, type: 3}
+  m_Script: {fileID: 11500000, guid: 52943f3d1a73d324f913c894fb9b0cc2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ReuseDefinitions
-  BodyDefinition:
-    m_BodyType: 2
-    m_BodyConstraints: 0
-    m_TransformWriteMode: 3
-    m_Position: {x: 0, y: 0}
-    m_Rotation:
-      direction: {x: 1, y: 0}
-    m_LinearVelocity: {x: 0, y: 0}
-    m_AngularVelocity: 0
-    m_LinearDamping: 0
-    m_AngularDamping: 0
-    m_GravityScale: 1
-    m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
-    m_FastCollisionsAllowed: 0
-    m_SleepingAllowed: 1
-    m_Awake: 1
-    m_Enabled: 1
+  m_EditorClassIdentifier: Assembly-CSharp::PhysicsShapeCustomColors
   ShapeDefinition:
     surfaceMaterial:
       m_Friction: 0.6
@@ -193,7 +175,7 @@ MonoBehaviour:
       m_TangentSpeed: 0
       m_CustomColor:
         serializedVersion: 2
-        rgba: 0
+        rgba: 4278254716
     contactFilter:
       m_Categories:
         bitMask: 1
@@ -209,9 +191,6 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
-  CircleGeometry:
-    m_Center: {x: 0, y: 0}
-    m_Radius: 0.5
 --- !u!1001 &1498071701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,7 +201,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1721132652724832954, guid: 2737ee4ca69c4ac4b8b00b58b3f4a094, type: 3}
       propertyPath: m_Name
-      value: MainCamera_Ortho6
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 5549933545561080231, guid: 2737ee4ca69c4ac4b8b00b58b3f4a094, type: 3}
       propertyPath: m_LocalPosition.x
