@@ -10,16 +10,21 @@ A good jumping off point is the `PhysicsWorld` type found [here](https://docs.un
 ---
 ### Objects
 The low-level physics in Unity (referred to as the "API") directly exposes a high-performance physics engine [Box2D v3](https://github.com/erincatto/box2d) in a way that is not tied to using GameObjects or Components.
-For this reason, the objects do not exist in the Unity Editor Inspector, however they can be used in scripts and as components so they can be exposed and therefore configured in the inspector.
+For this reason, the objects do not exist in the Unity Editor Inspector, however they can be used in scripts and as Unity components so they can be exposed and therefore configured in the inspector.
 All the API types are `structs` and many are serializable allowing them to be persisted and edited in components in the Editor inspector.
 
-The API is designed to present a friendly, object-oriented way to create, configure and destroy objects however behind the scenes things are quite different!
-All objects that are created are actually `read-only structs` that contain only a 64-bit opaque handle to the actual object that is stored inside the engine in an efficient, memory-access friendly way.
-You should never explicitly care about this handle as it's implicitly used for you by the API however, this handle-based approach has the benefit that objects can be passed around efficiently, even off the main-thread in C# Jobs.
-Because everything is a `struct`, they can also be store in native-containers which only support struct storage.
+The API is designed to present a friendly, object-oriented way to create, configure and destroy objects however behind the scenes, everything is data-orientated, being stored in an efficient, memory-access friendly way which helps with performance. 
+All objects that are created are actually exposed in C# as simple `read-only structs` that contain only a 64-bit opaque handle to the actual object that is stored inside the engine.
+You should never explicitly need to care about this handle as it's implicitly used for you by the API however, it's important to understand that this handle-based approach has the benefit that objects can be passed around efficiently, even off the main-thread in C# Jobs because everything is a small `struct`.
+Additionally, because everything is a `struct`, they can all be stored in native-containers which only support struct storage but can be used in C# Jobs.
 
-Finally, if an object is destroyed, its handle simply becomes invalid and any subsequent access using that handle will result in a nice clear message in the console indicating the issue.
-The same is applied to all arguments for all methods on such an object; if any are out-of-range or invalid, a clear message will be displayed in the console.
+In term of lifetime, if an object is destroyed, whether explicitly or in some cases implicitly, its handle simply becomes invalid and any subsequent access using that handle will result in a clear message being shown in the console indicating the issue.
+As an aside, the same is applied to all arguments for all methods on such an object; if any are out-of-range or invalid for any reason, a clear message will be displayed in the console indicating the argument and call-site.
+
+Finally, although not important to understand, it can be worth knowing how it's structured.
+All object handles have at least an index and a generation integer. The index represents an index into a storage pool whereas the generation indicates the index position being reused when a previous object at that position was destroyed, the generation is simply incremented.
+This applies to the `PhysicsWorld` handle.  All other objects that live inside a `PhysicsWorld` have an additional world-index integer indicating to which world they belong.
+A handle is never larger than 64-bits which therefore means no `struct` representing a physics object is larger than this. 
 
 ---
 ### Multi-threading Support
@@ -29,35 +34,134 @@ The locking mechanism tries not to "starve" writers as when a write-operation is
 This locking has an extremely low overhead and provides the huge benefit of being able to use most of the API in C# Jobs.
 Nevertheless, care must be taken when performing mixed read/write operations across many threads as performance can suffer if you're not careful.
 
+The few methods that are no currently marked as thread-safe are only like this at the moment during the initial release.
+These method are the Create, CreateBatch, Destroy and DestroyBatch methods for all objects.
+The reason for this is not a technical limitation, they are inherently already thread-safe however we are being cautious due to the fact that there is a potential to cause deadlocks if not careful.
+For that reason alone, we have decided to limit these methods, for now, to main-thread use only and are investigating a method to help avoid deadlock situations.
+This should not be an issue as creating objects such as this off the main-thread isn't a common use-cases, especially considering that create and destroy operations are write-operations.
+
 A final note is that locking is per-world so for instance, you can perform write operations on different worlds in parallel without any read/write contentions.
 
 ---
 ### GC
-All the API is GC friendly meaning no C# heap allocations are made.
-This is primarily due to everything being allocated in native engine with objects being returned to C# as a `readonly struct` containing only  64-bit handle.
+All the API is GC friendly meaning no C# heap allocations are made at any point.
+Everything that is allocated by the API is done inside the native engine with objects being returned to C# as a `readonly struct` containing only  64-bit handle.
+Additionally, the only other allocations are when using methods or properties that return a set of values or accepts a set of values as they use `NativeArray<T>` and `ReadOnlySpan<T>` respectively.
 
-Another reason is that any method or property that returns a set of values or accepts a set of values uses `NativeArray<T>` and `ReadOnlySpan<T>` respectively.
+For instance, performing a query will return a `NativeArray<T>` of results which you must dispose of like so:
+```csharp
+void Run()
+{
+    ...
+    // Perform a query.    
+    var results = world.CastRay(<args>)
+    
+    ... do some work ...
+        
+    // Dispose of the results.
+    results.Dispose();
+}
+```
+Because it's very common that the results returned do not need to be modified but only read, C# provides a simpler and less error-prone way to ensure correct disposal, typically when using [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html) or [TempJob](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.TempJob.html) allocators:
+```csharp
+void Run()
+{
+    ...
+    // Perform a query and dispose when we go out of scope.    
+    using var results = world.CastRay(<args>)
+    
+    ... do some work ...
+}
+```
 
-For instance, performing a query will return a `NativeArray<T>` of results which you must dispose i.e. `using var results = world.CastRay(...);`.
-The operations that return multiple results such as this (irrelevant of what is being returned) all offer the option to allocate using the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html), [TempJob](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.TempJob.html) or [Persistent](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Persistent.html) allocator with the default being the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html) allocator.
+The operations that return multiple results such as this (irrelevant of what is being returned) all offer the option to allocate using the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html), [TempJob](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.TempJob.html) or [Persistent](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Persistent.html) allocator with the default being the [Temp](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Unity.Collections.Allocator.Temp.html) allocator like so:
+```csharp
+void Run()
+{
+    ...
+    // Perform a query and allocate for persistent use over many frames.    
+    var results = world.CastRay(<args>, Allocator.Persistent);
+    
+    ... do some work ...
+}
+```
 
-When asking for events, those are not copied but are instead accessed <b>directly</b> from inside the engine itself so you can use `ReadOnlySpan<ContactBeginEvent> events = world.contactBeginEvents;` or `var events = world.contactBeginEvents;` as you prefer.
-These do not require deallocation as they are direct memory access.
+When asking for events, those are not copied but are instead accessed <b>directly</b> from inside the engine itself so you can use `ReadOnlySpan<ContactBeginEvent> events = world.contactBeginEvents;` or `var events = world.contactBeginEvents;` as you prefer like so:
+```csharp
+void Run()
+{
+    ...
+    // Iterate the current contact begin events.
+    // NOTE: These do not require deallocation as they are direct memory access!
+    foreach(var evt in world.contactBeginEvents)
+        Debug.Log(${evt.shapeA} hit {evt.shapeB});
+}
+```
 
 ---
 ## Definitions
 When you create an object, it is far more efficient to create it with all its properties already set.
-Creating an object and then changing multiple properties is slower than having it setup correctly initially, more so if the properties have side effects causing recalculations.
-To this end, whenever you create an object you can specify a definition with all object types having their own dedicated definition type. For instance, a [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.htm) has a [PhysicsWorldDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition.html)
-and a [PhysicsBody](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.html), a [PhysicsBodyDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition.html) etc.
+Creating an object and then changing multiple properties is slower than having it setup correctly initially, more so if the properties have side effects which case recalculations.
+To this end, whenever you create an object you can (and should) specify what is known as a definition.
+A definition contains all the available settings for that object with each object type having its own dedicated definition type.
+For instance, a [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.htm) has a [PhysicsWorldDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition.html),
+a [PhysicsBody](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.html), has a [PhysicsBodyDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition.html) etc.
 
 All definitions also have a default which can always be accessed via a static `.defaultDefinition` property on the definition type itself i.e.
 [PhysicsWorldDefinition.defaultDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition-defaultDefinition.html),
 [PhysicsBodyDefinition.defaultDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition-defaultDefinition.html) etc.
+A shortcut to this is simply using the C# `new` keyword with the default constructor like so:
+```csharp
+void Run()
+{
+    // Create a default body definition using the default constructor.
+    var bodyDef1 = PhysicsBodyDefinition.defaultDefinition;
+    
+    // Create a default body definition using the default constructor.
+    var bodyDef2 = new PhysicsBodyDefinition();
+    
+    // Create a default body definition using the default constructor and override specific properties.
+    var bodyDef2 = new PhysicsBodyDefinition
+    {
+        linearVelocity = Vector2.right * 4f,
+        gravityScale = 0f
+    };
+}
+```
+Creating an object with a definition can therefore be done like this:
+```csharp
+void Run()
+{
+    ...
 
-Also, methods used to create objects that accept the appropriate definition, also accept no arguments which will mean the object will implicitly use the appropriate default definition for convenience.
+    // These are all equivalent, all using the default body definition.
+    var body1 = world.CreateBody(PhysicsBodyDefinition.default);
+    var body2 = world.CreateBody(new PhysicsBodyDefinition());
+    var body3 = world.CreateBody();
+        
+    // Create a default body definition using the default constructor and override specific properties.
+    var bodyDef = new PhysicsBodyDefinition
+    {
+        linearVelocity = Vector2.right * 4f,
+        gravityScale = 0f
+    };
+    
+    // Create the body using our body definition.
+    var body4 = world.CreateBody(bodyDef);
+    
+    // Modify our definition.
+    // NOTE: This does not and cannot affect the previously created "body4".
+    bodyDef.gravityScale = -9.81f
+    
+    // Create the body using our modified body definition.
+    var body5 = world.CreateBody(bodyDef);
+}
+```
+Like everything else in the API, definitions are `structs` so as shown above, are used by-value meaning they can be reused, passed around etc.
+All definitions are serializable which makes it very useful in exposing them as fields to be edited in the Editor inspector when creating components.
+All `structs` involved in configuring configuring objects or specifying queries are also serializable for this reason.
 
-Even more powerful is that even these defaults are <b>not</b> hardwired but can themselves be configured via a dedicated asset of [PhysicsLowLevelSettings2D](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLowLevelSettings2D.html) (the only `class` type in the API!)
+Even more powerful is that even these defaults are <b>not</b> hardwired but can themselves be configured via a dedicated asset of [PhysicsLowLevelSettings2D](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLowLevelSettings2D.html) (the only `class` type in the API).
 
 This asset can be created via the Assets menu under `Create > 2D > Physics LowLevel Settings`:
 
@@ -71,7 +175,16 @@ You can then select the asset and edit it directly in the Editor:
 
 ![Physics LowLevel Settings Inspector](./Images/LowLevelPhysicsSettings2D-Inspector.png)
 
-This provides all the available defaults for all definitions and other important global settings such as:
+Modifications to the asset take immediate effect.
+You are free to have multiple asset settings and swap them as you wish however you should be careful when changing defaults as the code you write will typically assume a certain set of defaults with you overriding specific properties.
+For instance, the default [PhysicsBody.bodyType](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-bodyType.html) is `Static`.
+
+If this is changed, code that doesn't override this explicitly to `Static` will now work with a different body-type:
+
+![Physics LowLevel Settings - PhysicsBody.bodyType](./Images/LowLevelPhysicsSettings2D-PhysicsBody-BodyType.png)
+
+This asset provides all the available defaults for all definitions and other important global settings such as:
+- The default `PhysicsWorld` ([PhysicsWorld.defaultWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-defaultWorld.html)) created by Unity uses the default [PhysicsWorldDefinition](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorldDefinition.html) (you must restart the Editor or enter/exit Play mode for this to take effect) 
 - The number of concurrent world simulations that are allowed
 - The length units-per-meter (used when larger scales are required i.e. pixels as meters etc)
 - If the debug renderer is available in player builds
@@ -98,8 +211,20 @@ You can be seen in both the `Sandbox` and `Primer` projects.
   - [PhysicsMath.GetRotationAxes](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMath.GetRotationAxes.html)
   - [PhysicsMath.GetTranslationAxes](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMath.GetTranslationAxes.html)
   - Others!
+- Ability to control if and how the `PhysicsWorld` writes `PhysicsBody` position and rotation (pose) to a Unity [Transform](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Transform.html)
+    - Controlled via [PhysicsWorld.transformWriteMode](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-transformWriteMode.html)
+        - [TransformWriteMode.Off](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformWriteMode.Off.html) - Transforms are never written
+        - [TransformWriteMode.Fast2D](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformWriteMode.Fast2D.html) - Transforms are written fast (rotation writes to the rotation axis defined by the [TransformPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformPlane.html), other axis are resets)
+        - [TransformWriteMode.Slow3D](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformWriteMode.Slow3D.html) - Transforms are written slower (rotation writes to the rotation axis defined by the [TransformPlane](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.TransformPlane.html), other axis are unaffected)
+    - Each `PhysicsBody` will only write if the [PhysicsBody.transformObject](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-transformObject.html) is set to a Unity [Transform](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Transform.html)
+    - Each `PhysicsBody` controls if and how it wants to write to the transform using [PhysicsBody.transformWriteMode](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-transformWriteMode.html)
+      - [PhysicsBodyTransformWriteMode.Off](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.TransformWriteMode.Off.html) - The body pose is never written
+      - [PhysicsBodyTransformWriteMode.Current](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.TransformWriteMode.Current.html) - The current body pose is written after the simulation step
+      - [PhysicsBodyTransformWriteMode.Interpolate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.TransformWriteMode.Interpolate.html) - The body pose moving from the previous body pose to the current body pose is written per-frame (historic)
+      - [PhysicsBodyTransformWriteMode.Extrapolate](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.TransformWriteMode.Extrapolate.html) - A pose extrapolated from the current body pose and the current linear and angular velocities (predictive)
+      
 - Ability to control how many additional worker threads are used (from 0 to 63) to solve the simulation of each world via [PhysicsWorld.simulationWorkers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-simulationWorkers.html).
-  This value is always clamped to the available threads on the device at runtime.
+  This value is always clamped to the available threads on the device at runtime. Certain platforms are single-threaded such as WebGL. Main-thread performance has still be increased by at least x3-x4 however. 
 - Ability to simulate multiple worlds in parallel controlled via [PhysicsWorld.concurrentSimulations](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-concurrentSimulations.html)
 - Ability to use more than the standard 32 layers when controlling contacts and performing queries, now increased to 64 layers via [PhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.html), [PhysicsLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLayers.html) and [PhysicsWorld.useFullLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-useFullLayers.html).
 - Ability to pause a world simulation via [PhysicsWorld.paused](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-paused.html)
