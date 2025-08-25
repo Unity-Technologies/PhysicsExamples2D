@@ -152,3 +152,28 @@ Whilst the `SceneBody` is connected to the `SceneWorld`, you can configure the `
 Multiple `SceneWorld` using the default world all represent the same default world that Unity implicitly createds.
 Only with that option disabled does the `SceneWorld` create a `PhysicsWorld`.
 
+---
+## 52 Scene Shape Type
+This example simply demonstrates show a `SceneShape` allows you to select the shape type you want.
+When you do that, the Editor inspector changes to allow you to edit that.
+If you select the "Scene" view with the "Example" GameObject selected, you will also see that there is tooling available to edit the shapes directly in the scene view.
+
+![Scene Shape Tooling](../../Images/SceneShapeType-Tooling.png)
+
+Seen above, you can drag the “cube” handles to move vertices around and drag the “sphere” handles to change a shape radius.
+The current values are shown as labels however you can turn that on/off using the “SceneShape Options” overlay shown above which are also persisted for you.
+You can also configure the colors shown if you wish.
+Note that there’s a light-blue “cube” handle that allows you to move all the vertices together, removing the need to move each vertex individually.
+Be careful using this as this is not the same as the body position and is essentially offsetting the geometry relative to the body position.
+
+When editing a SceneShape set to Polygon geometry, you can move the existing vertices by dragging the cube handles (shown with white arrows below).
+You can also move an edge (two vertices) together by dragging the cube handles (shown with cyan arrows below).
+You can also change the radius of the polygon geometry by dragging the sphere handle (shown with the yellow arrow below).
+
+If you press the “shift” key, you can then add or remove vertices. When you press the "shift" key, the existing vertices change color (to the “Delete Color” preference) and clicking on one deletes that vertex.
+Additionally, new vertices appear in between the current vertices (shown as the “Add Color” preference) and clicking on one adds that vertex.
+As shown below, pressing the “shift” key results in the vertex delete (red arrows) and new  vertices (green arrows) being available.
+
+![Scene Shape Polygon Edit1](../../Images/SceneShape-PolygonEdit1.png)
+![Scene Shape Polygon Edit2](../../Images/SceneShape-PolygonEdit2.png)
+
