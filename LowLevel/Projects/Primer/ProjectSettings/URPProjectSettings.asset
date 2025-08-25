@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.UniversalProjectSettings
   m_LastMaterialVersion: 10
+  m_ProjectSettingFolderPath: URPDefaultResources
