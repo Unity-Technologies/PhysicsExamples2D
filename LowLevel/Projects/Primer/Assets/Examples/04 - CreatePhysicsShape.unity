@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreatePhysicsShape
   BodyDefinition:
-    m_BodyType: 0
+    m_BodyType: 1
     m_BodyConstraints: 0
     m_TransformWriteMode: 3
     m_Position: {x: 0, y: 0}
