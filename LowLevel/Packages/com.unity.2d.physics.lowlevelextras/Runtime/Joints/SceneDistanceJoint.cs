@@ -26,6 +26,9 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             if (JointDefinition.minDistanceLimit > JointDefinition.maxDistanceLimit)
                 JointDefinition.minDistanceLimit = JointDefinition.maxDistanceLimit;
 
+            if (JointDefinition.springLowerForce > JointDefinition.springUpperForce)
+                JointDefinition.springLowerForce = JointDefinition.springUpperForce;
+
             // Create the joint.
             m_Joint = PhysicsDistanceJoint.Create(BodyA.Body.world, JointDefinition);
             if (m_Joint.isValid)
