@@ -69,9 +69,9 @@ public class PhysicsComposerGeometry : MonoBehaviour
         // Create a body.
         var body = m_PhysicsWorld.CreateBody();
        
-        // Create the shape(s) from out polygon geometry.
+        // Create the shape(s) from the composed polygon geometry.
         // NOTE: We can have a single or multiple polygons here so we'll use the shape batch creation for convenience.
-        // Batch creation returns the PhysicsShape created although we're not interested in them in this example.
+        // Batch creation returns the PhysicsShape created, although we're not interested in them in this example.
         using var shapes = body.CreateShapeBatch(polygons, PhysicsShapeDefinition.defaultDefinition);
     }
 
