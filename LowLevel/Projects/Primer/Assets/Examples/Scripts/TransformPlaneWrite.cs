@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 
 /// <summary>
-/// Demonstrates how to control transfo and what a body will write to a Transform.
-/// Press "Play" to see the bodies, each of which has a different transform write mode.
+/// Demonstrates how to control transform plan writing i.e. how the 2D body position will be transformed into 3D.
+/// Press "Play" and see how each of the three worlds are writing to their own TransformPlane.
 /// See the comments for more information.
 /// </summary>
 public class TransformPlaneWrite : MonoBehaviour
