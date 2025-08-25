@@ -128,4 +128,27 @@ All components begin with a "Scene" prefix and can be found in the component men
 ---
 ## 50 - Scene Body And Shape
 This example shows how to create a body with a shape attached to it.
-The `SceneBody` exposes both the `BodyDefinition` 
+
+The `SceneBody` exposes:
+- The `PhysicsBodyDefinition` used to create the body
+- `PhysicsUserData` assigned to `PhysicsBody.userData`
+- The callback target for event callbacks assigned to `PhysicsBody.callbackTarget`
+- The ability to use the default world via the "Use Default World" checkbox. When unchecked, you can select a specific `SceneWorld` component.
+
+The `PhysicsShape` exposes:
+- The `PhysicsShapeDefinition` used to create the shape.
+- `PhysicsUserData` assigned to `PhysicsShape.userData`
+- The callback target for event callbacks assigned to `PhysicsShape.callbackTarget`
+- The specific `SceneBody` to create the shape on. For convenience, this is automatically populated by searching the current parent hierarchy for a `SceneBody`. Without it, a shape cannot be created.
+
+---
+## 51 - Scene World
+This example is identical to example "50" in that it creates a body with a shape attached to it.
+The difference with this example is that there is a new GameObject with a `SceneWorld` component and the `SceneBody` has its "Use Default World" disabled and has selected the `SceneWorld` component on the `MyWorld` GameObject.
+The result of this is that the `SceneBody` is created in the `PhysicsWorld` the `SceneWorld` component creates.
+
+This means you can have multiple worlds and multiple objects within those worlds in a single Unity scene if you wish.
+Whilst the `SceneBody` is connected to the `SceneWorld`, you can configure the `SceneWorld` to simply represent the default world by enabling its "Use Default World" checkbox.
+Multiple `SceneWorld` using the default world all represent the same default world that Unity implicitly createds.
+Only with that option disabled does the `SceneWorld` create a `PhysicsWorld`.
+
