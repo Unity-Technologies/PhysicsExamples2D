@@ -177,3 +177,22 @@ As shown below, pressing the “shift” key results in the vertex delete (red a
 ![Scene Shape Polygon Edit1](../../Images/SceneShape-PolygonEdit1.png)
 ![Scene Shape Polygon Edit2](../../Images/SceneShape-PolygonEdit2.png)
 
+---
+## 53 - Scene Shape Bounce
+This example shows a basic setup with a Static "Ground" box and a Dynamic "Ball".
+- The "Ground" uses a `SceneBody` set to a `Static` body-type, set in the `Body Definition`.
+- The "Ball" uses a `SceneBody` set to a `Dynamic` body-type, set in the `Body Definition`.
+- The "Ball" also sets its `Shape Definition > Surface Material > Bounciness" to `1` which results in full bounciness.
+
+Press "Play" and the "ball" should continue to bounce on the "ground".
+
+---
+##54 - Scene Distance Joint
+This example shows the `SceneDistanceJoint` which creates a `PhysicsDistanceJoint` however this example could be any joint and what it shows applies to all joints.
+- The "Ground" uses a `SceneBody` set to a `Kinematic` body-type with an angular velocity of 60-degrees/sec, both set in the `Body Definition`. This causes it to rotate.
+- The "Ball" uses a `SceneBody` set to a `Dynamic` body-type, set in the `Body Definition`.
+- The "Ball" also has a `SceneDistanceJoint` which constraint both the "Ground" and "Ball" `SceneBody`. The `JointDefinition` is used to configure the dynamics of the joint.
+
+Press "Play" and the "ground" will rotate with the "ball" constrained by distance to the "ground". Because the "ground" is rotating, the "ball" bounces at different angles on each contact. Eventually the "ball" will slow and stop bouncing.
+
+
