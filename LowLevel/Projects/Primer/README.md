@@ -2,9 +2,9 @@
 
 ## This document contains detailed information to help you gain a good overview of what the low-level physics provides.
 
-This project also contains individual examples which cover lots of features.
+## Examples
+This project contains individual examples which cover lots of features.
 A good place to start is to look at the [README](./Assets/Examples/README.md) in the examples folder which describes each example for you to load-up and look at in more detail.
-
 
 ## Overview
 
