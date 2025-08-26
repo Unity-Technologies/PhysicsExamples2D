@@ -59,15 +59,19 @@ This example shows you the basics of configuring a script callback when a pair o
 This example shows you the basics of configuring a script callback when a pair of `PhysicsShape` overlap when either of the pair are a trigger.
 
 ---
-## 13 - Transform Write
+## 13 - Physics Shape Contact Filtering
+This example shows you the basics of configuring how `PhysicsShape` come into contact but also how to intercept contact processing to stop contacts being created.
+
+---
+## 14 - Transform Write
 This example shows you how to control if and how a `PhysicsBody` writes to a specific Unity Transform.
 
 ---
-## 14 - Transform Plane Write
+## 15 - Transform Plane Write
 This example shows you how to configure the `PhysicsWorld` so that it writes to a selected 3D Transform plane rather than always the XY plane.
 
 ---
-## 15 - Physics User Data
+## 16 - Physics User Data
 Physics user data is not used by the physics system but allows you to get/set it to multiple objects for your own customisable purposes.
 
 This example shows you how to create and assign `PhysicsUserData` to a `PhysicsBody` and `PhysicsShape` although it is available to multiple objects types of:
@@ -92,6 +96,13 @@ This example shows the basics of how to use the `PhysicsDestructor.Slice` to sli
 ---
 ## 22 - Physics Destructor Fragment Geometry
 This example shows the basics of how to use the `PhysicsDestructor.Fragment` to fragment geometry using fragment points, producing Polygon geometry which can then be used to create `PhysicsShape`.
+
+---
+## 23 - Physics Destructor Fragment Mask Geometry
+This example shows the basics of how to use the `PhysicsDestructor.Fragment` to fragment geometry using fragment points but where a geometry mask is applied, producing Polygon geometry which can then be used to create `PhysicsShape`.
+The option of using a mask in this example over the example 22 is that the target geometry first has a mask geometry removed (known as "carving") and that is returned as "unbroken" geometry.
+The geometry removed by the mask is then the geometry that is fractured which is returned as "broken" geometry.
+The net result is that the target geometry has a mask carved from it with the carved region then being fractured which effectively acts as if a region was broken from the target geometry.
 
 ---
 

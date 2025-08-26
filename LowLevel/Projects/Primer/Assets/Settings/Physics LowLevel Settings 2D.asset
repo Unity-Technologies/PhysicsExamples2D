@@ -89,7 +89,7 @@ MonoBehaviour:
     m_TransformTweening: 1
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
-    m_ContactFilterCallbacks: 0
+    m_ContactFilterCallbacks: 1
     m_PreSolveCallbacks: 0
     m_AutoBodyUpdateCallbacks: 0
     m_AutoContactCallbacks: 1

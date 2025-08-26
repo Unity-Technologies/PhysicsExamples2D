@@ -51,7 +51,7 @@ public class PhysicsShapeTriggerCallback : MonoBehaviour, PhysicsCallbacks.ITrig
         
         // To receive callbacks, an object must state which object is the callback target.
         // In this case, it's this script for both shapes.
-        // NOTE: "AutoTriggerCallbacks" is normally off by default but we have changed the "Physics LowLevel Settings > Physics World Definition" to default ot this being enabled.
+        // NOTE: "AutoTriggerCallbacks" is normally off by default, but we have changed the "Physics LowLevel Settings > Physics World Definition" to default this to being enabled.
         // You can also control this dynamically with "PhysicsWorld.autoTriggerCallbacks".
         visitorShape.callbackTarget = triggerShape.callbackTarget = this;
     }
@@ -62,6 +62,7 @@ public class PhysicsShapeTriggerCallback : MonoBehaviour, PhysicsCallbacks.ITrig
         m_PhysicsWorld.Destroy();
     }
 
+    // Called when a pair of shapes begin to overlap.
     public void OnTriggerBegin2D(PhysicsEvents.TriggerBeginEvent beginEvent)
     {
         var visitorShape = beginEvent.visitorShape;
@@ -72,6 +73,7 @@ public class PhysicsShapeTriggerCallback : MonoBehaviour, PhysicsCallbacks.ITrig
         visitorShape.surfaceMaterial = surfaceMaterial;
     }
 
+    // Called when a pair of shapes have ended overlapping.
     public void OnTriggerEnd2D(PhysicsEvents.TriggerEndEvent endEvent)
     {
         var visitorShape = endEvent.visitorShape;
