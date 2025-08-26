@@ -72,6 +72,13 @@ public class TransformPlaneWrite : MonoBehaviour
         // Ground Body. 
         var groundBody = m_PhysicsWorld.CreateBody();
 
+        // All gizmo drawing is 2D however if it's important that the gizmo be drawn at a "depth" related to a specific Transform, it needs to be assigned.
+        // This is typically done when using a camera that isn't orthographic. 
+        groundBody.transformObject = transform;
+        
+        // Whilst we set the transform object above, we don't want this object to write to the Transform as we've got another PhysicsBody doing that!
+        groundBody.transformWriteMode = PhysicsBody.TransformWriteMode.Off;
+        
         var extents = new Vector2(4f, 4f);
         using var extentPoints = new NativeList<Vector2>(Allocator.Temp)
         {
