@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.U2D.Physics.LowLevelExtras;
 
@@ -22,7 +23,7 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
             {
             }
 
-            public override void OnToolGUI(EditorWindow window)
+            public override unsafe void OnToolGUI(EditorWindow window)
             {
                 // Get the shape geometry. 
                 var geometry = Shape.polygonGeometry;
@@ -293,6 +294,14 @@ namespace UnityEditor.U2D.Physics.LowLevelExtras
                 // Draw the geometry.
                 World.SetElementDepth3D(PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.centroid), ShapeTarget.transform.position, TransformPlane));
                 World.DrawGeometry(geometry, Body.transform, drawGeometryColor, 0.0f, drawGeometryFilled ? PhysicsWorld.DrawFillOptions.All : PhysicsWorld.DrawFillOptions.Outline);
+
+                // Draw the geometry vertices as a looped line-strip (if there's a radius).
+                if (geometry.radius > 0f)
+                {
+                    ref var spanVertices = ref geometry.vertices[0];
+                    fixed (Vector2* pVertex = &spanVertices)
+                        World.DrawLineStrip(Body.transform, new ReadOnlySpan<Vector2>(pVertex, geometry.count), true, Color.gray);
+                }
             }
         }
     }

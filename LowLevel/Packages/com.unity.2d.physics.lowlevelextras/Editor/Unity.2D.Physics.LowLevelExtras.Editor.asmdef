@@ -1,18 +1,18 @@
 {
-  "name": "Unity.2D.Physics.LowLevelExtras.Editor",
-  "rootNamespace": "",
-  "references": [
-    "Unity.2D.Physics.LowLevelExtras"
-  ],
-  "includePlatforms": [
-    "Editor"
-  ],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "Unity.2D.Physics.LowLevelExtras.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Unity.2D.Physics.LowLevelExtras"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

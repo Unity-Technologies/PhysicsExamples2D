@@ -1,7 +1,7 @@
 # Physics 2D LowLevel "Primer" Examples
 
 The following examples are provided to give a good start in understanding some of the more important features provided by the low-level Physics API and the "extras" test package provided.
-Below will adds any extra detail not covered in the examples themselves.
+Below will add any extra detail not covered in the examples themselves.
 
 Each example has at least a single "Example" GameObject with an example script which you should examine to understand how the example works.
 The scripts contain short annotation-style comments where appropriate to highlight the functionality.
@@ -14,7 +14,7 @@ This example demonstrates creating and destroying a `PhysicsWorld` which is comp
 
 ---
 ## 02 - Use Default Physics World
-Whilst it is powerful to be able to create your own isolated `PhysicsWorld`, it is more common to use a single `PhysicsWorld` which is why Unity automaticaly creates one for you.
+Whilst it is powerful to be able to create your own isolated `PhysicsWorld`, it is more common to use a single `PhysicsWorld` which is why Unity automatically creates one for you.
 This example shows you how you access the default world.
 
 ---
@@ -154,7 +154,7 @@ The result of this is that the `SceneBody` is created in the `PhysicsWorld` the 
 
 This means you can have multiple worlds and multiple objects within those worlds in a single Unity scene if you wish.
 Whilst the `SceneBody` is connected to the `SceneWorld`, you can configure the `SceneWorld` to simply represent the default world by enabling its "Use Default World" checkbox.
-Multiple `SceneWorld` using the default world all represent the same default world that Unity implicitly createds.
+Multiple `SceneWorld` using the default world all represent the same default world that Unity implicitly created.
 Only with that option disabled does the `SceneWorld` create a `PhysicsWorld`.
 
 ---

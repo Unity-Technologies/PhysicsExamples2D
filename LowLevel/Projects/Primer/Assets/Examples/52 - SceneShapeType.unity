@@ -170,7 +170,7 @@ MonoBehaviour:
     vertices:
       m_Vertex0: {x: 1.4282647, y: 0.4808234}
       m_Vertex1: {x: 0.485358, y: 0.4576958}
-      m_Vertex2: {x: -0.13780855, y: 0.096705854}
+      m_Vertex2: {x: -0.40961686, y: 0.022124663}
       m_Vertex3: {x: -0.563517, y: -0.21400423}
       m_Vertex4: {x: 0.9578104, y: -0.7579634}
       m_Vertex5: {x: 0, y: 0}
@@ -178,14 +178,14 @@ MonoBehaviour:
       m_Vertex7: {x: 0, y: 0}
     normals:
       m_Vertex0: {x: -0.024520593, y: 0.99969935}
-      m_Vertex1: {x: -0.50125396, y: 0.86530024}
-      m_Vertex2: {x: -0.58954084, y: 0.80773854}
+      m_Vertex1: {x: -0.4376103, y: 0.89916474}
+      m_Vertex2: {x: -0.837768, y: 0.54602635}
       m_Vertex3: {x: -0.3366811, y: -0.9416187}
       m_Vertex4: {x: 0.9348548, y: -0.35503003}
       m_Vertex5: {x: 0, y: 0}
       m_Vertex6: {x: 0, y: 0}
       m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0.5634021, y: -0.07126647}
+    m_Centroid: {x: 0.5359737, y: -0.06584507}
     m_Radius: 0.31
     m_Count: 5
   ShapeDefinition:
