@@ -9,10 +9,11 @@ using Random = Unity.Mathematics.Random;
 /// Press "Play" to see the destructor result. Edit the Slice ray to see the results.
 /// See the comments for more information.
 /// </summary>
-public class PhysicsDestructorFragmentGeometry : MonoBehaviour
+public class PhysicsDestructorFragmentMaskGeometry : MonoBehaviour
 {
+    public PhysicsTransform FragmentTransform = Vector2.down * 2f;
+    [Range(0.05f, 5)] public float FragmentMaskRadius = 2f;
     [Range(1, 1000)] public int FragmentPointCount = 100;
-    [Range(0.05f, 5)] public float FragmentPointRadius = 0.95f;
     [Range(0f, 1f)] public float GravityScale;
     public RigidbodyType2D FragmentBodyType = RigidbodyType2D.Dynamic;
 
@@ -21,9 +22,10 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
     public PolygonGeometry PolygonGeometry1 = PolygonGeometry.CreateBox(new Vector2(3f, 2f));
     public PolygonGeometry PolygonGeometry2 = PolygonGeometry.CreateBox(new Vector2(2f, 4f));
 
-    private Random m_Random = new(0x12345678);
+    private Random m_Random = new (0x12345678);
     private PhysicsWorld m_PhysicsWorld;
     private NativeArray<Vector2> m_FragmentedPoints;
+    private NativeArray<PolygonGeometry> m_FragmentMask;
 
     private void OnEnable() => RunDestructorExample();
     private void OnDisable() => CleanDestructorExample();
@@ -33,7 +35,7 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
         if (Application.isPlaying)
             RunDestructorExample();
     }
-
+    
     private void Update()
     {
         if (!m_PhysicsWorld.isValid)
@@ -42,9 +44,9 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
         // Draw the original geometries.
         m_PhysicsWorld.DrawGeometry(PolygonGeometry1, PhysicsTransform.identity, Color.gray4);
         m_PhysicsWorld.DrawGeometry(PolygonGeometry2, PhysicsTransform.identity, Color.gray4);
-
+        
         // Draw the fragment radius.
-        m_PhysicsWorld.DrawCircle(Vector2.zero, FragmentPointRadius, Color.gray5);
+        m_PhysicsWorld.DrawCircle(FragmentTransform.position, FragmentMaskRadius, Color.gray5);
 
         // Draw the fragment points.
         if (m_FragmentedPoints.IsCreated)
@@ -64,17 +66,20 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
 
         // Create a static area for the shapes to move around in.
         CreateArea();
-
+        
         // Create the fragment points.
         CreateFragmentPoints();
 
+        // Create the Target mask.
+        CreateTargetMask();
+        
         // Create the target polygons.
         using var polygons = CreateTargetPolygons();
-
+        
         // We may have produced no polygons, depending on the operations we choose etc.
         if (polygons.Length == 0)
-            return;
-
+            return;           
+        
         // Create the target set of fragment geometry.
         // NOTE: This is NOT a copy operation so the source geometry provided here must exist until you have used the FragmentGeometry.
         // We have the option to also transform the geometry which, if coming from a specific PhysicsBody, would be the "PhysicsBody.transform".
@@ -82,38 +87,57 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
         // If you have anything other than PolygonGeometry, you can use the PhysicsComposer to quickly convert it.
         var target = new PhysicsDestructor.FragmentGeometry(PhysicsTransform.identity, polygons);
 
+        // Create the fragment mask.
+        var mask = new PhysicsDestructor.FragmentGeometry(PhysicsTransform.identity, m_FragmentMask);
+        
         // Perform the fragment operation.
-        // Take the target geometry and fragment it with the specified fragment points, returning the fragments.
-        // If none of the fragment points overlap the target geometry, all geometry is returned in "unbrokenGeometry".
-        // If at least a single fragment point overlaps the target geometry, all geometry is returned in "brokenGeometry".
+        // Take the target geometry and split it using the mask.
+        // The target geometry that doesn't overlap the mask geometry is placed into the "unbrokenGeometry".
+        // The target geometry that overlaps the mask geometry and fragment it with the specified fragment points, returning the fragments, returning that in "brokenGeometry".
         // NOTE: Like anything in this API that returns multiple results, you must specify an allocator and dispose of it too.
-        using var fragmentResult = PhysicsDestructor.Fragment(target, m_FragmentedPoints, Allocator.Temp);
-
-        // Fetch the fragment geometry, no matter whether it's unbroken or not.
-        var fragmentGeometry = fragmentResult.unbrokenGeometry.Length > 0 ? fragmentResult.unbrokenGeometry : fragmentResult.brokenGeometry;
-
-        // Create a body definition for all fragments.
-        var bodyDef = new PhysicsBodyDefinition
+        using var fragmentResult = PhysicsDestructor.Fragment(target, mask, m_FragmentedPoints, Allocator.Temp);
+        
+        // Create the "unbroken" geometry on a single static body.
+        if (fragmentResult.unbrokenGeometry.Length > 0)
         {
-            bodyType = FragmentBodyType,
-            position = fragmentResult.transform.position,
-            rotation = fragmentResult.transform.rotation,
-            gravityScale = GravityScale
-        };
+            // Create a body definition for all fragments.
+            var bodyDef = new PhysicsBodyDefinition
+            {
+                bodyType = RigidbodyType2D.Static,
+                position = fragmentResult.transform.position,
+                rotation = fragmentResult.transform.rotation
+            };
 
-        // Create fragments with their own bodies.
-        foreach (var geometry in fragmentGeometry)
-        {
-            // Yes, so create a dynamic body at the fragment transform with movement away from the fragment center.
-            bodyDef.linearVelocity = geometry.centroid.normalized * 0.25f;
-            var body = m_PhysicsWorld.CreateBody(bodyDef);
-
-            // Create a colourful shape definition (for fun).
-            var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = Color.HSVToRGB(m_Random.NextFloat(), 1f, m_Random.NextFloat(0.5f, 1f)) } };
-
-            // Create the fragment shape.
-            body.CreateShape(geometry, shapeDef);
+            // Create the shapes.
+            using var shapes = m_PhysicsWorld.CreateBody(bodyDef).CreateShapeBatch(fragmentResult.unbrokenGeometry, PhysicsShapeDefinition.defaultDefinition);
         }
+        
+        // Create the "unbroken" geometry on multiple bodies.
+        if (fragmentResult.brokenGeometry.Length > 0)
+        {
+            // Create a body definition for all fragments.
+            var bodyDef = new PhysicsBodyDefinition
+            {
+                bodyType = FragmentBodyType,
+                position = fragmentResult.transform.position,
+                rotation = fragmentResult.transform.rotation,
+                gravityScale = GravityScale
+            };
+        
+            // Create broken fragments with their own bodies.
+            foreach (var geometry in fragmentResult.brokenGeometry)
+            {
+                // Yes, so create a dynamic body at the fragment transform with movement away from the fragment center.
+                bodyDef.linearVelocity = geometry.centroid.normalized * 0.25f;
+                var body = m_PhysicsWorld.CreateBody(bodyDef);
+            
+                // Create a colourful shape definition (for fun).
+                var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = Color.HSVToRGB(m_Random.NextFloat(), 1f, m_Random.NextFloat(0.5f, 1f)) } };
+            
+                // Create the fragment shape.
+                body.CreateShape(geometry, shapeDef);
+            }
+        }        
     }
 
     private void CleanDestructorExample()
@@ -121,12 +145,16 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
         // Dispose of the fragment points.
         if (m_FragmentedPoints.IsCreated)
             m_FragmentedPoints.Dispose();
+        
+        // Dispose of the fragment mask.
+        if (m_FragmentMask.IsCreated)
+            m_FragmentMask.Dispose();
 
         // Destroying a world will destroy all its contents.
         if (m_PhysicsWorld.isValid)
             m_PhysicsWorld.Destroy();
     }
-
+    
     private void CreateArea()
     {
         // Ground Body. 
@@ -146,25 +174,38 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
             geometry: new ChainGeometry(extentPoints.AsArray()),
             definition: PhysicsChainDefinition.defaultDefinition);
     }
-
+    
     private void CreateFragmentPoints()
     {
         // Dispose of any existing fragment points.
         if (m_FragmentedPoints.IsCreated)
             m_FragmentedPoints.Dispose();
-
+        
         // Create the fragment points.
         m_FragmentedPoints = new NativeArray<Vector2>(FragmentPointCount, Allocator.Persistent);
         for (var i = 0; i < FragmentPointCount; ++i)
-            m_FragmentedPoints[i] = new PhysicsRotate(m_Random.NextFloat(0f, PhysicsMath.TAU)).direction * m_Random.NextFloat(0f, FragmentPointRadius);
+            m_FragmentedPoints[i] = FragmentTransform.position + new PhysicsRotate(m_Random.NextFloat(0f, PhysicsMath.TAU)).direction * m_Random.NextFloat(0f, FragmentMaskRadius);
     }
-
+    
+    private void CreateTargetMask()
+    {
+        // Dispose of the fragment mask.
+        if (m_FragmentMask.IsCreated)
+            m_FragmentMask.Dispose();
+        
+        // Create a Polygon geometry mask from a Circle.
+        var composer = PhysicsComposer.Create();
+        composer.AddLayer(new CircleGeometry { radius = FragmentMaskRadius }, FragmentTransform);
+        m_FragmentMask = composer.CreatePolygonGeometry(vertexScale: Vector2.one, allocator: Allocator.Persistent);
+        composer.Destroy();
+    }
+    
     private NativeArray<PolygonGeometry> CreateTargetPolygons()
     {
         // Create a composer.
         // We use the default TEMP allocator here but as with anything in the API that can create multiple results, you can choose an appropriate allocator.
         var composer = PhysicsComposer.Create();
-
+    
         // Add our test geometry as layers.
         // We default to OR operation here to simply merge the result.
         composer.AddLayer(PolygonGeometry1, PhysicsTransform.identity);
@@ -174,7 +215,7 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
         // We can scale the geometry and specify how the results are allocated, in this case using the TEMP allocator.
         // We can also use "composer.CreateChainGeometry" to create a set of PhysicsChain (outlines).
         var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, allocator: Allocator.Temp);
-
+    
         // We must always dispose of the allocator when we're finished.
         composer.Destroy();
 

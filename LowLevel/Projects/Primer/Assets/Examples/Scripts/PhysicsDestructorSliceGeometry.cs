@@ -14,7 +14,7 @@ public class PhysicsDestructorSliceGeometry : MonoBehaviour
     public Vector2 SliceTranslation = new(7f, 6f);
 
     // Polygon Geometries.
-    // NOTE: Polygon radius is NOT supported with slicing and will be ignored.
+    // NOTE: Polygon radius is NOT supported with Slicing and will be ignored.
     public PolygonGeometry PolygonGeometry1 = PolygonGeometry.CreateBox(new Vector2(3f, 2f));
     public PolygonGeometry PolygonGeometry2 = PolygonGeometry.CreateBox(new Vector2(2f, 4f));
 
