@@ -96,11 +96,11 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             if (!body.isValid)
                 return;
 
+            if (Points.Length < 3)
+                return;
+            
             // Calculate the polygons from the points.
-            var composer = PhysicsComposer.Create();
-            composer.AddLayer(Points, PhysicsTransform.identity);
-            using var polygons = composer.CreatePolygonGeometry(vertexScale: transform.lossyScale, Allocator.Temp);
-            composer.Destroy();
+            using var polygons = PolygonGeometry.CreatePolygons(Points, PhysicsTransform.identity, transform.lossyScale);
 
             // Calculate the relative transform from the scene body to this scene shape.
             var relativeTransform = PhysicsMath.GetRelativeMatrix(SceneBody.transform, transform, SceneBody.Body.world.transformPlane, useScale: false);
