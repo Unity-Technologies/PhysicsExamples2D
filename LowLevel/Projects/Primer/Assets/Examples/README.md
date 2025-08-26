@@ -52,7 +52,7 @@ This example shows you the basics of configuring how `PhysicsShape` come into co
 This example shows you the basics of configuring a script callback when a pair of `PhysicsShape` come into contact.
 
 ---
-## 12 - Physids Shape Trigger Callback
+## 12 - Physics Shape Trigger Callback
 This example shows you the basics of configuring a script callback when a pair of `PhysicsShape` overlap when either of the pair are a trigger.
 
 ---
@@ -105,8 +105,10 @@ This package is an example-only package which wraps the API you've seen so far i
 It is not designed to be used in production projects however you are free to do so if you wish.
 Most editing of properties can only be done in Edit mode as the components are only examples and are not fully featured.
 It exposes most features for each object type and allows editing their configuration in the inspector.
-For `PhysicsShape` components, scene tooling is available allowing you to edit geometry visually; this also supports multiple TransformPlane editing.
-The components aim to demonstrate how you can create your own components using the API.
+
+For `PhysicsShape` components, scene tooling is available allowing you to edit geometry visually which this also supports multiple `TransformPlane` editing.
+
+The main aim for these components is to demonstrate how you can create your own components using the API which is why they expose definitions, callback-targets, user-data etc.
 
 All components begin with a "Scene" prefix and can be found in the component menu `Physics 2D > LowLevel`:
 
