@@ -1,8 +1,11 @@
-# Physics 2D LowLevel Primer Examples
+# Physics 2D LowLevel "Primer" Examples
 
-The following examples provide a good start to understanding some of the more important features provided by the low-level Physics API and test package provided.
-Below will add an extra detail not covered in the example itself.
+The following examples are provided to give a good start in understanding some of the more important features provided by the low-level Physics API and the "extras" test package provided.
+Below will adds any extra detail not covered in the examples themselves.
+
 Each example has at least a single "Example" GameObject with an example script which you should examine to understand how the example works.
+The scripts contain short annotation-style comments where appropriate to highlight the functionality.
+
 <b>Note:</b> Gaps in the example numbering is intentional, leaving space for addition examples to be added.
 
 ---
