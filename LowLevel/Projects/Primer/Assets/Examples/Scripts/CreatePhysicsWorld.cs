@@ -12,6 +12,32 @@ public class CreatePhysicsWorld : MonoBehaviour
     
     private void Start()
     {
+
+        {
+            // Create a world (implicitly using the default world definition).
+            // All creation methods that accept a definition also have an overload that allows you to specify nothing which implicitly uses the default.
+            // There is no functional difference, only convenience to implicitly mean to use its default definition.
+            var world = PhysicsWorld.Create();
+
+            // Log the world ID.
+            Debug.Log(world);
+
+            // Destroy the world.
+            world.Destroy();
+        }
+        
+        {
+            // Create a world using the public field above.
+            // You can edit this world definition right in the inspector then hit play.
+            var world = PhysicsWorld.Create(WorldDefinition);
+
+            // Log the world ID.
+            Debug.Log(world);
+
+            // Destroy the world.
+            world.Destroy();
+        }        
+        
         {
             // Create a world (using the default world definition).
             // This world exists in isolation from any other world you create.
@@ -37,19 +63,6 @@ public class CreatePhysicsWorld : MonoBehaviour
             // All objects that have handles have an "isValid" property to check this. 
             world.Destroy();
         }
-
-        {
-            // Create a world (implicitly using the default world definition).
-            // All creation methods that accept a definition also have an overload that allows you to specify nothing which implicitly uses the default.
-            // There is no functional difference, only convenience to implicitly mean to use its default definition.
-            var world = PhysicsWorld.Create();
-
-            // Log the world ID.
-            Debug.Log(world);
-
-            // Destroy the world.
-            world.Destroy();
-        }
         
         {
             // Get a copy of the default world definition.
@@ -60,18 +73,6 @@ public class CreatePhysicsWorld : MonoBehaviour
             
             // Create the world using my modified definition.
             var world = PhysicsWorld.Create(myWorldDefinition);
-
-            // Log the world ID.
-            Debug.Log(world);
-
-            // Destroy the world.
-            world.Destroy();
-        }
-        
-        {
-            // Create a world using the public field above.
-            // You can edit this world definition right in the inspector then hit play.
-            var world = PhysicsWorld.Create(WorldDefinition);
 
             // Log the world ID.
             Debug.Log(world);
