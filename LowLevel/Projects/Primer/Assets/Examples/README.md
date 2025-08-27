@@ -82,6 +82,10 @@ This example shows you how to create and assign `PhysicsUserData` to a `PhysicsB
 - PhysicJoint (all)
 
 ---
+##17 - Physics Query Job
+Whilst a majority of the API can be used in a C# Job, this examples specifically shows you can use queries in a C# Job.
+
+---
 
 ---
 

@@ -130,8 +130,7 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
     private void CreateArea()
     {
         // Ground Body. 
-        var groundBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { position = Vector2.down * 7f });
-        groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 4f)));
+        m_PhysicsWorld.CreateBody().CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 4f), 0f, new PhysicsTransform(Vector2.down * 7f)));
     }
 
     private void CreateFragmentPoints()
