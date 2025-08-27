@@ -1,6 +1,6 @@
 # Physics 2D LowLevel Primer
 
-## This document contains detailed information to help you gain a good overview of what the low-level physics provides.
+This document contains detailed information to help you understand what the low-level physics provides.
 
 ## Examples
 This project contains individual examples which cover lots of features.
