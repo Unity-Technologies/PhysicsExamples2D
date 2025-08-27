@@ -14,7 +14,7 @@ public class PhysicsDestructorFragmentMaskGeometry : MonoBehaviour
     public PhysicsTransform FragmentTransform = Vector2.down * 2f;
     [Range(0.05f, 5)] public float FragmentMaskRadius = 2f;
     [Range(1, 1000)] public int FragmentPointCount = 100;
-    [Range(0f, 1f)] public float GravityScale;
+    [Range(0f, 1f)] public float GravityScale = 1f;
     public RigidbodyType2D FragmentBodyType = RigidbodyType2D.Dynamic;
 
     // Polygon Geometries.
@@ -158,21 +158,8 @@ public class PhysicsDestructorFragmentMaskGeometry : MonoBehaviour
     private void CreateArea()
     {
         // Ground Body. 
-        var groundBody = m_PhysicsWorld.CreateBody();
-
-        var extents = new Vector2(8f, 5f);
-        using var extentPoints = new NativeList<Vector2>(Allocator.Temp)
-        {
-            new(-extents.x, extents.y),
-            new(extents.x, extents.y),
-            new(extents.x, -extents.y),
-            new(-extents.x, -extents.y)
-        };
-
-        // Create a chain of line segments.
-        groundBody.CreateChain(
-            geometry: new ChainGeometry(extentPoints.AsArray()),
-            definition: PhysicsChainDefinition.defaultDefinition);
+        var groundBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { position = Vector2.down * 7f });
+        groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(100f, 4f)));
     }
     
     private void CreateFragmentPoints()

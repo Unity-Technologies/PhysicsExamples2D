@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PhysicsDestructorFragmentGeometry
   FragmentPointCount: 100
   FragmentPointRadius: 0.95
-  GravityScale: 0
+  GravityScale: 1
   FragmentBodyType: 0
   PolygonGeometry1:
     vertices:

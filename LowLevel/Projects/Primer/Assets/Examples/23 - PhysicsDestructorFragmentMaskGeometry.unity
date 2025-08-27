@@ -169,7 +169,7 @@ MonoBehaviour:
       direction: {x: 1, y: 0}
   FragmentMaskRadius: 2
   FragmentPointCount: 100
-  GravityScale: 0
+  GravityScale: 1
   FragmentBodyType: 0
   PolygonGeometry1:
     vertices:
