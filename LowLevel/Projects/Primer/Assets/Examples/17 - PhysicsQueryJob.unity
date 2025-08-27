@@ -163,10 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f00083789c6ca41bd4a6a7c64a4fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicsQueryJob
-  RayDistance: 3
+  RayDistance: 4
   RayCount: 500
   DrawRays: 1
-  DrawHitPoints: 0
+  DrawHitPoints: 1
   DrawNormals: 0
 --- !u!1001 &1498071701
 PrefabInstance:
