@@ -1,5 +1,9 @@
 # Physics 2D LowLevel Sandbox
 
+See it on [Unity Play](https://play.unity.com/en/games/dda44876-f374-43c9-a406-1e6b0330316f/sandbox-webgpu-single-thread) (Requires browser WebGPU support and is single-threaded only thus reduced performance).
+
+---
+
 This repository contains examples that can be built to a player.
 
 You MUST first enable "Development Build" in the build options for the debug rendering to display anything as debug rendering is only available in the Editor and Development Players.
