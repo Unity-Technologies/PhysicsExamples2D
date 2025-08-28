@@ -523,6 +523,56 @@ class MyTest : MonoBehaviour, PhysicsCallbacks.IContactCallback
 ```
 
 ---
+## Layer System
+Unity has a built-in system for specifying Layers. Historically 32-bits were used (C# `int`) to encode 32 layers where each bit position (#0, #1, #2 etc.) is associated with a layer number (ordinal).
+This is the most compact and efficient representation for a set of binary options, which is essentially given how it is used in certain contexts such as physics where very fast bit-masking is required to calculate certain functionality such as which objects can interact with other objects as well as in physics queries, restricting results returned.
+
+Each layer also has an associated name (string) so that layers can be presented by name rather than number, mostly to make working with layers more visual.
+The name is not typically used by Unity systems but devs are free to perform conversions symmetrically between layer number (ordinal) and string.
+These names are editable and are globally scoped across a single Unity project.
+
+Access to the Unity layer system is typically through the [LayerMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LayerMask.html) type.
+This type has implicit conversion to the C# `int` type which is convenient but also causes problems due to the fact that an `int` is common and looses its meaning when used as a layer mask.
+This can cause problems in methods/properties that require a layer mask argument but instead use an `int` type. Devs often mistake this as a layer number (ordinal) rather than a layer mask (bit-mask). 
+
+Additionally, whilst 32 layers sounds adequate, layers are used by several systems and many components so their usage has become quite overloaded therefore 32 layers can quickly become a significant limitation in some projects.
+
+This API is fully 64-bit so the [PhysicsShape.ContactFilter](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.ContactFilter.html), [PhysicsQuery.QueryFilter](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsQuery.QueryFilter.html)
+and anything that uses a 64-bit [PhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.html) can now be used to specify up to 64 layers.
+
+The API can operate in a "backwards compatible" mode using the existing 32 layer system by only applying the "lower" 32-bits to a `PhysicsMask` and leaving the "upper" 32-bits at zero; the physics system will always look at the full 64-bits.
+
+To facilitate this, a number of new features were added:
+- Dedicated Physics 64-bit mask: [PhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.html)
+  - Being a dedicated mask type, a lot of convenient operations are provided such as:
+    - Static [PhysicsMask.All](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.All.html), [PhysicsMask.None](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.None.html) and [PhysicsMask.One](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.One.html) properties.
+    - [Constructors](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask-ctor.html) allowing multiple layer numbers (ordinals) to be specified or a single `LayerMask`.
+    - [PhysicsMask.AreBitsSet](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.AreBitsSet.html), [PhysicsMask.IsBitSet](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.IsBitSet.html), [PhysicsMask.ResetBit](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.ResetBit.html), [PhysicsMask.SetBit](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.SetBit.html) and [PhysicsMask.ToLayerMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.ToLayerMask.html).
+  - Additionally, when only wanting to show a bit-mask rather than as layer names, you can use the [PhysicsMask.ShowAsPhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.ShowAsPhysicsMaskAttribute.html) attribute on any fields. All property drawers will then show as a bit-mask.
+- Dedicated Physics 64-bit layers: [PhysicsLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLayers.html).
+  - This type has identical methods when dealing with layer masks and some new ones so changing code is even easier i.e. `LayerMask.GetLayerMask` now becomes `PhysicsLayers.GetLayerMask` etc.
+- Property Drawers for `PhysicsMask` and key types that wish to display masks as layers that adapt depending on which mode is required (32 or 64 layer modes)
+- UI to show up to 64 elements via a 64-bit mask field: [Mask64Field](https://docs.unity3d.com/6000.3/Documentation/Manual/UIE-uxml-element-Mask64Field.html)
+
+By default, all the API types that uses `PhysicsMask` have property drawers for the inspector and adapt to showing the appropriate 32/64-bit mode.
+The mode is controlled in the assigned `Physics Low Level Settings 2D` asset (as seen previously), specifically the "Use Full Layers" option.
+The layer names displayed when using this option are also specified in the same asset in "Physics Layer Names" as seen here:
+
+![Physics LowLevel Settings Inspector](./Images/LowLevelPhysicsSettings2D-Inspector.png) 
+
+When this mode is disabled, the property drawers display the existing Unity layer names as seen here:
+![UnityLayer-32](./Images/UnityLayer-32.png)
+
+When this mode is enabled, the property drawers display the layer names along with the layer number (ordinal) in brackets, as defined in the settings asset as seen here:
+![PhysicsLayer-64](./Images/PhysicsLayer-64.png)
+
+<b>NOTE</b>: Switching between the 32 and 64 layer modes is safe; the selections in the `PhysicsMask` are <b>not</b> modified when this is done, simply the layer names displayed change as defined in the `LayerMask` or `PhysicsLayers` options.
+
+When using the [PhysicsMask.ShowAsPhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.ShowAsPhysicsMaskAttribute.html) on any field in a script using a `PhysicsMask`, it will be shown as a raw bit-mask as seen here:
+![PhysicsMask-ShowAsPhysicsMaskAttribute](./Images/PhysicsMask-ShowAsPhysicsMaskAttribute.png)
+
+
+---
 ## Debug Drawing
 A `PhysicsWorld` has its own debug drawing capabilities allowing its contents to be automatically drawn and therefore visualised within the Editor Game and Scene windows.
 The drawing system uses a high-performance set of compute-based shaders with multi-instancing support to render as efficiently as possible.
