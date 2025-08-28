@@ -169,8 +169,16 @@ The result of this is that the `SceneBody` is created in the `PhysicsWorld` the 
 
 This means you can have multiple worlds and multiple objects within those worlds in a single Unity scene if you wish.
 Whilst the `SceneBody` is connected to the `SceneWorld`, you can configure the `SceneWorld` to simply represent the default world by enabling its "Use Default World" checkbox.
-Multiple `SceneWorld` using the default world all represent the same default world that Unity implicitly created.
+Multiple `SceneWorld` using the default world all represent the same default world that Unity implicitly creates.
 Only with that option disabled does the `SceneWorld` create a `PhysicsWorld`.
+
+The `SceneWorld` component also provides an extra fold-out in the inspector named "Info" in which it displays the world `Profile` (timings) and world `counters`.
+When the fold-out is open, the `SceneWorld` will retrieve these by calling [PhysicsWorld.profile](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-profile.html) amd [PhysicsWorld.counters](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-counters.html). 
+This also displays information related to the `PhysicsWorld` the `SceneWorld` is related to i.e. the default world or the world it created.
+This can be useful in simply looking at the default world information by adding a GameObject with a single `SceneWorld` with the `Use Default World` property enabled.
+The fold-out looks like this:
+
+![SceneWorld Info](../../Images/SceneWorld-Info.png)
 
 ---
 ## 52 Scene Shape Type
