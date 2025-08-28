@@ -1,5 +1,4 @@
 using Unity.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
@@ -93,13 +92,13 @@ public class Spinner : MonoBehaviour
 
             // Kinematic Spinner.
             var kinematicSpinner = root.Q<Toggle>("kinematic-spinner");
+            kinematicSpinner.value = m_KinematicSpinner;
             kinematicSpinner.RegisterValueChangedCallback(evt =>
             {
                 m_KinematicSpinner = evt.newValue;
                 m_MotorTorqueElement.enabledSelf = !m_KinematicSpinner;
                 SetupScene();
             });
-            kinematicSpinner.value = m_KinematicSpinner;
 
             // Debris Count.
             var debrisCount = root.Q<SliderInt>("debris-count");

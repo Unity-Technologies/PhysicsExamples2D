@@ -48,6 +48,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Benchmark/Spinner/Spinner.unity
     guid: 720b89258d7347e4aba0192fd6559b38
   - enabled: 1
+    path: Assets/Scenes/Benchmark/Washer/Washer.unity
+    guid: cb72e9c965e22c84ca0de7b6dff686c5
+  - enabled: 1
     path: Assets/Scenes/Benchmark/Funnel/Funnel.unity
     guid: db1d9ec2a7974ad48a0528f29fa3ead3
   - enabled: 1
