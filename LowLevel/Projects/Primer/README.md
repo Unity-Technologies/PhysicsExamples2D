@@ -571,7 +571,7 @@ When this mode is enabled, the property drawers display the layer names along wi
 
 <b>NOTE</b>: Switching between the 32 and 64 layer modes is safe; the selections in the `PhysicsMask` are <b>not</b> modified when this is done, simply the layer names displayed change as defined in the `LayerMask` or `PhysicsLayers` options.
 
-When using the [PhysicsMask.ShowAsPhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.ShowAsPhysicsMaskAttribute.html) on any field in a script using a `PhysicsMask`, it will be shown as a raw bit-mask as seen here:
+When using the [PhysicsMask.ShowAsPhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.ShowAsPhysicsMaskAttribute.html) on any field in a script using a `PhysicsMask`, it will be shown as a raw bit-mask showing the selection bits only as seen here:
 
 ![PhysicsMask-ShowAsPhysicsMaskAttribute](./Images/PhysicsMask-ShowAsPhysicsMaskAttribute.png)
 
