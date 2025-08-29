@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
-public class BatchQueries : MonoBehaviour
+public class Queries : MonoBehaviour
 {
     public PhysicsQuery.QueryFilter BatchFilter = PhysicsQuery.QueryFilter.Everything;
 

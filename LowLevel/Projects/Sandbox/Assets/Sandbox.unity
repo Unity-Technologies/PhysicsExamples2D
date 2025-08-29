@@ -257,10 +257,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneItems:
-  - Name: Batch Queries
+  - Name: Queries
     Category: Batching
     Description: Demonstrating how to batch queries using the job system.
-    ScenePath: Assets/Scenes/Batching/BatchQueries/BatchQueries.unity
+    ScenePath: Assets/Scenes/Batching/Queries/Queries.unity
   - Name: Shooter
     Category: Batching
     Description: Demonstrate the batch creation and destruction of lots of bodies

@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Sandbox.unity
     guid: 322af58dd36e2bd45adf1337d19229d5
   - enabled: 1
-    path: Assets/Scenes/Batching/BatchQueries/BatchQueries.unity
+    path: Assets/Scenes/Batching/Queries/Queries.unity
     guid: 537f9bc67fe6f4d4f8c518ab34b8c3b3
   - enabled: 1
     path: Assets/Scenes/Batching/Shooter/Shooter.unity

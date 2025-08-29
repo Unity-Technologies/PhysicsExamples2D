@@ -3,7 +3,7 @@
     <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; align-content: auto; justify-content: flex-end; padding-left: 8px; padding-bottom: 8px;">
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
-                <ui:Tab label="Batch Queries Options" tabindex="0" name="Tab">
+                <ui:Tab label="Queries Options" tabindex="0" name="Tab">
                     <ui:SliderInt label="Batch Count" value="100" high-value="1000" show-input-field="true" name="batch-count" fill="true" low-value="1" focusable="false"/>
                     <ui:Slider label="Batch Spread " value="10" high-value="360" name="batch-spread" fill="true" show-input-field="true" low-value="1" focusable="false"/>
                     <ui:Slider label="Batch Distance " value="1" high-value="50" name="batch-distance" fill="true" show-input-field="true" low-value="1" focusable="false"/>
