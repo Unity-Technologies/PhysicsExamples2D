@@ -525,15 +525,15 @@ class MyTest : MonoBehaviour, PhysicsCallbacks.IContactCallback
 ---
 ## Layer System
 Unity has a built-in system for specifying Layers. Historically 32-bits were used (C# `int`) to encode 32 layers where each bit position (#0, #1, #2 etc.) is associated with a layer number (ordinal).
-This is the most compact and efficient representation for a set of binary options, which is essentially given how it is used in certain contexts such as physics where very fast bit-masking is required to calculate certain functionality such as which objects can interact with other objects as well as in physics queries, restricting results returned.
+This is the most compact and efficient representation for a set of binary options, which is essential given how it is used in certain contexts such as physics where very fast bit-masking is required to calculate certain functionality such as which objects can interact with other objects as well as in physics queries, restricting results returned.
 
-Each layer also has an associated name (string) so that layers can be presented by name rather than number, mostly to make working with layers more visual.
-The name is not typically used by Unity systems but devs are free to perform conversions symmetrically between layer number (ordinal) and string.
+Each layer also has an associated name (string) so that layers can be presented by name rather than number, mostly to make working with layers more visual and intuitive.
+The name is not typically used by Unity systems but developers are free to perform conversions symmetrically between layer number (ordinal) and string.
 These names are editable and are globally scoped across a single Unity project.
 
 Access to the Unity layer system is typically through the [LayerMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LayerMask.html) type.
 This type has implicit conversion to the C# `int` type which is convenient but also causes problems due to the fact that an `int` is common and looses its meaning when used as a layer mask.
-This can cause problems in methods/properties that require a layer mask argument but instead use an `int` type. Devs often mistake this as a layer number (ordinal) rather than a layer mask (bit-mask). 
+This can cause problems in methods/properties that require a layer mask argument but instead use an `int` type. Developers can mistake this as a layer number (ordinal) rather than a layer mask (bit-mask). 
 
 Additionally, whilst 32 layers sounds adequate, layers are used by several systems and many components so their usage has become quite overloaded therefore 32 layers can quickly become a significant limitation in some projects.
 
@@ -551,6 +551,7 @@ To facilitate this, a number of new features were added:
   - Additionally, when only wanting to show a bit-mask rather than as layer names, you can use the [PhysicsMask.ShowAsPhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.ShowAsPhysicsMaskAttribute.html) attribute on any fields. All property drawers will then show as a bit-mask.
 - Dedicated Physics 64-bit layers: [PhysicsLayers](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsLayers.html).
   - This type has identical methods when dealing with layer masks and some new ones so changing code is even easier i.e. `LayerMask.GetLayerMask` now becomes `PhysicsLayers.GetLayerMask` etc.
+  - The advantage of using this type is that when using the full 64-bit layers, the layers defined in the Physics settings are used however when not in that mode, a call to `Layermask` is made instead so the global Unity layers are used. This makes it compatible no matter what mode is selected.
 - Property Drawers for `PhysicsMask` and key types that wish to display masks as layers that adapt depending on which mode is required (32 or 64 layer modes)
 - UI to show up to 64 elements via a 64-bit mask field: [Mask64Field](https://docs.unity3d.com/6000.3/Documentation/Manual/UIE-uxml-element-Mask64Field.html)
 
@@ -622,7 +623,7 @@ Here's an example showing the component on a GameObject. No children GameObject 
 When authoring components, especially when providing them to external developers, you want to ensure that objects you create with the API i.e. `PhysicsWorld`, `PhysicsBody`, `PhysicsShape`, `PhysicsChain`, `PhysicsJoint` etc. are not deleted.
 For example, if you provide the "Gear" component above, and it is happily working in a scene and a developer performs a world query and detects one of the `PhysicsShape` which is a "tooth" in your gear.
 The user decides this is a shape they wish to destroy so they perform a [PhysicsShape.Destroy()](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.Destroy.html) call.
-This is a perfectly fine thing to do from the devs point-of-view however suddenly, the "Gear" component is missing a tooth both visibly (via the debug renderer) and no longer collides at that tooth position!
+This is a perfectly fine thing to do from the developers point-of-view however suddenly, the "Gear" component is missing a tooth both visibly (via the debug renderer) and no longer collides at that tooth position!
 The dev may have accidentally destroyed this but from their point-of-view, the "Gear" component has "randomly" stopped working correctly!
 
 To aid in stopping this helping this situation where components are authored containing "low level" types from the API, a feature known as "ownership" or "owning" is available.
