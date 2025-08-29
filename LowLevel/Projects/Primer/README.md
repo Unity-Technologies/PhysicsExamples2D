@@ -562,14 +562,17 @@ The layer names displayed when using this option are also specified in the same 
 ![Physics LowLevel Settings Inspector](./Images/LowLevelPhysicsSettings2D-Inspector.png) 
 
 When this mode is disabled, the property drawers display the existing Unity layer names as seen here:
+
 ![UnityLayer-32](./Images/UnityLayer-32.png)
 
 When this mode is enabled, the property drawers display the layer names along with the layer number (ordinal) in brackets, as defined in the settings asset as seen here:
+
 ![PhysicsLayer-64](./Images/PhysicsLayer-64.png)
 
 <b>NOTE</b>: Switching between the 32 and 64 layer modes is safe; the selections in the `PhysicsMask` are <b>not</b> modified when this is done, simply the layer names displayed change as defined in the `LayerMask` or `PhysicsLayers` options.
 
 When using the [PhysicsMask.ShowAsPhysicsMask](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsMask.ShowAsPhysicsMaskAttribute.html) on any field in a script using a `PhysicsMask`, it will be shown as a raw bit-mask as seen here:
+
 ![PhysicsMask-ShowAsPhysicsMaskAttribute](./Images/PhysicsMask-ShowAsPhysicsMaskAttribute.png)
 
 
