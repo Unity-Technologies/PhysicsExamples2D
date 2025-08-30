@@ -257,6 +257,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneItems:
+  - Name: Boids
+    Category: Batching
+    Description: Demonstrating how to batch queries and changing various body properties.
+    ScenePath: Assets/Scenes/Batching/Boids/Boids.unity
   - Name: Queries
     Category: Batching
     Description: Demonstrating how to batch queries using the job system.
