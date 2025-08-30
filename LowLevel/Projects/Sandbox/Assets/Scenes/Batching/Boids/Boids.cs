@@ -23,7 +23,8 @@ public class Boids : MonoBehaviour
     
     private Camera m_Camera;
     private Color m_BoidTrailColor;
-    private readonly CircleGeometry m_BoidBounds = new CircleGeometry { radius = 20f };
+    private Color m_BoidBoundsColor;
+    private CircleGeometry m_BoidBounds;
 
     private int m_BoidCount;
     private float m_BoidSize;
@@ -33,6 +34,7 @@ public class Boids : MonoBehaviour
     private float m_SeparationStrength;
     private float m_CohesionStrength;
     private float m_AlignmentStrength;
+    private float m_BoundsRadius;
     private bool m_DrawTrails;
 
     private void OnEnable()
@@ -48,6 +50,7 @@ public class Boids : MonoBehaviour
 
         m_Camera = m_CameraManipulator.Camera;
         m_BoidTrailColor = Color.gray3;
+        m_BoidBoundsColor = Color.slateGray;
 
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
@@ -66,8 +69,9 @@ public class Boids : MonoBehaviour
         m_SeparationStrength = 0.5f;
         m_CohesionStrength = 0.005f;
         m_AlignmentStrength = 0.3f;
+        m_BoundsRadius = 20f;
         m_DrawTrails = true;
-
+        
         SetupOptions();
 
         SetupScene();
@@ -136,6 +140,15 @@ public class Boids : MonoBehaviour
             alignmentStrength.value = m_AlignmentStrength;
             alignmentStrength.RegisterValueChangedCallback(evt => { m_AlignmentStrength = evt.newValue; });
 
+            // Bounds Radius.
+            var boundsRadius = root.Q<Slider>("bounds-radius");
+            boundsRadius.RegisterValueChangedCallback(evt =>
+            {
+                m_BoundsRadius = evt.newValue;
+                m_BoidBounds = new CircleGeometry { radius = m_BoundsRadius };        
+            });
+            boundsRadius.value = m_BoundsRadius;
+
             // Draw Trails.
             var drawTails = root.Q<Toggle>("draw-trails");
             drawTails.value = m_DrawTrails;
@@ -161,7 +174,7 @@ public class Boids : MonoBehaviour
         // Dispose.
         if (m_BoidBodies.IsCreated)
             m_BoidBodies.Dispose();
-        
+                
         // Boids.
         {
             // Create the Boids.
@@ -265,7 +278,7 @@ public class Boids : MonoBehaviour
         }
 
         // Draw the bounds.
-        world.DrawGeometry(m_BoidBounds, PhysicsTransform.identity, Color.gray3, deltaTime, PhysicsWorld.DrawFillOptions.Outline);
+        world.DrawGeometry(m_BoidBounds, PhysicsTransform.identity, m_BoidBoundsColor, deltaTime, PhysicsWorld.DrawFillOptions.Outline);
         
         // Update the boid transforms and velocities.
         PhysicsBody.SetBatchTransform(batchTransforms);
@@ -388,8 +401,8 @@ public class Boids : MonoBehaviour
             }
             else
             {
-                // No, we're out of bounds so just flip the linear velocity.
-                boidLinearVelocity -= boidLinearVelocity * 2f;
+                // No, we're out of bounds so move towards the origin.
+                boidLinearVelocity = -boidPosition;
             }
 
             // Fetch the direction.
