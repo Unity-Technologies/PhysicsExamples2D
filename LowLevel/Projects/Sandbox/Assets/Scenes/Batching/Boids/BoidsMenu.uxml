@@ -4,13 +4,13 @@
         <ui:VisualElement name="menu-region" style="width: 18%; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Boids Options" tabindex="0" name="Tab">
-                    <ui:SliderInt label="Boid Count" value="100" high-value="2500" show-input-field="true" name="boid-count" fill="true" low-value="3" focusable="false"/>
+                    <ui:SliderInt label="Boid Count" value="100" high-value="3000" show-input-field="true" name="boid-count" fill="true" low-value="3" focusable="false"/>
                     <ui:Slider label="Boid Size" value="10" high-value="0.5" name="boid-size" fill="true" show-input-field="true" low-value="0.1" focusable="false"/>
-                    <ui:Slider label="Max Speed" value="10" high-value="10" name="max-speed" fill="true" show-input-field="true" low-value="1" focusable="false"/>
-                    <ui:Slider label="Sight Radius" value="10" high-value="5" name="sight-radius" fill="true" show-input-field="true" low-value="1" focusable="false"/>
+                    <ui:Slider label="Max Speed" value="10" high-value="20" name="max-speed" fill="true" show-input-field="true" low-value="1" focusable="false"/>
+                    <ui:Slider label="Sight Radius" value="10" high-value="1" name="sight-radius" fill="true" show-input-field="true" low-value="0.1" focusable="false"/>
                     <ui:Slider label="Separation Radius" value="10" high-value="10" name="separation-radius" fill="true" show-input-field="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Separation Strength" value="10" high-value="1" name="separation-strength" fill="true" show-input-field="true" low-value="0" focusable="false"/>
-                    <ui:Slider label="Cohesion Strength" value="10" high-value="1" name="cohesion-strength" fill="true" show-input-field="true" low-value="0" focusable="false"/>
+                    <ui:Slider label="Cohesion Strength" value="10" high-value="0.1" name="cohesion-strength" fill="true" show-input-field="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Alignment Strength" value="10" high-value="1" name="alignment-strength" fill="true" show-input-field="true" low-value="0" focusable="false"/>
                     <ui:Toggle label="Draw Trails" name="draw-trails" focusable="false"/>
                 </ui:Tab>

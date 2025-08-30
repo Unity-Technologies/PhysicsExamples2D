@@ -58,9 +58,9 @@ public class Boids : MonoBehaviour
         // Update boids before the simulation step.
         PhysicsEvents.PreSimulate += UpdateBoids;
 
-        m_BoidCount = 250;
+        m_BoidCount = 500;
         m_BoidSize = 0.25f;
-        m_MaxSpeed = 5f;
+        m_MaxSpeed = 10f;
         m_SightRadius = 1f;
         m_SeparationRadius = 0.5f;
         m_SeparationStrength = 0.5f;
@@ -259,8 +259,9 @@ public class Boids : MonoBehaviour
         if (m_DrawTrails)
         {
             // Yes, so draw the inverse-extrapolated last velocity step.
+            var lifetime = deltaTime * 20f;
             foreach (var state in boidStates)
-                world.DrawLine(state.position, state.position - state.linearVelocity * deltaTime, m_BoidTrailColor, 2f);
+                world.DrawLine(state.position, state.position - state.linearVelocity * deltaTime, m_BoidTrailColor, lifetime);
         }
 
         // Draw the bounds.
@@ -325,73 +326,75 @@ public class Boids : MonoBehaviour
             var boidPosition = boidState.position;
             var boidLinearVelocity = boidState.linearVelocity;
 
-            // Calculate the Separation, Cohesion and Alignment.
-            var separation = float2.zero;
-            var cohesion = float2.zero;
-            var alignment = float2.zero;
-
-            var boidsInSight = 0;
-            var boidCount = BoidStates.Length;
-            for(var otherIndex = 0; otherIndex < boidCount; ++otherIndex)
+            // Are we within the bounds?
+            if (BoidBounds.OverlapPoint(boidPosition))
             {
-                // Ignore self.
-                if (otherIndex != index)
+                // Yes, so calculate the Separation, Cohesion and Alignment.
+                var separation = float2.zero;
+                var cohesion = float2.zero;
+                var alignment = float2.zero;
+
+                var boidsInSight = 0;
+                var boidCount = BoidStates.Length;
+                for (var otherIndex = 0; otherIndex < boidCount; ++otherIndex)
                 {
-                    // Fetch the other boid state.
-                    var otherBoidState = BoidStates[otherIndex];
-                    var otherBoidPosition = otherBoidState.position;
-                    var otherBoidLinearVelocity = otherBoidState.linearVelocity;
-                    
-                    // Calculate boid delta position.
-                    var boidDeltaPosition = otherBoidPosition - boidPosition;
-                    
-                    // Calculate sqr-distance to boid.
-                    var boidDistanceSqr = math.lengthsq(boidDeltaPosition);
-                    
-                    // Calculate Separation if we're within the separation radius.
-                    if (boidDistanceSqr < SeparationRadiusSqr)
-                        separation -= boidDeltaPosition;
-
-                    // Are we in sight of the other boid?
-                    if (boidDistanceSqr < SightRadiusSqr)
+                    // Ignore self.
+                    if (otherIndex != index)
                     {
-                        // Yes, so keep track so we can calculate the mean averages.
-                        ++boidsInSight;
-                        
-                        // Calculate the cohesion (local boid center).
-                        cohesion += otherBoidPosition;
+                        // Fetch the other boid state.
+                        var otherBoidState = BoidStates[otherIndex];
+                        var otherBoidPosition = otherBoidState.position;
+                        var otherBoidLinearVelocity = otherBoidState.linearVelocity;
 
-                        // Calculate the alignment (local linear velocity).
-                        alignment += otherBoidLinearVelocity;
+                        // Calculate boid delta position.
+                        var boidDeltaPosition = otherBoidPosition - boidPosition;
+
+                        // Calculate sqr-distance to boid.
+                        var boidDistanceSqr = math.lengthsq(boidDeltaPosition);
+
+                        // Calculate Separation if we're within the separation radius.
+                        if (boidDistanceSqr < SeparationRadiusSqr)
+                            separation -= boidDeltaPosition;
+
+                        // Are we in sight of the other boid?
+                        if (boidDistanceSqr < SightRadiusSqr)
+                        {
+                            // Yes, so keep track so we can calculate the mean averages.
+                            ++boidsInSight;
+
+                            // Calculate the cohesion (local boid center).
+                            cohesion += otherBoidPosition;
+
+                            // Calculate the alignment (local linear velocity).
+                            alignment += otherBoidLinearVelocity;
+                        }
                     }
                 }
+
+                // Only action if we have boids in sight.
+                if (boidsInSight > 0)
+                {
+                    // Scale the separation.
+                    separation *= SeparationStrength;
+
+                    // Calculate the Cohesion and Alignment Mean average if we have more than a single neighbour.
+                    var meanScale = boidsInSight > 1 ? math.rcp(boidsInSight - 1) : 1f;
+                    cohesion = (cohesion * meanScale - boidPosition) * CohesionStrength;
+                    alignment = (alignment * meanScale - boidLinearVelocity) * AlignmentStrength;
+
+                    // Adjust the boid linear velocity.
+                    boidLinearVelocity += cohesion + separation + alignment;
+                }
             }
-
-            // Only action if we have boids in sight.
-            if (boidsInSight > 0)
+            else
             {
-                // Scale the separation.
-                separation *= SeparationStrength;
-
-                // Calculate the Cohesion and Alignment Mean average if we have more than a single neighbour.
-                var meanScale = boidsInSight > 1 ? math.rcp(boidsInSight - 1) : 1f;
-                cohesion = (cohesion * meanScale - boidPosition) * CohesionStrength;
-                alignment = (alignment * meanScale - boidLinearVelocity) * AlignmentStrength;
-
-                // Adjust the boid linear velocity.
-                boidLinearVelocity += cohesion + separation + alignment;
+                // No, we're out of bounds so just flip the linear velocity.
+                boidLinearVelocity -= boidLinearVelocity * 2f;
             }
 
             // Fetch the direction.
             var direction = math.normalize(boidLinearVelocity);
             
-            // Keep within the bounds.
-            if (!BoidBounds.OverlapPoint(boidPosition))
-            {
-                boidLinearVelocity -= direction * 10f;
-                direction = math.normalize(boidLinearVelocity);
-            }
-
             // Clamp to the maximum speed.
             var speedSqr = math.lengthsq(boidLinearVelocity);
             if (speedSqr > MaxSpeed * MaxSpeed)
