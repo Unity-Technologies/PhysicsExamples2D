@@ -23,9 +23,11 @@ public class Boids : MonoBehaviour
     
     private Camera m_Camera;
     private Color m_BoidTrailColor;
+    private Color m_BoidSightColor;
+    private Color m_BoidSeparationColor;
     private Color m_BoidBoundsColor;
     private CircleGeometry m_BoidBounds;
-
+    
     private int m_BoidCount;
     private float m_BoidSize;
     private float m_MaxSpeed;
@@ -36,6 +38,8 @@ public class Boids : MonoBehaviour
     private float m_AlignmentStrength;
     private float m_BoundsRadius;
     private bool m_DrawTrails;
+    private bool m_DrawSight;
+    private bool m_DrawSeparation;
 
     private void OnEnable()
     {
@@ -50,6 +54,8 @@ public class Boids : MonoBehaviour
 
         m_Camera = m_CameraManipulator.Camera;
         m_BoidTrailColor = Color.gray3;
+        m_BoidSightColor = Color.lemonChiffon;
+        m_BoidSeparationColor = Color.lightBlue;
         m_BoidBoundsColor = Color.slateGray;
 
         // Set up the scene reset action.
@@ -71,6 +77,8 @@ public class Boids : MonoBehaviour
         m_AlignmentStrength = 0.3f;
         m_BoundsRadius = 20f;
         m_DrawTrails = true;
+        m_DrawSight = false;
+        m_DrawSeparation = false;
         
         SetupOptions();
 
@@ -154,6 +162,16 @@ public class Boids : MonoBehaviour
             drawTails.value = m_DrawTrails;
             drawTails.RegisterValueChangedCallback(evt => { m_DrawTrails = evt.newValue; });
 
+            // Draw Sight.
+            var drawSight = root.Q<Toggle>("draw-sight");
+            drawSight.value = m_DrawSight;
+            drawSight.RegisterValueChangedCallback(evt => { m_DrawSight = evt.newValue; });
+
+            // Draw Separation.
+            var drawSeparation = root.Q<Toggle>("draw-separation");
+            drawSeparation.value = m_DrawSeparation;
+            drawSeparation.RegisterValueChangedCallback(evt => { m_DrawSeparation = evt.newValue; });
+
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
@@ -178,7 +196,7 @@ public class Boids : MonoBehaviour
         // Boids.
         {
             // Create the Boids.
-            // Boids are kinematic, we want to let physics integrate velocity into position for us.
+            // Boids are Kinematic because we want to let physics integrate velocity into position for us.
             m_BoidBodies = world.CreateBodyBatch(
                 new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Kinematic },
                 m_BoidCount,
@@ -251,7 +269,7 @@ public class Boids : MonoBehaviour
             
         }.Schedule(m_BoidCount, m_BoidCount / 16);
         
-        // Create the output of the boid velocities calculated in the job.
+        // Create the output of the boid dynamics calculated in the job.
         var batchTransforms = new NativeArray<PhysicsBody.BatchTransform>(m_BoidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
         var batchVelocities = new NativeArray<PhysicsBody.BatchVelocity>(m_BoidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
         new BoidFlockingJob
@@ -271,15 +289,33 @@ public class Boids : MonoBehaviour
         // Are we drawing trails? 
         if (m_DrawTrails)
         {
-            // Yes, so draw the inverse-extrapolated last velocity step.
-            var lifetime = deltaTime * 20f;
+            // Yes, so draw the trails as the inverse-extrapolated last velocity step.
+            var trailsLifetime = deltaTime * 20f;
             foreach (var state in boidStates)
-                world.DrawLine(state.position, state.position - state.linearVelocity * deltaTime, m_BoidTrailColor, lifetime);
+            {
+                var boidPosition = state.position;
+                world.DrawLine(boidPosition, boidPosition - state.linearVelocity * deltaTime, m_BoidTrailColor, trailsLifetime);
+            }
+        }
+        
+        // Draw Sight.
+        if (m_DrawSight && m_SightRadius > 0f)
+            world.DrawCircle(boidStates[0].position, m_SightRadius, m_BoidSightColor, deltaTime);
+
+        // Draw Separation.
+        if (m_DrawSeparation && m_SeparationRadius > 0f)
+            world.DrawCircle(boidStates[0].position, m_SeparationRadius, m_BoidSeparationColor, deltaTime);
+        
+        // Draw the bounds.
+        var boundColor = m_BoidBoundsColor;
+        var bounds = m_BoidBounds;
+        for (var n = 0; n < 10; ++n)
+        {
+            boundColor.a = 1f - n * 0.09f;
+            bounds.radius += n * 0.2f;
+            world.DrawGeometry(bounds, PhysicsTransform.identity, boundColor, deltaTime, PhysicsWorld.DrawFillOptions.Outline);
         }
 
-        // Draw the bounds.
-        world.DrawGeometry(m_BoidBounds, PhysicsTransform.identity, m_BoidBoundsColor, deltaTime, PhysicsWorld.DrawFillOptions.Outline);
-        
         // Update the boid transforms and velocities.
         PhysicsBody.SetBatchTransform(batchTransforms);
         PhysicsBody.SetBatchVelocity(batchVelocities);
