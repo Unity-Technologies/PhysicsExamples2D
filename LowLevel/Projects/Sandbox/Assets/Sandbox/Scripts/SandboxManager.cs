@@ -29,6 +29,43 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     
     public UIDocument SceneOptionsUI { get; set; }
     
+    public enum FrequencySelection
+    {
+        Hertz15,
+        Hertz30,
+        Hertz60,
+        Hertz120,
+        Variable
+    }
+
+    public FrequencySelection Frequency
+    {
+        get => m_FrequencySelection;
+        private set
+        {
+            m_FrequencySelection = value;
+            
+            var fixedRate = m_FrequencySelection != FrequencySelection.Variable;
+            if (fixedRate)
+            {
+                Time.fixedDeltaTime = 1.0f / m_FrequencySelection switch
+                {
+                    FrequencySelection.Hertz15 => 15f,
+                    FrequencySelection.Hertz30 => 30f,
+                    FrequencySelection.Hertz60 => 60f,
+                    FrequencySelection.Hertz120 => 120f,
+                    _ => throw new ArgumentOutOfRangeException(nameof(m_FrequencySelection), m_FrequencySelection, null)
+                };
+            }
+
+            // Update the worlds.
+            using var worlds = PhysicsWorld.GetWorlds();
+            foreach (var world in worlds)
+                world.simulationMode = fixedRate ? SimulationMode2D.FixedUpdate : SimulationMode2D.Update;
+            
+        }
+    }
+
     private bool ColorShapeState { get; set; }
     private ControlsMenu.CustomButton m_PausePlayButton;    
     private ControlsMenu.CustomButton m_SingleStepButton;    
@@ -45,6 +82,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public float UpdatePeriodFPS = 0.1f;
 
     // Override state.
+    private FrequencySelection m_FrequencySelection;
     private PhysicsWorld.DrawOptions m_OverrideDrawOptions;
     private PhysicsWorld.DrawOptions m_OverridePreviousDrawOptions;
     private bool m_OverrideColorShapeState;
@@ -55,7 +93,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // PhysicsWorld.
         public int Workers;
         public int SubSteps;
-        public string Frequency;
+        public FrequencySelection Frequency;
         public bool WarmStarting;
         public bool Sleeping;
         public bool Continuous;
@@ -89,7 +127,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     // PhysicsWorld Elements.
     private SliderInt m_WorkersElement;
     private SliderInt m_SubStepsElement;
-    private DropdownField m_FrequencyElement;
+    private EnumField m_FrequencyElement;
     private Toggle m_WarmStartingElement;
     private Toggle m_SleepingElement;
     private Toggle m_ContinuousElement;
@@ -159,7 +197,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             // PhysicsWorld.
             Workers = defaultWorld.simulationWorkers,
             SubSteps = defaultWorld.simulationSubSteps,
-            Frequency = "60",
+            Frequency = FrequencySelection.Hertz60,
             WarmStarting = defaultWorld.warmStartingAllowed,
             Sleeping = defaultWorld.sleepingAllowed,
             Continuous = defaultWorld.continuousAllowed,
@@ -392,10 +430,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             });
 
             // Frequency.
-            m_FrequencyElement = root.Q<DropdownField>("frequency");
+            m_FrequencyElement = root.Q<EnumField>("frequency");
+            m_FrequencyElement.RegisterValueChangedCallback(evt => Frequency = (FrequencySelection)evt.newValue);
             m_FrequencyElement.value = m_MenuDefaults.Frequency;
-            FrequencySelection(m_FrequencyElement.value);
-            m_FrequencyElement.RegisterValueChangedCallback(evt => FrequencySelection(evt.newValue));
 
             // Warm Starting.
             m_WarmStartingElement = root.Q<Toggle>("warm-starting");
@@ -572,18 +609,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_DrawFlagElements.Add(targetDrawFlag, drawFlagElement);
 
         return drawFlagElement;
-    }
-
-    private static void FrequencySelection(string frequency)
-    {
-        var fixedRate = frequency != "Variable";
-        if (fixedRate)
-            Time.fixedDeltaTime = 1.0f / float.Parse(frequency);
-
-        // Update the worlds.
-        using var worlds = PhysicsWorld.GetWorlds();
-        foreach (var world in worlds)
-            world.simulationMode = fixedRate ? SimulationMode2D.FixedUpdate : SimulationMode2D.Update;
     }
 
     private void SetupSceneTree()
