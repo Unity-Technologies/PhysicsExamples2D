@@ -13,7 +13,7 @@
                         <ui:Toggle label="Warm Starting" name="warm-starting" value="true" focusable="false"/>
                         <ui:Toggle label="Sleeping" name="sleeping" value="true" focusable="false"/>
                         <ui:Toggle label="Continuous" name="continuous" value="true" focusable="false"/>
-                        <ui:EnumField label="Enum" value="Center" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" focusable="false" name="frequency"/>
+                        <ui:EnumField label="Frequency" value="Center" type="SandboxManager+FrequencySelection, Assembly-CSharp" focusable="false" name="frequency"/>
                         <ui:Button text="Restart" name="restart" focusable="false" enabled="true"/>
                         <ui:Button text="..." name="pause-play" focusable="false" enabled="true"/>
                         <ui:Button text="..." name="single-step" focusable="false" enabled="false"/>
