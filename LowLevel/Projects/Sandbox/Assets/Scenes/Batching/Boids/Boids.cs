@@ -20,6 +20,7 @@ public class Boids : MonoBehaviour
     private CameraManipulator m_CameraManipulator;
 
     private NativeArray<PhysicsBody> m_BoidBodies;
+    private NativeArray<BoidState> m_BoidStates;
     
     private Camera m_Camera;
     private Color m_BoidTrailColor;
@@ -74,7 +75,7 @@ public class Boids : MonoBehaviour
         m_SeparationRadius = 0.5f;
         m_SeparationStrength = 0.5f;
         m_CohesionStrength = 0.005f;
-        m_AlignmentStrength = 0.3f;
+        m_AlignmentStrength = 0.05f;
         m_BoundsRadius = 20f;
         m_DrawTrails = true;
         m_DrawSight = false;
@@ -93,6 +94,9 @@ public class Boids : MonoBehaviour
         // Dispose.
         if (m_BoidBodies.IsCreated)
             m_BoidBodies.Dispose();
+        
+        if (m_BoidStates.IsCreated)
+            m_BoidStates.Dispose();
         
         // Reset overrides.
         m_SandboxManager.ResetOverrideColorShapeState();
@@ -192,6 +196,9 @@ public class Boids : MonoBehaviour
         // Dispose.
         if (m_BoidBodies.IsCreated)
             m_BoidBodies.Dispose();
+
+        if (m_BoidStates.IsCreated)
+            m_BoidStates.Dispose();
                 
         // Boids.
         {
@@ -253,6 +260,48 @@ public class Boids : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        // Get the default world.
+        var world = PhysicsWorld.defaultWorld;
+        
+        // Draw the bounds.
+        var boundColor = m_BoidBoundsColor;
+        var bounds = m_BoidBounds;
+        for (var n = 0; n < 10; ++n)
+        {
+            boundColor.a = 1f - n * 0.09f;
+            bounds.radius += n * 0.05f;
+            world.DrawGeometry(bounds, PhysicsTransform.identity, boundColor, 0f, PhysicsWorld.DrawFillOptions.Outline);
+        }
+
+        // We can only draw if the boid states have been created.
+        if (m_BoidStates.IsCreated)
+        {
+            // Are we drawing trails? 
+            if (m_DrawTrails)
+            {
+                // Fetch the delta time.
+                var deltaTime = m_SandboxManager.Frequency != SandboxManager.FrequencySelection.Variable ? Time.fixedDeltaTime : Time.deltaTime;
+                
+                // Yes, so draw the trails as the inverse-extrapolated last velocity step.
+                foreach (var state in m_BoidStates)
+                {
+                    var boidPosition = state.position;
+                    world.DrawLine(boidPosition, boidPosition - state.linearVelocity * deltaTime, m_BoidTrailColor, 0.5f);
+                }
+            }
+
+            // Draw Sight.
+            if (m_DrawSight && m_SightRadius > 0f)
+                world.DrawCircle(m_BoidStates[0].position, m_SightRadius, m_BoidSightColor);
+
+            // Draw Separation.
+            if (m_DrawSeparation && m_SeparationRadius > 0f)
+                world.DrawCircle(m_BoidStates[0].position, m_SeparationRadius, m_BoidSeparationColor);
+        }
+    }
+
     // Update all the boids.
     private void UpdateBoids(PhysicsWorld world, float deltaTime)
     {
@@ -260,12 +309,15 @@ public class Boids : MonoBehaviour
         if (world != PhysicsWorld.defaultWorld)
             return;
 
+        // Create the boid states if needed.
+        if (!m_BoidStates.IsCreated)
+            m_BoidStates = new NativeArray<BoidState>(m_BoidCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+        
         // Initialize the batches.
-        var boidStates = new NativeArray<BoidState>(m_BoidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
         var initializeBatchesHandle = new InitializeBatchesJob
         {
             BoidBodies = m_BoidBodies,
-            BoidStates = boidStates
+            BoidStates = m_BoidStates
             
         }.Schedule(m_BoidCount, m_BoidCount / 16);
         
@@ -281,47 +333,16 @@ public class Boids : MonoBehaviour
             SeparationStrength = m_SeparationStrength,
             CohesionStrength = m_CohesionStrength,
             AlignmentStrength = m_AlignmentStrength,
-            BoidStates = boidStates,
+            BoidStates = m_BoidStates,
             BatchTransforms = batchTransforms,
             BatchVelocities = batchVelocities
         }.Schedule(m_BoidCount, m_BoidCount / 16, initializeBatchesHandle).Complete();
         
-        // Are we drawing trails? 
-        if (m_DrawTrails)
-        {
-            // Yes, so draw the trails as the inverse-extrapolated last velocity step.
-            var trailsLifetime = deltaTime * 20f;
-            foreach (var state in boidStates)
-            {
-                var boidPosition = state.position;
-                world.DrawLine(boidPosition, boidPosition - state.linearVelocity * deltaTime, m_BoidTrailColor, trailsLifetime);
-            }
-        }
-        
-        // Draw Sight.
-        if (m_DrawSight && m_SightRadius > 0f)
-            world.DrawCircle(boidStates[0].position, m_SightRadius, m_BoidSightColor, deltaTime);
-
-        // Draw Separation.
-        if (m_DrawSeparation && m_SeparationRadius > 0f)
-            world.DrawCircle(boidStates[0].position, m_SeparationRadius, m_BoidSeparationColor, deltaTime);
-        
-        // Draw the bounds.
-        var boundColor = m_BoidBoundsColor;
-        var bounds = m_BoidBounds;
-        for (var n = 0; n < 10; ++n)
-        {
-            boundColor.a = 1f - n * 0.09f;
-            bounds.radius += n * 0.2f;
-            world.DrawGeometry(bounds, PhysicsTransform.identity, boundColor, deltaTime, PhysicsWorld.DrawFillOptions.Outline);
-        }
-
         // Update the boid transforms and velocities.
         PhysicsBody.SetBatchTransform(batchTransforms);
         PhysicsBody.SetBatchVelocity(batchVelocities);
         
         // Dispose.
-        boidStates.Dispose();
         batchTransforms.Dispose();
         batchVelocities.Dispose();
     }

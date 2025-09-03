@@ -41,7 +41,7 @@ public class Spinner : MonoBehaviour
         m_GravityScale = 1f;
         m_MotorSpeed = 5f;
         m_MaxMotorTorque = 1000000f;
-        m_KinematicSpinner = false;
+        m_KinematicSpinner = true;
         m_DebrisCount = 5000;
         m_DebrisFriction = 0.1f;
         m_DebrisBounciness = 0.1f;
