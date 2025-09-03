@@ -38,6 +38,7 @@ public class Boids : MonoBehaviour
     private float m_CohesionStrength;
     private float m_AlignmentStrength;
     private float m_BoundsRadius;
+    private bool m_BoidBoundsWrap;
     private bool m_DrawTrails;
     private bool m_DrawSight;
     private bool m_DrawSeparation;
@@ -70,13 +71,14 @@ public class Boids : MonoBehaviour
 
         m_BoidCount = 500;
         m_BoidSize = 0.25f;
-        m_MaxSpeed = 10f;
-        m_SightRadius = 1f;
-        m_SeparationRadius = 0.5f;
+        m_MaxSpeed = 5f;
+        m_SightRadius = 0.5f;
+        m_SeparationRadius = 0.3f;
         m_SeparationStrength = 0.5f;
         m_CohesionStrength = 0.005f;
         m_AlignmentStrength = 0.05f;
         m_BoundsRadius = 20f;
+        m_BoidBoundsWrap = true;
         m_DrawTrails = true;
         m_DrawSight = false;
         m_DrawSeparation = false;
@@ -125,32 +127,32 @@ public class Boids : MonoBehaviour
             // Max Speed.
             var maxSpeed = root.Q<Slider>("max-speed");
             maxSpeed.value = m_MaxSpeed;
-            maxSpeed.RegisterValueChangedCallback(evt => { m_MaxSpeed = evt.newValue; });
+            maxSpeed.RegisterValueChangedCallback(evt => m_MaxSpeed = evt.newValue);
             
             // Sight Radius.
             var sightRadius = root.Q<Slider>("sight-radius");
             sightRadius.value = m_SightRadius;
-            sightRadius.RegisterValueChangedCallback(evt => { m_SightRadius = evt.newValue; });
+            sightRadius.RegisterValueChangedCallback(evt => m_SightRadius = evt.newValue);
 
             // Separation Radius.
             var separationRadius = root.Q<Slider>("separation-radius");
             separationRadius.value = m_SeparationRadius;
-            separationRadius.RegisterValueChangedCallback(evt => { m_SeparationRadius = evt.newValue; });
+            separationRadius.RegisterValueChangedCallback(evt => m_SeparationRadius = evt.newValue);
             
             // Separation Strength.
             var separationStrength = root.Q<Slider>("separation-strength");
             separationStrength.value = m_SeparationStrength;
-            separationStrength.RegisterValueChangedCallback(evt => { m_SeparationStrength = evt.newValue; });
+            separationStrength.RegisterValueChangedCallback(evt => m_SeparationStrength = evt.newValue);
             
             // Cohesion Strength.
             var cohesionStrength = root.Q<Slider>("cohesion-strength");
             cohesionStrength.value = m_CohesionStrength;
-            cohesionStrength.RegisterValueChangedCallback(evt => { m_CohesionStrength = evt.newValue; });
+            cohesionStrength.RegisterValueChangedCallback(evt => m_CohesionStrength = evt.newValue);
             
             // Alignment Strength.
             var alignmentStrength = root.Q<Slider>("alignment-strength");
             alignmentStrength.value = m_AlignmentStrength;
-            alignmentStrength.RegisterValueChangedCallback(evt => { m_AlignmentStrength = evt.newValue; });
+            alignmentStrength.RegisterValueChangedCallback(evt => m_AlignmentStrength = evt.newValue);
 
             // Bounds Radius.
             var boundsRadius = root.Q<Slider>("bounds-radius");
@@ -160,6 +162,11 @@ public class Boids : MonoBehaviour
                 m_BoidBounds = new CircleGeometry { radius = m_BoundsRadius };        
             });
             boundsRadius.value = m_BoundsRadius;
+            
+            // Bounds Wrap.
+            var boundsWrap = root.Q<Toggle>("bounds-wrap");
+            boundsWrap.value = m_BoidBoundsWrap;
+            boundsWrap.RegisterValueChangedCallback(evt => m_BoidBoundsWrap = evt.newValue);
 
             // Draw Trails.
             var drawTails = root.Q<Toggle>("draw-trails");
@@ -174,7 +181,7 @@ public class Boids : MonoBehaviour
             // Draw Separation.
             var drawSeparation = root.Q<Toggle>("draw-separation");
             drawSeparation.value = m_DrawSeparation;
-            drawSeparation.RegisterValueChangedCallback(evt => { m_DrawSeparation = evt.newValue; });
+            drawSeparation.RegisterValueChangedCallback(evt => m_DrawSeparation = evt.newValue);
 
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
@@ -326,6 +333,7 @@ public class Boids : MonoBehaviour
         var batchVelocities = new NativeArray<PhysicsBody.BatchVelocity>(m_BoidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
         new BoidFlockingJob
         {
+            BoidBoundsWrap = m_BoidBoundsWrap,
             BoidBounds = m_BoidBounds,
             MaxSpeed = m_MaxSpeed,
             SightRadiusSqr = m_SightRadius * m_SightRadius,
@@ -377,6 +385,7 @@ public class Boids : MonoBehaviour
     [BurstCompile]
     private struct BoidFlockingJob : IJobParallelFor
     {
+        [ReadOnly] public bool BoidBoundsWrap;
         [ReadOnly] public CircleGeometry BoidBounds;
         [ReadOnly] public float MaxSpeed;
         [ReadOnly] public float SightRadiusSqr;
@@ -458,8 +467,11 @@ public class Boids : MonoBehaviour
             }
             else
             {
-                // No, we're out of bounds so move towards the origin.
-                boidLinearVelocity = -boidPosition;
+                // No, so handle bounds behaviour.
+                if (BoidBoundsWrap)
+                    boidPosition = -boidPosition;
+                else
+                    boidLinearVelocity = -boidPosition;
             }
 
             // Fetch the direction.
@@ -475,7 +487,7 @@ public class Boids : MonoBehaviour
             rotation.direction = speedSqr > 0f ? direction : Vector2.right;
 
             // Output the batch transform and velocity.
-            BatchTransforms[index] = new PhysicsBody.BatchTransform { physicsBody = boidBody, rotation = rotation };
+            BatchTransforms[index] = new PhysicsBody.BatchTransform { physicsBody = boidBody, position = boidPosition, rotation = rotation };
             BatchVelocities[index] = new PhysicsBody.BatchVelocity { physicsBody = boidBody, linearVelocity = boidLinearVelocity };
         }
     }
