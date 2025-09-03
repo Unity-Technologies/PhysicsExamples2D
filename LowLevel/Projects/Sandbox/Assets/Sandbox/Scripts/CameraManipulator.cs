@@ -14,6 +14,8 @@ public class CameraManipulator : MonoBehaviour
 
     public Camera Camera { get; private set; }
 
+    public Vector2 MousePosition => Camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
     public Vector2 CameraPosition
     {
         get => m_CameraPosition;

@@ -3,6 +3,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
@@ -22,7 +23,6 @@ public class Boids : MonoBehaviour
     private NativeArray<PhysicsBody> m_BoidBodies;
     private NativeArray<BoidState> m_BoidStates;
     
-    private Camera m_Camera;
     private Color m_BoidTrailColor;
     private Color m_BoidSightColor;
     private Color m_BoidSeparationColor;
@@ -54,7 +54,6 @@ public class Boids : MonoBehaviour
         m_CameraManipulator.CameraSize = 20f;
         m_CameraManipulator.CameraPosition = Vector2.right * 0.25f;
 
-        m_Camera = m_CameraManipulator.Camera;
         m_BoidTrailColor = Color.gray3;
         m_BoidSightColor = Color.lemonChiffon;
         m_BoidSeparationColor = Color.lightBlue;
@@ -69,9 +68,9 @@ public class Boids : MonoBehaviour
         // Update boids before the simulation step.
         PhysicsEvents.PreSimulate += UpdateBoids;
 
-        m_BoidCount = 500;
+        m_BoidCount = 1000;
         m_BoidSize = 0.25f;
-        m_MaxSpeed = 5f;
+        m_MaxSpeed = 6f;
         m_SightRadius = 0.5f;
         m_SeparationRadius = 0.3f;
         m_SeparationStrength = 0.5f;
@@ -159,7 +158,7 @@ public class Boids : MonoBehaviour
             boundsRadius.RegisterValueChangedCallback(evt =>
             {
                 m_BoundsRadius = evt.newValue;
-                m_BoidBounds = new CircleGeometry { radius = m_BoundsRadius };        
+                m_BoidBounds = new CircleGeometry { radius = m_BoundsRadius };
             });
             boundsRadius.value = m_BoundsRadius;
             
@@ -336,11 +335,14 @@ public class Boids : MonoBehaviour
             BoidBoundsWrap = m_BoidBoundsWrap,
             BoidBounds = m_BoidBounds,
             MaxSpeed = m_MaxSpeed,
+            BoidSize = m_BoidSize,
             SightRadiusSqr = m_SightRadius * m_SightRadius,
             SeparationRadiusSqr = m_SeparationRadius * m_SeparationRadius,
             SeparationStrength = m_SeparationStrength,
             CohesionStrength = m_CohesionStrength,
             AlignmentStrength = m_AlignmentStrength,
+            PointerPosition = m_CameraManipulator.MousePosition,
+            PointerAvoidRadiusSqr = m_BoidBounds.radius * 0.2f * m_BoidBounds.radius * 0.2f,
             BoidStates = m_BoidStates,
             BatchTransforms = batchTransforms,
             BatchVelocities = batchVelocities
@@ -387,12 +389,15 @@ public class Boids : MonoBehaviour
     {
         [ReadOnly] public bool BoidBoundsWrap;
         [ReadOnly] public CircleGeometry BoidBounds;
+        [ReadOnly] public float BoidSize;
         [ReadOnly] public float MaxSpeed;
         [ReadOnly] public float SightRadiusSqr;
         [ReadOnly] public float SeparationRadiusSqr;
         [ReadOnly] public float SeparationStrength;
         [ReadOnly] public float CohesionStrength;
         [ReadOnly] public float AlignmentStrength;
+        [ReadOnly] public float2 PointerPosition;
+        [ReadOnly] public float PointerAvoidRadiusSqr;
         [ReadOnly] public NativeArray<BoidState> BoidStates;
         [WriteOnly] public NativeArray<PhysicsBody.BatchTransform> BatchTransforms;
         [WriteOnly] public NativeArray<PhysicsBody.BatchVelocity> BatchVelocities;
@@ -469,10 +474,20 @@ public class Boids : MonoBehaviour
             {
                 // No, so handle bounds behaviour.
                 if (BoidBoundsWrap)
-                    boidPosition = -boidPosition;
+                {
+                    boidPosition = math.normalize(-boidPosition) * (BoidBounds.radius - BoidSize);
+                }
                 else
+                {
+                    boidPosition = math.normalize(boidPosition) * (BoidBounds.radius - BoidSize);
                     boidLinearVelocity = -boidPosition;
+                }
             }
+            
+            // Pointer Avoidance.
+            var pointerDirection = boidPosition - PointerPosition; 
+            if (math.lengthsq(pointerDirection) < PointerAvoidRadiusSqr)
+                boidLinearVelocity += math.normalize(pointerDirection * MaxSpeed);
 
             // Fetch the direction.
             var direction = math.normalize(boidLinearVelocity);
