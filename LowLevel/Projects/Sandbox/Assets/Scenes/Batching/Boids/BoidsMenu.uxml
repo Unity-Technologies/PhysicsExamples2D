@@ -14,7 +14,6 @@
                     <ui:Slider label="Alignment Strength" value="10" high-value="1" name="alignment-strength" fill="true" show-input-field="true" low-value="0" focusable="false"/>
                     <ui:Slider label="Bounds Radius" value="10" high-value="30" name="bounds-radius" fill="true" show-input-field="true" low-value="5" focusable="false"/>
                     <ui:Toggle label="Bounds Wrap" name="bounds-wrap" focusable="false"/>
-                    <ui:Toggle label="Boid Groups	" name="boid-groups" focusable="false"/>
                     <ui:Toggle label="Draw Trails" name="draw-trails" focusable="false"/>
                     <ui:Toggle label="Draw Sight" name="draw-sight" focusable="false"/>
                     <ui:Toggle label="Draw Separation" name="draw-separation" focusable="false"/>

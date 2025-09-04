@@ -379,7 +379,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         ClearDebugDraw();
 
         // Reset random generator.
-        m_Random.InitState(0x32628473);
+        m_Random.InitState(0x42424242);
 
         // Reset the default world.
         PhysicsWorld.defaultWorld.Reset();
