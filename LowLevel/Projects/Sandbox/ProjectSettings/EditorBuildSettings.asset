@@ -78,6 +78,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Collision/Determinism/Determinism.unity
     guid: 58eb55b4f78ad2d4998c5864c0ceb2bb
   - enabled: 1
+    path: Assets/Scenes/Collision/DeterminismImage/DeterminismImage.unity
+    guid: 68d2fc68c5f7f83418a8c98088a3d631
+  - enabled: 1
     path: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
     guid: ba1b1c7ba0ff09a44a8f4c6394869e1e
   - enabled: 1
