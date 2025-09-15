@@ -185,7 +185,8 @@ public class DeterminismImage : MonoBehaviour
         }
     }
 
-    private void SnapshotImage()
+ #if DEFINE_TARGETSPRITE
+   private void SnapshotImage()
     {
         if (TargetSprite == null)
         {
@@ -233,4 +234,5 @@ public class DeterminismImage : MonoBehaviour
         writer.WriteLine("return map;\n}\n}");
         writer.Dispose();
     }
+#endif
 }
