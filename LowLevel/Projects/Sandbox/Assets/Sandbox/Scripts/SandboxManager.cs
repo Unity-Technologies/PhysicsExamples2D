@@ -159,6 +159,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     
     private void Start()
     {
+#if UNITY_EDITOR
+        if (!SystemInfo.supportsComputeShaders)
+            EditorUtility.DisplayDialog("Computer Shader Support Missing", "LowLevel 2D Physics requires compute shader support for its debug renderer. Without this, you will not see physics debug rendering although physics itself will be unaffected.", "OK");
+#endif
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_SceneManifest = GetComponent<SceneManifest>();
         m_MainMenuDocument = GetComponent<UIDocument>();
