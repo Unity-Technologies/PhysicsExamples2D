@@ -32,7 +32,7 @@ public class JointGrid : MonoBehaviour
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
-        m_GridSize = 64;
+        m_GridSize = 32;
         m_GravityScale = 1f;
 
         SetupOptions();
