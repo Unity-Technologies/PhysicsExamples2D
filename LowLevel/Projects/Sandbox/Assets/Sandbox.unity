@@ -331,9 +331,8 @@ MonoBehaviour:
     ScenePath: Assets/Scenes/Benchmark/Tumbler/Tumbler.unity
   - Name: Washer
     Category: Benchmarks
-    Description: 'Benchmarks good parallelism for large piles of objects on a moving
-      Kinematic body. <b><color=#FF0000>NOTE: The performance improvements here need
-      6000.3b1!</color></b>'
+    Description: Benchmarks good parallelism for large piles of objects on a moving
+      Kinematic body.
     ScenePath: Assets/Scenes/Benchmark/Washer/Washer.unity
   - Name: Bounce House
     Category: Collision
@@ -458,8 +457,7 @@ MonoBehaviour:
     ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
   - Name: Slicing
     Category: Shapes
-    Description: 'Demonstrates the use of geometry slicing. <b><color=#FF0000>NOTE:
-      Slicing has an issue fixed in 6000.3b1!</color></b>'
+    Description: Demonstrates the use of geometry slicing.
     ScenePath: Assets/Scenes/Shapes/Slicing/Slicing.unity
   - Name: Parallel Simulate
     Category: Simulation
