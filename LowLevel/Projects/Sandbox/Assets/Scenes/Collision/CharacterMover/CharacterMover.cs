@@ -303,7 +303,7 @@ public class CharacterMover : MonoBehaviour
             };
 
             var chainGeometry = new ChainGeometry(points.AsArray());
-            groundBody1.CreateChain(chainGeometry, PhysicsChainDefinition.defaultDefinition);
+            GroundSegmentsClipVelocity(groundBody1.CreateChain(chainGeometry, PhysicsChainDefinition.defaultDefinition));
         }
 
         // Ground #2.
@@ -363,7 +363,7 @@ public class CharacterMover : MonoBehaviour
             };
 
             var chainGeometry = new ChainGeometry(points.AsArray());
-            groundBody2.CreateChain(chainGeometry, PhysicsChainDefinition.defaultDefinition);
+            GroundSegmentsClipVelocity(groundBody2.CreateChain(chainGeometry, PhysicsChainDefinition.defaultDefinition));
         }
 
         // Create the Bridge.
@@ -481,6 +481,17 @@ public class CharacterMover : MonoBehaviour
         }
     }
 
+    private static void GroundSegmentsClipVelocity(PhysicsChain chain)
+    {
+        // Fetch the chain segments.
+        using var segments = chain.GetSegments();
+        
+        // Set each segment to the default "MoverData".
+        // NOTE: The default is to clip velocity with no push limit.
+        foreach (var physicsShape in segments)
+            physicsShape.moverData = new PhysicsShape.MoverData();
+    }
+    
     private void CharacterMove(PhysicsWorld world, float deltaTime)
     {
         // Finish if the world is paused.
