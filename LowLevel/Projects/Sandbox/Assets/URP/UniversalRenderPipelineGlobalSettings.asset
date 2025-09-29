@@ -64,6 +64,7 @@ MonoBehaviour:
       - rid: 764659080778481692
       - rid: 764659080778481693
       - rid: 764659080778481694
+      - rid: 764659333374672896
     m_RuntimeSettings:
       m_List: []
   m_AssetVersion: 9
@@ -372,3 +373,8 @@ MonoBehaviour:
         probeVolumeOffsetDebugShader: {fileID: 4800000, guid: db8bd7436dc2c5f4c92655307d198381, type: 3}
         probeSamplingDebugMesh: {fileID: -3555484719484374845, guid: 20be25aac4e22ee49a7db76fb3df6de2, type: 3}
         numbersDisplayTex: {fileID: 2800000, guid: 73fe53b428c5b3440b7e87ee830b608a, type: 3}
+    - rid: 764659333374672896
+      type: {class: OnTilePostProcessResource, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Version: 0
+        m_UberPostShader: {fileID: 4800000, guid: fe4f13c1004a07d4ea1e30bfd0326d9e, type: 3}
