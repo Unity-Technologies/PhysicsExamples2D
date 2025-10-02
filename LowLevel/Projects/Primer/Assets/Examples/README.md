@@ -178,7 +178,7 @@ This also displays information related to the `PhysicsWorld` the `SceneWorld` is
 This can be useful in simply looking at the default world information by adding a GameObject with a single `SceneWorld` with the `Use Default World` property enabled.
 The fold-out looks like this:
 
-![SceneWorld Info](../../Images/SceneWorld-Info.png)
+![SceneWorld Info](../../Images/Examples/SceneWorld-Info.png)
 
 ---
 ## 52 Scene Shape Type
@@ -186,7 +186,7 @@ This example simply demonstrates show a `SceneShape` allows you to select the sh
 When you do that, the Editor inspector changes to allow you to edit that.
 If you select the "Scene" view with the "Example" GameObject selected, you will also see that there is tooling available to edit the shapes directly in the scene view.
 
-![Scene Shape Tooling](../../Images/SceneShapeType-Tooling.png)
+![Scene Shape Tooling](../../Images/Examples/SceneShapeType-Tooling.png)
 
 Seen above, you can drag the “cube” handles to move vertices around and drag the “sphere” handles to change a shape radius.
 The current values are shown as labels however you can turn that on/off using the “SceneShape Options” overlay shown above which are also persisted for you.
@@ -202,8 +202,8 @@ If you press the “shift” key, you can then add or remove vertices. When you 
 Additionally, new vertices appear in between the current vertices (shown as the “Add Color” preference) and clicking on one adds that vertex.
 As shown below, pressing the “shift” key results in the vertex delete (red arrows) and new  vertices (green arrows) being available.
 
-![Scene Shape Polygon Edit1](../../Images/SceneShape-PolygonEdit1.png)
-![Scene Shape Polygon Edit2](../../Images/SceneShape-PolygonEdit2.png)
+![Scene Shape Polygon Edit1](../../Images/Examples/SceneShape-PolygonEdit1.png)
+![Scene Shape Polygon Edit2](../../Images/Examples/SceneShape-PolygonEdit2.png)
 
 ---
 ## 53 - Scene Shape Bounce
