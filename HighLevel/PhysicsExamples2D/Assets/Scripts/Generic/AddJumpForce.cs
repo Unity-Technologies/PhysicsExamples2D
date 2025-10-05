@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AddJumpForce : MonoBehaviour
 {
-    public KeyCode JumpKey = KeyCode.Space;
     public float JumpImpulse = 9f;
     public LayerMask GroundingLayer;
 
@@ -18,7 +18,7 @@ public class AddJumpForce : MonoBehaviour
     {
         // Can only jump if touching grounding layer(s) and the jump key has been pressed.
         if (Body.IsTouchingLayers(GroundingLayer.value) &&
-            Input.GetKeyDown(JumpKey))
+            Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             DoJump = true;
         }

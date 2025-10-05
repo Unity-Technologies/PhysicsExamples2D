@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Pendulum_Force : MonoBehaviour
 {
@@ -13,8 +14,10 @@ public class Pendulum_Force : MonoBehaviour
 
     void Update()
     {
-        var clockwise = Input.GetKeyDown(KeyCode.LeftArrow);
-        var anticlockwise = Input.GetKeyDown(KeyCode.RightArrow);
+        var currentKeyboard = Keyboard.current;
+
+        var clockwise = currentKeyboard.leftArrowKey.wasPressedThisFrame;
+        var anticlockwise = currentKeyboard.rightArrowKey.wasPressedThisFrame;
 
         var constraint = (PivotBody.position - BallBody.position).normalized;
 

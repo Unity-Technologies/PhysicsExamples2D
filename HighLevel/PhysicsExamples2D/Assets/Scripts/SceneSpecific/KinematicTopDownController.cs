@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// An example top-down movement controller that uses a Kinematic Rigidbody2D.
@@ -47,10 +48,12 @@ public class KinematicTopDownController : MonoBehaviour
         {
             case MovementInput.Keyboard:
                 {
+                    var currentKeyboard = Keyboard.current;
+                    
                     // Super simple movement allowing us to have compound horizontal/vertical movement to test.
                     m_Movement = new Vector2(
-                        (Input.GetKey(KeyCode.LeftArrow) ? -1 : 0) + (Input.GetKey(KeyCode.RightArrow) ? 1 : 0),
-                        (Input.GetKey(KeyCode.DownArrow) ? -1 : 0) + (Input.GetKey(KeyCode.UpArrow) ? 1 : 0));
+                        (currentKeyboard.leftArrowKey.isPressed ? -1 : 0) + (currentKeyboard.rightArrowKey.isPressed ? 1 : 0),
+                        (currentKeyboard.downArrowKey.isPressed ? -1 : 0) + (currentKeyboard.upArrowKey.isPressed ? 1 : 0));
 
                     return;
                 }
@@ -58,7 +61,7 @@ public class KinematicTopDownController : MonoBehaviour
             case MovementInput.Mouse:
                 {
 		            // Calculate the world position for the mouse.
-		            m_Movement = (Vector2)Camera.main.ScreenToWorldPoint (Input.mousePosition) - m_Rigidbody.position;
+		            m_Movement = (Vector2)Camera.main.ScreenToWorldPoint (Mouse.current.position.value) - m_Rigidbody.position;
 
                     return;
                 }
