@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SimpleGroundedController : MonoBehaviour
 {
@@ -22,12 +23,14 @@ public class SimpleGroundedController : MonoBehaviour
 
     void Update()
     {
+        var currentKeyboard = Keyboard.current;
+        
         // Set jump/
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (currentKeyboard.spaceKey.wasPressedThisFrame)
             m_ShouldJump = true;
 
         // Set movement.
-        m_SideSpeed = (Input.GetKey(KeyCode.LeftArrow) ? -SideSpeed : 0f) + (Input.GetKey(KeyCode.RightArrow) ? SideSpeed : 0f);
+        m_SideSpeed = (currentKeyboard.leftArrowKey.isPressed ? -SideSpeed : 0f) + (currentKeyboard.rightArrowKey.isPressed ? SideSpeed : 0f);
     }
 
     void FixedUpdate()

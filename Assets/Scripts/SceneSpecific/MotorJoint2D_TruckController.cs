@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// A basic controlled for a truck using WheelJoint2D for the wheels.
@@ -34,14 +35,16 @@ public class MotorJoint2D_TruckController : MonoBehaviour
         JointMotor2D jointMotor = new JointMotor2D ();
         jointMotor.maxMotorTorque = m_MotorMaximumForce;
 
+        var currentKeyboard = Keyboard.current;
+        
         // If we're pressing the forward then turn on the motor forwards.
-        if (Input.GetKey (KeyCode.RightArrow))
+        if (currentKeyboard.rightArrowKey.isPressed)
         {
             useMotor = true;
             jointMotor.motorSpeed = motorSpeed;
         }
         // If we're pressing the forward then turn on the motor backwards.
-        else if (Input.GetKey (KeyCode.LeftArrow))
+        else if (currentKeyboard.leftArrowKey.isPressed)
         {
             useMotor = true;
             jointMotor.motorSpeed = -motorSpeed;

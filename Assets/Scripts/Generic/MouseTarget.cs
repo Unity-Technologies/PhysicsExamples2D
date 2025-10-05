@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Set the TargetJoint2D to follow the mouse position.
@@ -26,7 +25,7 @@ public class MouseTarget : MonoBehaviour
 			return;
 
 		// Calculate the world position for the mouse.
-		var worldPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		var worldPos = Camera.main.ScreenToWorldPoint (Mouse.current.position.value);
 
 		// Set the joint target.
 		targetJoint.target = worldPos;
