@@ -3,7 +3,7 @@
   "displayName": "Physics2D LowLevel Extras",
   "version": "1.0.0",
   "unity": "6000.3",
-  "unityRelease": "0b4",
+  "unityRelease": "0b5",
   "description": "Physics2D LowLevel Extras is a package that contains extra scripts for use with the LowLevel 2D Physics features in Unity.",
   "category": "2D",
   "keywords": [
