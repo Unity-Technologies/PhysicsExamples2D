@@ -3,10 +3,8 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
-using Random = Unity.Mathematics.Random;
 
 /// <summary>
 /// Basic Boids behaviour.
@@ -28,6 +26,8 @@ public class Boids : MonoBehaviour
     private Color m_BoidSeparationColor;
     private Color m_BoidBoundsColor;
     private CircleGeometry m_BoidBounds;
+
+    private const int BoidGroupCount = 16;
     
     private int m_BoidCount;
     private float m_BoidSize;
@@ -39,6 +39,7 @@ public class Boids : MonoBehaviour
     private float m_AlignmentStrength;
     private float m_BoundsRadius;
     private bool m_BoidBoundsWrap;
+    private bool m_BoidGroups;
     private bool m_DrawTrails;
     private bool m_DrawSight;
     private bool m_DrawSeparation;
@@ -78,6 +79,7 @@ public class Boids : MonoBehaviour
         m_AlignmentStrength = 0.05f;
         m_BoundsRadius = 20f;
         m_BoidBoundsWrap = true;
+        m_BoidGroups = false;
         m_DrawTrails = true;
         m_DrawSight = false;
         m_DrawSeparation = false;
@@ -167,6 +169,11 @@ public class Boids : MonoBehaviour
             boundsWrap.value = m_BoidBoundsWrap;
             boundsWrap.RegisterValueChangedCallback(evt => m_BoidBoundsWrap = evt.newValue);
 
+            // Boid Groupps.
+            var boidGroups = root.Q<Toggle>("boid-groups");
+            boidGroups.value = m_BoidGroups;
+            boidGroups.RegisterValueChangedCallback(evt => { m_BoidGroups = evt.newValue; SetupScene(); });
+            
             // Draw Trails.
             var drawTails = root.Q<Toggle>("draw-trails");
             drawTails.value = m_DrawTrails;
@@ -224,8 +231,19 @@ public class Boids : MonoBehaviour
             };
             var geometry = PolygonGeometry.Create(vertices.AsArray());
             vertices.Dispose();
-            var shapeDef = PhysicsShapeDefinition.defaultDefinition;
             
+            // Boid Group Shape Definitions.
+            var shapeDef = PhysicsShapeDefinition.defaultDefinition;
+            NativeArray<Color> boidGroupColors = default;
+            if (m_BoidGroups)
+            {
+                boidGroupColors = new NativeArray<Color>(BoidGroupCount, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
+                {
+                    for (var i = 0; i < BoidGroupCount; ++i)
+                        boidGroupColors[i] = m_SandboxManager.ShapeColorState;
+                }
+            }
+
             // Boid dynamics.
             var batchTransforms = new NativeArray<PhysicsBody.BatchTransform>(m_BoidCount, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
             var batchVelocities = new NativeArray<PhysicsBody.BatchVelocity>(m_BoidCount, Allocator.Temp, NativeArrayOptions.UninitializedMemory);
@@ -236,10 +254,19 @@ public class Boids : MonoBehaviour
             {
                 var physicsBody = m_BoidBodies[i];
 
+                // Choose a boid group.
+                var boidGroupIndex = m_BoidGroups ? random.NextInt(0, BoidGroupCount) : 0;
+                
+                // Set the boid group index in user data.
+                physicsBody.userData = new PhysicsUserData { intValue = boidGroupIndex };
+
+                // Set boid color.
+                shapeDef.surfaceMaterial.customColor = m_BoidGroups ? boidGroupColors[boidGroupIndex] :  m_SandboxManager.ShapeColorState;
+                
                 // Create the boid shape.
-                shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
                 physicsBody.CreateShape(geometry, shapeDef);
 
+                // Set a random rotation.
                 var rotation = new PhysicsRotate(random.NextFloat(0f, maxRotation));
                 
                 // Set a batch transform.
@@ -263,6 +290,9 @@ public class Boids : MonoBehaviour
             PhysicsBody.SetBatchVelocity(batchVelocities);
             batchTransforms.Dispose();
             batchVelocities.Dispose();
+
+            // Dispose.
+            boidGroupColors.Dispose();
         }
     }
 
@@ -362,6 +392,7 @@ public class Boids : MonoBehaviour
         public PhysicsBody physicsBody;
         public float2 position;
         public float2 linearVelocity;
+        public int groupIndex;
     }
 
     [BurstCompile]
@@ -379,7 +410,8 @@ public class Boids : MonoBehaviour
             {
                 physicsBody = physicsBody,
                 position = physicsBody.position,
-                linearVelocity = physicsBody.linearVelocity
+                linearVelocity = physicsBody.linearVelocity,
+                groupIndex = physicsBody.userData.intValue
             };
         }
     }
@@ -409,6 +441,7 @@ public class Boids : MonoBehaviour
             var boidBody = boidState.physicsBody;
             var boidPosition = boidState.position;
             var boidLinearVelocity = boidState.linearVelocity;
+            var boidGroupIndex = boidState.groupIndex;
 
             // Are we within the bounds?
             if (BoidBounds.OverlapPoint(boidPosition))
@@ -429,7 +462,12 @@ public class Boids : MonoBehaviour
                         var otherBoidState = BoidStates[otherIndex];
                         var otherBoidPosition = otherBoidState.position;
                         var otherBoidLinearVelocity = otherBoidState.linearVelocity;
+                        var otherBoidGroupIndex = otherBoidState.groupIndex;
 
+                        // Skip if not the same boid group index.
+                        if (boidGroupIndex != otherBoidGroupIndex)
+                            continue;
+                        
                         // Calculate boid delta position.
                         var boidDeltaPosition = otherBoidPosition - boidPosition;
 
