@@ -45,7 +45,7 @@ public class PhysicsShapeTriggerCallback : MonoBehaviour, PhysicsCallbacks.ITrig
         shapeDef.isTrigger = true;
         var triggerShape = triggerBody.CreateShape(CircleGeometry.defaultGeometry, shapeDef);
         
-        // For callbacks to be produced, trigger events must be enabled on one of the shapes.
+        // For callbacks to be produced, trigger events must be enabled on BOTH of the shapes.
         visitorShape.triggerEvents = true;
         triggerShape.triggerEvents = true;
         
