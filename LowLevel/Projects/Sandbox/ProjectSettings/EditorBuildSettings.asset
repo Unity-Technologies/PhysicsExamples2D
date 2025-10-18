@@ -153,6 +153,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Shapes/Slicing/Slicing.unity
     guid: 8b67b7b56d6e3a0458e8f5447e8a9c84
   - enabled: 1
+    path: Assets/Scenes/Shapes/Wind/Wind.unity
+    guid: ba8fade6bb243d142920465e5187e6c2
+  - enabled: 1
     path: Assets/Scenes/Simulate/Parallel/ParallelSimulate.unity
     guid: b3c9df1e109c6bb459227979dfb0ce71
   - enabled: 1

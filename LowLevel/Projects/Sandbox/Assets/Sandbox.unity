@@ -483,6 +483,10 @@ MonoBehaviour:
     Category: Stacking
     Description: Checking the stability of stacking shapes.
     ScenePath: Assets/Scenes/Stacking/ShapeStack/ShapeStack.unity
+  - Name: Wind
+    Category: Shapes
+    Description: Demonstrating the application of Wind with drag and lift.
+    ScenePath: Assets/Scenes/Shapes/Wind/Wind.unity
 --- !u!114 &633824032
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -169,7 +169,7 @@ public class Boids : MonoBehaviour
             boundsWrap.value = m_BoidBoundsWrap;
             boundsWrap.RegisterValueChangedCallback(evt => m_BoidBoundsWrap = evt.newValue);
 
-            // Boid Groupps.
+            // Boid Groups.
             var boidGroups = root.Q<Toggle>("boid-groups");
             boidGroups.value = m_BoidGroups;
             boidGroups.RegisterValueChangedCallback(evt => { m_BoidGroups = evt.newValue; SetupScene(); });
