@@ -151,7 +151,7 @@ public class Wind : MonoBehaviour
             bodyA = groundBody,
             localAnchorA = new Vector2(0f, 2f + GeometryRadius),
             springFrequency = 0.1f,
-            springDamping = 0.25f,
+            springDamping = 0f,
             enableSpring = true
         };
 
