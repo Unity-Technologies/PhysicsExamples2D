@@ -37,11 +37,11 @@ public class ContactFiltering : MonoBehaviour
     // Show the filter contacts for the shape.
     private void ShowContacts(PhysicsWorld physicsWorld, float deltaTime)
     {
-        // No strictly needed here but let's be safe if we experiment.
+        // Not strictly needed here but let's be safe if we experiment.
         if (!physicsWorld.isDefaultWorld || !m_PhysicsShape.isValid)
             return;
 
-        // Fetch the contacts for the shape, early-out if there are none for now.
+        // Fetch the contacts for the shape, early-out if there are none.
         using var contacts = m_PhysicsShape.GetContacts();
         if (contacts.Length == 0)
             return;
@@ -55,12 +55,12 @@ public class ContactFiltering : MonoBehaviour
             _ => throw new NotImplementedException()
         };
 
-        // We can filter contacts by enumerating them or creating a new list.
-        // We'd likely create a new list if we intend to iterate many times or if we want the list lifetime to last beyond the original contacts list we have.
+        // We can filter contacts by enumerating them or creating a copy as a new list.
+        // We'd likely create a new list if we intend to iterate many times or if we wanted the list lifetime to last beyond the original contacts array we have.
         //
         // NOTES:
         // - The filter function can be a simple lambda expression too.
-        // - The shape context "m_PhysicsShape" is optional when filtering if the filter function doesn't need it.
+        // - The shape context "m_PhysicsShape" is optional when filtering. Filtering by normal might require it.
 #if true
         var filteredContacts = contacts.Filter(filterFunction, m_PhysicsShape);
 #else
@@ -77,7 +77,7 @@ public class ContactFiltering : MonoBehaviour
         }
     }
 
-    // Example that checks if the normal angle is within a set range.
+    // Example filter that checks if the normal angle is within a set range.
     private static bool NormalAngleFilter(ref PhysicsShape.Contact contact, PhysicsShape shapeContext)
     {
         // Fetch the normal.
@@ -90,7 +90,7 @@ public class ContactFiltering : MonoBehaviour
         return normalAngle is > 85f and < 95f;
     }
 
-    // Example that checks if the normal impulse is above a threshold.
+    // Example filter that checks if the normal impulse is above a threshold.
     private static bool NormalImpulseFilter(ref PhysicsShape.Contact contact, PhysicsShape shapeContext)
     {
         var manifold = contact.manifold;
@@ -103,7 +103,7 @@ public class ContactFiltering : MonoBehaviour
         return false;
     }
 
-    // Example that checks both the normal angle and impulse threshold.
+    // Example filter that checks both the normal angle and impulse threshold.
     private static bool NormalAngleAndImpulseFilter(ref PhysicsShape.Contact contact, PhysicsShape shapeContext)
     {
         return NormalAngleFilter(ref contact, shapeContext) && NormalImpulseFilter(ref contact, shapeContext);
