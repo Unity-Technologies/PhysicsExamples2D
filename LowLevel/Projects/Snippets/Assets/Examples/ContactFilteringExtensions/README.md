@@ -15,3 +15,7 @@ Filtering works simply be adding two [extension methods](ContactExtensions.cs) t
 
 - `Filter(filterFunction, [optional] shapeContext)` - Returns an enumerate set of `IEnumerable<PhysicsShape.Contact>`.
 - `ToFilteredList(filterFunction, [optional] shapeContext, [optional] allocator = Allocator.Temp)` - Returns a list as a copy of filtered contacts as `NativeList<PhysicsShape.Contact>`.
+
+---
+
+![ContactFilteringSnippet](ContactFilterSnippet.png)
