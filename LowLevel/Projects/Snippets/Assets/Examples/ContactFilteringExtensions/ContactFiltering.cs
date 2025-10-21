@@ -93,8 +93,7 @@ public class ContactFiltering : MonoBehaviour
     // Example filter that checks if the normal impulse is above a threshold.
     private static bool NormalImpulseFilter(ref PhysicsShape.Contact contact, PhysicsShape shapeContext)
     {
-        var manifold = contact.manifold;
-        foreach (var point in manifold)
+        foreach (var point in contact.manifold)
         {
             if (point.totalNormalImpulse > 4.0f)
                 return true;
