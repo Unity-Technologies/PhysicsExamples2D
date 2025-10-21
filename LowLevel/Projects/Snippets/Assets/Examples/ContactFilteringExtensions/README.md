@@ -8,7 +8,7 @@ This snippet shows how you can effecitvely filter contacts returned via [Physics
 - Hit "Play".
 - Contacts that are filtered (returned) have their shape color changed.
 
-Changing the enumeration simply select the user-define contact filter function.
+Changing the enumeration simply selects the user-defined contact filter function.
 The filter function can combine various other filter functions as required or simply be a lambda expression.
 
 Filtering works simply be adding two [extension methods](ContactExtensions.cs) to extend any `NativeArray<PhysicsShape.Contact>` and allow filtering of the contacts via two methods:
