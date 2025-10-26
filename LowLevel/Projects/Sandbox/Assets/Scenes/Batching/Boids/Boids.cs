@@ -80,7 +80,7 @@ public class Boids : MonoBehaviour
         m_BoundsRadius = 20f;
         m_BoidBoundsWrap = true;
         m_BoidGroups = false;
-        m_DrawTrails = true;
+        m_DrawTrails = false;
         m_DrawSight = false;
         m_DrawSeparation = false;
         
