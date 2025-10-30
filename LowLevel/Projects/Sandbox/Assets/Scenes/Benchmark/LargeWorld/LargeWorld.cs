@@ -296,11 +296,11 @@ public class LargeWorld : MonoBehaviour
 
         // Reverse.
         if (m_ReverseButton.isPressed || currentKeyboard.leftArrowKey.isPressed)
-            SetCarSpeed(20f);
+            SetCarSpeed(1200f);
 
         // Forward.
         if (m_ForwardButton.isPressed || currentKeyboard.rightArrowKey.isPressed)
-            SetCarSpeed(-5);
+            SetCarSpeed(-300f);
 
         // Brake.
         if (m_BrakeButton.isPressed || currentKeyboard.spaceKey.isPressed)
