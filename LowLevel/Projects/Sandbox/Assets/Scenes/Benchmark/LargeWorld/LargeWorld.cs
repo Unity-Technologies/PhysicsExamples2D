@@ -223,7 +223,7 @@ public class LargeWorld : MonoBehaviour
 
     private void SpawnBatch()
     {
-        // FInish spawning batches if needed.
+        // Finish spawning batches if needed.
         if (m_CycleIndex >= m_CycleCount)
         {
             // Cancel spawning batches. 
