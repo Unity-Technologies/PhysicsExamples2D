@@ -16,8 +16,12 @@ public class LargeWorld : MonoBehaviour
     private float m_GridSize;
     private float m_GridCount;
     private int m_CycleCount;
+    private int m_CycleIndex;
     private float m_CameraPanSpeed;
-
+    private float m_StartX;
+    private int m_RagdollIndex;
+    private RagdollFactory.Configuration m_RagDollConfiguration;
+    
     private Vector2 m_CameraPosition;
     private PhysicsWheelJoint m_RearWheelJoint;
     private PhysicsWheelJoint m_FrontWheelJoint;
@@ -58,7 +62,7 @@ public class LargeWorld : MonoBehaviour
         m_SandboxManager.SetOverrideColorShapeState(false);
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
         m_CameraManipulator.DisableManipulators = true;
-
+        
         m_WavePeriod = 80f;
         m_CycleCount = 600;
         m_GridSize = 1f;
@@ -66,7 +70,7 @@ public class LargeWorld : MonoBehaviour
         m_CameraPanSpeed = 25f;
 
         m_FollowCar = true;
-
+        
         SetupOptions();
 
         SetupScene();
@@ -122,19 +126,39 @@ public class LargeWorld : MonoBehaviour
 
     private void SetupScene()
     {
+        // Cancel spawning batches. 
+        CancelInvoke(nameof(SpawnBatch));
+        
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
 
+        m_CycleIndex = 0;
+        m_RagdollIndex = 0;
+        m_RagDollConfiguration = new RagdollFactory.Configuration
+        {
+            ScaleRange = new Vector2(1.5f, 1.5f),
+            JointFrequency = 0f,
+            JointDamping = 0f,
+            JointFriction = 0.05f,
+            GravityScale = 1f,
+            ContactBodyLayer = 2,
+            ContactFeetLayer = 1,
+            ContactGroupIndex = 1,
+            ColorProvider = m_SandboxManager,
+            FastCollisionsAllowed = false,
+            TriggerEvents = false,
+            EnableLimits = true,
+            EnableMotor = true
+        };            
+        
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
         
-        ref var random = ref m_SandboxManager.Random;
-
         var omega = PhysicsMath.TAU / m_WavePeriod;
-        var startX = -0.5f * m_CycleCount * m_WavePeriod;
+        m_StartX = -0.5f * m_CycleCount * m_WavePeriod;
 
         // Set the camera position.
-        m_CameraPosition = new Vector2(startX, 15f);
+        m_CameraPosition = new Vector2(m_StartX, 15f);
         m_CameraManipulator.CameraPosition = m_CameraPosition;
 
         {
@@ -145,16 +169,16 @@ public class LargeWorld : MonoBehaviour
             shapeDef.startStaticContacts = false;
 
             const float height = 4f;
-            var bodyX = startX;
-            var shapeX = startX;
+            var bodyX = m_StartX;
+            var shapeX = m_StartX;
 
             PhysicsBody groundBody = default;
 
             // Limits.
             {
                 var body = world.CreateBody();
-                body.CreateShape(new SegmentGeometry { point1 = new Vector2(startX - m_GridSize, 0f), point2 = new Vector2(startX - m_GridSize, 100f) });
-                body.CreateShape(new SegmentGeometry { point1 = new Vector2(startX + m_GridCount * m_GridSize, 0f), point2 = new Vector2(startX + m_GridCount * m_GridSize, 100f) });
+                body.CreateShape(new SegmentGeometry { point1 = new Vector2(m_StartX - m_GridSize, 0f), point2 = new Vector2(m_StartX - m_GridSize, 100f) });
+                body.CreateShape(new SegmentGeometry { point1 = new Vector2(m_StartX + m_GridCount * m_GridSize, 0f), point2 = new Vector2(m_StartX + m_GridCount * m_GridSize, 100f) });
             }
             
             for (var i = 0; i < m_GridCount; ++i)
@@ -184,82 +208,81 @@ public class LargeWorld : MonoBehaviour
                 shapeX += m_GridSize;
             }
         }
-
-        {
-            var ragdollIndex = 0;
-
-            var ragDollConfiguration = new RagdollFactory.Configuration
-            {
-                ScaleRange = new Vector2(1.5f, 1.5f),
-                JointFrequency = 0f,
-                JointDamping = 0f,
-                JointFriction = 0.05f,
-                GravityScale = 1f,
-                ContactBodyLayer = 2,
-                ContactFeetLayer = 1,
-                ContactGroupIndex = 1,
-                ColorProvider = m_SandboxManager,
-                FastCollisionsAllowed = false,
-                TriggerEvents = false,
-                EnableLimits = true,
-                EnableMotor = true
-            };
-
-            for (var cycleIndex = 0; cycleIndex < m_CycleCount; ++cycleIndex)
-            {
-                var baseX = (0.5f + cycleIndex) * m_WavePeriod + startX;
-
-                var remainder = cycleIndex % 3;
-                if (remainder == 0)
-                {
-                    var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(baseX - 3f, 10f) };
-
-                    var boxGeometry = PolygonGeometry.CreateBox(new Vector2(0.6f, 0.4f));
-                    for (var i = 0; i < 10; ++i)
-                    {
-                        bodyDef.position = new Vector2(bodyDef.position.x, 10f);
-                        for (var j = 0; j < 5; ++j)
-                        {
-                            var body = world.CreateBody(bodyDef);
-                            body.CreateShape(boxGeometry);
-
-                            bodyDef.position = new Vector2(bodyDef.position.x, bodyDef.position.y + 0.5f);
-                        }
-
-                        bodyDef.position = new Vector2(bodyDef.position.x + 0.6f, bodyDef.position.y);
-                    }
-                }
-                else if (remainder == 1)
-                {
-                    var position = new Vector2(baseX - 2f, 10f);
-                    for (var i = 0; i < 5; ++i)
-                    {
-                        ragDollConfiguration.ContactGroupIndex = ragdollIndex++;
-                        using var ragdoll = RagdollFactory.Spawn(world, position, ragDollConfiguration, true, ref random);
-
-                        position.x += 1f;
-                    }
-                }
-                else
-                {
-                    var position = new Vector2(baseX - 4f, 12f);
-                    for (var i = 0; i < 5; ++i)
-                    {
-                        using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, position, 7, 0.75f);
-
-                        position.x += 2f;
-                    }
-                }
-            }
-        }
-
+        
         // Car.
         {
             const float springFrequency = 10f;
             const float springDamping = 0.7f;
             const float maxMotorTorque = 2000f;
-            using var car = CarFactory.Spawn(world, new Vector2(startX + 20f, 40f), 10f, springFrequency, springDamping, maxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
+            using var car = CarFactory.Spawn(world, new Vector2(m_StartX + 20f, 40f), 10f, springFrequency, springDamping, maxMotorTorque, 1f, out m_RearWheelJoint, out m_FrontWheelJoint);
         }
+
+        // Start spawning batches.
+        InvokeRepeating(nameof(SpawnBatch), 0f, 2f);
+    }
+
+    private void SpawnBatch()
+    {
+        // FInish spawning batches if needed.
+        if (m_CycleIndex >= m_CycleCount)
+        {
+            // Cancel spawning batches. 
+            CancelInvoke(nameof(SpawnBatch));
+            
+            return;
+        }
+
+        // Get the default world.
+        var world = PhysicsWorld.defaultWorld;
+        
+        ref var random = ref m_SandboxManager.Random;
+
+        var baseX = (0.5f + m_CycleIndex) * m_WavePeriod + m_StartX;
+
+        var remainder = m_CycleIndex % 3;
+        if (remainder == 0)
+        {
+            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(baseX - 3f, 10f) };
+
+            var boxGeometry = PolygonGeometry.CreateBox(new Vector2(0.6f, 0.4f));
+            for (var i = 0; i < 10; ++i)
+            {
+                bodyDef.position = new Vector2(bodyDef.position.x, 10f);
+                for (var j = 0; j < 5; ++j)
+                {
+                    var body = world.CreateBody(bodyDef);
+                    body.CreateShape(boxGeometry);
+
+                    bodyDef.position = new Vector2(bodyDef.position.x, bodyDef.position.y + 0.5f);
+                }
+
+                bodyDef.position = new Vector2(bodyDef.position.x + 0.6f, bodyDef.position.y);
+            }
+        }
+        else if (remainder == 1)
+        {
+            var position = new Vector2(baseX - 2f, 10f);
+            for (var i = 0; i < 5; ++i)
+            {
+                m_RagDollConfiguration.ContactGroupIndex = m_RagdollIndex++;
+                using var ragdoll = RagdollFactory.Spawn(world, position, m_RagDollConfiguration, true, ref random);
+
+                position.x += 1f;
+            }
+        }
+        else
+        {
+            var position = new Vector2(baseX - 4f, 12f);
+            for (var i = 0; i < 5; ++i)
+            {
+                using var donut = SoftbodyFactory.SpawnDonut(world, m_SandboxManager, position, 7, 0.75f);
+
+                position.x += 2f;
+            }
+        }
+
+        // Next cycle.
+        m_CycleIndex++;
     }
 
     private void Update()
