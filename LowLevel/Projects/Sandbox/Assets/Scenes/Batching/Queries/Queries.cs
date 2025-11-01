@@ -52,7 +52,7 @@ public class Queries : MonoBehaviour
 
         m_BatchOrigin = new PhysicsTransform(transform.position);
         m_BatchCount = 100;
-        m_BatchSpread = 10.0f;
+        m_BatchSpread = 60.0f;
         m_BatchDistance = 50.0f;
         m_BatchForce = 1f;
         m_DrawRays = true;

@@ -27,7 +27,7 @@ public class LargePyramid : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        m_BaseCount = 100;
+        m_BaseCount = 60;
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;
 
