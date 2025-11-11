@@ -261,28 +261,19 @@ MonoBehaviour:
     Category: Batching
     Description: Demonstrating how to batch queries and changing various body properties.
     ScenePath: Assets/Scenes/Batching/Boids/Boids.unity
-  - Name: Queries
-    Category: Batching
-    Description: Demonstrating how to batch queries using the job system.
-    ScenePath: Assets/Scenes/Batching/Queries/Queries.unity
   - Name: Shooter
     Category: Batching
     Description: Demonstrate the batch creation and destruction of lots of bodies
       and shapes.
     ScenePath: Assets/Scenes/Batching/Shooter/Shooter.unity
+  - Name: Queries
+    Category: Batching
+    Description: Demonstrating how to batch queries using the job system.
+    ScenePath: Assets/Scenes/Batching/Queries/Queries.unity
   - Name: Barrel
     Category: Benchmarks
     Description: A collection of objects falling into and constrained by a region.
     ScenePath: Assets/Scenes/Benchmark/Barrel/Barrel.unity
-  - Name: Capacity
-    Category: Benchmarks
-    Description: Benchmark a large quantity of bodies, shapes and contacts, spawning
-      until the simulation limit has been reached.
-    ScenePath: Assets/Scenes/Benchmark/Capacity/Capacity.unity
-  - Name: Drawing
-    Category: Benchmarks
-    Description: Checking the performance of custom drawing..
-    ScenePath: Assets/Scenes/Benchmark/Drawing/Drawing.unity
   - Name: Funnel
     Category: Benchmarks
     Description: Checking the performance of various collision interactions in a
@@ -309,31 +300,40 @@ MonoBehaviour:
     Category: Benchmarks
     Description: A large-scale world test with a lot of objects.
     ScenePath: Assets/Scenes/Benchmark/LargeWorld/LargeWorld.unity
-  - Name: Many Tumblers
-    Category: Benchmarks
-    Description: Multiple tumbling, confined bodies.
-    ScenePath: Assets/Scenes/Benchmark/ManyTumblers/ManyTumblers.unity
   - Name: Smash
     Category: Benchmarks
     Description: A large dense shape smashing into lots of smaller shapes.
     ScenePath: Assets/Scenes/Benchmark/Smash/Smash.unity
-  - Name: Spinner
-    Category: Benchmarks
-    Description: A simulation of Centripetal forces.
-    ScenePath: Assets/Scenes/Benchmark/Spinner/Spinner.unity
   - Name: Triggers
     Category: Benchmarks
     Description: Checking the performance of lots of trigger events.
     ScenePath: Assets/Scenes/Benchmark/Triggers/Triggers.unity
+  - Name: Spinner
+    Category: Benchmarks
+    Description: A simulation of Centripetal forces.
+    ScenePath: Assets/Scenes/Benchmark/Spinner/Spinner.unity
   - Name: Tumbler
     Category: Benchmarks
     Description: Lots of interacting bodies confined to a tumbling region.
     ScenePath: Assets/Scenes/Benchmark/Tumbler/Tumbler.unity
+  - Name: Many Tumblers
+    Category: Benchmarks
+    Description: Multiple tumbling, confined bodies.
+    ScenePath: Assets/Scenes/Benchmark/ManyTumblers/ManyTumblers.unity
   - Name: Washer
     Category: Benchmarks
     Description: Benchmarks good parallelism for large piles of objects on a moving
       Kinematic body.
     ScenePath: Assets/Scenes/Benchmark/Washer/Washer.unity
+  - Name: Drawing
+    Category: Benchmarks
+    Description: Checking the performance of custom drawing..
+    ScenePath: Assets/Scenes/Benchmark/Drawing/Drawing.unity
+  - Name: Capacity
+    Category: Benchmarks
+    Description: Benchmark a large quantity of bodies, shapes and contacts, spawning
+      until the simulation limit has been reached.
+    ScenePath: Assets/Scenes/Benchmark/Capacity/Capacity.unity
   - Name: Bounce House
     Category: Collision
     Description: Checking the stability of very fast continuous collision.
@@ -414,10 +414,54 @@ MonoBehaviour:
     Category: Shapes
     Description: Demonstrating the effect of Bounciness on shapes.
     ScenePath: Assets/Scenes/Shapes/Bounciness/Bounciness.unity
+  - Name: Friction
+    Category: Shapes
+    Description: Demonstrating the effect of Friction on shapes.
+    ScenePath: Assets/Scenes/Shapes/Friction/Friction.unity
+  - Name: Rolling Resistance
+    Category: Shapes
+    Description: Demonstrating Rolling Resistance Surface Property.
+    ScenePath: Assets/Scenes/Shapes/RollingResistance/RollingResistance.unity
+  - Name: Rounded Polygons
+    Category: Shapes
+    Description: Demonstrating rounded polygons.
+    ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
+  - Name: Ellipse Polygons
+    Category: Shapes
+    Description: Demonstrating creating pseudo-ellipse shapes as Polygons.
+    ScenePath: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
   - Name: Chain Shape
     Category: Shapes
     Description: Demonstrates how a Chain Shape doesn't produce "ghost" collisions.
     ScenePath: Assets/Scenes/Shapes/ChainShape/ChainShape.unity
+  - Name: Arch
+    Category: Shapes
+    Description: A delicate balance of forces.
+    ScenePath: Assets/Scenes/Stacking/Arch/Arch.unity
+  - Name: Shape Stack
+    Category: Shapes
+    Description: Checking the stability of stacking shapes.
+    ScenePath: Assets/Scenes/Stacking/ShapeStack/ShapeStack.unity
+  - Name: Card House
+    Category: Shapes
+    Description: A delicate balance of forces.
+    ScenePath: Assets/Scenes/Stacking/CardHouse/CardHouse.unity
+  - Name: Double Domino
+    Category: Shapes
+    Description: Demonstrating accuracy by simulating the classic double-domino wave.
+    ScenePath: Assets/Scenes/Stacking/DoubleDomino/DoubleDomino.unity
+  - Name: Confined
+    Category: Shapes
+    Description: Showing the solver dealing with tight/overlapping confinement.
+    ScenePath: Assets/Scenes/Stacking/Confined/Confined.unity
+  - Name: Wind
+    Category: Shapes
+    Description: Demonstrating the application of Wind with drag and lift.
+    ScenePath: Assets/Scenes/Shapes/Wind/Wind.unity
+  - Name: Modify Geometry
+    Category: Shapes
+    Description: Demonstrates modifying the geometry of existing shapes.
+    ScenePath: Assets/Scenes/Shapes/ModifyGeometry/ModifyGeometry.unity
   - Name: Compound
     Category: Shapes
     Description: Demonstrates how multiple shapes on a single body produce a compound
@@ -431,62 +475,14 @@ MonoBehaviour:
     Category: Shapes
     Description: Demonstrates the use of a custom shape filter.
     ScenePath: Assets/Scenes/Shapes/CustomFilter/CustomFilter.unity
-  - Name: Ellipse Polygons
-    Category: Shapes
-    Description: Demonstrating creating pseudo-ellipse shapes as Polygons.
-    ScenePath: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
   - Name: Fragmenting
     Category: Shapes
     Description: Demonstrates the use of geometry fragmenting.
     ScenePath: Assets/Scenes/Shapes/Fragmenting/Fragmenting.unity
-  - Name: Friction
-    Category: Shapes
-    Description: Demonstrating the effect of Friction on shapes.
-    ScenePath: Assets/Scenes/Shapes/Friction/Friction.unity
-  - Name: Modify Geometry
-    Category: Shapes
-    Description: Demonstrates modifying the geometry of existing shapes.
-    ScenePath: Assets/Scenes/Shapes/ModifyGeometry/ModifyGeometry.unity
-  - Name: Rolling Resistance
-    Category: Shapes
-    Description: Demonstrating Rolling Resistance Surface Property.
-    ScenePath: Assets/Scenes/Shapes/RollingResistance/RollingResistance.unity
-  - Name: Rounded Polygons
-    Category: Shapes
-    Description: Demonstrating rounded polygons.
-    ScenePath: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
   - Name: Slicing
     Category: Shapes
     Description: Demonstrates the use of geometry slicing.
     ScenePath: Assets/Scenes/Shapes/Slicing/Slicing.unity
-  - Name: Parallel Simulate
-    Category: Simulation
-    Description: Simulating multiple worlds in parallel.
-    ScenePath: Assets/Scenes/Simulate/Parallel/ParallelSimulate.unity
-  - Name: Arch
-    Category: Stacking
-    Description: A delicate balance of forces.
-    ScenePath: Assets/Scenes/Stacking/Arch/Arch.unity
-  - Name: Confined
-    Category: Stacking
-    Description: Showing the solver dealing with tight/overlapping confinement.
-    ScenePath: Assets/Scenes/Stacking/Confined/Confined.unity
-  - Name: Card House
-    Category: Stacking
-    Description: A delicate balance of forces.
-    ScenePath: Assets/Scenes/Stacking/CardHouse/CardHouse.unity
-  - Name: Double Domino
-    Category: Stacking
-    Description: Demonstrating accuracy by simulating the classic double-domino wave.
-    ScenePath: Assets/Scenes/Stacking/DoubleDomino/DoubleDomino.unity
-  - Name: Shape Stack
-    Category: Stacking
-    Description: Checking the stability of stacking shapes.
-    ScenePath: Assets/Scenes/Stacking/ShapeStack/ShapeStack.unity
-  - Name: Wind
-    Category: Shapes
-    Description: Demonstrating the application of Wind with drag and lift.
-    ScenePath: Assets/Scenes/Shapes/Wind/Wind.unity
 --- !u!114 &633824032
 MonoBehaviour:
   m_ObjectHideFlags: 0
