@@ -43,9 +43,6 @@
                     </ui:VisualElement>
                 </ui:Tab>
             </ui:TabView>
-            <ui:VisualElement name="status" style="flex-grow: 1; width: 100%; height: 24px; flex-shrink: 0; align-items: stretch; align-self: stretch; margin-top: 1px; margin-right: 0; margin-bottom: 0; margin-left: 0;">
-                <ui:ProgressBar value="60" title="FPS: 60" name="fps" high-value="100"/>
-            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

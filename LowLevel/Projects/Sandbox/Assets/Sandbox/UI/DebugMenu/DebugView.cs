@@ -1,9 +1,12 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.UIElements;
 
 public class DebugView : MonoBehaviour
 {
+    public float UpdatePeriodFPS = 0.1f;
+    
     private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;
 
@@ -14,6 +17,11 @@ public class DebugView : MonoBehaviour
     private PhysicsWorld.WorldProfile m_TotalProfile;
     private PhysicsWorld.WorldProfile m_MaxProfile;
 
+    // FPS.
+    private ProgressBar m_BarFPS;
+    private float m_MaxFPS;
+    private float m_UpdateTimeFPS;
+    
     // Profile.
     private Label m_SimulationStepElement;
     private Label m_ContactPairsElement;
@@ -51,6 +59,10 @@ public class DebugView : MonoBehaviour
     private Label m_TotalBytesUsedElement;
     private Label m_TaskCountElement;
 
+    public void ShowFPS() => m_BarFPS.style.display = DisplayStyle.Flex;
+    
+    public void HideFPS() => m_BarFPS.style.display = DisplayStyle.None;
+    
     public void ResetStats()
     {
         m_SampledCount = 0;
@@ -69,6 +81,8 @@ public class DebugView : MonoBehaviour
         // Update states when a world has finished simulating. 
         PhysicsEvents.PostSimulate += UpdateStats;
 
+        m_UpdateTimeFPS = UpdatePeriodFPS;
+        
         // Menu Region.
         {
             var menuRegion = root.Q<VisualElement>("menu-region");
@@ -76,6 +90,11 @@ public class DebugView : MonoBehaviour
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
         }
 
+        // FPS.
+        {
+            m_BarFPS = root.Q<ProgressBar>("fps");
+        }
+        
         // Profile.
         {
             m_SimulationStepElement = root.Q<Label>("simulation-step");
@@ -139,6 +158,9 @@ public class DebugView : MonoBehaviour
         const string color = SandboxUtility.HighlightColor;
         const string endColor = SandboxUtility.EndHighlightColor;
 
+        // Update the FPS.
+        UpdateFPS();
+        
         // Profile.
         m_SimulationStepElement.text = $"{color}{m_LastProfile.simulationStep:F2}{endColor} ~[{color}{m_TotalProfile.simulationStep * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.simulationStep:F2}{endColor}]";
         m_ContactPairsElement.text = $"{color}{m_LastProfile.contactPairs:F2}{endColor} ~[{color}{m_TotalProfile.contactPairs * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactPairs:F2}{endColor}]";
@@ -176,7 +198,26 @@ public class DebugView : MonoBehaviour
         m_TotalBytesUsedElement.text = $"{color}{m_LastCounters.memoryUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.memoryUsed * memoryScale:F2}{endColor}]";
         m_TaskCountElement.text = $"{color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
     }
+    
+    private void UpdateFPS()
+    {
+        // Fps.
+        var deltaTime = Time.smoothDeltaTime;
+        if (m_BarFPS != null & deltaTime > 0f)
+        {
+            m_UpdateTimeFPS -= deltaTime;
+            if (m_UpdateTimeFPS >= 0f)
+                return;
 
+            m_UpdateTimeFPS = UpdatePeriodFPS;
+
+            var fps = 1f / deltaTime;
+            m_BarFPS.highValue = m_MaxFPS = math.max(m_MaxFPS, fps);
+            m_BarFPS.value = fps;
+            m_BarFPS.title = $"{SandboxUtility.HighlightColor}{fps:F1}{SandboxUtility.EndHighlightColor} fps ({SandboxUtility.HighlightColor}{1000f / fps:F1}{SandboxUtility.EndHighlightColor} ms)";
+        }
+    }
+    
     private void UpdateStats(PhysicsWorld world, float deltaTime)
     {
         if (!world.isDefaultWorld)

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 /// <summary>
 /// Benchmark a large quantity of bodies, shapes and contacts, spawning until the simulation limit has been reached.
-/// This provides an approximate limit for a worse-case scenario with bodies and shapes all in contact with each other on the current device.
+/// This provides an approximate limit for a worst-case scenario with bodies and shapes all in contact with each other on the current device.
 /// The available threads has a huge impact on this limit. The debug rendering defaults to being turned off as the FPS is irrelevant and may result in the Sandbox UI becoming sluggish on some devices. 
 /// </summary>
 public class Capacity : MonoBehaviour

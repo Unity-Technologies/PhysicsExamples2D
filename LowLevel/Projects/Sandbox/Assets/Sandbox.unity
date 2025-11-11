@@ -334,82 +334,6 @@ MonoBehaviour:
     Description: Benchmark a large quantity of bodies, shapes and contacts, spawning
       until the simulation limit has been reached.
     ScenePath: Assets/Scenes/Benchmark/Capacity/Capacity.unity
-  - Name: Bounce House
-    Category: Collision
-    Description: Checking the stability of very fast continuous collision.
-    ScenePath: Assets/Scenes/Collision/BounceHouse/BounceHouse.unity
-  - Name: Bounce Ragdolls
-    Category: Collision
-    Description: Checking the stability of very fast continuous collision.
-    ScenePath: Assets/Scenes/Collision/BounceRagdolls/BounceRagdolls.unity
-  - Name: Character Mover
-    Category: Collision
-    Description: Demonstrating the Cast Mover feature.
-    ScenePath: Assets/Scenes/Collision/CharacterMover/CharacterMover.unity
-  - Name: Contact Manifold
-    Category: Collision
-    Description: Showing contacts manifolds between various shapes.
-    ScenePath: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
-  - Name: Determinism
-    Category: Collision
-    Description: 'Checking cross-platform determinism using a complex joint set-up.
-      <b><color=#FF0000>NOTE: Cross-platform determinism is not supported yet!</color></b>'
-    ScenePath: Assets/Scenes/Collision/Determinism/Determinism.unity
-  - Name: Ball and Chain
-    Category: Joints
-    Description: Demonstrating a chain of joints.
-    ScenePath: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
-  - Name: Distance Joint
-    Category: Joints
-    Description: Demonstrating the features of the Distance Joint.
-    ScenePath: Assets/Scenes/Joints/DistanceJoint/DistanceJoint.unity
-  - Name: Doohickey
-    Category: Joints
-    Description: Demonstrating some fun contraptions using joints.
-    ScenePath: Assets/Scenes/Joints/Doohickey/Doohickey.unity
-  - Name: Driving
-    Category: Joints
-    Description: Demonstrating the use of a Wheel Joint for suspension when driving
-      a car.
-    ScenePath: Assets/Scenes/Joints/Driving/Driving.unity
-  - Name: Gear Lift
-    Category: Joints
-    Description: Complex Joint and Collision Iterations.
-    ScenePath: Assets/Scenes/Joints/GearLift/GearLift.unity
-  - Name: Ignore Joint
-    Category: Joints
-    Description: Demonstrating the IgnoreJoint to permanently ignore collisions between
-      two bodies.
-    ScenePath: Assets/Scenes/Joints/IgnoreJoint/IgnoreJoint.unity
-  - Name: Scale Ragdoll
-    Category: Joints
-    Description: Checking the stability of solving forced overlap due to scaling
-      a relatively complex setup.
-    ScenePath: Assets/Scenes/Joints/ScaleRagdoll/ScaleRagdoll.unity
-  - Name: Scissor Lift
-    Category: Joints
-    Description: Checking the stability of solving a complex set of joints.
-    ScenePath: Assets/Scenes/Joints/ScissorLift/ScissorLift.unity
-  - Name: Slider Joint
-    Category: Joints
-    Description: Demonstrating the features of the Slider Joint.
-    ScenePath: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
-  - Name: Soft Body
-    Category: Joints
-    Description: Demonstrating using joints to create a soft body.
-    ScenePath: Assets/Scenes/Joints/SoftBody/SoftBody.unity
-  - Name: Top Down Friction
-    Category: Joints
-    Description: Demonstrating using the RelativeJoint to achieve "top down" friction.
-    ScenePath: Assets/Scenes/Joints/TopDownFriction/TopDownFriction.unity
-  - Name: User Joint
-    Category: Joints
-    Description: Demonstrating the implementation of a custom joint.
-    ScenePath: Assets/Scenes/Joints/UserJoint/UserJoint.unity
-  - Name: Wheel Joint
-    Category: Joints
-    Description: Demonstrating the features of the Wheel Joint.
-    ScenePath: Assets/Scenes/Joints/WheelJoint/WheelJoint.unity
   - Name: Bounciness
     Category: Shapes
     Description: Demonstrating the effect of Bounciness on shapes.
@@ -483,6 +407,82 @@ MonoBehaviour:
     Category: Shapes
     Description: Demonstrates the use of geometry slicing.
     ScenePath: Assets/Scenes/Shapes/Slicing/Slicing.unity
+  - Name: Bounce House
+    Category: Collision
+    Description: Checking the stability of very fast continuous collision.
+    ScenePath: Assets/Scenes/Collision/BounceHouse/BounceHouse.unity
+  - Name: Bounce Ragdolls
+    Category: Collision
+    Description: Checking the stability of very fast continuous collision.
+    ScenePath: Assets/Scenes/Collision/BounceRagdolls/BounceRagdolls.unity
+  - Name: Character Mover
+    Category: Collision
+    Description: Demonstrating the Cast Mover feature.
+    ScenePath: Assets/Scenes/Collision/CharacterMover/CharacterMover.unity
+  - Name: Contact Manifold
+    Category: Collision
+    Description: Showing contacts manifolds between various shapes.
+    ScenePath: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
+  - Name: Determinism
+    Category: Collision
+    Description: 'Checking cross-platform determinism using a complex joint set-up.
+      <b><color=#FF0000>NOTE: Cross-platform determinism is not supported yet!</color></b>'
+    ScenePath: Assets/Scenes/Collision/Determinism/Determinism.unity    
+  - Name: Ball and Chain
+    Category: Joints
+    Description: Demonstrating a chain of joints.
+    ScenePath: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
+  - Name: Distance Joint
+    Category: Joints
+    Description: Demonstrating the features of the Distance Joint.
+    ScenePath: Assets/Scenes/Joints/DistanceJoint/DistanceJoint.unity
+  - Name: Doohickey
+    Category: Joints
+    Description: Demonstrating some fun contraptions using joints.
+    ScenePath: Assets/Scenes/Joints/Doohickey/Doohickey.unity
+  - Name: Driving
+    Category: Joints
+    Description: Demonstrating the use of a Wheel Joint for suspension when driving
+      a car.
+    ScenePath: Assets/Scenes/Joints/Driving/Driving.unity
+  - Name: Gear Lift
+    Category: Joints
+    Description: Complex Joint and Collision Iterations.
+    ScenePath: Assets/Scenes/Joints/GearLift/GearLift.unity
+  - Name: Ignore Joint
+    Category: Joints
+    Description: Demonstrating the IgnoreJoint to permanently ignore collisions between
+      two bodies.
+    ScenePath: Assets/Scenes/Joints/IgnoreJoint/IgnoreJoint.unity
+  - Name: Scale Ragdoll
+    Category: Joints
+    Description: Checking the stability of solving forced overlap due to scaling
+      a relatively complex setup.
+    ScenePath: Assets/Scenes/Joints/ScaleRagdoll/ScaleRagdoll.unity
+  - Name: Scissor Lift
+    Category: Joints
+    Description: Checking the stability of solving a complex set of joints.
+    ScenePath: Assets/Scenes/Joints/ScissorLift/ScissorLift.unity
+  - Name: Slider Joint
+    Category: Joints
+    Description: Demonstrating the features of the Slider Joint.
+    ScenePath: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
+  - Name: Soft Body
+    Category: Joints
+    Description: Demonstrating using joints to create a soft body.
+    ScenePath: Assets/Scenes/Joints/SoftBody/SoftBody.unity
+  - Name: Top Down Friction
+    Category: Joints
+    Description: Demonstrating using the RelativeJoint to achieve "top down" friction.
+    ScenePath: Assets/Scenes/Joints/TopDownFriction/TopDownFriction.unity
+  - Name: User Joint
+    Category: Joints
+    Description: Demonstrating the implementation of a custom joint.
+    ScenePath: Assets/Scenes/Joints/UserJoint/UserJoint.unity
+  - Name: Wheel Joint
+    Category: Joints
+    Description: Demonstrating the features of the Wheel Joint.
+    ScenePath: Assets/Scenes/Joints/WheelJoint/WheelJoint.unity    
 --- !u!114 &633824032
 MonoBehaviour:
   m_ObjectHideFlags: 0
