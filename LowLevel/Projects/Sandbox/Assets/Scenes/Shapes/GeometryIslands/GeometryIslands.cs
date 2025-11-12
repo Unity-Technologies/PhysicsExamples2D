@@ -32,6 +32,8 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
     private const float ProjectileRadius = 0.2f;
     private const float PlayerSpeed = 60f;
     private const float ProjectileSpeed = 40f;
+    private const float ProjectileDelay = 0.05f;
+    private float m_ProjectileTime;
     private Vector2 m_PlayerPosition;
     private CapsuleGeometry m_PlayerGeometry;
     private CircleGeometry m_FireGeometry;
@@ -105,10 +107,10 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
         m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-30f, 0f), point2 = new Vector2(25f, 0f) };
         m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 21.9f);
         
-        m_FragmentRadius = 3f;
+        m_FragmentRadius = 1.5f;
         m_FragmentCount = 25;
-        m_FragmentColors = FragmentColors.Group;
-        m_FragmentExplode = false;
+        m_FragmentColors = FragmentColors.Individual;
+        m_FragmentExplode = true;
         
         UpdateFragmentGeometry();
         
@@ -158,11 +160,6 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
                 UpdateFragmentGeometry();
             });
 
-            // Fragment Count.
-            var fragmentCount = root.Q<SliderInt>("fragment-count");
-            fragmentCount.value = m_FragmentCount;
-            fragmentCount.RegisterValueChangedCallback(evt => { m_FragmentCount = evt.newValue; });
-            
             // Fragment Colors.
             var fragmentColors = root.Q<EnumField>("fragment-colors");
             fragmentColors.value = m_FragmentColors;
@@ -225,7 +222,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
             var currentKeyboard = Keyboard.current;
             var leftPressed = m_LeftButton.isPressed || currentKeyboard.leftArrowKey.isPressed;
             var rightPressed = m_RightButton.isPressed || currentKeyboard.rightArrowKey.isPressed;
-            var firePressed = currentKeyboard.spaceKey.wasPressedThisFrame;
+            var firePressed = currentKeyboard.spaceKey.isPressed;
 
             // Movement.
             {
@@ -240,10 +237,15 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
                 // Clamp movement.
                 m_PlayerPosition.x = Mathf.Clamp(m_PlayerPosition.x, -26f, 26f);
             }
-
+            
+            m_ProjectileTime += Time.deltaTime;
+            
             // Fire.
-            if (firePressed)
+            if (firePressed && m_ProjectileTime >= ProjectileDelay)
+            {
+                m_ProjectileTime = 0f;
                 FirePressed();
+            }
         }
 
         // Draw the Player.
@@ -265,7 +267,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
         var bodyDef = new PhysicsBodyDefinition
         {
             bodyType = RigidbodyType2D.Dynamic,
-            gravityScale = 0f,
+            gravityScale = 10f,
             fastCollisionsAllowed = true,
             position = m_PlayerPosition + Vector2.down * (ProjectileRadius + 1.5f),
             linearVelocity = Vector2.down * ProjectileSpeed
@@ -460,39 +462,42 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
             
             // Create the debris destructible geometry from the "broken" geometry (if we have any).
             {
-                // Create a shape color for dynamic falling geometry.
-                var dynamicShapeColor = m_FragmentColors switch
-                {
-                    FragmentColors.Off or FragmentColors.Individual => m_DestructibleColor,
-                    FragmentColors.White => Color.ivory,
-                    FragmentColors.Group => m_SandboxManager.ShapeColorState,
-                    _ => throw new ArgumentOutOfRangeException()
-                };            
-                
                 var brokenCount = fragmentResults.brokenGeometry.Length;
-                
-                // Create a batch of bodies.
-                using var bodies = world.CreateBodyBatch(dynamicBodyDef, brokenCount);
-                
-                // Create a shape definition for the broken geometry.
-                var shapeDef = new PhysicsShapeDefinition
+                if (brokenCount > 0)
                 {
-                    contactFilter = new PhysicsShape.ContactFilter { categories = m_DebrisMask, contacts = m_GroundMask | m_DestructibleMask | m_ObstacleMask },
-                    contactEvents = true,
-                    surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = dynamicShapeColor }
-                };
-                
-                // Add a shape for each body.
-                for (var i = 0; i < brokenCount; ++i)
-                {
-                    var body = bodies[i];
-                    var geometry = fragmentResults.brokenGeometry[i];
+                    // Create a batch of bodies.
+                    using var bodies = world.CreateBodyBatch(dynamicBodyDef, brokenCount);
 
-                    if (m_FragmentColors == FragmentColors.Individual)
-                        shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState };
-                    
-                    var shape = body.CreateShape(geometry, shapeDef);
-                    shape.callbackTarget = this;
+                    // Create a shape color for dynamic falling geometry.
+                    var dynamicShapeColor = m_FragmentColors switch
+                    {
+                        FragmentColors.Off or FragmentColors.Individual => m_DestructibleColor,
+                        FragmentColors.White => Color.ivory,
+                        FragmentColors.Group => m_SandboxManager.ShapeColorState,
+                        _ => throw new ArgumentOutOfRangeException()
+                    };
+
+
+                    // Create a shape definition for the broken geometry.
+                    var shapeDef = new PhysicsShapeDefinition
+                    {
+                        contactFilter = new PhysicsShape.ContactFilter { categories = m_DebrisMask, contacts = m_GroundMask | m_DestructibleMask | m_ObstacleMask },
+                        contactEvents = true,
+                        surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = dynamicShapeColor }
+                    };
+
+                    // Add a shape for each body.
+                    for (var i = 0; i < brokenCount; ++i)
+                    {
+                        var body = bodies[i];
+                        var geometry = fragmentResults.brokenGeometry[i];
+
+                        if (m_FragmentColors == FragmentColors.Individual)
+                            shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState };
+
+                        var shape = body.CreateShape(geometry, shapeDef);
+                        shape.callbackTarget = this;
+                    }
                 }
             }
 
@@ -503,7 +508,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
                 {
                     position = hitPosition + Vector2.up * m_FragmentRadius,
                     hitCategories = m_DebrisMask,
-                    impulsePerLength = 4f,
+                    impulsePerLength = 2f,
                     radius = m_FragmentRadius * 3f
                 });
             }
