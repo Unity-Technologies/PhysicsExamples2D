@@ -132,6 +132,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Shapes/Fragmenting/Fragmenting.unity
     guid: fdb61be3e49ccf14f8fea6dd4f5e0bb4
   - enabled: 1
+    path: Assets/Scenes/Shapes/GeometryIslands/GeometryIslands.unity
+    guid: f5599ea474cb259408d63e5c73ab27d2
+  - enabled: 1
     path: Assets/Scenes/Shapes/Friction/Friction.unity
     guid: 9f24719bc9196724190879eaa79f9690
   - enabled: 1
@@ -155,9 +158,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Shapes/Wind/Wind.unity
     guid: ba8fade6bb243d142920465e5187e6c2
-  - enabled: 1
-    path: Assets/Scenes/Simulate/Parallel/ParallelSimulate.unity
-    guid: b3c9df1e109c6bb459227979dfb0ce71
   - enabled: 1
     path: Assets/Scenes/Stacking/Arch/Arch.unity
     guid: 015f448c6c94f1445aa2323d27e48208
