@@ -427,7 +427,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
                         // Yes, so iterate all the island geometry.
                         foreach (var geometry in islandGeometry)
                         {
-                            // Slip if the geometry does not intersect with the virtual ground.
+                            // Skip if the geometry does not intersect with the virtual ground.
                             if (geometry.Intersect(fragmentTransform, m_VirtualGroundGeometry, m_VirtualGroundTransform).pointCount == 0)
                                 continue;
 
