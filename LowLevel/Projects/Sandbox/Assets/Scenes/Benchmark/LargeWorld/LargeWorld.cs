@@ -242,7 +242,7 @@ public class LargeWorld : MonoBehaviour
         var remainder = m_CycleIndex % 3;
         if (remainder == 0)
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(baseX - 3f, 10f) };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(baseX - 3f, 10f) };
 
             var boxGeometry = PolygonGeometry.CreateBox(new Vector2(0.6f, 0.4f));
             for (var i = 0; i < 10; ++i)

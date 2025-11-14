@@ -166,7 +166,7 @@ public class Shooter : MonoBehaviour
                         radius = capsuleRadius
                     };
 
-                    var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = m_GravityScale, fastCollisionsAllowed = true };
+                    var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, gravityScale = m_GravityScale, fastCollisionsAllowed = true };
                     var shapeDef = new PhysicsShapeDefinition { contactFilter = BatchFilter, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.0f, bounciness = 0.3f } };
 
                     // Fire all the projectiles.

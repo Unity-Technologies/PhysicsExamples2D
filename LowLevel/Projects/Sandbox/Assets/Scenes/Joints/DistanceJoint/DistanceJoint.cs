@@ -226,7 +226,7 @@ public class DistanceJoint : MonoBehaviour
             // Create the joints.
             for (var n = 0; n < m_JointCount; ++n)
             {
-                var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, angularDamping = 1f, position = new Vector2(m_JointDistance * (n + 1f), offsetY) };
+                var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, angularDamping = 1f, position = new Vector2(m_JointDistance * (n + 1f), offsetY) };
                 var body = world.CreateBody(bodyDef);
 
                 shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;

@@ -139,7 +139,7 @@ public class TopDownFriction : MonoBehaviour
             var circle = new CircleGeometry { radius = 0.35f };
             var box = PolygonGeometry.CreateBox(new Vector2(0.7f, 0.7f));
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = 0f };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, gravityScale = 0f };
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 0.8f } };
 
             const int order = 10;

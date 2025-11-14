@@ -130,7 +130,7 @@ public class ConveyorBelt : MonoBehaviour
 	    for (var n = 0; n < SpawnCount; ++n)
 	    {
 		    var spawnPosition = new Vector2(random.NextFloat(-5f, 5f), random.NextFloat(9f, 20f));
-		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition, rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)) });
+		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = spawnPosition, rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)) });
 
 		    var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState } };
 

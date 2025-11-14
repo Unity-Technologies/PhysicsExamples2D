@@ -71,7 +71,7 @@ public class DoubleDomino : MonoBehaviour
         }
 
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.6f } };
             var boxGeometry = PolygonGeometry.CreateBox(new Vector2(0.25f, 1f));
 

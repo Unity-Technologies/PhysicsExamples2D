@@ -165,7 +165,7 @@ public class Triggers : MonoBehaviour
 
         var bodyDef = new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             gravityScale = 0f,
             linearVelocity = new Vector2(0f, -7.5f)
         };

@@ -129,7 +129,7 @@ public class BallAndChain : MonoBehaviour
             // Create the chain links.
             for (var n = 0; n < JointCount; ++n)
             {
-                var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2((1f + 2f * n) * scale, JointCount * scale) };
+                var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2((1f + 2f * n) * scale, JointCount * scale) };
                 var body = world.CreateBody(bodyDef);
 
                 var geometry = new CapsuleGeometry { center1 = Vector2.left * scale, center2 = Vector2.right * scale, radius = 0.125f };
@@ -166,7 +166,7 @@ public class BallAndChain : MonoBehaviour
 
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 position = new Vector2((1f + 2f * JointCount) * scale + geometry.radius - scale, JointCount * scale),
                 gravityScale = 3f
             };

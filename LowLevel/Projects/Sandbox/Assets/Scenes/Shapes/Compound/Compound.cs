@@ -94,7 +94,7 @@ public class Compound : MonoBehaviour
         
 		// Table 1.
 		{
-			m_Table1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-15f, 1f) });
+			m_Table1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(-15f, 1f) });
 
 			m_Table1.CreateShape(PolygonGeometry.CreateBox(new Vector2(6f, 1f), 0f, new Vector2(0f, 3.5f)));
 			m_Table1.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f, 3f), 0f, new Vector2(-2.5f, 1.5f)));
@@ -103,7 +103,7 @@ public class Compound : MonoBehaviour
 
 		// Table 2.
 		{
-			m_Table2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-5f, 1f) });
+			m_Table2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(-5f, 1f) });
 
 			m_Table2.CreateShape(PolygonGeometry.CreateBox(new Vector2(6f, 1f), 0f, new Vector2(0f, 3.5f)));
 			m_Table2.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f, 4f), 0f, new Vector2(-2.5f, 2f)));
@@ -112,7 +112,7 @@ public class Compound : MonoBehaviour
 
 		// Spaceship 1.
 		{
-			m_Ship1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(5f, 1f) });
+			m_Ship1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(5f, 1f) });
 
 			{
 				using var vertices = new NativeList<Vector2>(Allocator.Temp)
@@ -137,7 +137,7 @@ public class Compound : MonoBehaviour
 
 		// Spaceship 2.
 		{
-			m_Ship2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(15f, 1f) });
+			m_Ship2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(15f, 1f) });
 
 			{
 				using var vertices = new NativeList<Vector2>(Allocator.Temp)
@@ -165,25 +165,25 @@ public class Compound : MonoBehaviour
     {
 	    // Table 1 intrusion.
 	    {
-		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = m_Table1.position, rotation = m_Table1.rotation });
+		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = m_Table1.position, rotation = m_Table1.rotation });
 		    body.CreateShape(PolygonGeometry.CreateBox(new Vector2(8f, 0.2f), 0f, new Vector2(0f, 3.0f)));
 	    }
 
 	    // Table 2 intrusion.
 	    {
-		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = m_Table2.position, rotation = m_Table2.rotation });
+		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = m_Table2.position, rotation = m_Table2.rotation });
 		    body.CreateShape(PolygonGeometry.CreateBox(new Vector2(8f, 0.2f), 0f, new Vector2(0f, 3.0f)));
 	    }
 
 	    // Ship 1 intrusion.
 	    {
-		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = m_Ship1.position, rotation = m_Ship1.rotation });
+		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = m_Ship1.position, rotation = m_Ship1.rotation });
 		    body.CreateShape(new CircleGeometry { center = new Vector2(0f, 2f), radius = 0.5f });
 	    }
 
 	    // Ship 2 intrusion.
 	    {
-		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = m_Ship2.position, rotation = m_Ship2.rotation });
+		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = m_Ship2.position, rotation = m_Ship2.rotation });
 		    body.CreateShape(new CircleGeometry { center = new Vector2(0f, 2f), radius = 0.5f });
 	    }	    
     }

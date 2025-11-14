@@ -145,7 +145,7 @@ public class CameraManipulator : MonoBehaviour
                             foreach (var hit in hits)
                             {
                                 var hitBody = hit.shape.body;
-                                if (hitBody.bodyType != RigidbodyType2D.Dynamic)
+                                if (hitBody.type != PhysicsBody.BodyType.Dynamic)
                                     continue;
 
                                 m_DragGroundBody = defaultWorld.CreateBody();

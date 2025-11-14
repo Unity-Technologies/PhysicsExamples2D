@@ -215,7 +215,7 @@ public static class RagdollFactory
     {
         var bodyDef = new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             gravityScale = configuration.GravityScale,
             fastCollisionsAllowed = configuration.FastCollisionsAllowed,
             sleepThreshold = 0.1f

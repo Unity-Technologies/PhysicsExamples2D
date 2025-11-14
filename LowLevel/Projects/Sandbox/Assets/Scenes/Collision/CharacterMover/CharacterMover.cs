@@ -388,7 +388,7 @@ public class CharacterMover : MonoBehaviour
             {
                 var bodyDef = new PhysicsBodyDefinition
                 {
-                    bodyType = RigidbodyType2D.Dynamic,
+                    type = PhysicsBody.BodyType.Dynamic,
                     position = new Vector2(offset.x + 0.5f + 1f * n, offset.y),
                     angularDamping = 0.2f
                 };
@@ -425,7 +425,7 @@ public class CharacterMover : MonoBehaviour
             {
                 var bodyDef = new PhysicsBodyDefinition
                 {
-                    bodyType = RigidbodyType2D.Dynamic,
+                    type = PhysicsBody.BodyType.Dynamic,
                     position = new Vector2(75f + n, 12f + random.NextFloat(0f, 6f)),
                     rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)),
                     angularVelocity = random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI),
@@ -457,7 +457,7 @@ public class CharacterMover : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Kinematic,
+                type = PhysicsBody.BodyType.Kinematic,
                 position = new Vector2(m_ElevatorOffset.x, m_ElevatorOffset.y - ElevatorAmplitude)
             };
             m_ElevatorBody = world.CreateBody(bodyDef);

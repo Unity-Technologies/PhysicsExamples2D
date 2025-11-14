@@ -8,7 +8,7 @@ public static class DoohickeyFactory
     {
         NativeList<PhysicsBody> bodies = new(allocator);
 
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { rollingResistance = 0.1f } };
 
         var circle = new CircleGeometry { radius = 1f * scale };

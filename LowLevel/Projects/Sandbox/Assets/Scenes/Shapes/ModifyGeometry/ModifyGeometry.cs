@@ -22,7 +22,7 @@ public class ModifyGeometry : MonoBehaviour
         Polygon
     }
 
-    private RigidbodyType2D m_BodyType;
+    private PhysicsBody.BodyType m_BodyType;
     private GeometryType m_GeometryType;
     private float m_GeometryScale;
     
@@ -45,7 +45,7 @@ public class ModifyGeometry : MonoBehaviour
 
         m_PhysicsWorld = PhysicsWorld.defaultWorld;
 
-        m_BodyType = RigidbodyType2D.Kinematic;
+        m_BodyType = PhysicsBody.BodyType.Kinematic;
         m_GeometryType = GeometryType.Circle;
         m_GeometryScale = 1f;
         
@@ -75,8 +75,8 @@ public class ModifyGeometry : MonoBehaviour
             bodyType.value = m_BodyType;
             bodyType.RegisterValueChangedCallback(evt =>
             {
-                m_BodyType = (RigidbodyType2D)evt.newValue;
-                m_ChangerBody.bodyType = m_BodyType;
+                m_BodyType = (PhysicsBody.BodyType)evt.newValue;
+                m_ChangerBody.type = m_BodyType;
             });
             
             // Geometry Type.
@@ -116,13 +116,13 @@ public class ModifyGeometry : MonoBehaviour
 
         // Interact Shape.
         {
-            var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 4f });
+            var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = Vector2.up * 4f });
             body.CreateShape(PolygonGeometry.CreateBox(Vector2.one * 2f));
         }
 
         // Shape Changer.
         {
-            m_ChangerBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = m_BodyType, position = Vector2.up });
+            m_ChangerBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = m_BodyType, position = Vector2.up });
             m_ChangerShape = m_ChangerBody.CreateShape(circleGeometry);
             
             // Update the geometry if this isn't the current default.

@@ -96,7 +96,7 @@ public class Confined : MonoBehaviour
 
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 gravityScale = 0f
             };
 

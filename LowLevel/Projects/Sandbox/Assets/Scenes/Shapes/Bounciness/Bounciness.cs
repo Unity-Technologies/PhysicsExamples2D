@@ -111,7 +111,7 @@ public class Bounciness : MonoBehaviour
             var boxGeometry = PolygonGeometry.CreateBox(new Vector2(1f, 1f));
             var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, 0.5f), center2 = new Vector2(0f, -0.5f), radius = 0.5f };
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, bodyConstraints = RigidbodyConstraints2D.FreezeRotation };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, constraints = PhysicsBody.BodyConstraints.Rotation };
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 0f } };
 
             const int ShapeCount = 40;

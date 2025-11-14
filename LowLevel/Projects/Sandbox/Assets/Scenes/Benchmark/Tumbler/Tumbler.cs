@@ -122,7 +122,7 @@ public class Tumbler : MonoBehaviour
 
         // Tumbler.
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Kinematic, angularVelocity = m_AngularVelocity };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Kinematic, angularVelocity = m_AngularVelocity };
             m_TumblerBody = world.CreateBody(bodyDef);
 
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
@@ -137,7 +137,7 @@ public class Tumbler : MonoBehaviour
             var leftGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(-0.35f, -0.35f), new(0.17f, 0f), new(0f, 0.35f) }.AsSpan());
             var rightGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(0.35f, -0.35f), new(-0.17f, 0f), new(0f, 0.35f) }.AsSpan());
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
             var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
             ref var random = ref m_SandboxManager.Random;

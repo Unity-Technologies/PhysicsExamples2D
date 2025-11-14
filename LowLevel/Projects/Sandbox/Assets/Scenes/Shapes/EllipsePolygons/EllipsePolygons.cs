@@ -111,7 +111,7 @@ public class EllipsePolygons : MonoBehaviour
 
         // Rounded Polygons.
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_Friction, bounciness = m_Bounciness, rollingResistance = 0.2f } };
 
             var y = 2.0f;

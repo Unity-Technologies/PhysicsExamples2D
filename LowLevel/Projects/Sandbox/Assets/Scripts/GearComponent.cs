@@ -74,7 +74,7 @@ public class GearComponent : MonoBehaviour
         // Create the gear body.
         m_GearBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             position = gearPosition
         });
         m_GearBodyOwnerKey = m_GearBody.SetOwner(this);
@@ -105,7 +105,7 @@ public class GearComponent : MonoBehaviour
         }
 
         // Create the gear motor.
-        m_GroundBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Static, position = gearPosition });
+        m_GroundBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Static, position = gearPosition });
         m_GroundBodyOwnerKey = m_GroundBody.SetOwner(this);
         var joint = m_PhysicsWorld.CreateJoint(new PhysicsHingeJointDefinition
         {

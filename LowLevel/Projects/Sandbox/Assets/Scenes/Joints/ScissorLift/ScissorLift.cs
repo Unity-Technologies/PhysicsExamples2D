@@ -98,7 +98,7 @@ public class ScissorLift : MonoBehaviour
             groundBody.CreateShape(new SegmentGeometry { point1 = Vector2.left * 20f, point2 = Vector2.right * 20f });
         }
 
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, sleepThreshold = 0.01f };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, sleepThreshold = 0.01f };
         var capsule = new CapsuleGeometry { center1 = Vector2.left * 2.5f, center2 = Vector2.right * 2.5f, radius = 0.15f };
 
         var base1 = groundBody;

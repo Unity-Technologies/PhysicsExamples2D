@@ -18,7 +18,7 @@ public static class GearFactory
 
         var bodyDef = new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             position = gearPosition
         };
 

@@ -218,7 +218,7 @@ public class Boids : MonoBehaviour
             // Create the Boids.
             // Boids are Kinematic because we want to let physics integrate velocity into position for us.
             m_BoidBodies = world.CreateBodyBatch(
-                new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Kinematic },
+                new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Kinematic },
                 m_BoidCount,
                 Allocator.Persistent);
             

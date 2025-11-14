@@ -156,7 +156,7 @@ public class Wind : MonoBehaviour
         };
 
         var shapeDef = new PhysicsShapeDefinition { density = 20f };
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = 0.5f, sleepingAllowed = false };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, gravityScale = 0.5f, sleepingAllowed = false };
 
         m_Shapes.Clear();
         

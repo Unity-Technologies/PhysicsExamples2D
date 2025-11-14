@@ -95,7 +95,7 @@ public class CustomFilter : MonoBehaviour, PhysicsCallbacks.IContactFilterCallba
             
             for (var n = 0; n < 15; ++n)
             {
-                var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = 4f, position = new Vector2(-17.5f + n * 2.5f, 4f) });
+                var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, gravityScale = 4f, position = new Vector2(-17.5f + n * 2.5f, 4f) });
 
                 var colorGroup = n % 3;
 

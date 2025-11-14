@@ -99,7 +99,7 @@ public class IgnoreJoint : MonoBehaviour
         {
             var geometry = PolygonGeometry.CreateBox(size: new Vector2(2f, 6f));
 
-            var body = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(0f, 3f) });
+            var body = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(0f, 3f) });
             body.CreateShape(geometry);
         }
 
@@ -107,10 +107,10 @@ public class IgnoreJoint : MonoBehaviour
         {
             var geometry = PolygonGeometry.CreateBox(size: new Vector2(4f, 4f));
 
-            m_BodyA = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-4f, 2f) });
+            m_BodyA = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(-4f, 2f) });
             m_BodyA.CreateShape(geometry);
 
-            m_BodyB = world.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(4f, 2f) });
+            m_BodyB = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(4f, 2f) });
             m_BodyB.CreateShape(geometry);
 
             UpdateJoint();

@@ -123,7 +123,7 @@ public class Barrel : MonoBehaviour
             centerX = shift * columnCount / 2.0f;
         }
 
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed };
         if (m_ObjectType == ObjectType.Mix)
             bodyDef.angularDamping = 0.3f;
 

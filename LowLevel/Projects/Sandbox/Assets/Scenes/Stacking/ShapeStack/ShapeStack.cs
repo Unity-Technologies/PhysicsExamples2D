@@ -174,7 +174,7 @@ public class ShapeStack : MonoBehaviour
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.3f } };
 
         for (var i = 0; i < m_StackHeight; ++i)

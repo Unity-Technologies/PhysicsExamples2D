@@ -81,7 +81,7 @@ public class GearComponent : MonoBehaviour, IWorldSceneTransformChanged
         // Create the gear body.
         m_GearBody = physicsWorld.CreateBody(new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             gravityScale = 0f,
             position = gearTransform.position,
             rotation = gearTransform.rotation,
@@ -126,7 +126,7 @@ public class GearComponent : MonoBehaviour, IWorldSceneTransformChanged
         // Create a ground body for the gear motor.
         m_GroundBody = physicsWorld.CreateBody(new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Static,
+            type = PhysicsBody.BodyType.Static,
             position = gearTransform.position,
             rotation = gearTransform.rotation
         });
