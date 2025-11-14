@@ -106,7 +106,7 @@ void Run()
 In nearly all cases, the properties available in a definition are named identically to the respective property on the object instance.
 This makes it easier to relate the definition property to a property that can be used after an object has been created.
 For example:
-- [PhysicsBodyDefinition.bodyType](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition-bodyType.html) and [PhysicsBody.bodyType](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-bodyType.html)
+- [PhysicsBodyDefinition.type](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition-type.html) and [PhysicsBody.type](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-type.html)
 - [PhysicsBodyDefinition.linearVelocity](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBodyDefinition-linearVelocity.html) and [PhysicsBody.linearVelocity](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-linearVelocity.html)
 - [PhysicsShapeDefinition.isTrigger](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShapeDefinition-isTrigger.html) and [PhysicsShape.isTrigger](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape-isTrigger.html)
 - etc.

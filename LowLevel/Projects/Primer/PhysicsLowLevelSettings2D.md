@@ -42,7 +42,7 @@ The same principle applies to the `PhysicsWorldDefinition`—changes to it will 
 Any updates will only take effect after restarting the Editor or re-entering Play mode.
 
 **Caution:** Be mindful when adjusting default definitions.
-Your code may depend on certain default values (for example, `PhysicsBody.bodyType` being set to `Static`).
+Your code may depend on certain default values (for example, `PhysicsBody.type` being set to `Static`).
 If you change a default, any code that doesn’t explicitly set that property will now use your new default value, potentially resulting in unexpected behavior.
 
 ## Globals

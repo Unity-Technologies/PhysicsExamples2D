@@ -10,15 +10,15 @@ A `PhysicsBody` uses its own [PhysicsBodyDefinition](https://docs.unity3d.com/60
 While a `PhysicsBodyDefinition` provides many configuration options, a few key settings are especially important to highlight, as properly configuring them during object creation can have a significant impact on performance.
 
 - **Body Types**: A `PhysicsBody` can be one of three general types which actively controls its dynamic behaviour:
-  - **Static**: A static (non-moving) body is typically used when you want an object to have a fixed position and rotation. This type of body does not move or respond to forces, and it won’t interact directly with other body types.  However, dynamic bodies can interact with static bodies—though in these cases, it’s the dynamic body that responds to the interaction.  Static bodies are computationally inexpensive because the physics system doesn’t need to update their position or calculate collisions for them.
+  - **Static**: A static (non-moving) body is typically used when you want an object to have a fixed position and rotation. This type of body does not move or respond to forces, and it won’t interact directly with other body types.  However, dynamic bodies can interact with static bodies, though in these cases, it’s the dynamic body that responds to the interaction.  Static bodies are computationally inexpensive because the physics system doesn’t need to update their position or calculate collisions for them.
 They are commonly used for non-moving elements of a level, such as walls or platforms, that still need to interact with dynamic bodies in the game.
-  - **Dynamic**: A dynamic body is essentially the opposite of a static body—its primary purpose is to move and interact with all other body types. Dynamic bodies respond to external forces such as collisions and gravity, and offer numerous features for controlling their motion and behavior. Because dynamic bodies are involved in complex interactions and physics calculations, they are more computationally expensive than static bodies. Dynamic bodies generate contacts and can be linked with joints, both of which act as constraints that are automatically managed by the physics solver.
-  - **Kinematic**: A kinematic body serves as a middle ground between static and dynamic bodies. Like a static body, it does not respond to external forces, but like a dynamic body, it can move when explicitly controlled by the user using linear and angular velocity. While kinematic bodies themselves do not interact with other body types, dynamic bodies can interact with kinematic bodies—though in these cases, it’s the dynamic body that reacts to the interaction.
+  - **Dynamic**: A dynamic body is essentially the opposite of a static body, its primary purpose is to move and interact with all other body types. Dynamic bodies respond to external forces such as collisions and gravity, and offer numerous features for controlling their motion and behavior. Because dynamic bodies are involved in complex interactions and physics calculations, they are more computationally expensive than static bodies. Dynamic bodies generate contacts and can be linked with joints, both of which act as constraints that are automatically managed by the physics solver.
+  - **Kinematic**: A kinematic body serves as a middle ground between static and dynamic bodies. Like a static body, it does not respond to external forces, but like a dynamic body, it can move when explicitly controlled by the user using linear and angular velocity. While kinematic bodies themselves do not interact with other body types, dynamic bodies can interact with kinematic bodies, though in these cases, it’s the dynamic body that reacts to the interaction.
 - **Position and Rotation**: A `PhysicsBody` has a position and rotation which is critical to performance to be correct when the object is created.
 - **Transform Write Mode**: A `PhysicsBody` has a position and rotation, but it's often desirable to write this pose to a specific Unity [Transform](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Transform.html). The specific `Transform` object is selected using [PhysicsBody.transformObject](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody-transformObject.html) with the method used to write to the `Transform` being controlled using [PhysicsBody.transformWriteMode](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.TransformWriteMode.html).
 - **Linear and Angular Velocity**: A `PhysicsBody` can have an initial linear and angular velocity. This is useful for various dynamic objects such as projectiles.
 - **Linear and Angular Damping**: A `PhysicsBody` can automatically reduce (dampen) both the linear and angular velocity over time. This is useful when you require movement to eventually cease.
-- **Body Constraints**: A PhysicsBody has three degrees of freedom (DoF)—two for position and one for rotation. Body constraints let you remove these DoF individually; for example, you might prevent the body from rotating.
+- **Body Constraints**: A PhysicsBody has three degrees of freedom (DoF), two for position and one for rotation. Body constraints let you remove these DoF individually; for example, you might prevent the body from rotating.
 
 ## Body Origin and Center of Mass
 
@@ -50,7 +50,7 @@ Key points:
 ## Fast Collisions
 
 The physics simulation is `discrete`: each `PhysicsBody` moves from one transform (position and rotation) to the next per step.
-A body may travel a large distance in a single step, causing it (and its attached `PhysicsShape`) to pass through others—known as `tunnelling`.
+A body may travel a large distance in a single step, causing it (and its attached `PhysicsShape`) to pass through others, known as `tunnelling`.
 
 By default, continuous collision detection (CCD) prevents tunnelling only between `dynamic` and `static` bodies.
 CCD sweeps the attached `PhysicsShape` from the old transform to the new, computes a time of impact (TOI), and moves the `PhysicsBody` to the TOI transform.
@@ -142,7 +142,7 @@ void Run()
     // Create the body definitions.
     var bodyDefs = new NativeArray<PhysicsBodyDefinition>(bodyCount, Allocator.Temp);
     for (var i = 0; i < bodyCount; ++i)
-        bodyDefs[i] = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.right * i };
+        bodyDefs[i] = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = Vector2.right * i };
 
     // Create the bodies.
     using var bodies = world.CreateBodyBatch(bodyDefs);
