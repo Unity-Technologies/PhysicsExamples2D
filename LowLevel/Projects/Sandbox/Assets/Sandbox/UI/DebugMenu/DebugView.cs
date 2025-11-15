@@ -67,6 +67,7 @@ public class DebugView : MonoBehaviour
     {
         m_SampledCount = 0;
         m_TotalProfile = m_MaxProfile = default;
+        m_MaxCounters = m_LastCounters;
     }
 
     private void OnEnable()
