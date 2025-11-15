@@ -32,7 +32,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
     private const float ProjectileRadius = 0.2f;
     private const float PlayerSpeed = 60f;
     private const float ProjectileSpeed = 40f;
-    private const float ProjectileDelay = 0.05f;
+    private const float ProjectileDelay = 0.02f;
     private float m_ProjectileTime;
     private Vector2 m_PlayerPosition;
     private CapsuleGeometry m_PlayerGeometry;
@@ -107,10 +107,10 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
         m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-30f, 0f), point2 = new Vector2(25f, 0f) };
         m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 21.9f);
         
-        m_FragmentRadius = 1.5f;
+        m_FragmentRadius = 1f;
         m_FragmentCount = 25;
         m_FragmentColors = FragmentColors.Individual;
-        m_FragmentExplode = true;
+        m_FragmentExplode = false;
         
         UpdateFragmentGeometry();
         
@@ -235,7 +235,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
                     m_PlayerPosition.x += movement;
 
                 // Clamp movement.
-                m_PlayerPosition.x = Mathf.Clamp(m_PlayerPosition.x, -26f, 26f);
+                m_PlayerPosition.x = Mathf.Clamp(m_PlayerPosition.x, -28f, 28f);
             }
             
             m_ProjectileTime += Time.deltaTime;
