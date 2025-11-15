@@ -266,7 +266,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
 
         var bodyDef = new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             gravityScale = 10f,
             fastCollisionsAllowed = true,
             position = m_PlayerPosition + Vector2.down * (ProjectileRadius + 1.5f),
@@ -345,7 +345,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
             // Fetch the destructible shapes.
             var destructibleShape = categoryA == m_DestructibleMask ? shapeA : shapeB;
             var destructibleBody = destructibleShape.body;
-            var destructibleBodyType = destructibleBody.bodyType;
+            var destructibleBodyType = destructibleBody.type;
             using var destructibleShapes = destructibleBody.GetShapes();
             
             // Get the polygon geometry from the shapes.
@@ -396,7 +396,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
             // Create a body definition for dynamic falling geometry.
             var dynamicBodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 fastCollisionsAllowed = true,
                 position = fragmentTransform.position,
                 rotation = fragmentTransform.rotation,
@@ -422,7 +422,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
                     var islandGeometry = unbrokenGeometry.GetSubArray(islandRange.start, islandRange.length);
                 
                     // Was the destructible static?
-                    if (destructibleBodyType == RigidbodyType2D.Static)
+                    if (destructibleBodyType == PhysicsBody.BodyType.Static)
                     {
                         // Yes, so iterate all the island geometry.
                         foreach (var geometry in islandGeometry)
