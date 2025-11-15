@@ -80,7 +80,7 @@ public class CardHouse : MonoBehaviour
             var angle2 = 0.5f * PhysicsMath.PI;
 
             var cardBox = PolygonGeometry.CreateBox(new Vector2(cardThickness, cardHeight) * 2f);
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
 
             var nb = 5;
             var z0 = 0.0f;

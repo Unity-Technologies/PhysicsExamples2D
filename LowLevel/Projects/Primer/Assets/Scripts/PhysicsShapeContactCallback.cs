@@ -35,8 +35,8 @@ public class PhysicsShapeContactCallback : MonoBehaviour, PhysicsCallbacks.ICont
         };
 
         // Create two bodies at different positions.
-        var body1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(-0.25f, 2f) });
-        var body2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(0.25f, 4f) });
+        var body1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(-0.25f, 2f) });
+        var body2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(0.25f, 4f) });
         
         // Create a shape on each body.
         var shape1 = body1.CreateShape(CircleGeometry.defaultGeometry, shapeDef);

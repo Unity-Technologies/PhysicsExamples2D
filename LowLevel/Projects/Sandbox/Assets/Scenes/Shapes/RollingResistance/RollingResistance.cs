@@ -84,7 +84,7 @@ public class RollingResistance : MonoBehaviour
             };
 
             var circle = new CircleGeometry { radius = 0.5f };
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, linearVelocity = new Vector2(5f, 0f), angularVelocity = -10f };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, linearVelocity = new Vector2(5f, 0f), angularVelocity = -10f };
             var slopeShapeDef = PhysicsShapeDefinition.defaultDefinition;
             var ballShapeDef = PhysicsShapeDefinition.defaultDefinition;
 

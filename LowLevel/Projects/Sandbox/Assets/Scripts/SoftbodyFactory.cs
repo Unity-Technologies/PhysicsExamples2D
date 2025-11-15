@@ -16,7 +16,7 @@ public static class SoftbodyFactory
         var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(0f, -0.5f * length), center2 = new Vector2(0f, 0.5f * length), radius = 0.25f * scale };
         var center = position;
 
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
         var shapeDef = new PhysicsShapeDefinition
         {
             surfaceMaterial = new PhysicsShape.SurfaceMaterial

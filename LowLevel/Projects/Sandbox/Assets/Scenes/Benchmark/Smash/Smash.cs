@@ -142,7 +142,7 @@ public class Smash : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 position = new Vector2(-90f, 0f),
                 linearVelocity = new Vector2(m_Speed, 0f),
                 angularVelocity = PhysicsMath.PI * 0.1f,
@@ -158,7 +158,7 @@ public class Smash : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 fastCollisionsAllowed = m_FastCollisionsAllowed,
                 awake = false
             };

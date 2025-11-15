@@ -177,7 +177,7 @@ public class Spinner : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = m_KinematicSpinner ? RigidbodyType2D.Kinematic : RigidbodyType2D.Dynamic,
+                type = m_KinematicSpinner ? PhysicsBody.BodyType.Kinematic : PhysicsBody.BodyType.Dynamic,
                 angularVelocity = m_KinematicSpinner ? PhysicsMath.ToDegrees(m_MotorSpeed) : 0f,
                 position = new Vector2(0f, -20f),
                 sleepingAllowed = false
@@ -211,7 +211,7 @@ public class Spinner : MonoBehaviour
             var circle = new CircleGeometry { center = Vector2.zero, radius = 0.35f };
             var square = PolygonGeometry.CreateBox(new Vector2(0.35f, 0.35f));
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { density = 0.25f, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_DebrisFriction, bounciness = m_DebrisBounciness } };
 
             var x = -23f;

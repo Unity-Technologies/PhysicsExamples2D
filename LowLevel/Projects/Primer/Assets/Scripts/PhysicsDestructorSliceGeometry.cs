@@ -99,7 +99,7 @@ public class PhysicsDestructorSliceGeometry : MonoBehaviour
             var body = m_PhysicsWorld.CreateBody(
                 new PhysicsBodyDefinition
                 {
-                    bodyType = RigidbodyType2D.Dynamic,
+                    type = PhysicsBody.BodyType.Dynamic,
                     position = slicePosition,
                     rotation = sliceRotation,
                     linearVelocity = linearVelocity
@@ -118,7 +118,7 @@ public class PhysicsDestructorSliceGeometry : MonoBehaviour
             var body = m_PhysicsWorld.CreateBody(
                 new PhysicsBodyDefinition
                 {
-                    bodyType = RigidbodyType2D.Dynamic,
+                    type = PhysicsBody.BodyType.Dynamic,
                     position = slicePosition,
                     rotation = sliceRotation,
                     linearVelocity = -linearVelocity

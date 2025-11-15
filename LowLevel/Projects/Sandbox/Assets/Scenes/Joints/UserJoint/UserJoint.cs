@@ -113,7 +113,7 @@ public class UserJoint : MonoBehaviour
 
         var bodyDef = new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             gravityScale = 1f,
             angularDamping = 0.5f,
             linearDamping = 0.2f

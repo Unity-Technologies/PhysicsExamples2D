@@ -197,7 +197,7 @@ public class Driving : MonoBehaviour
 
         // Teeter
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(140f, 1f), angularVelocity = 60 };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(140f, 1f), angularVelocity = 60 };
             var body = world.CreateBody(bodyDef);
             body.CreateShape(PolygonGeometry.CreateBox(new Vector2(20.0f, 0.5f)));
 
@@ -222,7 +222,7 @@ public class Driving : MonoBehaviour
             const int count = 20;
             for (var n = 0; n < count; ++n)
             {
-                var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(161f + 2f * n, -0.125f) };
+                var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(161f + 2f * n, -0.125f) };
                 var body = world.CreateBody(bodyDef);
                 body.CreateShape(geometry);
 
@@ -256,7 +256,7 @@ public class Driving : MonoBehaviour
         {
             var box = PolygonGeometry.CreateBox(Vector2.one);
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
             var shapeDef = new PhysicsShapeDefinition
             {
                 surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.25f, bounciness = 0.25f },

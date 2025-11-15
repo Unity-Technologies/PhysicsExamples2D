@@ -174,7 +174,7 @@ public class GearLift : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 position = gearPosition1
             };
 
@@ -227,7 +227,7 @@ public class GearLift : MonoBehaviour
             var position = gearPosition2;
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 position = position
             };
 
@@ -300,7 +300,7 @@ public class GearLift : MonoBehaviour
 
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
             };
 
             var position = linkAttachPosition + new Vector2(0f, -linkHalfLength);
@@ -331,7 +331,7 @@ public class GearLift : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 position = doorPosition
             };
 
@@ -380,7 +380,7 @@ public class GearLift : MonoBehaviour
         }
 
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
 
             var y = 2.5f;
             const int xCount = 25;

@@ -6,7 +6,7 @@
                 <ui:Tab label="Modify Geometry Options" tabindex="0" name="Tab">
                     <ui:EnumField label="Geometry Type" value="Center" type="ModifyGeometry+GeometryType, Assembly-CSharp" focusable="false" name="geometry-type"/>
                     <ui:Slider label="Geometry Scale" high-value="10" name="geometry-scale" fill="true" show-input-field="true" focusable="false" value="1" low-value="0.5"/>
-                    <ui:EnumField label="Body Type" value="Center" type="UnityEngine.RigidbodyType2D, UnityEngine.Physics2DModule" focusable="false" name="body-type" include-obsolete-values="false"/>
+                    <ui:EnumField label="Body Type" value="Center" type="UnityEngine.LowLevelPhysics2D.PhysicsBody+BodyType, UnityEngine.Physics2DModule" focusable="false" name="body-type" include-obsolete-values="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">

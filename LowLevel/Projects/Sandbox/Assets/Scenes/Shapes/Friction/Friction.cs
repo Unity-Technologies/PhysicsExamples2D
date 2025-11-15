@@ -80,7 +80,7 @@ public class Friction : MonoBehaviour
 
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 linearVelocity = new Vector2(-1.5f, -0.5f),
                 position = new Vector2(15f, 40f)
             };

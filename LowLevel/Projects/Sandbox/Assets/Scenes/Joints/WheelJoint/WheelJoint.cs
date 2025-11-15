@@ -204,7 +204,7 @@ public class WheelJoint : MonoBehaviour
         var groundBody = world.CreateBody();
 
         {
-            var bodeDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = Vector2.up * 10.25f, fastRotationAllowed = true };
+            var bodeDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = Vector2.up * 10.25f, fastRotationAllowed = true };
             var body = world.CreateBody(bodeDef);
 
             //var geometry = new CapsuleGeometry { center1 = Vector2.down * 0.5f, center2 = Vector2.up * 0.5f, radius = 0.5f };

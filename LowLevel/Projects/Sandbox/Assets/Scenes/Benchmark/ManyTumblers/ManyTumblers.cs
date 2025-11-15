@@ -145,7 +145,7 @@ public class ManyTumblers : MonoBehaviour
                 {
                     var position = new Vector2(x, y);
                     {
-                        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Kinematic, position = position, angularVelocity = m_AngularVelocity };
+                        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Kinematic, position = position, angularVelocity = m_AngularVelocity };
                         var body = world.CreateBody(bodyDef);
 
                         var shapeDef = new PhysicsShapeDefinition { density = 50f, surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState } };
@@ -173,7 +173,7 @@ public class ManyTumblers : MonoBehaviour
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
         var shapeDef = PhysicsShapeDefinition.defaultDefinition;
         var capsuleGeometry = new CapsuleGeometry { center1 = new Vector2(-0.1f, 0.0f), center2 = new Vector2(0.1f, 0.0f), radius = 0.075f };
 

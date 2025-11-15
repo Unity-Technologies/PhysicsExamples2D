@@ -41,7 +41,7 @@ public class TransformPlaneWrite : MonoBehaviour
             transformWriteMode = PhysicsBody.TransformWriteMode.Current,
             
             // We want a dynamic bodi so we move and have collision responses.
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             
             // Set the start position as the transform position.
             position = transform.position,

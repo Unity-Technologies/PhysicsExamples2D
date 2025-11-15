@@ -25,7 +25,7 @@ public static class CarFactory
             var geometry = PolygonGeometry.Create(vertices.AsArray(), carScale * 0.15f);
             var shapeDef = new PhysicsShapeDefinition { density = 1f / carScale, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.2f } };
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = position + Vector2.up * carScale, gravityScale = gravityScale };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = position + Vector2.up * carScale, gravityScale = gravityScale };
             chassisBody = world.CreateBody(bodyDef);
             bodies.Add(chassisBody);
             chassisBody.CreateShape(geometry, shapeDef);
@@ -37,7 +37,7 @@ public static class CarFactory
         {
             var geometry = new CircleGeometry { radius = carScale * 0.4f };
             var shapeDef = new PhysicsShapeDefinition { density = 2f / carScale, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 1.5f, rollingResistance = 0.1f } };
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = position + new Vector2(-1f * carScale, 0.35f * carScale), gravityScale = gravityScale, fastRotationAllowed = true };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = position + new Vector2(-1f * carScale, 0.35f * carScale), gravityScale = gravityScale, fastRotationAllowed = true };
 
             rearWheelBody = world.CreateBody(bodyDef);
             bodies.Add(rearWheelBody);

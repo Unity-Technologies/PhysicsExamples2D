@@ -8,11 +8,11 @@ public static class LegacyConversion
 {
     private const string BaseMenu = "GameObject/2D Object/Physics/";
     private const string FromRigidbody2D = BaseMenu + "Rigidbody2D -> SceneBody";
-    private const string FromCircleCollider2D = BaseMenu + "CircleCollider2D -> SceneShape";
-    private const string FromCapsuleCollider2D = BaseMenu + "CapsuleCollider2D -> SceneShape";
-    private const string FromEdgeCollider2D = BaseMenu + "EdgeCollider2D -> SceneChain";
-    private const string FromPolygonCollider2D = BaseMenu + "PolygonCollider2D -> SceneOutlineShape";
-    private const string FromSpriteRenderer2D = BaseMenu + "SpriteRenderer -> SceneSpriteShape";
+    //private const string FromCircleCollider2D = BaseMenu + "CircleCollider2D -> SceneShape";
+    //private const string FromCapsuleCollider2D = BaseMenu + "CapsuleCollider2D -> SceneShape";
+    //private const string FromEdgeCollider2D = BaseMenu + "EdgeCollider2D -> SceneChain";
+    //private const string FromPolygonCollider2D = BaseMenu + "PolygonCollider2D -> SceneOutlineShape";
+    //private const string FromSpriteRenderer2D = BaseMenu + "SpriteRenderer -> SceneSpriteShape";
 
     private const SelectionMode ContextSelectionMode = SelectionMode.Editable | SelectionMode.Deep;
     
@@ -38,8 +38,8 @@ public static class LegacyConversion
             // Convert the properties we can.
             var bodyDefinition = new PhysicsBodyDefinition
             {
-                bodyType = rb.bodyType,
-                bodyConstraints = rb.constraints,
+                type = (PhysicsBody.BodyType)rb.bodyType,
+                constraints = (PhysicsBody.BodyConstraints)rb.constraints,
                 linearDamping = rb.linearDamping,
                 angularDamping = rb.angularDamping,
                 gravityScale = rb.gravityScale,

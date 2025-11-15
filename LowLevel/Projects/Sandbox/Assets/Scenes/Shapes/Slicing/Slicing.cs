@@ -87,7 +87,7 @@ public class Slicing : MonoBehaviour
             // We don't want to calculate the mass each time we add a shape.
             startMassUpdate = false
         };
-        m_DestructibleBodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, gravityScale = 0f };
+        m_DestructibleBodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, gravityScale = 0f };
         
         m_PlayerGeometry = new CapsuleGeometry { center1 = Vector2.left, center2 = Vector2.right, radius = 1f };
         m_PlayerSpeed = PhysicsMath.PI;

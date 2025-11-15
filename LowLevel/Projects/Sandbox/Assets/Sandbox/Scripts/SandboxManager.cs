@@ -66,7 +66,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             // Update the worlds.
             using var worlds = PhysicsWorld.GetWorlds();
             foreach (var world in worlds)
-                world.simulationMode = fixedRate ? SimulationMode2D.FixedUpdate : SimulationMode2D.Update;
+                world.simulationType = fixedRate ? PhysicsWorld.SimulationType.FixedUpdate : PhysicsWorld.SimulationType.Update;
 
         }
     }
@@ -749,16 +749,16 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         foreach (var world in worlds)
         {
             var oldPaused = defaultWorld.paused;
-            var oldSimulationMode = defaultWorld.simulationMode;
+            var oldSimulationType = defaultWorld.simulationType;
 
             {
-                world.simulationMode = SimulationMode2D.Script;
+                world.simulationType = PhysicsWorld.SimulationType.Script;
                 world.paused = false;
-                world.Simulate(oldSimulationMode == SimulationMode2D.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
+                world.Simulate(oldSimulationType == PhysicsWorld.SimulationType.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
             }
 
             world.paused = oldPaused;
-            world.simulationMode = oldSimulationMode;
+            world.simulationType = oldSimulationType;
         }
     }
 

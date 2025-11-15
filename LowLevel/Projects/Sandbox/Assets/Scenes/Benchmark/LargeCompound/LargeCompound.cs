@@ -104,7 +104,7 @@ public class LargeCompound : MonoBehaviour
             
             var span = m_CompoundSize / splits;
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
             var shapeDef = new PhysicsShapeDefinition { startMassUpdate = false };
 
             for (var m = 0; m < splits; ++m)

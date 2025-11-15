@@ -31,7 +31,7 @@ public class TransformWrite : MonoBehaviour
             transformWriteMode = TransformWriteMode,
             
             // We want a dynamic bodi so we move and have collision responses.
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             
             // Set the start position to be the Transform position.
             position = transform.position

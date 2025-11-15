@@ -118,7 +118,7 @@ public class Arch : MonoBehaviour
 
         // Arch.
         {
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
 
             for (var i = 0; i < 8; ++i)
             {

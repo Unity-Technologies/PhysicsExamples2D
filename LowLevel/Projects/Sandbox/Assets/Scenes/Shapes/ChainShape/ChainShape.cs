@@ -88,7 +88,7 @@ public class ChainShape : MonoBehaviour
             var startPosition = new Vector2(-55f, 13.5f);
             var startLinearVelocity = new Vector2(2f, -1f);
 
-            var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed, position = startPosition, linearVelocity = startLinearVelocity };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed, position = startPosition, linearVelocity = startLinearVelocity };
             var body = world.CreateBody(bodyDef);
 
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = Friction, bounciness = 0f, customColor = m_SandboxManager.ShapeColorState } };

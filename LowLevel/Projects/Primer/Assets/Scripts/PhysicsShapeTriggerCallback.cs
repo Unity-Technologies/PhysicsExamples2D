@@ -36,11 +36,11 @@ public class PhysicsShapeTriggerCallback : MonoBehaviour, PhysicsCallbacks.ITrig
 
         // Create a body and a non-trigger shape.
         // NOTE: The term visitor here matches the terminology used in trigger events where there's a trigger and visitor shape pair involved in the event.
-        var visitorBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = new Vector2(0f, 4f) });
+        var visitorBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(0f, 4f) });
         var visitorShape = visitorBody.CreateShape(CircleGeometry.defaultGeometry, shapeDef);
         
         // Create a body and a trigger shape.
-        var triggerBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Static, position = new Vector2(0f, -4f) });
+        var triggerBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Static, position = new Vector2(0f, -4f) });
         // Change the shape definition to specific a trigger. 
         shapeDef.isTrigger = true;
         var triggerShape = triggerBody.CreateShape(CircleGeometry.defaultGeometry, shapeDef);

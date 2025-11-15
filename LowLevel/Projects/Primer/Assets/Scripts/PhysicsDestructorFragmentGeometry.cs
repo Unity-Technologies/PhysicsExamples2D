@@ -14,7 +14,7 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
     [Range(1, 1000)] public int FragmentPointCount = 100;
     [Range(0.05f, 5)] public float FragmentPointRadius = 0.95f;
     [Range(0f, 1f)] public float GravityScale = 1f;
-    public RigidbodyType2D FragmentBodyType = RigidbodyType2D.Dynamic;
+    public PhysicsBody.BodyType FragmentBodyType = PhysicsBody.BodyType.Dynamic;
 
     // Polygon Geometries.
     // NOTE: Polygon radius is NOT supported with Fragmenting and will be ignored.
@@ -95,7 +95,7 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
         // Create a body definition for all fragments.
         var bodyDef = new PhysicsBodyDefinition
         {
-            bodyType = FragmentBodyType,
+            type = FragmentBodyType,
             position = fragmentResult.transform.position,
             rotation = fragmentResult.transform.rotation,
             gravityScale = GravityScale

@@ -116,11 +116,11 @@ public class JointGrid : MonoBehaviour
 
                 if (k >= m_GridSize / 2 - 3 && k <= m_GridSize / 2 + 3 && i == 0)
                 {
-                    bodyDef.bodyType = RigidbodyType2D.Static;
+                    bodyDef.type = PhysicsBody.BodyType.Static;
                 }
                 else
                 {
-                    bodyDef.bodyType = RigidbodyType2D.Dynamic;
+                    bodyDef.type = PhysicsBody.BodyType.Dynamic;
                 }
 
                 bodyDef.position = (new Vector2(fk, -fi) + offset) * gridScale;

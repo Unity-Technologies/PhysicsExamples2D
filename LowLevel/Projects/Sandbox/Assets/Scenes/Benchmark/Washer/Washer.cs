@@ -151,13 +151,13 @@ public class Washer : MonoBehaviour
 
 			if (m_KinematicWasher)
 			{
-				bodyDef.bodyType = RigidbodyType2D.Kinematic;
+				bodyDef.type = PhysicsBody.BodyType.Kinematic;
 				bodyDef.angularVelocity = m_AngularVelocity;
 				bodyDef.linearVelocity = new Vector2(0.001f, -0.002f);
 			}
 			else
 			{
-				bodyDef.bodyType = RigidbodyType2D.Dynamic;
+				bodyDef.type = PhysicsBody.BodyType.Dynamic;
 			}
 
 			m_WasherBody = world.CreateBody(bodyDef);
@@ -223,7 +223,7 @@ public class Washer : MonoBehaviour
 			const float scale = 0.1f;
 
 			var geometry = PolygonGeometry.CreateBox(new Vector2(scale, scale) * 2f);
-			var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+			var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
 			var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_DebrisFriction, bounciness = m_DebrisBounciness } };
 
 			var y = -1.1f * scale * gridCount + 10.0f;

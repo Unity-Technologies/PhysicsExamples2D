@@ -277,7 +277,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
 
         var bodyDef = new PhysicsBodyDefinition
         {
-            bodyType = RigidbodyType2D.Dynamic,
+            type = PhysicsBody.BodyType.Dynamic,
             gravityScale = 0f,
             fastCollisionsAllowed = true,
             position = m_PlayerPosition + Vector2.up * (ProjectileRadius + 1.5f),
@@ -417,7 +417,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
                 // Create a batch of bodies.
                 var bodyDef = new PhysicsBodyDefinition
                 {
-                    bodyType = RigidbodyType2D.Dynamic,
+                    type = PhysicsBody.BodyType.Dynamic,
                     fastCollisionsAllowed = true,
                     position = fragmentTransform.position, rotation = fragmentTransform.rotation,
                     gravityScale = 4f

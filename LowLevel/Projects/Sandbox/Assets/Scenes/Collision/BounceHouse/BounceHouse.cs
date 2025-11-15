@@ -132,7 +132,7 @@ public class BounceHouse : MonoBehaviour
         {
             var bodyDef = new PhysicsBodyDefinition
             {
-                bodyType = RigidbodyType2D.Dynamic,
+                type = PhysicsBody.BodyType.Dynamic,
                 linearVelocity = new Vector2(50f, 40f),
                 fastCollisionsAllowed = true,
                 fastRotationAllowed = m_ObjectType == ObjectType.Circle,

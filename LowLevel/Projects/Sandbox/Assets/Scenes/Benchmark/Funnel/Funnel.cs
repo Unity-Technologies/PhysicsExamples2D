@@ -107,7 +107,7 @@ public class Funnel : MonoBehaviour
             // Ignore any static bodies.
             // NOTE: We do this because there's currently a bug in Box2D where sibling (same body) shapes
             // are detecting events with each other.
-            if (body.bodyType == RigidbodyType2D.Static)
+            if (body.type == PhysicsBody.BodyType.Static)
                 return;
 
             // Destroy the body.
@@ -131,7 +131,7 @@ public class Funnel : MonoBehaviour
         // Spawn Object.        
         var spawnPosition = new Vector2(random.NextFloat(-SpawnSide, SpawnSide), 35f);
 
-        var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic, position = spawnPosition };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = spawnPosition };
         var shapeDef = new PhysicsShapeDefinition
         {
             surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.05f, customColor = m_SandboxManager.ShapeColorState },
@@ -375,7 +375,7 @@ public class Funnel : MonoBehaviour
             {
                 var sign = 1.0f;
                 var y = 28.0f;
-                var bodyDef = new PhysicsBodyDefinition { bodyType = RigidbodyType2D.Dynamic };
+                var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
                 for (var i = 0; i < 4; ++i)
                 {
                     bodyDef.position = new Vector2(0f, y);
