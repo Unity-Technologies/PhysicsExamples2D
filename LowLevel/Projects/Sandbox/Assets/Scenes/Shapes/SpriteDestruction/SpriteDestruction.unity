@@ -196,11 +196,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 848365311}
-  - component: {fileID: 848365310}
+  - component: {fileID: 848365312}
   - component: {fileID: 848365309}
   - component: {fileID: 848365308}
+  - component: {fileID: 848365313}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: BuildingSprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,7 +214,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848365307}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 019dc35f85905d34c8bbcb49c43bcfd6, type: 3}
   m_Name: 
@@ -275,7 +276,7 @@ MonoBehaviour:
     m_BodyType: 2
     m_BodyConstraints: 0
     m_TransformWriteMode: 3
-    m_Position: {x: 0, y: 0}
+    m_Position: {x: 0, y: 3}
     m_Rotation:
       direction: {x: 1, y: 0}
     m_LinearVelocity: {x: 0, y: 0}
@@ -301,7 +302,36 @@ MonoBehaviour:
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
   SceneWorld: {fileID: 0}
---- !u!212 &848365310
+--- !u!4 &848365311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848365307}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &848365312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848365307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b0cebf850bf184a91cd1bc67d8a998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneSpriteBatch
+  Sprite: {fileID: 21300000, guid: 771415e9d89c06e45a1d93d2df8082e8, type: 3}
+  Material: {fileID: 2100000, guid: e9ee782f2a409784ab06a3f9bfad5aee, type: 2}
+--- !u!212 &848365313
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -309,7 +339,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848365307}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -360,21 +390,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!4 &848365311
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 848365307}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1415967095
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +443,7 @@ Camera:
   far clip plane: 1000
   field of view: 50.000004
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 28
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
