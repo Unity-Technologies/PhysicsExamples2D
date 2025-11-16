@@ -411,6 +411,10 @@ MonoBehaviour:
     Category: Shapes
     Description: Demonstrates the use of geometry islands when fragmenting.
     ScenePath: Assets/Scenes/Shapes/GeometryIslands/GeometryIslands.unity
+  - Name: Sprite Destruction
+    Category: Shapes
+    Description: Demonstrates the use of Sprite fragmenting mapping.
+    ScenePath: Assets/Scenes/Shapes/SpriteDestruction/SpriteDestruction.unity
   - Name: Bounce House
     Category: Collision
     Description: Checking the stability of very fast continuous collision.
@@ -499,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Boids
+  StartScene: Sprite Destruction
   DebugView: {fileID: 1603435387}
   ShortcutsView: {fileID: 465066520}
   ControlsMenu: {fileID: 931634909}
