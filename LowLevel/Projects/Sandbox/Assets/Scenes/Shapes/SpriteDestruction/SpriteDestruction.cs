@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Unity.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
@@ -56,6 +55,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
+        m_CameraManipulator.DisableManipulators = true;
         m_Camera = m_CameraManipulator.Camera;
 
         // Get the default world.        
@@ -89,7 +89,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 7.25f);
         
         m_FragmentRadius = 1f;
-        m_FragmentCount = 8;
+        m_FragmentCount = 20;
         m_FragmentExplode = true;
 
         // Vertex attributes.
@@ -112,6 +112,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         if (m_VertexAttributes.IsCreated)
             m_VertexAttributes.Dispose();
+        
+        // Enable manipulators.
+        m_CameraManipulator.DisableManipulators = false;
         
         // Reset overrides.
         m_SandboxManager.ResetOverrideColorShapeState();        
@@ -167,10 +170,11 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
     private void SetupScene()
     {
+        // Reset the draw batch.
+        m_SpriteDestructionBatch.Reset();
+        
         // Reset the scene state.
         m_SandboxManager.ResetSceneState();
-
-        CreateInitialSprite();
         
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
@@ -182,8 +186,11 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             {
                 contactFilter = new PhysicsShape.ContactFilter { categories = m_GroundMask, contacts = m_DebrisMask | m_DestructibleMask },
             };
-            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(200f, 10f), radius: 0f, new PhysicsTransform(Vector2.down * 20f)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(400f, 10f), radius: 0f, new PhysicsTransform(Vector2.down * 50f)), shapeDef);
         }
+        
+        // Create the initial sprite.
+        CreateInitialSprite();
     }
     
     private void Update()
@@ -195,9 +202,10 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
+#if false        
         // Draw the virtual ground.
         world.DrawGeometry(m_VirtualGroundGeometry, m_VirtualGroundTransform, Color.seaGreen);
-        
+#endif        
         // Fetch the world mouse position.
         var currentMouse = Mouse.current;
         var worldPosition = (Vector2)m_Camera.ScreenToWorldPoint(currentMouse.position.value);
@@ -214,163 +222,163 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         // Finish if position is not overlapped with a destructible.
         using var hits = world.OverlapPoint(hitPosition, new PhysicsQuery.QueryFilter { categories = m_DestructibleMask, hitCategories = m_DestructibleMask });
-        if (hits.Length == 0)
-            return;
-
-        // Simply use the first hit.
-        var hit = hits[0];
-        
-        // Draw the fragment radius.            
-        world.DrawCircle(hitPosition, m_FragmentRadius, Color.ivory, 2f / 60f, PhysicsWorld.DrawFillOptions.Outline);
-        
-        // Fetch the destructible shapes.
-        var destructibleShape = hit.shape;
-        var destructibleBody = destructibleShape.body;
-        var destructibleBodyType = destructibleBody.type;
-        using var destructibleShapes = destructibleBody.GetShapes();
-        
-        // Get the polygon geometry from the shapes.
-        // NOTE: We know it's always polygon geometry so we don't have to convert it. 
-        var targetPolygons = new NativeList<PolygonGeometry>(initialCapacity: destructibleShapes.Length, Allocator.Temp);
-        foreach (var shape in destructibleShapes)
+        if (hits.Length > 0)
         {
-            if (shape.shapeType == PhysicsShape.ShapeType.Polygon)
-                targetPolygons.Add(shape.polygonGeometry);
-        }
+            // Simply use the first hit.
+            var hit = hits[0];
 
-        // Create the target fragment geometry. 
-        var targetGeometry = new PhysicsDestructor.FragmentGeometry(destructibleBody.transform, targetPolygons.AsReadOnly());
-        targetPolygons.Dispose();
-        
-        // Create the fragment points.
-        ref var random = ref m_SandboxManager.Random;
-        var fragmentPoints = new NativeArray<Vector2>(m_FragmentCount, Allocator.Temp);
-        fragmentPoints[0] = hitPosition;
-        for (var i = 1; i < m_FragmentCount; ++i)
-        {
-            var rotate = new PhysicsRotate(random.NextFloat(0f, PhysicsMath.PI));
-            var radius = random.NextFloat(0.05f, m_FragmentRadius);
-            fragmentPoints[i] = hitPosition + rotate.direction * radius;
-        }
-        
-        // Fragment the target geometry with the mask and fragment the results with the fragment points.
-        // NOTE: This is the most complex operation, you don't have to mask the target geometry.
-        var maskGeometry = new PhysicsDestructor.FragmentGeometry(hitPosition, m_FragmentGeometryMask);
-        using var fragmentResults = PhysicsDestructor.Fragment(targetGeometry, maskGeometry, fragmentPoints, Allocator.Temp);
+            // Draw the fragment radius.            
+            world.DrawCircle(hitPosition, m_FragmentRadius, Color.ivory, 2f / 60f, PhysicsWorld.DrawFillOptions.Outline);
 
-        // Dispose of the fragment points.
-        fragmentPoints.Dispose();
-        
-        // Destroy the draw item.
-        m_SpriteDestructionBatch.DestroySpriteDrawItem(destructibleBody);
+            // Fetch the destructible shapes.
+            var destructibleShape = hit.shape;
+            var destructibleBody = destructibleShape.body;
+            var destructibleBodyType = destructibleBody.type;
+            using var destructibleShapes = destructibleBody.GetShapes();
 
-        // Fetch the fragment transform.
-        var fragmentTransform = fragmentResults.transform;
-
-        // Create a body definition for static non-falling geometry.
-        var staticBodyDef = new PhysicsBodyDefinition
-        {
-            position = fragmentTransform.position,
-            rotation = fragmentTransform.rotation
-        };
-        
-        // Create a body definition for dynamic falling geometry.
-        var dynamicBodyDef = new PhysicsBodyDefinition
-        {
-            type = PhysicsBody.BodyType.Dynamic,
-            fastCollisionsAllowed = true,
-            position = fragmentTransform.position,
-            rotation = fragmentTransform.rotation,
-            gravityScale = 4f
-        };
-        
-        // Create the remaining destructible geometry from the "unbroken" geometry (if we have any).
-        if (fragmentResults.unbrokenGeometry.Length > 0)
-        {
-            // Fetch the unbroken geometry.
-            var unbrokenGeometry = fragmentResults.unbrokenGeometry;
-            
-            // Fetch the geometry islands.
-            var unbrokenGeometryIslands = fragmentResults.unbrokenGeometryIslands;
-
-            // Iterate the geometry islands looking for any island that intersects the virtual ground.
-            // If it intersects then it'll be static otherwise it'll be treated as dynamic and fall.
-            foreach (var islandRange in unbrokenGeometryIslands)
+            // Get the polygon geometry from the shapes.
+            // NOTE: We know it's always polygon geometry so we don't have to convert it. 
+            var targetPolygons = new NativeList<PolygonGeometry>(initialCapacity: destructibleShapes.Length, Allocator.Temp);
+            foreach (var shape in destructibleShapes)
             {
-                var unbrokenAsDynamic = true;
-
-                // Fetch the geometry for the island.
-                var islandGeometry = unbrokenGeometry.GetSubArray(islandRange.start, islandRange.length);
-            
-                // Was the destructible static?
-                if (destructibleBodyType == PhysicsBody.BodyType.Static)
-                {
-                    // Yes, so iterate all the island geometry.
-                    foreach (var geometry in islandGeometry)
-                    {
-                        // Skip if the geometry does not intersect with the virtual ground.
-                        if (geometry.Intersect(fragmentTransform, m_VirtualGroundGeometry, m_VirtualGroundTransform).pointCount == 0)
-                            continue;
-
-                        // Intersection found so it's static.
-                        unbrokenAsDynamic = false;
-                        break;
-                    }                    
-                }
-                
-                // Create a body for the island geometry.
-                var body = world.CreateBody(unbrokenAsDynamic ? dynamicBodyDef : staticBodyDef);
-                
-                // Create an appropriate shape definition for the island geometry.
-                var shapeDef = new PhysicsShapeDefinition
-                {
-                    contactFilter = m_DestructibleContactFilter,
-                    contactEvents = true,
-                    surfaceMaterial = m_DestructibleSurfaceMaterial
-                };
-
-                // Create the island geometry as a shape batch.
-                using var shapeBatch = body.CreateShapeBatch(islandGeometry, shapeDef);
-                
-                // We'll need to see callbacks for dynamic geometry as we want to destroy it when it falls out of the scene.
-                if (unbrokenAsDynamic)
-                {
-                    foreach (var shape in shapeBatch)
-                        shape.callbackTarget = this;
-                }
-
-                // Create the draw item.
-                CreateDrawItem(body, islandGeometry);
+                if (shape.shapeType == PhysicsShape.ShapeType.Polygon)
+                    targetPolygons.Add(shape.polygonGeometry);
             }
-        }
-        
-        // Create the debris destructible geometry from the "broken" geometry (if we have any).
-        {
-            var brokenCount = fragmentResults.brokenGeometry.Length;
-            if (brokenCount > 0)
+
+            // Create the target fragment geometry. 
+            var targetGeometry = new PhysicsDestructor.FragmentGeometry(destructibleBody.transform, targetPolygons.AsReadOnly());
+            targetPolygons.Dispose();
+
+            // Create the fragment points.
+            ref var random = ref m_SandboxManager.Random;
+            var fragmentPoints = new NativeArray<Vector2>(m_FragmentCount, Allocator.Temp);
+            fragmentPoints[0] = hitPosition;
+            for (var i = 1; i < m_FragmentCount; ++i)
             {
-                // Create a batch of bodies.
-                using var bodies = world.CreateBodyBatch(dynamicBodyDef, brokenCount);
-                
-                // Create a shape definition for the broken geometry.
-                var shapeDef = new PhysicsShapeDefinition
-                {
-                    contactFilter = new PhysicsShape.ContactFilter { categories = m_DebrisMask, contacts = m_GroundMask | m_DestructibleMask | m_ObstacleMask },
-                    contactEvents = true,
-                    surfaceMaterial = m_DestructibleSurfaceMaterial
-                };
+                var rotate = new PhysicsRotate(random.NextFloat(0f, PhysicsMath.PI));
+                var radius = random.NextFloat(0.05f, m_FragmentRadius);
+                fragmentPoints[i] = hitPosition + rotate.direction * radius;
+            }
 
-                // Add a shape for each body.
-                for (var i = 0; i < brokenCount; ++i)
-                {
-                    var body = bodies[i];
-                    var geometry = fragmentResults.brokenGeometry[i];
+            // Fragment the target geometry with the mask and fragment the results with the fragment points.
+            // NOTE: This is the most complex operation, you don't have to mask the target geometry.
+            var maskGeometry = new PhysicsDestructor.FragmentGeometry(hitPosition, m_FragmentGeometryMask);
+            using var fragmentResults = PhysicsDestructor.Fragment(targetGeometry, maskGeometry, fragmentPoints, Allocator.Temp);
 
-                    var shape = body.CreateShape(geometry, shapeDef);
-                    shape.callbackTarget = this;
-                    
+            // Dispose of the fragment points.
+            fragmentPoints.Dispose();
+
+            // Destroy the draw item.
+            m_SpriteDestructionBatch.DestroySpriteDrawItem(destructibleBody);
+
+            // Fetch the fragment transform.
+            var fragmentTransform = fragmentResults.transform;
+
+            // Create a body definition for static non-falling geometry.
+            var staticBodyDef = new PhysicsBodyDefinition
+            {
+                position = fragmentTransform.position,
+                rotation = fragmentTransform.rotation
+            };
+
+            // Create a body definition for dynamic falling geometry.
+            var dynamicBodyDef = new PhysicsBodyDefinition
+            {
+                type = PhysicsBody.BodyType.Dynamic,
+                fastCollisionsAllowed = true,
+                position = fragmentTransform.position,
+                rotation = fragmentTransform.rotation,
+                gravityScale = 2f
+            };
+
+            // Create the remaining destructible geometry from the "unbroken" geometry (if we have any).
+            if (fragmentResults.unbrokenGeometry.Length > 0)
+            {
+                // Fetch the unbroken geometry.
+                var unbrokenGeometry = fragmentResults.unbrokenGeometry;
+
+                // Fetch the geometry islands.
+                var unbrokenGeometryIslands = fragmentResults.unbrokenGeometryIslands;
+
+                // Iterate the geometry islands looking for any island that intersects the virtual ground.
+                // If it intersects then it'll be static otherwise it'll be treated as dynamic and fall.
+                foreach (var islandRange in unbrokenGeometryIslands)
+                {
+                    var unbrokenAsDynamic = true;
+
+                    // Fetch the geometry for the island.
+                    var islandGeometry = unbrokenGeometry.GetSubArray(islandRange.start, islandRange.length);
+
+                    // Was the destructible static?
+                    if (destructibleBodyType == PhysicsBody.BodyType.Static)
+                    {
+                        // Yes, so iterate all the island geometry.
+                        foreach (var geometry in islandGeometry)
+                        {
+                            // Skip if the geometry does not intersect with the virtual ground.
+                            if (geometry.Intersect(fragmentTransform, m_VirtualGroundGeometry, m_VirtualGroundTransform).pointCount == 0)
+                                continue;
+
+                            // Intersection found so it's static.
+                            unbrokenAsDynamic = false;
+                            break;
+                        }
+                    }
+
+                    // Create a body for the island geometry.
+                    var body = world.CreateBody(unbrokenAsDynamic ? dynamicBodyDef : staticBodyDef);
+
+                    // Create an appropriate shape definition for the island geometry.
+                    var shapeDef = new PhysicsShapeDefinition
+                    {
+                        contactFilter = m_DestructibleContactFilter,
+                        contactEvents = true,
+                        surfaceMaterial = m_DestructibleSurfaceMaterial
+                    };
+
+                    // Create the island geometry as a shape batch.
+                    using var shapeBatch = body.CreateShapeBatch(islandGeometry, shapeDef);
+
+                    // We'll need to see callbacks for dynamic geometry as we want to destroy it when it falls out of the scene.
+                    if (unbrokenAsDynamic)
+                    {
+                        foreach (var shape in shapeBatch)
+                            shape.callbackTarget = this;
+                    }
+
                     // Create the draw item.
-                    CreateDrawItem(body, ref geometry);
+                    CreateDrawItem(body, islandGeometry);
+                }
+            }
+
+            // Create the debris destructible geometry from the "broken" geometry (if we have any).
+            {
+                var brokenCount = fragmentResults.brokenGeometry.Length;
+                if (brokenCount > 0)
+                {
+                    // Create a batch of bodies.
+                    using var bodies = world.CreateBodyBatch(dynamicBodyDef, brokenCount);
+
+                    // Create a shape definition for the broken geometry.
+                    var shapeDef = new PhysicsShapeDefinition
+                    {
+                        contactFilter = new PhysicsShape.ContactFilter { categories = m_DebrisMask, contacts = m_GroundMask | m_DestructibleMask | m_ObstacleMask | m_DebrisMask },
+                        contactEvents = true,
+                        surfaceMaterial = m_DestructibleSurfaceMaterial
+                    };
+
+                    // Add a shape for each body.
+                    for (var i = 0; i < brokenCount; ++i)
+                    {
+                        var body = bodies[i];
+                        var geometry = fragmentResults.brokenGeometry[i];
+
+                        var shape = body.CreateShape(geometry, shapeDef);
+                        shape.callbackTarget = this;
+
+                        // Create the draw item.
+                        CreateDrawItem(body, ref geometry);
+                    }
                 }
             }
         }
@@ -382,8 +390,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             {
                 position = hitPosition + Vector2.up * m_FragmentRadius,
                 hitCategories = m_DebrisMask,
-                impulsePerLength = 2f,
-                radius = m_FragmentRadius * 3f
+                impulsePerLength = 3f,
+                radius = m_FragmentRadius * 1.5f
             });
         }
     }

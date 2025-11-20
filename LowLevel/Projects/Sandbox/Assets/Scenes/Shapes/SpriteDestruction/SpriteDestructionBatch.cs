@@ -65,6 +65,27 @@ public sealed class SpriteDestructionBatch
             m_DrawItems.Dispose();
         }
     }
+
+    public void Reset()
+    {
+        // Finish if no draw items.
+        if (!m_DrawItems.IsCreated)
+            return;
+        
+        foreach (var drawItemPair in m_DrawItems)
+        {
+            var drawItem = drawItemPair.Value;
+            
+            var mesh = Resources.EntityIdToObject(drawItem.meshId) as Mesh;
+            if (mesh != null)
+                Object.Destroy(mesh);
+            
+            // Destroy the body.
+            drawItem.physicsBody.Destroy();            
+        }
+
+        m_DrawItems.Clear();
+    }
     
     public void CreateSpriteDrawItem(
         NativeArray<VertexAttributeDescriptor> vertexAttributes,
