@@ -45,9 +45,17 @@ public sealed class SceneSpriteBatch : MonoBehaviour
             return;
         }
 
+        if (Sprite.packed)
+        {
+            Debug.LogWarning("Cannot use a Sprite packed in an Atlas.");
+            return;
+        }
+
         var localScale = transform.lossyScale;
-        var ppu = Sprite.pixelsPerUnit;
-        localScale.Scale(new Vector3(ppu, ppu, 1f));
+        var spriteExtents = Sprite.bounds.extents;// * new Vector2(localScale.x, localScale.y);
+        //var spriteRect = Sprite.textureRect;
+        //var ppu = 1f / Sprite.pixelsPerUnit;
+        localScale.Scale(spriteExtents);
         
         // Create default mesh.
         var mesh = new Mesh();

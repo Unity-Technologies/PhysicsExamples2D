@@ -64,7 +64,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 28f;
+        m_CameraManipulator.CameraSize = 10f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
 
         // Get the default world.        
@@ -102,10 +102,10 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         
         m_PlayerGeometry = new CapsuleGeometry { center1 = Vector2.zero, center2 = Vector2.up, radius = 0.5f };
         m_DestructGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(-0.5f, -0.5f), new(0.5f, -0.5f), new(10f, 0.5f), new (9f, 0.5f) }.AsSpan()).Transform(Matrix4x4.Scale(new Vector2(3f, 40f)), false);        
-        m_PlayerPosition = new Vector2(0f, 24f);
+        m_PlayerPosition = new Vector2(0f, 5f);
 
-        m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-20f, 0f), point2 = new Vector2(20f, 0f) };
-        m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 21.9f);
+        m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-10f, 0f), point2 = new Vector2(10f, 0f) };
+        m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 7.25f);
         
         m_FragmentRadius = 1f;
         m_FragmentCount = 25;
@@ -196,7 +196,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             {
                 contactFilter = new PhysicsShape.ContactFilter { categories = m_GroundMask, contacts = m_ProjectileMask | m_DebrisMask | m_DestructibleMask },
             };
-            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(1000f, 50f), radius: 0f, new PhysicsTransform(Vector2.down * 150f)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(200f, 10f), radius: 0f, new PhysicsTransform(Vector2.down * 20f)), shapeDef);
         }
 #if false        
         // Destructible Geometry.
@@ -258,7 +258,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         world.DrawGeometry(m_PlayerGeometry, m_PlayerPosition, Color.azure);
 
         // Draw the virtual ground.
-        //world.DrawGeometry(m_VirtualGroundGeometry, m_VirtualGroundTransform, m_DestructibleColor);
+        world.DrawGeometry(m_VirtualGroundGeometry, m_VirtualGroundTransform, m_DestructibleColor);
     }
 
     private void FirePressed()

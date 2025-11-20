@@ -6,7 +6,7 @@
                 <ui:Tab label="Sprite Destruction Options" tabindex="0" name="Tab">
                     <ui:Slider label="Fragment  Radius" high-value="3" name="fragment-radius" fill="true" show-input-field="true" focusable="false" value="1" low-value="0.5"/>
                     <ui:SliderInt label="Fragment Count" value="0" high-value="300" name="fragment-count" focusable="false" show-input-field="true" low-value="1"/>
-                    <ui:EnumField label="Fragment Colors" value="Center" type="GeometryIslands+FragmentColors, Assembly-CSharp" name="fragment-colors" focusable="false" include-obsolete-values="false"/>
+                    <ui:EnumField label="Fragment Colors" value="Center" type="SpriteDestruction+FragmentColors, Assembly-CSharp" name="fragment-colors" focusable="false" include-obsolete-values="false"/>
                     <ui:Toggle label="Fragment Explode" name="fragment-explode" focusable="false" value="false"/>
                 </ui:Tab>
             </ui:TabView>
