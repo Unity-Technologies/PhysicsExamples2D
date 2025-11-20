@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallback
@@ -36,6 +39,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
     private PhysicsTransform m_VirtualGroundTransform;
 
     private SpriteDestructionBatch m_SpriteDestructionBatch;
+    private readonly List<Vector2> m_PhysicsShapeVertex = new();
+    private  NativeArray<VertexAttributeDescriptor> m_VertexAttributes;
     
     private enum FragmentColors
     {
@@ -82,8 +87,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         // Create the sprite batch.
         m_SpriteDestructionBatch = new SpriteDestructionBatch();
         m_SpriteDestructionBatch.Create(SpriteMaterial);
-        
-        m_DestructibleColor = Color.seaGreen;
+
+        m_DestructibleColor = new Color(0.1f, 0f, 0f, 0f);
         m_DestructibleContactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_GroundMask | m_DebrisMask | m_DestructibleMask };
         m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f, bounciness = 0.4f, tangentSpeed = 0.1f, customColor = m_DestructibleColor };
         
@@ -96,7 +101,13 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         m_FragmentCount = 25;
         m_FragmentColors = FragmentColors.Individual;
         m_FragmentExplode = false;
-        
+
+        // Vertex attributes.
+        m_VertexAttributes = new NativeArray<VertexAttributeDescriptor>(3, Allocator.Persistent);
+        m_VertexAttributes[0] = new VertexAttributeDescriptor(VertexAttribute.Position, VertexAttributeFormat.Float32, 3);
+        m_VertexAttributes[1] = new VertexAttributeDescriptor(VertexAttribute.Normal, VertexAttributeFormat.Float32, 2);
+        m_VertexAttributes[2] = new VertexAttributeDescriptor(VertexAttribute.TexCoord0, VertexAttributeFormat.Float32, 2);
+            
         CreateFragmentMaskGeometry();
         
         SetupOptions();
@@ -108,6 +119,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
     {
         // Destroy the sprite batch.
         m_SpriteDestructionBatch.Destroy();
+
+        if (m_VertexAttributes.IsCreated)
+            m_VertexAttributes.Dispose();
         
         // Reset overrides.
         m_SandboxManager.ResetOverrideColorShapeState();        
@@ -185,22 +199,6 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             };
             groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(200f, 10f), radius: 0f, new PhysicsTransform(Vector2.down * 20f)), shapeDef);
         }
-#if false        
-        // Destructible Geometry.
-        {
-            for (var n = 0; n < 6; ++n)
-            {
-                var body = world.CreateBody(new PhysicsBodyDefinition { position = new Vector2(n * 5f - 27f, -2f) });
-                var shapeDef = new PhysicsShapeDefinition
-                {
-                    contactFilter = m_DestructibleContactFilter,
-                    contactEvents = true,
-                    surfaceMaterial = m_DestructibleSurfaceMaterial
-                };
-                body.CreateShape(m_DestructGeometry, shapeDef);
-            }
-        }
-#endif
     }
     
     private void Update()
@@ -213,7 +211,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         var world = PhysicsWorld.defaultWorld;
 
         // Draw the virtual ground.
-        world.DrawGeometry(m_VirtualGroundGeometry, m_VirtualGroundTransform, m_DestructibleColor);
+        world.DrawGeometry(m_VirtualGroundGeometry, m_VirtualGroundTransform, Color.seaGreen);
         
         // Fetch the world mouse position.
         var currentMouse = Mouse.current;
@@ -231,8 +229,11 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         // Finish if position is not overlapped with a destructible.
         using var hits = world.OverlapPoint(hitPosition, new PhysicsQuery.QueryFilter { categories = m_DestructibleMask, hitCategories = m_DestructibleMask });
+        Debug.Log(hits.Length);
         if (hits.Length == 0)
             return;
+
+        return;
 
         // Simply use the first hit.
         var hit = hits[0];
@@ -430,10 +431,125 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
     private void CreateInitialSprite()
     {
+        if (Sprite.packed)
+        {
+            Debug.LogWarning("Sprite is packed in an Atlas which isn't supported.");
+            return;
+        }
+        
+        // Finish if no physics outlines are available.
+        var physicsOutlines = Sprite.GetPhysicsShapeCount();
+        if (physicsOutlines == 0)
+        {
+            Debug.LogWarning("No physics outlines were found for the initial sprite.");
+            return;
+        }
+
+        // Create the composer.
+        var composer = PhysicsComposer.Create();
+        composer.useDelaunay = true;
+        var vertexPath = new NativeList<Vector2>(Allocator.Temp);
+
+        // Add all physic outlines.
+        for (var i = 0; i < physicsOutlines; ++i)
+        {
+            // Get the physics shape.
+            if (Sprite.GetPhysicsShape(i, m_PhysicsShapeVertex) > 0)
+            {
+                // Add to something we can use.
+                foreach (var vertex in m_PhysicsShapeVertex)
+                    vertexPath.Add(vertex);
+
+                // Add the layer to the composer.
+                composer.AddLayer(vertexPath.AsArray(), PhysicsTransform.identity);
+            }
+
+            vertexPath.Clear();
+        }
+
+        // Calculate the polygons from the points.
+        using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Temp);
+        
+        // Dispose.
+        vertexPath.Dispose();
+        composer.Destroy();
+
+        // Finish if no polygons.
+        if (polygons.Length == 0)
+        {
+            Debug.LogWarning("No polygons were produced for the initial sprite.");
+            return;
+        }
+
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
-        m_SpriteDestructionBatch.CreateSpriteDrawItem(world.CreateBody(), Sprite, transform.localScale);
+        // Create the body.
+        var body = world.CreateBody();
+
+        // Create an appropriate shape definition for the island geometry.
+        var shapeDef = new PhysicsShapeDefinition
+        {
+            contactFilter = m_DestructibleContactFilter,
+            contactEvents = true,
+            surfaceMaterial = m_DestructibleSurfaceMaterial
+        };
+
+        // Create the island geometry as a shape batch.
+        using var shapeBatch = body.CreateShapeBatch(polygons, shapeDef);
+        
+        
+        var spriteExtents = Sprite.bounds.extents * 2f;
+        //var spriteTextureSize = new Vector2(Sprite.texture.width, Sprite.texture.height);
+        //var spriteTextureRect = Sprite.textureRect;
+        //var spritePivot = Sprite.pivot;
+        //Debug.Log($"Extents: {spriteExtents}, Rect: {spriteTextureRect}, Pivot: {spritePivot}");
+        //Debug.Log($"Extents: {spriteExtents}");
+
+        var worldToTex = new Vector2(1f / spriteExtents.x, 1f / spriteExtents.y);
+        
+        // This needs to be calculated!
+        var textureOffset = new Vector2(0.5f, 0.5f);
+        
+        // Create the vertices and indices data.
+        var initialCapacity = polygons.Length * PhysicsConstants.MaxPolygonVertices * 3;
+        var vertices = new NativeList<SpriteDestructionBatch.BatchVertex>(initialCapacity, Allocator.Temp);
+        var indices = new NativeList<int>(initialCapacity, Allocator.Temp);
+        
+        // Create the rendering triangles from the polygon geometry.
+        foreach (var polygonGeometry in polygons)
+        {
+            var polygonVertexCount = polygonGeometry.count;
+            var polygonVertices = polygonGeometry.vertices;
+            var rootVertex = vertices.Length;
+            
+            // Add the triangle vertices.
+            for (var i = 0; i < polygonVertexCount; ++i) 
+            {
+                ref var vertex = ref polygonVertices[i];
+                var uv = (vertex * worldToTex) + textureOffset;
+                vertices.Add(new SpriteDestructionBatch.BatchVertex { position = vertex, uv = uv, normals = -Vector3.forward });
+            }
+
+            // Add the triangle indices.
+            for (var i = 2; i < polygonVertexCount; ++i)
+            {
+                indices.Add(rootVertex);
+                indices.Add(rootVertex + i);
+                indices.Add(rootVertex + i - 1);
+            }   
+        }
+
+        // Create the sprite draw item.
+        m_SpriteDestructionBatch.CreateSpriteDrawItem(
+            m_VertexAttributes,
+            vertices.AsArray(),
+            indices.AsArray(),
+            body);
+        
+        // Dispose.
+        vertices.Dispose();
+        indices.Dispose();
     }
     
     public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
