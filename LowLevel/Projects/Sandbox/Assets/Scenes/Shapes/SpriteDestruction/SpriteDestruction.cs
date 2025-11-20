@@ -233,8 +233,6 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         if (hits.Length == 0)
             return;
 
-        return;
-
         // Simply use the first hit.
         var hit = hits[0];
         
@@ -279,9 +277,10 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         // Dispose of the fragment points.
         fragmentPoints.Dispose();
         
-        // Destroy the destructible.
-        destructibleBody.Destroy();
+        // Destroy the draw item.
+        m_SpriteDestructionBatch.DestroySpriteDrawItem(destructibleBody);
 
+        // Fetch the fragment transform.
         var fragmentTransform = fragmentResults.transform;
 
         // Create a body definition for static non-falling geometry.
@@ -355,6 +354,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
                     foreach (var shape in shapeBatch)
                         shape.callbackTarget = this;
                 }
+                
+                // WE NEED TO SET-UP A DRAW ITEM HERE.
             }
         }
         

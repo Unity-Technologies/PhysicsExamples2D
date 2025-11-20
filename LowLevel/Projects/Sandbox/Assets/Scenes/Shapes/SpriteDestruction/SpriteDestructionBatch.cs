@@ -1,8 +1,10 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.Rendering;
+using Object = UnityEngine.Object;
 
 public sealed class SpriteDestructionBatch
 {
@@ -15,11 +17,11 @@ public sealed class SpriteDestructionBatch
 
     private struct DrawItem
     {
+        public PhysicsBody physicsBody;
         public EntityId meshId;
-        public PhysicsBody body;
     }
-    
-    private NativeList<DrawItem> m_DrawItems;
+
+    private NativeHashMap<PhysicsBody, DrawItem> m_DrawItems;
     private bool m_UsingBIRP;
     
     private Material m_Material;
@@ -30,7 +32,7 @@ public sealed class SpriteDestructionBatch
         m_Material = material;
         
         // Create the draw items.
-        m_DrawItems = new NativeList<DrawItem>(Allocator.Persistent);
+        m_DrawItems = new NativeHashMap<PhysicsBody, DrawItem>(100, Allocator.Persistent);
         
         // Flag if using the built-in render pipeline or not.
         m_UsingBIRP = GraphicsSettings.currentRenderPipeline == null;
@@ -55,7 +57,7 @@ public sealed class SpriteDestructionBatch
         {
             foreach (var drawItem in m_DrawItems)
             {
-                var mesh = Resources.EntityIdToObject(drawItem.meshId) as Mesh;
+                var mesh = Resources.EntityIdToObject(drawItem.Value.meshId) as Mesh;
                 if (mesh != null)
                     Object.Destroy(mesh);
             }
@@ -82,13 +84,30 @@ public sealed class SpriteDestructionBatch
         mesh.SetSubMesh(0, new SubMeshDescriptor(0, indices.Length, MeshTopology.Triangles));
         
         // Add draw item.
-        m_DrawItems.Add(new DrawItem
+        m_DrawItems.Add(physicsBody, new DrawItem
         {
-            meshId = mesh.GetEntityId(),
-            body = physicsBody
+            physicsBody = physicsBody,
+            meshId = mesh.GetEntityId()
         });
     }
 
+    public void DestroySpriteDrawItem(PhysicsBody physicsBody)
+    {
+        if (!m_DrawItems.TryGetValue(physicsBody, out var drawItem))
+            throw new ArgumentException("Could not find draw item.", nameof(physicsBody));
+
+        // Destroy the body.
+        physicsBody.Destroy();
+        
+        // Destroy the mesh.
+        var mesh = Resources.EntityIdToObject(drawItem.meshId) as Mesh;
+        if (mesh != null)
+            Object.Destroy(mesh);
+        
+        // Remove the draw item.
+        m_DrawItems.Remove(physicsBody);
+    }
+    
     private void BIRP_RenderAllWorlds(Camera camera)
     {
         // Ensure the camera type is valid.
@@ -113,12 +132,14 @@ public sealed class SpriteDestructionBatch
     {
         m_Material.SetPass(0);
         
-        foreach (var drawItem in m_DrawItems)
+        foreach (var drawItemPair in m_DrawItems)
         {
+            var drawItem = drawItemPair.Value;
+            
             var mesh = Resources.EntityIdToObject(drawItem.meshId) as Mesh;
             if (mesh != null)
             {
-                var body = drawItem.body;
+                var body = drawItem.physicsBody;
                 var world = body.world;
                 var transformPlane = world.transformPlane;
                 
