@@ -42,17 +42,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
     private readonly List<Vector2> m_PhysicsShapeVertex = new();
     private  NativeArray<VertexAttributeDescriptor> m_VertexAttributes;
     
-    private enum FragmentColors
-    {
-        Off,
-        White,
-        Group,
-        Individual
-    };
-    
     private float m_FragmentRadius;
     private int m_FragmentCount;
-    private FragmentColors m_FragmentColors;
     private bool m_FragmentExplode;
 
     private void OnEnable()
@@ -98,9 +89,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 7.25f);
         
         m_FragmentRadius = 1f;
-        m_FragmentCount = 25;
-        m_FragmentColors = FragmentColors.Individual;
-        m_FragmentExplode = false;
+        m_FragmentCount = 8;
+        m_FragmentExplode = true;
 
         // Vertex attributes.
         m_VertexAttributes = new NativeArray<VertexAttributeDescriptor>(3, Allocator.Persistent);
@@ -164,11 +154,6 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             fragmentCount.value = m_FragmentCount;
             fragmentCount.RegisterValueChangedCallback(evt => { m_FragmentCount = evt.newValue; });
             
-            // Fragment Colors.
-            var fragmentColors = root.Q<EnumField>("fragment-colors");
-            fragmentColors.value = m_FragmentColors;
-            fragmentColors.RegisterValueChangedCallback(evt => m_FragmentColors = (FragmentColors)evt.newValue);
-
             // Fragment Explode.
             var fragmentExplode = root.Q<Toggle>("fragment-explode");
             fragmentExplode.value = m_FragmentExplode;
@@ -229,7 +214,6 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         // Finish if position is not overlapped with a destructible.
         using var hits = world.OverlapPoint(hitPosition, new PhysicsQuery.QueryFilter { categories = m_DestructibleMask, hitCategories = m_DestructibleMask });
-        Debug.Log(hits.Length);
         if (hits.Length == 0)
             return;
 
@@ -354,8 +338,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
                     foreach (var shape in shapeBatch)
                         shape.callbackTarget = this;
                 }
-                
-                // WE NEED TO SET-UP A DRAW ITEM HERE.
+
+                // Create the draw item.
+                CreateDrawItem(body, islandGeometry);
             }
         }
         
@@ -366,23 +351,13 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             {
                 // Create a batch of bodies.
                 using var bodies = world.CreateBodyBatch(dynamicBodyDef, brokenCount);
-
-                // Create a shape color for dynamic falling geometry.
-                var dynamicShapeColor = m_FragmentColors switch
-                {
-                    FragmentColors.Off or FragmentColors.Individual => m_DestructibleColor,
-                    FragmentColors.White => Color.ivory,
-                    FragmentColors.Group => m_SandboxManager.ShapeColorState,
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-
-
+                
                 // Create a shape definition for the broken geometry.
                 var shapeDef = new PhysicsShapeDefinition
                 {
                     contactFilter = new PhysicsShape.ContactFilter { categories = m_DebrisMask, contacts = m_GroundMask | m_DestructibleMask | m_ObstacleMask },
                     contactEvents = true,
-                    surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = dynamicShapeColor }
+                    surfaceMaterial = m_DestructibleSurfaceMaterial
                 };
 
                 // Add a shape for each body.
@@ -391,11 +366,11 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
                     var body = bodies[i];
                     var geometry = fragmentResults.brokenGeometry[i];
 
-                    if (m_FragmentColors == FragmentColors.Individual)
-                        shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState };
-
                     var shape = body.CreateShape(geometry, shapeDef);
                     shape.callbackTarget = this;
+                    
+                    // Create the draw item.
+                    CreateDrawItem(body, ref geometry);
                 }
             }
         }
@@ -484,9 +459,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
-
-        // Create the body.
-        var body = world.CreateBody();
+        
+        // Create the static body.
+        var physicsBody = world.CreateBody();
 
         // Create an appropriate shape definition for the island geometry.
         var shapeDef = new PhysicsShapeDefinition
@@ -497,21 +472,35 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         };
 
         // Create the island geometry as a shape batch.
-        using var shapeBatch = body.CreateShapeBatch(polygons, shapeDef);
+        using var shapeBatch = physicsBody.CreateShapeBatch(polygons, shapeDef);
         
-        
-        var spriteExtents = Sprite.bounds.extents * 2f;
-        //var spriteTextureSize = new Vector2(Sprite.texture.width, Sprite.texture.height);
-        //var spriteTextureRect = Sprite.textureRect;
-        //var spritePivot = Sprite.pivot;
-        //Debug.Log($"Extents: {spriteExtents}, Rect: {spriteTextureRect}, Pivot: {spritePivot}");
-        //Debug.Log($"Extents: {spriteExtents}");
+        // Create the draw item.
+        CreateDrawItem(physicsBody, polygons);
+    }
 
+    private unsafe void CreateDrawItem(PhysicsBody physicsBody, ref PolygonGeometry polygon)
+    {
+        fixed (PolygonGeometry* pPolygonGeometry = &polygon)
+        {
+            CreateDrawItem(physicsBody, new ReadOnlySpan<PolygonGeometry>(pPolygonGeometry, 1));
+        }
+    }
+    
+    private void CreateDrawItem(PhysicsBody physicsBody, ReadOnlySpan<PolygonGeometry> polygons)
+    {
+        // Fetch the sprite details.
+        var spriteExtents = Sprite.bounds.extents * 2f;
         var worldToTex = new Vector2(1f / spriteExtents.x, 1f / spriteExtents.y);
-        
+
         // This needs to be calculated!
         var textureOffset = new Vector2(0.5f, 0.5f);
-        
+
+#if false        
+        var spriteTextureSize = new Vector2(Sprite.texture.width, Sprite.texture.height);
+        var spriteTextureRect = Sprite.textureRect;
+        var spritePivot = Sprite.pivot;
+        Debug.Log($"Extents: {spriteExtents}, Rect: {spriteTextureRect}, Pivot: {spritePivot}");
+#endif        
         // Create the vertices and indices data.
         var initialCapacity = polygons.Length * PhysicsConstants.MaxPolygonVertices * 3;
         var vertices = new NativeList<SpriteDestructionBatch.BatchVertex>(initialCapacity, Allocator.Temp);
@@ -546,11 +535,11 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             m_VertexAttributes,
             vertices.AsArray(),
             indices.AsArray(),
-            body);
+            physicsBody);
         
         // Dispose.
         vertices.Dispose();
-        indices.Dispose();
+        indices.Dispose();        
     }
     
     public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
@@ -571,8 +560,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             return;
         
         // Destroy whatever hit the ground.
+        // Destroy the draw item.
         var destroyShape = categoryA == m_GroundMask ? shapeB : shapeA;
-        destroyShape.body.Destroy();
+        m_SpriteDestructionBatch.DestroySpriteDrawItem(destroyShape.body);
     }
 
     public void OnContactEnd2D(PhysicsEvents.ContactEndEvent endEvent) { }

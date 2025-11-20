@@ -96,9 +96,6 @@ public sealed class SpriteDestructionBatch
         if (!m_DrawItems.TryGetValue(physicsBody, out var drawItem))
             throw new ArgumentException("Could not find draw item.", nameof(physicsBody));
 
-        // Destroy the body.
-        physicsBody.Destroy();
-        
         // Destroy the mesh.
         var mesh = Resources.EntityIdToObject(drawItem.meshId) as Mesh;
         if (mesh != null)
@@ -106,6 +103,9 @@ public sealed class SpriteDestructionBatch
         
         // Remove the draw item.
         m_DrawItems.Remove(physicsBody);
+        
+        // Destroy the body.
+        physicsBody.Destroy();
     }
     
     private void BIRP_RenderAllWorlds(Camera camera)
