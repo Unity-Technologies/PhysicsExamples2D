@@ -151,7 +151,7 @@ void Run()
 Here are some key features of the low-level 2D physics system:
 
 - **Structured Physics Objects**:
-  - ![Overview](./Images/LowLevelPhysicsOverview.png)
+![Overview](./Images/LowLevelPhysicsOverview.png)
   - [PhysicsWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld.html) representing an isolated simulation container.
   - [PhysicsBody](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.html) representing a position and rotation in the `PhysicsWorld` and additional behaviours.
   - [PhysicsShape](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.html) representing an area relative to a `PhysicsBody` and additional behaviours.
