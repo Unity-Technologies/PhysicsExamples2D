@@ -52,7 +52,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 13f;
+        m_CameraManipulator.CameraSize = 12f;
         m_CameraManipulator.CameraPosition = Vector2.down * 2f;
         m_CameraManipulator.DisableManipulators = true;
         m_Camera = m_CameraManipulator.Camera;
@@ -193,9 +193,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         }
         
         // Create the initial sprites.
-        CreateInitialSprite(Vector2.left * 10f);
-        CreateInitialSprite(Vector2.zero);
-        CreateInitialSprite(Vector2.right * 10f);
+        CreateInitialSprite(Vector2.left * 7f);
+        CreateInitialSprite(Vector2.right * 6f);
     }
     
     private void Update()
