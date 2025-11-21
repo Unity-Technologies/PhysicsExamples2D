@@ -81,7 +81,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         m_DestructibleColor = new Color(0.1f, 0f, 0f, 0f);
         m_DestructibleContactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_GroundMask | m_DebrisMask | m_DestructibleMask };
-        m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0f, bounciness = 0.4f, tangentSpeed = 0.1f, customColor = m_DestructibleColor };
+        m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.5f, bounciness = 0.0f, tangentSpeed = 0f, customColor = m_DestructibleColor };
         
         m_DestructGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(-0.5f, -0.5f), new(0.5f, -0.5f), new(10f, 0.5f), new (9f, 0.5f) }.AsSpan()).Transform(Matrix4x4.Scale(new Vector2(3f, 40f)), false);        
 
