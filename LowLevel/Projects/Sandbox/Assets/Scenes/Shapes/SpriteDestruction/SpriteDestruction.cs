@@ -205,10 +205,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
-#if true        
+        
         // Draw the virtual ground.
         world.DrawGeometry(m_VirtualGroundGeometry, m_VirtualGroundTransform, Color.saddleBrown);
-#endif
         
         // Fetch the world mouse position.
         var currentMouse = Mouse.current;
