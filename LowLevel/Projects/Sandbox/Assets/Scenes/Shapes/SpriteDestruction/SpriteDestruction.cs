@@ -30,8 +30,6 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
     private PhysicsShape.ContactFilter m_DestructibleContactFilter;
     private PhysicsShape.SurfaceMaterial m_DestructibleSurfaceMaterial;
     
-    private PolygonGeometry m_DestructGeometry;
-    private CircleGeometry m_FragmentGeometry;
     private NativeArray<PolygonGeometry> m_FragmentGeometryMask;
 
     private SegmentGeometry m_VirtualGroundGeometry;
@@ -42,6 +40,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
     private  NativeArray<VertexAttributeDescriptor> m_VertexAttributes;
     
     private float m_FragmentRadius;
+    private bool m_FragmentCreate;
     private int m_FragmentCount;
     private bool m_FragmentExplode;
 
@@ -53,8 +52,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_CameraManipulator.CameraSize = 10f;
-        m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
+        m_CameraManipulator.CameraSize = 13f;
+        m_CameraManipulator.CameraPosition = Vector2.down * 2f;
         m_CameraManipulator.DisableManipulators = true;
         m_Camera = m_CameraManipulator.Camera;
 
@@ -81,14 +80,13 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         m_DestructibleColor = new Color(0.1f, 0f, 0f, 0f);
         m_DestructibleContactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_GroundMask | m_DebrisMask | m_DestructibleMask };
-        m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.5f, bounciness = 0.0f, tangentSpeed = 0f, customColor = m_DestructibleColor };
+        m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.25f, bounciness = 0.0f, tangentSpeed = 0f, customColor = m_DestructibleColor };
         
-        m_DestructGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(-0.5f, -0.5f), new(0.5f, -0.5f), new(10f, 0.5f), new (9f, 0.5f) }.AsSpan()).Transform(Matrix4x4.Scale(new Vector2(3f, 40f)), false);        
-
-        m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-10f, 0f), point2 = new Vector2(10f, 0f) };
+        m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) };
         m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 7.25f);
         
-        m_FragmentRadius = 1f;
+        m_FragmentRadius = 1.5f;
+        m_FragmentCreate = true;
         m_FragmentCount = 20;
         m_FragmentExplode = true;
 
@@ -151,7 +149,12 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
                 m_FragmentRadius = evt.newValue;
                 CreateFragmentMaskGeometry();
             });
-
+            
+            // Fragment Create.
+            var fragmentCreate = root.Q<Toggle>("fragment-create");
+            fragmentCreate.value = m_FragmentCreate;
+            fragmentCreate.RegisterValueChangedCallback(evt => m_FragmentCreate = evt.newValue);
+            
             // Fragment Count.
             var fragmentCount = root.Q<SliderInt>("fragment-count");
             fragmentCount.value = m_FragmentCount;
@@ -189,8 +192,10 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(400f, 10f), radius: 0f, new PhysicsTransform(Vector2.down * 50f)), shapeDef);
         }
         
-        // Create the initial sprite.
-        CreateInitialSprite();
+        // Create the initial sprites.
+        CreateInitialSprite(Vector2.left * 10f);
+        CreateInitialSprite(Vector2.zero);
+        CreateInitialSprite(Vector2.right * 10f);
     }
     
     private void Update()
@@ -201,11 +206,11 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
-
-#if false        
+#if true        
         // Draw the virtual ground.
-        world.DrawGeometry(m_VirtualGroundGeometry, m_VirtualGroundTransform, Color.seaGreen);
-#endif        
+        world.DrawGeometry(m_VirtualGroundGeometry, m_VirtualGroundTransform, Color.saddleBrown);
+#endif
+        
         // Fetch the world mouse position.
         var currentMouse = Mouse.current;
         var worldPosition = (Vector2)m_Camera.ScreenToWorldPoint(currentMouse.position.value);
@@ -213,6 +218,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         // Destruct at the position if selected. 
         if (currentMouse.leftButton.wasPressedThisFrame)
             DestructAtPosition(worldPosition);
+
+        world.DrawGeometry(m_FragmentGeometryMask, worldPosition, Color.dodgerBlue, 0f, PhysicsWorld.DrawFillOptions.Outline);
     }
 
     private void DestructAtPosition(Vector2 hitPosition)
@@ -220,20 +227,21 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
+        // Create a new fragment mask.
+        CreateFragmentMaskGeometry();            
+        
         // Finish if position is not overlapped with a destructible.
         using var hits = world.OverlapPoint(hitPosition, new PhysicsQuery.QueryFilter { categories = m_DestructibleMask, hitCategories = m_DestructibleMask });
         if (hits.Length > 0)
         {
             // Simply use the first hit.
             var hit = hits[0];
-
-            // Draw the fragment radius.            
-            world.DrawCircle(hitPosition, m_FragmentRadius, Color.ivory, 2f / 60f, PhysicsWorld.DrawFillOptions.Outline);
-
+            
             // Fetch the destructible shapes.
             var destructibleShape = hit.shape;
             var destructibleBody = destructibleShape.body;
             var destructibleBodyType = destructibleBody.type;
+            var destructibleBodyLinearVelocity = destructibleBody.linearVelocity;
             using var destructibleShapes = destructibleBody.GetShapes();
 
             // Get the polygon geometry from the shapes.
@@ -270,7 +278,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
             // Destroy the draw item.
             m_SpriteDestructionBatch.DestroySpriteDrawItem(destructibleBody);
-
+            
             // Fetch the fragment transform.
             var fragmentTransform = fragmentResults.transform;
 
@@ -288,7 +296,8 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
                 fastCollisionsAllowed = true,
                 position = fragmentTransform.position,
                 rotation = fragmentTransform.rotation,
-                gravityScale = 2f
+                linearVelocity = destructibleBodyLinearVelocity,
+                gravityScale = 4f
             };
 
             // Create the remaining destructible geometry from the "unbroken" geometry (if we have any).
@@ -351,8 +360,10 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
                 }
             }
 
-            // Create the debris destructible geometry from the "broken" geometry (if we have any).
+            // Create fragments if selected (if we have any).
+            if (m_FragmentCreate)
             {
+                // Create the debris destructible geometry from the "broken" geometry.
                 var brokenCount = fragmentResults.brokenGeometry.Length;
                 if (brokenCount > 0)
                 {
@@ -384,36 +395,41 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         }
 
         // Explode the debris.
-        if (m_FragmentExplode)
+        if (m_FragmentExplode && m_FragmentCreate)
         {
             world.Explode(new PhysicsWorld.ExplosionDefinition
             {
                 position = hitPosition + Vector2.up * m_FragmentRadius,
                 hitCategories = m_DebrisMask,
-                impulsePerLength = 3f,
-                radius = m_FragmentRadius * 1.5f
+                impulsePerLength = 10f,
+                radius = m_FragmentRadius * 2.5f
             });
         }
     }
     
     private void CreateFragmentMaskGeometry()
     {
-        // Create the fragment geometry mask using the composer.
+        // Dispose of any existing fire geometry mask.
+        if (m_FragmentGeometryMask.IsCreated)
+            m_FragmentGeometryMask.Dispose();
+        
+        ref var random = ref m_SandboxManager.Random;
+        
+        var vertices = new NativeList<Vector2>(100, Allocator.Temp);
+        var stride = PhysicsMath.TAU / 36f;
+        for (var angle = 0f; angle < PhysicsMath.TAU; angle += stride)
         {
-            m_FragmentGeometry = new CircleGeometry { radius = m_FragmentRadius };
-
-            // Dispose of any existing fire geometry mask.
-            if (m_FragmentGeometryMask.IsCreated)
-                m_FragmentGeometryMask.Dispose();
-            
-            var composer = PhysicsComposer.Create();
-            composer.AddLayer(m_FragmentGeometry, PhysicsTransform.identity);
-            m_FragmentGeometryMask = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Persistent);
-            composer.Destroy();
+            PhysicsMath.CosSin(angle, out var cosine, out var sine);
+            var radius = random.NextFloat(m_FragmentRadius * 0.75f, m_FragmentRadius * 1.5f);
+            vertices.Add(new Vector2(cosine * radius, sine * radius));
         }
+
+        // Create the fragment geometry.
+        m_FragmentGeometryMask = PolygonGeometry.CreatePolygons(vertices.AsArray(), PhysicsTransform.identity, Vector2.one, Allocator.Persistent);
+        vertices.Dispose();
     }
 
-    private void CreateInitialSprite()
+    private void CreateInitialSprite(Vector2 worldPosition)
     {
         if (Sprite.packed)
         {
@@ -469,7 +485,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         var world = PhysicsWorld.defaultWorld;
         
         // Create the static body.
-        var physicsBody = world.CreateBody();
+        var physicsBody = world.CreateBody(new PhysicsBodyDefinition { position = worldPosition });
 
         // Create an appropriate shape definition for the island geometry.
         var shapeDef = new PhysicsShapeDefinition
