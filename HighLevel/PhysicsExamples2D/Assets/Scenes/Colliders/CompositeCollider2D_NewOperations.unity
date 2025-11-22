@@ -958,7 +958,7 @@ GameObject:
   - component: {fileID: 1185270577}
   - component: {fileID: 1185270576}
   m_Layer: 0
-  m_Name: Flip
+  m_Name: Flip-XOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1512,7 +1512,7 @@ GameObject:
   - component: {fileID: 1367664617}
   - component: {fileID: 1367664616}
   m_Layer: 0
-  m_Name: Difference
+  m_Name: Difference-NOT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
