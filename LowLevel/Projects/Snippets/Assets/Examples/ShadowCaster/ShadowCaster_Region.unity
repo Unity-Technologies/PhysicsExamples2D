@@ -533,10 +533,10 @@ MonoBehaviour:
   m_InstanceId: 0
   m_ShadowShape2DComponent: {fileID: 82546716}
   m_ShadowShape2DProvider:
-    rid: -2
+    rid: 437437936650682401
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 587890516}
+    m_Mesh: {fileID: 972868382}
     m_LocalBounds:
       m_Center: {x: -0.27424622, y: -0.29543304, z: 0}
       m_Extent: {x: 3.0343018, y: 2.4354324, z: 0}
@@ -553,9 +553,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
---- !u!43 &587890516
+    - rid: 437437936650682401
+      type: {class: SceneShadowRegionProvider, ns: , asm: Assembly-CSharp}
+      data: 
+--- !u!43 &972868382
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
