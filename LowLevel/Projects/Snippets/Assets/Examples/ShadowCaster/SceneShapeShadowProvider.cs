@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.U2D.Physics.LowLevelExtras;
 
 [Serializable]
-public class SceneShapeShadowProvider : ShadowShape2DProvider
+public class SceneShapeShadowProvider : SceneShadowBaseProvider
 {
     private ShadowShape2D m_PersistantShadowShape;
 
@@ -35,93 +35,15 @@ public class SceneShapeShadowProvider : ShadowShape2DProvider
         {
             var shape = sceneShape.Shape;
             
-            // Yes, so create the shadow outputs.
+            // Create the shadow outputs.
             const int vertexCount = 8;
             const int indexCount = 8;
-
             var radii = new NativeList<float>(vertexCount, Allocator.Temp);
             var vertices = new NativeList<Vector3>(vertexCount, Allocator.Temp);
             var indices = new NativeList<int>(indexCount, Allocator.Temp);
-            
-            var bodyTransform = shape.body.transform;
 
-            switch (shape.shapeType)
-            {
-                case PhysicsShape.ShapeType.Circle:
-                {
-                    var geometry = shape.circleGeometry.Transform(bodyTransform);
-
-                    radii.Add(geometry.radius);
-                    indices.Add(0);
-                    indices.Add(0);
-                    vertices.Add(geometry.center);
-
-                    break;
-                }
-                case PhysicsShape.ShapeType.Capsule:
-                {
-                    var geometry = shape.capsuleGeometry.Transform(bodyTransform);
-
-                    radii.Add(geometry.radius);
-                    indices.Add(0);
-                    vertices.Add(geometry.center1);
-                    radii.Add(geometry.radius);
-                    indices.Add(1);
-                    vertices.Add(geometry.center2);
-
-                    break;
-                }
-                case PhysicsShape.ShapeType.Polygon:
-                {
-                    var geometry = shape.polygonGeometry.Transform(bodyTransform);
-                    var geometryVertices = geometry.vertices;
-
-                    var edgeIndex = 0;
-                    for (var n = 0; n < (geometry.count - 1); ++n)
-                    {
-                        radii.Add(geometry.radius);
-                        vertices.Add(geometryVertices[n]);
-                        indices.Add(edgeIndex++);
-                        indices.Add(edgeIndex);
-                    }
-
-                    radii.Add(geometry.radius);
-                    vertices.Add(geometryVertices[geometry.count - 1]);
-                    indices.Add(edgeIndex);
-                    indices.Add(0);
-
-                    break;
-                }
-                case PhysicsShape.ShapeType.Segment:
-                {
-                    var geometry = shape.segmentGeometry.Transform(bodyTransform);
-
-                    radii.Add(0.05f);
-                    radii.Add(0.05f);
-                    vertices.Add(geometry.point1);
-                    vertices.Add(geometry.point2);
-                    indices.Add(0);
-                    indices.Add(1);
-
-                    break;
-                }
-                case PhysicsShape.ShapeType.ChainSegment:
-                {
-                    var geometry = shape.chainSegmentGeometry.segment.Transform(bodyTransform);
-
-                    radii.Add(0.05f);
-                    radii.Add(0.05f);
-                    vertices.Add(geometry.point1);
-                    vertices.Add(geometry.point2);
-                    indices.Add(0);
-                    indices.Add(1);
-
-                    break;
-                }
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            // Add the shape shadow.
+            AddShapeShadow(shape, ref radii, ref vertices, ref indices);
 
             // Calculate transformation required to move the Collider geometry into shadow-space.
             var toShadowSpace = sourceComponent.transform.worldToLocalMatrix;
