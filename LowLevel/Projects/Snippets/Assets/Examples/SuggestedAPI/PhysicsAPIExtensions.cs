@@ -50,6 +50,10 @@ public static class PhysicsAPIExtensions
         {
             if (!otherShape.isValid)
                 throw new ArgumentException(nameof(physicsShape));
+
+            // Skip if the same shape.
+            if (otherShape == physicsShape)
+                continue;
             
             // Query the distance.
             var result = PhysicsQuery.ShapeDistance(
@@ -83,6 +87,12 @@ public static class PhysicsAPIExtensions
     /// <returns></returns>
     public static PhysicsQuery.DistanceResult ShapeDistance(this PhysicsShape physicsShape, PhysicsBody physicsBody, bool useRadii = true)
     {
+        if (!physicsShape.isValid)
+            throw new ArgumentException(nameof(physicsShape));
+
+        if (!physicsBody.isValid)
+            throw new ArgumentException(nameof(physicsBody));
+        
         // Get all the body shapes.
         using var otherShapes = physicsBody.GetShapes();
 
