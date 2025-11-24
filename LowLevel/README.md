@@ -2,10 +2,10 @@
 
 This repository contains test projects, examples and a test package for use with the LowLevel 2D Physics features in Unity.
 
-To use the low-level features, you will require Unity 6000.3.0a5 or beyond.
+To use the low-level features, you will require Unity `6000.3.0f1` or beyond.
 
 ---
-Acknowledgement and thanks is made to Erin Catto, the creator of Box2D v3, from which significant portions of this "Sandbox" project is based upon.
+Acknowledgement and thanks goes to Erin Catto (the creator of Box2D v3) from which significant portions of this "Sandbox" project is based upon.
 
 Go try it here!
 https://github.com/erincatto/box2d
