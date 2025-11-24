@@ -67,7 +67,6 @@ public class SceneBodyShadowProvider : SceneShadowBaseProvider
         }
 
         // Reset shapes.
-        // NOTE: This is a poor way to implement a "clear" as it's implicitly doing something.
         m_PersistantShadowShape.SetShape(new NativeArray<Vector3>(), new NativeArray<int>(), ShadowShape2D.OutlineTopology.Lines, ShadowShape2D.WindingOrder.CounterClockwise);
     }
 }
