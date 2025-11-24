@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.Rendering.Universal;
 
-public abstract class SceneShadowBaseProvider : ShadowShape2DProvider
+public abstract class SceneShadowProviderBase : ShadowShape2DProvider
 {
     protected void AddShapeShadow(PhysicsShape shape, ref NativeList<float> radii, ref NativeList<Vector3> vertices, ref NativeList<int> indices)
     {

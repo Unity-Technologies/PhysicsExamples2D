@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.U2D.Physics.LowLevelExtras;
 
 [Serializable]
-public class SceneBodyShadowProvider : SceneShadowBaseProvider
+internal class SceneBodyShadowProvider : SceneShadowProviderBase
 {
     private ShadowShape2D m_PersistantShadowShape;
 

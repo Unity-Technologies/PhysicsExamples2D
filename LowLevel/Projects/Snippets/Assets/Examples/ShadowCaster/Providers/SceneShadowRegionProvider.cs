@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 [Serializable]
-public class SceneShadowRegionProvider : SceneShadowBaseProvider
+internal class SceneShadowRegionProvider : SceneShadowProviderBase
 {
     private ShadowShape2D m_PersistantShadowShape;
 
