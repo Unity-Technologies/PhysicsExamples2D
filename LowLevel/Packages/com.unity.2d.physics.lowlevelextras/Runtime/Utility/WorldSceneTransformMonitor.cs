@@ -3,13 +3,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine.Pool;
 
 namespace UnityEngine.U2D.Physics.LowLevelExtras
 {
     public static class WorldSceneTransformMonitor
     {
-        private static readonly Dictionary<Component, IWorldSceneTransformChanged> Monitors = new();
+        private static readonly Dictionary<Transform, HashSet<IWorldSceneTransformChanged>> Monitors = new();
         private static readonly List<Transform> ChangedTransforms = new();
+        private static readonly List<IWorldSceneTransformChanged> BufferedCallbacks = new();
 
         [InitializeOnLoadMethod]
         public static void InitializeAllWatchers()
@@ -37,8 +39,14 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
                 // We may get duplicates here, but it doesn't matter.
                 ChangedTransforms.Add(transform);
 
-                // Call the monitor.
-                monitor.Value.TransformChanged();
+                // Fetch the buffered callbacks.
+                // NOTE: We do this because the callbacks can have side effects such as changing the callback enumeration.
+                BufferedCallbacks.Clear();
+                BufferedCallbacks.AddRange(monitor.Value);
+                
+                // Call the monitors.
+                foreach (var callback in BufferedCallbacks)
+                    callback.TransformChanged();
             }
 
             // Reset changed transforms.
@@ -49,21 +57,55 @@ namespace UnityEngine.U2D.Physics.LowLevelExtras
             ChangedTransforms.Clear();
         }
 
-        public static void AddMonitor(Component component)
+        public static void AddMonitor(Component component) => AddMonitor(component.transform, component as IWorldSceneTransformChanged);
+        
+        public static void AddMonitor(Transform transform, IWorldSceneTransformChanged callback)
         {
-            if (component is not IWorldSceneTransformChanged worldSceneTransformChanged)
-                throw new ArgumentException(nameof(component), $"Component must implement {nameof(IWorldSceneTransformChanged)}.");
+            if (transform == null)
+                throw new NullReferenceException(nameof(transform));
+            
+            if (callback == null)
+                throw new NullReferenceException(nameof(callback));
 
-            Monitors.Add(component, worldSceneTransformChanged);
+            if (Monitors.TryGetValue(transform, out var callbacks))
+            {
+                callbacks.Add(callback);
+                return;
+            }
+
+            // Add a new callback.
+            var newCallbacks = HashSetPool<IWorldSceneTransformChanged>.Get();
+            newCallbacks.Add(callback);
+            Monitors.Add(transform, newCallbacks);
         }
 
-        public static void RemoveMonitor(Component component)
+        public static void RemoveMonitor(Transform transform, IWorldSceneTransformChanged callback)
         {
-            if (component is not IWorldSceneTransformChanged worldSceneTransformChanged)
-                throw new ArgumentException(nameof(component), $"Component must implement {nameof(IWorldSceneTransformChanged)}.");
+            if (transform == null)
+                throw new NullReferenceException(nameof(transform));
+            
+            if (callback == null)
+                throw new NullReferenceException(nameof(callback));
 
-            Monitors.Remove(component);
+            // Finish if there's no monitors found.
+            if (!Monitors.TryGetValue(transform, out var callbacks))
+                return;
+            
+            // Remove the callback.
+            callbacks.Remove(callback);
+
+            // Finish if callbacks still exist.
+            if (callbacks.Count > 0)
+                return;
+            
+            // Release the callbacks.
+            HashSetPool<IWorldSceneTransformChanged>.Release(callbacks);
+            
+            // Remove from the monitors.
+            Monitors.Remove(transform);
         }
+        
+        public static void RemoveMonitor(Component component) => RemoveMonitor(component.transform, component as IWorldSceneTransformChanged);
     }
 }
 
