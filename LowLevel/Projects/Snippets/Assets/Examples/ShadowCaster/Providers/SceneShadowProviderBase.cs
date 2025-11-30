@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.Rendering.Universal;
 
+[Serializable]
 public abstract class SceneShadowProviderBase : ShadowShape2DProvider
 {
     protected void AddShapeShadow(PhysicsShape shape, ref NativeList<float> radii, ref NativeList<Vector3> vertices, ref NativeList<int> indices)
