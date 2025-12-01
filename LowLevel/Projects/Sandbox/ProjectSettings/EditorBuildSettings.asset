@@ -156,9 +156,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Shapes/Wind/Wind.unity
     guid: ba8fade6bb243d142920465e5187e6c2
   - enabled: 1
-    path: Assets/Scenes/Simulate/Parallel/ParallelSimulate.unity
-    guid: b3c9df1e109c6bb459227979dfb0ce71
-  - enabled: 1
     path: Assets/Scenes/Stacking/Arch/Arch.unity
     guid: 015f448c6c94f1445aa2323d27e48208
   - enabled: 1
@@ -173,6 +170,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stacking/ShapeStack/ShapeStack.unity
     guid: c07d88df5a773a348bb4f3d33f0f14ad
+  - enabled: 1
+    path: Assets/Scenes/Custom/Custom.unity
+    guid: e4bebd4f12dd2f74491dbd0bb2b78588
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5c7184836effb7b44bb05e94121cf77e, type: 2}
   m_UseUCBPForAssetBundles: 0

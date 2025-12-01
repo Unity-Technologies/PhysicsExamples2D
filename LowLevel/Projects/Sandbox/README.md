@@ -16,6 +16,8 @@ Each sample can be found in `Assets/Scenes/<Category>/<SampleName>` and all shar
 
 In each sample there is at least a single ".cs" file containing all the sample code. There's also a ".unity" scene and finally a ".uxml" for the sample UI.
 
+Use the `Assets/Scenes/Custom` scene to create your own.
+
 ---
 
 The structure of the ".cs" script file is consistent for all samples and typically contains the following methods:
