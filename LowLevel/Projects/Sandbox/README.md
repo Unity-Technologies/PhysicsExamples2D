@@ -10,6 +10,8 @@ You MUST first enable "Development Build" in the build options for the debug ren
 
 To run, load the main "Sandbox" scene and press "Play". Alternately, build to a player and run.
 
+To change the sample that initially loads when you press "Play", select the "MainMenu" `GameObject` and in the `Sandbox Manager` script, select the sample from the "Statr Scene" drop-down.
+
 Each sample can be found in `Assets/Scenes/<Category>/<SampleName>` and all share the same configuration.
 
 In each sample there is at least a single ".cs" file containing all the sample code. There's also a ".unity" scene and finally a ".uxml" for the sample UI.
