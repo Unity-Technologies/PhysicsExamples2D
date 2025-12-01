@@ -27,7 +27,7 @@ public class ReuseDefinitions : MonoBehaviour
     /// There are several geometries available for Circle, Capsule, Polygon, Segment and Chain.
     /// Selecting the "Example" GameObject, you can edit this field in the inspector.
     /// </summary>
-    public CircleGeometry CircleGeometry = CircleGeometry.defaultGeometry;
+    public CircleGeometry MyCircleGeometry = CircleGeometry.defaultGeometry;
 
     private PhysicsWorld m_PhysicsWorld;
     
@@ -46,10 +46,10 @@ public class ReuseDefinitions : MonoBehaviour
             var body = m_PhysicsWorld.CreateBody(BodyDefinition);
 
             // Set the circle geometry.
-            CircleGeometry.radius = n * 0.2f + 0.2f;
+            MyCircleGeometry.radius = n * 0.2f + 0.2f;
             
             // Create the circle shape using our circle geometry and shape definition.
-            body.CreateShape(CircleGeometry, ShapeDefinition);
+            body.CreateShape(MyCircleGeometry, ShapeDefinition);
         }
     }
     

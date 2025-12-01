@@ -28,7 +28,7 @@ public class CreatePhysicsShape : MonoBehaviour
     /// There are several geometries available for Circle, Capsule, Polygon, Segment and Chain.
     /// Selecting the "Example" GameObject, you can edit this field in the inspector.
     /// </summary>
-    public CircleGeometry CircleGeometry = CircleGeometry.defaultGeometry;
+    public CircleGeometry MyCircleGeometry = CircleGeometry.defaultGeometry;
     
     private PhysicsBody m_PhysicsBody;
     
@@ -42,7 +42,7 @@ public class CreatePhysicsShape : MonoBehaviour
         
         // Create the circle shape using our circle geometry and shape definition.
         // NOTE: Shapes are always created against a body, they do not exist without one.
-        m_PhysicsBody.CreateShape(CircleGeometry, ShapeDefinition);
+        m_PhysicsBody.CreateShape(MyCircleGeometry, ShapeDefinition);
     }
     
     private void OnDisable()

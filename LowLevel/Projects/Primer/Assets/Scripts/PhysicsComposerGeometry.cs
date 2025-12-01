@@ -10,13 +10,13 @@ using UnityEngine.LowLevelPhysics2D;
 public class PhysicsComposerGeometry : MonoBehaviour
 {
     // A test Circle geometry.
-    public CircleGeometry CircleGeometry = CircleGeometry.defaultGeometry;
+    public CircleGeometry MyCircleGeometry = CircleGeometry.defaultGeometry;
     
     // How to transform the Circle geometry.
     public PhysicsTransform CircleTransform = PhysicsTransform.identity;
     
     // A test Capsule geometry.
-    public CapsuleGeometry CapsuleGeometry = CapsuleGeometry.defaultGeometry;
+    public CapsuleGeometry MyCapsuleGeometry = CapsuleGeometry.defaultGeometry;
     
     // How to transform the Capsule Geometry.
     public PhysicsTransform CapsuleTransform = Vector2.right * 0.75f;
@@ -51,8 +51,8 @@ public class PhysicsComposerGeometry : MonoBehaviour
         // Layers can be added in any order which is the implicit order they will be processed but there are arguments when adding a layer that allows you to specify the order.
         // Additional arguments are the operation to perform, the curve-stride to use when converting curves to edges and if to generate a reverse winding of the geometry for this layer.
         // The first layer to be processed (whether implicit or explicit) will always uses a "PhysicsComposer.Operation.OR" operation (even if something else is specified) as it has noting to operate with and forms the base geometry for further layers/operations. 
-        composer.AddLayer(CircleGeometry, CircleTransform);
-        composer.AddLayer(CapsuleGeometry, CapsuleTransform, ComposerOperation);
+        composer.AddLayer(MyCircleGeometry, CircleTransform);
+        composer.AddLayer(MyCapsuleGeometry, CapsuleTransform, ComposerOperation);
 
         // Generate polygon geometry from the composer layers.
         // We can scale the geometry and specify how the results are allocated, in this case using the TEMP allocator.
