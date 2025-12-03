@@ -226,9 +226,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     private void OnEnable()
     {
-        // We don't want this appearing all the time.
-        UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
-
         m_DrawFlagElements = new Dictionary<PhysicsWorld.DrawOptions, Toggle>(capacity: 8);
 
         // Overrides.
