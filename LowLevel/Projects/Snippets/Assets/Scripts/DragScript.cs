@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevelPhysics2D;
-using UnityEngine.U2D.Physics.LowLevelExtras;
+using Unity.U2D.Physics.Extras;
 
 public class DragScript : MonoBehaviour
 {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
-using UnityEngine.U2D.Physics.LowLevelExtras;
+using Unity.U2D.Physics.Extras;
 
 public class ContactFiltering : MonoBehaviour
 {

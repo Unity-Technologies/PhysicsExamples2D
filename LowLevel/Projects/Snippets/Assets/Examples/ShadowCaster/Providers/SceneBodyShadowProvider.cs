@@ -2,7 +2,7 @@
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.U2D.Physics.LowLevelExtras;
+using Unity.U2D.Physics.Extras;
 
 [Serializable]
 internal class SceneBodyShadowProvider : SceneShadowProviderBase

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
-using UnityEngine.U2D.Physics.LowLevelExtras;
+using Unity.U2D.Physics.Extras;
 
 [ExecuteAlways]
 public class GearComponent : MonoBehaviour, IWorldSceneTransformChanged

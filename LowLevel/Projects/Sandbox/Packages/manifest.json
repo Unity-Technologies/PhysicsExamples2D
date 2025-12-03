@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.unity.2d.physics.lowlevelextras": "file:../../../Packages/com.unity.2d.physics.lowlevelextras",
+    "com.unity.2d.physics.extras": "file:../../../Packages/com.unity.2d.physics.extras",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ide.rider": "3.0.38",
     "com.unity.ide.visualstudio": "2.0.25",

@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
-using UnityEngine.U2D.Physics.LowLevelExtras;
+using Unity.U2D.Physics.Extras;
 
 [ExecuteAlways]
-[DefaultExecutionOrder(PhysicsLowLevelExtrasExecutionOrder.SceneBody)]
+[DefaultExecutionOrder(ExecutionOrder.SceneBody)]
 public class GearComponent : MonoBehaviour
 {
     [Range(0.5f, 100f)] public float GearRadius = 3;
