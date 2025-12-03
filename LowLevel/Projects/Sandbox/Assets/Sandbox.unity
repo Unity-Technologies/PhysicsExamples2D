@@ -407,6 +407,14 @@ MonoBehaviour:
     Category: Shapes
     Description: Demonstrates the use of geometry slicing.
     ScenePath: Assets/Scenes/Shapes/Slicing/Slicing.unity
+  - Name: Geometry Islands
+    Category: Shapes
+    Description: Demonstrates the use of geometry islands when fragmenting.
+    ScenePath: Assets/Scenes/Shapes/GeometryIslands/GeometryIslands.unity
+  - Name: Sprite Destruction
+    Category: Shapes
+    Description: Demonstrates the use of Sprite fragmenting mapping.
+    ScenePath: Assets/Scenes/Shapes/SpriteDestruction/SpriteDestruction.unity    
   - Name: Bounce House
     Category: Collision
     Description: Checking the stability of very fast continuous collision.

@@ -132,6 +132,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Shapes/Fragmenting/Fragmenting.unity
     guid: fdb61be3e49ccf14f8fea6dd4f5e0bb4
   - enabled: 1
+    path: Assets/Scenes/Shapes/GeometryIslands/GeometryIslands.unity
+    guid: f5599ea474cb259408d63e5c73ab27d2
+  - enabled: 1
+    path: Assets/Scenes/Shapes/SpriteDestruction/SpriteDestruction.unity
+    guid: 8df3c2dc33c548644a3353203018961b    
+  - enabled: 1
     path: Assets/Scenes/Shapes/Friction/Friction.unity
     guid: 9f24719bc9196724190879eaa79f9690
   - enabled: 1
