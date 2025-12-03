@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c21c59e5c5637bb44b5803bbc03de5c4
+guid: 8649efc89b6f5e44892c716abbf39f53
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4783949749287152457
-    second: checker-light_0
+      213: 8358523152628592694
+    second: checker-dark_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,7 +152,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: checker-light_0
+      name: checker-dark_0
       rect:
         serializedVersion: 2
         x: 0
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b49b6aac0ffb9db0800000000000000
-      internalID: -4783949749287152457
+      spriteID: 6303e4f95807ff370800000000000000
+      internalID: 8358523152628592694
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      checker-light_0: -4783949749287152457
+      checker-dark_0: 8358523152628592694
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

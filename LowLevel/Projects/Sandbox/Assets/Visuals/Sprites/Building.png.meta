@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c21c59e5c5637bb44b5803bbc03de5c4
+guid: 771415e9d89c06e45a1d93d2df8082e8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4783949749287152457
-    second: checker-light_0
+      213: -1370150288747598966
+    second: Building_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,17 +46,17 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.5
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -152,33 +152,68 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: checker-light_0
+      name: Building_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 64
+        x: 198
+        y: 23
+        width: 628
+        height: 927
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b49b6aac0ffb9db0800000000000000
-      internalID: -4783949749287152457
+      spriteID: a8bec4e529f3cfce0800000000000000
+      internalID: -1370150288747598966
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
     customData: 
-    physicsShape: []
+    physicsShape:
+    - - {x: 302, y: -485}
+      - {x: 304, y: -482}
+      - {x: 304, y: -430}
+      - {x: 294, y: -427}
+      - {x: 293, y: -195}
+      - {x: 302, y: -193}
+      - {x: 305, y: -190}
+      - {x: 304, y: -159}
+      - {x: 301, y: -158}
+      - {x: 293, y: -156}
+      - {x: 293, y: 378}
+      - {x: 297, y: 379}
+      - {x: 302, y: 384}
+      - {x: 301, y: 397}
+      - {x: 312, y: 398}
+      - {x: 312, y: 433}
+      - {x: 310, y: 435}
+      - {x: -310, y: 435}
+      - {x: -312, y: 433}
+      - {x: -312, y: 399}
+      - {x: -303, y: 396}
+      - {x: -303, y: 382}
+      - {x: -295, y: 377}
+      - {x: -294, y: -156}
+      - {x: -302, y: -157}
+      - {x: -307, y: -164}
+      - {x: -305, y: -194}
+      - {x: -295, y: -195}
+      - {x: -294, y: -428}
+      - {x: -303, y: -430}
+      - {x: -305, y: -433}
+      - {x: -305, y: -483}
+      - {x: -303, y: -485}
+      - {x: -295, y: -486}
+      - {x: 298, y: -486}
     bones: []
-    spriteID: 
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -187,7 +222,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      checker-light_0: -4783949749287152457
+      Building_0: -1370150288747598966
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
