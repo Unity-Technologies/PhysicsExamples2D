@@ -427,7 +427,7 @@ MonoBehaviour:
     Category: Collision
     Description: 'Checking cross-platform determinism using a complex joint set-up.
       <b><color=#FF0000>NOTE: Cross-platform determinism is not supported yet!</color></b>'
-    ScenePath: Assets/Scenes/Collision/Determinism/Determinism.unity    
+    ScenePath: Assets/Scenes/Collision/Determinism/Determinism.unity
   - Name: Ball and Chain
     Category: Joints
     Description: Demonstrating a chain of joints.
@@ -482,7 +482,11 @@ MonoBehaviour:
   - Name: Wheel Joint
     Category: Joints
     Description: Demonstrating the features of the Wheel Joint.
-    ScenePath: Assets/Scenes/Joints/WheelJoint/WheelJoint.unity    
+    ScenePath: Assets/Scenes/Joints/WheelJoint/WheelJoint.unity
+  - Name: Custom
+    Category: Custom
+    Description: An empty scene for to you experiment with!
+    ScenePath: Assets/Scenes/Custom/Custom.unity
 --- !u!114 &633824032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,7 +503,6 @@ MonoBehaviour:
   DebugView: {fileID: 1603435387}
   ShortcutsView: {fileID: 465066520}
   ControlsMenu: {fileID: 931634909}
-  UpdatePeriodFPS: 0.1
 --- !u!1 &931634905
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,6 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c543dcb12519f44b0620a75f540b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebuggingMenu
+  UpdatePeriodFPS: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
