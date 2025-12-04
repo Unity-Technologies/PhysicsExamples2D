@@ -87,7 +87,6 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
             m_LeftButton.Set("Left");
             m_RightButton.Set("Right");
             m_FireButton.Set("Fire");
-            m_FireButton.button.clickable.clicked += FirePressed;
         }
         
         // Set up the scene reset action.
@@ -133,9 +132,6 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
         // Reset the draw fill options.
         world.drawFillOptions = m_OldDrawFillOptions;
         
-        // Unregister.
-        m_FireButton.button.clickable.clicked -= FirePressed;
-
         // Dispose.
         if (m_FragmentGeometryMask.IsCreated)
             m_FragmentGeometryMask.Dispose();
@@ -222,7 +218,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
             var currentKeyboard = Keyboard.current;
             var leftPressed = m_LeftButton.isPressed || currentKeyboard.leftArrowKey.isPressed;
             var rightPressed = m_RightButton.isPressed || currentKeyboard.rightArrowKey.isPressed;
-            var firePressed = currentKeyboard.spaceKey.isPressed;
+            var firePressed = m_FireButton.isPressed || currentKeyboard.spaceKey.isPressed;
 
             // Movement.
             {
