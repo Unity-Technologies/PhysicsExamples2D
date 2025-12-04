@@ -274,13 +274,16 @@ To see the low-level physics system in action, check out the extended [PhysicsEx
 
 - The [Sandbox](https://github.com/Unity-Technologies/PhysicsExamples2D/tree/master/LowLevel/Projects/Sandbox) Project
 - The [Primer](https://github.com/Unity-Technologies/PhysicsExamples2D/tree/master/LowLevel/Projects/Primer) Project
-- The [Example](https://github.com/Unity-Technologies/PhysicsExamples2D/tree/master/LowLevel/Packages/com.unity.2d.physics.lowlevelextras) Package with component implementations that encapsulate the primary physics types:
-  - `PhysicsWorld` as `SceneWorld` component (can represent the [PhysicsWorld.defaultWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-defaultWorld.html) or a `PhysicsWorld` instance.)
+- The [Example](https://github.com/Unity-Technologies/PhysicsExamples2D/tree/master/LowLevel/Packages/com.unity.2d.physics.extras) Package with component implementations that encapsulate the primary physics types:
   - `PhysicsBody` as `SceneBody` component.
   - `PhysicsShape` as `SceneShape` component.
   - `PhysicsChain` as `SceneChain` component.
   - Multiple components, each representing a specific`PhysicsJoint` (see [PhysicsJoint.jointType](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsJoint.JointType.html)).
   - Multiple components, each representing variations of producing `PhysicsShape` from concave/convex outlines and as [Sprite](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Sprite.html).
-  - Shape editing tooling in the Scene view.
+  - Shape editing tooling in the Scene view:
+    - ![](./Images/Examples/SceneShapeType-Tooling.png)
+  - `PhysicsWorld` as `SceneWorld` component (can represent the [PhysicsWorld.defaultWorld](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsWorld-defaultWorld.html) or a `PhysicsWorld` instance.)
+    - `Monitors world profile and counters info:
+    -  ![](./Images/Examples/SceneWorld-Info.png)
 
   
