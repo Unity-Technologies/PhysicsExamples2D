@@ -94,7 +94,7 @@ public class Capacity : MonoBehaviour
 
         m_ShapeType = ShapeType.Circle;
         m_SimulationLimit = 20;
-        m_RenderingOn = false;        
+        m_RenderingOn = true;        
         
         // Set Overrides.
         if (!m_RenderingOn)
