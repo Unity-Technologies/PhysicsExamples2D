@@ -18,6 +18,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
     private CameraManipulator m_CameraManipulator;
     private Camera m_Camera;
     
+    private Vector2 m_OldGravity;
     private bool m_OldAutoContactCallbacks;
     private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;
     
@@ -42,7 +43,10 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
     private float m_FragmentRadius;
     private bool m_FragmentCreate;
     private int m_FragmentCount;
-    private bool m_FragmentExplode;
+    private float m_FragmentFriction;
+    private float m_FragmentBounciness;
+    private float m_FragmentForce;
+    private float m_GravityScale;
 
     private void OnEnable()
     {
@@ -60,10 +64,13 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         // Get the default world.        
         var world = PhysicsWorld.defaultWorld;
         
+        // Store old gravity.
+        m_OldGravity = world.gravity;
+
         // Turn-on auto contact callbacks.
         m_OldAutoContactCallbacks = world.autoContactCallbacks;
         world.autoContactCallbacks = true;
-
+        
         // Turn on interior drawing only.
         m_OldDrawFillOptions = world.drawFillOptions;
         world.drawFillOptions = PhysicsWorld.DrawFillOptions.Interior;
@@ -74,22 +81,24 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         // Set Overrides.
         m_SandboxManager.SetOverrideColorShapeState(false);
 
+        m_FragmentRadius = 2f;
+        m_FragmentCreate = true;
+        m_FragmentCount = 20;
+        m_FragmentFriction = 0.5f;
+        m_FragmentBounciness = 0f;
+        m_FragmentForce = 10f;
+        m_GravityScale = 5f;
+        
         // Create the sprite batch.
         m_SpriteDestructionBatch = new SpriteDestructionBatch();
         m_SpriteDestructionBatch.Create(SpriteMaterial);
 
         m_DestructibleColor = new Color(0.1f, 0f, 0f, 0f);
         m_DestructibleContactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_GroundMask | m_DebrisMask | m_DestructibleMask };
-        m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.25f, bounciness = 0.0f, tangentSpeed = 0f, customColor = m_DestructibleColor };
         
         m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) };
         m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 7.25f);
         
-        m_FragmentRadius = 1.5f;
-        m_FragmentCreate = true;
-        m_FragmentCount = 20;
-        m_FragmentExplode = true;
-
         // Vertex attributes.
         m_VertexAttributes = new NativeArray<VertexAttributeDescriptor>(3, Allocator.Persistent);
         m_VertexAttributes[0] = new VertexAttributeDescriptor(VertexAttribute.Position, VertexAttributeFormat.Float32, 3);
@@ -123,6 +132,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         // Reset the callbacks.
         world.autoContactCallbacks = m_OldAutoContactCallbacks;
         
+        // Reset the old gravity.
+        world.gravity = m_OldGravity;
+        
         // Reset the draw fill options.
         world.drawFillOptions = m_OldDrawFillOptions;
         
@@ -135,6 +147,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
     {
         var root = m_UIDocument.rootVisualElement;
 
+        // Get the default world.
+        var world = PhysicsWorld.defaultWorld;
+        
         {
             // Menu Region (for camera manipulator).
             var menuRegion = root.Q<VisualElement>("menu-region");
@@ -160,10 +175,29 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             fragmentCount.value = m_FragmentCount;
             fragmentCount.RegisterValueChangedCallback(evt => { m_FragmentCount = evt.newValue; });
             
-            // Fragment Explode.
-            var fragmentExplode = root.Q<Toggle>("fragment-explode");
-            fragmentExplode.value = m_FragmentExplode;
-            fragmentExplode.RegisterValueChangedCallback(evt => m_FragmentExplode = evt.newValue);
+            // Fragment Friction.
+            var fragmentFriction = root.Q<Slider>("fragment-friction");
+            fragmentFriction.value = m_FragmentFriction;
+            fragmentFriction.RegisterValueChangedCallback(evt => { m_FragmentFriction = evt.newValue; });
+            
+            // Fragment Bounciness.
+            var fragmentBounciness = root.Q<Slider>("fragment-bounciness");
+            fragmentBounciness.value = m_FragmentBounciness;
+            fragmentBounciness.RegisterValueChangedCallback(evt => { m_FragmentBounciness = evt.newValue; });
+            
+            // Fragment Force.
+            var fragmentForce = root.Q<Slider>("fragment-force");
+            fragmentForce.value = m_FragmentForce;
+            fragmentForce.RegisterValueChangedCallback(evt => { m_FragmentForce = evt.newValue; });
+            
+            // Gravity Scale.
+            var gravityScale = root.Q<Slider>("gravity-scale");
+            gravityScale.value = m_GravityScale;
+            gravityScale.RegisterValueChangedCallback(evt =>
+            {
+                m_GravityScale = evt.newValue;
+                world.gravity = m_OldGravity * m_GravityScale;
+            });
             
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
@@ -189,7 +223,10 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             {
                 contactFilter = new PhysicsShape.ContactFilter { categories = m_GroundMask, contacts = m_DebrisMask | m_DestructibleMask },
             };
-            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(400f, 10f), radius: 0f, new PhysicsTransform(Vector2.down * 50f)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(110f, 10f), radius: 0f, new PhysicsTransform(Vector2.up * 50f)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(110f, 10f), radius: 0f, new PhysicsTransform(Vector2.down * 50f)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(10f, 100f), radius: 0f, new PhysicsTransform(Vector2.left * 50f)), shapeDef);
+            groundBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(10f, 100f), radius: 0f, new PhysicsTransform(Vector2.right * 50f)), shapeDef);
         }
         
         // Create the initial sprites.
@@ -276,6 +313,9 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
             // Destroy the draw item.
             m_SpriteDestructionBatch.DestroySpriteDrawItem(destructibleBody);
+
+            // Set-up destructible surface material.
+            m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_FragmentFriction, bounciness = m_FragmentBounciness, tangentSpeed = 0f, customColor = m_DestructibleColor };
             
             // Fetch the fragment transform.
             var fragmentTransform = fragmentResults.transform;
@@ -295,7 +335,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
                 position = fragmentTransform.position,
                 rotation = fragmentTransform.rotation,
                 linearVelocity = destructibleBodyLinearVelocity,
-                gravityScale = 4f
+                gravityScale = 1.0f
             };
 
             // Create the remaining destructible geometry from the "unbroken" geometry (if we have any).
@@ -392,15 +432,15 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
             }
         }
 
-        // Explode the debris.
-        if (m_FragmentExplode && m_FragmentCreate)
+        // Explode the fragments.
+        if (m_FragmentCreate && m_FragmentForce > 0f)
         {
             world.Explode(new PhysicsWorld.ExplosionDefinition
             {
-                position = hitPosition + Vector2.up * m_FragmentRadius,
+                position = hitPosition,
                 hitCategories = m_DebrisMask,
-                impulsePerLength = 10f,
-                radius = m_FragmentRadius * 2.5f
+                impulsePerLength = m_FragmentForce,
+                radius = m_FragmentRadius * 2f
             });
         }
     }
@@ -418,7 +458,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
         for (var angle = 0f; angle < PhysicsMath.TAU; angle += stride)
         {
             PhysicsMath.CosSin(angle, out var cosine, out var sine);
-            var radius = random.NextFloat(m_FragmentRadius * 0.75f, m_FragmentRadius * 1.5f);
+            var radius = random.NextFloat(m_FragmentRadius * 0.9f, m_FragmentRadius * 1.1f);
             vertices.Add(new Vector2(cosine * radius, sine * radius));
         }
 
@@ -516,13 +556,7 @@ public class SpriteDestruction : MonoBehaviour, PhysicsCallbacks.IContactCallbac
 
         // This needs to be calculated!
         var textureOffset = new Vector2(0.5f, 0.5f);
-
-#if false        
-        var spriteTextureSize = new Vector2(Sprite.texture.width, Sprite.texture.height);
-        var spriteTextureRect = Sprite.textureRect;
-        var spritePivot = Sprite.pivot;
-        Debug.Log($"Extents: {spriteExtents}, Rect: {spriteTextureRect}, Pivot: {spritePivot}");
-#endif        
+        
         // Create the vertices and indices data.
         var initialCapacity = polygons.Length * PhysicsConstants.MaxPolygonVertices * 3;
         var vertices = new NativeList<SpriteDestructionBatch.BatchVertex>(initialCapacity, Allocator.Temp);

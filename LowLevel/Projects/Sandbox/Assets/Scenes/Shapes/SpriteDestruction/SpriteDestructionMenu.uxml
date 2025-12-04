@@ -7,7 +7,10 @@
                     <ui:Slider label="Fragment  Radius" high-value="3" name="fragment-radius" fill="true" show-input-field="true" focusable="false" value="1" low-value="0.5"/>
                     <ui:Toggle label="Create Fragments" name="fragment-create" focusable="false" value="false"/>
                     <ui:SliderInt label="Fragment Count" value="0" high-value="50" name="fragment-count" focusable="false" show-input-field="true" low-value="1"/>
-                    <ui:Toggle label="Fragment Explode" name="fragment-explode" focusable="false" value="false"/>
+                    <ui:Slider label="Fragment  Friction" high-value="1" name="fragment-friction" fill="true" show-input-field="true" focusable="false" value="1" low-value="0"/>
+                    <ui:Slider label="Fragment  Bounciness" high-value="0.75" name="fragment-bounciness" fill="true" show-input-field="true" focusable="false" value="1" low-value="0"/>
+                    <ui:Slider label="Fragment  Force" high-value="50" name="fragment-force" fill="true" show-input-field="true" focusable="false" value="1" low-value="0"/>
+                    <ui:Slider label="Gravity Scale" high-value="10" name="gravity-scale" fill="true" show-input-field="true" focusable="false" value="1" low-value="0.1"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">
