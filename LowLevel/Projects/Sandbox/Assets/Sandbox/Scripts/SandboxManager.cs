@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Collections;
 using Unity.Jobs.LowLevel.Unsafe;
 using Unity.Mathematics;
@@ -118,7 +117,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private CameraManipulator m_CameraManipulator;
     private SceneManifest m_SceneManifest;
     private UIDocument m_MainMenuDocument;
-    private TreeView m_ScenesView;
+    private DropdownField m_SceneCategories;
+    private DropdownField m_Scenes;
     private VisualElement m_CountersElement;
     private MenuDefaults m_MenuDefaults;
     private bool m_DisableUIRestarts;
@@ -157,12 +157,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     private readonly List<TreeViewItemData<string>> m_ViewItems = new();
     private Random m_Random;
+    private bool m_IgnoreAutoSceneSelection;
 
     private void Start()
     {
 #if UNITY_EDITOR
         if (!SystemInfo.supportsComputeShaders)
-            EditorUtility.DisplayDialog("Computer Shader Support Missing", "LowLevel 2D Physics requires compute shader support for its debug renderer. Without this, you will not see physics debug rendering although physics itself will be unaffected.", "OK");
+            EditorUtility.DisplayDialog("Compute Shader Support Missing", "2D Physics requires compute shader support for its debug renderer. Without this, you will not see physics debug rendering although physics itself will be unaffected.", "OK");
 #endif
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_SceneManifest = GetComponent<SceneManifest>();
@@ -220,8 +221,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             DrawOptions = defaultWorld.drawOptions
         };
 
-        SetupSceneTree();
+        // We must set up the options prior to the scene selection controls as we trigger them during selection.
         SetupOptions();
+        SetupSceneSelectionControls();
     }
 
     private void OnEnable()
@@ -584,73 +586,55 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         return drawFlagElement;
     }
 
-    private void SetupSceneTree()
+    private void SetupSceneSelectionControls()
     {
         var root = m_MainMenuDocument.rootVisualElement;
 
-        // Fetch the tree.
-        m_ScenesView = root.Q<TreeView>("scenes");
+        // Fetch the controls.
+        m_SceneCategories = root.Q<DropdownField>("scene-categories");
+        m_Scenes = root.Q<DropdownField>("scenes");
 
-        // Populate categorised scenes.
-        var listId = 1;
-        foreach (var category in m_SceneManifest.GetCategories())
-        {
-            var sceneList = new List<TreeViewItemData<string>>();
-            foreach (var sceneName in m_SceneManifest.GetScenes(category))
-                sceneList.Add(new TreeViewItemData<string>(listId++, sceneName));
-
-            m_ViewItems.Add(new TreeViewItemData<string>(-listId++, category, sceneList));
-        }
-
-        // Set-up tree.
-        m_ScenesView.SetRootItems(m_ViewItems);
-        m_ScenesView.makeItem = () => new Label();
-        m_ScenesView.bindItem = (e, i) => { ((Label)e).text = m_ScenesView.GetItemDataForIndex<string>(i); };
-        m_ScenesView.itemsChosen += _ => TreeSelection();
-        m_ScenesView.selectionChanged += _ => TreeSelectionChanged();
-        m_ScenesView.itemExpandedChanged += TreeExpandedChanged;
-        m_ScenesView.Rebuild();
-
-        // Load the start scene if specified.
+        // Add categories.
+        m_SceneCategories.choices.AddRange(m_SceneManifest.GetCategories());
+        
+        // Register a category change.
+        m_SceneCategories.RegisterValueChangedCallback(evt => SceneCategoryChanged(evt.newValue));
+        
+        // Do we have a start scene?
         if (StartScene != string.Empty)
         {
-            DebugView.ResetStats();
-            m_SceneManifest.LoadScene(StartScene, ResetSceneState);
+            // Yes, so select it.
+            m_IgnoreAutoSceneSelection = true;
+            m_SceneCategories.value = m_SceneManifest.GetSceneItem(StartScene).Category;
+            m_IgnoreAutoSceneSelection = false;
+            m_Scenes.value = StartScene;
         }
-    }
-
-    private void TreeSelection()
-    {
-        foreach (var selectedId in m_ScenesView.selectedIds)
+        else
         {
-            if (m_ScenesView.IsExpanded(selectedId))
-                m_ScenesView.CollapseItem(selectedId);
-            else
-                m_ScenesView.ExpandItem(selectedId);
+            // No, so simply select the first category.
+            m_SceneCategories.index = 0;
         }
     }
 
-    private void TreeExpandedChanged(TreeViewExpansionChangedArgs arg)
+    private void SceneCategoryChanged(string categoryName)
     {
-        // Ignore if not expanding.
-        if (!arg.isExpanded)
-            return;
-
-        // Collapse all other expanded items.
-        foreach (var rootId in m_ScenesView.GetRootIds())
-        {
-            if (arg.id != rootId && m_ScenesView.IsExpanded(rootId))
-                m_ScenesView.CollapseItem(rootId);
-        }
+        m_Scenes.UnregisterValueChangedCallback(evt => SceneChanged(evt.newValue));
+        
+        // Add the category scenes.
+        m_Scenes.choices.Clear();
+        m_Scenes.index = -1;
+        m_Scenes.choices.AddRange(m_SceneManifest.GetScenes(categoryName));
+        
+        // Register a scene change.
+        m_Scenes.RegisterValueChangedCallback(evt => SceneChanged(evt.newValue));
+        
+        // Select the first scene (if not ignored).
+        if (!m_IgnoreAutoSceneSelection)
+            m_Scenes.index = 0;
     }
 
-    private void TreeSelectionChanged()
+    private void SceneChanged(string sceneName)
     {
-        if (!m_ScenesView.selectedIds.Any(selectedId => selectedId > 0))
-            return;
-
-        var sceneName = (string)m_ScenesView.selectedItem;
-
         // Ignore if invalid scene or the same as the currently loaded one.
         if (string.IsNullOrEmpty(sceneName) ||
             sceneName == m_SceneManifest.LoadedSceneName)

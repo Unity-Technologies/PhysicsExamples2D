@@ -1,10 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Sandbox/UI/Styling/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides"/>
-    <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-start; padding-left: 8px; padding-top: 8px;">
-        <ui:VisualElement name="menu-region" style="width: auto; height: auto; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: auto;">
-            <ui:TabView tabindex="0" name="selected-tab" style="width: 100%; height: 100%;">
+    <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="align-items: flex-start; padding-left: 8px; padding-top: 8px;">
+        <ui:VisualElement name="menu-region" style="margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: flex-start;">
+            <ui:TabView tabindex="0" name="selected-tab">
                 <ui:Tab label="Scenes" tabindex="0" name="Tab" style="border-top-right-radius: 0;">
-                    <ui:TreeView name="scenes" virtualization-method="DynamicHeight" focusable="false"/>
+                    <ui:DropdownField label="Categories" name="scene-categories" picking-mode="Position" focusable="false"/>
+                    <ui:DropdownField label="Scenes" name="scenes" picking-mode="Position" focusable="false"/>
                 </ui:Tab>
                 <ui:Tab label="World" name="Tab" tabindex="1" style="border-top-right-radius: 0;">
                     <ui:VisualElement name="world">

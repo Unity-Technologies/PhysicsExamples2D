@@ -64,7 +64,7 @@ TabView, .unity-tab-view__content-container, Tab, .unity-tab__content-container 
 
 .unity-tab__header-label {
     flex-grow: 1;
-    min-width: 10px;
+    min-width: 40px;
     align-self: stretch;
 }
 
