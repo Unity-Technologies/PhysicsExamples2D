@@ -74,6 +74,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private ControlsMenu.CustomButton m_PausePlayButton;
     private ControlsMenu.CustomButton m_SingleStepButton;
     private ControlsMenu.CustomButton m_ResetButton;
+    private ControlsMenu.CustomButton m_ColorsButton;
     private ControlsMenu.CustomButton m_DebugButton;
     private ControlsMenu.CustomButton m_UIButton;
     private ControlsMenu.CustomButton m_QuitButton;
@@ -179,6 +180,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_PausePlayButton = ControlsMenu.pausePlayButton;
         m_SingleStepButton = ControlsMenu.singleStepButton;
         m_ResetButton = ControlsMenu.resetButton;
+        m_ColorsButton = ControlsMenu.colorsButton;
         m_DebugButton = ControlsMenu.debugButton;
         m_UIButton = ControlsMenu.uiButton;
         m_QuitButton = ControlsMenu.quitButton;
@@ -186,6 +188,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_PausePlayButton.button.clickable.clicked += TogglePausePlay;
         m_SingleStepButton.button.clickable.clicked += SingleStep;
         m_ResetButton.button.clickable.clicked += ResetScene;
+        m_ColorsButton.button.clickable.clicked += ToggleColorShapeState;
         m_DebugButton.button.clickable.clicked += ToggleDebugView;
         m_UIButton.button.clickable.clicked += ToggleUI;
 
@@ -193,6 +196,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_SingleStepButton.button.enabledSelf = WorldPaused;
         m_SingleStepButton.button.text = $"Single-Step [{SandboxUtility.HighlightColor}S{SandboxUtility.EndHighlightColor}]";
         m_ResetButton.button.text = $"Reset [{SandboxUtility.HighlightColor}R{SandboxUtility.EndHighlightColor}]";
+        m_ColorsButton.button.text = $"Colors [{SandboxUtility.HighlightColor}C{SandboxUtility.EndHighlightColor}]";
         m_DebugButton.button.text = $"Debug UI [{SandboxUtility.HighlightColor}D{SandboxUtility.EndHighlightColor}]";
         m_UIButton.button.text = $"All UI [{SandboxUtility.HighlightColor}Tab{SandboxUtility.EndHighlightColor}]";
         m_QuitButton.button.text = $"Quit [{SandboxUtility.HighlightColor}Esc{SandboxUtility.EndHighlightColor}]";
@@ -287,8 +291,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             // Toggle Color PhysicsShape State.
             if (currentKeyboard.cKey.wasPressedThisFrame)
             {
-                if (!m_OverrideColorShapeState)
-                    m_ColorShapeStateElement.value = !m_ColorShapeStateElement.value;
+                ToggleColorShapeState();
+                return;
             }
 
             // Touch State.
@@ -320,6 +324,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private void ToggleDebugView()
     {
         m_ShowDebugElement.value = !m_ShowDebugElement.value;
+    }
+
+    private void ToggleColorShapeState()
+    {
+        if (!m_OverrideColorShapeState)
+            m_ColorShapeStateElement.value = !m_ColorShapeStateElement.value;
     }
 
     public void ResetSceneState()
