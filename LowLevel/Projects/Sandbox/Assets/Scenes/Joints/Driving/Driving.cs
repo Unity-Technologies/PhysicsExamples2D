@@ -57,8 +57,8 @@ public class Driving : MonoBehaviour
 
         m_SpringFrequency = 5f;
         m_SpringDamping = 0.7f;
-        m_MotorSpeed = 35f;
-        m_MaxMotorTorque = 5f;
+        m_MotorSpeed = 2000f;
+        m_MaxMotorTorque = 10f;
         m_Throttle = 0.0f;
 
         SetupOptions();
