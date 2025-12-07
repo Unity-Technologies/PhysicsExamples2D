@@ -33,5 +33,5 @@ The "Scripts" folder typically contains utility scripts only used by various sce
 
 ---
 
-![](Images\Sandbox.png)
+![Sandbox](./Images/Sandbox.png)
 
