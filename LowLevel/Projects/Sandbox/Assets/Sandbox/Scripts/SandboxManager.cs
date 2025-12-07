@@ -201,6 +201,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_UIButton.button.text = $"All UI [{SandboxUtility.HighlightColor}Tab{SandboxUtility.EndHighlightColor}]";
         m_QuitButton.button.text = $"Quit [{SandboxUtility.HighlightColor}Esc{SandboxUtility.EndHighlightColor}]";
 
+        // Hide the Quit button on the Web platform.
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+            m_QuitButton.button.style.display = DisplayStyle.None;
+        
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
         {
@@ -246,7 +250,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             var currentKeyboard = Keyboard.current;
 
             // Quit.
-            if (m_QuitButton.isPressed || currentKeyboard.escapeKey.wasPressedThisFrame)
+            // NOTE: We don't want to do this on the Web platform.
+            if (Application.platform != RuntimePlatform.WebGLPlayer && (m_QuitButton.isPressed || currentKeyboard.escapeKey.wasPressedThisFrame))
             {
 #if UNITY_EDITOR
                 EditorApplication.isPlaying = false;
