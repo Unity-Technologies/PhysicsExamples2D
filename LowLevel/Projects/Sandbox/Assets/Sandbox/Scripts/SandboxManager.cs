@@ -217,7 +217,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             InputDrag = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag),
             ExplodeImpulse = 30f,
             CameraZoom = 1f,
-            ColorShapeState = true,
+            ColorShapeState = false,
             DrawThickness = defaultWorld.drawThickness,
             DrawPointScale = defaultWorld.drawPointScale,
             DrawNormalScale = defaultWorld.drawNormalScale,
