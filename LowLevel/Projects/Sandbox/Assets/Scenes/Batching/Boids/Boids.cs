@@ -371,7 +371,7 @@ public class Boids : MonoBehaviour
             SeparationStrength = m_SeparationStrength,
             CohesionStrength = m_CohesionStrength,
             AlignmentStrength = m_AlignmentStrength,
-            PointerPosition = m_CameraManipulator.MousePosition,
+            PointerPosition = m_CameraManipulator.ManipulatorActionPosition,
             PointerAvoidRadiusSqr = m_BoidBounds.radius * 0.2f * m_BoidBounds.radius * 0.2f,
             BoidStates = m_BoidStates,
             BatchTransforms = batchTransforms,

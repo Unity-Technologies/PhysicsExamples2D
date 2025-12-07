@@ -14,7 +14,7 @@ public class CameraManipulator : MonoBehaviour
 
     public Camera Camera { get; private set; }
 
-    public Vector2 MousePosition => Camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+    public Vector2 ManipulatorActionPosition => Camera.ScreenToWorldPoint(m_Position.ReadValue<Vector2>());
 
     public Vector2 CameraPosition
     {
@@ -88,11 +88,14 @@ public class CameraManipulator : MonoBehaviour
     private float m_CameraZoom;
     private InputMode m_TouchMode;
     private ManipulatorState m_ManipulatorState = ManipulatorState.None;
-    private Vector3 m_WorldLastPosition;
+    private Vector2 m_LastActionPosition;
     private PhysicsRelativeJoint m_DragJoint;
     private PhysicsBody m_DragGroundBody;
     private int m_OverlapUI;
 
+    private InputAction m_Click;
+    private InputAction m_Position;
+    
     private void Awake()
     {
         m_SandboxManager = FindFirstObjectByType<SandboxManager>();
@@ -101,6 +104,9 @@ public class CameraManipulator : MonoBehaviour
         m_TouchMode = InputMode.Drag;
         CameraZoom = 1f;
         CameraSize = 6f;
+
+        m_Click = InputSystem.actions.FindAction("Click");
+        m_Position = InputSystem.actions.FindAction("Point");
     }
 
     private void Update()
@@ -112,26 +118,25 @@ public class CameraManipulator : MonoBehaviour
             return;
         }
 
-        // Fetch input devices.
+        // Fetch input.
+        var actionWasPressedThisFrame = m_Click.WasPressedThisFrame();
+        var actionWasReleasedThisFrame = m_Click.WasReleasedThisFrame();
+        var actionPosition = (Vector2)Camera.ScreenToWorldPoint(m_Position.ReadValue<Vector2>());        
         var currentKeyboard = Keyboard.current;
-        var currentMouse = Mouse.current;
 
         // Handle the manipulator mode.
         switch (m_ManipulatorState)
         {
             case ManipulatorState.None:
             {
-                // Yes, so fetch the world mouse position.
-                var worldPosition = Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
-
                 // Was the left button pressed?
-                if (!DisableManipulators && currentMouse.leftButton.wasPressedThisFrame)
+                if (!DisableManipulators && actionWasPressedThisFrame)
                 {
                     // Camera-Pan if we're currently pressing the left-ctrl.
                     if (currentKeyboard.leftCtrlKey.isPressed)
                     {
                         m_ManipulatorState = ManipulatorState.CameraPan;
-                        m_WorldLastPosition = worldPosition;
+                        m_LastActionPosition = actionPosition;
                         return;
                     }
 
@@ -141,7 +146,7 @@ public class CameraManipulator : MonoBehaviour
                         case InputMode.Drag:
                         {
                             var defaultWorld = PhysicsWorld.defaultWorld;
-                            using var hits = defaultWorld.OverlapPoint(worldPosition, PhysicsQuery.QueryFilter.Everything);
+                            using var hits = defaultWorld.OverlapPoint(actionPosition, PhysicsQuery.QueryFilter.Everything);
                             foreach (var hit in hits)
                             {
                                 var hitBody = hit.shape.body;
@@ -153,8 +158,8 @@ public class CameraManipulator : MonoBehaviour
                                 {
                                     bodyA = m_DragGroundBody,
                                     bodyB = hitBody,
-                                    localAnchorA = new PhysicsTransform(worldPosition),
-                                    localAnchorB = hitBody.GetLocalPoint(worldPosition),
+                                    localAnchorA = new PhysicsTransform(actionPosition),
+                                    localAnchorB = hitBody.GetLocalPoint(actionPosition),
                                     springLinearFrequency = 15f,
                                     springLinearDamping = 0.7f,
                                     springMaxForce = 1000f * hitBody.mass * defaultWorld.gravity.magnitude
@@ -174,8 +179,8 @@ public class CameraManipulator : MonoBehaviour
                         case InputMode.Explode:
                         {
                             const float radius = 10f;
-                            PhysicsWorld.defaultWorld.DrawCircle(worldPosition, radius, Color.orangeRed, 0.02f);
-                            var explodeDef = new PhysicsWorld.ExplosionDefinition { position = worldPosition, radius = radius, falloff = 2f, impulsePerLength = ExplodeImpulse };
+                            PhysicsWorld.defaultWorld.DrawCircle(actionPosition, radius, Color.orangeRed, 0.02f);
+                            var explodeDef = new PhysicsWorld.ExplosionDefinition { position = actionPosition, radius = radius, falloff = 2f, impulsePerLength = ExplodeImpulse };
 
                             // Explode in all the worlds.
                             using var worlds = PhysicsWorld.GetWorlds();
@@ -190,12 +195,17 @@ public class CameraManipulator : MonoBehaviour
                     }
                 }
 
-                var scrollDelta = currentMouse.scroll.y.ReadValue() * 0.1f;
-                if (math.abs(scrollDelta) > 0f)
+                // Zooming is based upon the mouse-wheel only.
                 {
-                    m_SandboxManager.CameraZoom += scrollDelta;
-                    var newWorldPosition = Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
-                    Camera.transform.position -= newWorldPosition - worldPosition;
+                    var currentMouse = Mouse.current;
+                    var scrollDelta = currentMouse.scroll.y.ReadValue() * 0.1f;
+                    if (math.abs(scrollDelta) > 0f)
+                    {
+                        m_SandboxManager.CameraZoom += scrollDelta;
+                        
+                        var newWorldPosition = (Vector2)Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
+                        Camera.transform.position -= (Vector3)(newWorldPosition - actionPosition);
+                    }
                 }
 
                 return;
@@ -203,26 +213,25 @@ public class CameraManipulator : MonoBehaviour
 
             case ManipulatorState.CameraPan:
             {
-                if (currentMouse.leftButton.wasReleasedThisFrame)
+                if (actionWasPressedThisFrame)
                 {
                     m_ManipulatorState = ManipulatorState.None;
                     return;
                 }
 
                 // Fetch the world mouse position.
-                var worldPosition = Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
-                var worldDelta = worldPosition - m_WorldLastPosition;
+                var worldDelta = actionPosition - m_LastActionPosition;
                 if (worldDelta.sqrMagnitude < 0.01f)
                     return;
 
-                m_WorldLastPosition = worldPosition - worldDelta;
-                Camera.transform.position -= worldDelta;
+                m_LastActionPosition = actionPosition - worldDelta;
+                Camera.transform.position -= (Vector3)worldDelta;
                 return;
             }
 
             case ManipulatorState.ObjectDrag:
             {
-                if (currentMouse.leftButton.wasReleasedThisFrame)
+                if (actionWasReleasedThisFrame)
                 {
                     ResetInputMode();
                     return;
@@ -230,18 +239,17 @@ public class CameraManipulator : MonoBehaviour
 
                 // Update drag target.
                 var oldTarget = m_DragJoint.bodyA.GetWorldPoint(m_DragJoint.localAnchorA.position);
-                var target = Camera.ScreenToWorldPoint(currentMouse.position.value);
-                m_DragJoint.localAnchorA = new PhysicsTransform(target);
+                m_DragJoint.localAnchorA = new PhysicsTransform(actionPosition);
                 m_DragJoint.WakeBodies();
 
                 // Get the default world.
                 var world = PhysicsWorld.defaultWorld;
                 
                 var bodyB = m_DragJoint.bodyB;
-                world.DrawLine(target, bodyB.GetWorldPoint(m_DragJoint.localAnchorB.position), Color.grey);
-                world.DrawLine(oldTarget, target, Color.whiteSmoke);
+                world.DrawLine(actionPosition, bodyB.GetWorldPoint(m_DragJoint.localAnchorB.position), Color.grey);
+                world.DrawLine(oldTarget, actionPosition, Color.whiteSmoke);
                 world.DrawPoint(oldTarget, 0.05f, Color.darkGreen);
-                world.DrawPoint(target, 0.05f, Color.green);
+                world.DrawPoint(actionPosition, 0.05f, Color.green);
 
                 return;
             }
