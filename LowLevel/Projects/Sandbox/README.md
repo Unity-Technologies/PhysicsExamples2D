@@ -30,3 +30,8 @@ The structure of the ".cs" script file is consistent for all samples and typical
 - **Misc** - Some samples have miscellaneous methods (sometimes used in "SetupScene") to spawn or control the physics objects. Some are hooked into the pre/post simulate to perform an action when the simulation is about to or has run.  
 
 The "Scripts" folder typically contains utility scripts only used by various scenes such as spawning physics objects i.e. ragdolls, softbodies etc.
+
+---
+
+![](Images\Sandbox.png)
+
