@@ -101,4 +101,20 @@ public static class PhysicsAPIExtensions
     }
 
     #endregion
+    
+    #region Physics Objects in Auto-Properties
+    
+    public static PhysicsWorld Get(this PhysicsWorld obj) => obj;
+    public static PhysicsBody Get(this PhysicsBody obj) => obj;
+    public static PhysicsShape Get(this PhysicsShape obj) => obj;
+    public static PhysicsJoint Get(this PhysicsJoint obj) => obj;
+    public static PhysicsDistanceJoint Get(this PhysicsDistanceJoint obj) => obj;
+    public static PhysicsFixedJoint Get(this PhysicsFixedJoint obj) => obj;
+    public static PhysicsHingeJoint Get(this PhysicsHingeJoint obj) => obj;
+    public static PhysicsIgnoreJoint Get(this PhysicsIgnoreJoint obj) => obj;
+    public static PhysicsRelativeJoint Get(this PhysicsRelativeJoint obj) => obj;
+    public static PhysicsSliderJoint Get(this PhysicsSliderJoint obj) => obj;
+    public static PhysicsWheelJoint Get(this PhysicsWheelJoint obj) => obj;
+    
+    #endregion
 }
