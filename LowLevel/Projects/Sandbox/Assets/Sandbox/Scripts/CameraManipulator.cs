@@ -213,12 +213,12 @@ public class CameraManipulator : MonoBehaviour
 
             case ManipulatorState.CameraPan:
             {
-                if (actionWasPressedThisFrame)
+                if (actionWasReleasedThisFrame)
                 {
-                    m_ManipulatorState = ManipulatorState.None;
+                    ResetInputMode();
                     return;
                 }
-
+                
                 // Fetch the world mouse position.
                 var worldDelta = actionPosition - m_LastActionPosition;
                 if (worldDelta.sqrMagnitude < 0.01f)
