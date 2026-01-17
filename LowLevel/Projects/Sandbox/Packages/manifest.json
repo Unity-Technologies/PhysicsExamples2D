@@ -3,13 +3,14 @@
     "com.unity.2d.physics.extras": "file:../../../Packages/com.unity.2d.physics.extras",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "1.8.27",
-    "com.unity.collections": "2.6.3",
+    "com.unity.collections": "6.5.0",
     "com.unity.ide.rider": "3.0.38",
     "com.unity.ide.visualstudio": "2.0.26",
     "com.unity.inputsystem": "1.17.0",
-    "com.unity.render-pipelines.universal": "17.3.0",
+    "com.unity.render-pipelines.universal": "17.5.0",
     "com.unity.modules.audio": "1.0.0",
     "com.unity.modules.physics2d": "1.0.0",
+    "com.unity.modules.physicscore2d": "1.0.0",
     "com.unity.modules.uielements": "1.0.0",
     "com.unity.modules.vectorgraphics": "1.0.0"
   }

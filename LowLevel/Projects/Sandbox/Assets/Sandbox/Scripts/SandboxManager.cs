@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 using Unity.U2D.Physics.Extras;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
@@ -225,7 +225,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             DrawThickness = defaultWorld.drawThickness,
             DrawPointScale = defaultWorld.drawPointScale,
             DrawNormalScale = defaultWorld.drawNormalScale,
-            DrawImpulseScale = defaultWorld.drawImpulseScale,
+            DrawImpulseScale = defaultWorld.drawForceScale,
             DrawOptions = defaultWorld.drawOptions
         };
 
@@ -548,7 +548,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 // Update the worlds.
                 using var worlds = PhysicsWorld.GetWorlds();
                 foreach (var world in worlds)
-                    world.drawImpulseScale = evt.newValue;
+                    world.drawForceScale = evt.newValue;
             });
             m_DrawImpulseScaleElement.value = m_MenuDefaults.DrawImpulseScale;
 
@@ -571,7 +571,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             m_DrawContactPointsElement = ConfigureDrawFlag(root, "draw-contact-points", PhysicsWorld.DrawOptions.AllContactPoints);
             m_DrawContactNormalsElement = ConfigureDrawFlag(root, "draw-contact-normals", PhysicsWorld.DrawOptions.AllContactNormal);
             m_DrawContactTangentsElement = ConfigureDrawFlag(root, "draw-contact-tangents", PhysicsWorld.DrawOptions.AllContactFriction);
-            m_DrawContactImpulsesElement = ConfigureDrawFlag(root, "draw-contact-impulses", PhysicsWorld.DrawOptions.AllContactImpulse);
+            m_DrawContactImpulsesElement = ConfigureDrawFlag(root, "draw-contact-impulses", PhysicsWorld.DrawOptions.AllContactForces);
         }
     }
 
@@ -709,7 +709,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_DrawContactPointsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactPoints);
         m_DrawContactNormalsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactNormal);
         m_DrawContactTangentsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactFriction);
-        m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactImpulse);
+        m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactForces);
 
         DebugView.ResetStats();
 

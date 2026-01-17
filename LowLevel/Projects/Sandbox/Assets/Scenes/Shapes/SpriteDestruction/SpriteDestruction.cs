@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 

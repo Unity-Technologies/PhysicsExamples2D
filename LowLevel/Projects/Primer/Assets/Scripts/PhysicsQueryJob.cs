@@ -2,7 +2,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 
 using Random = Unity.Mathematics.Random;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 using UnityEngine.Rendering.Universal;
 
 [Serializable]

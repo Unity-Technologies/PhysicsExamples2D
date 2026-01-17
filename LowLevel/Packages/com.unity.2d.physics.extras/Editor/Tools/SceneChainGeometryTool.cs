@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 using Unity.U2D.Physics.Extras;
 
 namespace Unity.U2D.Physics.Editor.Extras

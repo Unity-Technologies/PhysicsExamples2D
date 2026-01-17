@@ -1,6 +1,6 @@
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 
 /// <summary>
 /// Demonstrates how shapes control what they can come into contact with.

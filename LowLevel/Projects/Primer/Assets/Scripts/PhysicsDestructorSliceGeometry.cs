@@ -1,6 +1,6 @@
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 
 /// <summary>
 /// Demonstrates the basics of using the PhysicsDestructor to slice geometries in half to produce two distinct fragment geometries of "left" and "right".

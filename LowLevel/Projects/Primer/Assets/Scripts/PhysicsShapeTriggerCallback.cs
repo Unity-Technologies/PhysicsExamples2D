@@ -1,6 +1,6 @@
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 
 /// <summary>
 /// Demonstrates how shapes can request callbacks for when they overlap as a trigger with other shapes.

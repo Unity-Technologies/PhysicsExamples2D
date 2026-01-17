@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 using UnityEngine.Rendering;
 using Object = UnityEngine.Object;
 

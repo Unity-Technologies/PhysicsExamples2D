@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 
 /// <summary>
 /// Demonstrates the basics of creating a shape with a custom color.

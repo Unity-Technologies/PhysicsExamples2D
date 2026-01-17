@@ -1,6 +1,6 @@
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 public class CustomFilter : MonoBehaviour, PhysicsCallbacks.IContactFilterCallback

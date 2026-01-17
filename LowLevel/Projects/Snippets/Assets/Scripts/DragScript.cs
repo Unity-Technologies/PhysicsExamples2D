@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 using Unity.U2D.Physics.Extras;
 
 public class DragScript : MonoBehaviour

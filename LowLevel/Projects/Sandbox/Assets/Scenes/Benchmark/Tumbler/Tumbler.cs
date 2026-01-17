@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 

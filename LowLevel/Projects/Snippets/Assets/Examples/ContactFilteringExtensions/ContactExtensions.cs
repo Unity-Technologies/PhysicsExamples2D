@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
-using UnityEngine.LowLevelPhysics2D;
+using Unity.U2D.Physics;
 
 public static class ContactExtensions
 {
