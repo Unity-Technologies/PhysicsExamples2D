@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using UnityEngine;
-using Unity.U2D.Physics;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace Unity.U2D.Physics.Extras
@@ -10,7 +9,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Scene Chain", 30)]
     [Icon(IconUtility.IconPath + "SceneChain.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
-    public sealed class SceneChain : MonoBehaviour, IWorldSceneTransformChanged
+    public sealed class SceneChain : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback
     {
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };
         public bool ReverseChain;
@@ -47,9 +46,8 @@ namespace Unity.U2D.Physics.Extras
 
             CreateShape();
 
-#if UNITY_EDITOR
-            WorldSceneTransformMonitor.AddMonitor(this);
-#endif
+            // Register for transform changes.
+            PhysicsWorld.RegisterTransformChange(transform, this);
         }
 
         private void OnDisable()
@@ -62,9 +60,8 @@ namespace Unity.U2D.Physics.Extras
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
 
-#if UNITY_EDITOR
-            WorldSceneTransformMonitor.RemoveMonitor(this);
-#endif
+            // Unregister from transform changes.
+            PhysicsWorld.UnregisterTransformChange(transform, this);
         }
 
         private void OnValidate()
@@ -126,7 +123,7 @@ namespace Unity.U2D.Physics.Extras
             DestroyShape();
         }
 
-        void IWorldSceneTransformChanged.TransformChanged()
+        void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
             if (m_ChainShape.isValid)
                 CreateShape();

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEditor.EditorTools;
 using UnityEngine;
-using Unity.U2D.Physics;
 using Unity.U2D.Physics.Extras;
 using UnityEditor;
 

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Unity.U2D.Physics;
 
 namespace Unity.U2D.Physics.Extras
 {

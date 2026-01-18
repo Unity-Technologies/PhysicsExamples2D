@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-using Unity.U2D.Physics;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace Unity.U2D.Physics.Extras
@@ -11,7 +10,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Scene Sprite Shape", 22)]
     [Icon(IconUtility.IconPath + "SceneShape.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
-    public sealed class SceneSpriteShape : MonoBehaviour, IWorldSceneTransformChanged, IWorldSceneDrawable
+    public sealed class SceneSpriteShape : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldSceneDrawable
     {
         public Sprite Sprite;
         public bool UseDelaunay = true;
@@ -52,9 +51,8 @@ namespace Unity.U2D.Physics.Extras
 
             CreateShapes();
 
-#if UNITY_EDITOR
-            WorldSceneTransformMonitor.AddMonitor(this);
-#endif
+            // Register for transform changes.
+            PhysicsWorld.RegisterTransformChange(transform, this);
         }
 
         private void OnDisable()
@@ -70,9 +68,8 @@ namespace Unity.U2D.Physics.Extras
                 SceneBody.DestroyBodyEvent -= OnDestroyBody;
             }
 
-#if UNITY_EDITOR
-            WorldSceneTransformMonitor.RemoveMonitor(this);
-#endif
+            // Unregister from transform changes.
+            PhysicsWorld.UnregisterTransformChange(transform, this);
         }
 
         private void OnValidate()
@@ -195,7 +192,10 @@ namespace Unity.U2D.Physics.Extras
             DestroyShapes();
         }
 
-        void IWorldSceneTransformChanged.TransformChanged() => CreateShapes();
+        void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
+        {
+            CreateShapes();
+        }
 
         void IWorldSceneDrawable.Draw()
         {

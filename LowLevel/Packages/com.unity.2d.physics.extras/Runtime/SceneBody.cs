@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Unity.U2D.Physics;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace Unity.U2D.Physics.Extras
@@ -10,7 +9,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Scene Body", 10)]
     [Icon(IconUtility.IconPath + "SceneBody.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
-    public sealed class SceneBody : MonoBehaviour, IWorldSceneTransformChanged, IWorldSceneDrawable
+    public sealed class SceneBody : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldSceneDrawable
     {
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
         public PhysicsUserData UserData;
@@ -66,9 +65,8 @@ namespace Unity.U2D.Physics.Extras
             // Fix any SceneShapes here that are not assigned a SceneBody.
             FixUnassignedSceneShapes();
 
-#if UNITY_EDITOR
-            WorldSceneTransformMonitor.AddMonitor(this);
-#endif
+            // Register for transform changes.
+            PhysicsWorld.RegisterTransformChange(transform, this);
         }
 
         private void OnDisable()
@@ -81,9 +79,8 @@ namespace Unity.U2D.Physics.Extras
                 SceneWorld.DestroyWorldEvent -= OnDestroyWorld;
             }
 
-#if UNITY_EDITOR
-            WorldSceneTransformMonitor.RemoveMonitor(this);
-#endif
+            // Unregister from transform changes.
+            PhysicsWorld.UnregisterTransformChange(transform, this);
         }
 
         private void OnValidate()
@@ -172,8 +169,8 @@ namespace Unity.U2D.Physics.Extras
                 }
             }
         }
-
-        void IWorldSceneTransformChanged.TransformChanged()
+        
+        void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
             if (m_Body.isValid)
                 CreateBody();

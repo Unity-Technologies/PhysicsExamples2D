@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Unity.U2D.Physics;
 using Unity.U2D.Physics.Extras;
 using UnityEditor;
 
