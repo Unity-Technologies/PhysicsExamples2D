@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 19300, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Physics LowLevel Settings 2D
-  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.LowLevelPhysics2D.PhysicsLowLevelSettings2D
+  m_Script: {fileID: 19301, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: PhysicsCoreSettings2D
+  m_EditorClassIdentifier: UnityEngine.dll::Unity.U2D.Physics.PhysicsCoreSettings2D
+  m_UsePhysicsLayers: 0
   m_PhysicsLayerNames:
     m_Names:
     - Default
@@ -78,15 +79,18 @@ MonoBehaviour:
     - 
     - 
     - 
-  m_UseFullLayers: 0
   m_PhysicsWorldDefinition:
     m_Gravity: {x: 0, y: -9.81}
-    m_SimulationMode: 0
+    m_SimulationType: 0
     m_SimulationSubSteps: 4
     m_SimulationWorkers: 64
     m_TransformWriteMode: 1
+    m_TransformTweenMode: 1
     m_TransformPlane: 0
-    m_TransformTweening: 1
+    m_TransformPlaneCustom:
+      m_Translate: {x: 0, y: 0, z: 0}
+      m_Rotate: {x: 0, y: 0, z: 0}
+      m_Scale: 0
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
     m_ContactFilterCallbacks: 1
@@ -103,12 +107,12 @@ MonoBehaviour:
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4256
     m_DrawFillOptions: -1
+    m_DrawFilter: 0
     m_DrawThickness: 2
     m_DrawFillAlpha: 0.1
     m_DrawPointScale: 1
     m_DrawNormalScale: 1
-    m_DrawImpulseScale: 1
-    m_DrawCapacity: 0
+    m_DrawForceScale: 1
     m_DrawColors:
       transformAxisX: {r: 0, g: 1, b: 1, a: 1}
       transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
@@ -153,8 +157,8 @@ MonoBehaviour:
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -181,8 +185,8 @@ MonoBehaviour:
     m_SurfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -343,7 +347,11 @@ MonoBehaviour:
     m_TuningDamping: 0
     m_DrawScale: 1
     m_CollideConnected: 0
+  m_TransformChangeMode: 2
+  m_ContactFilterMode: 0
+  m_MaximumWorlds: 128
   m_ConcurrentSimulations: 2
   m_LengthUnitsPerMeter: 1
-  m_DrawInBuild: 1
-  m_BypassLowLevel: 0
+  m_RenderingMode: 1
+  m_DisableSimulation: 0
+  m_AlwaysDrawWorlds: 0

@@ -29,7 +29,6 @@ MonoBehaviour:
   m_StripUnusedVariants: 1
   m_StripScreenCoordOverrideVariants: 1
   supportRuntimeDebugDisplay: 0
-  m_EnableRenderGraph: 0
   m_Settings:
     m_SettingsList:
       m_List:
@@ -65,9 +64,12 @@ MonoBehaviour:
       - rid: 3844551955710476546
       - rid: 3844551955710476547
       - rid: 1331524101667291136
+      - rid: 8192759527709081600
+      - rid: 8192759527709081601
+      - rid: 8192759527709081602
     m_RuntimeSettings:
       m_List: []
-  m_AssetVersion: 9
+  m_AssetVersion: 10
   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
   m_RenderingLayerNames:
   - Default
@@ -233,7 +235,6 @@ MonoBehaviour:
       type: {class: RenderGraphSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
         m_Version: 0
-        m_EnableRenderCompatibilityMode: 0
     - rid: 3844551955710476528
       type: {class: UniversalRenderPipelineEditorMaterials, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
@@ -287,9 +288,9 @@ MonoBehaviour:
         m_CoreBlitPS: {fileID: 4800000, guid: 93446b5c5339d4f00b85c159e1159b7c, type: 3}
         m_CoreBlitColorAndDepthPS: {fileID: 4800000, guid: d104b2fc1ca6445babb8e90b0758136b, type: 3}
         m_SamplingPS: {fileID: 4800000, guid: 04c410c9937594faa893a11dceb85f7e, type: 3}
-        m_TerrainDetailLit: {fileID: 4800000, guid: f6783ab646d374f94b199774402a5144, type: 3}
-        m_TerrainDetailGrassBillboard: {fileID: 4800000, guid: 29868e73b638e48ca99a19ea58c48d90, type: 3}
-        m_TerrainDetailGrass: {fileID: 4800000, guid: e507fdfead5ca47e8b9a768b51c291a1, type: 3}
+        m_TerrainDetailLit: {fileID: 0}
+        m_TerrainDetailGrassBillboard: {fileID: 0}
+        m_TerrainDetailGrass: {fileID: 0}
     - rid: 3844551955710476534
       type: {class: ScreenSpaceAmbientOcclusionPersistentResources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
@@ -410,3 +411,26 @@ MonoBehaviour:
         m_setupCS: {fileID: 7200000, guid: 33be2e9a5506b2843bdb2bdff9cad5e1, type: 3}
         m_preTaaCS: {fileID: 7200000, guid: a679dba8ec4d9ce45884a270b0e22dda, type: 3}
         m_taaCS: {fileID: 7200000, guid: 3923900e2b41b5e47bc25bfdcbcdc9e6, type: 3}
+    - rid: 8192759527709081600
+      type: {class: UniversalRenderPipelineRuntimeTerrainShaders, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Version: 0
+        m_TerrainDetailLit: {fileID: 4800000, guid: f6783ab646d374f94b199774402a5144, type: 3}
+        m_TerrainDetailGrassBillboard: {fileID: 4800000, guid: 29868e73b638e48ca99a19ea58c48d90, type: 3}
+        m_TerrainDetailGrass: {fileID: 4800000, guid: e507fdfead5ca47e8b9a768b51c291a1, type: 3}
+    - rid: 8192759527709081601
+      type: {class: URPTerrainShaderSetting, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Version: 0
+        m_IncludeTerrainShaders: 1
+    - rid: 8192759527709081602
+      type: {class: WorldRenderPipelineResources, ns: UnityEngine.PathTracing.Core, asm: Unity.PathTracing.Runtime}
+      data:
+        _version: 3
+        _blitCubemap: {fileID: 7200000, guid: 5a992812cb320d146a66cc600200cce7, type: 3}
+        _blitGrayScaleCookie: {fileID: 7200000, guid: 557fa399e33bf7647bda5697c5c158df, type: 3}
+        _setAlphaChannelShader: {fileID: 7200000, guid: 5efaea0e81c66334aa9d062d6573e6fd, type: 3}
+        _environmentImportanceSamplingBuild: {fileID: 7200000, guid: 5bb2534d2411d344cbc54f880232640f, type: 3}
+        _skyBoxMesh: {fileID: 4300000, guid: 0529e6c5f6dea8c4a8c2835ed7de57cb, type: 2}
+        _sixFaceSkyBoxMesh: {fileID: 4300000, guid: a80925ceebd011741b42509226cefc74, type: 2}
+        _buildLightGridShader: {fileID: 7200000, guid: 16e47c1641bd0104e92b624601457bb0, type: 3}

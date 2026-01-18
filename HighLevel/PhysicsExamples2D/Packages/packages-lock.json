@@ -40,7 +40,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.6.0",
+      "version": "1.7.0",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -98,6 +98,14 @@
       "dependencies": {}
     },
     "com.unity.modules.physics2d": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.physicscore2d": "1.0.0"
+      }
+    },
+    "com.unity.modules.physicscore2d": {
       "version": "1.0.0",
       "depth": 0,
       "source": "builtin",
