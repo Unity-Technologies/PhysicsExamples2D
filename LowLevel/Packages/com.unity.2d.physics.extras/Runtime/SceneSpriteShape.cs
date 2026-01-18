@@ -7,7 +7,7 @@ namespace Unity.U2D.Physics.Extras
 {
     [ExecuteAlways]
     [DefaultExecutionOrder(ExecutionOrder.SceneShape)]
-    [AddComponentMenu("Physics 2D/LowLevel/Scene Sprite Shape", 22)]
+    [AddComponentMenu("Physics 2D/CoreExamples/Scene Sprite Shape", 22)]
     [Icon(IconUtility.IconPath + "SceneShape.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class SceneSpriteShape : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldSceneDrawable

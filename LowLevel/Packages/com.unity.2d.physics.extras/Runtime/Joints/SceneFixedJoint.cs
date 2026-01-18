@@ -2,7 +2,7 @@
 
 namespace Unity.U2D.Physics.Extras
 {
-    [AddComponentMenu("Physics 2D/LowLevel/Joints/Scene Fixed Joint", 40)]
+    [AddComponentMenu("Physics 2D/CoreExamples/Scene Fixed Joint", 40)]
     [Icon(IconUtility.IconPath + "SceneFixedJoint.png")]
     public sealed class SceneFixedJoint : SceneJointBase, IWorldSceneDrawable
     {

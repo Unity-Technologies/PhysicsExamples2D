@@ -2,7 +2,7 @@
 
 namespace Unity.U2D.Physics.Extras
 {
-    [AddComponentMenu("Physics 2D/LowLevel/Joints/Scene Ignore Joint", 40)]
+    [AddComponentMenu("Physics 2D/CoreExamples/Scene Ignore Joint", 40)]
     [Icon(IconUtility.IconPath + "SceneIgnoreJoint.png")]
     public sealed class SceneIgnoreJoint : SceneJointBase, IWorldSceneDrawable
     {

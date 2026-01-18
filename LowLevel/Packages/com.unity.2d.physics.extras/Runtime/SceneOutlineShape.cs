@@ -6,7 +6,7 @@ namespace Unity.U2D.Physics.Extras
 {
     [ExecuteAlways]
     [DefaultExecutionOrder(ExecutionOrder.SceneShape)]
-    [AddComponentMenu("Physics 2D/LowLevel/Scene Outline Shape", 21)]
+    [AddComponentMenu("Physics 2D/CoreExamples/Scene Outline Shape", 21)]
     [Icon(IconUtility.IconPath + "SceneShape.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class SceneOutlineShape : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldSceneDrawable

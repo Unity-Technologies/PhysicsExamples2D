@@ -6,7 +6,7 @@ namespace Unity.U2D.Physics.Extras
     [DisallowMultipleComponent]
     [ExecuteAlways]
     [DefaultExecutionOrder(ExecutionOrder.SceneBody)]
-    [AddComponentMenu("Physics 2D/LowLevel/Scene Body", 10)]
+    [AddComponentMenu("Physics 2D/CoreExamples/Scene Body", 10)]
     [Icon(IconUtility.IconPath + "SceneBody.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class SceneBody : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldSceneDrawable

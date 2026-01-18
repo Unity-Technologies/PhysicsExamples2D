@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using Unity.U2D.Physics;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace Unity.U2D.Physics.Extras
@@ -12,7 +11,7 @@ namespace Unity.U2D.Physics.Extras
     [DisallowMultipleComponent]
     [ExecuteAlways]
     [DefaultExecutionOrder(ExecutionOrder.SceneWorld)]
-    [AddComponentMenu("Physics 2D/LowLevel/Scene World", 0)]
+    [AddComponentMenu("Physics 2D/CoreExamples/Scene World", 0)]
     [Icon(IconUtility.IconPath + "SceneWorld.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class SceneWorld : MonoBehaviour

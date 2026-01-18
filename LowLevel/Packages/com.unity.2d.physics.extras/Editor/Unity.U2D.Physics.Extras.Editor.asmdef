@@ -1,5 +1,5 @@
 {
-    "name": "Unity.U2D.Physics.Editor.Extras",
+    "name": "Unity.U2D.Physics.Extras.Editor",
     "rootNamespace": "",
     "references": [
         "Unity.U2D.Physics.Extras"

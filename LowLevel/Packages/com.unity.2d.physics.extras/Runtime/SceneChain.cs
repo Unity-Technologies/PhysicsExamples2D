@@ -6,7 +6,7 @@ namespace Unity.U2D.Physics.Extras
 {
     [ExecuteAlways]
     [DefaultExecutionOrder(ExecutionOrder.SceneShape)]
-    [AddComponentMenu("Physics 2D/LowLevel/Scene Chain", 30)]
+    [AddComponentMenu("Physics 2D/CoreExamples/Scene Chain", 30)]
     [Icon(IconUtility.IconPath + "SceneChain.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class SceneChain : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback
