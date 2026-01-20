@@ -1,3 +1,16 @@
-# 2D Physics Examples
+# Physics Examples
 
-This repository contains example projects for 2D physics for both the low-level API and high-level API.
+- Legacy: Contains the "PhysicsExamples2D" project which uses the older "Physics2D" API.
+- PhysicsCore2D: Contains all the examples for the newer physics core API.
+
+## Branch Names
+
+Each branch represents a specific version of Unity. As features are added in a public release, those features should be represented in that branch and future Unity version branches i.e. branch names of "2019", "2020", "2021" (etc) exist.
+
+"master" represents the current latest release of Unity, updated only when new 2D physics features land in a public final release.
+
+"unsupported/" represents versions that are current in alpha/beta release state.
+
+Twitter: https://twitter.com/melvmay
+BlueSky: https://bsky.app/profile/melvmay.bsky.social
+Unity Discussions: [https://forum.unity.com/members/melvmay.287484/](https://discussions.unity.com/u/melvmay)
