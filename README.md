@@ -1,7 +1,7 @@
 # Physics Examples
 
-- Legacy: Contains the "PhysicsExamples2D" project which uses the older "Physics2D" API.
-- PhysicsCore2D: Contains all the examples for the newer physics core API.
+- `LegacyPhysicsExamples2D` project which uses the older "Physics2D" API.
+- `PhysicsCore2D` contains all the examples for the newer physics core API.
 
 ## Branch Names
 
