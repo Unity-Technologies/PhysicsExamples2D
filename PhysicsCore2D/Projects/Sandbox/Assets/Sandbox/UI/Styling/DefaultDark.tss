@@ -137,7 +137,7 @@
     --unity-colors-context_menu_item-background-checked: rgb(60, 60, 60);
     --unity-colors-context_menu_item__selection_latent-background: rgb(40, 40, 40);
     font-size: 11px;
-    -unity-font-definition: resource("Fonts/System/System Normal.ttf");
+    -unity-font-definition: resource("Fonts/Cozette/CozetteVector");
     color: rgb(210, 210, 210);
     --unity-theme-background-color-1: rgb(88, 88, 88);
     --unity-theme-background-color-2: rgb(103, 103, 103);
@@ -326,7 +326,7 @@
     --unity-font-button-padding-bottom: 3px;
     --unity-toolbar-padding-top: 1;
     --unity-toolbar-padding-bottom: 0;
-    --current-font: resource("Fonts/System/System Normal.ttf");
+    --current-font: resource("Fonts/Cozette/CozetteVector");
     --theme-image-toggle-mixed: resource("UIPackageResources/Images/d_toggle_mixed_bg");
     --theme-image-toggle-mixed-hover: resource("UIPackageResources/Images/d_toggle_mixed_bg_hover");
     --theme-image-toggle-mixed-focus: resource("UIPackageResources/Images/d_toggle_mixed_bg_focus");
