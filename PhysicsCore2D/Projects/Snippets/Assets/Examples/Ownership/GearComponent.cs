@@ -3,7 +3,7 @@ using Unity.U2D.Physics;
 using Unity.U2D.Physics.Extras;
 
 [ExecuteAlways]
-public class GearComponent : MonoBehaviour, IWorldSceneTransformChanged
+public class GearComponent : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback
 {
     [Header("Gear")]
     [Range(0.5f, 5f)] public float GearRadius = 2f;
@@ -37,11 +37,9 @@ public class GearComponent : MonoBehaviour, IWorldSceneTransformChanged
     {
         // Create the gear.
         CreateGear();
-        
-#if UNITY_EDITOR
-        // Monitor transform changes.
-        WorldSceneTransformMonitor.AddMonitor(this);
-#endif
+
+        // Register for transform changes.
+        PhysicsWorld.RegisterTransformChange(transform, this);
     }
 
     // Component is disabled.
@@ -50,10 +48,8 @@ public class GearComponent : MonoBehaviour, IWorldSceneTransformChanged
         // Destroy the gear.
         DestroyGear();
 
-#if UNITY_EDITOR
-        // Stop monitoring transform changes.
-        WorldSceneTransformMonitor.RemoveMonitor(this);
-#endif
+        // Unregister from transform changes.
+        PhysicsWorld.UnregisterTransformChange(transform, this);
     }
     
     private void OnValidate()
@@ -162,7 +158,7 @@ public class GearComponent : MonoBehaviour, IWorldSceneTransformChanged
     }
 
     // If there's a transform change then we recreate the gear.
-    void IWorldSceneTransformChanged.TransformChanged()
+    public void OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
     {
         // Recreate gear.
         if (!m_GearBody.isValid)
