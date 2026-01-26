@@ -196,15 +196,20 @@ public class CameraManipulator : MonoBehaviour
                 }
 
                 // Zooming is based upon the mouse-wheel only.
+                var currentMouse = Mouse.current;
+                if (currentMouse != null)
                 {
-                    var currentMouse = Mouse.current;
-                    var scrollDelta = currentMouse.scroll.y.ReadValue() * 0.1f;
-                    if (math.abs(scrollDelta) > 0f)
+                    var mouseScroll = currentMouse.scroll;
+                    if (mouseScroll != null)
                     {
-                        m_SandboxManager.CameraZoom += scrollDelta;
-                        
-                        var newWorldPosition = (Vector2)Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
-                        Camera.transform.position -= (Vector3)(newWorldPosition - actionPosition);
+                        var scrollDelta = mouseScroll.y.ReadValue() * 0.1f;
+                        if (math.abs(scrollDelta) > 0f)
+                        {
+                            m_SandboxManager.CameraZoom += scrollDelta;
+
+                            var newWorldPosition = (Vector2)Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
+                            Camera.transform.position -= (Vector3)(newWorldPosition - actionPosition);
+                        }
                     }
                 }
 
