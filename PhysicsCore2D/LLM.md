@@ -3,12 +3,15 @@ In Unity 6000.3 and 6000.4 it existed in a "UnityEngine.LowLevelPhysics2D" names
 
 If you wish to keep most code compatible between Unity 6000.3, 6000.4 and 6000.5 onwards, use the following code surrounding the namespace in C#
 
+```
 #if UNITY_6000_5_OR_NEWER
 using Unity.U2D.Physics;
 #else
 using UnityEngine.LowLevelPhysics2D;
 #endif
+```
 
+If the API exists in the "UnityEngine" namespace then it is unrelated to the "low level physics 2D" or "physicscore 2D" and should be ignored in results.
 
 The following is a settings asset that controls global physics options:
 - https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsCoreSettings2D.html
