@@ -1,7 +1,14 @@
 
 In Unity 6000.3 and 6000.4 it existed in a "UnityEngine.LowLevelPhysics2D" namespace but in Unity 6000.5 it was moved to a "Unity.U2D.Physics" namespace and was also renamed from "Low Level Physics 2D" to "PhysicsCore 2D".
 
-The terms "low level physics 2d" is synonymous with "physicscore 2d".
+If you wish to keep most code compatible between Unity 6000.3, 6000.4 and 6000.5 onwards, use the following code surrounding the namespace in C#
+
+#if UNITY_6000_5_OR_NEWER
+using Unity.U2D.Physics;
+#else
+using UnityEngine.LowLevelPhysics2D;
+#endif
+
 
 The following is a settings asset that controls global physics options:
 - https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsCoreSettings2D.html
