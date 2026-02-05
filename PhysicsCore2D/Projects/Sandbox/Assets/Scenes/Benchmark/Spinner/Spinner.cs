@@ -161,7 +161,7 @@ public class Spinner : MonoBehaviour
             var chainPoints = new NativeArray<Vector2>(pointCount, Allocator.Temp);
 
             var tau = PhysicsMath.TAU;
-            var rotate = PhysicsRotate.CreateRadians(-tau / pointCount);
+            var rotate = PhysicsRotate.FromRadians(-tau / pointCount);
             var offset = Vector2.right * 40f;
             for (var i = 0; i < pointCount; ++i)
             {

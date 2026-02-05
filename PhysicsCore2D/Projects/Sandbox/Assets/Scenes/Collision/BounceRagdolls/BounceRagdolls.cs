@@ -168,8 +168,8 @@ public class BounceRagdolls : MonoBehaviour
         // Update Gravity.
         {
             m_Time += timeStep;
-            var rotation1 = PhysicsRotate.CreateRadians(m_Time * 0.5f);
-            var rotation2 = PhysicsRotate.CreateRadians(m_Time);
+            var rotation1 = PhysicsRotate.FromRadians(m_Time * 0.5f);
+            var rotation2 = PhysicsRotate.FromRadians(m_Time);
             world.gravity = new Vector2(rotation1.direction.x, rotation2.direction.y) * m_GravityScale;
         }
 

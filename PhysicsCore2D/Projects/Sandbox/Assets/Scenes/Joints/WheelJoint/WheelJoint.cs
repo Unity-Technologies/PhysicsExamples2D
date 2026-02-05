@@ -211,7 +211,7 @@ public class WheelJoint : MonoBehaviour
             var geometry = new CircleGeometry { radius = 0.5f };
             body.CreateShape(geometry);
 
-            var wheelRotation = PhysicsRotate.CreateDegrees(m_WheelAngle);
+            var wheelRotation = PhysicsRotate.FromDegrees(m_WheelAngle);
 
             var jointPivot = new Vector2(0f, 10f);
             var jointDef = new PhysicsWheelJointDefinition

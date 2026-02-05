@@ -176,7 +176,7 @@ public class Drawing : MonoBehaviour
             var physicsTransform = new PhysicsTransform()
             {
                 position = new Vector2(random.NextFloat(-extents.x, extents.x), random.NextFloat(-extents.y, extents.y)),
-                rotation = PhysicsRotate.CreateRadians(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI))
+                rotation = PhysicsRotate.FromRadians(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI))
             };
 
             var color = m_SandboxManager.ShapeColorState;

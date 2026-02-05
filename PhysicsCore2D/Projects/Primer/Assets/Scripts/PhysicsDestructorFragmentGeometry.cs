@@ -142,7 +142,7 @@ public class PhysicsDestructorFragmentGeometry : MonoBehaviour
         // Create the fragment points.
         m_FragmentedPoints = new NativeArray<Vector2>(FragmentPointCount, Allocator.Persistent);
         for (var i = 0; i < FragmentPointCount; ++i)
-            m_FragmentedPoints[i] = PhysicsRotate.CreateRadians(m_Random.NextFloat(0f, PhysicsMath.TAU)).direction * m_Random.NextFloat(0f, FragmentPointRadius);
+            m_FragmentedPoints[i] = PhysicsRotate.FromRadians(m_Random.NextFloat(0f, PhysicsMath.TAU)).direction * m_Random.NextFloat(0f, FragmentPointRadius);
     }
 
     private NativeArray<PolygonGeometry> CreateTargetPolygons()

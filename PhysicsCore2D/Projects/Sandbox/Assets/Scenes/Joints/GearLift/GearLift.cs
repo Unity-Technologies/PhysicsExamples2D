@@ -190,7 +190,7 @@ public class GearLift : MonoBehaviour
 
             const int count = 16;
             var deltaAngle = PhysicsMath.TAU / 16f;
-            var dq = PhysicsRotate.CreateRadians(deltaAngle);
+            var dq = PhysicsRotate.FromRadians(deltaAngle);
             var center = new Vector2(gearRadius + toothHalfHeight, 0f);
             var rotation = PhysicsRotate.identity;
 
@@ -243,7 +243,7 @@ public class GearLift : MonoBehaviour
 
             const int count = 16;
             var deltaAngle = PhysicsMath.TAU / 16f;
-            var dq = PhysicsRotate.CreateRadians(deltaAngle);
+            var dq = PhysicsRotate.FromRadians(deltaAngle);
             var center = new Vector2(gearRadius + toothHalfWidth, 0f);
             var rotation = PhysicsRotate.identity;
 

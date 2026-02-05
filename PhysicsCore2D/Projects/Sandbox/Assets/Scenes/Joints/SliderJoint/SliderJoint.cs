@@ -222,7 +222,7 @@ public class SliderJoint : MonoBehaviour
             var geometry = new CapsuleGeometry { center1 = Vector2.down * 2f, center2 = Vector2.up * 2f, radius = 1f };
             body.CreateShape(geometry);
 
-            var slideRotation = PhysicsRotate.CreateDegrees(m_SliderAngle);
+            var slideRotation = PhysicsRotate.FromDegrees(m_SliderAngle);
 
             var jointPivot = new Vector2(0f, 9f);
             var jointDef = new PhysicsSliderJointDefinition

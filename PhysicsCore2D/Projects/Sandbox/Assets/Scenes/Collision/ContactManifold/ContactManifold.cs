@@ -190,7 +190,7 @@ public class ContactManifold : MonoBehaviour
 
         // Box and Capsule.
         {
-            var box = PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, 0f), PhysicsRotate.CreateRadians(0.25f * PhysicsMath.PI)));
+            var box = PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, 0f), PhysicsRotate.FromRadians(0.25f * PhysicsMath.PI)));
             var capsule = new CapsuleGeometry { center1 = new Vector2(-0.4f, 0f), center2 = new Vector2(-0.1f, 0f), radius = 0.25f };
 
             var transform1 = new PhysicsTransform { position = offset, rotation = PhysicsRotate.identity };
@@ -592,7 +592,7 @@ public class ContactManifold : MonoBehaviour
             {
                 var rotationDelta = worldPosition.x - m_ManipulatorStartPoint.x;
                 m_Angle = math.clamp(m_ManipulatorBaseAngle + rotationDelta, -PhysicsMath.PI, PhysicsMath.PI);
-                m_Transform.rotation = PhysicsRotate.CreateRadians(m_Angle);
+                m_Transform.rotation = PhysicsRotate.FromRadians(m_Angle);
                 return;
             }
 

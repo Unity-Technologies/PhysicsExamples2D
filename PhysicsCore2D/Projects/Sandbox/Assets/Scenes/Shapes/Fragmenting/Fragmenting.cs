@@ -377,7 +377,7 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
             fragmentPoints[0] = hitPosition;
             for (var i = 1; i < m_FragmentCount; ++i)
             {
-                var rotate = PhysicsRotate.CreateRadians(random.NextFloat(0f, PhysicsMath.PI));
+                var rotate = PhysicsRotate.FromRadians(random.NextFloat(0f, PhysicsMath.PI));
                 var radius = random.NextFloat(0.05f, m_FragmentRadius);
                 fragmentPoints[i] = hitPosition + rotate.direction * radius;
             }

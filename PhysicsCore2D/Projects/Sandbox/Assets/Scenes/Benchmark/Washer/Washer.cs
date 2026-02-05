@@ -169,8 +169,8 @@ public class Washer : MonoBehaviour
 			const float r2 = 18.0f;
 
 			var angle = PhysicsMath.PI / 18.0f;
-			var q = PhysicsRotate.CreateRadians(angle);
-			var qo = PhysicsRotate.CreateRadians(angle * 0.1f);
+			var q = PhysicsRotate.FromRadians(angle);
+			var qo = PhysicsRotate.FromRadians(angle * 0.1f);
 			var u1 = Vector2.right;
 			for (var n = 0; n < 36; ++n )
 			{

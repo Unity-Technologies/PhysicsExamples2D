@@ -168,7 +168,7 @@ public class Queries : MonoBehaviour
         var origin = m_BatchOrigin.position;
         for (var i = 0; i < m_BatchCount; ++i)
         {
-            var queryDirection = PhysicsRotate.CreateRadians(math.radians(random.NextFloat(-halfSpread, halfSpread)) + fireAngle).direction;
+            var queryDirection = PhysicsRotate.FromRadians(math.radians(random.NextFloat(-halfSpread, halfSpread)) + fireAngle).direction;
 
             queries[i] = new CastRayItem
             {

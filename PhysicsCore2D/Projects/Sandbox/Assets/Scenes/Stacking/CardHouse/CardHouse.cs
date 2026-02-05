@@ -93,7 +93,7 @@ public class CardHouse : MonoBehaviour
                     if (i != nb - 1)
                     {
                         bodyDef.position = new Vector2(z + 0.25f, y + cardHeight - 0.015f);
-                        bodyDef.rotation = PhysicsRotate.CreateRadians(angle2);
+                        bodyDef.rotation = PhysicsRotate.FromRadians(angle2);
                         var body = world.CreateBody(bodyDef);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
@@ -102,7 +102,7 @@ public class CardHouse : MonoBehaviour
 
                     {
                         bodyDef.position = new Vector2(z, y);
-                        bodyDef.rotation = PhysicsRotate.CreateRadians(angle1);
+                        bodyDef.rotation = PhysicsRotate.FromRadians(angle1);
                         var body = world.CreateBody(bodyDef);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
@@ -113,7 +113,7 @@ public class CardHouse : MonoBehaviour
 
                     {
                         bodyDef.position = new Vector2(z, y);
-                        bodyDef.rotation = PhysicsRotate.CreateRadians(angle0);
+                        bodyDef.rotation = PhysicsRotate.FromRadians(angle0);
                         var body = world.CreateBody(bodyDef);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;

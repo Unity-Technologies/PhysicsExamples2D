@@ -110,7 +110,7 @@ public class ConveyorBelt : MonoBehaviour
         
 		// Platform.
 		{
-			m_ConveyorBeltBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f, rotation = PhysicsRotate.CreateRadians(PhysicsMath.ToRadians(m_ConveyorAngle)) });
+			m_ConveyorBeltBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f, rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(m_ConveyorAngle)) });
 
 			var geometry = PolygonGeometry.CreateBox(new Vector2(20f, 0.5f), 0.25f);
 			var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.8f, tangentSpeed = m_ConveyorSpeed } };
@@ -130,7 +130,7 @@ public class ConveyorBelt : MonoBehaviour
 	    for (var n = 0; n < SpawnCount; ++n)
 	    {
 		    var spawnPosition = new Vector2(random.NextFloat(-5f, 5f), random.NextFloat(9f, 20f));
-		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = spawnPosition, rotation = PhysicsRotate.CreateRadians(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)) });
+		    var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = spawnPosition, rotation = PhysicsRotate.FromRadians(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)) });
 
 		    var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = m_SandboxManager.ShapeColorState } };
 
@@ -153,7 +153,7 @@ public class ConveyorBelt : MonoBehaviour
     private void UpdateConveyorAngle()
     {
 	    // Update the conveyor angle.
-	    m_ConveyorBeltBody.rotation = PhysicsRotate.CreateRadians(PhysicsMath.ToRadians(m_ConveyorAngle));
+	    m_ConveyorBeltBody.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(m_ConveyorAngle));
     }
     
     private void UpdateConveyorSpeed()

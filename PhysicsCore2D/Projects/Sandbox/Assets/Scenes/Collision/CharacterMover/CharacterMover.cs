@@ -427,7 +427,7 @@ public class CharacterMover : MonoBehaviour
                 {
                     type = PhysicsBody.BodyType.Dynamic,
                     position = new Vector2(75f + n, 12f + random.NextFloat(0f, 6f)),
-                    rotation = PhysicsRotate.CreateRadians(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)),
+                    rotation = PhysicsRotate.FromRadians(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)),
                     angularVelocity = random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI),
                     fastCollisionsAllowed = true
                 };

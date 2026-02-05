@@ -114,11 +114,11 @@ public class ScissorLift : MonoBehaviour
         for (var n = 0; n < levels; ++n)
         {
             bodyDef.position = new Vector2(0f, y);
-            bodyDef.rotation = PhysicsRotate.CreateRadians(0.15f);
+            bodyDef.rotation = PhysicsRotate.FromRadians(0.15f);
             var body1 = world.CreateBody(bodyDef);
             body1.CreateShape(capsule);
 
-            bodyDef.rotation = PhysicsRotate.CreateRadians(0.15f);
+            bodyDef.rotation = PhysicsRotate.FromRadians(0.15f);
             var body2 = world.CreateBody(bodyDef);
             body2.CreateShape(capsule);
 

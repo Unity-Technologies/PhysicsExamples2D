@@ -176,7 +176,7 @@ public class Determinism : MonoBehaviour
                     {
                         type = PhysicsBody.BodyType.Dynamic,
                         position = new Vector2(x + offset * i, height + 2f * height * i),
-                        rotation = PhysicsRotate.CreateRadians(0.1f * rowIndex - 1f) // This tests the deterministic cosine and sine functions
+                        rotation = PhysicsRotate.FromRadians(0.1f * rowIndex - 1f) // This tests the deterministic cosine and sine functions
                     };
 
                     var body = world.CreateBody(bodyDef);

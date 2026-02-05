@@ -267,13 +267,13 @@ public class Boids : MonoBehaviour
                 physicsBody.CreateShape(geometry, shapeDef);
 
                 // Set a random rotation.
-                var rotation = PhysicsRotate.CreateRadians(random.NextFloat(0f, maxRotation));
+                var rotation = PhysicsRotate.FromRadians(random.NextFloat(0f, maxRotation));
                 
                 // Set a batch transform.
                 batchTransforms[i] = new PhysicsBody.BatchTransform
                 {
                     physicsBody = physicsBody,
-                    position = PhysicsRotate.CreateRadians(random.NextFloat(0f, maxRotation)).direction * random.NextFloat(m_BoidBounds.radius * 0.1f, m_BoidBounds.radius * 0.9f),
+                    position = PhysicsRotate.FromRadians(random.NextFloat(0f, maxRotation)).direction * random.NextFloat(m_BoidBounds.radius * 0.1f, m_BoidBounds.radius * 0.9f),
                     rotation = rotation
                 };
                 

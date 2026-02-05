@@ -216,7 +216,7 @@ public class Wind : MonoBehaviour
             return;
 
         // Calculate the wind.
-        var direction = PhysicsRotate.CreateRadians(PhysicsMath.ToRadians(m_WindDirection));
+        var direction = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(m_WindDirection));
         m_CurrentWind = (direction + m_WindNoise) * m_WindSpeed;
 
         // Apply the wind.

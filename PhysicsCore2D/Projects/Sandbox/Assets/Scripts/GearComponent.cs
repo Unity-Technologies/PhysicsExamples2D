@@ -86,7 +86,7 @@ public class GearComponent : MonoBehaviour
         gearShape.SetOwner(this);
 
         // Create the gear teeth.
-        var toothAngle = PhysicsRotate.CreateRadians(PhysicsMath.TAU / ToothCount);
+        var toothAngle = PhysicsRotate.FromRadians(PhysicsMath.TAU / ToothCount);
         var center = new Vector2(GearRadius + ToothHeight * 0.5f, 0f);
         var toothRotation = PhysicsRotate.identity;
         shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = ToothColor };

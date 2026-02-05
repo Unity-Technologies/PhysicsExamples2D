@@ -166,7 +166,7 @@ public class Slicing : MonoBehaviour
             var chainPoints = new NativeArray<Vector2>(pointCount, Allocator.Temp);
 
             var tau = PhysicsMath.TAU;
-            var rotate = PhysicsRotate.CreateRadians(-tau / pointCount);
+            var rotate = PhysicsRotate.FromRadians(-tau / pointCount);
             var offset = Vector2.right * ArenaRadius;
             for (var i = 0; i < pointCount; ++i)
             {
@@ -241,7 +241,7 @@ public class Slicing : MonoBehaviour
     private void UpdatePlayerTransform()
     {
         // Calculate the player/fire transforms.
-        var rotation = PhysicsRotate.CreateRadians(m_PlayerAngle);
+        var rotation = PhysicsRotate.FromRadians(m_PlayerAngle);
         m_PlayerTransform = new PhysicsTransform(rotation.direction * (ArenaRadius + 2f), rotation);
         m_FireTransform = new PhysicsTransform(rotation.direction * (ArenaRadius - ArenaInset), rotation);
     }
@@ -309,7 +309,7 @@ public class Slicing : MonoBehaviour
                     fireOrigin = castHit.point + castHit.normal * ArenaInset;
 
                     // Calculate the direction with a random spread.
-                    var reflectAngle = PhysicsRotate.CreateRadians(new PhysicsRotate(castHit.normal).radians + random.NextFloat(-0.5f, 0.5f)).direction;
+                    var reflectAngle = PhysicsRotate.FromRadians(new PhysicsRotate(castHit.normal).radians + random.NextFloat(-0.5f, 0.5f)).direction;
                     fireTranslation = reflectAngle * ArenaRadius *2f;
                     
                     // Draw the hit.
