@@ -19,12 +19,12 @@ public class GearLift : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 7f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 3.5f);
 
@@ -190,7 +190,7 @@ public class GearLift : MonoBehaviour
 
             const int count = 16;
             var deltaAngle = PhysicsMath.TAU / 16f;
-            var dq = new PhysicsRotate(deltaAngle);
+            var dq = PhysicsRotate.CreateRadians(deltaAngle);
             var center = new Vector2(gearRadius + toothHalfHeight, 0f);
             var rotation = PhysicsRotate.identity;
 
@@ -243,7 +243,7 @@ public class GearLift : MonoBehaviour
 
             const int count = 16;
             var deltaAngle = PhysicsMath.TAU / 16f;
-            var dq = new PhysicsRotate(deltaAngle);
+            var dq = PhysicsRotate.CreateRadians(deltaAngle);
             var center = new Vector2(gearRadius + toothHalfWidth, 0f);
             var rotation = PhysicsRotate.identity;
 

@@ -42,12 +42,12 @@ public class Slicing : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 28f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, -2f);
 
@@ -166,7 +166,7 @@ public class Slicing : MonoBehaviour
             var chainPoints = new NativeArray<Vector2>(pointCount, Allocator.Temp);
 
             var tau = PhysicsMath.TAU;
-            var rotate = new PhysicsRotate(-tau / pointCount);
+            var rotate = PhysicsRotate.CreateRadians(-tau / pointCount);
             var offset = Vector2.right * ArenaRadius;
             for (var i = 0; i < pointCount; ++i)
             {
@@ -241,7 +241,7 @@ public class Slicing : MonoBehaviour
     private void UpdatePlayerTransform()
     {
         // Calculate the player/fire transforms.
-        var rotation = new PhysicsRotate(m_PlayerAngle);
+        var rotation = PhysicsRotate.CreateRadians(m_PlayerAngle);
         m_PlayerTransform = new PhysicsTransform(rotation.direction * (ArenaRadius + 2f), rotation);
         m_FireTransform = new PhysicsTransform(rotation.direction * (ArenaRadius - ArenaInset), rotation);
     }
@@ -309,7 +309,7 @@ public class Slicing : MonoBehaviour
                     fireOrigin = castHit.point + castHit.normal * ArenaInset;
 
                     // Calculate the direction with a random spread.
-                    var reflectAngle = new PhysicsRotate(new PhysicsRotate(castHit.normal).angle + random.NextFloat(-0.5f, 0.5f)).direction;
+                    var reflectAngle = PhysicsRotate.CreateRadians(new PhysicsRotate(castHit.normal).radians + random.NextFloat(-0.5f, 0.5f)).direction;
                     fireTranslation = reflectAngle * ArenaRadius *2f;
                     
                     // Draw the hit.

@@ -76,12 +76,12 @@ public class CharacterMover : MonoBehaviour
     
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
         m_CameraManipulator.CameraPosition = new Vector2(20f, 5f);
         m_CameraManipulator.DisableManipulators = true;
@@ -427,7 +427,7 @@ public class CharacterMover : MonoBehaviour
                 {
                     type = PhysicsBody.BodyType.Dynamic,
                     position = new Vector2(75f + n, 12f + random.NextFloat(0f, 6f)),
-                    rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)),
+                    rotation = PhysicsRotate.CreateRadians(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI)),
                     angularVelocity = random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI),
                     fastCollisionsAllowed = true
                 };

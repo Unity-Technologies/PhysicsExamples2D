@@ -1,2 +1,2 @@
-m_EditorVersion: 6000.5.0a6
-m_EditorVersionWithRevision: 6000.5.0a6 (78dd7a53d795)
+m_EditorVersion: 6000.5.0a7
+m_EditorVersionWithRevision: 6000.5.0a7 (d8d9d4500853)

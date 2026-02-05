@@ -27,12 +27,12 @@ public class Determinism : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 16f;
         m_CameraManipulator.CameraPosition = new Vector2(0.5f, 4f);
 
@@ -176,7 +176,7 @@ public class Determinism : MonoBehaviour
                     {
                         type = PhysicsBody.BodyType.Dynamic,
                         position = new Vector2(x + offset * i, height + 2f * height * i),
-                        rotation = new PhysicsRotate(0.1f * rowIndex - 1f) // This tests the deterministic cosine and sine functions
+                        rotation = PhysicsRotate.CreateRadians(0.1f * rowIndex - 1f) // This tests the deterministic cosine and sine functions
                     };
 
                     var body = world.CreateBody(bodyDef);

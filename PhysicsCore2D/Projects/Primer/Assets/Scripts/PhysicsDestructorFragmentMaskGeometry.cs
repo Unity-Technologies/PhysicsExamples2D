@@ -170,7 +170,7 @@ public class PhysicsDestructorFragmentMaskGeometry : MonoBehaviour
         // Create the fragment points.
         m_FragmentedPoints = new NativeArray<Vector2>(FragmentPointCount, Allocator.Persistent);
         for (var i = 0; i < FragmentPointCount; ++i)
-            m_FragmentedPoints[i] = FragmentTransform.position + new PhysicsRotate(m_Random.NextFloat(0f, PhysicsMath.TAU)).direction * m_Random.NextFloat(0f, FragmentMaskRadius);
+            m_FragmentedPoints[i] = FragmentTransform.position + PhysicsRotate.CreateRadians(m_Random.NextFloat(0f, PhysicsMath.TAU)).direction * m_Random.NextFloat(0f, FragmentMaskRadius);
     }
     
     private void CreateTargetMask()

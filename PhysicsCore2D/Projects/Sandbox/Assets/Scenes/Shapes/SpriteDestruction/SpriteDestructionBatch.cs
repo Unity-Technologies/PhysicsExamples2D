@@ -167,7 +167,7 @@ public sealed class SpriteDestructionBatch
                 var bodyTransform = body.transform;
                 
                 var position = PhysicsMath.ToPosition3D(bodyTransform.position, Vector3.zero, transformPlane);
-                var rotation = PhysicsMath.ToRotationFast3D(body.rotation.angle, transformPlane);
+                var rotation = PhysicsMath.ToRotationFast3D(body.rotation.radians, transformPlane);
 
                 Graphics.DrawMeshNow(mesh, position, rotation);
             }

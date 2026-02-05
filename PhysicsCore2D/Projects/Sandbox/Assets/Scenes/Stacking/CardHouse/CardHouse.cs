@@ -12,12 +12,12 @@ public class CardHouse : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 1f;
         m_CameraManipulator.CameraPosition = new Vector2(0.7f, 0.9f);
 
@@ -93,7 +93,7 @@ public class CardHouse : MonoBehaviour
                     if (i != nb - 1)
                     {
                         bodyDef.position = new Vector2(z + 0.25f, y + cardHeight - 0.015f);
-                        bodyDef.rotation = new PhysicsRotate(angle2);
+                        bodyDef.rotation = PhysicsRotate.CreateRadians(angle2);
                         var body = world.CreateBody(bodyDef);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
@@ -102,7 +102,7 @@ public class CardHouse : MonoBehaviour
 
                     {
                         bodyDef.position = new Vector2(z, y);
-                        bodyDef.rotation = new PhysicsRotate(angle1);
+                        bodyDef.rotation = PhysicsRotate.CreateRadians(angle1);
                         var body = world.CreateBody(bodyDef);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;
@@ -113,7 +113,7 @@ public class CardHouse : MonoBehaviour
 
                     {
                         bodyDef.position = new Vector2(z, y);
-                        bodyDef.rotation = new PhysicsRotate(angle0);
+                        bodyDef.rotation = PhysicsRotate.CreateRadians(angle0);
                         var body = world.CreateBody(bodyDef);
 
                         shapeDef.surfaceMaterial.customColor = m_SandboxManager.ShapeColorState;

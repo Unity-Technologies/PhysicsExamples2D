@@ -36,12 +36,12 @@ public class ContactManifold : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 14f;
         m_CameraManipulator.CameraPosition = Vector2.right;
         m_CameraManipulator.DisableManipulators = true;
@@ -190,7 +190,7 @@ public class ContactManifold : MonoBehaviour
 
         // Box and Capsule.
         {
-            var box = PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, 0f), new PhysicsRotate(0.25f * PhysicsMath.PI)));
+            var box = PolygonGeometry.CreateBox(new Vector2(0.5f, 2f), radius: 0f, new PhysicsTransform(new Vector2(0f, 0f), PhysicsRotate.CreateRadians(0.25f * PhysicsMath.PI)));
             var capsule = new CapsuleGeometry { center1 = new Vector2(-0.4f, 0f), center2 = new Vector2(-0.1f, 0f), radius = 0.25f };
 
             var transform1 = new PhysicsTransform { position = offset, rotation = PhysicsRotate.identity };
@@ -592,7 +592,7 @@ public class ContactManifold : MonoBehaviour
             {
                 var rotationDelta = worldPosition.x - m_ManipulatorStartPoint.x;
                 m_Angle = math.clamp(m_ManipulatorBaseAngle + rotationDelta, -PhysicsMath.PI, PhysicsMath.PI);
-                m_Transform.rotation = new PhysicsRotate(m_Angle);
+                m_Transform.rotation = PhysicsRotate.CreateRadians(m_Angle);
                 return;
             }
 

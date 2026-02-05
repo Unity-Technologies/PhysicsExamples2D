@@ -49,7 +49,7 @@ public static class CarFactory
             frontWheelBody.CreateShape(geometry, shapeDef);
         }
 
-        var axleRotation = new PhysicsRotate(PhysicsMath.PI * 0.5f);
+        var axleRotation = PhysicsRotate.CreateRadians(PhysicsMath.PI * 0.5f);
 
         // Rear Wheel.
         {

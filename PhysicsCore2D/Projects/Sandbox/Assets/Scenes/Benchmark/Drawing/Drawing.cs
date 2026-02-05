@@ -34,12 +34,12 @@ public class Drawing : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 10f;
         m_CameraManipulator.CameraPosition = Vector2.zero;
 
@@ -176,7 +176,7 @@ public class Drawing : MonoBehaviour
             var physicsTransform = new PhysicsTransform()
             {
                 position = new Vector2(random.NextFloat(-extents.x, extents.x), random.NextFloat(-extents.y, extents.y)),
-                rotation = new PhysicsRotate(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI))
+                rotation = PhysicsRotate.CreateRadians(random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI))
             };
 
             var color = m_SandboxManager.ShapeColorState;

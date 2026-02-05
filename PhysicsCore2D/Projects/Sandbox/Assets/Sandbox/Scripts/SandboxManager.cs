@@ -166,7 +166,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         if (!SystemInfo.supportsComputeShaders)
             EditorUtility.DisplayDialog("Compute Shader Support Missing", "2D Physics requires compute shader support for its debug renderer. Without this, you will not see physics debug rendering although physics itself will be unaffected.", "OK");
 #endif
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_SceneManifest = GetComponent<SceneManifest>();
         m_MainMenuDocument = GetComponent<UIDocument>();
 
@@ -340,11 +340,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     public void ResetSceneState()
     {
         // Disable any "SceneBody".
-        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include))
             sceneBody.enabled = false;
 
         // Disable any "SceneWorlds".
-        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
+        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsInactive.Include))
             sceneWorld.enabled = false;
 
         {
@@ -380,11 +380,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         PhysicsWorld.defaultWorld.Reset();
 
         // Enable any "SceneWorlds".
-        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
+        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsInactive.Include))
             sceneWorld.enabled = true;
 
         // Enable all bodies again.
-        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include))
             sceneBody.enabled = true;
     }
 

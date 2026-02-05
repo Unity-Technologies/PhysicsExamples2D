@@ -34,7 +34,7 @@ public static class SoftbodyFactory
         for (var i = 0; i < sides; ++i)
         {
             bodyDef.position = new Vector2(radius * math.cos(angle) + center.x, radius * math.sin(angle) + center.y);
-            bodyDef.rotation = new PhysicsRotate(angle);
+            bodyDef.rotation = PhysicsRotate.CreateRadians(angle);
 
             var body = world.CreateBody(bodyDef);
             bodies.Add(body);

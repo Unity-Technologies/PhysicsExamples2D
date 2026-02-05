@@ -8,7 +8,7 @@ public class ShortcutsView : MonoBehaviour
 
     private void OnEnable()
     {
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_UIDocument = GetComponent<UIDocument>();
         var root = m_UIDocument.rootVisualElement;
 

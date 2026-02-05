@@ -24,12 +24,12 @@ public class BounceRagdolls : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 12f;
         m_CameraManipulator.CameraPosition = Vector2.zero;
 
@@ -168,8 +168,8 @@ public class BounceRagdolls : MonoBehaviour
         // Update Gravity.
         {
             m_Time += timeStep;
-            var rotation1 = new PhysicsRotate(m_Time * 0.5f);
-            var rotation2 = new PhysicsRotate(m_Time);
+            var rotation1 = PhysicsRotate.CreateRadians(m_Time * 0.5f);
+            var rotation2 = PhysicsRotate.CreateRadians(m_Time);
             world.gravity = new Vector2(rotation1.direction.x, rotation2.direction.y) * m_GravityScale;
         }
 

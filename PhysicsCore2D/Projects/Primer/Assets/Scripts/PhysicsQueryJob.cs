@@ -41,7 +41,7 @@ public class PhysicsQueryJob : MonoBehaviour
         for (var n = 0; n < 10; ++n)
         {
             bodyDef.position = new Vector2(m_Random.NextFloat(-7f, 7f), m_Random.NextFloat(-4f, 4f));
-            bodyDef.rotation = new PhysicsRotate(m_Random.NextFloat(0f, PhysicsMath.TAU));
+            bodyDef.rotation = PhysicsRotate.CreateRadians(m_Random.NextFloat(0f, PhysicsMath.TAU));
             m_PhysicsWorld.CreateBody(bodyDef).CreateShape(CapsuleGeometry.defaultGeometry, PhysicsShapeDefinition.defaultDefinition);
         }
     }
@@ -71,7 +71,7 @@ public class PhysicsQueryJob : MonoBehaviour
             queries[i] = new PhysicsQuery.CastRayInput
             {
                 origin = origin,
-                translation = new PhysicsRotate(angle).direction * RayDistance
+                translation = PhysicsRotate.CreateRadians(angle).direction * RayDistance
             };
         };
 

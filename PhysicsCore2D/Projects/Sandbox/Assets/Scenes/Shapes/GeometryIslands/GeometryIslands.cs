@@ -58,12 +58,12 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 28f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
 
@@ -363,7 +363,7 @@ public class GeometryIslands : MonoBehaviour, PhysicsCallbacks.IContactCallback
             fragmentPoints[0] = hitPosition;
             for (var i = 1; i < m_FragmentCount; ++i)
             {
-                var rotate = new PhysicsRotate(random.NextFloat(0f, PhysicsMath.PI));
+                var rotate = PhysicsRotate.CreateRadians(random.NextFloat(0f, PhysicsMath.PI));
                 var radius = random.NextFloat(0.05f, m_FragmentRadius);
                 fragmentPoints[i] = hitPosition + rotate.direction * radius;
             }

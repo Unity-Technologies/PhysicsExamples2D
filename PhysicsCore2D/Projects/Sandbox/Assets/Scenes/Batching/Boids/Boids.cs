@@ -46,12 +46,12 @@ public class Boids : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 20f;
         m_CameraManipulator.CameraPosition = Vector2.right * 0.25f;
 
@@ -267,13 +267,13 @@ public class Boids : MonoBehaviour
                 physicsBody.CreateShape(geometry, shapeDef);
 
                 // Set a random rotation.
-                var rotation = new PhysicsRotate(random.NextFloat(0f, maxRotation));
+                var rotation = PhysicsRotate.CreateRadians(random.NextFloat(0f, maxRotation));
                 
                 // Set a batch transform.
                 batchTransforms[i] = new PhysicsBody.BatchTransform
                 {
                     physicsBody = physicsBody,
-                    position = new PhysicsRotate(random.NextFloat(0f, maxRotation)).direction * random.NextFloat(m_BoidBounds.radius * 0.1f, m_BoidBounds.radius * 0.9f),
+                    position = PhysicsRotate.CreateRadians(random.NextFloat(0f, maxRotation)).direction * random.NextFloat(m_BoidBounds.radius * 0.1f, m_BoidBounds.radius * 0.9f),
                     rotation = rotation
                 };
                 

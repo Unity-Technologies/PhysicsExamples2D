@@ -86,7 +86,7 @@ public class ContactFiltering : MonoBehaviour
         var normal = shapeContext == contact.shapeB ? manifold.normal : -manifold.normal;
         
         // Filter the normal.
-        var normalAngle = PhysicsMath.ToDegrees(new PhysicsRotate(normal).angle);
+        var normalAngle = PhysicsMath.ToDegrees(new PhysicsRotate(normal).radians);
         return normalAngle is > 85f and < 95f;
     }
 

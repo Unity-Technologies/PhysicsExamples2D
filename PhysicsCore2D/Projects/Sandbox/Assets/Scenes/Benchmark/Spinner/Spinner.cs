@@ -25,12 +25,12 @@ public class Spinner : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 48f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 0f);
 
@@ -161,7 +161,7 @@ public class Spinner : MonoBehaviour
             var chainPoints = new NativeArray<Vector2>(pointCount, Allocator.Temp);
 
             var tau = PhysicsMath.TAU;
-            var rotate = new PhysicsRotate(-tau / pointCount);
+            var rotate = PhysicsRotate.CreateRadians(-tau / pointCount);
             var offset = Vector2.right * 40f;
             for (var i = 0; i < pointCount; ++i)
             {

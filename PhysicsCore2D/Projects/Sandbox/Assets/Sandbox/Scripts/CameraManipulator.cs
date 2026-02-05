@@ -98,7 +98,7 @@ public class CameraManipulator : MonoBehaviour
     
     private void Awake()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
         Camera = GetComponentInParent<Camera>();
         CameraPosition = Vector2.zero;
         m_TouchMode = InputMode.Drag;

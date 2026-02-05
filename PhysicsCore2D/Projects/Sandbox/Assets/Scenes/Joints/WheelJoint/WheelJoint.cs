@@ -24,12 +24,12 @@ public class WheelJoint : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 4f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 10f);
 
@@ -211,7 +211,7 @@ public class WheelJoint : MonoBehaviour
             var geometry = new CircleGeometry { radius = 0.5f };
             body.CreateShape(geometry);
 
-            var wheelRotation = new PhysicsRotate(angle: PhysicsMath.ToRadians(m_WheelAngle));
+            var wheelRotation = PhysicsRotate.CreateDegrees(m_WheelAngle);
 
             var jointPivot = new Vector2(0f, 10f);
             var jointDef = new PhysicsWheelJointDefinition

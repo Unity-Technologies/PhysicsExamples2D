@@ -25,12 +25,12 @@ public class Triggers : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 120f;
         m_CameraManipulator.CameraPosition = new Vector2(0, 100f);
 
@@ -148,7 +148,7 @@ public class Triggers : MonoBehaviour
                     var box = PolygonGeometry.CreateBox(
                         size: Vector2.one,
                         radius: 0.1f,
-                        transform: new PhysicsTransform(new Vector2(x, y + yOffset), new PhysicsRotate(m_SandboxManager.Random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI))));
+                        transform: new PhysicsTransform(new Vector2(x, y + yOffset), PhysicsRotate.CreateRadians(m_SandboxManager.Random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI))));
 
                     groundBody.CreateShape(box, shapeDef);
                 }

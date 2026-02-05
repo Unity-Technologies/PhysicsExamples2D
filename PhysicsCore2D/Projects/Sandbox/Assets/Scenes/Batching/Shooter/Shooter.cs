@@ -29,12 +29,12 @@ public class Shooter : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 14f;
         m_CameraManipulator.CameraPosition = Vector2.right * 0.25f;
 
@@ -141,8 +141,8 @@ public class Shooter : MonoBehaviour
         // Batch Creation.
         {
             m_Time += Time.deltaTime;
-            var rotation1 = new PhysicsRotate(m_Time * 0.5f);
-            var rotation2 = new PhysicsRotate(m_Time);
+            var rotation1 = PhysicsRotate.CreateRadians(m_Time * 0.5f);
+            var rotation2 = PhysicsRotate.CreateRadians(m_Time);
             m_FireDirection = new Vector2(rotation1.direction.x, rotation2.direction.y);
             var fireAngle = PhysicsMath.Atan2(m_FireDirection.y, m_FireDirection.x);
 
@@ -175,13 +175,13 @@ public class Shooter : MonoBehaviour
                     {
                         // Calculate the fire spread.
                         var halfSpread = m_BatchSpread * 0.5f;
-                        var fireDirection = new PhysicsRotate(math.radians(random.NextFloat(-halfSpread, halfSpread)) + fireAngle).direction;
+                        var fireDirection = PhysicsRotate.CreateRadians(math.radians(random.NextFloat(-halfSpread, halfSpread)) + fireAngle).direction;
                         var fireOffset = random.NextFloat(m_BatchOffset.x, m_BatchOffset.y);
                         var fireSpeed = random.NextFloat(m_BatchSpeed.x, m_BatchSpeed.y);
 
                         // Create the projectile body.
                         bodyDef.position = fireDirection * fireOffset;
-                        bodyDef.rotation = new PhysicsRotate(random.NextFloat(-3f, 3f));
+                        bodyDef.rotation = PhysicsRotate.CreateRadians(random.NextFloat(-3f, 3f));
                         bodyDef.linearVelocity = fireDirection * fireSpeed;
 
                         definitions[i] = bodyDef;

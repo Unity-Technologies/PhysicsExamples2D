@@ -39,7 +39,7 @@ public static class GearFactory
 
         const int count = 16;
         var deltaAngle = PhysicsMath.TAU / 16f;
-        var dq = new PhysicsRotate(deltaAngle);
+        var dq = PhysicsRotate.CreateRadians(deltaAngle);
         var center = new Vector2(gearRadius + toothHalfHeight, 0f);
         var rotation = PhysicsRotate.identity;
 

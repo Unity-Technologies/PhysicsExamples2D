@@ -25,12 +25,12 @@ public class SliderJoint : MonoBehaviour
 
     private void OnEnable()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 12f;
         m_CameraManipulator.CameraPosition = new Vector2(0f, 9f);
 
@@ -222,7 +222,7 @@ public class SliderJoint : MonoBehaviour
             var geometry = new CapsuleGeometry { center1 = Vector2.down * 2f, center2 = Vector2.up * 2f, radius = 1f };
             body.CreateShape(geometry);
 
-            var slideRotation = new PhysicsRotate(angle: PhysicsMath.ToRadians(m_SliderAngle));
+            var slideRotation = PhysicsRotate.CreateDegrees(m_SliderAngle);
 
             var jointPivot = new Vector2(0f, 9f);
             var jointDef = new PhysicsSliderJointDefinition

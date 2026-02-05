@@ -104,7 +104,7 @@ namespace Unity.U2D.Physics.Extras
 
             // Create the body at the transform position.
             BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
-            BodyDefinition.rotation = new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
+            BodyDefinition.rotation = PhysicsRotate.CreateRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
             m_Body = PhysicsBody.Create(world: world, definition: BodyDefinition);
             if (m_Body.isValid)
             {

@@ -17,13 +17,13 @@ public class Custom : MonoBehaviour
     private void OnEnable()
     {
         // Fetch some important types.
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
-        m_SceneManifest = FindFirstObjectByType<SceneManifest>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SceneManifest = FindAnyObjectByType<SceneManifest>();
         m_UIDocument = GetComponent<UIDocument>();
         m_SandboxManager.SceneOptionsUI = m_UIDocument;
 
         // Fetch the camera manipulator and set-up the sample scene size and zoom.
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_CameraManipulator.CameraSize = 12f;
         m_CameraManipulator.CameraPosition = Vector2.zero;
 
