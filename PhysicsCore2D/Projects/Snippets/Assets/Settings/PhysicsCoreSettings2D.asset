@@ -90,7 +90,8 @@ MonoBehaviour:
     m_TransformPlaneCustom:
       m_Translate: {x: 0, y: 0, z: 0}
       m_Rotate: {x: 0, y: 0, z: 0}
-      m_Scale: 0
+      m_Scale: 1
+    m_SyncInterpolation: 0
     m_SleepingAllowed: 1
     m_ContinuousAllowed: 1
     m_ContactFilterCallbacks: 1
@@ -108,11 +109,11 @@ MonoBehaviour:
     m_DrawOptions: 4256
     m_DrawFillOptions: -1
     m_DrawFilter: 0
-    m_DrawThickness: 2
+    m_DrawThickness: 1
     m_DrawFillAlpha: 0.1
-    m_DrawPointScale: 1
-    m_DrawNormalScale: 1
-    m_DrawForceScale: 1
+    m_DrawPointScale: 0.5
+    m_DrawNormalScale: 0.01
+    m_DrawForceScale: 0.01
     m_DrawColors:
       transformAxisX: {r: 0, g: 1, b: 1, a: 1}
       transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
@@ -154,6 +155,12 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   m_PhysicsShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
@@ -166,12 +173,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 0
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -181,6 +182,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   m_PhysicsChainDefinition:
     m_SurfaceMaterial:
       m_Friction: 0.6
