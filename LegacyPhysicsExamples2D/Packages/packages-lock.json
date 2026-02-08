@@ -13,7 +13,7 @@
       "dependencies": {}
     },
     "com.unity.ide.rider": {
-      "version": "3.0.38",
+      "version": "3.0.39",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -31,7 +31,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.17.0",
+      "version": "1.18.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
