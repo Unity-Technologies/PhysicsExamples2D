@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
 namespace Unity.U2D.Physics.Extras
@@ -83,28 +84,14 @@ namespace Unity.U2D.Physics.Extras
             PhysicsWorld.UnregisterTransformChange(transform, this);
         }
 
-        private void OnValidate()
-        {
-            if (!isActiveAndEnabled)
-                return;
-
-            // Create a new body.
-            CreateBody();
-        }
-
         private void CreateBody()
         {
             // Destroy any existing body.
             DestroyBody();
 
-            var world = UseDefaultWorld || SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
-
-            // Fetch the transform plane.
-            var transformPlane = world.transformPlane;
+            var world = GetWorld();
 
             // Create the body at the transform position.
-            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
-            BodyDefinition.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
             m_Body = PhysicsBody.Create(world: world, definition: BodyDefinition);
             if (m_Body.isValid)
             {
@@ -137,7 +124,7 @@ namespace Unity.U2D.Physics.Extras
                 m_OwnerKey = 0;
             }
         }
-
+        
         private void OnCreateWorld(SceneWorld sceneWorld)
         {
             if (!UseDefaultWorld)
@@ -149,7 +136,61 @@ namespace Unity.U2D.Physics.Extras
             if (!UseDefaultWorld)
                 DestroyBody();
         }
+        
+        private PhysicsWorld GetWorld() => UseDefaultWorld || SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
 
+        void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
+        {
+            // Fetch the world.
+            var world = GetWorld();
+
+            // Fetch the transform plane.
+            var transformPlane = world.transformPlane;
+            
+            // Update the body definition to match the transform.
+            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
+            BodyDefinition.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
+            
+            // Create a new body.
+            CreateBody();
+        }
+
+        private void OnValidate()
+        {
+            if (!isActiveAndEnabled)
+                return;
+
+#if UNITY_EDITOR            
+            // Synchronize the transform to the body definition.
+            if (!EditorApplication.isPlaying)
+            {
+                // Fetch the world.
+                var world = GetWorld();
+
+                // Fetch the transform plane.
+                var transformPlane = world.transformPlane;
+            
+                // Fetch the transform pose.
+                var transformPosition = transform.position;
+                var transformRotation = transform.rotation;
+            
+                // Calculate the body pose.
+                var position = PhysicsMath.ToPosition2D(transformPosition, transformPlane);
+                var rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transformRotation, transformPlane));
+            
+                // If ithe body definition and transform don't match then update the transform.
+                if (BodyDefinition.position != position || !Mathf.Approximately(BodyDefinition.rotation.radians, rotation.radians))
+                {
+                    transform.SetPositionAndRotation(
+                        PhysicsMath.ToPosition3D(BodyDefinition.position, transformPosition, transformPlane),
+                        PhysicsMath.ToRotationSlow3D(BodyDefinition.rotation.radians, transformRotation, transformPlane));
+                }
+            }
+#endif            
+            // Create a new body.
+            CreateBody();
+        }
+        
         private void FixUnassignedSceneShapes()
         {
             var componentCount = gameObject.GetComponentCount();
@@ -170,12 +211,6 @@ namespace Unity.U2D.Physics.Extras
             }
         }
         
-        void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
-        {
-            if (m_Body.isValid)
-                CreateBody();
-        }
-
         void IWorldSceneDrawable.Draw()
         {
             if (!m_Body.isValid)
