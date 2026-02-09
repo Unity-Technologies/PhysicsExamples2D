@@ -87,7 +87,7 @@ namespace Unity.U2D.Physics.Extras
 #endif
         }
 
-        private void CreateBody(bool transformChanged = false)
+        private void CreateBody()
         {
             // Destroy any existing body.
             DestroyBody();
