@@ -14,6 +14,9 @@
                     <ui:Toggle label="Enable Limit" name="enable-limit" focusable="false"/>
                     <ui:Slider label="Min Distance Limit" value="0" high-value="4" show-input-field="true" name="min-distance-limit" fill="true" low-value="0.1" focusable="false"/>
                     <ui:Slider label="Max Distance Limit" value="0" high-value="4" show-input-field="true" name="max-distance-limit" fill="true" low-value="0.4" focusable="false"/>
+                    <ui:Toggle label="Enable Motor" name="enable-motor" focusable="false"/>
+                    <ui:Slider label="Motor Speed" value="0" high-value="50" show-input-field="true" name="motor-speed" fill="true" low-value="-50" focusable="false"/>
+                    <ui:Slider label="Max Motor Force" value="0" high-value="500" show-input-field="true" name="max-motor-force" fill="true" low-value="0" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
             <ui:VisualElement name="description" style="flex-grow: 1; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">
