@@ -94,6 +94,11 @@ namespace Unity.U2D.Physics.Extras
 
             var world = GetWorld();
 
+#if UNITY_EDITOR
+            if (EditorApplication.isPlaying)
+#endif
+                SyncDefinitionToTransform();
+            
             // Create the body at the transform position.
             m_Body = PhysicsBody.Create(world: world, definition: BodyDefinition);
             if (m_Body.isValid)
@@ -144,15 +149,7 @@ namespace Unity.U2D.Physics.Extras
         
         void IWorldSceneTransformChanged.TransformChanged()
         {
-            // Fetch the world.
-            var world = GetWorld();
-
-            // Fetch the transform plane.
-            var transformPlane = world.transformPlane;
-            
-            // Update the body definition to match the transform.
-            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
-            BodyDefinition.rotation = new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
+            SyncDefinitionToTransform(); 
             
             // Create a new body.
             CreateBody();
@@ -163,6 +160,28 @@ namespace Unity.U2D.Physics.Extras
             if (!isActiveAndEnabled)
                 return;
 
+            SyncTransformToDefinition();
+            
+            // Create a new body.
+            CreateBody();
+        }
+
+        private void SyncDefinitionToTransform()
+        {
+            // Fetch the world.
+            var world = GetWorld();
+
+            // Fetch the transform plane.
+            var transformPlane = world.transformPlane;
+            
+            // Update the body definition to match the transform.
+            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
+            BodyDefinition.rotation = new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
+        }
+
+        private void SyncTransformToDefinition()
+        {
+#if UNITY_EDITOR
             // Synchronize the transform to the body definition.
             if (!EditorApplication.isPlaying)
             {
@@ -188,9 +207,7 @@ namespace Unity.U2D.Physics.Extras
                         PhysicsMath.ToRotationSlow3D(BodyDefinition.rotation.angle, transformRotation, transformPlane));
                 }
             }
-            
-            // Create a new body.
-            CreateBody();
+#endif            
         }
 
         private void FixUnassignedSceneShapes()
