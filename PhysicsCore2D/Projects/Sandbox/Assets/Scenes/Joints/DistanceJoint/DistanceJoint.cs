@@ -22,6 +22,9 @@ public class DistanceJoint : MonoBehaviour
     private bool m_EnableLimit;
     private float m_MinDistanceLimit;
     private float m_MaxDistanceLimit;
+    private bool m_EnableMotor;
+    private float m_MotorSpeed;
+    private float m_MaxMotorForce;
 
     private void OnEnable()
     {
@@ -51,6 +54,9 @@ public class DistanceJoint : MonoBehaviour
         m_EnableLimit = false;
         m_MinDistanceLimit = m_JointDistance;
         m_MaxDistanceLimit = m_JointDistance;
+        m_EnableMotor = false;
+        m_MotorSpeed = 2f;
+        m_MaxMotorForce = 50f;
 
         m_Joints = new NativeList<PhysicsDistanceJoint>(m_JointCount, Allocator.Persistent);
 
@@ -182,6 +188,33 @@ public class DistanceJoint : MonoBehaviour
 
                 SetupScene();
             });
+            
+            // Enable Motor.
+            var enableMotor = root.Q<Toggle>("enable-motor");
+            enableMotor.value = m_EnableMotor;
+            enableMotor.RegisterValueChangedCallback(evt =>
+            {
+                m_EnableMotor = evt.newValue;
+                UpdateJoints();
+            });
+
+            // Motor Speed.
+            var motorSpeed = root.Q<Slider>("motor-speed");
+            motorSpeed.value = m_MotorSpeed;
+            motorSpeed.RegisterValueChangedCallback(evt =>
+            {
+                m_MotorSpeed = evt.newValue;
+                UpdateJoints();
+            });
+
+            // Max Motor Force.
+            var maxMotorForce = root.Q<Slider>("max-motor-force");
+            maxMotorForce.value = m_MaxMotorForce;
+            maxMotorForce.RegisterValueChangedCallback(evt =>
+            {
+                m_MaxMotorForce = evt.newValue;
+                UpdateJoints();
+            });
 
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
@@ -216,6 +249,9 @@ public class DistanceJoint : MonoBehaviour
             enableLimit = m_EnableLimit,
             minDistanceLimit = m_MinDistanceLimit,
             maxDistanceLimit = m_MaxDistanceLimit,
+            enableMotor = m_EnableMotor,
+            motorSpeed = m_MotorSpeed,
+            maxMotorForce = m_MaxMotorForce
         };
 
         const float offsetY = 20f;
@@ -259,6 +295,9 @@ public class DistanceJoint : MonoBehaviour
             joint.enableLimit = m_EnableLimit;
             joint.minDistanceLimit = m_MinDistanceLimit;
             joint.maxDistanceLimit = m_MaxDistanceLimit;
+            joint.enableMotor = m_EnableMotor;
+            joint.motorSpeed = m_MotorSpeed;
+            joint.maxMotorForce = m_MaxMotorForce;
 
             joint.WakeBodies();
         }
