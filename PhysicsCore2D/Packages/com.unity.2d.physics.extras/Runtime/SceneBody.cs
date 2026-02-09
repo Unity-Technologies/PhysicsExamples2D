@@ -89,8 +89,14 @@ namespace Unity.U2D.Physics.Extras
             // Destroy any existing body.
             DestroyBody();
 
+            // Fetch the world.
             var world = GetWorld();
 
+#if UNITY_EDITOR
+            if (EditorApplication.isPlaying)
+#endif
+                SyncDefinitionToTransform();
+            
             // Create the body at the transform position.
             m_Body = PhysicsBody.Create(world: world, definition: BodyDefinition);
             if (m_Body.isValid)
@@ -141,15 +147,7 @@ namespace Unity.U2D.Physics.Extras
 
         void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
-            // Fetch the world.
-            var world = GetWorld();
-
-            // Fetch the transform plane.
-            var transformPlane = world.transformPlane;
-            
-            // Update the body definition to match the transform.
-            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
-            BodyDefinition.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
+            SyncDefinitionToTransform(); 
             
             // Create a new body.
             CreateBody();
@@ -160,7 +158,28 @@ namespace Unity.U2D.Physics.Extras
             if (!isActiveAndEnabled)
                 return;
 
-#if UNITY_EDITOR            
+            SyncTransformToDefinition();
+            
+            // Create a new body.
+            CreateBody();
+        }
+        
+        private void SyncDefinitionToTransform()
+        {
+            // Fetch the world.
+            var world = GetWorld();
+
+            // Fetch the transform plane.
+            var transformPlane = world.transformPlane;
+            
+            // Update the body definition to match the transform.
+            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
+            BodyDefinition.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
+        }
+
+        private void SyncTransformToDefinition()
+        {
+#if UNITY_EDITOR
             // Synchronize the transform to the body definition.
             if (!EditorApplication.isPlaying)
             {
@@ -187,9 +206,7 @@ namespace Unity.U2D.Physics.Extras
                 }
             }
 #endif            
-            // Create a new body.
-            CreateBody();
-        }
+        }        
         
         private void FixUnassignedSceneShapes()
         {
@@ -197,7 +214,7 @@ namespace Unity.U2D.Physics.Extras
             for (var i = 0; i < componentCount; ++i)
             {
                 var sceneShape = gameObject.GetComponentAtIndex(i) as SceneShape;
-                if (sceneShape && sceneShape.SceneBody == null)
+                if (sceneShape != null && sceneShape.SceneBody == null)
                 {
                     sceneShape.SceneBody = this;
 
