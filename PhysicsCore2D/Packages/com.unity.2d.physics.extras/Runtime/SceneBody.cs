@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 using UnityEngine.Scripting.APIUpdating;
 
@@ -86,28 +87,14 @@ namespace Unity.U2D.Physics.Extras
 #endif
         }
 
-        private void OnValidate()
-        {
-            if (!isActiveAndEnabled)
-                return;
-
-            // Create a new body.
-            CreateBody();
-        }
-
-        private void CreateBody()
+        private void CreateBody(bool transformChanged = false)
         {
             // Destroy any existing body.
             DestroyBody();
 
-            var world = UseDefaultWorld || SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
-
-            // Fetch the transform plane.
-            var transformPlane = world.transformPlane;
+            var world = GetWorld();
 
             // Create the body at the transform position.
-            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
-            BodyDefinition.rotation = new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
             m_Body = PhysicsBody.Create(world: world, definition: BodyDefinition);
             if (m_Body.isValid)
             {
@@ -153,6 +140,59 @@ namespace Unity.U2D.Physics.Extras
                 DestroyBody();
         }
 
+        private PhysicsWorld GetWorld() => UseDefaultWorld || SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
+        
+        void IWorldSceneTransformChanged.TransformChanged()
+        {
+            // Fetch the world.
+            var world = GetWorld();
+
+            // Fetch the transform plane.
+            var transformPlane = world.transformPlane;
+            
+            // Update the body definition to match the transform.
+            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
+            BodyDefinition.rotation = new PhysicsRotate(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
+            
+            // Create a new body.
+            CreateBody();
+        }
+        
+        private void OnValidate()
+        {
+            if (!isActiveAndEnabled)
+                return;
+
+            // Synchronize the transform to the body definition.
+            if (!EditorApplication.isPlaying)
+            {
+                // Fetch the world.
+                var world = GetWorld();
+
+                // Fetch the transform plane.
+                var transformPlane = world.transformPlane;
+            
+                // Fetch the transform pose.
+                var transformPosition = transform.position;
+                var transformRotation = transform.rotation;
+            
+                // Calculate the body pose.
+                var position = PhysicsMath.ToPosition2D(transformPosition, transformPlane);
+                var rotation = new PhysicsRotate(PhysicsMath.ToRotation2D(transformRotation, transformPlane));
+            
+                // If ithe body definition and transform don't match then update the transform.
+                if (BodyDefinition.position != position || !Mathf.Approximately(BodyDefinition.rotation.angle, rotation.angle))
+                {
+                    transform.SetPositionAndRotation(
+                        PhysicsMath.ToPosition3D(BodyDefinition.position, transformPosition, transformPlane),
+                        PhysicsMath.ToRotationSlow3D(BodyDefinition.rotation.angle, transformRotation, transformPlane));
+                }
+            }
+            
+            // Create a new body.
+            CreateBody();
+        }
+
         private void FixUnassignedSceneShapes()
         {
             var componentCount = gameObject.GetComponentCount();
@@ -172,13 +212,7 @@ namespace Unity.U2D.Physics.Extras
                 }
             }
         }
-
-        void IWorldSceneTransformChanged.TransformChanged()
-        {
-            if (m_Body.isValid)
-                CreateBody();
-        }
-
+        
         void IWorldSceneDrawable.Draw()
         {
             if (!m_Body.isValid)
