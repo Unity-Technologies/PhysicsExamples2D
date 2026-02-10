@@ -5,7 +5,7 @@
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Gear Lift Options" tabindex="0" name="Tab">
                     <ui:Toggle label="Use Motor" name="use-motor" focusable="false"/>
-                    <ui:Slider label="Motor Speed" value="1" high-value="1" name="motor-speed" show-input-field="true" low-value="-1" fill="true" focusable="false"/>
+                    <ui:Slider label="Motor Speed" value="-50" high-value="100" name="motor-speed" show-input-field="true" low-value="-100" fill="true" focusable="false"/>
                     <ui:Slider label="Motor Max Torque" value="80" high-value="100" name="motor-torque" show-input-field="true" low-value="0" fill="true" focusable="false"/>
                 </ui:Tab>
             </ui:TabView>
