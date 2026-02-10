@@ -32,8 +32,8 @@ public class GearLift : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
 
         m_UseMotor = false;
-        m_MotorSpeed = -0.5f;
-        m_MaxMotorTorque = 80f;
+        m_MotorSpeed = -100f;
+        m_MaxMotorTorque = 100f;
 
         SetupOptions();
 
