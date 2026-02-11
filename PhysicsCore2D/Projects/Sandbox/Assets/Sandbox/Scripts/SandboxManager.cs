@@ -170,6 +170,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_SceneManifest = GetComponent<SceneManifest>();
         m_MainMenuDocument = GetComponent<UIDocument>();
 
+        // Disable this because it's not needed and causing Input system problems.
+        UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
+        
         m_ShowUI = true;
 
         // Show the Shortcut view by default.
