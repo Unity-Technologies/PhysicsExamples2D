@@ -14,7 +14,7 @@ Go to `Assets > Create > 2D > PhysicsCore Settings 2D` in the Unity Editor:
 
 **Assign the Asset**
 
-Drag the created `PhysicsCore Settings 2D` asset into the property in the `Low Level` tab located in `Project Settings > Physics 2D`:
+Drag the created `PhysicsCore Settings 2D` asset into the property located in `Project Settings > PhysicsCore 2D`:
 
 ![Project Settings / Physics Core 2D](Images/ProjectSettingsPhysicsCore2D.png)
 
