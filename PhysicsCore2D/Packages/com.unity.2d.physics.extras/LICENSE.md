@@ -1,4 +1,4 @@
-Physics2D LowLevel Extras copyright © 2024 Unity Technologies ApS
+PhysicsCore 2D Extras copyright © 2024 Unity Technologies ApS
 
 Licensed under the Unity Companion License for Unity-dependent projects--see [Unity Companion License](http://www.unity3d.com/legal/licenses/Unity_Companion_License). 
 

@@ -19,7 +19,7 @@ public class ContactFiltering : MonoBehaviour
     private void Start()
     {
         // Set the shape context we're interested in.
-        m_PhysicsShape = GetComponent<SceneShape>().Shape;
+        m_PhysicsShape = GetComponent<TestShape>().shape;
     }
 
     private void OnEnable()

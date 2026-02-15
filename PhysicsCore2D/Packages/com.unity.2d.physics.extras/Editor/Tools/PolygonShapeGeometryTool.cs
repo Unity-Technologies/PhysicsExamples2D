@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace Unity.U2D.Physics.Editor.Extras
 {
-    internal sealed partial class SceneShapeEditorTool
+    internal sealed partial class TestShapeEditorTool
     {
         // NOTE: We must offset the point along the normal, so we're not collinear.
         private const float CollinearOffset = 0.05f;
@@ -13,13 +13,13 @@ namespace Unity.U2D.Physics.Editor.Extras
         /// <summary>
         /// Polygon Geometry Tool.
         /// </summary>
-        private sealed class PolygonShapeGeometryTool : SceneShapeGeometryTool
+        private sealed class PolygonShapeGeometryTool : TestShapeGeometryTool
         {
             private Vector2 m_HotVertex1;
             private Vector2 m_HotVertex2;
             private int m_HotVertexCount;
 
-            public PolygonShapeGeometryTool(SceneShape sceneShape, IGeometryToolSettings geometryToolSettings) : base(sceneShape, geometryToolSettings)
+            public PolygonShapeGeometryTool(TestShape testShape, IGeometryToolSettings geometryToolSettings) : base(testShape, geometryToolSettings)
             {
             }
 
@@ -30,7 +30,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                 var localGeometry = ShapeTarget.PolygonGeometry;
 
                 // Calculate the relative transform from the scene body to this scene shape.
-                var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.SceneBody.transform, ShapeTarget.transform, ShapeTarget.SceneBody.Body.world.transformPlane);
+                var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.testBody.transform, ShapeTarget.transform, ShapeTarget.testBody.body.world.transformPlane);
 
                 TargetShapeChanged = false;
 

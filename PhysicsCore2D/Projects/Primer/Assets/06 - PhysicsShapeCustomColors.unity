@@ -164,11 +164,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicsShapeCustomColors
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -176,12 +182,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4278254716
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -191,6 +191,10 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
 --- !u!1001 &1498071701
 PrefabInstance:
   m_ObjectHideFlags: 0

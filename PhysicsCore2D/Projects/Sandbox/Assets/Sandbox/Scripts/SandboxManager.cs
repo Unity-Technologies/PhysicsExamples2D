@@ -342,13 +342,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     public void ResetSceneState()
     {
-        // Disable any "SceneBody".
-        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include))
-            sceneBody.enabled = false;
+        // Disable any "TestBody".
+        foreach (var testBody in FindObjectsByType<TestBody>(FindObjectsInactive.Include))
+            testBody.enabled = false;
 
-        // Disable any "SceneWorlds".
-        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsInactive.Include))
-            sceneWorld.enabled = false;
+        // Disable any "TestWorld".
+        foreach (var testWorld in FindObjectsByType<TestWorld>(FindObjectsInactive.Include))
+            testWorld.enabled = false;
 
         {
             var destroyBodies = new NativeList<PhysicsBody>(1000, Allocator.Temp);
@@ -382,13 +382,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Reset the default world.
         PhysicsWorld.defaultWorld.Reset();
 
-        // Enable any "SceneWorlds".
-        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsInactive.Include))
-            sceneWorld.enabled = true;
+        // Enable any "TestWorld".
+        foreach (var testWorld in FindObjectsByType<TestWorld>(FindObjectsInactive.Include))
+            testWorld.enabled = true;
 
-        // Enable all bodies again.
-        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include))
-            sceneBody.enabled = true;
+        // Enable all "TestBody" again.
+        foreach (var testBody in FindObjectsByType<TestBody>(FindObjectsInactive.Include))
+            testBody.enabled = true;
     }
 
     private void SetupOptions()

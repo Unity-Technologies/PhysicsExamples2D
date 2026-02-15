@@ -4,14 +4,14 @@ using UnityEditor;
 
 namespace Unity.U2D.Physics.Editor.Extras
 {
-    internal sealed partial class SceneShapeEditorTool
+    internal sealed partial class TestShapeEditorTool
     {
         /// <summary>
         /// Chain Segment Geometry Tool.
         /// </summary>
-        private sealed class ChainSegmentShapeGeometryTool : SceneShapeGeometryTool
+        private sealed class ChainSegmentShapeGeometryTool : TestShapeGeometryTool
         {
-            public ChainSegmentShapeGeometryTool(SceneShape sceneShape, IGeometryToolSettings geometryToolSettings) : base(sceneShape, geometryToolSettings)
+            public ChainSegmentShapeGeometryTool(TestShape testShape, IGeometryToolSettings geometryToolSettings) : base(testShape, geometryToolSettings)
             {
             }
 
@@ -23,7 +23,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                 var localGeometry = ShapeTarget.ChainSegmentGeometry;
 
                 // Calculate the relative transform from the scene body to this scene shape.
-                var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.SceneBody.transform, ShapeTarget.transform, ShapeTarget.SceneBody.Body.world.transformPlane);
+                var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.testBody.transform, ShapeTarget.transform, ShapeTarget.testBody.body.world.transformPlane);
 
                 // Set-up handles.
                 var snap = GetSnapSettings();

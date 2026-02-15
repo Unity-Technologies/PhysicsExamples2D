@@ -6,7 +6,7 @@ using Unity.U2D.Physics.Extras;
 public class DragScript : MonoBehaviour
 {
     public bool UseDefaultWorld = true;
-    public SceneWorld SceneWorld;
+    public TestWorld World;
     public PhysicsQuery.QueryFilter QueryFilter = PhysicsQuery.QueryFilter.Everything;
     
     private Camera m_Camera;
@@ -24,7 +24,7 @@ public class DragScript : MonoBehaviour
     private void OnEnable()
     {
         m_Camera = Camera.main;
-        m_World = UseDefaultWorld || SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World; 
+        m_World = UseDefaultWorld || World == null ? PhysicsWorld.defaultWorld : World.world; 
         m_DragGroundBody = m_World.CreateBody();
     }
 

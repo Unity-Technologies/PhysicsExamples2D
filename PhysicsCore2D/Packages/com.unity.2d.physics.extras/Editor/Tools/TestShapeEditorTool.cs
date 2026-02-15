@@ -1,0 +1,156 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEditor.EditorTools;
+using UnityEngine;
+using Unity.U2D.Physics.Extras;
+using UnityEditor;
+
+namespace Unity.U2D.Physics.Editor.Extras
+{
+    [EditorTool("Edit Test Shape", typeof(TestShape))]
+    internal sealed partial class TestShapeEditorTool : EditorTool, IGeometryToolSettings
+    {
+        public override void OnActivated()
+        {
+            // Create overlay.
+            m_Overlay = new TestGeometryToolOverlay(this) { visible = true };
+            SceneView.AddOverlayToActiveView(m_Overlay);
+
+            // Create the appropriate geometry tools.
+            m_TestShapeTargets = new List<TestShape>(capacity: 1);
+            m_GeometryTools = new List<TestShapeGeometryTool>(capacity: 1);
+            foreach (var toolTarget in targets)
+            {
+                if (toolTarget is TestShape sceneShape)
+                {
+                    if (sceneShape.isActiveAndEnabled)
+                    {
+                        m_TestShapeTargets.Add(sceneShape);
+                        m_GeometryTools.Add(CreateTool(sceneShape));
+                    }
+                }
+            }
+        }
+
+        public override void OnWillBeDeactivated()
+        {
+            // Remove overlay.
+            SceneView.RemoveOverlayFromActiveView(m_Overlay);
+            m_Overlay.visible = false;
+            m_Overlay = null;
+
+            // Clear the tools.
+            m_GeometryTools.Clear();
+        }
+
+        public override void OnToolGUI(EditorWindow window)
+        {
+            // Finish if there are no tools available.
+            if (m_GeometryTools == null)
+                return;
+
+            // Iterate the available tools.
+            for (var i = 0; i < m_GeometryTools.Count; ++i)
+            {
+                // Fetch the geometry tool.
+                var geometryTool = m_GeometryTools[i];
+
+                // Update the tool in-case the target has been recreated or changed.
+                if (!geometryTool.UpdateTool())
+                {
+                    // It seems the tool failed due to shape-type change so recreate it.
+                    geometryTool = CreateTool(m_TestShapeTargets[i]);
+                    geometryTool.UpdateTool();
+                }
+
+                // Let the tool handle the callback if it's valid.
+                if (geometryTool.isValid)
+                    geometryTool.OnToolGUI(window);
+            }
+
+            // If we're not playing then we should queue a player update.
+            // NOTE: We do this, so we'll render the gizmos.
+            if (!EditorApplication.isPlaying)
+                EditorApplication.QueuePlayerLoopUpdate();
+        }
+
+        private TestShapeGeometryTool CreateTool(TestShape testShape)
+        {
+            return testShape.shape.shapeType switch
+            {
+                PhysicsShape.ShapeType.Circle => new CircleShapeGeometryTool(testShape, this),
+                PhysicsShape.ShapeType.Capsule => new CapsuleShapeGeometryTool(testShape, this),
+                PhysicsShape.ShapeType.Segment => new SegmentShapeGeometryTool(testShape, this),
+                PhysicsShape.ShapeType.ChainSegment => new ChainSegmentShapeGeometryTool(testShape, this),
+                PhysicsShape.ShapeType.Polygon => new PolygonShapeGeometryTool(testShape, this),
+                _ => throw new ArgumentOutOfRangeException(nameof(testShape.shape.shapeType), testShape.shape.shapeType, null)
+            };
+        }
+
+        public IGeometryToolSettings.ShowLabelMode ShowLabels { get; set; }
+        public Color LabelColor { get; set; }
+        public Color GrabHandleVertexColor { get; set; }
+        public Color GrabHandleMoveAllColor { get; set; }
+        public Color GrabHandleAddColor { get; set; }
+        public Color GrabHandleDeleteColor { get; set; }
+
+        public override GUIContent toolbarIcon => m_ToolIcon ??= new GUIContent(EditorGUIUtility.IconContent(IconUtility.IconPath + "TestShapeTool.png").image, EditorGUIUtility.TrTextContent("Edit Geometry.").text);
+        private static GUIContent m_ToolIcon;
+        private List<TestShape> m_TestShapeTargets;
+        private List<TestShapeGeometryTool> m_GeometryTools;
+        private TestGeometryToolOverlay m_Overlay;
+
+        #region Geometry Tools
+
+        /// <summary>
+        /// Abstract Geometry Tool.
+        /// </summary>
+        private abstract class TestShapeGeometryTool : TestGeometryTool
+        {
+            protected TestShapeGeometryTool(TestShape testShape, IGeometryToolSettings geometryToolSettings) : base(geometryToolSettings)
+            {
+                ShapeTarget = testShape;
+                ShapeType = testShape.ShapeType;
+
+                UpdateTool();
+            }
+
+            protected readonly TestShape ShapeTarget;
+            protected readonly PhysicsShape.ShapeType ShapeType;
+            protected PhysicsShape Shape;
+            protected PhysicsBody Body;
+            protected PhysicsWorld World;
+            protected PhysicsWorld.TransformPlane TransformPlane;
+            protected bool TargetShapeChanged;
+
+            public sealed override bool UpdateTool()
+            {
+                TargetShapeChanged = false;
+
+                // Fail if the shape type changed.
+                if (ShapeTarget.ShapeType != ShapeType)
+                    return false;
+
+                if (Shape.isValid)
+                    return true;
+
+                Shape = ShapeTarget.shape;
+                if (!Shape.isValid)
+                    return true;
+
+                Body = Shape.body;
+                World = Shape.world;
+                TransformPlane = World.transformPlane;
+                return true;
+            }
+
+            /// <summary>
+            /// Check the conditions of the target to ensure it's valid to edit or not.
+            /// </summary>
+            /// <returns>If the target is valid to edit or not.</returns>
+            public override bool isValid => ShapeTarget != null && Shape.isValid && ShapeTarget.isActiveAndEnabled && !Mathf.Approximately(Vector3.Scale(PhysicsMath.GetTranslationAxes(World.transformPlane), ShapeTarget.transform.lossyScale).sqrMagnitude, 0.0f);
+        }
+
+        #endregion
+    }
+}

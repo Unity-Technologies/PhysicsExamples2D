@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.2d.common": "14.0.0",
     "com.unity.2d.physics.extras": "file:../../../Packages/com.unity.2d.physics.extras",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "1.8.28",

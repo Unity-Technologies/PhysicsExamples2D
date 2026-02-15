@@ -163,6 +163,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa259494f3018b4597dfeb79ced5fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicsWorldCreateDestroy
+  WorldDefinition:
+    m_Gravity: {x: 0, y: -9.81}
+    m_SimulationType: 0
+    m_SimulationSubSteps: 4
+    m_SimulationWorkers: 64
+    m_TransformWriteMode: 1
+    m_TransformTweenMode: 1
+    m_TransformPlane: 0
+    m_TransformPlaneCustom:
+      m_Translate: {x: 0, y: 0, z: 0}
+      m_Rotate: {x: 0, y: 0, z: 0}
+      m_Scale: 1
+    m_SyncInterpolation: 0
+    m_SleepingAllowed: 1
+    m_ContinuousAllowed: 1
+    m_ContactFilterCallbacks: 1
+    m_PreSolveCallbacks: 0
+    m_AutoBodyUpdateCallbacks: 0
+    m_AutoContactCallbacks: 1
+    m_AutoTriggerCallbacks: 1
+    m_AutoJointThresholdCallbacks: 0
+    m_BounceThreshold: 1
+    m_ContactHitEventThreshold: 1
+    m_ContactFrequency: 30
+    m_ContactDamping: 10
+    m_ContactSpeed: 3
+    m_MaximumLinearSpeed: 400
+    m_DrawOptions: 4256
+    m_DrawFillOptions: -1
+    m_DrawFilter: 0
+    m_DrawThickness: 1
+    m_DrawFillAlpha: 0.1
+    m_DrawPointScale: 0.5
+    m_DrawNormalScale: 0.01
+    m_DrawForceScale: 0.01
+    m_DrawColors:
+      transformAxisX: {r: 0, g: 1, b: 1, a: 1}
+      transformAxisY: {r: 0, g: 0.5019608, b: 0, a: 1}
+      bodyBad: {r: 1, g: 0, b: 0, a: 1}
+      bodyDisabled: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
+      bodyAwake: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
+      bodyStatic: {r: 0.4392157, g: 0.5019608, b: 0.5647059, a: 1}
+      bodyKinematic: {r: 0.11764706, g: 0.5647059, b: 1, a: 1}
+      bodyTimeOfImpactEvent: {r: 0, g: 1, b: 0, a: 1}
+      bodyFastCollisions: {r: 0.2509804, g: 0.8784314, b: 0.8156863, a: 1}
+      bodyMovingFast: {r: 0.6784314, g: 1, b: 0.18431373, a: 1}
+      bodySpeedCapped: {r: 1, g: 0.27058825, b: 0, a: 1}
+      shapeTrigger: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+      shapeOther: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+      shapeBounds: {r: 0.4117647, g: 0.4117647, b: 0.4117647, a: 1}
+      contactSpeculative: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+      contactAdded: {r: 0, g: 0.5019608, b: 0, a: 1}
+      contactPersisted: {r: 0, g: 0, b: 1, a: 1}
+      contactNormal: {r: 0.4117647, g: 0.4117647, b: 0.4117647, a: 1}
+      contactImpulse: {r: 1, g: 0, b: 1, a: 1}
+      contactFriction: {r: 1, g: 1, b: 0, a: 1}
+      solverIsland: {r: 0.18431373, g: 0.30980393, b: 0.30980393, a: 1}
 --- !u!1001 &1562714712
 PrefabInstance:
   m_ObjectHideFlags: 0

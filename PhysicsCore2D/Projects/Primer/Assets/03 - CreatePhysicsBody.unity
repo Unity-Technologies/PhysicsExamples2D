@@ -181,6 +181,7 @@ MonoBehaviour:
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
+    m_WorldDrawing: 1
 --- !u!1001 &1498071701
 PrefabInstance:
   m_ObjectHideFlags: 0
