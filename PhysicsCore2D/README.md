@@ -13,3 +13,5 @@ https://github.com/erincatto/box2d
 - [Primer Project](Projects/Primer/README.md)
 - [Snippets Project](Projects/Snippets/README.md)
 - [Dev Videos](https://www.youtube.com/c/melvmay/videos)
+
+- .claude : This folder contains skills you can copy to your .claude folder to enable you to better use the PhysicsCore2D in 6.5+
