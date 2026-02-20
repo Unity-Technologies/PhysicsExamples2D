@@ -204,11 +204,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -216,12 +222,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4283256141
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -231,6 +231,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
     m_EntityId:
       m_Data: 0
@@ -238,6 +241,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -279,6 +283,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 0
@@ -354,11 +359,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -366,12 +377,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 0
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -381,6 +386,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
     m_EntityId:
       m_Data: 0
@@ -388,6 +396,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -429,6 +438,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 0
@@ -546,11 +556,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -558,12 +574,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4283256141
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -573,6 +583,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
     m_EntityId:
       m_Data: 0
@@ -580,6 +593,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -621,6 +635,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 0
@@ -714,7 +729,7 @@ MonoBehaviour:
   UseDefaultWorld: 0
   WorldDefinition:
     m_Gravity: {x: 0, y: -9.81}
-    m_SimulationMode: 0
+    m_SimulationType: 0
     m_SimulationSubSteps: 4
     m_SimulationWorkers: 64
     m_TransformWriteMode: 1
@@ -736,7 +751,7 @@ MonoBehaviour:
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 5024
     m_DrawFillOptions: -1
-    m_DrawThickness: 2
+    m_DrawThickness: 1
     m_DrawFillAlpha: 0.1
     m_DrawPointScale: 2
     m_DrawNormalScale: 1
@@ -771,6 +786,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
 --- !u!4 &1486787324
 Transform:
@@ -872,11 +888,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -884,12 +906,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4283256141
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -899,6 +915,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
     m_EntityId:
       m_Data: 0
@@ -906,6 +925,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -947,6 +967,7 @@ MonoBehaviour:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 0

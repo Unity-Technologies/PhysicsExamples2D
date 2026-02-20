@@ -189,6 +189,12 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
@@ -201,12 +207,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4294967295
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -216,6 +216,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
     m_EntityId:
       m_Data: 0
@@ -355,6 +358,12 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
@@ -367,12 +376,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4294967295
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -382,6 +385,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
     m_EntityId:
       m_Data: 0
@@ -536,7 +542,7 @@ MonoBehaviour:
     rid: 437437936650682401
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 972868382}
+    m_Mesh: {fileID: 449191429}
     m_LocalBounds:
       m_Center: {x: -0.27424622, y: -0.29543304, z: 0}
       m_Extent: {x: 3.0343018, y: 2.4354324, z: 0}
@@ -556,7 +562,7 @@ MonoBehaviour:
     - rid: 437437936650682401
       type: {class: SceneShadowRegionProvider, ns: , asm: Assembly-CSharp}
       data: 
---- !u!43 &972868382
+--- !u!43 &449191429
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -953,6 +959,12 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 7
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
@@ -965,12 +977,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4294967295
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -980,6 +986,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
     m_EntityId:
       m_Data: 0
@@ -1119,6 +1128,12 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
@@ -1131,12 +1146,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4294967295
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -1146,6 +1155,9 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
     m_EntityId:
       m_Data: 0

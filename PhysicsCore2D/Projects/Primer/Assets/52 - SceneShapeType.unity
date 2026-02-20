@@ -189,11 +189,17 @@ MonoBehaviour:
     m_Radius: 0.31
     m_Count: 5
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -201,12 +207,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4278229503
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -216,12 +216,17 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -257,11 +262,13 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
@@ -351,11 +358,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -363,12 +376,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4294639360
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -378,12 +385,17 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -419,11 +431,13 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
@@ -513,11 +527,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -525,12 +545,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4278255523
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -540,12 +554,17 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -581,11 +600,13 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
@@ -675,11 +696,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -687,12 +714,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4278255413
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -702,12 +723,17 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -743,11 +769,13 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
@@ -837,11 +865,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -849,12 +883,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4278255406
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -864,12 +892,17 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -905,11 +938,13 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
@@ -999,11 +1034,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -1011,12 +1052,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4278255450
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -1026,12 +1061,17 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -1067,11 +1107,13 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
@@ -1218,11 +1260,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -1230,12 +1278,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4279107839
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -1245,12 +1287,17 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -1286,11 +1333,13 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
@@ -1380,11 +1429,17 @@ MonoBehaviour:
     m_Radius: 0
     m_Count: 4
   ShapeDefinition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
     surfaceMaterial:
       m_Friction: 0.6
       m_Bounciness: 0
-      m_FrictionCombine: 1
-      m_BouncinessCombine: 4
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
       m_FrictionPriority: 0
       m_BouncinessPriority: 0
       m_RollingResistance: 0
@@ -1392,12 +1447,6 @@ MonoBehaviour:
       m_CustomColor:
         serializedVersion: 2
         rgba: 4278205951
-    contactFilter:
-      m_Categories:
-        bitMask: 1
-      m_Contacts:
-        bitMask: 18446744073709551615
-      m_GroupIndex: 0
     m_Density: 1
     m_IsTrigger: 0
     m_TriggerEvents: 0
@@ -1407,12 +1456,17 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 0
     m_StartMassUpdate: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
@@ -1448,11 +1502,13 @@ MonoBehaviour:
     m_Awake: 1
     m_Enabled: 1
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1

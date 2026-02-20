@@ -164,11 +164,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreatePhysicsUserData
   UserData:
-    m_Object: {fileID: 0}
+    m_EntityId:
+      m_Data: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
     m_Int: 0
+    m_Int64: 0
     m_Bool: 0
 --- !u!1001 &1498071701
 PrefabInstance:
