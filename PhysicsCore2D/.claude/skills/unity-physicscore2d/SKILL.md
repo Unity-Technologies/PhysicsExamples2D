@@ -17,6 +17,57 @@ The new PhysicsCore2D is the replacement of the older Physics2D despite it not h
 
 Follow these guidelines when helping with Unity PhysicsCore2D code:
 
+## ⚠️ API Usage Rules - READ THIS FIRST ⚠️
+
+**ABSOLUTE RULE: NEVER INVENT OR GUESS API METHODS, PROPERTIES, OR PARAMETERS.**
+
+This is the #1 most important rule when working with PhysicsCore2D. You MUST follow this protocol:
+
+### Before Writing Any PhysicsCore2D API Call:
+
+1. **STOP and CHECK**: Is this exact API call documented in this skill or the linked API references?
+2. **If NO**: Do NOT write the code. Instead, say: "I need to verify this API in the documentation first" and ask the user or consult the API reference links provided.
+3. **If UNSURE**: Do NOT guess. Say: "I'm not certain about this API. Let me verify the correct method/property name."
+
+### Common Mistakes to Avoid:
+
+❌ **DON'T invent singular/plural variations:**
+- WRONG: `body.GetShape(0)` ← Invented
+- RIGHT: `body.GetShapes(Allocator.Temp)` ← Documented
+- **When unsure if a method exists or what it's called, ASK THE USER or state you need to verify**
+
+❌ **DON'T assume properties exist:**
+- WRONG: `world.debugDrawingEnabled = true` ← Invented
+- RIGHT: Check API reference first, then use documented API
+
+❌ **DON'T guess method signatures:**
+- WRONG: `body.SetPosition(x, y)` ← Might not exist
+- RIGHT: Use documented property: `body.position = new Vector2(x, y)`
+
+### Verification Protocol:
+
+**BEFORE writing code that uses PhysicsCore2D API:**
+1. Check this skill document for documented examples
+2. Check the API reference links provided (docs.unity3d.com URLs)
+3. If not found in either place: **STOP, ASK USER, or state you need to verify**
+4. Only write code using APIs that are explicitly documented
+
+### When You Don't Know:
+
+If you're uncertain about ANY PhysicsCore2D API:
+- ✅ **DO**: Say "I need to verify the correct API for [operation] in the documentation"
+- ✅ **DO**: Ask the user: "What method should I use to [operation]?"
+- ❌ **DON'T**: Guess based on what seems logical
+- ❌ **DON'T**: Invent variations of method names
+- ❌ **DON'T**: Assume APIs exist without verification
+
+### API Reference Links (Use These for Verification):
+- PhysicsWorld: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html
+- PhysicsBody: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody.html
+- PhysicsShape: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html
+
+**Remember: It's better to ask or verify than to invent incorrect API calls.**
+
 ## C# Naming Conventions
 All PhysicsCore2D API follows standard C# conventions:
 - Static methods use PascalCase: `FromDegrees`, `FromRadians`, `CreateBody`, `CreateShape`
@@ -29,20 +80,6 @@ All PhysicsCore2D API follows standard C# conventions:
 - All field or property names should avoid using the same name and case of type they use.
 
 **CRITICAL**: Always verify method and property casing against the API reference documentation to ensure correctness.
-
-## API Usage Rules
-**CRITICAL**: NEVER invent or guess API methods, properties, or parameters that are not explicitly documented in the API references.
-
-- If a specific API call is not documented in this skill or the linked API references, you MUST say "I need to verify this in the API documentation" rather than guessing
-- Always cross-reference the official API documentation links provided in this skill
-- When unsure about an API signature, method name, or property, explicitly state the uncertainty
-- Debug drawing APIs must be verified against the API reference before providing code examples
-- If only an overview link is provided without specific API details, acknowledge the limitation and look up the correct API
-- **NEVER use obsolete or deprecated properties, methods, or types** - always use the current API
-- When checking API documentation, verify that properties and methods are not marked as obsolete
-
-**Invalid example**: `world.debugDrawingEnabled = true` (invented property - does not exist)
-**Valid approach**: "The skill mentions debug drawing exists, but I need to check the API reference for the exact methods to enable it."
 
 ## Overview
 
@@ -197,6 +234,65 @@ You can find the API reference here: https://docs.unity3d.com/6000.5/Documentati
 You can find its definition API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBodyDefinition.html
 You can find an overview here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/PhysicsBody.md
 
+#### Transform Integration with transformObject
+
+**CRITICAL:** To automatically synchronize a PhysicsBody with a Unity GameObject's Transform, set the `PhysicsBody.transformObject` property to the Transform.
+
+When `transformObject` is set:
+- The Transform's position and rotation are automatically updated to match the PhysicsBody
+- This happens automatically during the physics simulation
+- No manual synchronization code is needed
+
+**Example:**
+```csharp
+private PhysicsBody m_Body;
+private GameObject m_GameObject;
+
+private void OnEnable()
+{
+    var world = PhysicsWorld.defaultWorld;
+    var bodyDefinition = PhysicsBodyDefinition.defaultDefinition;
+    bodyDefinition.type = PhysicsBody.BodyType.Dynamic;
+    bodyDefinition.position = new Vector2(0, 0);
+
+    m_Body = world.CreateBody(bodyDefinition);
+
+    var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = 0.5f };
+    var shapeDefinition = PhysicsShapeDefinition.defaultDefinition;
+    m_Body.CreateShape(circleGeometry, shapeDefinition);
+
+    // Create GameObject for visualization
+    m_GameObject = new GameObject("PhysicsObject");
+    var spriteRenderer = m_GameObject.AddComponent<SpriteRenderer>();
+    spriteRenderer.sprite = mySprite;
+
+    // Link the PhysicsBody to the Transform for automatic sync
+    m_Body.transformObject = m_GameObject.transform;
+}
+
+private void OnDisable()
+{
+    if (m_Body.isValid)
+        m_Body.Destroy();
+    if (m_GameObject != null)
+        Destroy(m_GameObject);
+}
+
+// No Update() method needed - transform syncs automatically!
+```
+
+**Benefits:**
+- Eliminates manual transform synchronization code
+- Automatically handles rotation as well as position
+- More efficient than manual updates every frame
+- Keeps rendering in sync with physics simulation
+
+**Important Notes:**
+- Set `transformObject` AFTER creating the body and GameObject
+- The Transform will be updated to match the PhysicsBody, not vice versa
+- For Kinematic bodies that you move manually, you still set `body.position` - the Transform will follow
+- Unsetting `transformObject` (set to null) stops automatic synchronization
+
 ### PhysicsShape
 PhysicsShape represents collision geometry attached to a PhysicsBody.
 Shapes are created using `body.CreateShape()` and are automatically destroyed when the body is destroyed.
@@ -206,6 +302,12 @@ You can find an overview here: https://github.com/Unity-Technologies/PhysicsExam
 
 ## Best Practices
 When destroying a physics object (all have a "Destroy()" method), you should only call this after checking if the object is valid by calling its isValid property (all have this property).
+
+**Transform Integration:**
+- Always use `PhysicsBody.transformObject` to link physics bodies to Unity GameObjects
+- This provides automatic synchronization between physics simulation and visual representation
+- Never manually update Transform positions in Update() when using transformObject
+- Set transformObject after creating both the PhysicsBody and GameObject
 
 ### Code Examples
 Do not add Debug.Log statements to code examples unless the user specifically requests them.
@@ -333,6 +435,159 @@ The net result is:
 - When a PhysicsBody is destroyed, all its attached PhysicsShape are destroyed
 - When a PhysicsShape is destroyed, nothing else is destroyed.
 - When a PhysicsJoint is destroyed, nothing else is destroyed.
+
+### Collections and Handle Structs
+
+**CRITICAL: PhysicsCore2D types are handle structs, not value structs.**
+
+PhysicsCore2D types (PhysicsBody, PhysicsShape, PhysicsChain, PhysicsJoint, PhysicsWorld) are **handle structs** that contain references/IDs to the actual physics objects. This has important implications when storing them in collections:
+
+#### Storing in NativeArray/NativeList
+
+Since PhysicsCore2D types are unmanaged handle structs, you CAN store them in NativeArray and NativeList:
+
+```csharp
+// Valid - PhysicsBody is an unmanaged handle struct
+private NativeArray<PhysicsBody> m_Bodies;
+private NativeList<PhysicsShape> m_Shapes;
+```
+
+#### Direct Property Modification
+
+Because they are handles (not value structs), you can modify properties directly through NativeArray/NativeList indexing:
+
+```csharp
+// CORRECT - Direct property modification works because PhysicsBody is a handle
+m_Bodies[i].position = newPosition;
+m_Bodies[i].velocity = newVelocity;
+
+// CORRECT - Method calls also work directly
+m_Bodies[i].CreateShape(geometry, definition);
+```
+
+**You do NOT need the copy-modify-writeback pattern** that regular value structs require:
+
+```csharp
+// INCORRECT - Unnecessary for PhysicsCore2D handles
+var body = m_Bodies[i];
+body.position = newPosition;
+m_Bodies[i] = body; // Don't need this!
+
+// CORRECT - Just set directly
+m_Bodies[i].position = newPosition;
+```
+
+#### C# Compiler Limitation with Setting Properties on By-Value Structs
+
+**IMPORTANT:** While PhysicsCore2D handle structs support direct property modification, C# has a fundamental limitation: **you cannot set properties on a by-value struct unless it's stored in a local variable first.**
+
+**This limitation ONLY applies to property setters.** Reading properties (getters) and calling methods work fine on by-value struct results.
+
+**This limitation applies to ALL PhysicsCore2D handle struct types:**
+- PhysicsWorld
+- PhysicsBody
+- PhysicsShape
+- PhysicsChain
+- PhysicsJoint (all joint types)
+
+The compiler will not allow setting properties on by-value struct results:
+```csharp
+// COMPILER ERROR - Cannot modify the result of by-value expressions
+m_Bodies[index].position = newPosition;           // From indexer - ERROR
+m_Shapes[index].isSensor = true;                  // From indexer - ERROR
+PhysicsWorld.defaultWorld.gravity = Vector2.down; // From static property - ERROR
+SomeMethod().friction = 0.5f;                     // From method return - ERROR
+```
+
+But reading properties and calling methods work fine:
+```csharp
+// WORKS - Reading properties is fine
+var pos = m_Bodies[index].position;
+var isSensor = m_Shapes[index].isSensor;
+var gravity = PhysicsWorld.defaultWorld.gravity;
+bool isValid = m_Bodies[index].isValid;
+
+// WORKS - Calling methods is fine
+m_Bodies[index].CreateShape(geometry, definition);
+m_Bodies[index].Destroy();
+PhysicsWorld.defaultWorld.Step(Time.deltaTime);
+```
+
+**Workaround for setting properties:** Store the struct in a local variable first, then set its properties:
+
+```csharp
+// CORRECT - Read into local variable first
+var body = m_Bodies[index];
+body.position = newPosition;
+// No writeback needed - modifications happen through the handle!
+
+var shape = m_Shapes[index];
+shape.isSensor = true;
+// No writeback needed!
+
+var chain = m_Chains[index];
+chain.friction = 0.5f;
+// No writeback needed!
+
+var joint = m_Joints[index];
+joint.maxForce = 100f;
+// No writeback needed!
+```
+
+This is purely a C# compiler restriction, not a limitation of PhysicsCore2D. The underlying operation is valid (since all PhysicsCore2D types are handle structs), but you must use a local variable to satisfy the compiler. **You do NOT need to write the value back** to the array - the modifications take effect immediately through the handle.
+
+**Examples in context:**
+```csharp
+// Setting position from a NativeArray<PhysicsBody>
+var enemy = m_EnemyBodies[index];
+enemy.position = newPosition;
+// Done - no writeback needed
+
+// Setting velocity from a NativeList<PhysicsBody>
+var bullet = m_BulletBodies[i];
+bullet.velocity = Vector2.up * speed;
+// Done - no writeback needed
+
+// Setting shape properties from a NativeArray<PhysicsShape>
+var shape = m_Shapes[i];
+shape.density = 2.0f;
+// Done - no writeback needed
+
+// Setting world properties from static property
+var world = PhysicsWorld.defaultWorld;
+world.gravity = Vector2.down * 9.81f;
+// Done - no writeback needed
+
+// Local variable doesn't need this pattern
+m_PlayerBody.position = newPosition; // Works directly - already a local variable
+```
+
+#### GameObject Collections
+
+GameObjects are managed reference types and cannot be stored in NativeArray or NativeList. Use standard C# collections:
+
+```csharp
+// INCORRECT - GameObject is a managed reference type
+private NativeArray<GameObject> m_GameObjects; // Compiler error!
+
+// CORRECT - Use managed arrays or List<T>
+private GameObject[] m_GameObjects;
+private System.Collections.Generic.List<GameObject> m_BulletGameObjects;
+```
+
+#### Summary Table
+
+| Type | Collection Type | Direct Property Modification |
+|------|----------------|------------------------------|
+| PhysicsBody | NativeArray/NativeList | ✅ Yes - handle struct |
+| PhysicsShape | NativeArray/NativeList | ✅ Yes - handle struct |
+| PhysicsChain | NativeArray/NativeList | ✅ Yes - handle struct |
+| PhysicsJoint | NativeArray/NativeList | ✅ Yes - handle struct |
+| GameObject | Array or List<T> | N/A - managed type |
+| bool | NativeArray/NativeList | ❌ No - value struct (need copy-modify-writeback) |
+| int/float | NativeArray/NativeList | ❌ No - value struct (need copy-modify-writeback) |
+
+**Key Takeaway:** PhysicsCore2D handle structs behave differently from regular value structs. When indexed from NativeArray/NativeList, you can directly modify their properties because the struct contains a reference to the underlying data, not the data itself.
 
 ## Sub-Skills for Detailed Information
 
