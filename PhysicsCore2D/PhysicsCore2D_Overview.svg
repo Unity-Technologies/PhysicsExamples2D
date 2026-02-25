@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 2400">
+  <!-- Title -->
+  <rect x="0" y="0" width="1400" height="80" fill="#2C3E50"/>
+  <text x="700" y="50" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white" text-anchor="middle">Unity PhysicsCore2D - Complete Architecture</text>
+
+  <!-- PhysicsWorld -->
+  <rect x="500" y="120" width="400" height="120" fill="#3498DB" stroke="#2C3E50" stroke-width="3" rx="10"/>
+  <text x="700" y="165" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">PhysicsWorld</text>
+  <text x="700" y="200" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">The simulation container</text>
+  <text x="700" y="225" font-family="Arial, sans-serif" font-size="16" fill="#ECF0F1" text-anchor="middle">Access: PhysicsWorld.defaultWorld</text>
+
+  <!-- Arrow from PhysicsWorld to PhysicsBody -->
+  <line x1="700" y1="240" x2="700" y2="290" stroke="#2C3E50" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="720" y="270" font-family="Arial, sans-serif" font-size="16" fill="#2C3E50" font-style="italic">owns</text>
+
+  <!-- PhysicsBody -->
+  <rect x="500" y="290" width="400" height="120" fill="#E74C3C" stroke="#2C3E50" stroke-width="3" rx="10"/>
+  <text x="700" y="335" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">PhysicsBody</text>
+  <text x="700" y="370" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">The rigid body</text>
+  <text x="700" y="395" font-family="Arial, sans-serif" font-size="16" fill="#FADBD8" text-anchor="middle">Can be Static, Kinematic, or Dynamic</text>
+
+  <!-- Arrow from PhysicsBody to PhysicsShape -->
+  <line x1="700" y1="410" x2="700" y2="460" stroke="#2C3E50" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="720" y="440" font-family="Arial, sans-serif" font-size="16" fill="#2C3E50" font-style="italic">owns</text>
+
+  <!-- PhysicsShape -->
+  <rect x="500" y="460" width="400" height="120" fill="#27AE60" stroke="#2C3E50" stroke-width="3" rx="10"/>
+  <text x="700" y="505" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">PhysicsShape</text>
+  <text x="700" y="540" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">The collision geometry</text>
+  <text x="700" y="565" font-family="Arial, sans-serif" font-size="16" fill="#D5F4E6" text-anchor="middle">Circle, Capsule, Polygon, Segment, ChainSegment</text>
+
+  <!-- PhysicsJoint (connecting two bodies) -->
+  <rect x="1000" y="290" width="350" height="120" fill="#9B59B6" stroke="#2C3E50" stroke-width="3" rx="10"/>
+  <text x="1175" y="335" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">PhysicsJoint</text>
+  <text x="1175" y="370" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">Constraint between bodies</text>
+  <text x="1175" y="395" font-family="Arial, sans-serif" font-size="16" fill="#E8DAEF" text-anchor="middle">Distance, Hinge, Slider, etc.</text>
+
+  <!-- Arrow showing joint connects bodies -->
+  <path d="M 900 350 L 1000 350" stroke="#9B59B6" stroke-width="3" marker-end="url(#arrowhead-purple)"/>
+  <text x="930" y="340" font-family="Arial, sans-serif" font-size="14" fill="#9B59B6" font-style="italic">connects</text>
+
+  <!-- Definitions Section Title -->
+  <rect x="50" y="620" width="1300" height="50" fill="#34495E"/>
+  <text x="700" y="655" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="white" text-anchor="middle">DEFINITIONS (The Blueprints)</text>
+
+  <!-- PhysicsBodyDefinition -->
+  <rect x="50" y="700" width="400" height="300" fill="#AED6F1" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="250" y="735" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsBodyDefinition</text>
+  <text x="70" y="765" font-family="Arial, sans-serif" font-size="15" fill="#2C3E50">Properties:</text>
+  <text x="70" y="790" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• type (Static/Kinematic/Dynamic)</text>
+  <text x="70" y="812" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• position (Vector2)</text>
+  <text x="70" y="834" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• rotation (PhysicsRotate)</text>
+  <text x="70" y="856" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• massConfiguration</text>
+  <text x="70" y="878" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• linearVelocity, angularVelocity</text>
+  <text x="70" y="900" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• gravityScale</text>
+
+  <rect x="70" y="920" width="360" height="65" fill="#3498DB" rx="5"/>
+  <text x="250" y="945" font-family="Courier New, monospace" font-size="13" fill="white" text-anchor="middle">world.CreateBody(</text>
+  <text x="250" y="965" font-family="Courier New, monospace" font-size="13" fill="white" text-anchor="middle">  bodyDefinition)</text>
+  <text x="250" y="982" font-family="Courier New, monospace" font-size="13" fill="white" text-anchor="middle">→ PhysicsBody</text>
+
+  <!-- PhysicsShapeDefinition -->
+  <rect x="500" y="700" width="400" height="300" fill="#A9DFBF" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="700" y="735" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsShapeDefinition</text>
+  <text x="520" y="765" font-family="Arial, sans-serif" font-size="15" fill="#2C3E50">Properties:</text>
+  <text x="520" y="790" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• density</text>
+  <text x="520" y="812" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• friction</text>
+  <text x="520" y="834" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• restitution</text>
+  <text x="520" y="856" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• isTrigger</text>
+  <text x="520" y="878" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• contactFilter</text>
+  <text x="520" y="900" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• userData</text>
+
+  <rect x="520" y="920" width="360" height="65" fill="#27AE60" rx="5"/>
+  <text x="700" y="945" font-family="Courier New, monospace" font-size="13" fill="white" text-anchor="middle">body.CreateShape(</text>
+  <text x="700" y="965" font-family="Courier New, monospace" font-size="13" fill="white" text-anchor="middle">  geometry, shapeDefinition)</text>
+  <text x="700" y="982" font-family="Courier New, monospace" font-size="13" fill="white" text-anchor="middle">→ PhysicsShape</text>
+
+  <!-- Joint Definitions -->
+  <rect x="950" y="700" width="400" height="300" fill="#D7BDE2" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="1150" y="735" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2C3E50" text-anchor="middle">Joint Definitions</text>
+  <text x="970" y="765" font-family="Arial, sans-serif" font-size="15" fill="#2C3E50">Types:</text>
+  <text x="970" y="790" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• PhysicsDistanceJointDefinition</text>
+  <text x="970" y="812" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• PhysicsHingeJointDefinition</text>
+  <text x="970" y="834" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• PhysicsSliderJointDefinition</text>
+  <text x="970" y="856" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• PhysicsWheelJointDefinition</text>
+  <text x="970" y="878" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• PhysicsFixedJointDefinition</text>
+  <text x="970" y="900" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• PhysicsRelativeJointDefinition</text>
+  <text x="970" y="922" font-family="Arial, sans-serif" font-size="14" fill="#34495E">• PhysicsIgnoreJointDefinition</text>
+
+  <rect x="970" y="945" width="360" height="45" fill="#9B59B6" rx="5"/>
+  <text x="1150" y="963" font-family="Courier New, monospace" font-size="13" fill="white" text-anchor="middle">world.CreateJoint(</text>
+  <text x="1150" y="983" font-family="Courier New, monospace" font-size="13" fill="white" text-anchor="middle">  jointDefinition) → PhysicsJoint</text>
+
+  <!-- Arrows from definitions to objects -->
+  <path d="M 250 700 Q 250 650 550 410" stroke="#E74C3C" stroke-width="3" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead-red)"/>
+  <text x="350" y="550" font-family="Arial, sans-serif" font-size="14" fill="#E74C3C" font-style="italic">creates</text>
+
+  <path d="M 700 700 Q 700 650 700 580" stroke="#27AE60" stroke-width="3" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead-green)"/>
+  <text x="720" y="640" font-family="Arial, sans-serif" font-size="14" fill="#27AE60" font-style="italic">creates</text>
+
+  <path d="M 1150 700 Q 1150 600 1175 410" stroke="#9B59B6" stroke-width="3" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead-purple)"/>
+  <text x="1160" y="550" font-family="Arial, sans-serif" font-size="14" fill="#9B59B6" font-style="italic">creates</text>
+
+  <!-- Geometry Types -->
+  <rect x="50" y="1030" width="1300" height="200" fill="#F8F9F9" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="700" y="1065" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#2C3E50" text-anchor="middle">Geometry Types</text>
+
+  <g transform="translate(120, 1100)">
+    <circle cx="50" cy="40" r="35" fill="#52BE80" stroke="#2C3E50" stroke-width="2"/>
+    <text x="50" y="105" font-family="Arial, sans-serif" font-size="15" fill="#2C3E50" text-anchor="middle">Circle</text>
+  </g>
+
+  <g transform="translate(340, 1100)">
+    <rect x="15" y="5" width="70" height="70" fill="#5DADE2" stroke="#2C3E50" stroke-width="2"/>
+    <text x="50" y="105" font-family="Arial, sans-serif" font-size="15" fill="#2C3E50" text-anchor="middle">Polygon</text>
+  </g>
+
+  <g transform="translate(560, 1100)">
+    <rect x="10" y="20" width="30" height="40" rx="15" fill="#F39C12" stroke="#2C3E50" stroke-width="2"/>
+    <rect x="40" y="20" width="30" height="40" rx="15" fill="#F39C12" stroke="#2C3E50" stroke-width="2"/>
+    <rect x="20" y="20" width="40" height="40" fill="#F39C12" stroke="none"/>
+    <text x="50" y="105" font-family="Arial, sans-serif" font-size="15" fill="#2C3E50" text-anchor="middle">Capsule</text>
+  </g>
+
+  <g transform="translate(780, 1100)">
+    <line x1="15" y1="65" x2="85" y2="15" stroke="#E74C3C" stroke-width="5"/>
+    <text x="50" y="105" font-family="Arial, sans-serif" font-size="15" fill="#2C3E50" text-anchor="middle">Segment</text>
+  </g>
+
+  <g transform="translate(1000, 1100)">
+    <line x1="10" y1="70" x2="35" y2="30" stroke="#8E44AD" stroke-width="3"/>
+    <line x1="35" y1="30" x2="60" y2="60" stroke="#8E44AD" stroke-width="3"/>
+    <line x1="60" y1="60" x2="90" y2="15" stroke="#8E44AD" stroke-width="3"/>
+    <text x="50" y="105" font-family="Arial, sans-serif" font-size="15" fill="#2C3E50" text-anchor="middle">ChainSegment</text>
+  </g>
+
+  <!-- Geometry Utilities -->
+  <rect x="50" y="1260" width="1300" height="50" fill="#34495E"/>
+  <text x="700" y="1295" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="white" text-anchor="middle">GEOMETRY UTILITIES</text>
+
+  <!-- PhysicsComposer -->
+  <rect x="100" y="1340" width="550" height="180" fill="#F9E79F" stroke="#2C3E50" stroke-width="3" rx="8"/>
+  <text x="375" y="1380" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsComposer</text>
+  <text x="120" y="1415" font-family="Arial, sans-serif" font-size="16" fill="#2C3E50">Creates complex geometry from primitives</text>
+
+  <text x="120" y="1450" font-family="Arial, sans-serif" font-size="14" fill="#34495E">Utility for composing multiple shapes</text>
+  <text x="120" y="1472" font-family="Arial, sans-serif" font-size="14" fill="#34495E">into complex multi-shape bodies.</text>
+
+  <rect x="120" y="1485" width="510" height="28" fill="#F39C12" rx="4"/>
+  <text x="375" y="1505" font-family="Courier New, monospace" font-size="12" fill="white" text-anchor="middle">Build complex multi-shape bodies</text>
+
+  <!-- PhysicsDestructor -->
+  <rect x="750" y="1340" width="550" height="180" fill="#FADBD8" stroke="#2C3E50" stroke-width="3" rx="8"/>
+  <text x="1025" y="1380" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsDestructor</text>
+  <text x="770" y="1415" font-family="Arial, sans-serif" font-size="16" fill="#2C3E50">Slices and fragments geometry</text>
+
+  <text x="770" y="1450" font-family="Arial, sans-serif" font-size="14" fill="#34495E">Utility for slicing and fragmenting</text>
+  <text x="770" y="1472" font-family="Arial, sans-serif" font-size="14" fill="#34495E">geometry to create destruction effects.</text>
+
+  <rect x="770" y="1485" width="510" height="28" fill="#E74C3C" rx="4"/>
+  <text x="1025" y="1505" font-family="Courier New, monospace" font-size="12" fill="white" text-anchor="middle">Dynamic destruction effects</text>
+
+  <!-- Helper Types Section -->
+  <rect x="50" y="1550" width="1300" height="50" fill="#16A085"/>
+  <text x="700" y="1585" font-family="Arial, sans-serif" font-size="26" font-weight="bold" fill="white" text-anchor="middle">HELPER TYPES</text>
+
+  <!-- PhysicsTransform -->
+  <rect x="50" y="1630" width="400" height="160" fill="#A2D9CE" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="250" y="1665" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsTransform</text>
+  <text x="70" y="1693" font-family="Arial, sans-serif" font-size="14" fill="#34495E">Represents position + rotation</text>
+  <text x="70" y="1715" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• position (Vector2)</text>
+  <text x="70" y="1735" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• rotation (PhysicsRotate)</text>
+  <text x="70" y="1755" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Transform math operations</text>
+  <text x="70" y="1775" font-family="Arial, sans-serif" font-size="13" fill="#16A085" font-style="italic">Used for transform math</text>
+
+  <!-- PhysicsRotate -->
+  <rect x="500" y="1630" width="400" height="160" fill="#A2D9CE" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="700" y="1665" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsRotate</text>
+  <text x="520" y="1693" font-family="Arial, sans-serif" font-size="14" fill="#34495E">Represents 2D rotation</text>
+  <text x="520" y="1715" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• cos, sin (float)</text>
+  <text x="520" y="1735" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• FromDegrees() / FromRadians()</text>
+  <text x="520" y="1755" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• toDegrees / toRadians properties</text>
+  <text x="520" y="1775" font-family="Arial, sans-serif" font-size="13" fill="#16A085" font-style="italic">Efficient rotation representation</text>
+
+  <!-- PhysicsMask -->
+  <rect x="950" y="1630" width="400" height="160" fill="#A2D9CE" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="1150" y="1665" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsMask</text>
+  <text x="970" y="1693" font-family="Arial, sans-serif" font-size="14" fill="#34495E">Collision filtering</text>
+  <text x="970" y="1715" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• categoryBits</text>
+  <text x="970" y="1735" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• maskBits</text>
+  <text x="970" y="1755" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• groupIndex</text>
+  <text x="970" y="1775" font-family="Arial, sans-serif" font-size="13" fill="#16A085" font-style="italic">Control collision filtering</text>
+
+  <!-- PhysicsUserData -->
+  <rect x="50" y="1820" width="400" height="160" fill="#A2D9CE" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="250" y="1855" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsUserData</text>
+  <text x="70" y="1883" font-family="Arial, sans-serif" font-size="14" fill="#34495E">Attach custom data to objects</text>
+  <text x="70" y="1905" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Store custom data (8 bytes)</text>
+  <text x="70" y="1925" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Store references (IntPtr)</text>
+  <text x="70" y="1945" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Store IDs, flags, pointers</text>
+  <text x="70" y="1965" font-family="Arial, sans-serif" font-size="13" fill="#16A085" font-style="italic">Link physics to game data</text>
+
+  <!-- PhysicsMath -->
+  <rect x="500" y="1820" width="400" height="160" fill="#A2D9CE" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="700" y="1855" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsMath</text>
+  <text x="520" y="1883" font-family="Arial, sans-serif" font-size="14" fill="#34495E">Math utilities for physics</text>
+  <text x="520" y="1905" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Vector operations</text>
+  <text x="520" y="1925" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Distance calculations</text>
+  <text x="520" y="1945" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Geometry math helpers</text>
+  <text x="520" y="1965" font-family="Arial, sans-serif" font-size="13" fill="#16A085" font-style="italic">Common physics calculations</text>
+
+  <!-- PhysicsQuery -->
+  <rect x="950" y="1820" width="400" height="160" fill="#A2D9CE" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="1150" y="1855" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C3E50" text-anchor="middle">PhysicsQuery</text>
+  <text x="970" y="1883" font-family="Arial, sans-serif" font-size="14" fill="#34495E">Query the physics world</text>
+  <text x="970" y="1905" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Raycasts</text>
+  <text x="970" y="1925" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Area queries</text>
+  <text x="970" y="1945" font-family="Arial, sans-serif" font-size="13" fill="#34495E">• Overlap tests</text>
+  <text x="970" y="1965" font-family="Arial, sans-serif" font-size="13" fill="#16A085" font-style="italic">Find objects in the world</text>
+
+  <!-- Key Concepts -->
+  <rect x="50" y="2010" width="1300" height="150" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="700" y="2045" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C3E50" text-anchor="middle">Key Concepts</text>
+
+  <text x="80" y="2075" font-family="Arial, sans-serif" font-size="14" fill="#2C3E50">✓ Definitions = blueprints (structs with settings)</text>
+  <text x="80" y="2097" font-family="Arial, sans-serif" font-size="14" fill="#2C3E50">✓ Objects = handles to physics simulation data</text>
+  <text x="80" y="2119" font-family="Arial, sans-serif" font-size="14" fill="#2C3E50">✓ Helper types provide utilities and math</text>
+  <text x="80" y="2141" font-family="Arial, sans-serif" font-size="14" fill="#2C3E50">✓ Create in OnEnable(), Destroy in OnDisable()</text>
+
+  <text x="750" y="2075" font-family="Arial, sans-serif" font-size="14" fill="#2C3E50">✓ PhysicsJoint connects TWO PhysicsBody objects</text>
+  <text x="750" y="2097" font-family="Arial, sans-serif" font-size="14" fill="#2C3E50">✓ Use transformObject for auto GameObject sync</text>
+  <text x="750" y="2119" font-family="Arial, sans-serif" font-size="14" fill="#2C3E50">✓ PhysicsComposer builds complex shapes</text>
+  <text x="750" y="2141" font-family="Arial, sans-serif" font-size="14" fill="#2C3E50">✓ PhysicsQuery for world queries</text>
+
+  <!-- Ownership Hierarchy -->
+  <rect x="50" y="2190" width="1300" height="110" fill="#D5DBDB" stroke="#2C3E50" stroke-width="2" rx="8"/>
+  <text x="700" y="2225" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#2C3E50" text-anchor="middle">Ownership Hierarchy</text>
+
+  <text x="700" y="2260" font-family="Courier New, monospace" font-size="15" fill="#2C3E50" text-anchor="middle">PhysicsWorld → owns → PhysicsBody → owns → PhysicsShape</text>
+  <text x="700" y="2285" font-family="Courier New, monospace" font-size="15" fill="#2C3E50" text-anchor="middle">PhysicsBody ← connects ← PhysicsJoint → connects → PhysicsBody</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2C3E50"/>
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#E74C3C"/>
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#27AE60"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#9B59B6"/>
+    </marker>
+  </defs>
+</svg>
