@@ -163,14 +163,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8504ace416f89a24c99259eb75432bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhysicsComposerGeometry
-  CircleGeometry:
+  MyCircleGeometry:
     m_Center: {x: 0, y: 0}
     m_Radius: 0.5
   CircleTransform:
     position: {x: 0, y: 0}
     rotation:
       direction: {x: 1, y: 0}
-  CapsuleGeometry:
+  MyCapsuleGeometry:
     m_Center1: {x: 0, y: 0.5}
     m_Center2: {x: 0, y: -0.5}
     m_Radius: 0.5

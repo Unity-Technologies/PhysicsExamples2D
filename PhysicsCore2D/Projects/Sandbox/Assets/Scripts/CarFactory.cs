@@ -1,6 +1,10 @@
 using Unity.Collections;
 using UnityEngine;
+#if UNITY_6000_5_OR_NEWER
+using Unity.U2D.Physics;
+#else
 using UnityEngine.LowLevelPhysics2D;
+#endif
 
 public static class CarFactory
 {

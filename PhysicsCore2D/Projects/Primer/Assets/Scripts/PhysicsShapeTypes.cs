@@ -1,5 +1,9 @@
 using UnityEngine;
+#if UNITY_6000_5_OR_NEWER
+using Unity.U2D.Physics;
+#else
 using UnityEngine.LowLevelPhysics2D;
+#endif
 
 /// <summary>
 /// Demonstrates the basics of creating a all shape types with a custom color.

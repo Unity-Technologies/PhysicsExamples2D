@@ -1,6 +1,10 @@
 using Unity.Collections;
 using UnityEngine;
+#if UNITY_6000_5_OR_NEWER
+using Unity.U2D.Physics;
+#else
 using UnityEngine.LowLevelPhysics2D;
+#endif
 
 /// <summary>
 /// Demonstrates how to control transform plan writing i.e. how the 2D body position will be transformed into 3D.

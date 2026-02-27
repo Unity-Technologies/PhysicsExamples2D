@@ -187,11 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3517d990613e8d742ae9357a4e0cac8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boids
-  BatchFilter:
-    m_Categories:
-      bitMask: 18446744073709551615
-    m_HitCategories:
-      bitMask: 18446744073709551615
 --- !u!1 &1415967095
 GameObject:
   m_ObjectHideFlags: 0
