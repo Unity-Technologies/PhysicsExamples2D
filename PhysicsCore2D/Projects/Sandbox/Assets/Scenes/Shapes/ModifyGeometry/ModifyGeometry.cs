@@ -26,7 +26,14 @@ public class ModifyGeometry : MonoBehaviour
         Polygon
     }
 
-    private PhysicsBody.BodyType m_BodyType;
+    private enum BodyType
+    {
+        Static,
+        Dynamic,
+        Kinematic
+    }
+
+    private BodyType m_BodyType;
     private GeometryType m_GeometryType;
     private float m_GeometryScale;
     
@@ -49,7 +56,7 @@ public class ModifyGeometry : MonoBehaviour
 
         m_PhysicsWorld = PhysicsWorld.defaultWorld;
 
-        m_BodyType = PhysicsBody.BodyType.Kinematic;
+        m_BodyType = BodyType.Kinematic;
         m_GeometryType = GeometryType.Circle;
         m_GeometryScale = 1f;
         
@@ -79,8 +86,8 @@ public class ModifyGeometry : MonoBehaviour
             bodyType.value = m_BodyType;
             bodyType.RegisterValueChangedCallback(evt =>
             {
-                m_BodyType = (PhysicsBody.BodyType)evt.newValue;
-                m_ChangerBody.type = m_BodyType;
+                m_BodyType = (BodyType)evt.newValue;
+                m_ChangerBody.type = GetBodyType();
             });
             
             // Geometry Type.
@@ -126,7 +133,7 @@ public class ModifyGeometry : MonoBehaviour
 
         // Shape Changer.
         {
-            m_ChangerBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = m_BodyType, position = Vector2.up });
+            m_ChangerBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { type = GetBodyType(), position = Vector2.up });
             m_ChangerShape = m_ChangerBody.CreateShape(circleGeometry);
             
             // Update the geometry if this isn't the current default.
@@ -164,6 +171,17 @@ public class ModifyGeometry : MonoBehaviour
         }
     }
 
+    private PhysicsBody.BodyType GetBodyType()
+    {
+        return m_BodyType switch
+        {
+            BodyType.Static => PhysicsBody.BodyType.Static,
+            BodyType.Dynamic => PhysicsBody.BodyType.Dynamic,
+            BodyType.Kinematic => PhysicsBody.BodyType.Kinematic,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+    
     private CircleGeometry circleGeometry => new CircleGeometry { radius = 0.5f * m_GeometryScale };
     private CapsuleGeometry capsuleGeometry => new CapsuleGeometry { center1 = Vector2.left * 0.5f * m_GeometryScale, center2 = Vector2.right * 0.5f * m_GeometryScale, radius = 0.5f * m_GeometryScale };
     private SegmentGeometry segmentGeometry => new SegmentGeometry { point1 = Vector2.left * 0.5f * m_GeometryScale, point2 = Vector2.right * 0.5f * m_GeometryScale };
