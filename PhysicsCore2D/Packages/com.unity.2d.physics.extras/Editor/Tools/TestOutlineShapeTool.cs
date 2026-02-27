@@ -140,7 +140,7 @@ namespace Unity.U2D.Physics.Editor.Extras
 
                             if (EditorGUI.EndChangeCheck())
                             {
-                                Undo.RecordObject(Target, "Change ChainGeometry Point");
+                                Undo.RecordObject(Target, "Change Outline Point");
                                 outlinePoints[i] += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
                                 TargetShapeChanged = true;
                             }
@@ -156,7 +156,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                             // Did we click to delete the point?
                             if (removeMode && currentEventType == EventType.MouseDown && GUIUtility.hotControl == controlId)
                             {
-                                Undo.RecordObject(Target, "Delete ChainGeometry Point");
+                                Undo.RecordObject(Target, "Delete Outline Point");
 
                                 var newPoints = new List<Vector2>(outlinePoints);
                                 newPoints.RemoveAt(i);

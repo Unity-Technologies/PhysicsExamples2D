@@ -26,7 +26,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             public sealed override bool UpdateTool()
             {
                 Body = Target.testBody.body;
-                World = Target.testBody.testWorld.world;
+                World = Target.testBody.body.world;
                 TransformPlane = World.transformPlane;
                 return true;
             }
