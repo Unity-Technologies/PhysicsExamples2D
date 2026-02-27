@@ -32,7 +32,7 @@ public class TransformPlaneWrite : MonoBehaviour
                 gravity = Vector2.zero,
                 
                 // Increase the line-thickness for gizmos (better visuals).
-                drawThickness = 5f
+                drawThickness = 3f
             });
 
        // Create a static area for the shapes to move around in.

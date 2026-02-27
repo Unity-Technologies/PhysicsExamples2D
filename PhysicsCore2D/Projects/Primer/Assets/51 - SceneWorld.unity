@@ -399,7 +399,7 @@ MonoBehaviour:
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4256
     m_DrawFillOptions: -1
-    m_DrawThickness: 2
+    m_DrawThickness: 1
     m_DrawFillAlpha: 0.1
     m_DrawPointScale: 1
     m_DrawNormalScale: 1
