@@ -31,7 +31,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             public sealed override bool UpdateTool()
             {
                 Body = Target.SceneBody.Body;
-                World = Target.SceneBody.SceneWorld.World;
+                World = Target.SceneBody.Body.world;
                 TransformPlane = World.transformPlane;
                 return true;
             }
