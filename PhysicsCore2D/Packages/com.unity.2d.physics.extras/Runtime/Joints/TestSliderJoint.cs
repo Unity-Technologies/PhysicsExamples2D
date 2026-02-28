@@ -5,7 +5,7 @@ namespace Unity.U2D.Physics.Extras
 {
     [AddComponentMenu("Physics 2D/CoreExamples/Test Slider Joint", 40)]
     [Icon(IconUtility.IconPath + "TestSliderJoint.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, "SceneSliderJoint")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneSliderJoint")]
     public sealed class TestSliderJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsSliderJointDefinition JointDefinition = PhysicsSliderJointDefinition.defaultDefinition;

@@ -5,7 +5,7 @@ namespace Unity.U2D.Physics.Extras
 {
     [AddComponentMenu("Physics 2D/CoreExamples/Test Ignore Joint", 40)]
     [Icon(IconUtility.IconPath + "TestIgnoreJoint.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, "SceneIgnoreJoint")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneIgnoreJoint")]
     public sealed class TestIgnoreJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsIgnoreJointDefinition JointDefinition = PhysicsIgnoreJointDefinition.defaultDefinition;

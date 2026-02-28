@@ -5,7 +5,7 @@ namespace Unity.U2D.Physics.Extras
 {
     [AddComponentMenu("Physics 2D/CoreExamples/Test Wheel Joint", 40)]
     [Icon(IconUtility.IconPath + "TestWheelJoint.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, "SceneWheelJoint")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneWheelJoint")]
     public sealed class TestWheelJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsWheelJointDefinition JointDefinition = PhysicsWheelJointDefinition.defaultDefinition;

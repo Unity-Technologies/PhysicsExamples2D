@@ -1,14 +1,12 @@
 ﻿using UnityEditor.UIElements;
 using Unity.U2D.Physics.Extras;
 using UnityEditor;
-using UnityEngine.Scripting.APIUpdating;
 using UnityEngine.UIElements;
 
 namespace Unity.U2D.Physics.Editor.Extras
 {
     [CustomEditor(typeof(TestShape))]
     [CanEditMultipleObjects]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.EditorSourceNamespace)]
     public class TestShapeEditor : UnityEditor.Editor
     {
         private SerializedProperty m_ShapeTypeProperty;

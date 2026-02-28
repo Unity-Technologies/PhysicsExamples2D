@@ -13,7 +13,7 @@ namespace Unity.U2D.Physics.Extras
     [DefaultExecutionOrder(ExecutionOrder.TestWorld)]
     [AddComponentMenu("Physics 2D/CoreExamples/Test World", 0)]
     [Icon(IconUtility.IconPath + "TestWorld.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, "SceneWorld")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneWorld")]
     public sealed class TestWorld : MonoBehaviour
     {
         public bool UseDefaultWorld = true;
@@ -26,8 +26,8 @@ namespace Unity.U2D.Physics.Extras
 
         public event TestWorldCreateEventHandler CreateWorldEvent;
         public event TestWorldDestroyEventHandler DestroyWorldEvent;
-
         public PhysicsWorld world => m_World;
+        
         private PhysicsWorld m_World;
         private int m_OwnerKey;
 

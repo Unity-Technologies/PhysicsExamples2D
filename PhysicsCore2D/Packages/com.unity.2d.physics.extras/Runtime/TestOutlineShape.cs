@@ -8,7 +8,7 @@ namespace Unity.U2D.Physics.Extras
     [DefaultExecutionOrder(ExecutionOrder.TestShape)]
     [AddComponentMenu("Physics 2D/CoreExamples/Test Outline Shape", 21)]
     [Icon(IconUtility.IconPath + "TestShape.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, "SceneOutlineShape")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneOutlineShape")]
     public sealed class TestOutlineShape : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldDrawable
     {
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };

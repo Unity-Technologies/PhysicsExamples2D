@@ -9,9 +9,9 @@ internal class TestShapeShadowProvider : TestShadowProviderBase
 {
     private ShadowShape2D m_PersistantShadowShape;
 
-    public override bool IsShapeSource(Component sourceComponent) => sourceComponent is TestShape;
+    public override bool IsRequiredComponentData(Component sourceComponent) => sourceComponent is TestShape;
 
-    public override void OnPersistantDataCreated(Component sourceComponent, ShadowShape2D persistantShadowShape)
+    public override void OnInitialized(Component sourceComponent, ShadowShape2D persistantShadowShape)
     {
         m_PersistantShadowShape = persistantShadowShape;
     }
