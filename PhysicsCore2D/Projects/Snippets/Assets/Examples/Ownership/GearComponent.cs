@@ -7,7 +7,7 @@ using UnityEngine.LowLevelPhysics2D;
 using Unity.U2D.Physics.Extras;
 
 [ExecuteAlways]
-public class GearComponent : MonoBehaviour, ITestWorldTransformChanged
+public class GearComponent : MonoBehaviour, IWorldTransformChanged
 {
     [Header("Gear")]
     [Range(0.5f, 5f)] public float GearRadius = 2f;
@@ -44,7 +44,7 @@ public class GearComponent : MonoBehaviour, ITestWorldTransformChanged
         
 #if UNITY_EDITOR
         // Monitor transform changes.
-        TestWorldTransformMonitor.AddMonitor(this);
+        WorldTransformMonitor.AddMonitor(this);
 #endif
     }
 
@@ -56,7 +56,7 @@ public class GearComponent : MonoBehaviour, ITestWorldTransformChanged
 
 #if UNITY_EDITOR
         // Stop monitoring transform changes.
-        TestWorldTransformMonitor.RemoveMonitor(this);
+        WorldTransformMonitor.RemoveMonitor(this);
 #endif
     }
     
@@ -166,7 +166,7 @@ public class GearComponent : MonoBehaviour, ITestWorldTransformChanged
     }
 
     // If there's a transform change then we recreate the gear.
-    void ITestWorldTransformChanged.TransformChanged()
+    void IWorldTransformChanged.TransformChanged()
     {
         // Recreate gear.
         if (!m_GearBody.isValid)

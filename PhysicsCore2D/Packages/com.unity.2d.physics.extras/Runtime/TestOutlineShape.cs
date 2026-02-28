@@ -15,7 +15,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Test Outline Shape", 21)]
     [Icon(IconUtility.IconPath + "TestShape.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneOutlineShape")]
-    public sealed class TestOutlineShape : MonoBehaviour, ITestWorldTransformChanged, ITestWorldDrawable
+    public sealed class TestOutlineShape : MonoBehaviour, IWorldTransformChanged, IWorldDrawable
     {
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };
         public PhysicsShapeDefinition ShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
@@ -58,7 +58,7 @@ namespace Unity.U2D.Physics.Extras
             CreateShapes();
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.AddMonitor(this);
+            WorldTransformMonitor.AddMonitor(this);
 #endif
         }
 
@@ -76,7 +76,7 @@ namespace Unity.U2D.Physics.Extras
             }
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.RemoveMonitor(this);
+            WorldTransformMonitor.RemoveMonitor(this);
 #endif
         }
 
@@ -171,9 +171,9 @@ namespace Unity.U2D.Physics.Extras
             DestroyShapes();
         }
 
-        void ITestWorldTransformChanged.TransformChanged() => CreateShapes();
+        void IWorldTransformChanged.TransformChanged() => CreateShapes();
 
-        void ITestWorldDrawable.Draw()
+        void IWorldDrawable.Draw()
         {
             // Finish if we've nothing to draw.
             if (!m_OwnedShapes.IsCreated || m_OwnedShapes.Length == 0)

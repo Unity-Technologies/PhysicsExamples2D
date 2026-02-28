@@ -11,7 +11,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Joints/Test Relative Joint", 40)]
     [Icon(IconUtility.IconPath + "TestRelativeJoint.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneRelativeJoint")]
-    public sealed class TestRelativeJoint : TestJointBase, ITestWorldDrawable
+    public sealed class TestRelativeJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsRelativeJointDefinition JointDefinition = PhysicsRelativeJointDefinition.defaultDefinition;
 

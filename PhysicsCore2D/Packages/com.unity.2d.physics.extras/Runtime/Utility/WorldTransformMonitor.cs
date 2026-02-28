@@ -10,11 +10,11 @@ using UnityEngine.Scripting.APIUpdating;
 namespace Unity.U2D.Physics.Extras
 {
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "WorldSceneTransformMonitor")]
-    public static class TestWorldTransformMonitor
+    public static class WorldTransformMonitor
     {
-        private static readonly Dictionary<Transform, HashSet<ITestWorldTransformChanged>> Monitors = new();
+        private static readonly Dictionary<Transform, HashSet<IWorldTransformChanged>> Monitors = new();
         private static readonly List<Transform> ChangedTransforms = new();
-        private static readonly List<ITestWorldTransformChanged> BufferedCallbacks = new();
+        private static readonly List<IWorldTransformChanged> BufferedCallbacks = new();
 
         [InitializeOnLoadMethod]
         public static void InitializeAllWatchers()
@@ -60,9 +60,9 @@ namespace Unity.U2D.Physics.Extras
             ChangedTransforms.Clear();
         }
 
-        public static void AddMonitor(Component component) => AddMonitor(component.transform, component as ITestWorldTransformChanged);
+        public static void AddMonitor(Component component) => AddMonitor(component.transform, component as IWorldTransformChanged);
         
-        public static void AddMonitor(Transform transform, ITestWorldTransformChanged callback)
+        public static void AddMonitor(Transform transform, IWorldTransformChanged callback)
         {
             if (transform == null)
                 throw new NullReferenceException(nameof(transform));
@@ -77,12 +77,12 @@ namespace Unity.U2D.Physics.Extras
             }
 
             // Add a new callback.
-            var newCallbacks = HashSetPool<ITestWorldTransformChanged>.Get();
+            var newCallbacks = HashSetPool<IWorldTransformChanged>.Get();
             newCallbacks.Add(callback);
             Monitors.Add(transform, newCallbacks);
         }
 
-        public static void RemoveMonitor(Transform transform, ITestWorldTransformChanged callback)
+        public static void RemoveMonitor(Transform transform, IWorldTransformChanged callback)
         {
             if (transform == null)
                 throw new NullReferenceException(nameof(transform));
@@ -102,13 +102,13 @@ namespace Unity.U2D.Physics.Extras
                 return;
             
             // Release the callbacks.
-            HashSetPool<ITestWorldTransformChanged>.Release(callbacks);
+            HashSetPool<IWorldTransformChanged>.Release(callbacks);
             
             // Remove from the monitors.
             Monitors.Remove(transform);
         }
         
-        public static void RemoveMonitor(Component component) => RemoveMonitor(component.transform, component as ITestWorldTransformChanged);
+        public static void RemoveMonitor(Component component) => RemoveMonitor(component.transform, component as IWorldTransformChanged);
     }
 }
 

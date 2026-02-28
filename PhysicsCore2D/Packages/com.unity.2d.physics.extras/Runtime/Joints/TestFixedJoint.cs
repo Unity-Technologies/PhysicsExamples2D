@@ -11,7 +11,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Joints/Test Fixed Joint", 40)]
     [Icon(IconUtility.IconPath + "TestFixedJoint.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneFixedJoint")]
-    public sealed class TestFixedJoint : TestJointBase, ITestWorldDrawable
+    public sealed class TestFixedJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsFixedJointDefinition JointDefinition = PhysicsFixedJointDefinition.defaultDefinition;
 

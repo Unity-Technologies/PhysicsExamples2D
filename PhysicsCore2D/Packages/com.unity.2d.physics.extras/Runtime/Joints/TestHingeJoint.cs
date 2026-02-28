@@ -11,7 +11,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Joints/Test Hinge Joint", 40)]
     [Icon(IconUtility.IconPath + "TestHingeJoint.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneHingeJoint")]
-    public sealed class TestHingeJoint : TestJointBase, ITestWorldDrawable
+    public sealed class TestHingeJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsHingeJointDefinition JointDefinition = PhysicsHingeJointDefinition.defaultDefinition;
 

@@ -13,7 +13,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Test Shape", 20)]
     [Icon(IconUtility.IconPath + "TestShape.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "TestShape")]
-    public sealed class TestShape : MonoBehaviour, ITestWorldTransformChanged, ITestWorldDrawable
+    public sealed class TestShape : MonoBehaviour, IWorldTransformChanged, IWorldDrawable
     {
         public PhysicsShape.ShapeType ShapeType = PhysicsShape.ShapeType.Circle;
         public CircleGeometry CircleGeometry = new();
@@ -56,7 +56,7 @@ namespace Unity.U2D.Physics.Extras
             CreateShape();
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.AddMonitor(this);
+            WorldTransformMonitor.AddMonitor(this);
 #endif
         }
 
@@ -71,7 +71,7 @@ namespace Unity.U2D.Physics.Extras
             }
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.RemoveMonitor(this);
+            WorldTransformMonitor.RemoveMonitor(this);
 #endif
         }
 
@@ -197,13 +197,13 @@ namespace Unity.U2D.Physics.Extras
                 DestroyShape();
         }
 
-        void ITestWorldTransformChanged.TransformChanged()
+        void IWorldTransformChanged.TransformChanged()
         {
             if (m_Shape.isValid)
                 CreateShape();
         }
 
-        void ITestWorldDrawable.Draw()
+        void IWorldDrawable.Draw()
         {
             if (!m_Shape.isValid)
                 return;

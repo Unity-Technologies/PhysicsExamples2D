@@ -14,7 +14,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Test Chain", 30)]
     [Icon(IconUtility.IconPath + "TestChain.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneChain")]
-    public sealed class TestChain : MonoBehaviour, ITestWorldTransformChanged
+    public sealed class TestChain : MonoBehaviour, IWorldTransformChanged
     {
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };
         public bool ReverseChain;
@@ -52,7 +52,7 @@ namespace Unity.U2D.Physics.Extras
             CreateShape();
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.AddMonitor(this);
+            WorldTransformMonitor.AddMonitor(this);
 #endif
         }
 
@@ -67,7 +67,7 @@ namespace Unity.U2D.Physics.Extras
             }
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.RemoveMonitor(this);
+            WorldTransformMonitor.RemoveMonitor(this);
 #endif
         }
 
@@ -130,7 +130,7 @@ namespace Unity.U2D.Physics.Extras
             DestroyShape();
         }
 
-        void ITestWorldTransformChanged.TransformChanged()
+        void IWorldTransformChanged.TransformChanged()
         {
             if (m_Chain.isValid)
                 CreateShape();

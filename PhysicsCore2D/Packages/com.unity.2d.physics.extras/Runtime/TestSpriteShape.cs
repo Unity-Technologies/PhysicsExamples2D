@@ -15,7 +15,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Test Sprite Shape", 22)]
     [Icon(IconUtility.IconPath + "TestShape.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneSpriteShape")]
-    public sealed class TestSpriteShape : MonoBehaviour, ITestWorldTransformChanged, ITestWorldDrawable
+    public sealed class TestSpriteShape : MonoBehaviour, IWorldTransformChanged, IWorldDrawable
     {
         public Sprite Sprite;
         public bool UseDelaunay = true;
@@ -57,7 +57,7 @@ namespace Unity.U2D.Physics.Extras
             CreateShapes();
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.AddMonitor(this);
+            WorldTransformMonitor.AddMonitor(this);
 #endif
         }
 
@@ -75,7 +75,7 @@ namespace Unity.U2D.Physics.Extras
             }
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.RemoveMonitor(this);
+            WorldTransformMonitor.RemoveMonitor(this);
 #endif
         }
 
@@ -199,9 +199,9 @@ namespace Unity.U2D.Physics.Extras
             DestroyShapes();
         }
 
-        void ITestWorldTransformChanged.TransformChanged() => CreateShapes();
+        void IWorldTransformChanged.TransformChanged() => CreateShapes();
 
-        void ITestWorldDrawable.Draw()
+        void IWorldDrawable.Draw()
         {
             // Finish if we've nothing to draw.
             if (!m_OwnedShapes.IsCreated || m_OwnedShapes.Length == 0)

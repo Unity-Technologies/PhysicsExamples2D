@@ -15,7 +15,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Test Body", 10)]
     [Icon(IconUtility.IconPath + "TestBody.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "TestBody")]
-    public sealed class TestBody : MonoBehaviour, ITestWorldTransformChanged, ITestWorldDrawable
+    public sealed class TestBody : MonoBehaviour, IWorldTransformChanged, IWorldDrawable
     {
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
         public PhysicsUserData UserData;
@@ -71,7 +71,7 @@ namespace Unity.U2D.Physics.Extras
             FixUnassignedTestShapes();
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.AddMonitor(this);
+            WorldTransformMonitor.AddMonitor(this);
 #endif
         }
 
@@ -86,7 +86,7 @@ namespace Unity.U2D.Physics.Extras
             }
 
 #if UNITY_EDITOR
-            TestWorldTransformMonitor.RemoveMonitor(this);
+            WorldTransformMonitor.RemoveMonitor(this);
 #endif
         }
 
@@ -150,7 +150,7 @@ namespace Unity.U2D.Physics.Extras
 
         private PhysicsWorld GetWorld() => UseDefaultWorld || testWorld == null ? PhysicsWorld.defaultWorld : testWorld.world;
         
-        void ITestWorldTransformChanged.TransformChanged()
+        void IWorldTransformChanged.TransformChanged()
         {
             SyncDefinitionToTransform(); 
             
@@ -233,7 +233,7 @@ namespace Unity.U2D.Physics.Extras
             }
         }
         
-        void ITestWorldDrawable.Draw()
+        void IWorldDrawable.Draw()
         {
             if (!m_Body.isValid)
                 return;

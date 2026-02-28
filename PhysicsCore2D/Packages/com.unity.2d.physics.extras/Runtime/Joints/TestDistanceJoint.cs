@@ -11,7 +11,7 @@ namespace Unity.U2D.Physics.Extras
     [AddComponentMenu("Physics 2D/LowLevel/Joints/Test Distance Joint", 40)]
     [Icon(IconUtility.IconPath + "TestDistanceJoint.png")]
     [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneDistanceJoint")]
-    public sealed class TestDistanceJoint : TestJointBase, ITestWorldDrawable
+    public sealed class TestDistanceJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsDistanceJointDefinition JointDefinition = PhysicsDistanceJointDefinition.defaultDefinition;
 

@@ -38,7 +38,7 @@ namespace Unity.U2D.Physics.Extras
 
 #if UNITY_EDITOR
         // Editor selection.
-        private static readonly List<ITestWorldDrawable> SelectedDrawables = new();
+        private static readonly List<IWorldDrawable> SelectedDrawables = new();
         static TestWorld() => EditorApplication.update += DrawEditorSelections;
         private static void DrawEditorSelections()
         {
