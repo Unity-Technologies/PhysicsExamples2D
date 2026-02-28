@@ -7,7 +7,7 @@ using UnityEngine.LowLevelPhysics2D;
 using Unity.U2D.Physics.Extras;
 
 [ExecuteAlways]
-[DefaultExecutionOrder(ExecutionOrder.SceneBody)]
+[DefaultExecutionOrder(ExecutionOrder.TestBody)]
 public class GearComponent : MonoBehaviour
 {
     [Range(0.5f, 100f)] public float GearRadius = 3;
@@ -23,7 +23,7 @@ public class GearComponent : MonoBehaviour
     [Min(0f)] public float MaxMotorTorque = 1000000f;
     public PhysicsShape.ContactFilter GearContactFilter = PhysicsShape.ContactFilter.defaultFilter;
 
-    public SceneWorld SceneWorld;
+    public TestWorld testWorld;
 
     private PhysicsWorld m_PhysicsWorld;
     private PhysicsBody m_GearBody;
@@ -44,7 +44,7 @@ public class GearComponent : MonoBehaviour
 
     private void Reset()
     {
-        SceneWorld = SceneWorld.FindSceneWorld(gameObject);
+        testWorld = TestWorld.FindTestWorld(gameObject);
     }
 
     private void Update()
@@ -63,10 +63,10 @@ public class GearComponent : MonoBehaviour
         // Destroy any existing gear.
         DestroyGear();
 
-        if (SceneWorld == null)
+        if (testWorld == null)
             Reset();
 
-        m_PhysicsWorld = SceneWorld == null ? PhysicsWorld.defaultWorld : SceneWorld.World;
+        m_PhysicsWorld = testWorld == null ? PhysicsWorld.defaultWorld : testWorld.world;
 
         // Finish if no valid world.
         if (!m_PhysicsWorld.isValid)

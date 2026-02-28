@@ -230,7 +230,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 36908998}
+  testBody: {fileID: 36908998}
 --- !u!114 &36908998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &36908999
 Transform:
   m_ObjectHideFlags: 0
@@ -399,7 +399,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 45209101}
+  testBody: {fileID: 45209101}
 --- !u!114 &45209101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &45209102
 Transform:
   m_ObjectHideFlags: 0
@@ -539,10 +539,10 @@ MonoBehaviour:
   m_InstanceId: 0
   m_ShadowShape2DComponent: {fileID: 82546716}
   m_ShadowShape2DProvider:
-    rid: 437437936650682401
+    rid: 3738477618695766055
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 348654550}
+    m_Mesh: {fileID: 180285537}
     m_LocalBounds:
       m_Center: {x: -0.27424622, y: -0.29543304, z: 0}
       m_Extent: {x: 3.0343018, y: 2.4354324, z: 0}
@@ -559,10 +559,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 437437936650682401
-      type: {class: SceneShadowRegionProvider, ns: , asm: Assembly-CSharp}
+    - rid: 3738477618695766055
+      type: {class: TestShadowRegionProvider, ns: , asm: Assembly-CSharp}
       data: 
---- !u!43 &348654550
+--- !u!43 &180285537
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1000,7 +1000,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 1550336092}
+  testBody: {fileID: 1550336092}
 --- !u!114 &1550336092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,7 +1042,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &1550336093
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,7 +1169,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 1639417875}
+  testBody: {fileID: 1639417875}
 --- !u!114 &1639417875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,7 +1211,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &1639417876
 Transform:
   m_ObjectHideFlags: 0

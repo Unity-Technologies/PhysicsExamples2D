@@ -346,12 +346,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     public void ResetSceneState()
     {
-        // Disable any "SceneBody".
-        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        // Disable any "TestBody".
+        foreach (var sceneBody in FindObjectsByType<TestBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             sceneBody.enabled = false;
 
-        // Disable any "SceneWorlds".
-        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
+        // Disable any "TestWorlds".
+        foreach (var sceneWorld in FindObjectsByType<TestWorld>(FindObjectsSortMode.None))
             sceneWorld.enabled = false;
 
         {
@@ -386,12 +386,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Reset the default world.
         PhysicsWorld.defaultWorld.Reset();
 
-        // Enable any "SceneWorlds".
-        foreach (var sceneWorld in FindObjectsByType<SceneWorld>(FindObjectsSortMode.None))
+        // Enable any "TestWorlds".
+        foreach (var sceneWorld in FindObjectsByType<TestWorld>(FindObjectsSortMode.None))
             sceneWorld.enabled = true;
 
         // Enable all bodies again.
-        foreach (var sceneBody in FindObjectsByType<SceneBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        foreach (var sceneBody in FindObjectsByType<TestBody>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             sceneBody.enabled = true;
     }
 
