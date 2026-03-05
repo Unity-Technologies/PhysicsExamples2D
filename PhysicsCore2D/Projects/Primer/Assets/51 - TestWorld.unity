@@ -231,7 +231,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  TestBody: {fileID: 1175692040}
+  testBody: {fileID: 1175692040}
 --- !u!114 &1175692040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 0
-  TestWorld: {fileID: 1976017724}
+  testWorld: {fileID: 1976017724}
 --- !u!4 &1175692041
 Transform:
   m_ObjectHideFlags: 0

@@ -231,7 +231,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  TestBody: {fileID: 36908998}
+  testBody: {fileID: 36908998}
 --- !u!114 &36908998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  TestWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &36908999
 Transform:
   m_ObjectHideFlags: 0
@@ -402,7 +402,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  TestBody: {fileID: 45209101}
+  testBody: {fileID: 45209101}
 --- !u!114 &45209101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,7 +445,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  TestWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &45209102
 Transform:
   m_ObjectHideFlags: 0
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.ShadowCaster2D
   m_ShadowGroup: 0
   m_Priority: 0
-  m_ComponentVersion: 5
+  m_ComponentVersion: 6
   m_HasRenderer: 0
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
@@ -547,20 +547,14 @@ MonoBehaviour:
     rid: 437437936650682401
   m_ShadowCastingSource: 2
   m_ShadowMesh:
-    m_Mesh: {fileID: 0}
-    m_LocalBounds:
-      m_Center: {x: -0.27424622, y: -0.29543304, z: 0}
-      m_Extent: {x: 3.0343018, y: 2.4354324, z: 0}
-    m_EdgeProcessing: 1
-    m_TrimEdge: 0
-    m_FlipX: 0
-    m_FlipY: 0
-    m_InitialTrim: 0
+    rid: 1373870691220455438
   m_CastingOption: 1
   m_PreviousTrimEdge: 0
   m_PreviousEdgeProcessing: 1
   m_PreviousShadowCastingSource: 2
   m_PreviousShadowShape2DSource: {fileID: 82546716}
+  m_SelectionSources:
+    rid: 1373870691220455439
   references:
     version: 2
     RefIds:
@@ -568,6 +562,28 @@ MonoBehaviour:
       type: {class: , ns: , asm: }
     - rid: 437437936650682401
       type: {class: TestShadowRegionProvider, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 1373870691220455438
+      type: {class: ShadowMesh2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Vertices: []
+        m_Indices: 
+        m_LocalBounds:
+          m_Center: {x: 0, y: 0, z: 0}
+          m_Extent: {x: 0, y: 0, z: 0}
+        m_EdgeProcessing: 1
+        m_TrimEdge: -1
+        m_FlipX: 0
+        m_FlipY: 0
+        m_InitialTrim: 0
+    - rid: 1373870691220455439
+      type: {class: Shadow2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: -249497547
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: -2
 --- !u!1 &1147806548
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,9 +613,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
-  m_ComponentVersion: 2
+  m_ComponentVersion: 3
   m_LightType: 3
   m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 1373870691220455440
   m_FalloffIntensity: 0.486
   m_Color: {r: 0.4264463, g: 0.7577768, b: 0.96765494, a: 1}
   m_Intensity: 12
@@ -637,6 +657,19 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1373870691220455440
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 3
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: -2
 --- !u!4 &1147806550
 Transform:
   m_ObjectHideFlags: 0
@@ -829,7 +862,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  TestBody: {fileID: 1550336092}
+  testBody: {fileID: 1550336092}
 --- !u!114 &1550336092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,7 +905,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  TestWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &1550336093
 Transform:
   m_ObjectHideFlags: 0
@@ -1000,7 +1033,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  TestBody: {fileID: 1639417875}
+  testBody: {fileID: 1639417875}
 --- !u!114 &1639417875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,7 +1076,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  TestWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &1639417876
 Transform:
   m_ObjectHideFlags: 0
