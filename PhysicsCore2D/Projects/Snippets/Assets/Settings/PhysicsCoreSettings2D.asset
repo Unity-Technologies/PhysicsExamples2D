@@ -154,6 +154,7 @@ MonoBehaviour:
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
+    m_WorldDrawing: 1
   m_PhysicsShapeDefinition:
     contactFilter:
       m_Categories:
@@ -182,6 +183,7 @@ MonoBehaviour:
     m_PreSolveCallbacks: 0
     m_StartStaticContacts: 1
     m_StartMassUpdate: 1
+    m_WorldDrawing: 1
     moverData:
       m_PushLimit: 1000000
       m_ClipVelocity: 1
@@ -232,6 +234,7 @@ MonoBehaviour:
     m_TuningFrequency: 60
     m_TuningDamping: 0
     m_DrawScale: 1
+    m_WorldDrawing: 1
     m_CollideConnected: 0
   m_PhysicsFixedJointDefinition:
     m_LocalAnchorA:
@@ -251,6 +254,7 @@ MonoBehaviour:
     m_TuningFrequency: 60
     m_TuningDamping: 0
     m_DrawScale: 1
+    m_WorldDrawing: 1
     m_CollideConnected: 0
   m_PhysicsHingeJointDefinition:
     m_LocalAnchorA:
@@ -276,6 +280,7 @@ MonoBehaviour:
     m_TuningFrequency: 60
     m_TuningDamping: 0
     m_DrawScale: 1
+    m_WorldDrawing: 1
     m_CollideConnected: 0
   m_PhysicsRelativeJointDefinition:
     m_LocalAnchorA:
@@ -301,6 +306,7 @@ MonoBehaviour:
     m_TuningFrequency: 60
     m_TuningDamping: 0
     m_DrawScale: 1
+    m_WorldDrawing: 1
     m_CollideConnected: 0
   m_PhysicsSliderJointDefinition:
     m_LocalAnchorA:
@@ -326,6 +332,7 @@ MonoBehaviour:
     m_TuningFrequency: 60
     m_TuningDamping: 0
     m_DrawScale: 1
+    m_WorldDrawing: 1
     m_CollideConnected: 0
   m_PhysicsWheelJointDefinition:
     m_LocalAnchorA:
@@ -350,12 +357,13 @@ MonoBehaviour:
     m_TuningFrequency: 60
     m_TuningDamping: 0
     m_DrawScale: 1
+    m_WorldDrawing: 1
     m_CollideConnected: 0
   m_TransformChangeMode: 2
   m_ContactFilterMode: 0
   m_MaximumWorlds: 128
   m_ConcurrentSimulations: 2
   m_LengthUnitsPerMeter: 1
-  m_RenderingMode: 1
+  m_RenderingMode: 0
   m_DisableSimulation: 0
-  m_AlwaysDrawWorlds: 0
+  m_AlwaysDrawWorlds: 1
