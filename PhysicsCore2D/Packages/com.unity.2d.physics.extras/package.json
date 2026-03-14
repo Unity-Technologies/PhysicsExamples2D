@@ -1,7 +1,7 @@
 ﻿{
   "name": "com.unity.2d.physics.extras",
   "displayName": "2D Physics Core (Extras)",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "unity": "6000.5",
   "unityRelease": "0a6",
   "description": "2D Physics Extras (Low-Level) is a package that contains extra scripts for use with the PhysicsCore 2D features in Unity.\nThis is an unsupported package for testing purposes only.",

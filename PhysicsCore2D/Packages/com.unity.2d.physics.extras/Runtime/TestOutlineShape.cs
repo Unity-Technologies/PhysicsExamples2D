@@ -102,7 +102,8 @@ namespace Unity.U2D.Physics.Extras
             using var polygons = PolygonGeometry.CreatePolygons(Points, PhysicsTransform.identity, transform.lossyScale);
 
             // Calculate the relative transform from the scene body to this scene shape.
-            var relativeTransform = PhysicsMath.GetRelativeMatrix(testBody.transform, transform, testBody.body.world.transformPlane, useScale: false);
+            var world = body.world;
+            var relativeTransform = PhysicsMath.GetRelativeMatrix2D(testBody.transform.localToWorldMatrix, transform.localToWorldMatrix, world.transformPlane, world.transformPlaneCustom, useScale: false);
 
             // Iterate the polygons.
             foreach (var geometry in polygons)

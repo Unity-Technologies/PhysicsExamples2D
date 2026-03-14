@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CreatePhysicsUserData
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0

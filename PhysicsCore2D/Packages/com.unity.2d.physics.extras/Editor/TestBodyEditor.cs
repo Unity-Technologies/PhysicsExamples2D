@@ -19,11 +19,17 @@ namespace Unity.U2D.Physics.Editor.Extras
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.UserData))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.CallbackTarget))));
 
+            // Use Definition Pose.
+            var useTransformPoseProperty = serializedObject.FindProperty(nameof(TestBody.UseTransformPose));
+            var useTransformPosePropertyField = new PropertyField(useTransformPoseProperty);
+            root.Add(useTransformPosePropertyField);
+            
             // Default World.
             var defaultWorldProperty = serializedObject.FindProperty(nameof(TestBody.UseDefaultWorld));
             var defaultWorldPropertyField = new PropertyField(defaultWorldProperty);
             root.Add(defaultWorldPropertyField);
-
+            
+            // World definition.
             m_ShowHideWorldDefinition = new VisualElement();
             defaultWorldPropertyField.RegisterValueChangeCallback(_ => { m_ShowHideWorldDefinition.style.display = defaultWorldProperty.boolValue ? DisplayStyle.None : DisplayStyle.Flex; });
             m_ShowHideWorldDefinition.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.testWorld))));

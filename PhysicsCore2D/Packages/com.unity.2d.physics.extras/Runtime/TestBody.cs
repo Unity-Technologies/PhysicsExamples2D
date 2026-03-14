@@ -14,6 +14,7 @@ namespace Unity.U2D.Physics.Extras
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
         public PhysicsUserData UserData;
         public MonoBehaviour CallbackTarget;
+        public bool UseTransformPose = true;
         public bool UseDefaultWorld = true;
         public TestWorld testWorld;
         public PhysicsBody body => m_Body;
@@ -22,7 +23,6 @@ namespace Unity.U2D.Physics.Extras
         private PhysicsBody m_Body;
 
         public delegate void TestBodyCreateEventHandler(TestBody testBody);
-
         public delegate void TestBodyDestroyEventHandler(TestBody testBody);
 
         public event TestBodyCreateEventHandler CreateBodyEvent;
@@ -67,6 +67,11 @@ namespace Unity.U2D.Physics.Extras
 
             // Register for transform changes.
             PhysicsWorld.RegisterTransformChange(transform, this);
+
+#if UNITY_EDITOR            
+            // Register for a world definition change.
+            PhysicsEvents.WorldDefinitionChange += OnWorldDefinitionChange;
+#endif            
         }
 
         private void OnDisable()
@@ -79,8 +84,28 @@ namespace Unity.U2D.Physics.Extras
                 testWorld.DestroyWorldEvent -= OnDestroyWorld;
             }
 
+#if UNITY_EDITOR            
+            // Unregister from a world definition change.
+            PhysicsEvents.WorldDefinitionChange -= OnWorldDefinitionChange;
+#endif
             // Unregister from transform changes.
             PhysicsWorld.UnregisterTransformChange(transform, this);
+        }
+
+        private void OnWorldDefinitionChange(PhysicsWorld world)
+        {
+            // Ignore if we don't have a valid body or the change is a different world.
+            if (!body.isValid || body.world != world)
+                return;
+
+            if (UseTransformPose)
+            {
+                body.WritePose();
+                return;
+            }
+            
+            // Create a new body.
+            CreateBody();
         }
 
         private void OnValidate()
@@ -101,10 +126,16 @@ namespace Unity.U2D.Physics.Extras
 
             // Fetch the transform plane.
             var transformPlane = world.transformPlane;
+            var transformPlaneCustom = world.transformPlaneCustom;
 
-            // Create the body at the transform position.
-            BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane);
-            BodyDefinition.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane));
+            // Update the definition pose.
+            if (UseTransformPose)
+            {
+                BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane, transformPlaneCustom);
+                BodyDefinition.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane, transformPlaneCustom));
+            }
+
+            // Create the body.
             m_Body = PhysicsBody.Create(world: world, definition: BodyDefinition);
             if (m_Body.isValid)
             {
@@ -119,6 +150,9 @@ namespace Unity.U2D.Physics.Extras
 
                 // Set Owner.
                 m_OwnerKey = m_Body.SetOwner(this);
+
+                // Write the pose.
+                m_Body.WritePose();
             }
 
             // Notify.

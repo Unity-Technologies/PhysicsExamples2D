@@ -75,7 +75,7 @@ namespace Unity.U2D.Physics.Extras
 
             CreateShape();
         }
-
+        
         private void CreateShape()
         {
             // Destroy any existing shape.
@@ -89,7 +89,8 @@ namespace Unity.U2D.Physics.Extras
                 return;
 
             // Calculate the relative transform from the scene body to this scene shape.
-            var relativeTransform = PhysicsMath.GetRelativeMatrix(testBody.transform, transform, testBody.body.world.transformPlane);
+            var world = body.world;
+            var relativeTransform = PhysicsMath.GetRelativeMatrix2D(testBody.transform.localToWorldMatrix, transform.localToWorldMatrix, world.transformPlane, world.transformPlaneCustom);
 
             // Create the appropriate shape.
             switch (ShapeType)

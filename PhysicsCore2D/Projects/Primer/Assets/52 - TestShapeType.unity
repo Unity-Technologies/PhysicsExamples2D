@@ -222,7 +222,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -273,6 +273,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &139753163
@@ -393,7 +394,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -436,7 +437,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -444,6 +445,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &151636279
@@ -564,7 +566,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -607,7 +609,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -615,6 +617,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &433435632
@@ -735,7 +738,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -778,7 +781,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -786,6 +789,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &625520183
@@ -906,7 +910,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -949,7 +953,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -957,6 +961,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &938579597
@@ -1077,7 +1082,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -1120,7 +1125,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -1128,6 +1133,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &1162632281
@@ -1138,7 +1144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162632278}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.12619898, w: 0.992005}
+  m_LocalRotation: {x: 0, y: 0, z: -0.12619896, w: 0.992005}
   m_LocalPosition: {x: 0.01, y: -2.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1305,7 +1311,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -1348,7 +1354,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -1356,6 +1362,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &1776045672
@@ -1476,7 +1483,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -1519,7 +1526,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -1527,6 +1534,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &2097143272
@@ -1537,7 +1545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097143269}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.40170804, w: 0.9157678}
+  m_LocalRotation: {x: 0, y: 0, z: 0.40170768, w: 0.91576797}
   m_LocalPosition: {x: -2.41, y: -2.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

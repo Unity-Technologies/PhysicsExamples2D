@@ -237,7 +237,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -280,7 +280,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -288,6 +288,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!1 &929136786
@@ -393,7 +394,7 @@ MonoBehaviour:
       m_ClipVelocity: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -436,7 +437,7 @@ MonoBehaviour:
     m_WorldDrawing: 1
   UserData:
     m_EntityId:
-      m_Data: 0
+      m_rawData: 0
     m_PhysicsMask:
       bitMask: 0
     m_Float: 0
@@ -444,6 +445,7 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
+  UseTransformPose: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
 --- !u!4 &929136789
