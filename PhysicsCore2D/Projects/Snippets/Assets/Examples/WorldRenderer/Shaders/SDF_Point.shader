@@ -117,34 +117,25 @@ Shader "PhysicsCore2D/SDF_Point"
                 // Color.
                 output.color = half4(element.color);
 
-                // First, determine the pre-transformed position for pixel size calculation
-                const float4 pre_transformed = float4((local_mesh_vertex.xy + element.position.xy).xy, element.depth, local_mesh_vertex.w);
-                
-                // Get clip position for this pre-transformed point
-                float4 clipPos_pre = UnityObjectToClipPos(pre_transformed);
-
+                // For orthographic, pixel_size is view-independent so we can compute it up front.
+                // For perspective we need the real clip-space depth, so we defer to after transform.
                 float pixel_size;
                 float pixel_scaling;
                 if (unity_OrthoParams.w == 1.0f) // Orthographic
                 {
-                    // For orthographic projection, pixel size is constant
-                    // unity_OrthoParams.x is the camera's orthographic size (half-height)
                     pixel_size = unity_OrthoParams.x / (_ScreenParams.y * 0.5);
-
-                    // No scaling.
                     pixel_scaling = 1.0f / 1.2f;
                 }
-                else // Perspective
+                else // Perspective - temporary value; corrected below once we have clipPos.
                 {
-                    // For perspective, pixel size increases with distance from camera
-                    // clipPos.w is the view-space depth (distance from camera)
-                    // UNITY_MATRIX_P[1][1] is 1/tan(fov/2) for vertical FOV
-                    pixel_size = abs(clipPos_pre.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
-
-                    // Mesh extents scaling.
+                    // Use an approximate depth from element position for the initial scaling.
+                    // This is only used to size the quad; pixel_size is corrected after projection.
+                    const float4 approx = float4(element.position.xy, element.depth, 1.0);
+                    const float4 approx_clip = UnityObjectToClipPos(approx);
+                    pixel_size = abs(approx_clip.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
                     pixel_scaling = 1.2f;
                 }
-                
+
                 // Vertex.
                 const float radius = element.radius;
                 const float2 position = element.position;
@@ -158,11 +149,24 @@ Shader "PhysicsCore2D/SDF_Point"
                 else
                     transformed = transformPlaneSwizzle(transformed, transform_plane);
 
+                // Get clip position from the actual final vertex.
+                float4 clipPos = UnityObjectToClipPos(transformed);
+
+                // For perspective, correct pixel_size using the real clip depth now that we have it.
+                if (unity_OrthoParams.w != 1.0f)
+                    pixel_size = abs(clipPos.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
+
+                // When transform_plane == 3 the matrix may encode a world-space scale that
+                // changes the apparent size of the geometry. Compensate so thickness stays constant.
+                const float matrix_scale = (transform_plane == 3)
+                    ? 0.5 * (length(transform_plane_matrix[0].xyz) + length(transform_plane_matrix[1].xyz))
+                    : 1.0;
+
                 // Thickness.
-                output.thickness = half((pixel_size / scaling) * pixel_scaling);
+                output.thickness = half((pixel_size / (scaling * matrix_scale)) * pixel_scaling);
                 
                 // Transformed vertex.
-                output.vertex = UnityObjectToClipPos( transformed );
+                output.vertex = clipPos;
                 
                 return output;
             }

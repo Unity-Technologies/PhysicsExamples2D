@@ -242,7 +242,13 @@ Shader "PhysicsCore2D/SDF_PolygonGeometry"
                 }
 
                 // Thickness.
-                output.thickness = half(thickness * (pixel_size / scale) * pixel_scaling);
+                // When transform_plane == 3 the matrix may encode a world-space scale that
+                // changes the apparent size of the geometry.  Compensate by dividing it back
+                // out so the normalised-quad thickness stays constant.
+                const float matrix_scale = (transform_plane == 3)
+                    ? 0.5 * (length(transform_plane_matrix[0].xyz) + length(transform_plane_matrix[1].xyz))
+                    : 1.0;
+                output.thickness = half(thickness * (pixel_size / (scale * matrix_scale)) * pixel_scaling);
 
                 // Transformed vertex.
                 output.vertex = clipPos;
