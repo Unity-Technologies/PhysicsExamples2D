@@ -31,7 +31,7 @@
 // - Reduced redundant calculations
 // - FIXED: Proper pixel size calculation for orthographic and perspective cameras
 
-Shader "PhysicsCore2D/SDF_Point"
+Shader "Hidden/Physics2D/SDF_Point"
 {
     Properties
     {
@@ -117,58 +117,72 @@ Shader "PhysicsCore2D/SDF_Point"
                 // Color.
                 output.color = half4(element.color);
 
-                // For orthographic, pixel_size is view-independent so we can compute it up front.
-                // For perspective we need the real clip-space depth, so we defer to after transform.
-                float pixel_size;
-                float pixel_scaling;
-                if (unity_OrthoParams.w == 1.0f) // Orthographic
-                {
-                    pixel_size = unity_OrthoParams.x / (_ScreenParams.y * 0.5);
-                    pixel_scaling = 1.0f / 1.2f;
-                }
-                else // Perspective - temporary value; corrected below once we have clipPos.
-                {
-                    // Use an approximate depth from element position for the initial scaling.
-                    // This is only used to size the quad; pixel_size is corrected after projection.
-                    const float4 approx = float4(element.position.xy, element.depth, 1.0);
-                    const float4 approx_clip = UnityObjectToClipPos(approx);
-                    pixel_size = abs(approx_clip.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
-                    pixel_scaling = 1.2f;
-                }
-
-                // When transform_plane == 3 the matrix may encode a world-space scale that
-                // would enlarge the quad in clip space. Compute it up front so we can
-                // pre-divide the quad size, keeping the point at a constant pixel radius.
-                const float matrix_scale = (transform_plane == 3)
-                    ? 0.5 * (length(transform_plane_matrix[0].xyz) + length(transform_plane_matrix[1].xyz))
-                    : 1.0;
-
-                // Vertex.
                 const float radius = element.radius;
                 const float2 position = element.position;
-                // Divide by matrix_scale so the subsequent matrix multiply doesn't grow the quad.
-                const float scaling = radius * pixel_size / matrix_scale;
-                const float2 p = (local_mesh_vertex.xy * scaling.xx) + position.xy;
-                
-                // Calculate transformed (plane) vertex.
-                float4 transformed = float4(p.xy, element.depth, local_mesh_vertex.w);
+
+                float pixel_size;
+                float pixel_scaling;
+
                 if (transform_plane == 3)
-                    transformed = mul(transform_plane_matrix, transformed);
+                {
+                    // For a custom-plane matrix the matrix scale would inflate a pixel-sized quad.
+                    // Compute pixel_size from the projected centre point (pre-matrix), then
+                    // pre-divide by matrix_scale so the matrix multiply restores it to the
+                    // intended pixel footprint regardless of viewing angle.
+                    const float matrix_scale = 0.5 * (length(transform_plane_matrix[0].xyz) + length(transform_plane_matrix[1].xyz));
+
+                    // Project the centre through the full matrix to get the correct clip depth.
+                    float4 centre_world = mul(transform_plane_matrix, float4(position.xy, element.depth, 1.0));
+                    float4 centre_clip  = UnityObjectToClipPos(centre_world);
+
+                    if (unity_OrthoParams.w == 1.0f) // Orthographic
+                    {
+                        pixel_size   = unity_OrthoParams.x / (_ScreenParams.y * 0.5);
+                        pixel_scaling = 1.0f / 1.2f;
+                    }
+                    else // Perspective
+                    {
+                        pixel_size   = abs(centre_clip.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
+                        pixel_scaling = 1.2f;
+                    }
+
+                    // Build quad sized in pixels, then shrink by matrix_scale so the
+                    // subsequent mul(matrix) inflates it back to exactly pixel_size * radius px.
+                    const float scaling = radius * pixel_size / matrix_scale;
+                    const float2 p = (local_mesh_vertex.xy * scaling.xx) + position.xy;
+
+                    float4 transformed = mul(transform_plane_matrix, float4(p.xy, element.depth, local_mesh_vertex.w));
+                    output.vertex    = UnityObjectToClipPos(transformed);
+                    output.thickness = half((pixel_size / scaling) * pixel_scaling);
+                }
                 else
-                    transformed = transformPlaneSwizzle(transformed, transform_plane);
+                {
+                    // Planes 0/1/2: no matrix scale, original approach is correct.
+                    if (unity_OrthoParams.w == 1.0f) // Orthographic
+                    {
+                        pixel_size   = unity_OrthoParams.x / (_ScreenParams.y * 0.5);
+                        pixel_scaling = 1.0f / 1.2f;
+                    }
+                    else // Perspective — approximate from centre, corrected below.
+                    {
+                        const float4 approx_clip = UnityObjectToClipPos(float4(position.xy, element.depth, 1.0));
+                        pixel_size   = abs(approx_clip.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
+                        pixel_scaling = 1.2f;
+                    }
 
-                // Get clip position from the actual final vertex.
-                float4 clipPos = UnityObjectToClipPos(transformed);
+                    const float scaling = radius * pixel_size;
+                    const float2 p = (local_mesh_vertex.xy * scaling.xx) + position.xy;
 
-                // For perspective, correct pixel_size using the real clip depth now that we have it.
-                if (unity_OrthoParams.w != 1.0f)
-                    pixel_size = abs(clipPos.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
+                    float4 transformed = transformPlaneSwizzle(float4(p.xy, element.depth, local_mesh_vertex.w), transform_plane);
+                    float4 clipPos     = UnityObjectToClipPos(transformed);
 
-                // Thickness: scaling already accounts for matrix_scale, so no extra division needed.
-                output.thickness = half((pixel_size / scaling) * pixel_scaling);
-                
-                // Transformed vertex.
-                output.vertex = clipPos;
+                    // Correct pixel_size now that we have the real clip depth.
+                    if (unity_OrthoParams.w != 1.0f)
+                        pixel_size = abs(clipPos.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
+
+                    output.vertex    = clipPos;
+                    output.thickness = half((pixel_size / scaling) * pixel_scaling);
+                }
                 
                 return output;
             }
