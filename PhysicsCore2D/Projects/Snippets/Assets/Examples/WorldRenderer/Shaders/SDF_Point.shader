@@ -136,10 +136,18 @@ Shader "PhysicsCore2D/SDF_Point"
                     pixel_scaling = 1.2f;
                 }
 
+                // When transform_plane == 3 the matrix may encode a world-space scale that
+                // would enlarge the quad in clip space. Compute it up front so we can
+                // pre-divide the quad size, keeping the point at a constant pixel radius.
+                const float matrix_scale = (transform_plane == 3)
+                    ? 0.5 * (length(transform_plane_matrix[0].xyz) + length(transform_plane_matrix[1].xyz))
+                    : 1.0;
+
                 // Vertex.
                 const float radius = element.radius;
                 const float2 position = element.position;
-                const float scaling = radius * pixel_size;
+                // Divide by matrix_scale so the subsequent matrix multiply doesn't grow the quad.
+                const float scaling = radius * pixel_size / matrix_scale;
                 const float2 p = (local_mesh_vertex.xy * scaling.xx) + position.xy;
                 
                 // Calculate transformed (plane) vertex.
@@ -156,14 +164,8 @@ Shader "PhysicsCore2D/SDF_Point"
                 if (unity_OrthoParams.w != 1.0f)
                     pixel_size = abs(clipPos.w / (_ScreenParams.y * UNITY_MATRIX_P[1][1] * 0.5));
 
-                // When transform_plane == 3 the matrix may encode a world-space scale that
-                // changes the apparent size of the geometry. Compensate so thickness stays constant.
-                const float matrix_scale = (transform_plane == 3)
-                    ? 0.5 * (length(transform_plane_matrix[0].xyz) + length(transform_plane_matrix[1].xyz))
-                    : 1.0;
-
-                // Thickness.
-                output.thickness = half((pixel_size / (scaling * matrix_scale)) * pixel_scaling);
+                // Thickness: scaling already accounts for matrix_scale, so no extra division needed.
+                output.thickness = half((pixel_size / scaling) * pixel_scaling);
                 
                 // Transformed vertex.
                 output.vertex = clipPos;
