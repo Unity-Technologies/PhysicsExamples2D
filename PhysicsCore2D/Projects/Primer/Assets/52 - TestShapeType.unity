@@ -230,7 +230,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 139753162}
+  testBody: {fileID: 139753162}
 --- !u!114 &139753162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &139753163
 Transform:
   m_ObjectHideFlags: 0
@@ -399,7 +399,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 151636278}
+  testBody: {fileID: 151636278}
 --- !u!114 &151636278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &151636279
 Transform:
   m_ObjectHideFlags: 0
@@ -568,7 +568,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 433435631}
+  testBody: {fileID: 433435631}
 --- !u!114 &433435631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,7 +610,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &433435632
 Transform:
   m_ObjectHideFlags: 0
@@ -737,7 +737,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 625520182}
+  testBody: {fileID: 625520182}
 --- !u!114 &625520182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -779,7 +779,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &625520183
 Transform:
   m_ObjectHideFlags: 0
@@ -906,7 +906,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 938579596}
+  testBody: {fileID: 938579596}
 --- !u!114 &938579596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -948,7 +948,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &938579597
 Transform:
   m_ObjectHideFlags: 0
@@ -1075,7 +1075,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 1162632280}
+  testBody: {fileID: 1162632280}
 --- !u!114 &1162632280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,7 +1117,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &1162632281
 Transform:
   m_ObjectHideFlags: 0
@@ -1301,7 +1301,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 1776045671}
+  testBody: {fileID: 1776045671}
 --- !u!114 &1776045671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,7 +1343,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &1776045672
 Transform:
   m_ObjectHideFlags: 0
@@ -1470,7 +1470,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 2097143271}
+  testBody: {fileID: 2097143271}
 --- !u!114 &2097143271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1512,7 +1512,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &2097143272
 Transform:
   m_ObjectHideFlags: 0

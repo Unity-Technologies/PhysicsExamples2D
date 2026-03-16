@@ -245,7 +245,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 552975887}
+  testBody: {fileID: 552975887}
 --- !u!114 &552975887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!1 &929136786
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +399,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
-  SceneBody: {fileID: 929136788}
+  testBody: {fileID: 929136788}
 --- !u!114 &929136788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
     m_Bool: 0
   CallbackTarget: {fileID: 0}
   UseDefaultWorld: 1
-  SceneWorld: {fileID: 0}
+  testWorld: {fileID: 0}
 --- !u!4 &929136789
 Transform:
   m_ObjectHideFlags: 0
