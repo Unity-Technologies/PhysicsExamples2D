@@ -125,7 +125,8 @@ namespace Unity.U2D.Physics.Extras
 
         void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
-            if (m_Chain.isValid)
+            // If body isn't on the same GameObject then create the shape.
+            if (isActiveAndEnabled && testBody.gameObject != gameObject)
                 CreateShape();
         }
 

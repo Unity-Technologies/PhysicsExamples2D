@@ -22,18 +22,18 @@ namespace Unity.U2D.Physics.Editor.Extras
                 var localGeometry = ShapeTarget.CircleGeometry;
 
                 // Calculate the relative transform from the scene body to this scene shape.
-                var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.testBody.transform, ShapeTarget.transform, ShapeTarget.testBody.body.world.transformPlane);
+                var relativeTransform = GetRelativeTransform();
 
                 // Set-up handles.
                 var snap = GetSnapSettings();
-                var handleDirection = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
-                var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(Vector3.right, TransformPlane)).normalized;
-                var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(Vector3.up, TransformPlane)).normalized;
+                var handleDirection = GetHandleDirection();
+                var handleRight = GetTransformedVector(Vector3.right);
+                var handleUp = GetTransformedVector(Vector3.up);
 
                 // Fetch the show labels option.
                 var showLabels = geometryToolSettings.ShowLabels;
 
-                var shapeOrigin = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.center), ShapeTarget.transform.position, TransformPlane);
+                var shapeOrigin = ToBodyPosition3D(geometry.center);
                 var handleSize = GetHandleSize(shapeOrigin);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(shapeOrigin, Quaternion.identity, Vector3.one)))
                 {
@@ -75,7 +75,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                         {
                             Undo.RecordObject(ShapeTarget, "Change CircleGeometry Center");
 
-                            geometry.center += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
+                            geometry.center += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
                             localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                             ShapeTarget.CircleGeometry = localGeometry;
                             TargetShapeChanged = true;
@@ -97,7 +97,7 @@ namespace Unity.U2D.Physics.Editor.Extras
 
                 // Draw the geometry.
                 World.SetElementDepth3D(shapeOrigin);
-                World.DrawCircle(PhysicsMath.ToPosition2D(shapeOrigin, TransformPlane), geometry.radius, Color.green);
+                World.DrawCircle(ToPosition2D(shapeOrigin), geometry.radius, Color.green);
             }
         }
     }

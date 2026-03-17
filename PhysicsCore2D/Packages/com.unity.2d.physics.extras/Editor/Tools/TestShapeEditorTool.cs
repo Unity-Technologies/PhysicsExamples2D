@@ -121,6 +121,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             protected PhysicsBody Body;
             protected PhysicsWorld World;
             protected PhysicsWorld.TransformPlane TransformPlane;
+            protected PhysicsWorld.TransformPlaneCustom TransformPlaneCustom;
             protected bool TargetShapeChanged;
 
             public sealed override bool UpdateTool()
@@ -141,6 +142,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                 Body = Shape.body;
                 World = Shape.world;
                 TransformPlane = World.transformPlane;
+                TransformPlaneCustom = World.transformPlaneCustom;
                 return true;
             }
 
@@ -149,6 +151,51 @@ namespace Unity.U2D.Physics.Editor.Extras
             /// </summary>
             /// <returns>If the target is valid to edit or not.</returns>
             public override bool isValid => ShapeTarget != null && Shape.isValid && ShapeTarget.isActiveAndEnabled && !Mathf.Approximately(Vector3.Scale(PhysicsMath.GetTranslationAxes(World.transformPlane), ShapeTarget.transform.lossyScale).sqrMagnitude, 0.0f);
+
+            /// <summary>
+            /// Get the handle direction related to the current transform plane configuration.
+            /// </summary>
+            /// <returns></returns>
+            protected Vector3 GetHandleDirection()
+            {
+                if (TransformPlane != PhysicsWorld.TransformPlane.Custom)
+                    return PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
+
+                return TransformPlaneCustom.toCustom.MultiplyVector(Vector3.forward);
+            }
+
+            /// <summary>
+            /// Transform a vector by the current transform plane configuration combined with the body rotation. 
+            /// </summary>
+            /// <param name="vector"></param>
+            /// <returns></returns>
+            protected Vector3 GetTransformedVector(Vector3 vector)
+            {
+                if (TransformPlane != PhysicsWorld.TransformPlane.Custom)
+                    return Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(vector, TransformPlane)).normalized;
+
+                return (Body.rotation.GetMatrix(PhysicsWorld.TransformPlane.XY) * TransformPlaneCustom.toCustom).MultiplyVector(vector).normalized;
+            }
+
+            /// <summary>
+            /// Calculate the relative transform from the scene body to this scene shape.
+            /// </summary>
+            /// <returns></returns>
+            protected Matrix4x4 GetRelativeTransform() => PhysicsMath.GetRelativeMatrix2D(ShapeTarget.testBody.transform.localToWorldMatrix, ShapeTarget.transform.localToWorldMatrix, TransformPlane, TransformPlaneCustom);
+
+            /// <summary>
+            /// Convert a 2D position to a 3D position based upon the transform plane configuration.
+            /// </summary>
+            /// <param name="position"></param>
+            /// <returns></returns>
+            protected Vector3 ToBodyPosition3D(Vector2 position) => PhysicsMath.ToPosition3D(Body.transform.TransformPoint(position), TransformPlane != PhysicsWorld.TransformPlane.Custom ? ShapeTarget.transform.position : Vector3.zero, TransformPlane, TransformPlaneCustom);
+            
+            /// <summary>
+            /// Convert a 3D position to a 2D position based upon the transform plane configuration.
+            /// </summary>
+            /// <param name="position"></param>
+            /// <returns></returns>
+            protected Vector2 ToPosition2D(Vector3 position) => PhysicsMath.ToPosition2D(position, TransformPlane, TransformPlaneCustom);
         }
 
         #endregion

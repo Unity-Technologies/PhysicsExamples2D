@@ -19,7 +19,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.UserData))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.CallbackTarget))));
 
-            // Use Definition Pose.
+            // Use Transform Pose.
             var useTransformPoseProperty = serializedObject.FindProperty(nameof(TestBody.UseTransformPose));
             var useTransformPosePropertyField = new PropertyField(useTransformPoseProperty);
             root.Add(useTransformPosePropertyField);

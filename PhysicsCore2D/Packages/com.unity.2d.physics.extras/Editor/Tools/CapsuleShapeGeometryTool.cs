@@ -22,22 +22,22 @@ namespace Unity.U2D.Physics.Editor.Extras
                 var localGeometry = ShapeTarget.CapsuleGeometry;
 
                 // Calculate the relative transform from the scene body to this scene shape.
-                var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.testBody.transform, ShapeTarget.transform, ShapeTarget.testBody.body.world.transformPlane);
+                var relativeTransform = GetRelativeTransform();
 
                 // Set-up handles.
                 var snap = GetSnapSettings();
-                var handleDirection = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
+                var handleDirection = GetHandleDirection();
 
                 var axisUp = (Vector3)(geometry.center1 - geometry.center2).normalized;
                 var axisRight = new Vector3(axisUp.y, -axisUp.x, 0f);
-                var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisRight, TransformPlane)).normalized;
-                var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisUp, TransformPlane)).normalized;
+                var handleRight = GetTransformedVector(axisRight);
+                var handleUp = GetTransformedVector(axisUp);
 
                 // Fetch the show labels option.
                 var showLabels = geometryToolSettings.ShowLabels;
 
                 // Radius.
-                var shapeOrigin = PhysicsMath.ToPosition3D(Body.transform.TransformPoint((geometry.center1 + geometry.center2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
+                var shapeOrigin = ToBodyPosition3D((geometry.center1 + geometry.center2) * 0.5f);
                 var handleSize = GetHandleSize(shapeOrigin);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(shapeOrigin, Quaternion.identity, Vector3.one)))
                 {
@@ -78,7 +78,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1&2");
-                        var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
+                        var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
                         geometry.center1 += centerOffset;
                         geometry.center2 += centerOffset;
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
@@ -100,7 +100,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1");
-                        geometry.center1 += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
+                        geometry.center1 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                         ShapeTarget.CapsuleGeometry = localGeometry;
                         TargetShapeChanged = true;
@@ -128,7 +128,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1");
-                        geometry.center2 += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
+                        geometry.center2 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                         ShapeTarget.CapsuleGeometry = localGeometry;
                         TargetShapeChanged = true;

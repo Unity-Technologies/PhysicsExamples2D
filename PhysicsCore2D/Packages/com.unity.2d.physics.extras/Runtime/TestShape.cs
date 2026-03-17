@@ -88,9 +88,25 @@ namespace Unity.U2D.Physics.Extras
             if (!body.isValid)
                 return;
 
+            var testBodyTransform = testBody.transform;
+            var testBodyLocalToWorldMatrix = testBodyTransform.localToWorldMatrix;
+            if (PhysicsMath.MinAbsComponent(testBodyTransform.lossyScale) == 0.0f || !testBodyLocalToWorldMatrix.ValidTRS())
+            {
+                Debug.Log("The body transform cannot have zero lossy scale and must be a valid TRS matrix.");
+                return;
+            }
+
+            var testShapeTransform = transform;
+            var testShapeLocalToWorldMatrix = testShapeTransform.localToWorldMatrix;
+            if (PhysicsMath.MinAbsComponent(testShapeTransform.lossyScale) == 0.0f || !testShapeLocalToWorldMatrix.ValidTRS())
+            {
+                Debug.Log("The shape transform cannot have zero lossy scale and must be a valid TRS matrix.");
+                return;
+            }
+            
             // Calculate the relative transform from the scene body to this scene shape.
             var world = body.world;
-            var relativeTransform = PhysicsMath.GetRelativeMatrix2D(testBody.transform.localToWorldMatrix, transform.localToWorldMatrix, world.transformPlane, world.transformPlaneCustom);
+            var relativeTransform = PhysicsMath.GetRelativeMatrix2D(testBodyLocalToWorldMatrix, testShapeLocalToWorldMatrix, world.transformPlane, world.transformPlaneCustom);
 
             // Create the appropriate shape.
             switch (ShapeType)
@@ -193,7 +209,8 @@ namespace Unity.U2D.Physics.Extras
 
         void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
-            if (m_Shape.isValid)
+            // If body isn't on the same GameObject then create the shape.
+            if (isActiveAndEnabled && testBody.gameObject != gameObject)
                 CreateShape();
         }
 

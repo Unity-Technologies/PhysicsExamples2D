@@ -206,7 +206,7 @@ namespace Unity.U2D.Physics.Extras
         
         void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
-            if (m_Body.isValid)
+            if (isActiveAndEnabled)
                 CreateBody();
         }
 

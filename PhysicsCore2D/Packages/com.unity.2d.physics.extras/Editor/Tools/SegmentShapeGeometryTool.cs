@@ -22,22 +22,22 @@ namespace Unity.U2D.Physics.Editor.Extras
                 var localGeometry = ShapeTarget.SegmentGeometry;
 
                 // Calculate the relative transform from the scene body to this scene shape.
-                var relativeTransform = PhysicsMath.GetRelativeMatrix(ShapeTarget.testBody.transform, ShapeTarget.transform, ShapeTarget.testBody.body.world.transformPlane);
+                var relativeTransform = GetRelativeTransform();
 
                 // Set-up handles.
                 var snap = GetSnapSettings();
-                var handleDirection = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane);
+                var handleDirection = GetHandleDirection();
 
                 var axisUp = (Vector3)(geometry.point1 - geometry.point2).normalized;
                 var axisRight = new Vector3(axisUp.y, -axisUp.x, 0f);
-                var handleRight = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisRight, TransformPlane)).normalized;
-                var handleUp = Body.rotation.GetMatrix(TransformPlane).MultiplyVector(PhysicsMath.Swizzle(axisUp, TransformPlane)).normalized;
+                var handleRight = GetTransformedVector(axisRight);
+                var handleUp = GetTransformedVector(axisUp);
 
                 // Fetch the show labels option.
                 var showLabels = geometryToolSettings.ShowLabels;
 
                 // Segment Mid.
-                var centerOriginMid = PhysicsMath.ToPosition3D(Body.transform.TransformPoint((geometry.point1 + geometry.point2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
+                var centerOriginMid = ToBodyPosition3D((geometry.point1 + geometry.point2) * 0.5f);
                 var handleSize = GetHandleSize(centerOriginMid);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(centerOriginMid, Quaternion.identity, Vector3.one)))
                 {
@@ -49,7 +49,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change SegmentGeometry Point1&2");
-                        var centerOffset = Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
+                        var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
                         geometry.point1 += centerOffset;
                         geometry.point2 += centerOffset;
                         localGeometry = geometry.InverseTransform(relativeTransform);
@@ -59,7 +59,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                 }
 
                 // Point #1.
-                var pointOrigin1 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.point1), ShapeTarget.transform.position, TransformPlane);
+                var pointOrigin1 = ToBodyPosition3D(geometry.point1);
                 handleSize = GetHandleSize(pointOrigin1);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(pointOrigin1, Quaternion.identity, Vector3.one)))
                 {
@@ -71,7 +71,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change SegmentGeometry Point1");
-                        geometry.point1 += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
+                        geometry.point1 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
                         localGeometry = geometry.InverseTransform(relativeTransform);
                         ShapeTarget.SegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
@@ -87,7 +87,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                 }
 
                 // Point2 #2.
-                var pointOrigin2 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.point2), ShapeTarget.transform.position, TransformPlane);
+                var pointOrigin2 = ToBodyPosition3D(geometry.point2);
                 handleSize = GetHandleSize(pointOrigin2);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(pointOrigin2, Quaternion.identity, Vector3.one)))
                 {
@@ -99,7 +99,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change SegmentGeometry Point2");
-                        geometry.point2 += Body.rotation.InverseRotateVector(PhysicsMath.ToPosition2D(newCenterValue, TransformPlane));
+                        geometry.point2 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
                         localGeometry = geometry.InverseTransform(relativeTransform);
                         ShapeTarget.SegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
