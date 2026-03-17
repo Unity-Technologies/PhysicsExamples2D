@@ -31,7 +31,7 @@
 // - Reduced redundant calculations
 // - FIXED: Proper pixel size calculation for orthographic and perspective cameras
 
-Shader "Hidden/Physics2D/SDF_Point"
+Shader "PhysicsCore2D/SDF_Point"
 {
     Properties
     {
