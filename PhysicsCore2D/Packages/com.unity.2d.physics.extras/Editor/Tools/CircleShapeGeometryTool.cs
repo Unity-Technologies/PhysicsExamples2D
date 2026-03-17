@@ -44,18 +44,18 @@ namespace Unity.U2D.Physics.Editor.Extras
                     {
                         EditorGUI.BeginChangeCheck();
                         var radiusValue = handleRight * geometry.radius;
-                        var newRadiusValue = Handles.Slider2D(radiusValue, handleDirection, handleRight, handleUp, handleSize, Handles.SphereHandleCap, snap);
+                        var newValue = Handles.Slider2D(radiusValue, handleDirection, handleRight, handleUp, handleSize, Handles.SphereHandleCap, snap);
                         if (EditorGUI.EndChangeCheck())
                         {
                             Undo.RecordObject(ShapeTarget, "Change CircleGeometry Radius");
 
-                            geometry.radius = newRadiusValue.magnitude;
+                            geometry.radius = newValue.magnitude;
                             localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                             ShapeTarget.CircleGeometry = localGeometry;
                             TargetShapeChanged = true;
                         }
 
-                        // Draw radius label.
+                        // Draw label.
                         if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                         {
                             Handles.color = geometryToolSettings.LabelColor;
@@ -70,18 +70,18 @@ namespace Unity.U2D.Physics.Editor.Extras
                     // Center.
                     {
                         EditorGUI.BeginChangeCheck();
-                        var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                        var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                         if (EditorGUI.EndChangeCheck())
                         {
                             Undo.RecordObject(ShapeTarget, "Change CircleGeometry Center");
 
-                            geometry.center += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                            geometry.center += Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                             localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                             ShapeTarget.CircleGeometry = localGeometry;
                             TargetShapeChanged = true;
                         }
 
-                        // Draw center label.
+                        // Draw label.
                         if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                         {
                             Handles.color = geometryToolSettings.LabelColor;
@@ -97,7 +97,7 @@ namespace Unity.U2D.Physics.Editor.Extras
 
                 // Draw the geometry.
                 World.SetElementDepth3D(shapeOrigin);
-                World.DrawCircle(ToPosition2D(shapeOrigin), geometry.radius, Color.green);
+                World.DrawCircle(Body.transform.TransformPoint(geometry.center), geometry.radius, Color.green);
             }
         }
     }

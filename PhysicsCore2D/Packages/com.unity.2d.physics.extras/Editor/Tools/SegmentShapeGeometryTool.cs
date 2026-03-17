@@ -45,11 +45,11 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleMoveAllColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change SegmentGeometry Point1&2");
-                        var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         geometry.point1 += centerOffset;
                         geometry.point2 += centerOffset;
                         localGeometry = geometry.InverseTransform(relativeTransform);
@@ -67,17 +67,17 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change SegmentGeometry Point1");
-                        geometry.point1 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        geometry.point1 += Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         localGeometry = geometry.InverseTransform(relativeTransform);
                         ShapeTarget.SegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
 
-                    // Draw center label.
+                    // Draw label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
                         Handles.color = geometryToolSettings.LabelColor;
@@ -95,17 +95,17 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change SegmentGeometry Point2");
-                        geometry.point2 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        geometry.point2 += Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         localGeometry = geometry.InverseTransform(relativeTransform);
                         ShapeTarget.SegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
 
-                    // Draw center label.
+                    // Draw label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
                         Handles.color = geometryToolSettings.LabelColor;

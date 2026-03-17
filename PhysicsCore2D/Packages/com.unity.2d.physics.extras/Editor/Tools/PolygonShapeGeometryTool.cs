@@ -179,11 +179,11 @@ namespace Unity.U2D.Physics.Editor.Extras
                             {
                                 EditorGUI.BeginChangeCheck();
                                 var radiusValue = handleRight * geometry.radius;
-                                var newRadiusValue = Handles.Slider2D(radiusValue, handleDirection, handleRight, handleUp, handleSize, Handles.SphereHandleCap, snap);
+                                var newValue = Handles.Slider2D(radiusValue, handleDirection, handleRight, handleUp, handleSize, Handles.SphereHandleCap, snap);
                                 if (EditorGUI.EndChangeCheck())
                                 {
                                     Undo.RecordObject(ShapeTarget, "Change PolygonGeometry Radius");
-                                    geometry.radius = Vector3.Dot(handleRight, newRadiusValue) > 0f ? newRadiusValue.magnitude : 0f;
+                                    geometry.radius = Vector3.Dot(handleRight, newValue) > 0f ? newValue.magnitude : 0f;
                                     localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
 
                                     ShapeTarget.PolygonGeometry = localGeometry;
@@ -191,7 +191,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                                     return;
                                 }
 
-                                // Draw radius label.
+                                // Draw label.
                                 if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                                 {
                                     Handles.color = geometryToolSettings.LabelColor;
@@ -209,11 +209,11 @@ namespace Unity.U2D.Physics.Editor.Extras
                                 Handles.color = geometryToolSettings.GrabHandleMoveAllColor;
 
                                 EditorGUI.BeginChangeCheck();
-                                var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                                var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                                 if (EditorGUI.EndChangeCheck())
                                 {
                                     Undo.RecordObject(ShapeTarget, "Change PolygonGeometry Centroid");
-                                    var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                                    var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                                     geometry = geometry.Transform(new PhysicsTransform(centerOffset, PhysicsRotate.identity));
                                     localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                                     ShapeTarget.PolygonGeometry = localGeometry;
@@ -247,11 +247,11 @@ namespace Unity.U2D.Physics.Editor.Extras
                                         GUIUtility.hotControl = controlId;
                                 }
 
-                                var newEdgeValue = Handles.Slider2D(controlId, Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                                var newValue = Handles.Slider2D(controlId, Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                                 if (EditorGUI.EndChangeCheck())
                                 {
                                     Undo.RecordObject(ShapeTarget, "Change PolygonGeometry Edge");
-                                    var projectedOffset = Vector3.Dot(handleRight, newEdgeValue) * handleRight;
+                                    var projectedOffset = Vector3.Dot(handleRight, newValue) * handleRight;
                                     var vertexOffset = Body.rotation.InverseRotateVector(ToPosition2D(projectedOffset));
                                     vertices[i] += vertexOffset;
                                     vertices[j] += vertexOffset;

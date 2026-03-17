@@ -46,11 +46,11 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleMoveAllColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry Center1&2");
-                        var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         geometrySegment.point1 += centerOffset;
                         geometrySegment.point2 += centerOffset;
                         geometry.ghost1 += centerOffset;
@@ -71,11 +71,11 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry Point1");
-                        var offset = Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        var offset = Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         geometrySegment.point1 += offset;
                         geometry.ghost1 += offset;
                         geometry.segment = geometrySegment;
@@ -84,7 +84,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                         TargetShapeChanged = true;
                     }
 
-                    // Draw center label.
+                    // Draw label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
                         Handles.color = geometryToolSettings.LabelColor;
@@ -102,11 +102,11 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry Point2");
-                        var offset = Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        var offset = Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         geometrySegment.point2 += offset;
                         geometry.ghost2 += offset;
                         geometry.segment = geometrySegment;
@@ -115,7 +115,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                         TargetShapeChanged = true;
                     }
 
-                    // Draw center label.
+                    // Draw label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
                         Handles.color = geometryToolSettings.LabelColor;
@@ -133,17 +133,17 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry GhostPoint1");
-                        geometry.ghost1 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        geometry.ghost1 += Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         localGeometry = geometry.InverseTransform(relativeTransform);
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
 
-                    // Draw center label.
+                    // Draw label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
                         Handles.color = geometryToolSettings.LabelColor;
@@ -161,17 +161,17 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change ChainSegmentGeometry GhostPoint2");
-                        geometry.ghost2 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        geometry.ghost2 += Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         localGeometry = geometry.InverseTransform(relativeTransform);
                         ShapeTarget.ChainSegmentGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
 
-                    // Draw center label.
+                    // Draw label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
                         Handles.color = geometryToolSettings.LabelColor;

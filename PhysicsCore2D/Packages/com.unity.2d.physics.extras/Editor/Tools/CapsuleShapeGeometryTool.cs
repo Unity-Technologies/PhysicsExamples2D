@@ -38,6 +38,8 @@ namespace Unity.U2D.Physics.Editor.Extras
 
                 // Radius.
                 var shapeOrigin = ToBodyPosition3D((geometry.center1 + geometry.center2) * 0.5f);
+                var centerOrigin1 = ToBodyPosition3D(geometry.center1);
+                var centerOrigin2 = ToBodyPosition3D(geometry.center2);
                 var handleSize = GetHandleSize(shapeOrigin);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(shapeOrigin, Quaternion.identity, Vector3.one)))
                 {
@@ -66,19 +68,17 @@ namespace Unity.U2D.Physics.Editor.Extras
                 }
 
                 // Center Mid.
-                var centerOriginMid = PhysicsMath.ToPosition3D(Body.transform.TransformPoint((geometry.center1 + geometry.center2) * 0.5f), ShapeTarget.transform.position, TransformPlane);
-                handleSize = GetHandleSize(centerOriginMid);
-                using (new Handles.DrawingScope(Matrix4x4.TRS(centerOriginMid, Quaternion.identity, Vector3.one)))
+                using (new Handles.DrawingScope(Matrix4x4.TRS(shapeOrigin, Quaternion.identity, Vector3.one)))
                 {
                     // Set handle color.
                     Handles.color = geometryToolSettings.GrabHandleMoveAllColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1&2");
-                        var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        var centerOffset = Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         geometry.center1 += centerOffset;
                         geometry.center2 += centerOffset;
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
@@ -88,7 +88,6 @@ namespace Unity.U2D.Physics.Editor.Extras
                 }
 
                 // Center #1.
-                var centerOrigin1 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.center1), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(centerOrigin1);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(centerOrigin1, Quaternion.identity, Vector3.one)))
                 {
@@ -96,17 +95,17 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1");
-                        geometry.center1 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        geometry.center1 += Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                         ShapeTarget.CapsuleGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
 
-                    // Draw center label.
+                    // Draw label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
                         Handles.color = geometryToolSettings.LabelColor;
@@ -116,7 +115,6 @@ namespace Unity.U2D.Physics.Editor.Extras
                 }
 
                 // Center #2.
-                var centerOrigin2 = PhysicsMath.ToPosition3D(Body.transform.TransformPoint(geometry.center2), ShapeTarget.transform.position, TransformPlane);
                 handleSize = GetHandleSize(centerOrigin2);
                 using (new Handles.DrawingScope(Matrix4x4.TRS(centerOrigin2, Quaternion.identity, Vector3.one)))
                 {
@@ -124,17 +122,17 @@ namespace Unity.U2D.Physics.Editor.Extras
                     Handles.color = geometryToolSettings.GrabHandleVertexColor;
 
                     EditorGUI.BeginChangeCheck();
-                    var newCenterValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
+                    var newValue = Handles.Slider2D(Vector3.zero, handleDirection, handleRight, handleUp, handleSize, Handles.CubeHandleCap, snap);
                     if (EditorGUI.EndChangeCheck())
                     {
                         Undo.RecordObject(ShapeTarget, "Change CapsuleGeometry Center1");
-                        geometry.center2 += Body.rotation.InverseRotateVector(ToPosition2D(newCenterValue));
+                        geometry.center2 += Body.rotation.InverseRotateVector(ToPosition2D(newValue));
                         localGeometry = geometry.InverseTransform(relativeTransform, ShapeTarget.ScaleRadius);
                         ShapeTarget.CapsuleGeometry = localGeometry;
                         TargetShapeChanged = true;
                     }
 
-                    // Draw center label.
+                    // Draw label.
                     if (showLabels != IGeometryToolSettings.ShowLabelMode.Off)
                     {
                         Handles.color = geometryToolSettings.LabelColor;

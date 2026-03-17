@@ -188,14 +188,27 @@ namespace Unity.U2D.Physics.Editor.Extras
             /// </summary>
             /// <param name="position"></param>
             /// <returns></returns>
-            protected Vector3 ToBodyPosition3D(Vector2 position) => PhysicsMath.ToPosition3D(Body.transform.TransformPoint(position), TransformPlane != PhysicsWorld.TransformPlane.Custom ? ShapeTarget.transform.position : Vector3.zero, TransformPlane, TransformPlaneCustom);
-            
+            protected Vector3 ToBodyPosition3D(Vector2 position)
+            {
+                var bodyTransformedPoint = Body.transform.TransformPoint(position);
+                
+                if (TransformPlane != PhysicsWorld.TransformPlane.Custom)
+                    return PhysicsMath.ToPosition3D(bodyTransformedPoint, ShapeTarget.transform.position, TransformPlane);
+                
+                // Transform by custom transform plane.
+                return TransformPlaneCustom.ToPosition(bodyTransformedPoint);
+            }
+
             /// <summary>
             /// Convert a 3D position to a 2D position based upon the transform plane configuration.
             /// </summary>
             /// <param name="position"></param>
             /// <returns></returns>
-            protected Vector2 ToPosition2D(Vector3 position) => PhysicsMath.ToPosition2D(position, TransformPlane, TransformPlaneCustom);
+            protected Vector2 ToPosition2D(Vector3 position)
+            {
+                var inverseTransformPlane = TransformPlane != PhysicsWorld.TransformPlane.Custom ? TransformPlane : PhysicsWorld.TransformPlane.XY;
+                return PhysicsMath.ToPosition2D(position, inverseTransformPlane);
+            }
         }
 
         #endregion

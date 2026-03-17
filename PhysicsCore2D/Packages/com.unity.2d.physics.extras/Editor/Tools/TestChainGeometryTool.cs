@@ -244,6 +244,5 @@ namespace Unity.U2D.Physics.Editor.Extras
             /// <returns>If the target is valid to edit or not.</returns>
             public override bool isValid => Target != null && Chain.isValid && Target.isActiveAndEnabled && !Mathf.Approximately(Vector3.Scale(PhysicsMath.GetTranslationAxes(World.transformPlane), Target.transform.lossyScale).sqrMagnitude, 0.0f);
         }
-       
     }
 }
