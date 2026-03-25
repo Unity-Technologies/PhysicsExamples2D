@@ -161,10 +161,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -257,8 +257,9 @@ MonoBehaviour:
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -333,10 +334,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -429,8 +430,9 @@ MonoBehaviour:
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -505,10 +507,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -601,8 +603,9 @@ MonoBehaviour:
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -677,10 +680,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -773,8 +776,9 @@ MonoBehaviour:
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -849,10 +853,10 @@ MonoBehaviour:
     m_Point1: {x: -0.47, y: 1}
     m_Point2: {x: 0, y: -1}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -945,8 +949,9 @@ MonoBehaviour:
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1021,10 +1026,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1110,15 +1115,16 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 0.01, y: -2.96}
     m_Rotation:
-      direction: {x: 0.96814764, y: -0.25038}
+      direction: {x: 0.9681477, y: -0.25038}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1250,10 +1256,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1346,8 +1352,9 @@ MonoBehaviour:
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1422,10 +1429,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1511,15 +1518,16 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -2.41, y: -2.96}
     m_Rotation:
-      direction: {x: 0.6772615, y: 0.73574233}
+      direction: {x: 0.6772621, y: 0.7357417}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1545,7 +1553,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097143269}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.40170768, w: 0.91576797}
+  m_LocalRotation: {x: 0, y: 0, z: 0.40170732, w: 0.91576815}
   m_LocalPosition: {x: -2.41, y: -2.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

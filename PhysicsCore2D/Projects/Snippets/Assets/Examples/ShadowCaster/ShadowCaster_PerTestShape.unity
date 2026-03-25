@@ -162,10 +162,10 @@ MonoBehaviour:
     m_Point1: {x: 0.5, y: 0}
     m_Point2: {x: -0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -251,15 +251,16 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -2, y: 1.2}
     m_Rotation:
-      direction: {x: 0.84498185, y: 0.5347949}
+      direction: {x: 0.8449811, y: 0.5347962}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -285,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36908996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.27840474, w: 0.9604638}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2784055, w: 0.96046364}
   m_LocalPosition: {x: -2, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -405,10 +406,10 @@ MonoBehaviour:
     m_Point1: {x: 0.5, y: 0}
     m_Point2: {x: -0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -494,15 +495,16 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 2, y: 1.2}
     m_Rotation:
-      direction: {x: 0.84498185, y: 0.5347949}
+      direction: {x: 0.8449811, y: 0.5347962}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -528,7 +530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45209099}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.27840474, w: 0.9604638}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2784055, w: 0.96046364}
   m_LocalPosition: {x: 2, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -814,10 +816,10 @@ MonoBehaviour:
     m_Point1: {x: 0.5, y: 0}
     m_Point2: {x: -0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -910,8 +912,9 @@ MonoBehaviour:
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1057,10 +1060,10 @@ MonoBehaviour:
     m_Point1: {x: 1, y: 0}
     m_Point2: {x: -1, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1146,15 +1149,16 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 1.2, y: -1.2}
     m_Rotation:
-      direction: {x: 0.70710707, y: 0.70710653}
+      direction: {x: 0.7071076, y: 0.70710593}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
     m_AngularDamping: 0
     m_GravityScale: 1
     m_SleepThreshold: 0.05
-    m_FastRotationAllowed: 0
+    m_CollisionThreshold: 0.5
     m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
     m_SleepingAllowed: 1
     m_Awake: 1
     m_Enabled: 1
@@ -1180,7 +1184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639417873}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268325, w: 0.9238796}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268286, w: 0.9238798}
   m_LocalPosition: {x: 1.2, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
