@@ -51,7 +51,7 @@ public class PhysicsShapeTriggerCallback : MonoBehaviour, PhysicsCallbacks.ITrig
         
         // To receive callbacks, an object must state which object is the callback target.
         // In this case, it's this script for both shapes.
-        // NOTE: "AutoTriggerCallbacks" is normally off by default, but we have changed the "Physics LowLevel Settings > Physics World Definition" to default this to being enabled.
+        // NOTE: "AutoTriggerCallbacks" is normally off by default, but we have changed the "PhysicsCoreSettings2D > Physics World Definition" to default this to being enabled.
         // You can also control this dynamically with "PhysicsWorld.autoTriggerCallbacks".
         visitorShape.callbackTarget = triggerShape.callbackTarget = this;
     }

@@ -1,4 +1,4 @@
-# Using the ShadowCaster2D with the Low-Level Physics
+# Using the ShadowCaster2
 
 This snippet shows how you can create `ShadowCaster2D` providers that can interact with the low-level physics.
 

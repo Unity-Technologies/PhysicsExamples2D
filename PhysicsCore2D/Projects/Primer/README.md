@@ -1,4 +1,4 @@
-﻿# Physics Cire 2D Primer
+﻿# Physics Core 2D Primer
 
 - [Overview](Overview.md)
 - [Definitions](Definitions.md)

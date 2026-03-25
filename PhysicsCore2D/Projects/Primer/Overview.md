@@ -1,6 +1,6 @@
 ﻿# Overview
 
-Unity’s **low-level 2D physics system** delivers both speed and flexibility.
+Unity’s **PhysicsCore 2D physics system** delivers both speed and flexibility.
 You can leverage it to create physics objects directly in your scene, or by designing custom components for your GameObjects that manage these physics objects.
 All related APIs are available under the **`Unity.U2D.Physics`** namespace.
 
