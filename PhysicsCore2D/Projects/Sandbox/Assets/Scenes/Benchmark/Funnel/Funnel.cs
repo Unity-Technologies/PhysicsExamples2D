@@ -32,7 +32,6 @@ public class Funnel : MonoBehaviour
     private float m_ObjectScale;
     private float m_SpawnPeriod;
     private float m_GravityScale;
-    private bool m_FastCollisions;
 
     private Vector2 m_OldGravity;
     private const float SpawnSide = -15f;
@@ -56,13 +55,12 @@ public class Funnel : MonoBehaviour
         m_SandboxManager.SetOverrideColorShapeState(false);
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
 
-        m_ObjectType = ObjectType.Ragdoll;
+        m_ObjectType = ObjectType.Random;
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
-        m_GravityScale = 2f;
+        m_GravityScale = 5f;
         m_ObjectScale = 2.5f;
-        m_SpawnPeriod = 0.75f;
-        m_FastCollisions = false;
+        m_SpawnPeriod = 0.5f;
 
         SetupOptions();
 
@@ -276,7 +274,6 @@ public class Funnel : MonoBehaviour
             ContactGroupIndex = 0x1,
             ColorProvider = m_SandboxManager,
             TriggerEvents = true,
-            FastCollisionsAllowed = m_FastCollisions,
             EnableLimits = true,
             EnableMotor = true
         };
@@ -335,11 +332,6 @@ public class Funnel : MonoBehaviour
                 world.gravity = m_OldGravity * m_GravityScale;
             });
             gravityScale.value = m_GravityScale;
-
-            // Fast Collisions.
-            var fastCollisions = root.Q<Toggle>("fast-collisions");
-            fastCollisions.value = m_FastCollisions;
-            fastCollisions.RegisterValueChangedCallback(evt => { m_FastCollisions = evt.newValue; });
 
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");

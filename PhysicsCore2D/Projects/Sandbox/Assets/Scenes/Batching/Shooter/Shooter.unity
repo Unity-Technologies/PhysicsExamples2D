@@ -176,10 +176,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -345,10 +345,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -564,10 +564,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -858,10 +858,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1027,10 +1027,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1196,10 +1196,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1365,10 +1365,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1622,10 +1622,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -1791,10 +1791,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -2110,10 +2110,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -2354,10 +2354,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -2573,10 +2573,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -2816,10 +2816,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -2985,10 +2985,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -3229,10 +3229,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -3398,10 +3398,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -3769,10 +3769,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -3938,10 +3938,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -4232,10 +4232,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -4401,10 +4401,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -4645,10 +4645,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -4866,10 +4866,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -5035,10 +5035,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -5254,10 +5254,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -5423,10 +5423,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -5592,10 +5592,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -5811,10 +5811,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -6068,10 +6068,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -6351,10 +6351,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -6595,10 +6595,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -6764,10 +6764,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -7091,10 +7091,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -7260,10 +7260,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -7516,10 +7516,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -7735,10 +7735,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -7904,10 +7904,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -8073,10 +8073,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -8285,10 +8285,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -8491,10 +8491,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -8660,10 +8660,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -8829,10 +8829,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:
@@ -8998,10 +8998,10 @@ MonoBehaviour:
     m_Point1: {x: -0.5, y: 0}
     m_Point2: {x: 0.5, y: 0}
   ChainSegmentGeometry:
-    m_Ghost1: {x: 1, y: 0}
     m_Segment:
       m_Point1: {x: 0.5, y: 0}
       m_Point2: {x: -0.5, y: 0}
+    m_Ghost1: {x: 1, y: 0}
     m_Ghost2: {x: -1, y: 0}
   PolygonGeometry:
     vertices:

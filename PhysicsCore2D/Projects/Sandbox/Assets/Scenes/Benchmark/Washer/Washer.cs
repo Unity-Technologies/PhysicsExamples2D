@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 #if UNITY_6000_5_OR_NEWER
 using Unity.U2D.Physics;
@@ -15,11 +16,11 @@ public class Washer : MonoBehaviour
 
     private Vector2 m_OldGravity;
     private float m_GravityScale;
-    private float m_AngularVelocity;
-    private bool m_KinematicWasher;
+    private float m_MotorSpeed;
     private int m_DebrisCount;
     private float m_DebrisFriction;
-    private float m_DebrisBounciness;
+    private int m_PaddleSpacing;
+    private float m_PaddleScale;
 
     private PhysicsBody m_WasherBody;
     private PhysicsHingeJoint m_WasherHinge;
@@ -41,11 +42,11 @@ public class Washer : MonoBehaviour
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;
         
-        m_AngularVelocity = 25f;
-        m_KinematicWasher = true;
+        m_MotorSpeed = -30f;
         m_DebrisCount = 2500;
         m_DebrisFriction = 0.6f;
-        m_DebrisBounciness = 0.0f;
+        m_PaddleSpacing = 4;
+        m_PaddleScale = 0.4f;
 
         SetupOptions();
 
@@ -73,25 +74,13 @@ public class Washer : MonoBehaviour
             menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
             menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
-            // Angular Velocity.
-            var angularVelocity = root.Q<Slider>("angular-velocity");
-            angularVelocity.value = m_AngularVelocity;
-            angularVelocity.RegisterValueChangedCallback(evt =>
+            // Motor Speed.
+            var motorSpeed = root.Q<Slider>("motor-speed");
+            motorSpeed.value = m_MotorSpeed;
+            motorSpeed.RegisterValueChangedCallback(evt =>
             {
-                m_AngularVelocity = evt.newValue;
-                if (m_KinematicWasher)
-	                m_WasherBody.angularVelocity = m_AngularVelocity;
-                else
-	                m_WasherHinge.motorSpeed = PhysicsMath.ToRadians(m_AngularVelocity); // This is fixed in 6000.3b2.
-            });
-            
-            // Kinematic Washer.
-            var kinematicWasher = root.Q<Toggle>("kinematic-washer");
-            kinematicWasher.value = m_KinematicWasher;
-            kinematicWasher.RegisterValueChangedCallback(evt =>
-            {
-                m_KinematicWasher = evt.newValue;
-                SetupScene();
+                m_MotorSpeed = evt.newValue;
+	            m_WasherBody.angularVelocity = m_MotorSpeed;
             });
             
             // Debris Count.
@@ -112,15 +101,6 @@ public class Washer : MonoBehaviour
                 SetupScene();
             });
 
-            // Debris Bounciness.
-            var debrisBounciness = root.Q<Slider>("debris-bounciness");
-            debrisBounciness.value = m_DebrisBounciness;
-            debrisBounciness.RegisterValueChangedCallback(evt =>
-            {
-                m_DebrisBounciness = evt.newValue;
-                SetupScene();
-            });
-
             // Gravity Scale.
             var gravityScale = root.Q<Slider>("gravity-scale");
             gravityScale.value = m_GravityScale;
@@ -130,6 +110,24 @@ public class Washer : MonoBehaviour
                 world.gravity = m_OldGravity * m_GravityScale;
             });
 
+            // Paddle Spacing
+            var paddleSpace = root.Q<SliderInt>("paddle-spacing");
+            paddleSpace.value = m_PaddleSpacing;
+            paddleSpace.RegisterValueChangedCallback(evt =>
+            {
+	            m_PaddleSpacing = evt.newValue;
+	            SetupScene();
+            });
+
+            // Paddle Scale.
+            var paddleScale = root.Q<Slider>("paddle-scale");
+            paddleScale.value = m_PaddleScale;
+            paddleScale.RegisterValueChangedCallback(evt =>
+            {
+	            m_PaddleScale = evt.newValue;
+	            SetupScene();
+            });
+            
             // Fetch the scene description.
             var sceneDescription = root.Q<Label>("scene-description");
             sceneDescription.text = $"\"{m_SceneManifest.LoadedSceneName}\"\n{m_SceneManifest.LoadedSceneDescription}";
@@ -144,38 +142,29 @@ public class Washer : MonoBehaviour
         // Get the default world.
         var world = PhysicsWorld.defaultWorld;
 
-        // Create the ground body.
-        var groundBody = world.CreateBody();
-
         // Washer.
         {
-	        var bodyDef = PhysicsBodyDefinition.defaultDefinition;
-
-	        bodyDef.position = Vector2.up * 10f;
-
-			if (m_KinematicWasher)
-			{
-				bodyDef.type = PhysicsBody.BodyType.Kinematic;
-				bodyDef.angularVelocity = m_AngularVelocity;
-				bodyDef.linearVelocity = new Vector2(0.001f, -0.002f);
-			}
-			else
-			{
-				bodyDef.type = PhysicsBody.BodyType.Dynamic;
-			}
+	        var bodyDef = new PhysicsBodyDefinition
+	        {
+		        type = PhysicsBody.BodyType.Kinematic,
+		        position = Vector2.up * 10f,
+		        angularVelocity = m_MotorSpeed,
+		        linearVelocity = new Vector2(0.001f, -0.002f)
+	        };
 
 			m_WasherBody = world.CreateBody(bodyDef);
 
 			var shapeDef = PhysicsShapeDefinition.defaultDefinition;
 
-			const float r0 = 14.0f;
+			var r0 = Mathf.Lerp(14.0f, 10.0f, m_PaddleScale);
 			const float r1 = 16.0f;
-			const float r2 = 18.0f;
+			const float r2 = 22.0f;
 
 			var angle = PhysicsMath.PI / 18.0f;
 			var q = new PhysicsRotate(angle);
 			var qo = new PhysicsRotate(angle * 0.1f);
 			var u1 = Vector2.right;
+
 			for (var n = 0; n < 36; ++n )
 			{
 				var u2 = n == 35 ? Vector2.right : q.RotateVector(u1);
@@ -191,7 +180,7 @@ public class Washer : MonoBehaviour
 					m_WasherBody.CreateShape(PolygonGeometry.Create(vertices: new[] { p1, p2, p3, p4 }), shapeDef);
 				}
 
-				if ( n % 9 == 0 )
+				if ( n % m_PaddleSpacing == 0 )
 				{
 					var p1 = u1 * r0;
 					var p2 = u1 * r1;
@@ -203,32 +192,16 @@ public class Washer : MonoBehaviour
 
 				u1 = u2;
 			}
-
-			if (!m_KinematicWasher)
-			{
-				// For a dynamic body, create a motorised hinge joint.
-				m_WasherHinge = world.CreateJoint(new PhysicsHingeJointDefinition
-				{
-					bodyA = groundBody,
-					bodyB = m_WasherBody,
-					localAnchorA = Vector2.up * 10f,
-					localAnchorB = Vector2.zero,
-					enableMotor = true,
-					motorSpeed = PhysicsMath.ToRadians(m_AngularVelocity), // This is fixed in 6000.3b2.
-
-					maxMotorTorque = 1e8f
-				});
-			}
         }
 
         // Debris.
         {
 	        var gridCount = Mathf.Sqrt(m_DebrisCount);
-			const float scale = 0.1f;
+			const float scale = 0.15f;
 
-			var geometry = PolygonGeometry.CreateBox(new Vector2(scale, scale) * 2f);
+			var geometry = new CircleGeometry { radius = scale };
 			var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
-			var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_DebrisFriction, bounciness = m_DebrisBounciness } };
+			var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_DebrisFriction, bounciness = 0f } };
 
 			var y = -1.1f * scale * gridCount + 10.0f;
 			for (var i = 0; i < gridCount; ++i)

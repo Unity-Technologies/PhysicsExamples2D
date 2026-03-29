@@ -31,7 +31,7 @@ public class LargeCompound : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        m_CompoundSize = 100;
+        m_CompoundSize = 75;
         m_CompoundSplits = 5;
         
         SetupOptions();

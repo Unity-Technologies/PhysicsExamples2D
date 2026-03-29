@@ -32,8 +32,8 @@ public class RoundedPolygons : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        m_ColumnCount = 10;
-        m_RowCount = 10;
+        m_ColumnCount = 20;
+        m_RowCount = 20;
         m_Friction = 0.6f;
         m_Bounciness = 0f;
 
