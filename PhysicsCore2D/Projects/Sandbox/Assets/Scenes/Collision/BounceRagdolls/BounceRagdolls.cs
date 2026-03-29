@@ -14,8 +14,8 @@ public class BounceRagdolls : MonoBehaviour
     private float m_UpdateTime;
     private int m_RagdollCount;
 
-    private float m_UpdatePeriod = 0.5f;
-    private int m_MaxRagdollCount = 25;
+    private float m_UpdatePeriod = 0.1f;
+    private int m_MaxRagdollCount = 50;
     private float m_GravityScale = 5f;
 
     private Vector2 m_OldGravity;

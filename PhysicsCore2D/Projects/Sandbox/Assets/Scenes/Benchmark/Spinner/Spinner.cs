@@ -39,7 +39,7 @@ public class Spinner : MonoBehaviour
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;
-        m_MotorSpeed = 5f;
+        m_MotorSpeed = 200f;
         m_MaxMotorTorque = 1000000f;
         m_KinematicSpinner = true;
         m_DebrisCount = 3000;
@@ -80,7 +80,7 @@ public class Spinner : MonoBehaviour
                 m_MotorSpeed = evt.newValue;
 
                 if (m_KinematicSpinner)
-                    m_SpinnerBody.angularVelocity = PhysicsMath.ToDegrees(m_MotorSpeed);
+                    m_SpinnerBody.angularVelocity = m_MotorSpeed;
                 else
                     m_SpinnerHinge.motorSpeed = m_MotorSpeed;
             });
@@ -178,7 +178,7 @@ public class Spinner : MonoBehaviour
             var bodyDef = new PhysicsBodyDefinition
             {
                 type = m_KinematicSpinner ? PhysicsBody.BodyType.Kinematic : PhysicsBody.BodyType.Dynamic,
-                angularVelocity = m_KinematicSpinner ? PhysicsMath.ToDegrees(m_MotorSpeed) : 0f,
+                angularVelocity = m_KinematicSpinner ? m_MotorSpeed : 0f,
                 position = new Vector2(0f, -20f),
                 sleepingAllowed = false
             };

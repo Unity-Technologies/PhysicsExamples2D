@@ -100,9 +100,9 @@ public class Fragmenting : MonoBehaviour, PhysicsCallbacks.IContactCallback
         
         m_PlayerPosition = new Vector2(0f, -8f);
         
-        m_FragmentRadius = 1.5f;
-        m_FragmentCount = 25;
-        m_FragmentColors = FragmentColors.Group;
+        m_FragmentRadius = 2f;
+        m_FragmentCount = 100;
+        m_FragmentColors = FragmentColors.Individual;
         m_FragmentExplode = false;
         
         UpdateFragmentGeometry();

@@ -35,7 +35,7 @@ public class Bounciness : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        m_ObjectType = ObjectType.Circle;
+        m_ObjectType = ObjectType.Capsule;
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GravityScale = 1f;
 

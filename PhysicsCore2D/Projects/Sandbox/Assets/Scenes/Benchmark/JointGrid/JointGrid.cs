@@ -12,7 +12,6 @@ public class JointGrid : MonoBehaviour
 
     private Vector2 m_OldGravity;
     private int m_GridSize;
-    private float m_GravityScale;
 
     private void OnEnable()
     {
@@ -31,9 +30,7 @@ public class JointGrid : MonoBehaviour
         // Set Overrides.
         m_SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
 
-        m_OldGravity = PhysicsWorld.defaultWorld.gravity;
         m_GridSize = 32;
-        m_GravityScale = 1f;
 
         SetupOptions();
 
@@ -42,11 +39,6 @@ public class JointGrid : MonoBehaviour
 
     private void OnDisable()
     {
-        // Get the default world.
-        var world = PhysicsWorld.defaultWorld;
-        
-        world.gravity = m_OldGravity;
-
         // Reset overrides.
         m_SandboxManager.ResetOverrideDrawOptions();
     }
@@ -71,16 +63,6 @@ public class JointGrid : MonoBehaviour
             {
                 m_GridSize = evt.newValue;
                 SetupScene();
-            });
-
-
-            // Gravity Scale.
-            var gravityScale = root.Q<Slider>("gravity-scale");
-            gravityScale.value = m_GravityScale;
-            gravityScale.RegisterValueChangedCallback(evt =>
-            {
-                m_GravityScale = evt.newValue;
-                world.gravity = m_OldGravity * m_GravityScale;
             });
 
             // Fetch the scene description.

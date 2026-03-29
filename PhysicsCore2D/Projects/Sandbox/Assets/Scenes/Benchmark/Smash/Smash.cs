@@ -34,8 +34,8 @@ public class Smash : MonoBehaviour
         m_SandboxManager.SceneResetAction = SetupScene;
 
         m_OldGravity = PhysicsWorld.defaultWorld.gravity;
-        m_Speed = 40f;
-        m_Density = 25f;
+        m_Speed = 60f;
+        m_Density = 5;
         m_Bounciness = 0f;
         m_Spacing = 0f;
         m_FastCollisionsAllowed = false;

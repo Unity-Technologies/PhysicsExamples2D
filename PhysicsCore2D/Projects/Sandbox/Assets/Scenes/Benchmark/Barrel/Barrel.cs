@@ -25,7 +25,6 @@ public class Barrel : MonoBehaviour
     }
 
     private ObjectType m_ObjectType;
-    private bool m_FastCollisionsAllowed;
 
     private void OnEnable()
     {
@@ -41,7 +40,7 @@ public class Barrel : MonoBehaviour
         // Set up the scene reset action.
         m_SandboxManager.SceneResetAction = SetupScene;
 
-        m_ObjectType = ObjectType.Circle;
+        m_ObjectType = ObjectType.Mix;
 
         SetupOptions();
 
@@ -64,15 +63,6 @@ public class Barrel : MonoBehaviour
             objectType.RegisterValueChangedCallback(evt =>
             {
                 m_ObjectType = (ObjectType)evt.newValue;
-                SetupScene();
-            });
-
-            // Fast Collisions.
-            var fastCollisions = root.Q<Toggle>("fast-collisions");
-            fastCollisions.value = m_FastCollisionsAllowed;
-            fastCollisions.RegisterValueChangedCallback(evt =>
-            {
-                m_FastCollisionsAllowed = evt.newValue;
                 SetupScene();
             });
 
@@ -123,7 +113,7 @@ public class Barrel : MonoBehaviour
             centerX = shift * columnCount / 2.0f;
         }
 
-        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, fastCollisionsAllowed = m_FastCollisionsAllowed };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
         if (m_ObjectType == ObjectType.Mix)
             bodyDef.angularDamping = 0.3f;
 
@@ -140,7 +130,6 @@ public class Barrel : MonoBehaviour
             ContactFeetLayer = 1,
             ContactGroupIndex = 0,
             ColorProvider = m_SandboxManager,
-            FastCollisionsAllowed = m_FastCollisionsAllowed,
             TriggerEvents = false,
             EnableLimits = true,
             EnableMotor = true

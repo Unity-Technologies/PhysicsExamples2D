@@ -5,7 +5,7 @@
             <ui:TabView tabindex="0" style="width: 100%; height: 100%;">
                 <ui:Tab label="Slicing Options" tabindex="0" name="Tab">
                     <ui:SliderInt label="Reflection Count" value="0" high-value="10" name="reflection-count" focusable="false" show-input-field="true" low-value="0"/>
-                    <ui:SliderInt label="Maximum Fragments" value="0" high-value="10000" name="maximum-fragments" focusable="false" show-input-field="true" low-value="1000"/>
+                    <ui:SliderInt label="Maximum Fragments" value="0" high-value="5000" name="maximum-fragments" focusable="false" show-input-field="true" low-value="1000"/>
                     <ui:Toggle label="Slicing Colors" name="slicing-colors" focusable="false" value="false"/>
                 </ui:Tab>
             </ui:TabView>
