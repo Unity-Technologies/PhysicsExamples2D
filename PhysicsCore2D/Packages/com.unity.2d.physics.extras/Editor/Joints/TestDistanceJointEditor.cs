@@ -14,6 +14,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             var root = new VisualElement();
 
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestDistanceJoint.JointDefinition))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestDistanceJoint.AutoDistance))));
             AddBaseInspectorGUI(root);
 
             return root;

@@ -14,6 +14,7 @@ namespace Unity.U2D.Physics.Extras
     public sealed class TestDistanceJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsDistanceJointDefinition JointDefinition = PhysicsDistanceJointDefinition.defaultDefinition;
+        public bool AutoDistance = true;
 
         private PhysicsDistanceJoint m_Joint;
 
@@ -36,6 +37,10 @@ namespace Unity.U2D.Physics.Extras
             if (JointDefinition.springLowerForce > JointDefinition.springUpperForce)
                 JointDefinition.springLowerForce = JointDefinition.springUpperForce;
 
+            // Calculate the automatic distance.
+            if (AutoDistance)
+                JointDefinition.distance = (JointDefinition.bodyA.transform.position - JointDefinition.bodyB.transform.position).magnitude;
+            
             // Create the joint.
             m_Joint = PhysicsDistanceJoint.Create(BodyA.body.world, JointDefinition);
             if (m_Joint.isValid)
