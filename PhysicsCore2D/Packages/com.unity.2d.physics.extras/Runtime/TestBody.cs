@@ -206,7 +206,15 @@ namespace Unity.U2D.Physics.Extras
         
         void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
-            if (isActiveAndEnabled)
+            // Finish if not active or enabled.
+            if (!isActiveAndEnabled)
+                return;
+
+            // Only (re)create the body if position/rotation changed.
+            const PhysicsWorld.TransformChangeReason interestedReasons =
+                PhysicsWorld.TransformChangeReason.WorldPosition | PhysicsWorld.TransformChangeReason.WorldRotation |
+                PhysicsWorld.TransformChangeReason.LocalPosition | PhysicsWorld.TransformChangeReason.LocalRotation;
+            if ((transformChangeEvent.changeReason & interestedReasons) != 0)
                 CreateBody();
         }
 
