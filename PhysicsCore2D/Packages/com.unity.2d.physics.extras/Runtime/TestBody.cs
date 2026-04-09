@@ -206,16 +206,32 @@ namespace Unity.U2D.Physics.Extras
         
         void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
-            // Finish if not active or enabled.
-            if (!isActiveAndEnabled)
+            // Finish if not active/enabled or the body is invalid.
+            if (!isActiveAndEnabled || !m_Body.isValid)
                 return;
-
-            // Only (re)create the body if position/rotation changed.
+            
+            // Finish position/rotation hasn't changed.
             const PhysicsWorld.TransformChangeReason interestedReasons =
                 PhysicsWorld.TransformChangeReason.WorldPosition | PhysicsWorld.TransformChangeReason.WorldRotation |
                 PhysicsWorld.TransformChangeReason.LocalPosition | PhysicsWorld.TransformChangeReason.LocalRotation;
-            if ((transformChangeEvent.changeReason & interestedReasons) != 0)
-                CreateBody();
+            if ((transformChangeEvent.changeReason & interestedReasons) == 0)
+                return;
+            
+            var world = UseDefaultWorld || testWorld == null ? PhysicsWorld.defaultWorld : testWorld.world;
+
+            // Fetch the transform plane.
+            var transformPlane = world.transformPlane;
+            var transformPlaneCustom = world.transformPlaneCustom;
+
+            // Calculate the target transform.
+            var targetTransform = new PhysicsTransform
+            {
+                position = PhysicsMath.ToPosition2D(transform.position, transformPlane, transformPlaneCustom),
+                rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane, transformPlaneCustom))
+            };
+
+            // Set the body target transform.
+            m_Body.transform = targetTransform;
         }
 
         void IWorldDrawable.Draw()
