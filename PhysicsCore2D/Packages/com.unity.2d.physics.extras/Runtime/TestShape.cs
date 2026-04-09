@@ -7,7 +7,7 @@ namespace Unity.U2D.Physics.Extras
     [DefaultExecutionOrder(ExecutionOrder.TestShape)]
     [AddComponentMenu("Physics 2D/CoreExamples/Test Shape", 20)]
     [Icon(IconUtility.IconPath + "TestShape.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneShape")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class TestShape : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldDrawable
     {
         public PhysicsShape.ShapeType ShapeType = PhysicsShape.ShapeType.Circle;

@@ -8,7 +8,7 @@ namespace Unity.U2D.Physics.Extras
     [DefaultExecutionOrder(ExecutionOrder.TestBody)]
     [AddComponentMenu("Physics 2D/CoreExamples/Test Body", 10)]
     [Icon(IconUtility.IconPath + "TestBody.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneBody")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class TestBody : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldDrawable
     {
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;

@@ -479,7 +479,7 @@ MonoBehaviour:
     m_BodyType: 0
     m_BodyConstraints: 0
     m_TransformWriteMode: 3
-    m_Position: {x: 3, y: 0}
+    m_Position: {x: 5, y: 0}
     m_Rotation:
       direction: {x: 1, y: 0}
     m_LinearVelocity: {x: 0, y: 0}
@@ -517,7 +517,7 @@ Transform:
   m_GameObject: {fileID: 1213906334}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -537,6 +537,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 929136788}
   BodyB: {fileID: 1213906336}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -575,6 +577,7 @@ MonoBehaviour:
     m_DrawScale: 1
     m_WorldDrawing: 1
     m_CollideConnected: 1
+  AutoDistance: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

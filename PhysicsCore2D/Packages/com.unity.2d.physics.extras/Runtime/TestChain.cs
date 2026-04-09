@@ -8,7 +8,7 @@ namespace Unity.U2D.Physics.Extras
     [DefaultExecutionOrder(ExecutionOrder.TestShape)]
     [AddComponentMenu("Physics 2D/CoreExamples/Test Chain", 30)]
     [Icon(IconUtility.IconPath + "TestChain.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneChain")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class TestChain : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback
     {
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };

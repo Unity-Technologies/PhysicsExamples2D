@@ -9,7 +9,7 @@ namespace Unity.U2D.Physics.Extras
     [DefaultExecutionOrder(ExecutionOrder.TestShape)]
     [AddComponentMenu("Physics 2D/CoreExamples/Test Sprite Shape", 22)]
     [Icon(IconUtility.IconPath + "TestShape.png")]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneSpriteShape")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public sealed class TestSpriteShape : MonoBehaviour, PhysicsCallbacks.ITransformChangedCallback, IWorldDrawable
     {
         public Sprite Sprite;

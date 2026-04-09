@@ -5,7 +5,7 @@ namespace Unity.U2D.Physics.Extras
 {
     [ExecuteAlways]
     [DefaultExecutionOrder(ExecutionOrder.TestJoint)]
-    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace, sourceClassName: "SceneJointBase")]
+    [MovedFrom(autoUpdateAPI: APIUpdates.AutoUpdateAPI, sourceNamespace: APIUpdates.RuntimeSourceNamespace)]
     public abstract class TestJointBase : MonoBehaviour
     {
         public TestBody BodyA;
