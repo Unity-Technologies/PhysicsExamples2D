@@ -60,8 +60,8 @@ namespace Unity.U2D.Physics.Extras
 
             // Calculate the automatic distance.
             if (AutoDistance)
-                jointDef.distance = (jointDef.bodyA.transform.position - jointDef.bodyB.transform.position).magnitude;
-            
+                jointDef.distance = (jointDef.bodyA.transform.MultiplyTransform(jointDef.localAnchorA).position - jointDef.bodyB.transform.MultiplyTransform(jointDef.localAnchorB).position).magnitude;
+      
             // Create the joint.
             m_Joint = PhysicsDistanceJoint.Create(BodyA.body.world, jointDef);
             if (m_Joint.isValid)
