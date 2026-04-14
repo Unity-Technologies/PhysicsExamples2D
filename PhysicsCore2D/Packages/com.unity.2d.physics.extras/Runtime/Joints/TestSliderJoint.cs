@@ -10,6 +10,7 @@ namespace Unity.U2D.Physics.Extras
     {
         public PhysicsSliderJointDefinition JointDefinition = PhysicsSliderJointDefinition.defaultDefinition;
 
+        public PhysicsSliderJoint joint => m_Joint;
         private PhysicsSliderJoint m_Joint;
 
         protected override void CreateJoint()

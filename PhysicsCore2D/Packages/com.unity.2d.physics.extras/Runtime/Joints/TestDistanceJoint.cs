@@ -10,7 +10,8 @@ namespace Unity.U2D.Physics.Extras
     {
         public PhysicsDistanceJointDefinition JointDefinition = PhysicsDistanceJointDefinition.defaultDefinition;
         public bool AutoDistance = true;
-
+        
+        public PhysicsDistanceJoint joint => m_Joint;
         private PhysicsDistanceJoint m_Joint;
 
         protected override void CreateJoint()

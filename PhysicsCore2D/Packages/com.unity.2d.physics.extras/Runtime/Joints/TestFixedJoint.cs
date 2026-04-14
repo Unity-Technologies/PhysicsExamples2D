@@ -9,7 +9,8 @@ namespace Unity.U2D.Physics.Extras
     public sealed class TestFixedJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsFixedJointDefinition JointDefinition = PhysicsFixedJointDefinition.defaultDefinition;
-
+        
+        public PhysicsFixedJoint joint => m_Joint;
         private PhysicsFixedJoint m_Joint;
 
         protected override void CreateJoint()

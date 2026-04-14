@@ -10,6 +10,7 @@ namespace Unity.U2D.Physics.Extras
     {
         public PhysicsWheelJointDefinition JointDefinition = PhysicsWheelJointDefinition.defaultDefinition;
 
+        public PhysicsWheelJoint joint => m_Joint;
         private PhysicsWheelJoint m_Joint;
 
         protected override void CreateJoint()

@@ -10,6 +10,7 @@ namespace Unity.U2D.Physics.Extras
     {
         public PhysicsHingeJointDefinition JointDefinition = PhysicsHingeJointDefinition.defaultDefinition;
 
+        public PhysicsHingeJoint joint => m_Joint;
         private PhysicsHingeJoint m_Joint;
 
         protected override void CreateJoint()

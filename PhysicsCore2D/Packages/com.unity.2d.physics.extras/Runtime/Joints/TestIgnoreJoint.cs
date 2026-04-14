@@ -10,6 +10,7 @@ namespace Unity.U2D.Physics.Extras
     {
         public PhysicsIgnoreJointDefinition JointDefinition = PhysicsIgnoreJointDefinition.defaultDefinition;
 
+        public PhysicsIgnoreJoint joint => m_Joint;
         private PhysicsIgnoreJoint m_Joint;
 
         protected override void CreateJoint()

@@ -10,6 +10,7 @@ namespace Unity.U2D.Physics.Extras
     {
         public PhysicsRelativeJointDefinition JointDefinition = PhysicsRelativeJointDefinition.defaultDefinition;
 
+        public PhysicsRelativeJoint joint => m_Joint;
         private PhysicsRelativeJoint m_Joint;
 
         protected override void CreateJoint()
