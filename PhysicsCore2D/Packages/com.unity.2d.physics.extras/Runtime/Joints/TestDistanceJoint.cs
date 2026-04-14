@@ -14,8 +14,9 @@ namespace Unity.U2D.Physics.Extras
     public sealed class TestDistanceJoint : TestJointBase, IWorldDrawable
     {
         public PhysicsDistanceJointDefinition JointDefinition = PhysicsDistanceJointDefinition.defaultDefinition;
-        public bool AutoDistance = true;
-
+        public bool AutoDistance;
+        
+        public PhysicsDistanceJoint joint => m_Joint;
         private PhysicsDistanceJoint m_Joint;
 
         protected override void CreateJoint()
@@ -26,23 +27,41 @@ namespace Unity.U2D.Physics.Extras
             if (!BodyA || !BodyA.body.isValid || !BodyB || !BodyB.body.isValid)
                 return;
 
+            // Fetch the joint definition.
+            // NOTE: We do this as we don't want to modify the user authored definition.
+            var jointDef = JointDefinition;
+            
             // Set the definition.
-            JointDefinition.bodyA = BodyA.body;
-            JointDefinition.bodyB = BodyB.body;
-
+            jointDef.bodyA = BodyA.body;
+            jointDef.bodyB = BodyB.body;
+            
+            // Calculate auto anchors.
+            {
+                var autoAnchorTransform = new AutoAnchorTransform
+                {
+                    bodyTransformA = jointDef.bodyA.transform,
+                    bodyTransformB = jointDef.bodyB.transform,
+                    localAnchorA = jointDef.localAnchorA,
+                    localAnchorB = jointDef.localAnchorB
+                };
+                CalculateAutoAnchors(ref autoAnchorTransform);
+                jointDef.localAnchorA = autoAnchorTransform.localAnchorA;
+                jointDef.localAnchorB = autoAnchorTransform.localAnchorB;
+            }
+            
             // Clamp the limits.
-            if (JointDefinition.minDistanceLimit > JointDefinition.maxDistanceLimit)
-                JointDefinition.minDistanceLimit = JointDefinition.maxDistanceLimit;
+            if (jointDef.minDistanceLimit > jointDef.maxDistanceLimit)
+                jointDef.minDistanceLimit = jointDef.maxDistanceLimit;
 
-            if (JointDefinition.springLowerForce > JointDefinition.springUpperForce)
-                JointDefinition.springLowerForce = JointDefinition.springUpperForce;
+            if (jointDef.springLowerForce > jointDef.springUpperForce)
+                jointDef.springLowerForce = jointDef.springUpperForce;
 
             // Calculate the automatic distance.
             if (AutoDistance)
-                JointDefinition.distance = (JointDefinition.bodyA.transform.position - JointDefinition.bodyB.transform.position).magnitude;
+                jointDef.distance = (jointDef.bodyA.transform.position - jointDef.bodyB.transform.position).magnitude;
             
             // Create the joint.
-            m_Joint = PhysicsDistanceJoint.Create(BodyA.body.world, JointDefinition);
+            m_Joint = PhysicsDistanceJoint.Create(BodyA.body.world, jointDef);
             if (m_Joint.isValid)
             {
                 m_Joint.userData = UserData;

@@ -13,10 +13,20 @@ namespace Unity.U2D.Physics.Extras
     {
         public TestBody BodyA;
         public TestBody BodyB;
+        public bool AutoAnchorA;
+        public bool AutoAnchorB;
         public PhysicsUserData UserData;
         public MonoBehaviour CallbackTarget;
 
         protected int m_OwnerKey;
+
+        protected struct AutoAnchorTransform
+        {
+            public PhysicsTransform bodyTransformA;
+            public PhysicsTransform bodyTransformB;
+            public PhysicsTransform localAnchorA;
+            public PhysicsTransform localAnchorB;
+        }
 
         private void Reset()
         {
@@ -67,6 +77,15 @@ namespace Unity.U2D.Physics.Extras
 
             DestroyJoint();
             CreateJoint();
+        }
+
+        protected void CalculateAutoAnchors(ref AutoAnchorTransform autoAnchorDefinition)
+        {
+            // Calculate auto anchors.
+            if (AutoAnchorA)
+                autoAnchorDefinition.localAnchorA = autoAnchorDefinition.bodyTransformA.InverseMultiplyTransform(autoAnchorDefinition.bodyTransformB).MultiplyTransform(autoAnchorDefinition.localAnchorA);
+            if (AutoAnchorB)
+                autoAnchorDefinition.localAnchorB = autoAnchorDefinition.bodyTransformB.InverseMultiplyTransform(autoAnchorDefinition.bodyTransformA).MultiplyTransform(autoAnchorDefinition.localAnchorB);
         }
 
         protected abstract void CreateJoint();

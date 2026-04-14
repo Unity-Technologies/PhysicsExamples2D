@@ -15,6 +15,7 @@ namespace Unity.U2D.Physics.Extras
     {
         public PhysicsIgnoreJointDefinition JointDefinition = PhysicsIgnoreJointDefinition.defaultDefinition;
 
+        public PhysicsIgnoreJoint joint => m_Joint;
         private PhysicsIgnoreJoint m_Joint;
 
         protected override void CreateJoint()
@@ -25,12 +26,16 @@ namespace Unity.U2D.Physics.Extras
             if (!BodyA || !BodyA.body.isValid || !BodyB || !BodyB.body.isValid)
                 return;
 
+            // Fetch the joint definition.
+            // NOTE: We do this as we don't want to modify the user authored definition.
+            var jointDef = JointDefinition;
+            
             // Set the definition.
-            JointDefinition.bodyA = BodyA.body;
-            JointDefinition.bodyB = BodyB.body;
+            jointDef.bodyA = BodyA.body;
+            jointDef.bodyB = BodyB.body;
 
             // Create the joint.
-            m_Joint = PhysicsIgnoreJoint.Create(BodyA.body.world, JointDefinition);
+            m_Joint = PhysicsIgnoreJoint.Create(BodyA.body.world, jointDef);
             if (m_Joint.isValid)
             {
                 m_Joint.userData = UserData;

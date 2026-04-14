@@ -15,6 +15,7 @@ namespace Unity.U2D.Physics.Extras
     {
         public PhysicsSliderJointDefinition JointDefinition = PhysicsSliderJointDefinition.defaultDefinition;
 
+        public PhysicsSliderJoint joint => m_Joint;
         private PhysicsSliderJoint m_Joint;
 
         protected override void CreateJoint()
@@ -25,16 +26,34 @@ namespace Unity.U2D.Physics.Extras
             if (!BodyA || !BodyA.body.isValid || !BodyB || !BodyB.body.isValid)
                 return;
 
+            // Fetch the joint definition.
+            // NOTE: We do this as we don't want to modify the user authored definition.
+            var jointDef = JointDefinition;
+            
             // Set the definition.
-            JointDefinition.bodyA = BodyA.body;
-            JointDefinition.bodyB = BodyB.body;
+            jointDef.bodyA = BodyA.body;
+            jointDef.bodyB = BodyB.body;
+
+            // Calculate auto anchors.
+            {
+                var autoAnchorTransform = new AutoAnchorTransform
+                {
+                    bodyTransformA = jointDef.bodyA.transform,
+                    bodyTransformB = jointDef.bodyB.transform,
+                    localAnchorA = jointDef.localAnchorA,
+                    localAnchorB = jointDef.localAnchorB
+                };
+                CalculateAutoAnchors(ref autoAnchorTransform);
+                jointDef.localAnchorA = autoAnchorTransform.localAnchorA;
+                jointDef.localAnchorB = autoAnchorTransform.localAnchorB;
+            }
 
             // Clamp the limits.
-            if (JointDefinition.lowerTranslationLimit > JointDefinition.upperTranslationLimit)
-                JointDefinition.lowerTranslationLimit = JointDefinition.upperTranslationLimit;
+            if (jointDef.lowerTranslationLimit > jointDef.upperTranslationLimit)
+                jointDef.lowerTranslationLimit = jointDef.upperTranslationLimit;
 
             // Create the joint.
-            m_Joint = PhysicsSliderJoint.Create(BodyA.body.world, JointDefinition);
+            m_Joint = PhysicsSliderJoint.Create(BodyA.body.world, jointDef);
             if (m_Joint.isValid)
             {
                 m_Joint.userData = UserData;
