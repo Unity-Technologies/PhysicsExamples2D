@@ -513,6 +513,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 1297724542}
   BodyB: {fileID: 50465088}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -815,6 +817,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 824668147}
   BodyB: {fileID: 138041598}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -834,6 +838,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 0
     m_SpringTargetAngle: 0
     m_SpringFrequency: 0
@@ -1596,6 +1601,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 835922288}
   BodyB: {fileID: 423337207}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -1615,6 +1622,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 2
@@ -2573,6 +2581,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 485784289}
   BodyB: {fileID: 537971317}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -2592,6 +2602,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 3
@@ -3797,6 +3808,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 485918430}
   BodyB: {fileID: 859224179}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -3835,6 +3848,7 @@ MonoBehaviour:
     m_DrawScale: 1
     m_WorldDrawing: 1
     m_CollideConnected: 0
+  AutoDistance: 0
 --- !u!114 &859224178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4274,6 +4288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 890457989}
   BodyB: {fileID: 904521498}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -4922,6 +4938,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 524853950}
   BodyB: {fileID: 1070417811}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -4960,6 +4978,7 @@ MonoBehaviour:
     m_DrawScale: 1
     m_WorldDrawing: 1
     m_CollideConnected: 0
+  AutoDistance: 0
 --- !u!114 &1070417810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5321,6 +5340,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 50659051}
   BodyB: {fileID: 1092812751}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -5340,6 +5361,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 0
     m_SpringTargetAngle: 0
     m_SpringFrequency: 0
@@ -5891,6 +5913,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 1337879746}
   BodyB: {fileID: 1173146479}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -5910,6 +5934,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 3
@@ -6153,6 +6178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 640772412}
   BodyB: {fileID: 1203947811}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -7635,6 +7662,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 1235040030}
   BodyB: {fileID: 1690892810}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -7859,6 +7888,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 1055976079}
   BodyB: {fileID: 1693972977}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -7878,6 +7909,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 2

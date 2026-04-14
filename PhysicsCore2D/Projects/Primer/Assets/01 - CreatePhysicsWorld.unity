@@ -189,9 +189,11 @@ MonoBehaviour:
     m_ContactFrequency: 30
     m_ContactDamping: 10
     m_ContactSpeed: 3
+    m_ContactRecycleDistance: 0.049999997
     m_MaximumLinearSpeed: 400
     m_DrawOptions: 4256
     m_DrawFillOptions: -1
+    m_DrawContactType: 4
     m_DrawFilter: 0
     m_DrawThickness: 1
     m_DrawFillAlpha: 0.1

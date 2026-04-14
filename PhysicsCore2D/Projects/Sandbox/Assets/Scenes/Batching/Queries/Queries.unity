@@ -591,6 +591,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 824668147}
   BodyB: {fileID: 138041598}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -610,6 +612,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 0
     m_SpringTargetAngle: 0
     m_SpringFrequency: 0
@@ -1542,6 +1545,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 835922288}
   BodyB: {fileID: 423337207}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -1561,6 +1566,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 2
@@ -3290,7 +3296,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 12.11, y: -0.13}
     m_Rotation:
-      direction: {x: -0.82786393, y: -0.5609289}
+      direction: {x: -0.8278635, y: -0.5609295}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -3325,7 +3331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889483064}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.9559978, w: 0.2933737}
+  m_LocalRotation: {x: 0, y: 0, z: -0.95599777, w: 0.29337397}
   m_LocalPosition: {x: 12.11, y: -0.13, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -3631,6 +3637,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 50659051}
   BodyB: {fileID: 1092812751}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -3650,6 +3658,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 0
     m_SpringTargetAngle: 0
     m_SpringFrequency: 0
@@ -4145,7 +4154,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 3.37, y: 6.84}
     m_Rotation:
-      direction: {x: 0.745824, y: 0.666143}
+      direction: {x: 0.7458238, y: 0.6661433}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -4180,7 +4189,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222623465}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.3564943, w: 0.9342975}
+  m_LocalRotation: {x: 0, y: 0, z: 0.3564946, w: 0.93429744}
   m_LocalPosition: {x: 3.37, y: 6.84, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -5429,6 +5438,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyA: {fileID: 1055976079}
   BodyB: {fileID: 1693972977}
+  AutoAnchorA: 0
+  AutoAnchorB: 0
   UserData:
     m_EntityId:
       m_rawData: 0
@@ -5448,6 +5459,7 @@ MonoBehaviour:
       position: {x: 0, y: 0}
       rotation:
         direction: {x: 1, y: 0}
+    m_EnableUnpinned: 0
     m_EnableSpring: 1
     m_SpringTargetAngle: 0
     m_SpringFrequency: 2
@@ -6497,7 +6509,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 8.54, y: 5.11}
     m_Rotation:
-      direction: {x: -0.82786393, y: -0.5609289}
+      direction: {x: -0.8278635, y: -0.5609295}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -6532,7 +6544,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004053348}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.9559978, w: 0.2933737}
+  m_LocalRotation: {x: 0, y: 0, z: -0.95599777, w: 0.29337397}
   m_LocalPosition: {x: 8.54, y: 5.11, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
