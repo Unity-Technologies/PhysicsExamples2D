@@ -13,9 +13,14 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             var root = new VisualElement();
 
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestJointBase.BodyA))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestJointBase.BodyB))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestJointBase.AutoAnchorA))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestJointBase.AutoAnchorB))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestWheelJoint.JointDefinition))));
-            AddBaseInspectorGUI(root);
-
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestJointBase.UserData))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestJointBase.CallbackTarget))));
+            
             return root;
         }
     }

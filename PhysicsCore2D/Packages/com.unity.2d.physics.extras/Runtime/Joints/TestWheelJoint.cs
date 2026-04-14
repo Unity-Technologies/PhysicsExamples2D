@@ -16,10 +16,17 @@ namespace Unity.U2D.Physics.Extras
         protected override void CreateJoint()
         {
             DestroyJoint();
-
+ 
             // Validate.
-            if (!BodyA || !BodyA.body.isValid || !BodyB || !BodyB.body.isValid)
+            if (!enabled || !BodyA || !BodyA.body.isValid || !BodyB || !BodyB.body.isValid)
                 return;
+
+            // Warning if the same body.
+            if (BodyA == BodyB)
+            {
+                Debug.LogWarning($"{name}.{GetType().Name} has '{nameof(BodyA)}' and '{nameof(BodyB)}' both referring to the same body. No joint was created.");
+                return;
+            }
 
             // Fetch the joint definition.
             // NOTE: We do this as we don't want to modify the user authored definition.
