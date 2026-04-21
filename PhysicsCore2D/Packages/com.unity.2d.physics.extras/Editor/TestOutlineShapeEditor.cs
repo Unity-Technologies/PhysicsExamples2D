@@ -16,6 +16,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestOutlineShape.Points))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestOutlineShape.ShapeDefinition))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestOutlineShape.UserData))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestOutlineShape.WatchTransformChanges))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestOutlineShape.CallbackTarget))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestOutlineShape.testBody))));
 

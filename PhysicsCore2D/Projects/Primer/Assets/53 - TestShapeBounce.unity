@@ -244,6 +244,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 552975887}
@@ -289,9 +290,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &929136786
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +404,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 929136788}
@@ -447,9 +450,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &929136789
 Transform:
   m_ObjectHideFlags: 0

@@ -244,6 +244,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 7888149}
@@ -289,9 +290,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &8792233
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,6 +419,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 8792236}
@@ -462,9 +465,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &50659049
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,9 +544,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &138041593
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +727,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 138041598}
@@ -767,9 +773,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &144729003
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,6 +902,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 144729006}
@@ -940,9 +948,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &196887477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1062,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 196887479}
@@ -1098,9 +1108,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &196887480
 Transform:
   m_ObjectHideFlags: 0
@@ -1226,6 +1237,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 206201925}
@@ -1271,9 +1283,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &206201926
 Transform:
   m_ObjectHideFlags: 0
@@ -1414,6 +1427,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 264193411}
@@ -1459,9 +1473,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &354157183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,6 +1691,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 423337207}
@@ -1721,9 +1737,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &534109151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1849,6 +1866,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 534109154}
@@ -1894,9 +1912,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &560997283
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,6 +2100,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 600759835}
@@ -2126,9 +2146,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &600759836
 Transform:
   m_ObjectHideFlags: 0
@@ -2269,6 +2290,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 601833517}
@@ -2314,9 +2336,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &678265707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2442,6 +2465,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 678265710}
@@ -2487,9 +2511,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &791107170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,6 +2640,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 791107173}
@@ -2660,9 +2686,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &824668145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2738,9 +2765,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &835922286
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,9 +2844,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &848471632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2929,6 +2958,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 848471634}
@@ -2974,9 +3004,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &848471635
 Transform:
   m_ObjectHideFlags: 0
@@ -3117,6 +3148,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 875938874}
@@ -3162,9 +3194,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &889483064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3275,6 +3308,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 889483066}
@@ -3296,7 +3330,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 12.11, y: -0.13}
     m_Rotation:
-      direction: {x: -0.8278635, y: -0.5609295}
+      direction: {x: -0.8278633, y: -0.56093013}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -3320,9 +3354,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &889483067
 Transform:
   m_ObjectHideFlags: 0
@@ -3331,7 +3366,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889483064}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.95599777, w: 0.29337397}
+  m_LocalRotation: {x: 0, y: 0, z: -0.9559977, w: 0.29337424}
   m_LocalPosition: {x: 12.11, y: -0.13, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -3413,9 +3448,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1062612405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3541,6 +3577,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1062612408}
@@ -3586,9 +3623,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1092812747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,6 +3806,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1092812751}
@@ -3813,9 +3852,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1115821533
 GameObject:
   m_ObjectHideFlags: 0
@@ -3941,6 +3981,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1115821536}
@@ -3986,9 +4027,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1200223525
 GameObject:
   m_ObjectHideFlags: 0
@@ -4133,6 +4175,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1222623467}
@@ -4154,7 +4197,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 3.37, y: 6.84}
     m_Rotation:
-      direction: {x: 0.7458238, y: 0.6661433}
+      direction: {x: 0.74582344, y: 0.66614366}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -4178,9 +4221,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1222623468
 Transform:
   m_ObjectHideFlags: 0
@@ -4189,7 +4233,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222623465}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.3564946, w: 0.93429744}
+  m_LocalRotation: {x: 0, y: 0, z: 0.35649493, w: 0.9342972}
   m_LocalPosition: {x: 3.37, y: 6.84, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -4306,6 +4350,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1246020628}
@@ -4351,9 +4396,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1246020629
 Transform:
   m_ObjectHideFlags: 0
@@ -4533,6 +4579,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1278892628}
@@ -4578,9 +4625,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1305111614
 GameObject:
   m_ObjectHideFlags: 0
@@ -4706,6 +4754,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1305111617}
@@ -4751,9 +4800,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1341427689
 GameObject:
   m_ObjectHideFlags: 0
@@ -4864,6 +4914,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1341427691}
@@ -4909,9 +4960,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1341427692
 Transform:
   m_ObjectHideFlags: 0
@@ -5120,6 +5172,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1551080462}
@@ -5165,9 +5218,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1551080463
 Transform:
   m_ObjectHideFlags: 0
@@ -5327,6 +5381,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1668601930}
@@ -5372,9 +5427,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1668601931
 Transform:
   m_ObjectHideFlags: 0
@@ -5569,6 +5625,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1693972977}
@@ -5614,9 +5671,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1698227459
 GameObject:
   m_ObjectHideFlags: 0
@@ -5727,6 +5785,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1698227462}
@@ -5772,9 +5831,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1698227463
 Transform:
   m_ObjectHideFlags: 0
@@ -5915,6 +5975,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1750004570}
@@ -5960,9 +6021,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1799124674
 GameObject:
   m_ObjectHideFlags: 0
@@ -6088,6 +6150,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1799124677}
@@ -6133,9 +6196,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &1833011814
 GameObject:
   m_ObjectHideFlags: 0
@@ -6330,6 +6394,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1986502513}
@@ -6375,9 +6440,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1 &2004053348
 GameObject:
   m_ObjectHideFlags: 0
@@ -6488,6 +6554,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 2004053350}
@@ -6509,7 +6576,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 8.54, y: 5.11}
     m_Rotation:
-      direction: {x: -0.8278635, y: -0.5609295}
+      direction: {x: -0.8278633, y: -0.56093013}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -6533,9 +6600,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &2004053351
 Transform:
   m_ObjectHideFlags: 0
@@ -6544,7 +6612,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004053348}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.95599777, w: 0.29337397}
+  m_LocalRotation: {x: 0, y: 0, z: -0.9559977, w: 0.29337424}
   m_LocalPosition: {x: 8.54, y: 5.11, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -6676,6 +6744,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 2101177205}
@@ -6721,9 +6790,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

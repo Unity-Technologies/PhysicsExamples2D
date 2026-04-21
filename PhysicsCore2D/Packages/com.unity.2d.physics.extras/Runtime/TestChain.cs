@@ -15,6 +15,7 @@ namespace Unity.U2D.Physics.Extras
         public bool ReverseChain;
         public PhysicsChainDefinition ChainDefinition = PhysicsChainDefinition.defaultDefinition;
         public PhysicsUserData UserData;
+        public PhysicsWorld.TransformChangeReason WatchTransformChanges = PhysicsWorld.TransformChangeReason.Any;
         public MonoBehaviour CallbackTarget;
         public TestBody testBody;
         public PhysicsChain chain => m_Chain;

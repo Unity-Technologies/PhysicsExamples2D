@@ -17,12 +17,9 @@ namespace Unity.U2D.Physics.Editor.Extras
 
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.BodyDefinition))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.UserData))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.WatchTransformChanges))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.CallbackTarget))));
-
-            // Use Transform Pose.
-            var useTransformPoseProperty = serializedObject.FindProperty(nameof(TestBody.UseTransformPose));
-            var useTransformPosePropertyField = new PropertyField(useTransformPoseProperty);
-            root.Add(useTransformPosePropertyField);
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.CreateAtTransform))));
             
             // Default World.
             var defaultWorldProperty = serializedObject.FindProperty(nameof(TestBody.UseDefaultWorld));

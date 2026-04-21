@@ -228,6 +228,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 248055995}
@@ -355,6 +356,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 559315966}
@@ -433,9 +435,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &248055996
 Transform:
   m_ObjectHideFlags: 0
@@ -583,9 +586,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &559315967
 Transform:
   m_ObjectHideFlags: 0
@@ -948,6 +952,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 248055995}
@@ -1075,6 +1080,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 559315966}

@@ -229,6 +229,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 139753162}
@@ -274,9 +275,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &139753163
 Transform:
   m_ObjectHideFlags: 0
@@ -402,6 +404,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 151636278}
@@ -447,9 +450,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &151636279
 Transform:
   m_ObjectHideFlags: 0
@@ -575,6 +579,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 433435631}
@@ -620,9 +625,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &433435632
 Transform:
   m_ObjectHideFlags: 0
@@ -748,6 +754,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 625520182}
@@ -793,9 +800,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &625520183
 Transform:
   m_ObjectHideFlags: 0
@@ -921,6 +929,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 938579596}
@@ -966,9 +975,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &938579597
 Transform:
   m_ObjectHideFlags: 0
@@ -1094,6 +1104,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1162632280}
@@ -1139,9 +1150,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1162632281
 Transform:
   m_ObjectHideFlags: 0
@@ -1324,6 +1336,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1776045671}
@@ -1369,9 +1382,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1776045672
 Transform:
   m_ObjectHideFlags: 0
@@ -1497,6 +1511,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 2097143271}
@@ -1518,7 +1533,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -2.41, y: -2.96}
     m_Rotation:
-      direction: {x: 0.6772638, y: 0.7357403}
+      direction: {x: 0.67726433, y: 0.73573977}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -1542,9 +1557,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &2097143272
 Transform:
   m_ObjectHideFlags: 0
@@ -1553,7 +1569,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097143269}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.40170634, w: 0.91576856}
+  m_LocalRotation: {x: 0, y: 0, z: 0.401706, w: 0.91576874}
   m_LocalPosition: {x: -2.41, y: -2.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

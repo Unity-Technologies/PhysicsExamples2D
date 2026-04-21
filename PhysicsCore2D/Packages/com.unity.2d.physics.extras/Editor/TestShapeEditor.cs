@@ -47,6 +47,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             // Base Properties.
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestShape.ShapeDefinition))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestShape.UserData))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestShape.WatchTransformChanges))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestShape.CallbackTarget))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestShape.testBody))));
 

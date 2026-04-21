@@ -18,6 +18,7 @@ namespace Unity.U2D.Physics.Extras
         public PolygonGeometry PolygonGeometry = new();
         public PhysicsShapeDefinition ShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
         public PhysicsUserData UserData;
+        public PhysicsWorld.TransformChangeReason WatchTransformChanges = PhysicsWorld.TransformChangeReason.Any;
         public MonoBehaviour CallbackTarget;
         public bool ScaleRadius = true;
         public TestBody testBody;
@@ -209,9 +210,21 @@ namespace Unity.U2D.Physics.Extras
 
         void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
-            // If body isn't on the same GameObject then create the shape.
-            if (isActiveAndEnabled && testBody.gameObject != gameObject)
-                CreateShape();
+            // Finish if not active/enabled or the shape is invalid.
+            if (!isActiveAndEnabled || !m_Shape.isValid)
+                return;
+            
+            // Finish if not a valid change reason.
+            if ((transformChangeEvent.changeReason & WatchTransformChanges) == 0)
+                return;
+
+            // Finish if we're on the same GameObject but scale or parent hasn't changed.
+            if (testBody.gameObject == gameObject &&
+                (WatchTransformChanges & (PhysicsWorld.TransformChangeReason.WorldScale | PhysicsWorld.TransformChangeReason.LocalScale | PhysicsWorld.TransformChangeReason.ParentHierarchy)) == 0)
+                return;
+
+            // Create the shape.
+            CreateShape();
         }
 
         void IWorldDrawable.Draw()

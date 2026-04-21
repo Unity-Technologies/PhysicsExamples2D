@@ -14,6 +14,7 @@ namespace Unity.U2D.Physics.Extras
         public Vector2[] Points = { Vector2.left + Vector2.down, Vector2.right + Vector2.down, Vector2.right + Vector2.up, Vector2.left + Vector2.up };
         public PhysicsShapeDefinition ShapeDefinition = PhysicsShapeDefinition.defaultDefinition;
         public PhysicsUserData UserData;
+        public PhysicsWorld.TransformChangeReason WatchTransformChanges = PhysicsWorld.TransformChangeReason.Any;
         public MonoBehaviour CallbackTarget;
         public TestBody testBody;
 
@@ -166,9 +167,21 @@ namespace Unity.U2D.Physics.Extras
 
         void PhysicsCallbacks.ITransformChangedCallback.OnTransformChanged(PhysicsEvents.TransformChangeEvent transformChangeEvent)
         {
-            // If body isn't on the same GameObject then create the shape.
-            if (isActiveAndEnabled && testBody.gameObject != gameObject)
-                CreateShapes();
+            // Finish if not active/enabled or the shapes are invalid.
+            if (!isActiveAndEnabled || !m_OwnedShapes.IsCreated)
+                return;
+            
+            // Finish if not a valid change reason.
+            if ((transformChangeEvent.changeReason & WatchTransformChanges) == 0)
+                return;
+
+            // Finish if we're on the same GameObject but scale or parent hasn't changed.
+            if (testBody.gameObject == gameObject &&
+                (WatchTransformChanges & (PhysicsWorld.TransformChangeReason.WorldScale | PhysicsWorld.TransformChangeReason.LocalScale | PhysicsWorld.TransformChangeReason.ParentHierarchy)) == 0)
+                return;
+
+            // Create the shapes.
+            CreateShapes();            
         }
 
         void IWorldDrawable.Draw()

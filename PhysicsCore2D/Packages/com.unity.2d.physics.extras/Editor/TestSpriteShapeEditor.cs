@@ -15,11 +15,7 @@ namespace Unity.U2D.Physics.Editor.Extras
 
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.Sprite))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.UseDelaunay))));
-            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.ShapeDefinition))));
-            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.UserData))));
-            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.CallbackTarget))));
-            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.testBody))));
-
+            
             // Button to Read Sprite.
             root.Add(new Button
             {
@@ -31,7 +27,13 @@ namespace Unity.U2D.Physics.Editor.Extras
                         (shapeTarget as TestSpriteShape)?.UpdateShape();
                     }
                 })
-            });
+            });            
+            
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.ShapeDefinition))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.UserData))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.WatchTransformChanges))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.CallbackTarget))));
+            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestSpriteShape.testBody))));
 
             return root;
         }

@@ -229,6 +229,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 36908998}
@@ -250,7 +251,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -2, y: 1.2}
     m_Rotation:
-      direction: {x: 0.8449804, y: 0.5347973}
+      direction: {x: 0.84498006, y: 0.5347978}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
@@ -274,9 +275,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &36908999
 Transform:
   m_ObjectHideFlags: 0
@@ -285,7 +287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36908996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.27840602, w: 0.9604635}
+  m_LocalRotation: {x: 0, y: 0, z: 0.27840638, w: 0.9604634}
   m_LocalPosition: {x: -2, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -402,6 +404,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 45209101}
@@ -423,7 +426,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 2, y: 1.2}
     m_Rotation:
-      direction: {x: 0.8449804, y: 0.5347973}
+      direction: {x: 0.84498006, y: 0.5347978}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
@@ -447,9 +450,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &45209102
 Transform:
   m_ObjectHideFlags: 0
@@ -458,7 +462,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45209099}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.27840602, w: 0.9604635}
+  m_LocalRotation: {x: 0, y: 0, z: 0.27840638, w: 0.9604634}
   m_LocalPosition: {x: 2, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -864,6 +868,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1550336092}
@@ -909,9 +914,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1550336093
 Transform:
   m_ObjectHideFlags: 0
@@ -1037,6 +1043,7 @@ MonoBehaviour:
     m_Int: 0
     m_Int64: 0
     m_Bool: 0
+  WatchTransformChanges: 255
   CallbackTarget: {fileID: 0}
   ScaleRadius: 1
   testBody: {fileID: 1639417875}
@@ -1058,7 +1065,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 1.2, y: -1.2}
     m_Rotation:
-      direction: {x: 0.7071082, y: 0.70710534}
+      direction: {x: 0.7071085, y: 0.70710504}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
@@ -1082,9 +1089,10 @@ MonoBehaviour:
     m_Int64: 0
     m_Bool: 0
   CallbackTarget: {fileID: 0}
-  UseTransformPose: 1
+  CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
+  WatchTransformChanges: 27
 --- !u!4 &1639417876
 Transform:
   m_ObjectHideFlags: 0
@@ -1093,7 +1101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639417873}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268247, w: 0.9238799}
+  m_LocalRotation: {x: 0, y: 0, z: 0.3826823, w: 0.92388}
   m_LocalPosition: {x: 1.2, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
+using UnityEngine.Serialization;
 
 namespace Unity.U2D.Physics.Extras
 {
@@ -14,9 +15,12 @@ namespace Unity.U2D.Physics.Extras
         public PhysicsBodyDefinition BodyDefinition = PhysicsBodyDefinition.defaultDefinition;
         public PhysicsUserData UserData;
         public MonoBehaviour CallbackTarget;
-        public bool UseTransformPose = true;
+        public bool CreateAtTransform = true;
         public bool UseDefaultWorld = true;
         public TestWorld testWorld;
+        public PhysicsWorld.TransformChangeReason WatchTransformChanges = 
+            PhysicsWorld.TransformChangeReason.WorldPosition | PhysicsWorld.TransformChangeReason.WorldRotation |
+            PhysicsWorld.TransformChangeReason.LocalPosition | PhysicsWorld.TransformChangeReason.LocalRotation;
         public PhysicsBody body => m_Body;
         
         private int m_OwnerKey;
@@ -98,7 +102,7 @@ namespace Unity.U2D.Physics.Extras
             if (!body.isValid || body.world != world)
                 return;
 
-            if (UseTransformPose)
+            if (CreateAtTransform)
             {
                 body.WritePose();
                 return;
@@ -129,7 +133,7 @@ namespace Unity.U2D.Physics.Extras
             var transformPlaneCustom = world.transformPlaneCustom;
 
             // Update the definition pose.
-            if (UseTransformPose)
+            if (CreateAtTransform)
             {
                 BodyDefinition.position = PhysicsMath.ToPosition2D(transform.position, transformPlane, transformPlaneCustom);
                 BodyDefinition.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRotation2D(transform.rotation, transformPlane, transformPlaneCustom));
@@ -210,11 +214,8 @@ namespace Unity.U2D.Physics.Extras
             if (!isActiveAndEnabled || !m_Body.isValid)
                 return;
             
-            // Finish position/rotation hasn't changed.
-            const PhysicsWorld.TransformChangeReason interestedReasons =
-                PhysicsWorld.TransformChangeReason.WorldPosition | PhysicsWorld.TransformChangeReason.WorldRotation |
-                PhysicsWorld.TransformChangeReason.LocalPosition | PhysicsWorld.TransformChangeReason.LocalRotation;
-            if ((transformChangeEvent.changeReason & interestedReasons) == 0)
+            // Finish if not a valid change reason.
+            if ((transformChangeEvent.changeReason & WatchTransformChanges) == 0)
                 return;
             
             var world = UseDefaultWorld || testWorld == null ? PhysicsWorld.defaultWorld : testWorld.world;
