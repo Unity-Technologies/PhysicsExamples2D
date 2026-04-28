@@ -7,8 +7,7 @@ using Unity.U2D.Physics;
 using Random = Unity.Mathematics.Random;
 
 /// <summary>
-/// Demonstrates how shapes control what they can come into contact with.
-/// Press "Play" to see the two bodies/shapes contact each other, bounce and roll, eventually slowing down and stopping.
+/// Demonstrates using a IJobParallelFor job to perform parallel queries.
 /// See the comments for more information.
 /// </summary>
 public class PhysicsQueryJob : MonoBehaviour
