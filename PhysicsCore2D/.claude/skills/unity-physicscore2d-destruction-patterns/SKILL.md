@@ -1,6 +1,6 @@
 ---
-name: unity-physicscore2d-destruction
-description: Dynamic object destruction, slicing, fragmenting, and sprite-based destructible systems
+name: unity-physicscore2d-destruction-patterns
+description: High-level patterns and gameplay strategies for destructible objects in Unity PhysicsCore2D — slicing mechanics, fragmenting on impact, sprite-based destructible systems, debris cleanup, performance budgeting. Use for "how should I design destructible X?" questions. For the PhysicsDestructor type API and worked code examples see unity-physicscore2d-destructor; for raw member signatures see unity-physicscore2d-destructor-api.
 ---
 
 # Unity PhysicsCore2D Destruction Expert

@@ -2,6 +2,8 @@
 
 Expert guidance on using physics events and callback systems in Unity PhysicsCore2D.
 
+> For the full type/method API surface — every event struct, callback interface, and member with XML doc — see `unity-physicscore2d-events-api`. This skill focuses on enabling patterns, dispatch-mode decisions, and worked examples.
+
 ## Event Types
 
 The `PhysicsWorld` generates seven event types after simulation completes:

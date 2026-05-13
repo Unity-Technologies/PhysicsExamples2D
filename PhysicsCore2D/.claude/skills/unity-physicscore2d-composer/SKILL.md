@@ -2,6 +2,8 @@
 
 Expert guidance on using PhysicsComposer to create complex collision shapes through boolean geometry operations in Unity PhysicsCore2D.
 
+> For the full type/method API surface (every overload, signature, and XML doc), see `unity-physicscore2d-composer-api`. This skill focuses on patterns, worked examples, and decision rules.
+
 ## Overview
 
 **PhysicsComposer** is a geometry composition utility that combines multiple simple geometries using boolean operations to create complex collision shapes. It's ideal for:
@@ -62,97 +64,9 @@ polygonGeometry.Dispose();
 composer.Dispose();
 ```
 
-## API Reference
-
-### PhysicsComposer Methods
-
-#### Create
-```csharp
-// Create new composer
-static PhysicsComposer Create(Allocator allocator);
-static PhysicsComposer Create(int initialCapacity, Allocator allocator);
-```
-
-#### AddLayer
-```csharp
-// Add geometry layer with operation and transform
-void AddLayer(CircleGeometry geometry, Operation op, PhysicsTransform transform);
-void AddLayer(CapsuleGeometry geometry, Operation op, PhysicsTransform transform);
-void AddLayer(PolygonGeometry geometry, Operation op, PhysicsTransform transform);
-void AddLayer(PhysicsShape shape, Operation op, PhysicsTransform transform);
-void AddLayer(NativeArray<Vector2> points, Operation op, PhysicsTransform transform);
-void AddLayer(ReadOnlySpan<Vector2> points, Operation op, PhysicsTransform transform);
-```
-
-#### RemoveLayer
-```csharp
-// Remove layer by index
-void RemoveLayer(int index);
-```
-
-#### CreatePolygonGeometry
-```csharp
-// Generate filled polygon output
-PolygonGeometry CreatePolygonGeometry(Allocator allocator);
-```
-
-#### CreateChainGeometry
-```csharp
-// Generate outline/edge output
-ChainGeometry CreateChainGeometry(Allocator allocator);
-```
-
-#### Destroy
-```csharp
-// Release resources
-void Dispose();
-```
-
 ## Supported Input Geometry Types
 
-PhysicsComposer accepts multiple geometry types:
-
-### CircleGeometry
-```csharp
-var circle = new CircleGeometry { radius = 1.0f };
-composer.AddLayer(circle, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-```
-
-### CapsuleGeometry
-```csharp
-var capsule = new CapsuleGeometry
-{
-    vertex0 = new Vector2(-1, 0),
-    vertex1 = new Vector2(1, 0),
-    radius = 0.5f
-};
-composer.AddLayer(capsule, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-```
-
-### PolygonGeometry
-```csharp
-var polygon = PolygonGeometry.CreatePolygon(vertices, Allocator.Temp);
-composer.AddLayer(polygon, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-polygon.Dispose();
-```
-
-### PhysicsShape
-```csharp
-var existingShape = body.GetShape(0);
-composer.AddLayer(existingShape, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-```
-
-### Custom Point Arrays
-```csharp
-var points = new Vector2[]
-{
-    new Vector2(0, 0),
-    new Vector2(1, 0),
-    new Vector2(1, 1),
-    new Vector2(0, 1)
-};
-composer.AddLayer(points, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-```
+`PhysicsComposer.AddLayer` accepts: `CircleGeometry`, `CapsuleGeometry`, `PolygonGeometry`, `PhysicsShape`, and raw `NativeArray<Vector2>` / `ReadOnlySpan<Vector2>` point lists. See `unity-physicscore2d-composer-api` for the full overload list.
 
 ## Practical Examples
 

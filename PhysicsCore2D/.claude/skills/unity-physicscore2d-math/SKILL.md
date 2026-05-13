@@ -2,6 +2,8 @@
 
 Expert guidance on using PhysicsMath utilities for physics-specific mathematical operations in Unity PhysicsCore2D.
 
+> For the full type/method API surface (every signature, param, and XML doc), see `unity-physicscore2d-math-api`. This skill is a usage-oriented tutorial with worked examples covering TransformPlane conversion patterns, deterministic math, and 12 practical recipes (spring camera, projectile trajectory, angle interpolation, etc.).
+
 ## Overview
 
 **PhysicsMath** provides math utilities tailored to the physics system. It focuses on physics-specific operations rather than general mathematical functions.

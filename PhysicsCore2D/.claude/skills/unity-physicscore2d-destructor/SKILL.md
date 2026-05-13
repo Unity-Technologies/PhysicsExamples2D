@@ -2,6 +2,8 @@
 
 Expert guidance on using PhysicsDestructor to decompose and slice geometries for destructible objects in Unity PhysicsCore2D.
 
+> For the full type/method API surface (every overload, signature, and XML doc), see `unity-physicscore2d-destructor-api`. This skill focuses on patterns, worked examples, and decision rules.
+
 ## Overview
 
 **PhysicsDestructor** is a geometry decomposition utility that breaks down shapes using two primary methods:

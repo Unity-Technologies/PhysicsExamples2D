@@ -1,6 +1,6 @@
 ---
 name: unity-physicscore2d
-description: Expert guidance on using Unity PhysicsCore2D system. Use when working with PhysicsWorld, PhysicsBody, PhysicsShape, PhysicsChain, PhysicsJoint etc.
+description: Orientation and getting-started guide for Unity 6000.5 PhysicsCore2D — namespace history, distinction from the legacy Physics2D component system, WORM concurrency model, definitions/handle-struct semantics, and routing to the topic and -api sub-skills. Use for first-time onboarding, conceptual questions about how PhysicsCore2D differs from older Physics2D, or when you need a map of which sub-skill covers what. For specific type APIs use the *-api skills; for specific patterns use the matching topic skill (joints, bodies, queries, batching, factories, etc.).
 ---
 
 # Unity PhysicsCore2D Expert
@@ -591,19 +591,66 @@ private System.Collections.Generic.List<GameObject> m_BulletGameObjects;
 
 ## Sub-Skills for Detailed Information
 
-When the user needs detailed information about specific PhysicsCore2D topics, invoke these sub-skills using the Skill tool:
+PhysicsCore2D coverage is split into two complementary layers. **Always invoke the most specific skill that matches the user's need** — this umbrella is for orientation and routing only.
 
-- **unity-physicscore2d-geometry** - Detailed information about geometry types (CircleGeometry, PolygonGeometry, etc.) and geometry utilities (PhysicsComposer, PhysicsDestructor)
-- **unity-physicscore2d-queries** - Physics world queries, overlap tests, raycasts, and geometry intersection testing
-- **unity-physicscore2d-joints** - All joint constraint types (DistanceJoint, HingeJoint, SliderJoint, etc.)
-- **unity-physicscore2d-helpers** - Helper types (PhysicsTransform, PhysicsRotate, PhysicsMask, PhysicsUserData, PhysicsAABB, PhysicsMath)
-- **unity-physicscore2d-components** - Component authoring patterns, transform integration, and best practices
+**How to invoke:** Use the Skill tool with the sub-skill name, e.g., `Skill(skill="unity-physicscore2d-joints-api")`.
 
-**When to invoke sub-skills:**
-- User asks about specific geometry types or geometric operations
-- User needs to perform queries, raycasts, or overlap tests
-- User wants to create joints or constraints between bodies
-- User asks about helper types like transforms, rotations, masks, or user data
-- User is building custom components that wrap PhysicsCore2D objects
+### API Reference Layer (`*-api`) — auto-generated from Unity 6000.5 IntelliSense XML
 
-**How to invoke:** Use the Skill tool with the sub-skill name, e.g., `Skill(skill="unity-physicscore2d-geometry")`
+Use these whenever you need to verify a type, property, method signature, parameter, or return type. They list every member with its XML doc summary, structured by type cluster. Reach for these *first* when the user asks "what's the signature of X" or "does property Y exist on type Z" — they are the source of truth that prevents API invention (see the rules at the top of this skill).
+
+- **unity-physicscore2d-world-api** — `PhysicsWorld`, `PhysicsWorldDefinition`, `PhysicsCoreSettings2D`, `PhysicsConstants` (and all nested: `DrawColors`, `DrawOptions`, `DrawResults`, `ExplosionDefinition`, `IgnoreFilter`, `SimulationType`, `WorldCounters`, `WorldProfile`, etc.)
+- **unity-physicscore2d-bodies-api** — `PhysicsBody` (+ `BatchForce/Impulse/Transform/Velocity`, `BodyConstraints`, `BodyType`, `MassConfiguration`, `TransformWriteMode/Tween`), `PhysicsBodyDefinition`
+- **unity-physicscore2d-shapes-api** — `PhysicsShape` (+ `Contact`, `ContactFilter`, `ContactManifold`, `MoverData`, `ShapeType`, `SurfaceMaterial`), `PhysicsShapeDefinition`
+- **unity-physicscore2d-chains-api** — `PhysicsChain`, `PhysicsChainDefinition`
+- **unity-physicscore2d-geometry-api** — `CircleGeometry`, `CapsuleGeometry`, `PolygonGeometry`, `SegmentGeometry`, `ChainGeometry`, `ChainSegmentGeometry`, `PhysicsAABB`, `PhysicsPlane`
+- **unity-physicscore2d-joints-api** — `PhysicsJoint` + the 7 joint types (Distance, Fixed, Hinge, Ignore, Relative, Slider, Wheel) and their `*Definition` structs
+- **unity-physicscore2d-queries-api** — `PhysicsQuery` (+ `CastRayInput`, `CastShapeInput`, `DistanceInput`, `QueryFilter`, `TimeOfImpactInput`, `WorldCastResult`, `WorldOverlapResult`, etc.)
+- **unity-physicscore2d-events-api** — `PhysicsEvents` (+ all event structs), `PhysicsCallbacks` (+ all callback target types)
+- **unity-physicscore2d-composer-api** — `PhysicsComposer` (+ `LayerHandle`, `Operation`)
+- **unity-physicscore2d-destructor-api** — `PhysicsDestructor` (+ `FragmentGeometry`, `FragmentResult`, `SliceResult`)
+- **unity-physicscore2d-layers-api** — `PhysicsLayers`, `PhysicsMask`
+- **unity-physicscore2d-helpers-api** — `PhysicsTransform`, `PhysicsRotate`, `PhysicsUserData`
+- **unity-physicscore2d-math-api** — `PhysicsMath`
+
+### Topic / Recipe Layer — hand-curated patterns and decision rules
+
+Use these when the user asks "how do I do X", "which type should I pick for Y", or "what's the right pattern for Z". Each topic skill points to its corresponding `*-api` skill for full member detail.
+
+**Object lifecycle & configuration:**
+- **unity-physicscore2d-bodies** — body type selection (Static/Kinematic/Dynamic), mass configuration, sleep, transform sync, owner key, WORM rule for safe destruction in callbacks
+- **unity-physicscore2d-components** — component authoring patterns, `transformObject` integration
+
+**Constraints & geometry:**
+- **unity-physicscore2d-joints** — joint selection rules + worked assemblies (door, vehicle wheel, mouse drag, pendulum, bridge, ignore-pair); motor/limit/spring tuning; breaking via thresholds
+- **unity-physicscore2d-shapes-advanced** — chains, compounds, rounded polygons, ellipses, runtime geometry modification
+- **unity-physicscore2d-materials** — friction, bounciness/restitution, rolling resistance, surface velocity (conveyor belts)
+- **unity-physicscore2d-composer** — boolean operations, building complex shapes from primitives
+- **unity-physicscore2d-destructor** — slicing & fragmenting code patterns and worked examples
+- **unity-physicscore2d-destruction-patterns** — high-level destructible-object design strategies (when to slice vs fragment vs pre-fracture)
+
+**Interactions & queries:**
+- **unity-physicscore2d-queries** — single-shot patterns: raycasts, overlap tests, shape casts, distance queries, time-of-impact
+- **unity-physicscore2d-batching** — bulk query and bulk creation patterns, projectile pools, swarm/flocking (boids)
+- **unity-physicscore2d-collision** — contact manifolds, collision response, character collision handling, determinism
+- **unity-physicscore2d-events** — enabling event flags per shape, dispatch modes (auto vs manual), callback wiring patterns
+- **unity-physicscore2d-filtering** — collision filtering strategies (layer, custom, trigger, group); one-way platforms, friendly fire, ragdoll self-collision
+- **unity-physicscore2d-layers** — 32-bit vs 64-bit layer systems, `PhysicsMask` bitwise patterns
+
+**Forces & motion:**
+- **unity-physicscore2d-forces** — explosions, wind/gravity fields, drag, vortex, force zones
+- **unity-physicscore2d-stacking** — stacking stability, arches/towers/bridges/card houses, dominoes
+- **unity-physicscore2d-factories** — multi-body assemblies (ragdolls, soft bodies, vehicles, gears, mechanical systems)
+- **unity-physicscore2d-math** — `PhysicsMath` worked examples (TransformPlane conversion, deterministic math, spring-camera, projectile trajectory, angle interpolation)
+
+**System-level:**
+- **unity-physicscore2d-settings** — `PhysicsCoreSettings2D` configuration, runtime vs editor distinction
+- **unity-physicscore2d-performance** — capacity limits, optimization priority ladder, platform budgets, large-world streaming
+- **unity-physicscore2d-debug** — debug drawing options, draw colors, fill modes, visualization recipes
+
+### Routing rules
+
+- **"What's the signature of X?" / "Does Y exist on Z?"** → `*-api` skill matching the type
+- **"How do I implement X?" / "Which type should I pick?"** → topic skill matching the concern
+- **First-time user / "what is PhysicsCore2D?"** → stay in this umbrella skill
+- When you're about to write code: invoke the relevant `*-api` skill *first* to verify signatures, then optionally the topic skill for the pattern

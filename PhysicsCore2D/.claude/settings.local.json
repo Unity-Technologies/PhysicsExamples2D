@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Program Files/Unity/Hub/Editor//**)",
+      "Read(//c/Program Files/Unity//**)",
+      "Bash(python _generate.py)",
+      "Bash(md5sum *.md)",
+      "Read(//tmp/**)",
+      "Bash(ls \"d:/UnitySrc/GitHub/PhysicsExamples2D/skills/\" 2>/dev/null && echo \"EXISTS\" || echo \"NOT FOUND\")",
+      "Read(//d/UnitySrc/GitHub/PhysicsExamples2D/**)",
+      "Bash(set -e)",
+      "Bash([ -d \"$GLOBAL/$d\" ])",
+      "Bash([ -d \"$PROJECT/$d\" ])",
+      "Bash(cp -r __TRACKED_VAR__/__TRACKED_VAR__ __TRACKED_VAR__/__TRACKED_VAR__)",
+      "Bash(rm -rf unity-physicscore2d-geometry)",
+      "Bash(ls -d unity-physicscore2d-geometry*)",
+      "Edit(/.claude/skills/unity-physicscore2d-composer/**)",
+      "Edit(/.claude/skills/unity-physicscore2d-destructor/**)",
+      "Edit(/.claude/skills/unity-physicscore2d-events/**)",
+      "Edit(/.claude/skills/unity-physicscore2d-math/**)",
+      "Bash(xargs -n1 basename)",
+      "Edit(~/.claude/skills/unity-physicscore2d/**)",
+      "Edit(~/.claude/skills/unity-physicscore2d-joints/**)",
+      "Edit(~/.claude/skills/unity-physicscore2d-queries/**)",
+      "Edit(~/.claude/skills/unity-physicscore2d-bodies/**)",
+      "Edit(~/.claude/skills/unity-physicscore2d-destruction-patterns/**)"
+    ]
+  }
+}
