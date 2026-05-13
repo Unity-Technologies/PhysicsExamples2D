@@ -222,3 +222,11 @@ When users need information about:
 - **Queries** - Use unity-physicscore2d-queries
 - **Performance optimization** - Use unity-physicscore2d-performance
 - **Collections** - Use Unity.Collections NativeArray
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/Boids.cs](examples/Boids.cs) — 1000 kinematic boids; Burst-compiled flocking job + `PhysicsBody.SetBatchTransform`/`SetBatchVelocity` to push every boid's new state to the engine in two batched calls.
+- [examples/BulkQueries.cs](examples/BulkQueries.cs) — fan of `BatchCount` raycasts run in `IJobParallelFor`, hits converted to a `BatchForce` array and applied via single `PhysicsBody.SetBatchForce`.
+- [examples/ProjectileShooter.cs](examples/ProjectileShooter.cs) — periodic projectile spawner using `world.CreateBodyBatch(definitions)`; on each step inspects `world.contactBeginEvents` and tears down hits via `PhysicsBody.DestroyBatch`.

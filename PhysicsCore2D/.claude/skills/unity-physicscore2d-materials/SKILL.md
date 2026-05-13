@@ -73,3 +73,12 @@ When users need information about:
 - **Shape properties** - Use unity-physicscore2d-shapes-advanced
 - **Collision behavior** - Use unity-physicscore2d-collision
 - **Surface forces** - Use unity-physicscore2d-forces
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/Friction.cs](examples/Friction.cs) — friction sweep down a zig-zag of slopes, spawning bodies with progressively higher `surfaceMaterial.friction`.
+- [examples/Bounciness.cs](examples/Bounciness.cs) — 40 dynamic bodies dropped onto a flat ground with `surfaceMaterial.bounciness` ramped 0 → 1.
+- [examples/RollingResistance.cs](examples/RollingResistance.cs) — 20 stacked slope chambers, each launching a ball with a higher `surfaceMaterial.rollingResistance` so you can see how rolling decays.
+- [examples/ConveyorBelt.cs](examples/ConveyorBelt.cs) — `surfaceMaterial.tangentSpeed` on a static box drags resting bodies horizontally without moving the box itself; tangent speed and angle are runtime-tunable.

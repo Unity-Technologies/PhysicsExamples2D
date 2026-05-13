@@ -19,7 +19,7 @@ Follow these guidelines when helping with Unity PhysicsCore2D code:
 
 ## ⚠️ API Usage Rules - READ THIS FIRST ⚠️
 
-**ABSOLUTE RULE: NEVER INVENT OR GUESS API METHODS, PROPERTIES, OR PARAMETERS.**
+**ABSOLUTE RULE: NEVER INVENT OR GUESS API METHODS, PROPERTIES, OR PARAMETERS — for PhysicsCore2D *or* for any adjacent API used alongside it (Unity.Collections, Unity.Mathematics, Unity.Jobs, Burst attributes, System.Span<T> / ReadOnlySpan<T>, and core UnityEngine types). The "pre-dates the training cutoff" rationale below applies to recent additions in those namespaces just as it does to PhysicsCore2D.**
 
 This is the #1 most important rule when working with PhysicsCore2D. You MUST follow this protocol:
 
@@ -61,10 +61,15 @@ If you're uncertain about ANY PhysicsCore2D API:
 - ❌ **DON'T**: Invent variations of method names
 - ❌ **DON'T**: Assume APIs exist without verification
 
-### API Reference Links (Use These for Verification):
-- PhysicsWorld: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html
-- PhysicsBody: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody.html
-- PhysicsShape: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html
+### API Verification Protocol (use this order):
+
+1. **PhysicsCore2D types (`Unity.U2D.Physics.*`):** verify against the relevant `*-api` skill first — it is the source of truth, sourced from the editor's IntelliSense XML for the installed Unity version. If the type is not covered by any `*-api` skill, WebFetch `https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.{TypeName}.html`. Note: per-type pages list members without signatures; to verify a specific signature fetch `https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.{TypeName}.{MethodName}.html`. Web docs may lag the installed editor — prefer the `*-api` skill when both can answer.
+
+2. **Adjacent Unity namespaces (`Unity.Collections.*`, `Unity.Mathematics.*`, `Unity.Jobs.*`, `UnityEngine.*`):** WebFetch `https://docs.unity3d.com/6000.5/Documentation/ScriptReference/{Namespace}.{TypeName}.html`. Generic types use the `_N` suffix (e.g. `Unity.Collections.NativeArray_1` for `NativeArray<T>`).
+
+3. **.NET BCL types (`System.Span<T>`, `System.ReadOnlySpan<T>`, etc.):** WebFetch `https://learn.microsoft.com/dotnet/api/{namespace}.{type}` (e.g. `system.span-1`).
+
+4. **If WebFetch fails, returns 404, or the page does not answer the question:** stop, ask the user, do not guess. This is the same rule as the PhysicsCore2D case.
 
 **Remember: It's better to ask or verify than to invent incorrect API calls.**
 
@@ -361,6 +366,9 @@ Because of this, Unity creates a default PhysicsWorld at start-up so that should
 To gain access to the default PhysicsWorld, you should always use "var world = PhysicsWorld.defaultWorld;" and nothing else.
 
 ### Creating and Destroy Physics Objects
+
+> **Canonical lifecycle pattern.** The MonoBehaviour example below is the reference `OnEnable`/`OnDisable` lifecycle for any wrapped PhysicsCore2D object. Other topic skills link here rather than duplicating it. When adapting an example from any topic skill into your own component, wrap it in this lifecycle.
+
 Any PhysicsBody, PhysicsShape, PhysicsChain or PhysicsJoint should be destroyed before a component it is created in is destroyed.
 It should be preferred that a physics object is created in the Unity "OnEnable" and desroyed in the Unity "OnDisable" which also means correct creation and destruction if the component is enabled/disabled or created/destoyed like so:
 
@@ -654,3 +662,4 @@ Use these when the user asks "how do I do X", "which type should I pick for Y", 
 - **"How do I implement X?" / "Which type should I pick?"** → topic skill matching the concern
 - **First-time user / "what is PhysicsCore2D?"** → stay in this umbrella skill
 - When you're about to write code: invoke the relevant `*-api` skill *first* to verify signatures, then optionally the topic skill for the pattern
+- **"What's the signature of X?" with X not in any `*-api` skill** (PhysicsCore2D long-tail, Unity adjacent, or .NET BCL) → use the API Verification Protocol above; never guess.

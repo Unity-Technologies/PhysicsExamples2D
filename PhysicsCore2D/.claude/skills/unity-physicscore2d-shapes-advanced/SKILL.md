@@ -108,3 +108,13 @@ When users need information about:
 - **Shape materials** - Use unity-physicscore2d-materials
 - **Collision filtering** - Use unity-physicscore2d-filtering
 - **Geometry composition** - Use unity-physicscore2d-composer (if available)
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/CompoundShape.cs](examples/CompoundShape.cs) — multiple PhysicsShape primitives attached to a single dynamic PhysicsBody (tables + spaceships); `body.GetAABB()` for combined bounds, `IntrudeShape` to add shapes at runtime.
+- [examples/ChainShape.cs](examples/ChainShape.cs) — ~20-point ChainGeometry ground for terrain; objects spawn upper-left and slide along; toggle `FastCollisionsAllowed` to compare CCD vs default.
+- [examples/RoundedPolygons.cs](examples/RoundedPolygons.cs) — grid of dynamic random polygons each built with non-zero `radius` for rounded edges (Minkowski offset); inline random-convex-polygon helper.
+- [examples/ModifyGeometry.cs](examples/ModifyGeometry.cs) — runtime geometry mutation via type-specific setter properties (`shape.circleGeometry`, `shape.polygonGeometry`, etc.) and shape destroy/recreate when the type changes.
+- [examples/GeometryIslands.cs](examples/GeometryIslands.cs) — fragment a tall column then walk `unbrokenGeometryIslands` to build per-island bodies, choosing static vs dynamic based on virtual-ground intersection.

@@ -247,3 +247,12 @@ When users need information about:
 - **Shape optimization** - Use unity-physicscore2d-shapes-advanced
 - **Physics settings** - Use unity-physicscore2d-settings (if available)
 - **Performance** - Use unity-physicscore2d-performance
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/Arch.cs](examples/Arch.cs) — stone arch built from trapezoidal voussoirs + keystone + 4 box weights; friction-sensitive structural stack.
+- [examples/CardHouse.cs](examples/CardHouse.cs) — 5-story card house using extremely thin rectangles balanced at angles; stress test for stable thin-shape stacking.
+- [examples/DominoChain.cs](examples/DominoChain.cs) — five domino shelves (alternating tip directions) triggered by a small `ApplyLinearImpulse` to the first/last domino of each row.
+- [examples/Pyramid.cs](examples/Pyramid.cs) — large pyramid stack of dynamic boxes (default 1830 bodies); slight corner radius for stacking stability + chamber walls catch any collapse.

@@ -34,3 +34,10 @@ You can find the API reference for drawOptions here: https://docs.unity3d.com/60
 **Best Practice**: Individual components should NOT modify `world.drawOptions` as this is a global world-level setting. The user controls what is drawn at the world/scene level. If a component wants to conditionally draw something (like a circle, line, etc.), it should use a local boolean field (e.g., `public bool DrawCircle = true`) to control whether that specific component draws, not modify the global world settings.
 
 You can find an overview here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/DebugDrawing.md
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/BasicPhysicsComponent.cs](examples/BasicPhysicsComponent.cs) — minimal MonoBehaviour wrapping a single PhysicsBody with the canonical OnEnable/OnDisable lifecycle.
+- [examples/GearComponent.cs](examples/GearComponent.cs) — full component pattern: hinge-motor gear with teeth, owner-key destruction guard, transform-change re-registration, and serialized inspector fields.

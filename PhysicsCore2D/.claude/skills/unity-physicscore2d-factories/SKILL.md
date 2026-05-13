@@ -304,3 +304,11 @@ When users need information about:
 - **Batch creation** - Use unity-physicscore2d-batching
 - **Collision filtering** - Use unity-physicscore2d-filtering
 - **Performance** - Use unity-physicscore2d-performance
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/RagdollFactory.cs](examples/RagdollFactory.cs) — factory pattern: `static Create(world, origin, scale)` returning a `Ragdoll` struct (head + torso + arms + legs assembled from capsule bodies and limit-clamped hinge joints, negative-group filter to prevent self-collision); ships with `RagdollFactoryDemo : MonoBehaviour` showing OnEnable/OnDisable wrapping.
+- [examples/SoftBodyFactory.cs](examples/SoftBodyFactory.cs) — factory pattern: `static Create(world, position, sides, scale, jointFrequency, jointDamping)` returning a `SoftBody` struct (capsule ring + soft `PhysicsFixedJoint`s with spring-like compliance); demo MonoBehaviour drops one into a chain-bounded chamber.
+- [examples/VehicleFactory.cs](examples/VehicleFactory.cs) — factory pattern: `static Create(world, position, ...)` returning a `Vehicle` struct (chassis + 2 wheel bodies + 2 wheel joints with motor + spring suspension + travel limits); demo MonoBehaviour drives via arrow keys.

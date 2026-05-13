@@ -286,3 +286,12 @@ When users need information about:
 - **Query optimization** - Use unity-physicscore2d-queries
 - **Collection types** - Use Unity.Collections
 - **Profiling** - Use Unity Profiler documentation
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/CapacityTest.cs](examples/CapacityTest.cs) — auto-spawns batches of 200 dynamic bodies until `world.profile.simulationStep` exceeds a target ms threshold for 60 consecutive frames; reports final `world.counters` snapshot. Capacity-planning helper.
+- [examples/ManyBodies.cs](examples/ManyBodies.cs) — `15×15` grid of rotating kinematic tumblers each filled with capsule debris over time; ~225 islands stress test for broad-phase + narrow-phase.
+- [examples/LargeCompound.cs](examples/LargeCompound.cs) — `(splits+1)²` dynamic compound bodies of `span²` boxes each (~5184 shapes default); demonstrates `startMassUpdate=false` + a single `body.ApplyMassFromShapes()` per body — the recommended pattern when adding many shapes to one body.
+- [examples/JointGrid.cs](examples/JointGrid.cs) — `32×32` grid of circle bodies wired with vertical+horizontal hinge joints (~1984 joints), 7-body strip anchored Static — joint-solver scaling test.

@@ -1,18 +1,18 @@
 ---
 name: unity-physicscore2d-filtering
-description: Collision filtering, layer-based interactions, custom collision filters, and trigger volumes
+description: Collision filtering, layer-based interactions, custom collision filters, and trigger areas
 ---
 
 # Unity PhysicsCore2D Filtering Expert
 
-You are now acting as a Unity PhysicsCore2D filtering expert, specialized in collision filtering, layers, and trigger volumes.
+You are now acting as a Unity PhysicsCore2D filtering expert, specialized in collision filtering, layers, and trigger areas.
 
 ## Overview
 
 PhysicsCore2D provides flexible collision filtering to control which objects interact:
 - **Layer-based filtering** - Using collision layers and masks
 - **Custom filters** - Programmatic collision filtering
-- **Trigger volumes** - Sensors that detect overlaps without collision
+- **Trigger areas** - Sensors that detect overlaps without collision
 - **Collision groups** - Group-based filtering
 - **Callback filtering** - Runtime collision decisions
 
@@ -44,7 +44,7 @@ Implement custom filtering logic:
 - Tag-based filtering
 - Distance-based filtering
 
-### Trigger Volumes
+### Trigger Areas
 Shapes that detect overlaps without physical collision:
 - Mark shapes as sensors/triggers
 - Receive overlap events
@@ -55,7 +55,7 @@ Shapes that detect overlaps without physical collision:
 - Pickup detection
 - Area triggers
 - Goal zones
-- Damage volumes
+- Damage areas
 - Sensor zones
 
 ### Collision Groups
@@ -105,7 +105,7 @@ Group objects for collective filtering:
 - Minimize filter complexity
 - Use triggers sparingly
 
-### Trigger Volumes
+### Trigger Areas
 - Keep trigger geometry simple
 - Process trigger events efficiently
 - Unregister callbacks when disabled
@@ -150,3 +150,11 @@ When users need information about:
 - **Trigger queries** - Use unity-physicscore2d-queries
 - **User data for filtering** - Use unity-physicscore2d-helpers
 - **Collision callbacks** - Use unity-physicscore2d-collision or unity-physicscore2d-events
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/BasicContactFiltering.cs](examples/BasicContactFiltering.cs) — minimal `IContactFilterCallback` that suppresses circle-vs-circle contacts while letting circles still collide with the ground chain.
+- [examples/CustomContactFilter.cs](examples/CustomContactFilter.cs) — color-grouped boxes filtered by `PhysicsUserData` so only same-group bodies collide; demonstrates thread-safe identity passing.
+- [examples/PostSimulateFiltering.cs](examples/PostSimulateFiltering.cs) — `PhysicsEvents.PostSimulate` filtering via `PhysicsShape.GetContacts()` with predicate filters on contact normal angle and impulse magnitude; includes a reusable `ContactExtensions` helper.

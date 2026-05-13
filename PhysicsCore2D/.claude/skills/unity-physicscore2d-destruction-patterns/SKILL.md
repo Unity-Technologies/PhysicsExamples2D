@@ -133,3 +133,11 @@ When users need information about:
 - **Forces and impulses** - Use unity-physicscore2d-forces
 - **Joint breaking** - Use unity-physicscore2d-joints
 - **Collision detection** - Use unity-physicscore2d-collision
+
+## Worked Examples
+
+> All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
+
+- [examples/SlicingPattern.cs](examples/SlicingPattern.cs) — orbiting player fires a slice ray (with optional reflections) into a circular arena; demonstrates `PhysicsDestructor.Slice` plus body rebuild with separation impulse.
+- [examples/FragmentingPattern.cs](examples/FragmentingPattern.cs) — top-down shooter that fragments a destructible block on projectile impact via `PhysicsDestructor.Fragment` with a circular mask + random seed points; rebuilds an unbroken-remainder body and a debris-body batch, with optional explosion impulse.
+- [examples/SpriteDestructionPattern.cs](examples/SpriteDestructionPattern.cs) — destruct-at-position pattern that splits the unbroken remainder into geometry islands, choosing static vs dynamic per island based on intersection with a virtual ground line.
