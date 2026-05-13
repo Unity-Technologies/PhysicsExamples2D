@@ -62,3 +62,6 @@ UserSettings/
 .DS_Store
 .multitool
 IndexingPerformanceReport
+
+# Claude Code local settings
+**/.claude/settings.local.json
