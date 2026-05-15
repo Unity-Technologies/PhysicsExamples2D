@@ -211,14 +211,13 @@ namespace Unity.U2D.Physics.Editor.Extras
             m_AutoReadDropdown = new DropdownField(autoReadLabels, AutoReadLabelForInterval(savedIntervalMs));
             m_AutoReadDropdown.style.minWidth = 70f;
             m_AutoReadDropdown.tooltip =
-                "How often to re-read the selected definition (World/Body/Shape/Geometry). " +
-                "Only active in Play mode — in Edit mode use the explicit Read buttons. " +
-                "'Off' disables. Pick a longer period when editing values to avoid clobbering edits.";
+                "How often the selected node's right-side panel re-reads live values. " +
+                "'Off' pauses every periodic re-render. Counters/Profile and per-shape Contacts/Triggers " +
+                "panels re-read in both Edit and Play mode; editable definition panels (World/Body/" +
+                "Shape/Geometry) only re-read in Play mode so a tick can't clobber an edit-in-progress.";
             m_AutoReadDropdown.RegisterValueChangedCallback(evt =>
                 ApplyAutoReadInterval(AutoReadIntervalForLabel(evt.newValue)));
             autoReadGroup.Add(m_AutoReadDropdown);
-            // Disable the whole group (label + dropdown) so the prefix Label also greys out.
-            autoReadGroup.SetEnabled(EditorApplication.isPlaying);
             buttonRow.Add(autoReadGroup);
 
             buttonRow.Add(new VisualElement { style = { flexGrow = 1f } });
@@ -269,13 +268,10 @@ namespace Unity.U2D.Physics.Editor.Extras
             m_Inspector.style.paddingBottom = 6f;
             inspectorScroll.Add(m_Inspector);
 
-            // Periodic auto-refresh tick. Bound to m_Inspector so it dies with the window.
-            // Counters/Profile panels (per-world and global) re-render on each tick to surface
-            // live values without the user clicking Read. All other selections are a no-op.
-            m_Inspector.schedule.Execute(AutoRefreshTick).Every(250);
-
-            // Honour the saved Auto Read interval — sets up the scheduled item once m_Inspector
-            // is alive. Subsequent dropdown changes route through ApplyAutoReadInterval too.
+            // Honour the saved Auto Read interval — sets up the periodic scheduled item once
+            // m_Inspector is alive. Subsequent dropdown changes route through ApplyAutoReadInterval.
+            // This is the SOLE auto-refresh ticker — there's no separate always-on schedule, so the
+            // dropdown's "Off" really does pause every periodic re-render.
             ApplyAutoReadInterval(EditorPrefs.GetInt(AutoReadIntervalPrefKey, DefaultAutoReadIntervalMs));
 
             Selection.selectionChanged += OnUnitySelectionChanged;
@@ -285,20 +281,24 @@ namespace Unity.U2D.Physics.Editor.Extras
             Refresh();
         }
 
-        private void AutoRefreshTick()
+        // The single periodic re-render tick. Period is user-configurable via the Auto Read
+        // dropdown (100/250/500/1000ms, or Off to pause); see ApplyAutoReadInterval for wiring.
+        //
+        // Definition fields (World/Body/Shape/Geometry) only auto-read in Play mode — in Edit
+        // mode the values are static AND the user may be editing them in the panel, so a tick
+        // would clobber their input. All other live-data panels (Counters/Profile, per-shape
+        // Contacts/Triggers/Entries/Visitors) re-render in both modes.
+        private void AutoReadTick()
         {
-            // Skip while the editor is paused — counters/profile values don't change so a refresh
-            // is wasted work and would also cause the inspector to flicker on every tick.
             if (EditorApplication.isPaused) return;
 
             var node = CurrentSelectedNode();
             if (node == null) return;
 
-            // Counters/profile and per-shape Contacts/Triggers panels always tick at the
-            // AutoRefreshTick cadence (250ms). The tick re-renders the right panel only — it
-            // never rebuilds tree children (that would flicker the tree).
+            bool isPlaying = EditorApplication.isPlaying;
             switch (node.kind)
             {
+                // Read-only info — safe to tick in both modes.
                 case NodeKind.WorldCounters:
                 case NodeKind.WorldProfile:
                 case NodeKind.GlobalCounters:
@@ -309,50 +309,39 @@ namespace Unity.U2D.Physics.Editor.Extras
                 case NodeKind.ShapeTriggerVisitor:
                     DisplayInspectorForCurrentSelection();
                     break;
-            }
-        }
 
-        // Independently-scheduled tick for definition Auto Read. Period is user-configurable
-        // (100/250/500/1000ms) — see ApplyAutoReadInterval below for the schedule wiring.
-        // Auto Read only operates in Play mode; in Edit mode users rely on explicit Read buttons.
-        private void AutoReadTick()
-        {
-            if (!EditorApplication.isPlaying) return;
-            if (EditorApplication.isPaused) return;
-
-            var node = CurrentSelectedNode();
-            if (node == null) return;
-
-            switch (node.kind)
-            {
+                // Editable definition panels — Play mode only so we don't clobber user edits.
                 case NodeKind.World:
                 case NodeKind.Body:
                 case NodeKind.Shape:
                 case NodeKind.GeometryInfo:
-                    DisplayInspectorForCurrentSelection();
+                    if (isPlaying) DisplayInspectorForCurrentSelection();
                     break;
             }
         }
 
         // Persists the chosen period and (re)configures the scheduled task accordingly. Called
         // once during CreateGUI to honour the saved pref, and on every dropdown change.
+        //
+        // We pause-and-recreate the scheduled item every time rather than mutating the existing
+        // one in place. UI Toolkit's IVisualElementScheduledItem doesn't expose a Cancel — once
+        // scheduled it lives until its host VisualElement is destroyed — but Pause() permanently
+        // halts it. Chaining Execute(...).Every(intervalMs) on a fresh item is the most reliable
+        // way to set the period, since reusing an existing item via Every()+Resume() has bitten
+        // us before (the period sometimes failed to update after the first one-shot fired).
         private void ApplyAutoReadInterval(int intervalMs)
         {
             EditorPrefs.SetInt(AutoReadIntervalPrefKey, intervalMs);
-
             if (m_Inspector == null) return;
-            if (m_AutoReadScheduledItem == null)
-                m_AutoReadScheduledItem = m_Inspector.schedule.Execute(AutoReadTick);
 
-            if (intervalMs <= 0)
+            if (m_AutoReadScheduledItem != null)
             {
                 m_AutoReadScheduledItem.Pause();
+                m_AutoReadScheduledItem = null;
             }
-            else
-            {
-                m_AutoReadScheduledItem.Every(intervalMs);
-                m_AutoReadScheduledItem.Resume();
-            }
+
+            if (intervalMs > 0)
+                m_AutoReadScheduledItem = m_Inspector.schedule.Execute(AutoReadTick).Every(intervalMs);
         }
 
         private static int AutoReadIntervalForLabel(string label)
@@ -375,9 +364,6 @@ namespace Unity.U2D.Physics.Editor.Extras
             // rebuilt or it will keep referencing the old (now invalid) handles.
             if (change == PlayModeStateChange.EnteredEditMode || change == PlayModeStateChange.EnteredPlayMode)
             {
-                // Toggle the whole "Auto Read: <dropdown>" group so the prefix Label greys out too.
-                if (m_AutoReadDropdown?.parent != null)
-                    m_AutoReadDropdown.parent.SetEnabled(change == PlayModeStateChange.EnteredPlayMode);
                 if (m_TreeView != null)
                     Refresh();
             }
@@ -1105,7 +1091,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             if (node.deleted)
             {
                 m_Inspector.Add(new HelpBox(
-                    "This object is no longer valid. Click Refresh to remove it from the tree.",
+                    "This object is no longer valid. Click Reload to remove it from the tree.",
                     HelpBoxMessageType.Warning));
                 return;
             }
@@ -1333,11 +1319,25 @@ namespace Unity.U2D.Physics.Editor.Extras
             DisplayInspectorForCurrentSelection();
         }
 
+        // Soft-failure helper for passive Display* validity checks. Shows a warning panel without
+        // permanently flipping the node into the deleted state. This matters because:
+        //  - Display* runs on every selection AND on every periodic AutoRead/AutoRefresh tick.
+        //  - PhysicsShape/Body/Joint .isValid can transiently return false (e.g. mid-simulation),
+        //    so a single failed read is not authoritative.
+        //  - MarkNodeDeleted is sticky — once flipped, the row stays tombstoned until Reload.
+        // Explicit Read/Write button clicks still use MarkNodeDeleted (the user actively tested).
+        private void ShowInvalidPanel(string what)
+        {
+            m_Inspector.Add(new HelpBox(
+                $"{what} handle is currently invalid. If it has truly been destroyed, click Reload to rebuild the tree.",
+                HelpBoxMessageType.Warning));
+        }
+
         private void DisplayWorld(Node node)
         {
             if (!node.world.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("World");
                 return;
             }
             DisplayDefinition(node, m_Holder, "PhysicsWorldDefinition",
@@ -1351,7 +1351,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.world.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("World");
                 return;
             }
             RenderCountersPanel("WorldCounters",
@@ -1365,7 +1365,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.world.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("World");
                 return;
             }
             RenderProfilePanel("WorldProfile",
@@ -1490,7 +1490,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.shape.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("Shape");
                 return;
             }
 
@@ -1521,7 +1521,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.shape.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("Shape");
                 return;
             }
 
@@ -1551,7 +1551,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.contactId.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("Contact");
                 return;
             }
 
@@ -1570,7 +1570,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.secondShape.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("Visitor shape");
                 return;
             }
 
@@ -1907,7 +1907,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.body.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("Body");
                 return;
             }
             DisplayDefinition(node, m_Holder, "PhysicsBodyDefinition",
@@ -1950,7 +1950,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.shape.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("Shape");
                 return;
             }
 
@@ -1970,7 +1970,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.shape.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("Shape");
                 return;
             }
 
@@ -2043,7 +2043,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         {
             if (!node.joint.isValid)
             {
-                MarkNodeDeleted(node);
+                ShowInvalidPanel("Joint");
                 return;
             }
 
@@ -2228,7 +2228,7 @@ namespace Unity.U2D.Physics.Editor.Extras
             if (holder == null)
             {
                 m_Inspector.Add(new HelpBox(
-                    "Inspector holder is no longer valid. Click Refresh to rebuild.",
+                    "Inspector holder is no longer valid. Click Reload to rebuild.",
                     HelpBoxMessageType.Warning));
                 return;
             }
