@@ -21,6 +21,15 @@ Follow these guidelines when helping with Unity PhysicsCore2D code:
 
 **ABSOLUTE RULE: NEVER INVENT OR GUESS API METHODS, PROPERTIES, OR PARAMETERS — for PhysicsCore2D *or* for any adjacent API used alongside it (Unity.Collections, Unity.Mathematics, Unity.Jobs, Burst attributes, System.Span<T> / ReadOnlySpan<T>, and core UnityEngine types). The "pre-dates the training cutoff" rationale below applies to recent additions in those namespaces just as it does to PhysicsCore2D.**
 
+**ABSOLUTE RULE: NEVER use any PhysicsCore2D API that is marked `[Obsolete]` — even if it still compiles, even if there is no apparent replacement at first glance, even if existing project code already uses it.** PhysicsCore2D is under active development; obsolete members are removal candidates and may have changed semantics relative to their replacements. If you encounter an obsolete API:
+
+1. **STOP.** Do not write code that calls it.
+2. **Find the replacement.** Read the `[Obsolete(...)]` attribute message — it usually names the new API. If not, check the relevant `*-api` skill or WebFetch the type's docs page for the current equivalent.
+3. **If no replacement is found**, ask the user. Do not reach into internals, suppress the warning, or pin to an older package version as a workaround.
+4. **If existing project code uses an obsolete API**, flag it to the user as drift. Do not propagate the pattern into new code by copy-paste.
+
+Compilation success is **not** validation. Obsolete APIs may be removed without further notice in any minor version bump of the package.
+
 This is the #1 most important rule when working with PhysicsCore2D. You MUST follow this protocol:
 
 ### Before Writing Any PhysicsCore2D API Call:
@@ -663,3 +672,30 @@ Use these when the user asks "how do I do X", "which type should I pick for Y", 
 - **First-time user / "what is PhysicsCore2D?"** → stay in this umbrella skill
 - When you're about to write code: invoke the relevant `*-api` skill *first* to verify signatures, then optionally the topic skill for the pattern
 - **"What's the signature of X?" with X not in any `*-api` skill** (PhysicsCore2D long-tail, Unity adjacent, or .NET BCL) → use the API Verification Protocol above; never guess.
+
+## Distribution — copying these skills into a target location
+
+When the user asks to **copy / distribute / vendor / sync the physicscore2d skills to `<dest>`** (typically a Unity project that should ship with these skills baked in), follow this convention without re-asking:
+
+**Source scope.** Every directory matching `~/.claude/skills/unity-physicscore2d*` — that is the umbrella skill (`unity-physicscore2d`) **plus** every `unity-physicscore2d-*` subskill (both auto-generated `-api` ones and hand-authored topic ones). Include any `examples/` subdirectories inside those skills. As of this writing the source has 35 directories total.
+
+**Never include:**
+- `~/.claude/physicscore2d-api-generator/` — that's the regeneration tooling (Python script + intermediate cluster `.md` files). It's deliberately not under `skills/` so a normal glob can't catch it, but never copy it explicitly either. The generator stays in one place.
+- Anything outside `~/.claude/skills/unity-physicscore2d*`.
+
+**Destination layout.** Mirror under `<dest>/.claude/skills/`:
+
+```
+<dest>/.claude/skills/unity-physicscore2d/SKILL.md
+<dest>/.claude/skills/unity-physicscore2d-bodies-api/SKILL.md
+<dest>/.claude/skills/unity-physicscore2d-bodies/SKILL.md
+... (every unity-physicscore2d* dir, mirrored)
+```
+
+If `<dest>` already ends in `.claude/skills` or `.claude`, don't double-nest — just complete the path so the result still lands at `<dest-root>/.claude/skills/unity-physicscore2d*/`. Create missing parent directories.
+
+**Existing files at destination.** Overwrite without prompting. This is a one-way distribution sync, not a merge — the global `~/.claude/skills/` is canonical, the destination is a vendored copy.
+
+**Verification after copy.** Confirm the count of `unity-physicscore2d*` directories under `<dest>/.claude/skills/` matches the source count, and spot-check a `-api` skill's footer line for the expected Unity version.
+
+If the user explicitly narrows the scope ("only the `-api` skills", "skip examples", "merge instead of overwrite") follow that instead. The defaults above only apply when the request is unqualified.

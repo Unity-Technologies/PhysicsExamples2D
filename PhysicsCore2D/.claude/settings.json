@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Edit(/.claude/skills/unity-physicscore2d/**)"
-    ]
-  }
-}

@@ -68,6 +68,8 @@ composer.Dispose();
 
 `PhysicsComposer.AddLayer` accepts: `CircleGeometry`, `CapsuleGeometry`, `PolygonGeometry`, `PhysicsShape`, and raw `NativeArray<Vector2>` / `ReadOnlySpan<Vector2>` point lists. See `unity-physicscore2d-composer-api` for the full overload list.
 
+> **Heads-up — `PolygonGeometry.CreatePolygons(...)` is implemented as a `PhysicsComposer` round-trip.** That static factory internally creates a transient composer, adds the supplied vertex span as a single layer, calls `CreatePolygonGeometry`, then disposes the composer. If you need *only* convex decomposition of one closed contour, the factory is a fine one-liner. If you need to add multiple layers (holes, unions, several contours), drive `PhysicsComposer` directly — using the factory and then immediately feeding its output into another composer pays for two composer round-trips for the same result. See `unity-physicscore2d-geometry-api` (`PolygonGeometry.CreatePolygons`) for the full cost note.
+
 ## Practical Examples
 
 ### Creating a Capsule-Ended Rectangle

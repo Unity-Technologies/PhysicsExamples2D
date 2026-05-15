@@ -7,7 +7,7 @@ description: Authoritative Unity 6000.5 PhysicsCore2D API reference for Queries.
 
 This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.5, so it should be treated as the source of truth for member names, signatures, and documentation strings.
 
-_Generated from Unity 6000.5.0b7 `UnityEngine.PhysicsCore2DModule.xml`._
+_Generated from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`._
 
 Top-level types in this file: `PhysicsQuery`.
 
@@ -185,7 +185,7 @@ Calculate the distance and closest points between two segments.
 
 #### `ShapeAndShape(PhysicsShape, PhysicsTransform, PhysicsShape, PhysicsTransform)`
 
-Check the intersection between two PhysicsShape.
+Check the intersection between two .
 
 **Params:**
 - `shapeA` — The first shape to use.
@@ -226,8 +226,8 @@ Calculate the upper bound on time before two shape proxies penetrate i.e. the ti
 - **ShapeSweep** — Describes the motion of a shape for a time-of-impact calculation. The shape is defined with respect to the body origin.
 - **TimeOfImpactInput** — The input for time-of-impact query.
 - **TimeOfImpactResult** — Time-of-impact result from time-of-impact query.
-- **WorldCastMode** — Controls what results are returned from a cast query against the PhysicsWorld.
-- **WorldCastResult** — The results from performing any Cast query against the PhysicsWorld.
+- **WorldCastMode** — Controls what results are returned from a cast query against the .
+- **WorldCastResult** — The results from performing any Cast query against the .
 - **WorldMoverInput** — The world mover arguments used by the world mover.
 - **WorldMoverResult** — The world mover result used by the world mover.
 - **WorldOverlapResult** — The results from performing any Overlap query.
@@ -244,7 +244,7 @@ Calculate the upper bound on time before two shape proxies penetrate i.e. the ti
 |------|---------|
 | `maxFraction` | The maximum fraction of the translation to consider in the range (0 to 1), typically 1. |
 | `origin` | The origin (start) of the ray. |
-| `translation` | The translation relative to the PhysicsQuery.CastRayInput._origin of the ray. |
+| `translation` | The translation relative to the of the ray. |
 
 #### Methods
 
@@ -258,7 +258,7 @@ Create a Cast-Ray with a default fraction of 1.
 
 **Params:**
 - `origin` — The origin (start) of the ray.
-- `translation` — The translation relative to the PhysicsQuery.CastRayInput._origin of the ray.
+- `translation` — The translation relative to the of the ray.
 
 ##### `FromTo(Vector2, Vector2)`
 
@@ -281,8 +281,17 @@ Calculate a Cast-Ray given two positions.
 | `fraction` | The fraction of the input translation at collision in the range (0 to 1). |
 | `isValid` | Check if the result is valid. |
 | `iterations` | The number of iterations used in the calculation. |
-| `normal` | The surface normal at the point of contact. In all non-overlapped cases, this will be a unit-normal. If there was an initial overlap, the normal will be zero (degenerate) along with the PhysicsQuery.CastResult._fraction being zero. |
+| `normal` | The surface normal at the point of contact. In all non-overlapped cases, this will be a unit-normal. If there was an initial overlap, the normal will be zero (degenerate) along with the being zero. |
 | `point` | The point of contact. |
+
+#### Methods
+
+##### `operator implicit()`
+
+Implicitly convert the cast output to a bool using the value in the flag.
+
+**Params:**
+- `output` — The CastResult to convert.
 
 ### CastShapeInput
 
@@ -307,7 +316,7 @@ Create a default cast shape input.
 
 ##### `new(CircleGeometry, Vector2)`
 
-Create a CastShapeInput the specified CircleGeometry. You should transform the geometry into the space you require.
+Create a CastShapeInput the specified . You should transform the geometry into the space you require.
 
 **Params:**
 - `circleGeometry` — The geometry to use.
@@ -315,7 +324,7 @@ Create a CastShapeInput the specified CircleGeometry. You should transform the g
 
 ##### `new(CapsuleGeometry, Vector2)`
 
-Create a CastShapeInput the specified CapsuleGeometry. You should transform the geometry into the space you require.
+Create a CastShapeInput the specified . You should transform the geometry into the space you require.
 
 **Params:**
 - `capsuleGeometry` — The geometry to use.
@@ -323,7 +332,7 @@ Create a CastShapeInput the specified CapsuleGeometry. You should transform the 
 
 ##### `new(SegmentGeometry, Vector2)`
 
-Create a CastShapeInput the specified SegmentGeometry. You should transform the geometry into the space you require.
+Create a CastShapeInput the specified . You should transform the geometry into the space you require.
 
 **Params:**
 - `segmentGeometry` — The geometry to use.
@@ -331,7 +340,7 @@ Create a CastShapeInput the specified SegmentGeometry. You should transform the 
 
 ##### `new(PolygonGeometry, Vector2)`
 
-Create a CastShapeInput the specified PolygonGeometry. You should transform the geometry into the space you require.
+Create a CastShapeInput the specified . You should transform the geometry into the space you require.
 
 **Params:**
 - `polygonGeometry` — The geometry to use.
@@ -339,7 +348,7 @@ Create a CastShapeInput the specified PolygonGeometry. You should transform the 
 
 ##### `new(ChainSegmentGeometry, Vector2)`
 
-Create a CastShapeInput the specified ChainSegmentGeometry. You should transform the geometry into the space you require.
+Create a CastShapeInput the specified . You should transform the geometry into the space you require.
 
 **Params:**
 - `chainSegmentGeometry` — The geometry to use.
@@ -414,7 +423,7 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 | Name | Summary |
 |------|---------|
 | `DefaultCategories` | The default categories used. |
-| `defaultFilter` | Get the default query filter that hits everything. See PhysicsQuery.QueryFilter.Everything. |
+| `defaultFilter` | Get the default query filter that hits everything. See . |
 | `DefaultHitCategories` | The default hit categories used. |
 | `DefaultIgnoreFilter` | The default ignore filter used. |
 | `Everything` | Get a query filter that is all categories, hits everything and doesn't ignore any objects. |
@@ -431,15 +440,15 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 
 ##### `new()`
 
-Create a default filter set as PhysicsQuery.QueryFilter._defaultFilter.
+Create a default filter set as .
 
-##### `new()`
+##### `new(PhysicsMask, PhysicsMask, PhysicsWorld.IgnoreFilter)`
 
 Create a query filter.
 
 **Params:**
-- `categories` — A PhysicsMask defining the categories this query is using.
-- `hitCategories` — A PhysicsMask defining the categories this query will produce hits with.
+- `categories` — A defining the categories this query is using.
+- `hitCategories` — A defining the categories this query will produce hits with.
 - `ignoreFilter` — A filter used to ignore items when filtering.
 
 ### SegmentDistanceResult
@@ -527,7 +536,7 @@ Create a query filter.
 
 ### WorldCastMode
 
-> Controls what results are returned from a cast query against the PhysicsWorld.
+> Controls what results are returned from a cast query against the .
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.WorldCastMode`  
 
@@ -541,7 +550,7 @@ Create a query filter.
 
 ### WorldCastResult
 
-> The results from performing any Cast query against the PhysicsWorld.
+> The results from performing any Cast query against the .
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.WorldCastResult`  
 
@@ -551,7 +560,7 @@ Create a query filter.
 |------|---------|
 | `fraction` | The fraction of the query cast distance the shape would move to the point of detection, in the range [0, 1]. |
 | `isValid` | Check if the result is valid. |
-| `normal` | The surface normal at the point of contact. In all non-overlapped cases, this will be a unit-normal. If there was an initial overlap, the normal will be zero (degenerate) along with the PhysicsQuery.WorldCastResult._fraction being zero and PhysicsQuery.WorldCastResult._point being an arbitrary point in the overlapped region. See PhysicsQuery.WorldCastResult._point. |
+| `normal` | The surface normal at the point of contact. In all non-overlapped cases, this will be a unit-normal. If there was an initial overlap, the normal will be zero (degenerate) along with the being zero and being an arbitrary point in the overlapped region. See . |
 | `point` | The point of contact. |
 | `shape` | The shape that was detected by the cast. |
 
@@ -565,16 +574,16 @@ Create a query filter.
 
 | Name | Summary |
 |------|---------|
-| `castFilter` | The filter to use for checking casts. The advantage of a separate filter to PhysicsQuery.WorldMoverInput._overlapFilter is that you can check for overlaps in a different way to what you can hit when moving. For instance, you may or may not want to check for other movers in they existing in the world when moving but you want to always check them for overlap initially. |
-| `collisionResults` | Whether to return all the individual PhysicsShape.MoverCollision results for all iterations or not. All the collisions will be returned in the PhysicsQuery.WorldMoverResult results. |
+| `castFilter` | The filter to use for checking casts. The advantage of a separate filter to is that you can check for overlaps in a different way to what you can hit when moving. For instance, you may or may not want to check for other movers in they existing in the world when moving but you want to always check them for overlap initially. |
+| `collisionResults` | Whether to return all the individual results for all iterations or not. All the collisions will be returned in the results. |
 | `defaultInput` | Create a default world mover input. |
 | `geometry` | The mover geometry to use when checking for overlaps and casting. |
-| `maxIterations` | Solving a movement is iterative and will continue until the maximum allowed iterations has been achieve, controlled by this value. The maximum allowed iterations will not always be used and solving will cease if the iteration movement falls below the square of the PhysicsQuery.WorldMoverInput._moveTolerance. |
-| `moveTolerance` | Solving a movement will cease if the movement falls below the square of this value. By default, this value is extremely small. Too high a value will result in solving ceasing too quickly, too small will result in all allowed PhysicsQuery.WorldMoverInput._maxIterations being used. |
+| `maxIterations` | Solving a movement is iterative and will continue until the maximum allowed iterations has been achieve, controlled by this value. The maximum allowed iterations will not always be used and solving will cease if the iteration movement falls below the square of the . |
+| `moveTolerance` | Solving a movement will cease if the movement falls below the square of this value. By default, this value is extremely small. Too high a value will result in solving ceasing too quickly, too small will result in all allowed being used. |
 | `overlapFilter` | The filter to use for checking overlaps. |
 | `targetPosition` | The position desired for the mover to achieve. This is typically calculated using the current velocity, any gravity required and time-integrated by the simulation time-step (delta-time). |
 | `transform` | The transform used to transform the geometry i.e. the mover starting pose. |
-| `velocity` | The velocity used to calculate the PhysicsQuery.WorldMoverInput._targetPosition. This is not used for movement but it will be returned, modified by any surfaces hit. This velocity can then be used in subsequent inputs for movement. |
+| `velocity` | The velocity used to calculate the . This is not used for movement but it will be returned, modified by any surfaces hit. This velocity can then be used in subsequent inputs for movement. |
 
 #### Methods
 
@@ -592,8 +601,8 @@ Create a default world mover input.
 
 | Name | Summary |
 |------|---------|
-| `collisionResults` | All the individual PhysicsShape.MoverCollision results for all iterations. Multiple non-unique contacts for the same PhysicsShape may be returned due to iterations, overlapping and casting. This is only populated if PhysicsQuery.WorldMoverInput._collisionResults is true. |
-| `transform` | The final transform the mover finished at. The transform rotation is always the same as the PhysicsQuery.WorldMoverInput._transform provided. |
+| `collisionResults` | All the individual results for all iterations. Multiple non-unique contacts for the same may be returned due to iterations, overlapping and casting. This is only populated if is true. |
+| `transform` | The final transform the mover finished at. The transform rotation is always the same as the provided. |
 | `velocity` | The final velocity the mover finished at. |
 
 #### Methods
@@ -617,4 +626,4 @@ Dispose of any allocated memory for the collision results.
 
 ---
 
-_Generated by `.claude/api-reference/_generate.py` from Unity 6000.5.0b7 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
+_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._

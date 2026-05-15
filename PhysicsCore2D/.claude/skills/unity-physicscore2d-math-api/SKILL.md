@@ -7,7 +7,7 @@ description: Authoritative Unity 6000.5 PhysicsCore2D API reference for Math Uti
 
 This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.5, so it should be treated as the source of truth for member names, signatures, and documentation strings.
 
-_Generated from Unity 6000.5.0b7 `UnityEngine.PhysicsCore2DModule.xml`._
+_Generated from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`._
 
 Top-level types in this file: `PhysicsMath`.
 
@@ -29,7 +29,7 @@ Top-level types in this file: `PhysicsMath`.
 
 #### `AngularVelocityToQuaternion(float, float, PhysicsWorld.TransformPlane)`
 
-Calculate a Quaternion given a 2D angular velocity and a time to integrate over using the selected transform plane. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Calculate a given a 2D angular velocity and a time to integrate over using the selected transform plane. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `angularVelocity` — The 2D angular velocity, in radians.
@@ -68,7 +68,7 @@ Calculate both the Cosine and Sine of the specified angle.
 
 #### `GetRelativeMatrix(Transform, Transform, PhysicsWorld.TransformPlane, bool)`
 
-Get the relative transformation matrix between the two specified transforms using the specified transform plane. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Get the relative transformation matrix between the two specified transforms using the specified transform plane. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `transformFrom` — The transform used as a reference to transform from.
@@ -106,7 +106,7 @@ Get the relative transformation pose (translation, rotation and scale) between t
 
 #### `GetRotationAxes(PhysicsWorld.TransformPlane)`
 
-Get the used rotation axes, given the specified transform plane. This is the inverse of PhysicsMath.GetRotationIgnoredAxes. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Get the used rotation axes, given the specified transform plane. This is the inverse of . If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `transformPlane` — The transform plane to use.
@@ -115,7 +115,7 @@ Get the used rotation axes, given the specified transform plane. This is the inv
 
 #### `GetRotationIgnoredAxes(PhysicsWorld.TransformPlane)`
 
-Get the ignored rotation axes, given the specified transform plane. This is the inverse of PhysicsMath.GetRotationAxes. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Get the ignored rotation axes, given the specified transform plane. This is the inverse of . If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `transformPlane` — The transform plane to use.
@@ -124,7 +124,7 @@ Get the ignored rotation axes, given the specified transform plane. This is the 
 
 #### `GetTranslationAxes(PhysicsWorld.TransformPlane)`
 
-Get the used translation axes, given the specified transform plane. This is the inverse of PhysicsMath.GetTranslationIgnoredAxes. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Get the used translation axes, given the specified transform plane. This is the inverse of . If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `transformPlane` — The transform plane to use.
@@ -133,7 +133,7 @@ Get the used translation axes, given the specified transform plane. This is the 
 
 #### `GetTranslationIgnoredAxes(PhysicsWorld.TransformPlane)`
 
-Get the ignored translation axes, given the specified transform plane. This is the inverse of PhysicsMath.GetTranslationAxes. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Get the ignored translation axes, given the specified transform plane. This is the inverse of . If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `transformPlane` — The transform plane to use.
@@ -142,7 +142,7 @@ Get the ignored translation axes, given the specified transform plane. This is t
 
 #### `GetTranslationIgnoredAxis(Vector3, PhysicsWorld.TransformPlane)`
 
-Get the ignored translation axis, given the specified transform plane. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Get the ignored translation axis, given the specified transform plane. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `position` — The position to extra the axis from.
@@ -188,7 +188,7 @@ Get the minimum absolute value component from the specified vector.
 
 #### `SetTransformFast2D(PhysicsTransform, Transform, PhysicsWorld.TransformPlane, bool)`
 
-Set the Transform position and rotation using the specified PhysicsWorld.TransformPlane. For position, only two axis will be updated with the others remaining unchanged. For rotation, only a single rotation axis will be changed with the others set to zero. See: PhysicsMath.ToRotationFast3D and PhysicsWorld.SetTransform.
+Set the Transform position and rotation using the specified . For position, only two axis will be updated with the others remaining unchanged. For rotation, only a single rotation axis will be changed with the others set to zero. See: and .
 
 **Params:**
 - `physicsTransform` — The physics transform to use as the source of the pose.
@@ -198,7 +198,7 @@ Set the Transform position and rotation using the specified PhysicsWorld.Transfo
 
 #### `SetTransformSlow3D(PhysicsTransform, Transform, PhysicsWorld.TransformPlane, bool)`
 
-Set the Transform position and rotation using the specified PhysicsWorld.TransformPlane. For position, only two axis will be updated with the others remaining unchanged. For rotation, only a single rotation axis will be changed with the others remaining unchanged. See: PhysicsMath.ToRotationSlow3D and PhysicsWorld.SetTransform.
+Set the Transform position and rotation using the specified . For position, only two axis will be updated with the others remaining unchanged. For rotation, only a single rotation axis will be changed with the others remaining unchanged. See: and .
 
 **Params:**
 - `physicsTransform` — The physics transform to use as the source of the pose.
@@ -221,7 +221,7 @@ Calculate a one-dimensional mass-spring-damper simulation which drives towards a
 
 #### `Swizzle(Vector3, PhysicsWorld.TransformPlane)`
 
-Transform a 3D vector into a 3D vector using the selected transform plane. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Transform a 3D vector into a 3D vector using the selected transform plane. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `position` — The 3D vector to transform.
@@ -231,7 +231,7 @@ Transform a 3D vector into a 3D vector using the selected transform plane. If Ph
 
 #### `Swizzle(Vector4, PhysicsWorld.TransformPlane)`
 
-Transform a 3D position (with perspective divide) into a 3D position using the selected transform plane. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Transform a 3D position (with perspective divide) into a 3D position using the selected transform plane. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `position` — The 3D position to transform.
@@ -241,7 +241,7 @@ Transform a 3D position (with perspective divide) into a 3D position using the s
 
 #### `Swizzle(Matrix4x4, PhysicsWorld.TransformPlane)`
 
-Transform a Matrix position (with perspective divide) into a Matrix position using the selected transform plane. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Transform a Matrix position (with perspective divide) into a Matrix position using the selected transform plane. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `matrix` — The Matrix position to transform.
@@ -251,7 +251,7 @@ Transform a Matrix position (with perspective divide) into a Matrix position usi
 
 #### `ToDegrees(float)`
 
-Convert radians to degrees. This operates as deterministically as possible across platforms. See PhysicsMath.ToRadians.
+Convert radians to degrees. This operates as deterministically as possible across platforms. See .
 
 **Params:**
 - `radians` — The radian value to convert to degrees.
@@ -260,7 +260,7 @@ Convert radians to degrees. This operates as deterministically as possible acros
 
 #### `ToPhysicsTransform(Transform, PhysicsWorld.TransformPlane)`
 
-Transform a 3D Transform position and rotation to a 2D PhysicsTransform. Scale is not part of a PhysicsTransform therefore it is ignored. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Transform a 3D position and rotation to a 2D . Scale is not part of a therefore it is ignored. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `transform` — The 3D transform to use.
@@ -270,7 +270,7 @@ Transform a 3D Transform position and rotation to a 2D PhysicsTransform. Scale i
 
 #### `ToPosition2D(Vector3, PhysicsWorld.TransformPlane)`
 
-Transform a 3D position into a 2D position using the selected transform plane. If TransformPlane.Custom is used then PhysicsWorld.TransformPlane.XY is used.
+Transform a 3D position into a 2D position using the selected transform plane. If TransformPlane.Custom is used then is used.
 
 **Params:**
 - `position` — The 3D position to transform.
@@ -291,7 +291,7 @@ Transform a 3D position into a 2D position using the selected transform plane. T
 
 #### `ToPosition3D(Vector2, Vector3, PhysicsWorld.TransformPlane)`
 
-Transform a 2D position into a 3D position using the selected transform plane. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Transform a 2D position into a 3D position using the selected transform plane. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `position` — The 2D position to transform.
@@ -314,7 +314,7 @@ Transform a 2D position into a 3D position using the selected transform plane.
 
 #### `ToRadians(float)`
 
-Convert degrees to radians. This operates as deterministically as possible across platforms. See PhysicsMath.ToDegrees.
+Convert degrees to radians. This operates as deterministically as possible across platforms. See .
 
 **Params:**
 - `degrees` — The degree value to convert to radians.
@@ -323,7 +323,7 @@ Convert degrees to radians. This operates as deterministically as possible acros
 
 #### `ToRotation2D(Quaternion, PhysicsWorld.TransformPlane)`
 
-Transform a 3D rotation into a 2D angle using the selected transform plane. If TransformPlane.Custom is used then PhysicsWorld.TransformPlane.XY is used.
+Transform a 3D rotation into a 2D angle using the selected transform plane. If TransformPlane.Custom is used then is used.
 
 **Params:**
 - `quaternion` — The 3D rotation to transform.
@@ -344,7 +344,7 @@ Transform a 3D rotation into a 2D angle using the selected transform plane.
 
 #### `ToRotationFast3D(float, PhysicsWorld.TransformPlane)`
 
-Transform a 2D angle into a 3D rotation using the selected transform plane (Fast). The transformation is fast because the rotation is simplified by the fact that only a single axis of rotation is handled. All other axis rotations are reset to zero. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Transform a 2D angle into a 3D rotation using the selected transform plane (Fast). The transformation is fast because the rotation is simplified by the fact that only a single axis of rotation is handled. All other axis rotations are reset to zero. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `angle` — The 2D angle to transform in radians.
@@ -354,7 +354,7 @@ Transform a 2D angle into a 3D rotation using the selected transform plane (Fast
 
 #### `ToRotationSlow3D(float, Quaternion, PhysicsWorld.TransformPlane)`
 
-Transform a 2D angle into a 3D rotation using the selected transform plane (Slow). The transformation is slower because the rotation is more complex due to the fact that changing a single axis of rotation requires it to not affect any other axis rotations. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
+Transform a 2D angle into a 3D rotation using the selected transform plane (Slow). The transformation is slower because the rotation is more complex due to the fact that changing a single axis of rotation requires it to not affect any other axis rotations. If is used, will be used instead which may not provide the correct results.
 
 **Params:**
 - `angle` — The 2D angle to transform in radians.
@@ -363,4 +363,4 @@ Transform a 2D angle into a 3D rotation using the selected transform plane (Slow
 
 ---
 
-_Generated by `.claude/api-reference/_generate.py` from Unity 6000.5.0b7 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
+_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
