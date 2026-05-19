@@ -70,35 +70,68 @@ string layerName = PhysicsLayers.GetLayerName(8);
 The `PhysicsShape.ContactFilter` controls which shape pairs can create physical contacts (collisions):
 
 ```csharp
-// Set up collision filtering
-var shape = body.GetShape(0);
+// Source: PhysicsShapeContactFiltering.cs (Primer project)
+using Unity.U2D.Physics;
+using UnityEngine;
 
-// Only collide with "Ground" and "Wall" layers
-PhysicsMask collisionMask = PhysicsLayers.GetLayerMask("Ground", "Wall");
-shape.contactFilter.SetLayerMask(collisionMask);
+// ContactFilter controls which shape pairs produce physical contacts.
+// categories = which physics layers this shape belongs to (64-bit PhysicsMask).
+// contacts   = which physics layers this shape will collide with.
+var shapeDef = new PhysicsShapeDefinition
+{
+    // This is equivalent to PhysicsShape.ContactFilter.defaultFilter:
+    // belongs to layer bit-0 (PhysicsMask.One), collides with everything.
+    contactFilter = new PhysicsShape.ContactFilter
+    {
+        categories = PhysicsMask.One,
+        contacts   = PhysicsMask.All
+    },
+    surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 0.8f }
+};
 
-// Set this shape's layer
-shape.contactFilter.SetLayer(PhysicsLayers.GetLayerOrdinal("Player"));
+var world = PhysicsWorld.Create();
+var body  = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic });
+body.CreateShape(CircleGeometry.defaultGeometry, shapeDef);
 ```
 
 ### ContactFilter Properties
 
 ```csharp
-// Full ContactFilter configuration
-var filter = shape.contactFilter;
+// Source: CharacterMover.cs (Sandbox) and Slicing.cs (Sandbox)
+// PhysicsShape.ContactFilter has exactly three fields: categories, contacts, groupIndex.
+using Unity.U2D.Physics;
 
-// Set which layers this shape can collide with
-filter.SetLayerMask(collisionMask);
+// --- categories / contacts ---
+// Declare named masks using bit indices (bit 0 = PhysicsMask.One).
+var groundMask      = new PhysicsMask(0);   // bit 0
+var destructibleMask = new PhysicsMask(3);  // bit 3
 
-// Set this shape's layer
-filter.SetLayer(layerOrdinal);
+// Ground shape: belongs to groundMask, collides with everything.
+var groundContactFilter = new PhysicsShape.ContactFilter
+{
+    categories = groundMask,
+    contacts   = PhysicsMask.All
+};
 
-// Enable/disable layer filtering
-filter.useLayerMask = true;
+// Destructible shape: belongs to destructibleMask, collides with everything.
+var destructibleContactFilter = new PhysicsShape.ContactFilter
+{
+    categories = destructibleMask,
+    contacts   = PhysicsMask.All
+};
 
-// Other filter properties
-filter.useTriggers = false; // Ignore triggers
-filter.useDepth = false;    // Ignore depth filtering
+// --- groupIndex (negative = never contact, positive = always contact) ---
+// Source: SoftbodyFactory.cs — soft-body segments never collide with each other.
+var softBodyFilter = new PhysicsShape.ContactFilter
+{
+    categories = PhysicsMask.One,
+    contacts   = PhysicsMask.All,
+    groupIndex = -1   // identical negative group: siblings never contact
+};
+
+// --- CanContact helper ---
+// Check whether two filters would produce a contact before creating shapes.
+bool wouldContact = groundContactFilter.CanContact(destructibleContactFilter);
 ```
 
 ## Query Filtering with QueryFilter
@@ -106,36 +139,71 @@ filter.useDepth = false;    // Ignore depth filtering
 The `PhysicsQuery.QueryFilter` controls which shapes are returned from physics queries (raycasts, overlaps, etc.):
 
 ```csharp
-// Create query filter
-var queryFilter = new PhysicsQuery.QueryFilter
-{
-    // Only query against "Enemy" and "Obstacle" layers
-    layerMask = PhysicsLayers.GetLayerMask("Enemy", "Obstacle"),
-    useLayerMask = true
-};
+// Source: CastRayQuery.cs (Primer) and Slicing.cs (Sandbox)
+// QueryFilter controls which shapes a query hits. Fields: categories, hitCategories, ignoreFilter.
+// categories    = the "identity" mask of the query (what layer the query comes from).
+// hitCategories = which physics layers the query can detect.
+using Unity.U2D.Physics;
+using UnityEngine;
 
-// Use in raycast
-var results = world.Raycast(origin, direction, distance, queryFilter);
+var world = PhysicsWorld.defaultWorld;
 
-// Only shapes on specified layers will be returned
+// Simplest case: hit everything (uses QueryFilter.Everything).
+using var allHits = world.CastRay(
+    new PhysicsQuery.CastRayInput { origin = Vector2.zero, translation = Vector2.up * 10f },
+    PhysicsQuery.QueryFilter.Everything);
+
+// Targeted case: a projectile query that only hits ground and destructible layers.
+var groundMask      = new PhysicsMask(2);  // bit 2
+var destructibleMask = new PhysicsMask(3); // bit 3
+
+using var filteredHits = world.CastRay(
+    new PhysicsQuery.CastRayInput { origin = Vector2.zero, translation = Vector2.up * 10f },
+    new PhysicsQuery.QueryFilter
+    {
+        categories    = PhysicsMask.All,
+        hitCategories = destructibleMask | groundMask
+    });
 ```
 
 ### QueryFilter Configuration
 
 ```csharp
-var queryFilter = new PhysicsQuery.QueryFilter();
+// Source: CharacterMover.cs (Sandbox) — real ground-check and mover-cast filters
+using Unity.U2D.Physics;
 
-// Set layers to query
-queryFilter.layerMask = PhysicsLayers.GetLayerMask("Enemy", "Player");
-queryFilter.useLayerMask = true;
+// Declare named masks by bit index.
+// PhysicsMask(int[]) sets multiple bits; new PhysicsMask(n) sets bit n alone.
+var staticBit  = new PhysicsMask(0);   // Static environment
+var moverBit   = new PhysicsMask(1);   // Character movers
+var dynamicBit = new PhysicsMask(2);   // Dynamic rigidbodies
 
-// Include/exclude triggers
-queryFilter.useTriggers = true;
+// Pogo/ground-check filter: query is "from" the mover, hits static + dynamic only.
+var groundCheckFilter = new PhysicsQuery.QueryFilter
+{
+    categories    = moverBit,
+    hitCategories = staticBit | dynamicBit
+};
 
-// Depth filtering
-queryFilter.useDepth = false;
-queryFilter.minDepth = -10f;
-queryFilter.maxDepth = 10f;
+// Overlap filter: mover checks for depenetration against all solid layers.
+var overlapFilter = new PhysicsQuery.QueryFilter
+{
+    categories    = moverBit,
+    hitCategories = staticBit | dynamicBit | moverBit
+};
+
+// Cast filter: sweeps only against static + dynamic (movers use soft collision).
+var castFilter = new PhysicsQuery.QueryFilter
+{
+    categories    = moverBit,
+    hitCategories = staticBit | dynamicBit
+};
+
+// Use with any world query, e.g.:
+var world = PhysicsWorld.defaultWorld;
+using var hits = world.CastRay(
+    new PhysicsQuery.CastRayInput { origin = UnityEngine.Vector2.zero, translation = UnityEngine.Vector2.down * 5f },
+    groundCheckFilter);
 ```
 
 ## PhysicsMask Operations
@@ -158,10 +226,10 @@ PhysicsMask withoutPlayer = combinedMask & ~playerMask;
 bool hasPlayer = (combinedMask & playerMask) != 0;
 
 // Everything mask
-PhysicsMask everything = PhysicsMask.Everything;
+PhysicsMask everything = PhysicsMask.All;
 
 // Nothing mask
-PhysicsMask nothing = PhysicsMask.Nothing;
+PhysicsMask nothing = PhysicsMask.None;
 ```
 
 ## Display Attributes
@@ -184,75 +252,176 @@ public class MyComponent : MonoBehaviour
 
 ### One-Way Platforms
 ```csharp
-// Player can jump through platforms from below
-var platformShape = platformBody.GetShape(0);
-var playerShape = playerBody.GetShape(0);
+// Source: PhysicsShapeContactFiltering.cs (Primer project)
+// One-way platforms: use IContactFilterCallback to veto contacts at simulation time.
+// THREAD-SAFETY REQUIREMENT: OnContactFilter2D can be called off the main thread.
+// Do NOT perform write operations on the physics world inside the callback.
+using Unity.U2D.Physics;
+using UnityEngine;
 
-// Platform layer
-platformShape.contactFilter.SetLayer(PhysicsLayers.GetLayerOrdinal("Platform"));
-platformShape.contactFilter.SetLayerMask(PhysicsLayers.GetLayerMask("Player"));
-
-// Player collides with platforms only when above
-// (Implement in IContactFilterCallback)
-public bool OnContactFilter2D(PhysicsWorld world, PhysicsShape shapeA, PhysicsShape shapeB)
+public class OneWayPlatform : MonoBehaviour, PhysicsCallbacks.IContactFilterCallback
 {
-    if (IsPlatform(shapeA) && IsPlayer(shapeB))
+    private PhysicsWorld m_PhysicsWorld;
+    private PhysicsShape m_PlatformShape;
+
+    private void OnEnable()
     {
-        // Allow collision only if player is above platform
-        return playerBody.position.y > platformBody.position.y;
+        m_PhysicsWorld = PhysicsWorld.Create();
+
+        // Enable contact-filter callbacks on the world.
+        m_PhysicsWorld.contactFilterCallbacks = true;
+
+        // Create a static platform body.
+        var platformBody = m_PhysicsWorld.CreateBody();
+        var platformDef = new PhysicsShapeDefinition
+        {
+            contactFilter = new PhysicsShape.ContactFilter
+            {
+                categories = PhysicsMask.One,
+                contacts   = PhysicsMask.All
+            },
+            // Mark this shape as needing filter callbacks.
+            contactFilterCallbacks = true
+        };
+        m_PlatformShape = platformBody.CreateShape(
+            PolygonGeometry.CreateBox(new Vector2(4f, 0.2f)),
+            platformDef);
+
+        // This MonoBehaviour is the callback target.
+        m_PlatformShape.callbackTarget = this;
     }
-    return true;
+
+    // Return false to suppress the contact (body passes through).
+    // Return true to allow the contact (body lands on platform).
+    // NOTE: Must be thread-safe — read userData/shapeType only.
+    public bool OnContactFilter2D(PhysicsEvents.ContactFilterEvent contactFilterEvent)
+    {
+        // Identify which shape is the platform and which is the visitor.
+        var platform = contactFilterEvent.shapeA == m_PlatformShape
+            ? contactFilterEvent.shapeA
+            : contactFilterEvent.shapeB;
+        var visitor = platform == contactFilterEvent.shapeA
+            ? contactFilterEvent.shapeB
+            : contactFilterEvent.shapeA;
+
+        // Allow contact only if the visitor is moving downward (approaching from above).
+        // userData can carry a pre-computed "movingDown" flag set on the main thread.
+        return visitor.userData.boolValue; // true = falling down, allow landing
+    }
+
+    private void OnDisable() => m_PhysicsWorld.Destroy();
 }
 ```
 
 ### Friendly Fire Prevention
 ```csharp
-// Allies don't collide with each other
-var allyMask = PhysicsLayers.GetLayerMask("Ally");
-var enemyMask = PhysicsLayers.GetLayerMask("Enemy");
+// Source: RagdollFactory.cs (Sandbox) — ragdoll body parts that don't self-collide.
+// Negative identical groupIndex: shapes with the same negative group NEVER contact each other.
+// Positive identical groupIndex: shapes with the same positive group ALWAYS contact each other.
+// A groupIndex of 0 falls back to normal categories/contacts mask evaluation.
+using Unity.U2D.Physics;
 
-// Ally shape - only collides with enemies and environment
-allyShape.contactFilter.SetLayer(PhysicsLayers.GetLayerOrdinal("Ally"));
-allyShape.contactFilter.SetLayerMask(enemyMask | groundMask | wallMask);
+// Assign each ragdoll a unique positive group index (e.g. from a counter).
+int ragdollGroup = 7; // unique per ragdoll instance
 
-// Enemy shape - only collides with allies and environment
-enemyShape.contactFilter.SetLayer(PhysicsLayers.GetLayerOrdinal("Enemy"));
-enemyShape.contactFilter.SetLayerMask(allyMask | groundMask | wallMask);
+// Body layer mask for this ragdoll.
+var bodyLayer = new PhysicsMask(4); // bit 4 = "Character"
+var envLayer  = new PhysicsMask(0); // bit 0 = "Environment"
+
+// Torso shape: collides with environment but never with own ragdoll parts.
+var torsoFilter = new PhysicsShape.ContactFilter
+{
+    categories = bodyLayer,
+    contacts   = bodyLayer | envLayer,
+    groupIndex = -ragdollGroup   // negative = never contact same-group shapes
+};
+
+// Alternative: allies that always contact each other regardless of masks.
+var allyFilter = new PhysicsShape.ContactFilter
+{
+    categories = bodyLayer,
+    contacts   = bodyLayer,
+    groupIndex = +ragdollGroup   // positive = always contact same-group shapes
+};
+
+var shapeDef = new PhysicsShapeDefinition { contactFilter = torsoFilter };
+var world = PhysicsWorld.defaultWorld;
+var body  = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic });
+body.CreateShape(CircleGeometry.defaultGeometry, shapeDef);
 ```
 
 ### Projectile Filtering
 ```csharp
-// Projectiles ignore the shooter
-var projectileShape = projectileBody.GetShape(0);
+// Source: CharacterMover.cs (Sandbox) — shape ContactFilter + body GetShapes iteration
+// Projectiles collide with environment and players but not with other projectiles.
+using Unity.Collections;
+using Unity.U2D.Physics;
+using UnityEngine;
 
-// Set projectile layer
-projectileShape.contactFilter.SetLayer(PhysicsLayers.GetLayerOrdinal("Projectile"));
+// Layer declarations (cached as statics or fields — never call GetLayerMask every frame).
+static readonly PhysicsMask ProjectileMask   = PhysicsLayers.GetLayerMask("Projectile");
+static readonly PhysicsMask PlayerMask       = PhysicsLayers.GetLayerMask("Player");
+static readonly PhysicsMask EnvironmentMask  = PhysicsLayers.GetLayerMask("Environment");
 
-// Collide with everything except shooter's layer
-PhysicsMask targetMask = PhysicsMask.Everything & ~shooterLayerMask;
-projectileShape.contactFilter.SetLayerMask(targetMask);
+// Projectile shape: belongs to ProjectileMask, hits players + environment only.
+var projectileFilter = new PhysicsShape.ContactFilter
+{
+    categories = ProjectileMask,
+    contacts   = PlayerMask | EnvironmentMask   // NOT ProjectileMask → no projectile–projectile hits
+};
+
+var world          = PhysicsWorld.defaultWorld;
+var projectileBody = world.CreateBody(new PhysicsBodyDefinition
+{
+    type     = PhysicsBody.BodyType.Dynamic,
+    position = Vector2.zero
+});
+projectileBody.CreateShape(CircleGeometry.defaultGeometry,
+    new PhysicsShapeDefinition { contactFilter = projectileFilter });
+
+// If you need to update the filter on all shapes of an existing body at runtime:
+using var shapes = projectileBody.GetShapes();   // body.GetShape(int) does NOT exist
+foreach (var shape in shapes)
+    shape.contactFilter = projectileFilter;
 ```
 
 ### Layer-Based Raycasts
 ```csharp
-// Raycast only against enemies
-var enemyFilter = new PhysicsQuery.QueryFilter
+// Source: Slicing.cs (Sandbox) + CastRayQuery.cs (Primer)
+// Layer-based raycasts use QueryFilter.hitCategories — there is NO layerMask field.
+using Unity.U2D.Physics;
+using UnityEngine;
+
+var world = PhysicsWorld.defaultWorld;
+
+// --- Sight-line check (hits everything) ---
+using var sightHits = world.CastRay(
+    new PhysicsQuery.CastRayInput { origin = Vector2.zero, translation = Vector2.up * 20f },
+    PhysicsQuery.QueryFilter.Everything);
+
+// --- Projectile raycast (named layers via PhysicsLayers) ---
+// Cache masks as statics — PhysicsLayers.GetLayerMask takes a params string[].
+var groundMask       = PhysicsLayers.GetLayerMask("Ground");
+var destructibleMask = PhysicsLayers.GetLayerMask("Destructible");
+
+using var projectileHits = world.CastRay(
+    new PhysicsQuery.CastRayInput { origin = Vector2.zero, translation = Vector2.right * 30f },
+    new PhysicsQuery.QueryFilter
+    {
+        categories    = PhysicsMask.All,       // "from" any layer
+        hitCategories = groundMask | destructibleMask
+    },
+    PhysicsQuery.WorldCastMode.AllSorted);     // sorted nearest-first
+
+// --- Read the hit shape's own category for branching ---
+foreach (var hit in projectileHits)
 {
-    layerMask = PhysicsLayers.GetLayerMask("Enemy", "Boss"),
-    useLayerMask = true,
-    useTriggers = false
-};
-
-var hits = world.Raycast(origin, direction, maxDistance, enemyFilter);
-
-// Raycast against everything except player
-var worldFilter = new PhysicsQuery.QueryFilter
-{
-    layerMask = PhysicsMask.Everything & ~PhysicsLayers.GetLayerMask("Player"),
-    useLayerMask = true
-};
-
-var worldHits = world.Raycast(origin, direction, maxDistance, worldFilter);
+    var hitCategory = hit.shape.contactFilter.categories;
+    if (hitCategory == destructibleMask)
+        Debug.Log("Hit destructible");
+    else if (hitCategory == groundMask)
+        Debug.Log("Hit ground");
+}
 ```
 
 ## Best Practices

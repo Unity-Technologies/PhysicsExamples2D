@@ -27,14 +27,36 @@ PhysicsCore2D provides comprehensive collision detection and response capabiliti
 The interface provides two callback methods:
 
 ```csharp
+// IContactCallback interface declaration stub
+// Source: PhysicsCallbacks.IContactCallback (events-api, PhysicsShapeContactCallback.cs)
 public interface IContactCallback
 {
-    // Called when two shapes first make contact
-    void OnContactBegin2D(PhysicsShape shapeA, PhysicsShape shapeB, ContactManifold manifold);
+    // Called on the main thread after simulation, when two non-trigger shapes first touch.
+    void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent);
 
-    // Called when two shapes stop being in contact
-    void OnContactEnd2D(PhysicsShape shapeA, PhysicsShape shapeB, ContactManifold manifold);
+    // Called on the main thread after simulation, when two non-trigger shapes stop touching.
+    // Note: fires immediately if a body/shape is destroyed, or the body transform is set,
+    // even if the shapes were still overlapping.
+    void OnContactEnd2D(PhysicsEvents.ContactEndEvent endEvent);
 }
+```
+
+**Event struct members** (both `ContactBeginEvent` and `ContactEndEvent`):
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `shapeA` | `PhysicsShape` | One of the shapes; may be invalid if destroyed in an earlier callback |
+| `shapeB` | `PhysicsShape` | The other shape; same caveat |
+| `contactId` | `PhysicsShape.ContactId` | Volatile contact handle — call `.contact` to get the `PhysicsShape.Contact` |
+
+**Accessing the contact manifold from a begin event:**
+```csharp
+var contact = beginEvent.contactId.contact;
+var manifold = contact.manifold;           // PhysicsShape.ContactManifold
+// manifold.normal        — world-space unit normal from shapeA to shapeB
+// manifold.pointCount    — number of active contact points [0..2]
+// manifold[i]            — ManifoldPoint via indexer
+// foreach (var mp in manifold) — enumerable
 ```
 
 ### How Callbacks Work
@@ -46,51 +68,92 @@ public interface IContactCallback
 ### Implementation Example
 
 ```csharp
+// Source: Primer/Assets/Scripts/PhysicsShapeContactCallback.cs (real-code)
+using Unity.Collections;
 using UnityEngine;
 using Unity.U2D.Physics;
 
+// Implement IContactCallback on any class (MonoBehaviour, plain C#, etc.).
 public class CollisionHandler : MonoBehaviour, PhysicsCallbacks.IContactCallback
 {
-    private PhysicsBody m_Body;
-    private PhysicsShape m_Shape;
+    private PhysicsWorld m_PhysicsWorld;
 
     private void OnEnable()
     {
-        var world = PhysicsWorld.defaultWorld;
-        var bodyDefinition = PhysicsBodyDefinition.defaultDefinition;
-        bodyDefinition.type = PhysicsBody.BodyType.Dynamic;
+        m_PhysicsWorld = PhysicsWorld.Create();
 
-        m_Body = world.CreateBody(bodyDefinition);
+        // Enable auto-dispatch of contact callbacks for this world.
+        m_PhysicsWorld.autoContactCallbacks = true;
 
-        var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = 0.5f };
-        var shapeDefinition = PhysicsShapeDefinition.defaultDefinition;
-        m_Shape = m_Body.CreateShape(circleGeometry, shapeDefinition);
+        // Shape definition: contactEvents = true is required for callbacks to fire.
+        var shapeDef = new PhysicsShapeDefinition
+        {
+            contactFilter  = new PhysicsShape.ContactFilter { categories = PhysicsMask.One, contacts = PhysicsMask.All },
+            surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 0.8f },
+            contactEvents  = true,   // <— REQUIRED to receive contact callbacks
+        };
 
-        // Set this object as the callback target for the shape
-        m_Shape.callbackTarget = this;
+        var body1 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition
+            { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(-0.25f, 2f) });
+        var body2 = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition
+            { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(0.25f, 4f) });
+
+        var shape1 = body1.CreateShape(CircleGeometry.defaultGeometry, shapeDef);
+        var shape2 = body2.CreateShape(CircleGeometry.defaultGeometry, shapeDef);
+
+        // Point this script as the callback target for both shapes.
+        // The target object must not be garbage collected while shapes are live.
+        shape1.callbackTarget = this;
+        shape2.callbackTarget = this;
     }
 
     private void OnDisable()
     {
-        if (m_Body.isValid)
-            m_Body.Destroy();
+        m_PhysicsWorld.Destroy();
     }
 
-    public void OnContactBegin2D(PhysicsShape shapeA, PhysicsShape shapeB, ContactManifold manifold)
+    // Called on the main thread, once per frame after PhysicsWorld.Step(),
+    // for every new contact pair that involves this callback target's shapes.
+    public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
     {
-        // Called when collision starts
-        Debug.Log($"Collision started between {shapeA.body} and {shapeB.body}");
+        // CRITICAL: Shapes can be destroyed by an earlier callback in the same frame.
+        if (!beginEvent.shapeA.isValid || !beginEvent.shapeB.isValid)
+            return;
 
-        // Access contact information
-        Vector2 contactPoint = manifold.point;
-        Vector2 contactNormal = manifold.normal;
-        float penetrationDepth = manifold.distance;
+        // Retrieve the live contact via contactId.
+        var contact  = beginEvent.contactId.contact;
+        var manifold = contact.manifold;
+
+        // manifold.normal      — unit normal from shapeA to shapeB
+        // manifold.pointCount  — how many contact points (0..2)
+        // manifold[i].point    — world-space contact position (clip point)
+        // manifold[i].anchorA  — position relative to shapeA's origin (prefer for game logic)
+        // manifold[i].anchorB  — position relative to shapeB's origin
+        // manifold[i].separation   — negative when penetrating
+        // manifold[i].normalImpulse — impulse along normal this step
+
+        Debug.Log($"Contact began: normal={manifold.normal}, points={manifold.pointCount}");
+
+        // Iterate contact points via foreach (manifold is enumerable).
+        foreach (var mp in manifold)
+        {
+            m_PhysicsWorld.DrawPoint(mp.point, radius: 20f, color: Color.yellow, lifetime: 1f);
+        }
+
+        // Alternatively, access by index:
+        // for (int i = 0; i < manifold.pointCount; i++)
+        //     Debug.Log(manifold[i].anchorA);
     }
 
-    public void OnContactEnd2D(PhysicsShape shapeA, PhysicsShape shapeB, ContactManifold manifold)
+    // Called when the contact pair separates, or whenever anything destroys contacts
+    // (body destroyed, transform set, contact filter changed, etc.).
+    public void OnContactEnd2D(PhysicsEvents.ContactEndEvent endEvent)
     {
-        // Called when collision ends
-        Debug.Log($"Collision ended between {shapeA.body} and {shapeB.body}");
+        // CRITICAL: Shapes may already be invalid here.
+        if (!endEvent.shapeA.isValid || !endEvent.shapeB.isValid)
+            return;
+
+        Debug.Log("Contact ended");
     }
 }
 ```
@@ -98,81 +161,166 @@ public class CollisionHandler : MonoBehaviour, PhysicsCallbacks.IContactCallback
 ### Practical Example: Space Invaders Bullet Collision
 
 ```csharp
+// Source: adapted from Sandbox/Scenes/Shapes/Fragmenting/Fragmenting.cs (real-code)
+// Pattern: space-invader style — bullet (Dynamic, gravityScale=0) hits an enemy (Dynamic/Static);
+// callback destroys both and records the hit position.
+// NOTE: Callbacks require at least one Dynamic body in the contact pair.
+using Unity.Collections;
+using UnityEngine;
+using Unity.U2D.Physics;
+
 public class SpaceInvadersCollision : MonoBehaviour, PhysicsCallbacks.IContactCallback
 {
-    private NativeList<PhysicsBody> m_PlayerBullets;
-    private NativeArray<PhysicsBody> m_EnemyBodies;
-    private NativeList<bool> m_PlayerBulletActive;
-    private NativeArray<bool> m_EnemyAlive;
+    // Layer masks — use distinct PhysicsMask bits so contact filters work.
+    private readonly PhysicsMask m_BulletMask = new(1);
+    private readonly PhysicsMask m_EnemyMask  = new(2);
+    private readonly PhysicsMask m_WallMask   = new(3);
 
-    private void CreateBullet(Vector2 position)
+    private const float BulletSpeed  = 20f;
+    private const float BulletRadius = 0.15f;
+
+    private PhysicsWorld m_World;
+    private Vector2      m_CannonPosition = new(0f, -4f);
+
+    private void OnEnable()
     {
-        var world = PhysicsWorld.defaultWorld;
-        var bodyDefinition = PhysicsBodyDefinition.defaultDefinition;
-        bodyDefinition.type = PhysicsBody.BodyType.Dynamic; // Must be Dynamic for callbacks
-        bodyDefinition.position = position;
+        m_World = PhysicsWorld.defaultWorld;
 
-        var bullet = world.CreateBody(bodyDefinition);
+        // Enable contact callbacks for the world.
+        m_World.autoContactCallbacks = true;
 
-        var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = 0.2f };
-        var shapeDefinition = PhysicsShapeDefinition.defaultDefinition;
-        var shape = bullet.CreateShape(circleGeometry, shapeDefinition);
-
-        // Set callback target on the shape
-        shape.callbackTarget = this;
-
-        m_PlayerBullets.Add(bullet);
-        m_PlayerBulletActive.Add(true);
+        SpawnEnemies();
+        SpawnWalls();
     }
 
-    public void OnContactBegin2D(PhysicsShape shapeA, PhysicsShape shapeB, ContactManifold manifold)
+    // Call this from Update / UI button / Input to fire a bullet.
+    public void Fire()
     {
-        var bodyA = shapeA.body;
-        var bodyB = shapeB.body;
-
-        // Check if a player bullet hit an enemy
-        if (IsPlayerBullet(bodyA) && IsEnemy(bodyB))
+        // Bullets must be Dynamic so IContactCallback fires.
+        // gravityScale = 0 keeps them moving straight up.
+        var bulletBody = m_World.CreateBody(new PhysicsBodyDefinition
         {
-            HandleBulletHitEnemy(bodyA, bodyB);
-        }
-        else if (IsPlayerBullet(bodyB) && IsEnemy(bodyA))
+            type            = PhysicsBody.BodyType.Dynamic,
+            gravityScale    = 0f,
+            fastCollisionsAllowed = true,           // CCD for fast-moving projectiles
+            position        = m_CannonPosition + Vector2.up * (BulletRadius + 0.1f),
+            linearVelocity  = Vector2.up * BulletSpeed,
+        });
+
+        var bulletShapeDef = new PhysicsShapeDefinition
         {
-            HandleBulletHitEnemy(bodyB, bodyA);
-        }
+            contactFilter = new PhysicsShape.ContactFilter
+            {
+                categories = m_BulletMask,
+                contacts   = m_EnemyMask | m_WallMask,
+            },
+            contactEvents = true,  // required for IContactCallback to be dispatched
+        };
+
+        var bulletShape = bulletBody.CreateShape(
+            new CircleGeometry { radius = BulletRadius }, bulletShapeDef);
+
+        // Register this MonoBehaviour as the callback target for the bullet shape.
+        bulletShape.callbackTarget = this;
     }
 
-    public void OnContactEnd2D(PhysicsShape shapeA, PhysicsShape shapeB, ContactManifold manifold)
+    public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
     {
-        // Not needed for Space Invaders
-    }
+        // Always validate — a previous callback in the same frame may have
+        // destroyed a body, invalidating its shapes.
+        if (!beginEvent.shapeA.isValid || !beginEvent.shapeB.isValid)
+            return;
 
-    private bool IsPlayerBullet(PhysicsBody body)
-    {
-        for (int i = 0; i < m_PlayerBullets.Length; i++)
+        var catA = beginEvent.shapeA.contactFilter.categories;
+        var catB = beginEvent.shapeB.contactFilter.categories;
+
+        // Bullet hit a wall — just remove the bullet.
+        if (catA == m_WallMask || catB == m_WallMask)
         {
-            if (m_PlayerBullets[i] == body)
-                return true;
+            var bulletShape = catA == m_BulletMask ? beginEvent.shapeA : beginEvent.shapeB;
+            if (bulletShape.isValid)
+                bulletShape.body.Destroy();
+            return;
         }
-        return false;
-    }
 
-    private bool IsEnemy(PhysicsBody body)
-    {
-        for (int i = 0; i < m_EnemyBodies.Length; i++)
+        // Bullet hit an enemy.
+        if (catA == m_EnemyMask || catB == m_EnemyMask)
         {
-            if (m_EnemyBodies[i] == body)
-                return true;
+            // Record the first contact point for a hit effect.
+            var contact  = beginEvent.contactId.contact;
+            var hitPoint = contact.manifold.points[0].point;  // world-space clip point
+            var hitNormal = contact.manifold.normal;           // normal from shapeA to shapeB
+
+            Debug.Log($"Hit at {hitPoint}, normal {hitNormal}");
+            // Queue spawn of explosion VFX at hitPoint here (main-thread safe).
+
+            // Destroy both bodies (shape.body.Destroy() removes all shapes on that body).
+            // Validity checks guard against double-destruction from multi-shape compound bodies.
+            var bulletBody = catA == m_BulletMask ? beginEvent.shapeA.body : beginEvent.shapeB.body;
+            var enemyBody  = catA == m_EnemyMask  ? beginEvent.shapeA.body : beginEvent.shapeB.body;
+
+            if (bulletBody.isValid) bulletBody.Destroy();
+            if (enemyBody.isValid)  enemyBody.Destroy();
         }
-        return false;
     }
 
-    private void HandleBulletHitEnemy(PhysicsBody bullet, PhysicsBody enemy)
+    public void OnContactEnd2D(PhysicsEvents.ContactEndEvent endEvent)
     {
-        // Find indices and mark as inactive/dead
-        // Update score, etc.
+        // No action needed on separation in this scenario.
+    }
+
+    // ── helpers ──────────────────────────────────────────────────────────────
+
+    private void SpawnEnemies()
+    {
+        var enemyShapeDef = new PhysicsShapeDefinition
+        {
+            contactFilter = new PhysicsShape.ContactFilter
+            {
+                categories = m_EnemyMask,
+                contacts   = m_BulletMask,
+            },
+            contactEvents = true,
+        };
+
+        for (int col = 0; col < 5; col++)
+        for (int row = 0; row < 3; row++)
+        {
+            // Static enemies — bullet is Dynamic, so callbacks still fire.
+            var body = m_World.CreateBody(new PhysicsBodyDefinition
+            {
+                type     = PhysicsBody.BodyType.Static,
+                position = new Vector2(col * 2f - 4f, row * 1.5f + 1f),
+            });
+
+            var shape = body.CreateShape(
+                PolygonGeometry.CreateBox(new Vector2(0.8f, 0.6f)), enemyShapeDef);
+
+            // Each enemy shape reports collisions back to this manager.
+            shape.callbackTarget = this;
+        }
+    }
+
+    private void SpawnWalls()
+    {
+        var wallShapeDef = new PhysicsShapeDefinition
+        {
+            contactFilter = new PhysicsShape.ContactFilter
+            {
+                categories = m_WallMask,
+                contacts   = m_BulletMask,
+            },
+        };
+        var wallBody = m_World.CreateBody();  // Static by default
+        wallBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 10f),
+            offset: new Vector2(-6f, 0f)), wallShapeDef);
+        wallBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(0.5f, 10f),
+            offset: new Vector2( 6f, 0f)), wallShapeDef);
     }
 }
 ```
+
+> **Key reminder:** `shape.contactEvents = true` (or in the `PhysicsShapeDefinition`) must be set on at least one shape in the pair, and `world.autoContactCallbacks = true` must be set, or no callbacks will be dispatched. Callbacks fire on the **main thread** after `PhysicsWorld.Step()` completes.
 
 ### Important Notes
 

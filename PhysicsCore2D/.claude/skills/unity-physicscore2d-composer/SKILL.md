@@ -1,5 +1,7 @@
 # Unity PhysicsCore2D - PhysicsComposer
 
+> **Examples verified against `unity-physicscore2d-composer-api` and real code in `D:/UnitySrc/GitHub/PhysicsExamples2D/PhysicsCore2D/Projects/Primer/Assets/Scripts/PhysicsComposerGeometry.cs` (2026-05-19).** `AddLayer` argument order corrected to `(geometry, transform, operation, order, curveStride, reverseWinding)`. `CreatePolygonGeometry` correctly used as returning `NativeArray<PolygonGeometry>`. `CreateChain` correctly called with two arguments. For the full type/member API surface see `unity-physicscore2d-composer-api`.
+
 Expert guidance on using PhysicsComposer to create complex collision shapes through boolean geometry operations in Unity PhysicsCore2D.
 
 > For the full type/method API surface (every overload, signature, and XML doc), see `unity-physicscore2d-composer-api`. This skill focuses on patterns, worked examples, and decision rules.
@@ -24,21 +26,68 @@ PhysicsComposer supports four boolean operations via `PhysicsComposer.Operation`
 ## Core Workflow
 
 ### 1. Create Composer Instance
-```csharp
-// Create composer with memory allocation
-var composer = PhysicsComposer.Create(Allocator.Temp);
 
-// Or with custom initial capacity
-var composer = PhysicsComposer.Create(1024, Allocator.Temp);
+```csharp
+// PhysicsComposer.Create() allocates the composer itself (no Allocator arg needed).
+// The optional Allocator overload controls which allocator is used for layer data.
+var composer = PhysicsComposer.Create();
+
+// Optional: tune tessellation quality before adding layers.
+composer.useDelaunay = true;           // Delaunay on by default; produces better results
+composer.maxPolygonVertices = 8;       // max verts per output polygon (default is API max)
+
+// Always Destroy (or Dispose) when finished — never leak a composer.
+composer.Destroy();
+
+// Alternatively, use a 'using' scope for automatic disposal:
+using (var c = PhysicsComposer.Create())
+{
+    // add layers, generate geometry …
+} // Destroy() called automatically
 ```
+
+> **Note:** The real-world pattern is `PhysicsComposer.Create()` with no arguments. `Create(Allocator)` is valid and controls the allocator used for internal layer buffers; use it when creating composers inside jobs (pass `Allocator.TempJob` or `Allocator.Persistent`).
+> Source: `Projects/Primer/Assets/Scripts/PhysicsComposerGeometry.cs:48`; API: `composer-api/SKILL.md:170`
 
 ### 2. Add Geometry Layers
+
 ```csharp
-// Add layers with boolean operations
-composer.AddLayer(geometry1, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-composer.AddLayer(geometry2, PhysicsComposer.Operation.AND, transform2);
-composer.AddLayer(geometry3, PhysicsComposer.Operation.NOT, transform3);
+// AddLayer signature (all geometry overloads follow this order):
+//   AddLayer(geometry, transform, operation, order, curveStride, reverseWinding)
+// 'transform', 'operation', 'order', 'curveStride', and 'reverseWinding' are all optional.
+
+var composer = PhysicsComposer.Create();
+
+// Layer 1 — circle at the origin, implicit OR (first layer always uses OR regardless).
+var circle = new CircleGeometry { radius = 1f };
+composer.AddLayer(circle, PhysicsTransform.identity);
+
+// Layer 2 — capsule offset to the right, explicit OR to merge.
+var capsule = CapsuleGeometry.defaultGeometry;
+composer.AddLayer(capsule, new PhysicsTransform(Vector2.right * 0.75f),
+    PhysicsComposer.Operation.OR);
+
+// Layer 3 — polygon box, explicit NOT (subtract from accumulated result).
+var box = PolygonGeometry.CreateBox(new Vector2(0.5f, 0.5f), radius: 0f, inscribe: false);
+composer.AddLayer(box, PhysicsTransform.identity,
+    PhysicsComposer.Operation.NOT);
+
+// Layer 4 — raw vertex span, explicit AND at a specific order index.
+ReadOnlySpan<Vector2> verts = stackalloc Vector2[]
+{
+    new(-0.5f, 0f), new(0.5f, 0f), new(0f, 0.8f)
+};
+composer.AddLayer(verts, PhysicsTransform.identity,
+    PhysicsComposer.Operation.AND, order: 5);
+
+// curveStride controls tessellation of curved geometries (lower = more verts):
+composer.AddLayer(circle, PhysicsTransform.identity,
+    PhysicsComposer.Operation.OR, order: 0, curveStride: 0.1f);
+
+composer.Destroy();
 ```
+
+> The **first layer processed always acts as OR** regardless of the operation specified — it has nothing to merge with and forms the base geometry. Source: `PhysicsComposerGeometry.cs:53`; API: `composer-api/SKILL.md:41`
 
 ### 3. Generate Output Geometry
 ```csharp
@@ -50,13 +99,37 @@ var chainGeometry = composer.CreateChainGeometry(Allocator.Temp);
 ```
 
 ### 4. Create Physics Shapes
-```csharp
-// Create shape from composed geometry
-var shape = body.CreateShape(polygonGeometry);
 
-// Dispose geometry when done
-polygonGeometry.Dispose();
+```csharp
+// CreatePolygonGeometry returns NativeArray<PolygonGeometry>.
+// CreateShape takes a single PolygonGeometry struct — NOT the array.
+// Use CreateShapeBatch to attach all polygons at once (preferred).
+
+var composer = PhysicsComposer.Create();
+composer.AddLayer(new CircleGeometry { radius = 1f }, PhysicsTransform.identity);
+composer.AddLayer(CapsuleGeometry.defaultGeometry,
+    new PhysicsTransform(Vector2.right * 0.75f), PhysicsComposer.Operation.OR);
+
+// Pass vertexScale: Vector2.one to avoid geometry being discarded as too small.
+using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Temp);
+composer.Destroy();
+
+if (polygons.Length == 0)
+    return;  // operation produced no geometry (e.g., full subtraction)
+
+var body = world.CreateBody();
+var shapeDef = PhysicsShapeDefinition.defaultDefinition;
+
+// Option A — batch (preferred when composer produces multiple polygons).
+using var shapes = body.CreateShapeBatch(polygons, shapeDef);
+
+// Option B — individual loop (use when you need per-shape control).
+foreach (var poly in polygons)
+    body.CreateShape(poly, shapeDef);
 ```
+
+> `CreatePolygonGeometry` returns `NativeArray<PolygonGeometry>` — always dispose it after use. `CreateShapeBatch(ReadOnlySpan<PolygonGeometry>, …)` accepts the array directly and returns a `NativeArray<PhysicsShape>` that must also be disposed.
+> Source: `PhysicsComposerGeometry.cs:60–75`; API: `bodies-api/SKILL.md:278` (`CreateShapeBatch`), `composer-api/SKILL.md:219`
 
 ### 5. Cleanup
 ```csharp
@@ -73,139 +146,211 @@ composer.Dispose();
 ## Practical Examples
 
 ### Creating a Capsule-Ended Rectangle
+
+A rectangle with semi-circular ends — useful for character bodies, rolling pegs, or pill-shaped platforms.
+
 ```csharp
-using (var composer = PhysicsComposer.Create(Allocator.Temp))
+// Strategy: OR a box with two circles placed at each short end.
+// CapsuleGeometry is the simplest direct alternative, but this shows the composer approach.
+
+var composer = PhysicsComposer.Create();
+
+// Central rectangle.
+var rect = PolygonGeometry.CreateBox(new Vector2(1f, 2f), radius: 0f, inscribe: false);
+composer.AddLayer(rect, PhysicsTransform.identity);
+
+// Circle cap at the top.
+var topCap = new CircleGeometry { radius = 0.5f };
+composer.AddLayer(topCap, new PhysicsTransform(Vector2.up), PhysicsComposer.Operation.OR);
+
+// Circle cap at the bottom.
+composer.AddLayer(topCap, new PhysicsTransform(Vector2.down), PhysicsComposer.Operation.OR);
+
+using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Temp);
+composer.Destroy();
+
+if (polygons.Length > 0)
 {
-    // Main rectangle body
-    var rect = PolygonGeometry.CreateBox(2.0f, 1.0f, Allocator.Temp);
-    composer.AddLayer(rect, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-
-    // Left circle end
-    var leftCircle = new CircleGeometry { radius = 0.5f };
-    var leftTransform = new PhysicsTransform(new Vector2(-1.0f, 0), 0);
-    composer.AddLayer(leftCircle, PhysicsComposer.Operation.OR, leftTransform);
-
-    // Right circle end
-    var rightCircle = new CircleGeometry { radius = 0.5f };
-    var rightTransform = new PhysicsTransform(new Vector2(1.0f, 0), 0);
-    composer.AddLayer(rightCircle, PhysicsComposer.Operation.OR, rightTransform);
-
-    // Generate final geometry
-    var finalGeometry = composer.CreatePolygonGeometry(Allocator.Temp);
-    var shape = body.CreateShape(finalGeometry);
-
-    finalGeometry.Dispose();
-    rect.Dispose();
+    var body = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic });
+    using var shapes = body.CreateShapeBatch(polygons, new PhysicsShapeDefinition { density = 1f });
 }
 ```
+
+> **Tip:** For a true capsule without composer overhead, use `CapsuleGeometry.Create(center1, center2, radius)` directly. Use the composer version only when you also need additional boolean operations against other geometry.
+> Source: adapted from `PhysicsComposerGeometry.cs`; API: `geometry-api/SKILL.md:850` (`CreateBox(Vector2, float, bool)`), `composer-api/SKILL.md:41`
 
 ### Creating a Donut Shape
+
+A solid outer ring with a hollow centre — two circles combined with NOT.
+
 ```csharp
-using (var composer = PhysicsComposer.Create(Allocator.Temp))
+// OR a large outer circle, then NOT a smaller inner circle to punch the hole.
+var composer = PhysicsComposer.Create();
+
+var outerCircle = new CircleGeometry { radius = 2f };
+var innerCircle = new CircleGeometry { radius = 1f };
+
+// Outer ring — base layer (implicit OR).
+composer.AddLayer(outerCircle, PhysicsTransform.identity);
+
+// Inner hole — subtract the smaller circle at the same centre.
+composer.AddLayer(innerCircle, PhysicsTransform.identity, PhysicsComposer.Operation.NOT);
+
+// Lower curveStride = more vertices = smoother circle approximation.
+// Default curveStride produces reasonable quality; reduce for higher-fidelity circles.
+
+using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Temp);
+composer.Destroy();
+
+if (polygons.Length > 0)
 {
-    // Outer circle
-    var outerCircle = new CircleGeometry { radius = 2.0f };
-    composer.AddLayer(outerCircle, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-
-    // Inner circle (subtract to create hole)
-    var innerCircle = new CircleGeometry { radius = 1.5f };
-    composer.AddLayer(innerCircle, PhysicsComposer.Operation.NOT, PhysicsTransform.Identity);
-
-    var donutGeometry = composer.CreatePolygonGeometry(Allocator.Temp);
-    var shape = body.CreateShape(donutGeometry);
-
-    donutGeometry.Dispose();
+    var body = world.CreateBody();
+    using var shapes = body.CreateShapeBatch(polygons, PhysicsShapeDefinition.defaultDefinition);
 }
 ```
+
+> The donut will be decomposed into multiple convex polygons because it is concave. Check `composer.rejectedGeometryCount` after `CreatePolygonGeometry` if you see unexpected gaps.
+> Source: adapted from `GeometryIslands.cs:294`; API: `composer-api/SKILL.md:36` (`rejectedGeometryCount`), `composer-api/SKILL.md:41`
 
 ### Creating Complex Building Shape
+
+A base box with an arch-shaped circular protrusion on top — OR two primitives.
+
 ```csharp
-using (var composer = PhysicsComposer.Create(Allocator.Temp))
+// Building: tall rectangular body + circular dome on the roof.
+var composer = PhysicsComposer.Create();
+
+// Base rectangle — PolygonGeometry.CreateBox(Vector2 size, float radius, bool inscribe).
+var base_ = PolygonGeometry.CreateBox(new Vector2(4f, 3f), radius: 0f, inscribe: false);
+composer.AddLayer(base_, PhysicsTransform.identity);
+
+// Dome on top — circle centred at the top edge of the rectangle.
+var dome = new CircleGeometry { radius = 1.5f };
+composer.AddLayer(dome, new PhysicsTransform(Vector2.up * 2f),
+    PhysicsComposer.Operation.OR);
+
+using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Temp);
+composer.Destroy();
+
+if (polygons.Length > 0)
 {
-    // Main building body
-    var mainBuilding = PolygonGeometry.CreateBox(4.0f, 6.0f, Allocator.Temp);
-    composer.AddLayer(mainBuilding, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
-
-    // Tower on top
-    var tower = PolygonGeometry.CreateBox(2.0f, 3.0f, Allocator.Temp);
-    var towerTransform = new PhysicsTransform(new Vector2(0, 4.5f), 0);
-    composer.AddLayer(tower, PhysicsComposer.Operation.OR, towerTransform);
-
-    // Cut out door
-    var door = PolygonGeometry.CreateBox(1.0f, 2.0f, Allocator.Temp);
-    var doorTransform = new PhysicsTransform(new Vector2(0, -2.0f), 0);
-    composer.AddLayer(door, PhysicsComposer.Operation.NOT, doorTransform);
-
-    // Cut out windows
-    for (int i = -1; i <= 1; i++)
-    {
-        var window = PolygonGeometry.CreateBox(0.6f, 0.8f, Allocator.Temp);
-        var windowTransform = new PhysicsTransform(new Vector2(i * 1.5f, 1.0f), 0);
-        composer.AddLayer(window, PhysicsComposer.Operation.NOT, windowTransform);
-        window.Dispose();
-    }
-
-    var buildingGeometry = composer.CreatePolygonGeometry(Allocator.Temp);
-    var shape = body.CreateShape(buildingGeometry);
-
-    buildingGeometry.Dispose();
-    mainBuilding.Dispose();
-    tower.Dispose();
-    door.Dispose();
+    var body = world.CreateBody();  // Static by default
+    using var shapes = body.CreateShapeBatch(polygons, PhysicsShapeDefinition.defaultDefinition);
 }
 ```
+
+> Composer produces a convex decomposition, so this L/T/dome shape will be split into several `PolygonGeometry` pieces automatically. Use `GetGeometryIslands(Allocator)` after `CreatePolygonGeometry` to identify connected groups of polygons.
+> API: `geometry-api/SKILL.md:850` (`CreateBox`), `composer-api/SKILL.md:41`, `composer-api/SKILL.md:278` (`GetGeometryIslands`)
 
 ### Creating Intersected Shape
+
+AND two overlapping circles to produce only the lens-shaped overlapping region.
+
 ```csharp
-using (var composer = PhysicsComposer.Create(Allocator.Temp))
+// AND keeps only the area that exists in BOTH layers — the intersection.
+var composer = PhysicsComposer.Create();
+
+var circleA = new CircleGeometry { radius = 1.5f };
+var circleB = new CircleGeometry { radius = 1.5f };
+
+// First circle at the left.
+composer.AddLayer(circleA, new PhysicsTransform(Vector2.left * 0.6f));
+
+// Second circle at the right — AND retains only the overlapping lens.
+composer.AddLayer(circleB, new PhysicsTransform(Vector2.right * 0.6f),
+    PhysicsComposer.Operation.AND);
+
+using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Temp);
+composer.Destroy();
+
+if (polygons.Length > 0)
 {
-    // Two overlapping circles
-    var circle1 = new CircleGeometry { radius = 1.5f };
-    var transform1 = new PhysicsTransform(new Vector2(-0.5f, 0), 0);
-    composer.AddLayer(circle1, PhysicsComposer.Operation.OR, transform1);
-
-    // AND operation keeps only intersection
-    var circle2 = new CircleGeometry { radius = 1.5f };
-    var transform2 = new PhysicsTransform(new Vector2(0.5f, 0), 0);
-    composer.AddLayer(circle2, PhysicsComposer.Operation.AND, transform2);
-
-    // Result is lens-shaped intersection
-    var intersectionGeometry = composer.CreatePolygonGeometry(Allocator.Temp);
-    var shape = body.CreateShape(intersectionGeometry);
-
-    intersectionGeometry.Dispose();
+    var body = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic });
+    using var shapes = body.CreateShapeBatch(polygons, new PhysicsShapeDefinition { density = 1f });
 }
 ```
+
+> If the circles do not overlap, AND produces zero polygons — always check `polygons.Length > 0`. The `composer.rejectedGeometryCount` property reports how many polygons were discarded for being too thin or collinear.
+> API: `composer-api/SKILL.md:36` (`rejectedGeometryCount`), `composer-api/SKILL.md:41`, `composer-api/SKILL.md:399` (`AND`)
 
 ### Creating Outline/Chain Geometry
+
+Use `CreateChainGeometry` instead of `CreatePolygonGeometry` to produce hollow edge-only collision (no interior fill). Attach the result with `body.CreateChain(ChainGeometry, PhysicsChainDefinition)` — two arguments required.
+
 ```csharp
-using (var composer = PhysicsComposer.Create(Allocator.Temp))
+// Outline of a merged circle + capsule as a chain (one-sided edge collision).
+var composer = PhysicsComposer.Create();
+
+composer.AddLayer(new CircleGeometry { radius = 1f }, PhysicsTransform.identity);
+composer.AddLayer(CapsuleGeometry.defaultGeometry,
+    new PhysicsTransform(Vector2.right * 0.75f), PhysicsComposer.Operation.OR);
+
+// CreateChainGeometry(vertices, vertexScale, allocator):
+//   'vertices' — a NativeArray<Vector2> that will be filled with the backing vertex data.
+//   Size it generously; unused capacity is fine. Must stay alive until after CreateChain calls.
+// Use the vertexScale overload to avoid discarding small geometry.
+var vertexBuffer = new NativeArray<Vector2>(4096, Allocator.Temp);
+var chains = composer.CreateChainGeometry(vertexBuffer, Vector2.one, Allocator.Temp);
+composer.Destroy();
+
+// Build the chain definition.
+var chainDef = new PhysicsChainDefinition
 {
-    // Add shapes
-    var circle = new CircleGeometry { radius = 1.0f };
-    composer.AddLayer(circle, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
+    isLoop = false,
+    surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.3f }
+};
 
-    // Generate outline instead of filled polygon
-    var chainGeometry = composer.CreateChainGeometry(Allocator.Temp);
+// Create a static body and attach each chain.
+var groundBody = world.CreateBody();
+foreach (var chainGeometry in chains)
+    groundBody.CreateChain(chainGeometry, chainDef);  // two args required
 
-    // Create chain shape (edges only, no fill)
-    var chain = body.CreateChain(chainGeometry);
-
-    chainGeometry.Dispose();
-}
+chains.Dispose();
+vertexBuffer.Dispose();
 ```
+
+> `CreateChain` requires *both* a `ChainGeometry` and a `PhysicsChainDefinition`. The `vertexBuffer` passed to `CreateChainGeometry` is the backing store for all vertex data — keep it alive until after `CreateChain` completes, then dispose both arrays.
+> API: `composer-api/SKILL.md:179` (`CreateChainGeometry`), `bodies-api/SKILL.md:162` (`CreateChain(ChainGeometry, PhysicsChainDefinition)`)
 
 ## Operation Order
 
 Operations are applied in the order layers are added:
 
 ```csharp
-// Result = ((A OR B) AND C) NOT D
-composer.AddLayer(geometryA, Operation.OR, transform);  // Start with A
-composer.AddLayer(geometryB, Operation.OR, transform);  // A OR B
-composer.AddLayer(geometryC, Operation.AND, transform); // (A OR B) AND C
-composer.AddLayer(geometryD, Operation.NOT, transform); // ((A OR B) AND C) NOT D
+// Implicit order: layers are processed in the order AddLayer is called.
+// Explicit 'order' arg lets you insert a layer at a specific processing position.
+
+var composer = PhysicsComposer.Create();
+
+// Shape A — base (order 0, implicit first).
+var bigBox = PolygonGeometry.CreateBox(new Vector2(4f, 4f), radius: 0f, inscribe: false);
+composer.AddLayer(bigBox, PhysicsTransform.identity);  // order 0 implicit
+
+// Shape B — a notch to subtract (order 1, explicit).
+var notch = PolygonGeometry.CreateBox(new Vector2(1f, 2f), radius: 0f, inscribe: false);
+composer.AddLayer(notch, new PhysicsTransform(Vector2.right * 1.5f),
+    PhysicsComposer.Operation.NOT, order: 1);
+
+// Shape C — a circle to add AFTER the NOT (order 2).
+var circle = new CircleGeometry { radius = 0.8f };
+composer.AddLayer(circle, new PhysicsTransform(Vector2.left * 1.5f),
+    PhysicsComposer.Operation.OR, order: 2);
+
+// Result: bigBox − notch + circle (left side fills back in after the subtraction).
+// Swapping orders 1 and 2 would give: (bigBox + circle) − notch — a different shape!
+
+using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Temp);
+composer.Destroy();
+
+if (polygons.Length > 0)
+{
+    var body = world.CreateBody();
+    using var shapes = body.CreateShapeBatch(polygons, PhysicsShapeDefinition.defaultDefinition);
+}
 ```
+
+> The `order` parameter controls processing sequence — lower values run first. Layers with the same order value are processed in the order `AddLayer` was called (implicit tie-breaking).
+> API: `composer-api/SKILL.md:41` (`AddLayer` params), `composer-api/SKILL.md:346` (`Layer.order`)
 
 ## Memory Management
 
@@ -236,24 +381,67 @@ using (var composer = PhysicsComposer.Create(Allocator.Temp))
 PhysicsComposer is thread-safe and can be used in jobs:
 
 ```csharp
+// PhysicsComposer is safe to use inside Burst-compatible jobs.
+// Use Allocator.TempJob for the composer and any output arrays.
+// The NativeArray<PolygonGeometry> result must be created with TempJob/Persistent
+// so it outlives the job and can be consumed on the main thread.
+
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.U2D.Physics;
+using UnityEngine;
+
 [BurstCompile]
-struct ComposeGeometryJob : IJob
+struct BuildComposedShapeJob : IJob
 {
+    // Output — caller allocates, job fills, caller disposes after schedule.
+    public NativeArray<PolygonGeometry> Output;
+
+    // Input geometry (value types — safe to copy into the job).
+    public CircleGeometry   OuterCircle;
+    public CircleGeometry   InnerCircle;
+    public PhysicsTransform InnerTransform;
+
     public void Execute()
     {
-        using (var composer = PhysicsComposer.Create(Allocator.Temp))
-        {
-            // Compose geometry in job
-            var circle = new CircleGeometry { radius = 1.0f };
-            composer.AddLayer(circle, PhysicsComposer.Operation.OR, PhysicsTransform.Identity);
+        // Use TempJob inside a job — Temp is NOT allowed in jobs.
+        var composer = PhysicsComposer.Create(Allocator.TempJob);
+        composer.AddLayer(OuterCircle, PhysicsTransform.identity);
+        composer.AddLayer(InnerCircle, InnerTransform, PhysicsComposer.Operation.NOT);
 
-            var geometry = composer.CreatePolygonGeometry(Allocator.Temp);
-            // Store or use geometry
-            geometry.Dispose();
-        }
+        // Write directly into the caller-provided output array.
+        var polygons = composer.CreatePolygonGeometry(Vector2.one, Allocator.TempJob);
+        composer.Destroy();
+
+        // Copy results into the pre-sized output (caller must check Length).
+        var copyLen = math.min(polygons.Length, Output.Length);
+        NativeArray<PolygonGeometry>.Copy(polygons, Output, copyLen);
+        polygons.Dispose();
     }
 }
+
+// --- Main thread scheduling ---
+// var output = new NativeArray<PolygonGeometry>(64, Allocator.TempJob);
+// var job = new BuildComposedShapeJob
+// {
+//     Output       = output,
+//     OuterCircle  = new CircleGeometry { radius = 2f },
+//     InnerCircle  = new CircleGeometry { radius = 1f },
+//     InnerTransform = PhysicsTransform.identity
+// };
+// var handle = job.Schedule();
+// handle.Complete();
+// // use output polygons …
+// output.Dispose();
 ```
+
+> **Key rules for job usage:**
+> - Use `Allocator.TempJob` (or `Persistent`) — `Allocator.Temp` is forbidden inside jobs.
+> - `PhysicsComposer.Create(Allocator.TempJob)` passes the allocator to internal layer buffers.
+> - The `NativeArray<PolygonGeometry>` returned by `CreatePolygonGeometry` inside a job must also be `TempJob`/`Persistent`; it cannot outlive the frame as a `Temp` allocation.
+> - Bodies and shapes may only be created on the main thread (WORM constraint — see `unity-physicscore2d` orientation skill).
+> API: `composer-api/SKILL.md:170` (`Create(Allocator)`), `composer-api/SKILL.md:219` (`CreatePolygonGeometry`)
 
 ## Best Practices
 

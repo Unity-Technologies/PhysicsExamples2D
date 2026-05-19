@@ -26,7 +26,7 @@ description: Patterns for Unity PhysicsCore2D PhysicsBody — choosing body type
 
 ```csharp
 var def = PhysicsBodyDefinition.defaultDefinition;
-def.bodyType = PhysicsBody.BodyType.Dynamic;
+def.type = PhysicsBody.BodyType.Dynamic;
 def.position = new Vector2(0, 5);
 def.rotation = 0f;
 def.linearVelocity = Vector2.zero;
@@ -59,14 +59,40 @@ Multiple shapes per body form a **compound** — useful for shapes that aren't a
 ## Mass configuration
 
 ```csharp
-// Default: mass auto-computed from shape density.
-def.massConfiguration = PhysicsBody.MassConfiguration.Automatic;
+// --- Automatic mode (default): mass accumulates from shape density ---
+// When startMassUpdate is true (the default), each CreateShape call
+// immediately recomputes mass from all shapes on the body.
+var shapeDef = new PhysicsShapeDefinition { density = 5f };   // kg/m^2
+body.CreateShape(new CircleGeometry { center = Vector2.zero, radius = 0.5f }, shapeDef);
+// body.mass is now non-zero, driven by density * shape area.
 
-// Override: set mass explicitly, ignore shape density.
-def.massConfiguration = PhysicsBody.MassConfiguration.Manual;
-def.mass = 5f;                              // kg
-def.rotationalInertia = 0.5f;               // kg·m² — affects how easily the body spins
-def.localCenterOfMass = new Vector2(0, -0.2f);
+// --- Batched shape creation: defer mass recalculation for performance ---
+// Set startMassUpdate = false on each shape to skip per-shape recalc,
+// then call ApplyMassFromShapes() once all shapes have been added.
+var batchShapeDef = new PhysicsShapeDefinition
+{
+    density = 1f,
+    startMassUpdate = false   // suppress automatic per-shape mass update
+};
+var gridSize = new Vector2(1f, 1f);
+for (var i = 0; i < 25; ++i)
+{
+    var offset = new Vector2(i % 5, i / 5);
+    body.CreateShape(
+        PolygonGeometry.CreateBox(gridSize, radius: 0f, new PhysicsTransform(offset, PhysicsRotate.identity)),
+        batchShapeDef);
+}
+body.ApplyMassFromShapes();   // compute mass once, after all 25 shapes
+// body.mass and body.rotationalInertia are now valid.
+
+// --- Manual override: assign specific mass/inertia/center-of-mass ---
+// Read the current (auto-computed) config, override individual fields.
+var cfg = body.massConfiguration;
+cfg.mass = 70f;                        // fixed 70 kg regardless of shape area
+cfg.rotationalInertia = 2.5f;          // arcade-feel spin
+cfg.center = new Vector2(0f, -0.3f);   // lower COM makes body harder to tip
+body.massConfiguration = cfg;
+// Setting massConfiguration directly writes all three fields atomically.
 ```
 
 **Use Manual when:**
@@ -81,8 +107,8 @@ def.localCenterOfMass = new Vector2(0, -0.2f);
 ## Constraints — freezing axes
 
 ```csharp
-def.constraints = PhysicsBody.BodyConstraints.FreezeRotation;
-// Or: FreezePositionX, FreezePositionY, FreezeAll, etc. (flags enum, combine with |)
+def.constraints = PhysicsBody.BodyConstraints.Rotation;
+// Or: PositionX, PositionY, Position, All, None, etc. (flags enum, combine with |)
 ```
 
 `FreezeRotation` is the classic platformer character setting — the body stays upright regardless of impacts.
@@ -90,10 +116,36 @@ def.constraints = PhysicsBody.BodyConstraints.FreezeRotation;
 ## Sleep — let settled bodies stop using CPU
 
 ```csharp
-body.sleepingAllowed = true;
-body.Sleep();         // force-sleep now (skipped from sim until something wakes it)
-body.Wake();          // force-wake (e.g. when applying forces from script)
-bool active = body.isAwake;
+// --- Allow sleep (default for most bodies) ---
+// sleepingAllowed = true means the engine can put the body to sleep
+// when its velocity drops below sleepThreshold for several steps.
+var def = PhysicsBodyDefinition.defaultDefinition;
+def.type = PhysicsBody.BodyType.Dynamic;
+def.sleepingAllowed = true;        // engine will sleep this when settled
+def.sleepThreshold = 0.05f;        // wake/sleep speed threshold (m/s)
+var settledBody = world.CreateBody(def);
+
+// --- Disable sleep for always-active bodies ---
+// A spinner or player character should never sleep regardless of velocity.
+var spinnerDef = new PhysicsBodyDefinition
+{
+    type = PhysicsBody.BodyType.Kinematic,
+    angularVelocity = 200f,
+    sleepingAllowed = false         // never sleep; always processed each step
+};
+var spinnerBody = world.CreateBody(spinnerDef);
+
+// --- Read and set awake state at runtime ---
+// body.awake is readable and writable; writing true wakes the body.
+if (!settledBody.awake)
+{
+    // Force a sleeping body awake (e.g. an explosion nearby).
+    settledBody.awake = true;
+}
+
+// --- Wake all bodies touching a static body (e.g. after moving a platform) ---
+// Useful when a Static or Kinematic body moves and should disturb nearby sleepers.
+staticPlatform.WakeTouching();
 ```
 
 A sleeping body costs near-zero per step. Bodies wake automatically on contact, force application, or transform change. Disable sleeping for bodies you always need responsive (player character, debug-visualized objects).
@@ -133,20 +185,41 @@ Useful in libraries/middleware where you want defensive ownership without comple
 ## Iteration & introspection
 
 ```csharp
-// All bodies in the world (allocates — do not call per frame).
-using var bodies = world.GetBodies(Allocator.Temp);
-foreach (var b in bodies)
+// --- Walk all active bodies in a world ---
+// world.GetBodies() returns a NativeArray; always dispose it.
+using var bodies = world.GetBodies();
+foreach (var body in bodies)
 {
-    if (b.bodyType == PhysicsBody.BodyType.Dynamic && b.linearVelocity.magnitude > 50f)
-        b.linearVelocity = b.linearVelocity.normalized * 50f;
-}
+    // body.type is the correct property (not bodyType).
+    if (body.type != PhysicsBody.BodyType.Dynamic)
+        continue;
 
-// Per-body shape iteration.
-for (int i = 0; i < body.shapeCount; i++)
-{
-    var shape = body.GetShape(i);
-    // ...
+    // Collect non-owned bodies for later batch-destroy (safe outside callbacks).
+    if (!body.isOwned)
+        bodiesToDestroy.Add(body);
 }
+// Batch-destroy outside the iteration to avoid invalidating the array.
+PhysicsWorld.DestroyBodyBatch(bodiesToDestroy.AsArray());
+
+// --- Walk every shape attached to a specific body ---
+// GetShapes() is the only overload; there is no single-index GetShape(int).
+using var shapes = ragdollBone.GetShapes();
+foreach (var shape in shapes)
+{
+    if (shape.shapeType == PhysicsShape.ShapeType.Capsule)
+    {
+        var geo = shape.capsuleGeometry;
+        // Scale the capsule geometry in-place.
+        shape.capsuleGeometry = new CapsuleGeometry
+        {
+            center1 = geo.center1 * scaleRatio,
+            center2 = geo.center2 * scaleRatio,
+            radius  = geo.radius  * scaleRatio
+        };
+    }
+}
+// After modifying shapes, re-compute mass from the new geometry.
+ragdollBone.ApplyMassFromShapes();
 ```
 
 For per-frame work over many bodies, see batching patterns in `unity-physicscore2d-batching`.
@@ -158,18 +231,66 @@ PhysicsCore2D uses a **Write-Once-Read-Many** model: during a simulation step, t
 If you need to delete a body in response to a collision (e.g. bullet on impact), defer:
 
 ```csharp
-private readonly List<PhysicsBody> _toDestroy = new();
+// IContactCallback runs AFTER the simulation step (main-thread).
+// It is safe to create/destroy bodies here — no deferral needed.
+//
+// WORM applies to IPreSolveCallback and IContactFilterCallback,
+// which run DURING the simulation. Never mutate the world from those.
 
-public void OnContactBegin2D(PhysicsWorld world, PhysicsShape shapeA, PhysicsShape shapeB)
+public class BulletSystem : MonoBehaviour, PhysicsCallbacks.IContactCallback
 {
-    if (shapeA.body.GetOwner<Bullet>() != null)
-        _toDestroy.Add(shapeA.body);
-}
+    private PhysicsWorld m_World;
 
-void LateUpdate()   // outside the simulation step
-{
-    foreach (var b in _toDestroy) if (b.isValid) b.Destroy();
-    _toDestroy.Clear();
+    private void OnEnable()
+    {
+        m_World = PhysicsWorld.defaultWorld;
+        m_World.autoContactCallbacks = true;
+    }
+
+    public PhysicsBody SpawnBullet(Vector2 position, Vector2 velocity)
+    {
+        var def = new PhysicsBodyDefinition
+        {
+            type             = PhysicsBody.BodyType.Dynamic,
+            position         = position,
+            linearVelocity   = velocity,
+            gravityScale     = 0f,
+            fastCollisionsAllowed = true
+        };
+        var bullet = m_World.CreateBody(def);
+        bullet.CreateShape(new CircleGeometry { radius = 0.1f });
+
+        // Assign this script as the callback target so OnContactBegin2D fires.
+        bullet.callbackTarget = this;
+        bullet.SetContactEvents(true);   // enable contact events on all shapes
+
+        return bullet;
+    }
+
+    // Called on the main-thread AFTER the simulation step — world is writable.
+    public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
+    {
+        var shapeA = beginEvent.shapeA;
+        var shapeB = beginEvent.shapeB;
+
+        // Always validate: a prior callback in this batch may have destroyed one.
+        if (!shapeA.isValid || !shapeB.isValid)
+            return;
+
+        // Identify the bullet (the body whose callback target is this script).
+        var bulletBody = shapeA.body.callbackTarget == this ? shapeA.body : shapeB.body;
+        var otherBody  = shapeA.body.callbackTarget == this ? shapeB.body : shapeA.body;
+
+        // Destroy both immediately — this is safe here (post-simulation).
+        bulletBody.Destroy();
+
+        // GetOwner() returns Object (no generic overload).
+        var owner = otherBody.GetOwner();
+        if (owner is IDestructible destructible)
+            destructible.OnHit();
+    }
+
+    public void OnContactEnd2D(PhysicsEvents.ContactEndEvent endEvent) { }
 }
 ```
 

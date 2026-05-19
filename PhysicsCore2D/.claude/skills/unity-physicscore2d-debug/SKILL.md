@@ -1,5 +1,13 @@
 # Unity PhysicsCore2D - Debug Drawing
 
+> **⚠ UNVERIFIED — examples below contain known API errors and must not be used verbatim.**
+> Trivial casing issues (`.Identity`→`.identity`, `.isValid`→`.isValid`) have been patched, but
+> deeper structural errors remain: references to methods that don't exist (e.g. `world.Raycast`,
+> `body.GetTransform()`, `world.GetContactManifold(...)`, `shape.GetAABB()`), wrong field paths,
+> and other API drift. Cross-check every symbol against the authoritative `unity-physicscore2d-world-api`
+> / `unity-physicscore2d-shapes-api` / etc. skills or real source in `D:/UnitySrc/GitHub/PhysicsExamples2D/`
+> before using any example from this file. See memory `skill-examples-must-be-verified-api`.
+
 Expert guidance on using debug drawing features for visualization and debugging in Unity PhysicsCore2D.
 
 ## Overview
@@ -21,8 +29,15 @@ Debug drawing is automatically enabled in the Unity Editor for Game and Scene vi
 Enable in built players through settings:
 
 ```csharp
-// Enable drawing in development builds
-PhysicsCoreSettings2D.drawInBuild = true;
+// PhysicsCoreSettings2D.renderingMode controls whether drawing/rendering is
+// allowed in player builds (always available in the Editor).
+// RenderingMode.EditorOnly = draw only in Editor (default)
+// RenderingMode.EditorAndDevelopmentBuild = also draw in Development builds
+// RenderingMode.Always = draw in all builds (requires compute shader support)
+
+// Configure in code (must be set before the physics system initialises):
+var settings = PhysicsCoreSettings2D.instance;
+settings.renderingMode = PhysicsWorld.RenderingMode.EditorAndDevelopmentBuild;
 ```
 
 ## Appearance Control Options
@@ -31,36 +46,80 @@ Per-world configuration properties:
 
 ### Draw Options
 ```csharp
-// Select which features to visualize
-world.drawOptions = PhysicsWorld.DrawOptions.All;
+// world.drawOptions is a flags field — combine values with | to build a mask.
+// Real enum values (PhysicsWorld.DrawOptions):
+//   Off, AllShapes, AllBodies, AllJoints, AllShapeBounds,
+//   AllContactPoints, AllContactNormal, AllContactImpulse,
+//   AllContactForces, AllContactFriction, AllSolverIslands,
+//   AllCustom, SelectedShapes, SelectedBodies, SelectedJoints,
+//   SelectedShapeBounds, DefaultAll, DefaultSelected
 
-// Or combine specific options
-world.drawOptions =
-    PhysicsWorld.DrawOptions.Shapes |
-    PhysicsWorld.DrawOptions.Bodies |
-    PhysicsWorld.DrawOptions.Joints;
+var world = PhysicsWorld.defaultWorld;
+
+// Draw shapes, joints, and custom drawing (the standard default):
+world.drawOptions = PhysicsWorld.DrawOptions.DefaultAll;
+
+// Add contact-point visualisation on top of the default:
+world.drawOptions = PhysicsWorld.DrawOptions.DefaultAll
+                  | PhysicsWorld.DrawOptions.AllContactPoints
+                  | PhysicsWorld.DrawOptions.AllContactNormal;
+
+// Turn everything off:
+world.drawOptions = PhysicsWorld.DrawOptions.Off;
+
+// Toggle a single flag without touching the rest:
+var opts = world.drawOptions;
+world.drawOptions = opts | PhysicsWorld.DrawOptions.AllShapeBounds;   // add
+world.drawOptions = opts & ~PhysicsWorld.DrawOptions.AllShapeBounds;  // remove
 ```
 
 ### Draw Fill Options
 ```csharp
-// Configure area fill behavior
-world.drawFillOptions = PhysicsWorld.DrawFillOptions.Filled;
+// PhysicsWorld.DrawFillOptions controls which visual aspects of a primitive are drawn.
+// Values: Outline, Interior, Orientation, All (= Outline | Interior | Orientation)
 
-// Options:
-// - None: No fill
-// - Filled: Fill shapes with color
-// - Wireframe: Outline only
+var world = PhysicsWorld.defaultWorld;
+var xf = PhysicsTransform.identity;
+
+// Outline only (wireframe look):
+world.DrawCircle(Vector2.zero, 1f, Color.cyan, 0f, PhysicsWorld.DrawFillOptions.Outline);
+
+// Filled interior only (silhouette look):
+world.DrawCircle(Vector2.zero, 1f, Color.cyan, 0f, PhysicsWorld.DrawFillOptions.Interior);
+
+// Outline + interior fill + orientation marker:
+world.DrawBox(xf, Vector2.one, 0f, Color.yellow, 0f, PhysicsWorld.DrawFillOptions.All);
+
+// Combine flags manually — equivalent to All:
+var opts = PhysicsWorld.DrawFillOptions.Outline
+         | PhysicsWorld.DrawFillOptions.Interior
+         | PhysicsWorld.DrawFillOptions.Orientation;
+world.DrawBox(xf, Vector2.one, 0f, Color.yellow, 0f, opts);
+
+// world.drawFillOptions sets the automatic drawing fill globally:
+world.drawFillOptions = PhysicsWorld.DrawFillOptions.Outline;
 ```
 
 ### Colors
 ```csharp
-// Set colors for different features
-world.drawColors.dynamicBody = Color.green;
-world.drawColors.staticBody = Color.gray;
-world.drawColors.kinematicBody = Color.yellow;
-world.drawColors.sleepingBody = Color.blue;
-world.drawColors.shape = Color.white;
-world.drawColors.joint = Color.cyan;
+// world.drawColors returns a ref-struct — mutate and assign back.
+// Real fields (PhysicsWorld.DrawColors):
+//   bodyAwake, bodyStatic, bodyKinematic, bodySpeedCapped, bodyMovingFast,
+//   bodyBad, bodyDisabled, bodyFastCollisions, bodyTimeOfImpactEvent,
+//   shapeOther, shapeBounds, shapeTrigger,
+//   contactNormal, contactPersisted, contactAdded,
+//   contactImpulse, contactFriction, contactSpeculative,
+//   solverIsland, transformAxisX, transformAxisY
+
+var world = PhysicsWorld.defaultWorld;
+
+var colors = world.drawColors;
+colors.bodyAwake    = Color.limeGreen;   // awake dynamic bodies
+colors.bodyStatic   = Color.gray;        // static bodies
+colors.bodyKinematic = Color.cyan;       // kinematic bodies
+colors.shapeTrigger  = Color.yellow;     // trigger shapes
+colors.contactNormal = Color.red;        // contact normal arrows
+world.drawColors = colors;
 ```
 
 ### Fill Alpha
@@ -81,126 +140,184 @@ The PhysicsWorld provides explicit drawing methods for custom visualization:
 
 ### DrawBox
 ```csharp
-// Draw a rectangular box
-world.DrawBox(
-    center: new Vector2(0, 0),
-    size: new Vector2(2, 1),
-    angle: 0f,
-    color: Color.red
-);
+// DrawBox(PhysicsTransform transform, Vector2 size, float radius,
+//         Color color, float lifetime, PhysicsWorld.DrawFillOptions drawFillOptions)
+// The first arg is a PhysicsTransform (position + rotation), not a plain Vector2.
 
-// With lifetime (in seconds)
-world.DrawBox(center, size, angle, Color.red, lifetime: 2.0f);
+var world = PhysicsWorld.defaultWorld;
+
+// Axis-aligned unit box at the origin:
+var xf = PhysicsTransform.identity;
+world.DrawBox(xf, Vector2.one, 0f, Color.cyan, 0f, PhysicsWorld.DrawFillOptions.Outline);
+
+// Rotated, filled box at a custom position (adapted from Drawing.cs):
+var physicsTransform = new PhysicsTransform
+{
+    position = new Vector2(2f, 1f),
+    rotation = PhysicsRotate.FromRadians(0.5f)
+};
+var size   = new Vector2(1.5f, 0.75f);
+var radius = 0.1f;  // rounded corners; use 0f for sharp corners
+world.DrawBox(physicsTransform, size, radius, Color.yellow, 2f,
+              PhysicsWorld.DrawFillOptions.All);
 ```
 
 ### DrawCapsule
 ```csharp
-// Draw a capsule shape
-world.DrawCapsule(
-    vertex0: new Vector2(-1, 0),
-    vertex1: new Vector2(1, 0),
-    radius: 0.5f,
-    color: Color.blue
-);
+// DrawCapsule(PhysicsTransform transform,
+//             Vector2 center1, Vector2 center2, float radius,
+//             Color color, float lifetime, PhysicsWorld.DrawFillOptions drawFillOptions)
+// center1/center2 are in LOCAL space; transform positions them in the world.
 
-// With lifetime
-world.DrawCapsule(vertex0, vertex1, radius, Color.blue, lifetime: 1.0f);
+var world = PhysicsWorld.defaultWorld;
+
+// Horizontal capsule centred at (3, 0) (adapted from Drawing.cs):
+var physicsTransform = new PhysicsTransform
+{
+    position = new Vector2(3f, 0f),
+    rotation = PhysicsRotate.identity
+};
+var center1 = new Vector2(-0.5f, 0f);
+var center2 = new Vector2( 0.5f, 0f);
+world.DrawCapsule(physicsTransform, center1, center2, 0.25f,
+                  Color.magenta, 0f, PhysicsWorld.DrawFillOptions.All);
 ```
 
 ### DrawCircle
 ```csharp
-// Draw a circle
-world.DrawCircle(
-    center: new Vector2(0, 0),
-    radius: 1.0f,
-    color: Color.green
-);
+// DrawCircle(Vector2 center, float radius, Color color,
+//            float lifetime, PhysicsWorld.DrawFillOptions drawFillOptions)
 
-// With lifetime
-world.DrawCircle(center, radius, Color.green, lifetime: 0.5f);
+var world = PhysicsWorld.defaultWorld;
+
+// Outline circle at the origin, single frame:
+world.DrawCircle(Vector2.zero, 1f, Color.cyan, 0f, PhysicsWorld.DrawFillOptions.Outline);
+
+// Filled circle at a position, persisted for 2 seconds (adapted from Drawing.cs):
+var center = new Vector2(2f, 3f);
+world.DrawCircle(center, 0.5f, Color.orange, 2f, PhysicsWorld.DrawFillOptions.Interior);
+
+// Outline + interior + orientation (full):
+world.DrawCircle(new Vector2(-1f, 0f), 0.75f, Color.yellow, 1f,
+                 PhysicsWorld.DrawFillOptions.All);
 ```
 
 ### DrawGeometry
 ```csharp
-// Draw any geometry type
-CircleGeometry circle = new CircleGeometry { radius = 1.0f };
-world.DrawGeometry(
-    geometry: circle,
-    transform: PhysicsTransform.Identity,
-    color: Color.yellow
-);
+// DrawGeometry overloads (all share the same parameter shape):
+//   DrawGeometry(CircleGeometry,  PhysicsTransform, Color, float, DrawFillOptions)
+//   DrawGeometry(CapsuleGeometry, PhysicsTransform, Color, float, DrawFillOptions)
+//   DrawGeometry(PolygonGeometry, PhysicsTransform, Color, float, DrawFillOptions)
+//   DrawGeometry(SegmentGeometry, PhysicsTransform, Color, float)   // no fill options
+// The last two params have defaults so they may be omitted (as seen in real examples).
 
-// Supports CircleGeometry, CapsuleGeometry, PolygonGeometry
-CapsuleGeometry capsule = new CapsuleGeometry
-{
-    vertex0 = new Vector2(-1, 0),
-    vertex1 = new Vector2(1, 0),
-    radius = 0.5f
-};
-world.DrawGeometry(capsule, transform, Color.magenta, lifetime: 1.0f);
+var world = PhysicsWorld.defaultWorld;
 
-// With polygon geometry
-PolygonGeometry polygon = PolygonGeometry.CreateBox(2, 1, Allocator.Temp);
-world.DrawGeometry(polygon, transform, Color.cyan);
-polygon.Dispose();
+// Circle geometry (adapted from ContactManifold.cs):
+var circle = new CircleGeometry { center = Vector2.zero, radius = 0.5f };
+var xf1 = new PhysicsTransform { position = new Vector2(-1f, 0f), rotation = PhysicsRotate.identity };
+world.DrawGeometry(circle, xf1, Color.cornflowerBlue);       // defaults: lifetime=0, fill=All
+
+// Polygon (box) geometry  — PolygonGeometry.CreateBox takes Vector2 size (adapted from ContactManifold.cs):
+var box = PolygonGeometry.CreateBox(new Vector2(2f, 1f));
+var xf2 = new PhysicsTransform { position = new Vector2(2f, 0f), rotation = PhysicsRotate.identity };
+world.DrawGeometry(box, xf2, Color.yellow, 0f, PhysicsWorld.DrawFillOptions.Outline);
+
+// Wedge with rounded corners shown as both fill and wireframe (adapted from ContactManifold.cs):
+var wedge = PolygonGeometry.Create(new Vector2[] { new(-0.1f, -0.5f), new(0.1f, -0.5f), new(0f, 0.5f) }, radius: 0.05f);
+var xf3 = PhysicsTransform.identity;
+world.DrawGeometry(wedge, xf3, Color.limeGreen, 0f, PhysicsWorld.DrawFillOptions.All);
+wedge.radius = 0f;
+world.DrawGeometry(wedge, xf3, Color.limeGreen, 0f, PhysicsWorld.DrawFillOptions.Outline);
 ```
 
 ### DrawLine
 ```csharp
-// Draw a line segment
-world.DrawLine(
-    start: new Vector2(0, 0),
-    end: new Vector2(5, 5),
-    color: Color.white
-);
+// DrawLine(Vector2 point0, Vector2 point1, Color color, float lifetime)
+// Named params are point0/point1 — NOT start/end.
+// lifetime defaults to 0 (single frame) and may be omitted.
 
-// With lifetime
-world.DrawLine(start, end, Color.white, lifetime: 2.0f);
+var world = PhysicsWorld.defaultWorld;
+
+// Single-frame line from origin to hit point (adapted from CastRayQuery.cs):
+var hitPoint = new Vector2(0f, 5f);
+world.DrawLine(Vector2.zero, hitPoint, Color.cornflowerBlue);
+
+// Persistent line (adapted from ContactManifold.cs — chain segment visualization):
+var p1 = new Vector2(-1f, 0f);
+var p2 = new Vector2( 1f, 0f);
+world.DrawLine(p1, p2, Color.white, 2f);
+
+// Draw a contact normal arrow (point + direction):
+var contactPoint = new Vector2(0.5f, 0f);
+var normal       = Vector2.up;
+world.DrawLine(contactPoint, contactPoint + normal * 0.5f, Color.white);
 ```
 
 ### DrawLineStrip
 ```csharp
-// Draw connected line segments
-var points = new Vector2[]
-{
-    new Vector2(0, 0),
-    new Vector2(1, 1),
-    new Vector2(2, 0),
-    new Vector2(3, 1)
-};
+// DrawLineStrip(PhysicsTransform transform, ReadOnlySpan<Vector2> vertices,
+//               bool loop, Color color, float lifetime)
+// Minimum 2 vertices required. loop=true joins the last vertex back to the first.
 
-world.DrawLineStrip(
-    points: points,
-    color: Color.red
-);
+using Unity.Collections;
+using Unity.U2D.Physics;
+using UnityEngine;
 
-// With lifetime
-world.DrawLineStrip(points, Color.red, lifetime: 1.5f);
+var world = PhysicsWorld.defaultWorld;
+
+// Open polyline — e.g. a trajectory path (adapted from Drawing.cs):
+var waypoints = new NativeArray<Vector2>(4, Allocator.Temp);
+waypoints[0] = new Vector2(-3f, 0f);
+waypoints[1] = new Vector2(-1f, 2f);
+waypoints[2] = new Vector2( 1f, 1f);
+waypoints[3] = new Vector2( 3f, 3f);
+
+world.DrawLineStrip(PhysicsTransform.identity, waypoints, loop: false, Color.cyan, 5f);
+waypoints.Dispose();
+
+// Closed loop (polygon outline) using identity transform:
+var square = new Vector2[] { new(-1f,-1f), new(1f,-1f), new(1f,1f), new(-1f,1f) };
+world.DrawLineStrip(PhysicsTransform.identity, square, loop: true, Color.yellow, 0f);
 ```
 
 ### DrawPoint
 ```csharp
-// Draw a point (pixel-sized)
-world.DrawPoint(
-    position: new Vector2(2, 3),
-    color: Color.yellow
-);
+// DrawPoint(Vector2 position, float radius, Color color, float lifetime)
+// radius is in PIXELS (screen-space), not world units.
+// Typical values: 5–25 pixels for easily-visible dots.
 
-// With lifetime
-world.DrawPoint(position, Color.yellow, lifetime: 1.0f);
+var world = PhysicsWorld.defaultWorld;
+
+// Ray origin and hit point (adapted from CastRayQuery.cs):
+world.DrawPoint(Vector2.zero,          10f, Color.lawnGreen, 0f);  // origin
+world.DrawPoint(new Vector2(0f, 5f),   10f, Color.orange,    0f);  // hit
+
+// Contact point with a longer lifetime (adapted from PhysicsShapeContactCallback.cs):
+var contactPos = new Vector2(1f, 2f);
+world.DrawPoint(position: contactPos, radius: 25f, color: Color.softYellow, lifetime: 10f);
+
+// Chain-segment vertex marker (adapted from ContactManifold.cs, PointScale = 0.01f world units → pixel-equivalent):
+const float PointScale = 0.01f;
+world.DrawPoint(new Vector2(-1f, 0f), 4f * PointScale, Color.cornflowerBlue);
 ```
 
 ### DrawTransformAxis
 ```csharp
-// Draw 2D transform axes (X=red, Y=green)
-world.DrawTransformAxis(
-    transform: new PhysicsTransform(new Vector2(0, 0), Mathf.PI / 4),
-    size: 1.0f,
-    color: Color.white
-);
+// DrawTransformAxis(PhysicsTransform transform, float scale, float lifetime)
+// Draws X/Y axis arrows using drawColors.transformAxisX/Y — NO color parameter.
 
-// With lifetime
-world.DrawTransformAxis(transform, size, Color.white, lifetime: 2.0f);
+var world = PhysicsWorld.defaultWorld;
+
+// Draw a transform axis at the world mouse position, scale=1, single frame
+// (adapted from Queries.cs line 157):
+var worldPosition = new Vector2(2f, 3f);
+world.DrawTransformAxis(new PhysicsTransform(worldPosition), 1f);
+
+// Draw a body's transform axes with a 0.5 second lifetime:
+PhysicsBody body = default; // assume a valid body handle
+var bodyXf = body.transform;  // body.transform is a PROPERTY, not a method
+world.DrawTransformAxis(bodyXf, 0.5f, 0.5f);
 ```
 
 ### ClearDraw
@@ -214,223 +331,257 @@ world.ClearDraw();
 By default, all drawing functions render for a **single frame**. To persist drawings longer, provide a lifetime parameter:
 
 ```csharp
-// Draws for 1 frame (default)
-world.DrawCircle(center, radius, Color.red);
+// Pass a non-zero lifetime (seconds) to keep a primitive visible across frames.
+// lifetime=0 means draw for one frame only (default).
 
-// Draws for 5 seconds
-world.DrawCircle(center, radius, Color.red, lifetime: 5.0f);
+var world = PhysicsWorld.defaultWorld;
 
-// Draws for 0.1 seconds (useful for rapid events)
-world.DrawCircle(center, radius, Color.red, lifetime: 0.1f);
+// Persist a circle for 2 seconds then auto-remove:
+world.DrawCircle(new Vector2(0f, 2f), 0.5f, Color.orange, 2f, PhysicsWorld.DrawFillOptions.Outline);
+
+// Persist a line for 5 seconds (useful for logging collision events):
+world.DrawLine(Vector2.zero, new Vector2(3f, 3f), Color.red, 5f);
+
+// Persist a point for 10 seconds (e.g. contact callback, adapted from PhysicsShapeContactCallback.cs):
+world.DrawPoint(new Vector2(1f, 0f), 25f, Color.softYellow, 10f);
+
+// Single-frame drawing (lifetime=0 or omitted) — re-draw every Update/FixedUpdate:
+void Update()
+{
+    // Redrawn every frame; no need to clear.
+    world.DrawCircle(Vector2.up, 1f, Color.cyan, 0f, PhysicsWorld.DrawFillOptions.Outline);
+}
 ```
 
 ## Practical Examples
 
 ### Visualizing Raycast Results
 ```csharp
-void DebugRaycast(PhysicsWorld world, Vector2 origin, Vector2 direction, float distance)
+// PhysicsWorld has NO world.Raycast() — use world.CastRay() or world.DrawQueryCastRay().
+// world.CastRay(CastRayInput, QueryFilter) returns results; DrawQueryCastRay draws the input.
+
+using Unity.U2D.Physics;
+using UnityEngine;
+
+// Adapted from CastRayQuery.cs (Primer):
+private void Update()
 {
-    // Draw the ray
-    world.DrawLine(origin, origin + direction * distance, Color.yellow, lifetime: 1.0f);
+    var world = m_PhysicsWorld;  // assume a valid PhysicsWorld
 
-    // Perform raycast
-    var hits = world.Raycast(origin, direction, distance);
-
-    foreach (var hit in hits)
+    var input = new PhysicsQuery.CastRayInput
     {
-        // Draw hit point
-        world.DrawPoint(hit.position, Color.red, lifetime: 1.0f);
+        origin      = Vector2.zero,
+        translation = Vector2.up * 10f
+    };
 
-        // Draw hit normal
-        world.DrawLine(
-            hit.position,
-            hit.position + hit.normal * 0.5f,
-            Color.green,
-            lifetime: 1.0f
-        );
+    // Visualise the ray input (arrow from origin along translation):
+    world.DrawQueryCastRay(input, Color.yellow, 0f, drawEnd: true);
 
-        // Draw circle at hit
-        world.DrawCircle(hit.position, 0.1f, Color.red, lifetime: 1.0f);
-    }
+    // Perform the actual cast:
+    using var results = world.CastRay(input, PhysicsQuery.QueryFilter.Everything);
+    if (results.Length == 0)
+        return;
+
+    var hit = results[0];
+    world.DrawLine(Vector2.zero, hit.point, Color.cornflowerBlue);
+    world.DrawPoint(Vector2.zero,  10f, Color.lawnGreen);   // origin
+    world.DrawPoint(hit.point,     10f, Color.orange);       // impact
+
+    // Or draw the result struct directly (point + normal arrow):
+    world.DrawQueryResult(hit, Color.red, 0f, drawPoint: true, drawNormal: true);
 }
 ```
 
 ### Visualizing Body Velocity
 ```csharp
-void DebugBodyVelocity(PhysicsWorld world, PhysicsBody body)
+// body.transform is a PROPERTY (PhysicsTransform) — NOT a method.
+// DrawTransformAxis takes (PhysicsTransform, float scale, float lifetime) — no color param.
+
+using Unity.U2D.Physics;
+using UnityEngine;
+
+// Adapted from Determinism.cs (body.transform) + Boids.cs (DrawLine velocity trail):
+private void Update()
 {
-    if (!body.IsValid)
-        return;
+    var world = PhysicsWorld.defaultWorld;
 
-    // Draw linear velocity
-    world.DrawLine(
-        body.position,
-        body.position + body.linearVelocity,
-        Color.cyan,
-        lifetime: 0.0f // Single frame
-    );
+    using var bodies = world.GetBodies(Unity.Collections.Allocator.Temp);
+    foreach (var body in bodies)
+    {
+        // body.transform is a PROPERTY — access directly:
+        var bodyXf = body.transform;
 
-    // Draw angular velocity as rotating axis
-    float angularSpeed = Mathf.Abs(body.angularVelocity);
-    Color angularColor = Color.Lerp(Color.white, Color.red, angularSpeed / 10f);
-    world.DrawTransformAxis(
-        body.GetTransform(),
-        1.0f,
-        angularColor,
-        lifetime: 0.0f
-    );
+        // Draw the body's local axes (X = red, Y = green per drawColors defaults):
+        world.DrawTransformAxis(bodyXf, 0.5f, 0f);
+
+        // Draw the velocity vector as a line from the body position:
+        var vel = body.linearVelocity;
+        if (vel.sqrMagnitude > 0.01f)
+        {
+            world.DrawLine(bodyXf.position, bodyXf.position + vel * Time.fixedDeltaTime,
+                           Color.cyan, 0f);
+        }
+    }
 }
 ```
 
 ### Visualizing Contact Points
 ```csharp
-void DebugContactPoints(PhysicsWorld world)
+// PhysicsWorld has NO GetContactManifold(shapeA, shapeB).
+// Access contacts via a contact callback (PhysicsCallbacks.IContactCallback) or
+// via PhysicsQuery static manifold methods (CircleAndCircle, etc.).
+// ContactManifold fields: pointCount, normal, indexer [i].
+// ContactManifold.ManifoldPoint fields: point (NOT .position), anchorA, anchorB.
+
+// Pattern 1 — callback-based (adapted from PhysicsShapeContactCallback.cs):
+public class MyScript : MonoBehaviour, PhysicsCallbacks.IContactCallback
 {
-    // After simulation
-    var contactEvents = world.contactBeginEvents;
+    private PhysicsWorld m_World;
 
-    foreach (var contact in contactEvents)
+    public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
     {
-        // Get contact manifold
-        var manifold = world.GetContactManifold(contact.shapeA, contact.shapeB);
+        var contact = beginEvent.contactId.contact;
 
-        if (manifold.IsValid)
-        {
-            // Draw each contact point
-            for (int i = 0; i < manifold.pointCount; i++)
-            {
-                var point = manifold.GetPoint(i);
+        // Draw each manifold point for 10 seconds:
+        foreach (var pt in contact.manifold)
+            m_World.DrawPoint(pt.point, 25f, Color.softYellow, 10f);
+    }
 
-                // Draw contact point
-                world.DrawPoint(point.position, Color.red, lifetime: 0.5f);
+    public void OnContactEnd2D(PhysicsEvents.ContactEndEvent _) { }
+}
 
-                // Draw contact normal
-                world.DrawLine(
-                    point.position,
-                    point.position + manifold.normal * 0.3f,
-                    Color.yellow,
-                    lifetime: 0.5f
-                );
-
-                // Draw penetration depth
-                float depth = point.separation;
-                if (depth < 0)
-                {
-                    world.DrawCircle(
-                        point.position,
-                        Mathf.Abs(depth),
-                        Color.red * 0.5f,
-                        lifetime: 0.5f
-                    );
-                }
-            }
-        }
+// Pattern 2 — query-based manifold (adapted from ContactManifold.cs DrawManifold):
+static void DrawManifold(PhysicsWorld world, ref PhysicsShape.ContactManifold manifold)
+{
+    for (var i = 0; i < manifold.pointCount; ++i)
+    {
+        var contact = manifold[i];            // indexer returns ManifoldPoint
+        var p1 = contact.point;               // field is .point, NOT .position
+        var p2 = p1 + manifold.normal * 0.5f;
+        world.DrawLine(p1, p2, Color.white);
+        world.DrawPoint(p1, 5f, Color.blue);
     }
 }
 ```
 
 ### Visualizing Joint Constraints
 ```csharp
-void DebugJoint(PhysicsWorld world, PhysicsJoint joint)
-{
-    if (!joint.IsValid)
-        return;
+// Enable automatic joint drawing via drawOptions:
+var world = PhysicsWorld.defaultWorld;
+world.drawOptions |= PhysicsWorld.DrawOptions.AllJoints;
 
-    var bodyA = joint.bodyA;
-    var bodyB = joint.bodyB;
+// Or draw joint anchors manually for a hinge joint:
+// (joint.bodyA, joint.bodyB, joint.localAnchorA, joint.localAnchorB are valid)
+PhysicsHingeJoint joint = default; // assume a valid joint
 
-    // Get anchor points in world space
-    var anchorA = bodyA.GetWorldPoint(joint.localAnchorA);
-    var anchorB = bodyB.GetWorldPoint(joint.localAnchorB);
+var bodyAXf  = joint.bodyA.transform;  // body.transform is a PROPERTY
+var bodyBXf  = joint.bodyB.transform;
 
-    // Draw anchors
-    world.DrawCircle(anchorA, 0.1f, Color.green, lifetime: 0.0f);
-    world.DrawCircle(anchorB, 0.1f, Color.blue, lifetime: 0.0f);
+// Convert local anchors to world space using PhysicsTransform.TransformPoint:
+var worldAnchorA = bodyAXf.TransformPoint(joint.localAnchorA);
+var worldAnchorB = bodyBXf.TransformPoint(joint.localAnchorB);
 
-    // Draw connection
-    world.DrawLine(anchorA, anchorB, Color.yellow, lifetime: 0.0f);
-
-    // Draw bodies
-    world.DrawCircle(bodyA.position, 0.05f, Color.green, lifetime: 0.0f);
-    world.DrawCircle(bodyB.position, 0.05f, Color.blue, lifetime: 0.0f);
-}
+// Draw the anchor points and the line between them:
+world.DrawCircle(worldAnchorA, 0.08f, Color.red,   0f, PhysicsWorld.DrawFillOptions.Interior);
+world.DrawCircle(worldAnchorB, 0.08f, Color.green,  0f, PhysicsWorld.DrawFillOptions.Interior);
+world.DrawLine(worldAnchorA, worldAnchorB, Color.yellow, 0f);
 ```
 
 ### Visualizing Shape AABB
 ```csharp
-void DebugShapeAABB(PhysicsWorld world, PhysicsShape shape)
+// shape.aabb is a PROPERTY (PhysicsAABB) — NOT a method.
+// DrawAABB(PhysicsAABB aabb, Color color, float lifetime, DrawFillOptions drawFillOptions)
+
+using Unity.U2D.Physics;
+using UnityEngine;
+
+private void Update()
 {
-    if (!shape.IsValid)
-        return;
+    var world = PhysicsWorld.defaultWorld;
 
-    var aabb = shape.GetAABB();
+    using var bodies = world.GetBodies(Unity.Collections.Allocator.Temp);
+    foreach (var body in bodies)
+    {
+        using var shapes = body.GetShapes(Unity.Collections.Allocator.Temp);
+        foreach (var shape in shapes)
+        {
+            // shape.aabb is a property — access directly:
+            var aabb = shape.aabb;
+            world.DrawAABB(aabb, Color.cyan, 0f, PhysicsWorld.DrawFillOptions.Outline);
 
-    // Draw AABB as box
-    Vector2 center = aabb.center;
-    Vector2 size = aabb.extents * 2;
-
-    world.DrawBox(
-        center,
-        size,
-        0f, // No rotation
-        Color.magenta,
-        lifetime: 0.0f
-    );
-
-    // Draw corner points
-    world.DrawPoint(aabb.min, Color.red, lifetime: 0.0f);
-    world.DrawPoint(aabb.max, Color.red, lifetime: 0.0f);
+            // Also mark the AABB centre:
+            var centre = (aabb.lowerBound + aabb.upperBound) * 0.5f;
+            world.DrawPoint(centre, 4f, Color.white, 0f);
+        }
+    }
 }
 ```
 
 ### Visualizing Path/Trajectory
 ```csharp
-void DebugTrajectory(PhysicsWorld world, Vector2 start, Vector2 velocity, float gravity, float time)
+// DrawLineStrip(PhysicsTransform transform, ReadOnlySpan<Vector2> vertices,
+//               bool loop, Color color, float lifetime)
+// DrawCircle(Vector2 center, float radius, Color color, float lifetime, DrawFillOptions)
+
+using Unity.Collections;
+using Unity.U2D.Physics;
+using UnityEngine;
+
+// Simulate and draw a ballistic trajectory (projectile path):
+private void DrawTrajectory(PhysicsWorld world, Vector2 origin, Vector2 velocity, float gravity, int steps, float dt)
 {
-    int steps = 50;
-    float dt = time / steps;
-    Vector2 position = start;
-    Vector2 currentVelocity = velocity;
+    var points = new NativeArray<Vector2>(steps, Allocator.Temp);
 
-    var points = new Vector2[steps + 1];
-    points[0] = position;
-
-    for (int i = 0; i < steps; i++)
+    var pos = origin;
+    var vel = velocity;
+    for (var i = 0; i < steps; ++i)
     {
-        currentVelocity.y -= gravity * dt;
-        position += currentVelocity * dt;
-        points[i + 1] = position;
+        points[i] = pos;
+        vel += new Vector2(0f, gravity) * dt;
+        pos += vel * dt;
     }
 
-    // Draw trajectory path
-    world.DrawLineStrip(points, Color.cyan, lifetime: 2.0f);
+    // Open path (no loop), persisted for 1 second:
+    world.DrawLineStrip(PhysicsTransform.identity, points, loop: false, Color.cyan, 1f);
 
-    // Draw start and end points
-    world.DrawCircle(start, 0.1f, Color.green, lifetime: 2.0f);
-    world.DrawCircle(position, 0.1f, Color.red, lifetime: 2.0f);
+    // Mark start and predicted landing:
+    world.DrawCircle(points[0],          0.1f, Color.green,  1f, PhysicsWorld.DrawFillOptions.Interior);
+    world.DrawCircle(points[steps - 1],  0.1f, Color.orange, 1f, PhysicsWorld.DrawFillOptions.Interior);
+
+    points.Dispose();
 }
 ```
 
 ### Debug Custom Collision Area
 ```csharp
-void DebugCollisionArea(PhysicsWorld world, PolygonGeometry geometry, PhysicsTransform transform)
+// PolygonGeometry.CreateBox takes Vector2 size (NOT separate floats, NO Allocator arg).
+// geometry.centroid is a PROPERTY.
+// PhysicsTransform.TransformPoint() is a valid METHOD on the struct.
+// DrawGeometry(PolygonGeometry, PhysicsTransform, Color, float, DrawFillOptions)
+
+using Unity.U2D.Physics;
+using UnityEngine;
+
+private void Update()
 {
-    // Draw the geometry
-    world.DrawGeometry(geometry, transform, Color.yellow, lifetime: 1.0f);
+    var world = PhysicsWorld.defaultWorld;
 
-    // Draw vertices
-    var vertices = geometry.GetVertices(Allocator.Temp);
-    foreach (var vertex in vertices)
+    // Build a custom collision zone as a rotated box:
+    var box = PolygonGeometry.CreateBox(new Vector2(4f, 2f));   // Vector2 size, no Allocator
+    var zoneXf = new PhysicsTransform
     {
-        Vector2 worldVertex = transform.TransformPoint(vertex);
-        world.DrawPoint(worldVertex, Color.red, lifetime: 1.0f);
-    }
-    vertices.Dispose();
+        position = new Vector2(0f, 1f),
+        rotation = PhysicsRotate.FromRadians(0.3f)
+    };
 
-    // Draw centroid
-    Vector2 centroid = geometry.GetCentroid();
-    Vector2 worldCentroid = transform.TransformPoint(centroid);
-    world.DrawCircle(worldCentroid, 0.1f, Color.green, lifetime: 1.0f);
+    // Draw the filled zone with an outline (adapted from ContactManifold.cs pattern):
+    world.DrawGeometry(box, zoneXf, new Color(1f, 0.5f, 0f, 0.4f), 0f,
+                       PhysicsWorld.DrawFillOptions.All);
+
+    // Mark the centroid in world space:
+    // geometry.centroid is a PROPERTY (Vector2):
+    var worldCentroid = zoneXf.TransformPoint(box.centroid);
+    world.DrawPoint(worldCentroid, 8f, Color.red, 0f);
 }
 ```
 
@@ -439,23 +590,40 @@ void DebugCollisionArea(PhysicsWorld world, PolygonGeometry geometry, PhysicsTra
 Configure what to draw automatically:
 
 ```csharp
-[Flags]
-public enum DrawOptions
-{
-    None = 0,
-    Shapes = 1 << 0,           // Draw all shapes
-    Bodies = 1 << 1,           // Draw body centers
-    Joints = 1 << 2,           // Draw joint constraints
-    AABB = 1 << 3,             // Draw AABBs
-    CenterOfMass = 1 << 4,     // Draw center of mass
-    Velocity = 1 << 5,         // Draw velocities
-    ContactPoints = 1 << 6,    // Draw contact points
-    ContactNormals = 1 << 7,   // Draw contact normals
-    All = ~0                   // Draw everything
-}
+// PhysicsWorld.DrawOptions is a flags enum — values can be OR'd together.
+// Set world.drawOptions to control what is drawn automatically each frame.
+// Adapted from SandboxManager.cs (ConfigureDrawFlag pattern).
 
-// Usage
-world.drawOptions = PhysicsWorld.DrawOptions.Shapes | PhysicsWorld.DrawOptions.Joints;
+var world = PhysicsWorld.defaultWorld;
+
+// Common flags:
+//   DefaultAll = AllShapes | AllJoints | AllCustom
+//   AllShapes         — all shape outlines/fills
+//   AllBodies         — body state colouring
+//   AllJoints         — joint constraint visuals
+//   AllShapeBounds    — AABB for every shape
+//   AllContactPoints  — contact point dots
+//   AllContactNormal  — contact normal arrows
+//   AllContactImpulse — impulse magnitude arrows
+//   AllContactFriction / AllContactForces / AllSolverIslands
+//   SelectedShapes / SelectedBodies / SelectedJoints / SelectedShapeBounds
+//   Off               — disable all automatic drawing
+
+// Start from the sensible default, then layer on extras:
+world.drawOptions = PhysicsWorld.DrawOptions.DefaultAll
+                  | PhysicsWorld.DrawOptions.AllContactPoints
+                  | PhysicsWorld.DrawOptions.AllContactNormal
+                  | PhysicsWorld.DrawOptions.AllShapeBounds;
+
+// Toggle a flag (add / remove without touching others):
+bool showBodies = true;
+var current = world.drawOptions;
+world.drawOptions = showBodies
+    ? current |  PhysicsWorld.DrawOptions.AllBodies
+    : current & ~PhysicsWorld.DrawOptions.AllBodies;
+
+// Check if a flag is active:
+bool contactsOn = world.drawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactPoints);
 ```
 
 ## DrawColors Structure
@@ -463,16 +631,42 @@ world.drawOptions = PhysicsWorld.DrawOptions.Shapes | PhysicsWorld.DrawOptions.J
 Customize colors for different physics objects:
 
 ```csharp
-world.drawColors.dynamicBody = new Color(0, 1, 0, 1);      // Green
-world.drawColors.staticBody = new Color(0.5f, 0.5f, 0.5f, 1); // Gray
-world.drawColors.kinematicBody = new Color(1, 1, 0, 1);    // Yellow
-world.drawColors.sleepingBody = new Color(0, 0, 1, 1);     // Blue
-world.drawColors.shape = new Color(1, 1, 1, 1);            // White
-world.drawColors.trigger = new Color(1, 0, 1, 1);          // Magenta
-world.drawColors.joint = new Color(0, 1, 1, 1);            // Cyan
-world.drawColors.contactPoint = new Color(1, 0, 0, 1);     // Red
-world.drawColors.contactNormal = new Color(1, 1, 0, 1);    // Yellow
-world.drawColors.aabb = new Color(1, 0, 1, 1);             // Magenta
+// world.drawColors returns the current DrawColors struct — mutate and assign back.
+// ALL valid field names (PhysicsWorld.DrawColors):
+//   bodyAwake, bodyStatic, bodyKinematic
+//   bodySpeedCapped, bodyMovingFast, bodyBad, bodyDisabled
+//   bodyFastCollisions, bodyTimeOfImpactEvent
+//   shapeOther, shapeBounds, shapeTrigger
+//   contactNormal, contactPersisted, contactAdded
+//   contactImpulse, contactFriction, contactSpeculative
+//   solverIsland, transformAxisX, transformAxisY
+
+var world = PhysicsWorld.defaultWorld;
+
+// Read-modify-write (the struct is returned by value):
+var colors = world.drawColors;
+
+// Body colours:
+colors.bodyAwake     = Color.limeGreen;   // awake dynamic bodies
+colors.bodyStatic    = Color.gray;        // static / sleeping bodies
+colors.bodyKinematic = Color.cyan;        // kinematic bodies
+colors.bodyBad       = Color.red;         // zero-mass dynamic bodies (error state)
+
+// Shape colours:
+colors.shapeOther    = new Color(0.2f, 0.6f, 1f);   // default shape tint
+colors.shapeTrigger  = new Color(1f, 1f, 0f, 0.5f); // trigger shapes
+
+// Contact colours:
+colors.contactNormal    = Color.white;
+colors.contactAdded     = Color.green;    // new contacts this step
+colors.contactPersisted = Color.blue;     // ongoing contacts
+
+// Transform-axis colours:
+colors.transformAxisX = Color.red;
+colors.transformAxisY = Color.green;
+
+// Write back:
+world.drawColors = colors;
 ```
 
 ## Best Practices
@@ -500,10 +694,49 @@ world.drawColors.aabb = new Color(1, 0, 1, 1);             // Magenta
 Remove debug drawing from release builds:
 
 ```csharp
+// Use UNITY_EDITOR or DEVELOPMENT_BUILD preprocessor symbols to strip debug
+// drawing from release player builds.  DrawCircle requires all 5 arguments.
+
+using Unity.U2D.Physics;
+using UnityEngine;
+
+public class MyPhysicsDebugger : MonoBehaviour
+{
+    private PhysicsWorld m_World;
+
+    private void Update()
+    {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    world.DrawCircle(position, radius, Color.red);
-    DebugRaycast(world, origin, direction, distance);
+        DrawDebugInfo();
 #endif
+    }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    private void DrawDebugInfo()
+    {
+        // Draw a watched body's position:
+        PhysicsBody watchedBody = default; // assume a valid body
+        var xf = watchedBody.transform;    // PROPERTY — not a method
+        m_World.DrawTransformAxis(xf, 0.5f, 0f);
+
+        // Draw detection radius:
+        m_World.DrawCircle(xf.position, 2f, Color.yellow, 0f,
+                           PhysicsWorld.DrawFillOptions.Outline);
+
+        // Draw a query ray using the correct API (world.CastRay, NOT world.Raycast):
+        var input = new PhysicsQuery.CastRayInput
+        {
+            origin      = xf.position,
+            translation = Vector2.down * 5f
+        };
+        m_World.DrawQueryCastRay(input, Color.cyan, 0f, drawEnd: true);
+
+        using var hits = m_World.CastRay(input, PhysicsQuery.QueryFilter.Everything);
+        if (hits.Length > 0)
+            m_World.DrawPoint(hits[0].point, 10f, Color.red, 0f);
+    }
+#endif
+}
 ```
 
 ## Common Use Cases

@@ -474,25 +474,18 @@ private NativeList<PhysicsShape> m_Shapes;
 Because they are handles (not value structs), you can modify properties directly through NativeArray/NativeList indexing:
 
 ```csharp
-// CORRECT - Direct property modification works because PhysicsBody is a handle
-m_Bodies[i].position = newPosition;
-m_Bodies[i].velocity = newVelocity;
+// Reading linearVelocity from a NativeArray<PhysicsBody> indexer is fine directly.
+Vector2 currentVelocity = m_Bodies[i].linearVelocity;
 
-// CORRECT - Method calls also work directly
-m_Bodies[i].CreateShape(geometry, definition);
-```
-
-**You do NOT need the copy-modify-writeback pattern** that regular value structs require:
-
-```csharp
-// INCORRECT - Unnecessary for PhysicsCore2D handles
+// Writing linearVelocity requires a local variable first (C# compiler limitation for
+// by-value struct indexers). Copy the handle into a local, set the property, then
+// discard — NO writeback is needed because PhysicsBody is a handle struct.
 var body = m_Bodies[i];
-body.position = newPosition;
-m_Bodies[i] = body; // Don't need this!
-
-// CORRECT - Just set directly
-m_Bodies[i].position = newPosition;
+body.linearVelocity = Vector2.up * 5f;
+// body still references the same underlying physics object; the change is live.
 ```
+
+**You do NOT need the copy-modify-writeback pattern** that regular value structs require — read the workaround section below for the correct pattern for property setters.
 
 #### C# Compiler Limitation with Setting Properties on By-Value Structs
 
@@ -511,7 +504,7 @@ The compiler will not allow setting properties on by-value struct results:
 ```csharp
 // COMPILER ERROR - Cannot modify the result of by-value expressions
 m_Bodies[index].position = newPosition;           // From indexer - ERROR
-m_Shapes[index].isSensor = true;                  // From indexer - ERROR
+m_Shapes[index].isTrigger = true;                  // From indexer - ERROR
 PhysicsWorld.defaultWorld.gravity = Vector2.down; // From static property - ERROR
 SomeMethod().friction = 0.5f;                     // From method return - ERROR
 ```
@@ -520,14 +513,14 @@ But reading properties and calling methods work fine:
 ```csharp
 // WORKS - Reading properties is fine
 var pos = m_Bodies[index].position;
-var isSensor = m_Shapes[index].isSensor;
+var isTrigger = m_Shapes[index].isTrigger;
 var gravity = PhysicsWorld.defaultWorld.gravity;
 bool isValid = m_Bodies[index].isValid;
 
 // WORKS - Calling methods is fine
 m_Bodies[index].CreateShape(geometry, definition);
 m_Bodies[index].Destroy();
-PhysicsWorld.defaultWorld.Step(Time.deltaTime);
+PhysicsWorld.defaultWorld.Simulate(Time.deltaTime);
 ```
 
 **Workaround for setting properties:** Store the struct in a local variable first, then set its properties:
@@ -539,7 +532,7 @@ body.position = newPosition;
 // No writeback needed - modifications happen through the handle!
 
 var shape = m_Shapes[index];
-shape.isSensor = true;
+shape.isTrigger = true;
 // No writeback needed!
 
 var chain = m_Chains[index];
@@ -560,14 +553,14 @@ var enemy = m_EnemyBodies[index];
 enemy.position = newPosition;
 // Done - no writeback needed
 
-// Setting velocity from a NativeList<PhysicsBody>
+// Setting linearVelocity from a NativeList<PhysicsBody>
 var bullet = m_BulletBodies[i];
-bullet.velocity = Vector2.up * speed;
+bullet.linearVelocity = Vector2.up * speed;
 // Done - no writeback needed
 
-// Setting shape properties from a NativeArray<PhysicsShape>
+// Setting shape density from a NativeArray<PhysicsShape>
 var shape = m_Shapes[i];
-shape.density = 2.0f;
+shape.SetDensity(2.0f, true);
 // Done - no writeback needed
 
 // Setting world properties from static property
@@ -677,7 +670,7 @@ Use these when the user asks "how do I do X", "which type should I pick for Y", 
 
 When the user asks to **copy / distribute / vendor / sync the physicscore2d skills to `<dest>`** (typically a Unity project that should ship with these skills baked in), follow this convention without re-asking:
 
-**Source scope.** Every directory matching `~/.claude/skills/unity-physicscore2d*` — that is the umbrella skill (`unity-physicscore2d`) **plus** every `unity-physicscore2d-*` subskill (both auto-generated `-api` ones and hand-authored topic ones). Include any `examples/` subdirectories inside those skills. As of this writing the source has 35 directories total.
+**Source scope.** Every directory matching `~/.claude/skills/unity-physicscore2d*` — that is the umbrella skill (`unity-physicscore2d`) **plus** every `unity-physicscore2d-*` subskill (both auto-generated `-api` ones and hand-authored topic ones). Include any `examples/` subdirectories inside those skills. The total count drifts as new clusters/topics are added; rely on the glob, not a fixed number.
 
 **Never include:**
 - `~/.claude/physicscore2d-api-generator/` — that's the regeneration tooling (Python script + intermediate cluster `.md` files). It's deliberately not under `skills/` so a normal glob can't catch it, but never copy it explicitly either. The generator stays in one place.

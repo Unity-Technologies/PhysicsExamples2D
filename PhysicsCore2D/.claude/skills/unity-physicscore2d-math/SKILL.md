@@ -93,33 +93,84 @@ Quaternion rotation3D = PhysicsMath.ToRotationFast3D(
 
 ### Axis Helper Functions
 
+All axis-helper methods accept `PhysicsWorld.TransformPlane` and return `Vector3` bitmasks where **1 = axis active, 0 = axis ignored** — not index arrays or integers.
+
 ```csharp
-// Get active translation axes for plane
-var axes = PhysicsMath.GetTranslationAxes(TransformPlane.XY);
-// Returns: { 0, 1 } (X and Y axes)
+using Unity.U2D.Physics;
+using UnityEngine;
 
-// Get ignored translation axis
-int ignoredAxis = PhysicsMath.GetTranslationIgnoredAxis(TransformPlane.XY);
-// Returns: 2 (Z axis is ignored)
+// --- GetTranslationAxes ---
+// Returns a Vector3 mask: 1 on each axis that PhysicsCore2D uses for translation.
+// XY plane → (1, 1, 0)   XZ plane → (1, 0, 1)   ZY plane → (0, 1, 1)
+var world = PhysicsWorld.defaultWorld;
+PhysicsWorld.TransformPlane plane = world.transformPlane;
 
-// Get ignored axes as array
-int[] ignoredAxes = PhysicsMath.GetTranslationIgnoredAxes(TransformPlane.XY);
-// Returns: { 2 } (Z axis)
+Vector3 usedAxes = PhysicsMath.GetTranslationAxes(plane);
 
-// Get rotation axes
-var rotAxes = PhysicsMath.GetRotationAxes(TransformPlane.XY);
-// Returns rotation axis indices
+// Typical use: verify that the target's scale is non-zero on the physics axes.
+// (Direct lift from TestShapeEditorTool.cs / TestChainGeometryTool.cs)
+bool hasValidScale = !Mathf.Approximately(
+    Vector3.Scale(usedAxes, transform.lossyScale).sqrMagnitude, 0f);
 
-// Get ignored rotation axes
-var ignoredRotAxes = PhysicsMath.GetRotationIgnoredAxes(TransformPlane.XY);
+// --- GetTranslationIgnoredAxes ---
+// Inverse mask: 1 on the axis that is NOT part of the 2D plane.
+// XY plane → (0, 0, 1)   XZ plane → (0, 1, 0)   ZY plane → (1, 0, 0)
+// Used as the "depth normal" for 3D handles so they slide in the correct plane.
+// (Direct lift from TestChainGeometryTool.cs, TestOutlineShapeTool.cs)
+Vector3 handleDirection = PhysicsMath.GetTranslationIgnoredAxes(plane);
+// Pass to Handles.Slider2D as the normal so the handle moves in the physics plane.
+
+// --- GetTranslationIgnoredAxis(Vector3, TransformPlane) ---
+// Scalar overload: extracts the ignored-axis *value* from a concrete position.
+// XY plane → returns position.z   XZ plane → returns position.y   ZY plane → returns position.x
+Vector3 worldPos = transform.position;
+float depth = PhysicsMath.GetTranslationIgnoredAxis(worldPos, plane);
+// Useful to read the "out-of-plane" coordinate when you need to preserve it manually.
+
+// --- GetRotationAxes / GetRotationIgnoredAxes ---
+// Same mask pattern for the rotation axis. For all standard planes a single axis
+// carries the rotation, so one component is 1 and the other two are 0.
+Vector3 rotAxes        = PhysicsMath.GetRotationAxes(plane);        // e.g. XY → (0, 0, 1)
+Vector3 rotIgnoredAxes = PhysicsMath.GetRotationIgnoredAxes(plane); // e.g. XY → (1, 1, 0)
 ```
 
 ### Swizzle
+
+`Swizzle` reorders a vector's components so that the physics-plane axes map to the correct 3D axes. There is **no** `(Vector3, int, int, int)` overload — the only overloads take a `TransformPlane`.
+
 ```csharp
-// Swap/reorder vector components
-Vector3 original = new Vector3(1, 2, 3);
-Vector3 swizzled = PhysicsMath.Swizzle(original, 2, 0, 1); // (z, x, y)
-// Result: (3, 1, 2)
+using Unity.U2D.Physics;
+using UnityEngine;
+
+var world = PhysicsWorld.defaultWorld;
+PhysicsWorld.TransformPlane plane = world.transformPlane;
+
+// --- Swizzle(Vector3, TransformPlane) ---
+// Reorders the components of a 3D vector to match the selected plane.
+// For XY: (x, y, z) → (x, y, z)  (no change, XY is the default layout)
+// For XZ: (x, y, z) → (x, z, y)  (swaps Y and Z)
+// For ZY: (x, y, z) → (z, y, x)  (swaps X and Z)
+
+// Typical editor-tool use: transform a local 2D axis vector into the correct
+// 3D orientation, then rotate it by the body's matrix.
+// (Direct lift from TestChainGeometryTool.cs / TestShapeEditorTool.cs)
+var axisRight = new Vector3(1f, 0f, 0f);
+var axisUp    = new Vector3(0f, 1f, 0f);
+
+Matrix4x4 bodyMatrix = body.rotation.GetMatrix(plane);
+Vector3 handleRight = bodyMatrix.MultiplyVector(PhysicsMath.Swizzle(axisRight, plane)).normalized;
+Vector3 handleUp    = bodyMatrix.MultiplyVector(PhysicsMath.Swizzle(axisUp,    plane)).normalized;
+// handleRight / handleUp are now correct 3D screen-space handle directions for Handles.Slider2D.
+
+// --- Swizzle(Vector4, TransformPlane) ---
+// Same reorder for a homogeneous position vector (perspective divide preserved).
+var pos4 = new Vector4(3f, 2f, 0f, 1f);
+Vector4 swizzled4 = PhysicsMath.Swizzle(pos4, plane);
+
+// --- Swizzle(Matrix4x4, TransformPlane) ---
+// Swizzles the position column of a 4×4 matrix (the matrix returned by GetRelativeMatrix).
+Matrix4x4 relMatrix = PhysicsMath.GetRelativeMatrix(transformFrom, transformTo, plane, useScale: false);
+Matrix4x4 swizzledMatrix = PhysicsMath.Swizzle(relMatrix, plane);
 ```
 
 ### ToPhysicsTransform
@@ -177,12 +228,14 @@ float angleInRadians = PhysicsMath.Atan2(direction.y, direction.x);
 ```csharp
 // Combined cosine and sine calculation (more efficient)
 float angle = PhysicsMath.PI / 4;
-(float cos, float sin) = PhysicsMath.CosSin(angle);
 
-// Equivalent to:
-// float cos = Mathf.Cos(angle);
-// float sin = Mathf.Sin(angle);
-// But faster and deterministic
+// out-param form (CosSin(float, float, float)):
+PhysicsMath.CosSin(angle, out var cos, out var sin);
+
+// Vector2 form (CosSin(float) returns Vector2 where x=cos, y=sin):
+Vector2 cs = PhysicsMath.CosSin(angle);
+float cosVal = cs.x;
+float sinVal = cs.y;
 ```
 
 ## Utility Functions
@@ -228,22 +281,47 @@ transform.rotation *= deltaRotation;
 ```
 
 ### SpringDamper
+
+`SpringDamper` runs a **1-D mass-spring-damper** that drives a translation toward zero. It returns the **new speed**; the caller integrates position separately.
+
+```
+newSpeed = SpringDamper(frequency, damping, translation, speed, deltaTime);
+translation += newSpeed * deltaTime;
+```
+
+| Param | Type | Meaning |
+|---|---|---|
+| `frequency` | `float` | Spring frequency in cycles/second (Hz). Higher = stiffer. |
+| `damping` | `float` | Damping ratio (≥ 0). 1 = critically damped, >1 = overdamped. |
+| `translation` | `float` | Current displacement from equilibrium. |
+| `speed` | `float` | Current speed (signed). |
+| `deltaTime` | `float` | Time step in seconds. |
+
 ```csharp
-// Calculate spring-damper forces
-float displacement = 2.0f;      // Distance from equilibrium
-float velocity = 1.0f;          // Current velocity
-float stiffness = 50f;          // Spring constant
-float damping = 5f;             // Damping coefficient
+using Unity.U2D.Physics;
+using UnityEngine;
 
-float force = PhysicsMath.SpringDamper(
-    displacement,
-    velocity,
-    stiffness,
-    damping
-);
+// Pogo-stick spring — drives the leg toward its rest length.
+// (Direct lift from CharacterMover.cs, Projects/Sandbox/Assets/Scenes/Collision/CharacterMover/)
+private float m_PogoVelocity;
+private float m_PogoFrequency = 8f;  // Hz
+private float m_PogoDamping   = 0.5f; // under-damped for a bouncy feel
 
-// Apply force to body
-body.ApplyForce(direction * force);
+void UpdatePogo(float pogoCurrentLength, float pogoRestLength, float deltaTime)
+{
+    float offset = pogoCurrentLength - pogoRestLength; // positive = leg too long
+
+    m_PogoVelocity = PhysicsMath.SpringDamper(
+        frequency:  m_PogoFrequency,
+        damping:    m_PogoDamping,
+        translation: offset,
+        speed:      m_PogoVelocity,
+        deltaTime:  deltaTime);
+
+    // Integrate: apply the new speed as a vertical impulse on the character body.
+    float verticalDelta = m_PogoVelocity * deltaTime;
+    // e.g. body.ApplyLinearImpulse(new Vector2(0f, verticalDelta));
+}
 ```
 
 ## Practical Examples
@@ -326,7 +404,7 @@ FaceDirection(body, moveDirection);
 ```csharp
 Vector2 GetPointOnCircle(float angleRadians, float radius)
 {
-    var (cos, sin) = PhysicsMath.CosSin(angleRadians);
+    PhysicsMath.CosSin(angleRadians, out var cos, out var sin);
     return new Vector2(cos * radius, sin * radius);
 }
 
@@ -341,52 +419,65 @@ for (int i = 0; i < count; i++)
 ```
 
 ### Spring Camera Follow
+
+Apply independent X and Y spring-dampers to smoothly follow a physics body. Each axis maintains its own speed state and integrates via `translation += newSpeed * deltaTime`.
+
 ```csharp
-void SpringCameraToTarget(Transform camera, Vector2 targetPos, ref Vector2 cameraVelocity)
+using Unity.U2D.Physics;
+using UnityEngine;
+
+public class SpringCameraFollow : MonoBehaviour
 {
-    // Get current 2D camera position
-    Vector2 currentPos = PhysicsMath.ToPosition2D(
-        camera.position,
-        TransformPlane.XY
-    );
+    [Header("Spring settings")]
+    public float frequency = 3f;   // Hz — lower for a lazier follow
+    public float damping   = 0.8f; // 1 = critically damped (no overshoot)
 
-    // Calculate displacement
-    Vector2 displacement = targetPos - currentPos;
+    private Vector2 m_CameraSpeed; // per-axis spring speed, persists across frames
 
-    // Spring parameters
-    float stiffness = 20f;
-    float damping = 5f;
+    // Call from LateUpdate after physics has stepped.
+    public void Follow(PhysicsBody target, PhysicsWorld.TransformPlane plane)
+    {
+        var world = PhysicsWorld.defaultWorld;
+        float dt = world.stepDeltaTime;
 
-    // Calculate spring force for each axis
-    float forceX = PhysicsMath.SpringDamper(
-        displacement.x,
-        cameraVelocity.x,
-        stiffness,
-        damping
-    );
+        // Convert the target body's 2D position to a 3D camera goal.
+        Vector3 goalPos3D = PhysicsMath.ToPosition3D(
+            target.position,
+            transform.position,   // preserve the out-of-plane axis (e.g. camera Z)
+            plane);
 
-    float forceY = PhysicsMath.SpringDamper(
-        displacement.y,
-        cameraVelocity.y,
-        stiffness,
-        damping
-    );
+        // Compute displacement on each active axis.
+        float dx = goalPos3D.x - transform.position.x;
+        float dy = goalPos3D.y - transform.position.y;
 
-    // Update velocity
-    Vector2 force = new Vector2(forceX, forceY);
-    cameraVelocity += force * Time.deltaTime;
+        // Run a spring-damper per axis.
+        m_CameraSpeed.x = PhysicsMath.SpringDamper(
+            frequency:   frequency,
+            damping:     damping,
+            translation: dx,
+            speed:       m_CameraSpeed.x,
+            deltaTime:   dt);
 
-    // Update position
-    currentPos += cameraVelocity * Time.deltaTime;
+        m_CameraSpeed.y = PhysicsMath.SpringDamper(
+            frequency:   frequency,
+            damping:     damping,
+            translation: dy,
+            speed:       m_CameraSpeed.y,
+            deltaTime:   dt);
 
-    // Apply back to 3D
-    camera.position = PhysicsMath.ToPosition3D(
-        currentPos,
-        camera.position,
-        TransformPlane.XY
-    );
+        // Integrate: move the camera.
+        transform.position += new Vector3(
+            m_CameraSpeed.x * dt,
+            m_CameraSpeed.y * dt,
+            0f);
+    }
 }
 ```
+
+Key points:
+- `translation` is the **signed error** (goal minus current), not absolute position.
+- `speed` state must be **stored between frames** — do not pass zero every tick.
+- `deltaTime` should match `PhysicsWorld.stepDeltaTime` (or `Time.fixedDeltaTime`) so the spring responds at physics rate, not render rate.
 
 ### Deterministic Projectile Trajectory
 ```csharp
@@ -440,7 +531,7 @@ SetRotationDegrees(body, 90f); // 90 degrees
 ```csharp
 Vector2 GetHeadingVector(PhysicsBody body)
 {
-    var (cos, sin) = PhysicsMath.CosSin(body.rotation);
+    PhysicsMath.CosSin(body.rotation.radians, out var cos, out var sin);
     return new Vector2(cos, sin);
 }
 
@@ -458,7 +549,7 @@ const TransformPlane plane = TransformPlane.XY;
 
 // Sync physics to GameObjects
 transform.position = PhysicsMath.ToPosition3D(body.position, transform.position, plane);
-transform.rotation = PhysicsMath.ToRotationFast3D(body.rotation, plane);
+transform.rotation = PhysicsMath.ToRotationFast3D(body.rotation.radians, plane);
 ```
 
 ### XZ Plane (Top-Down)

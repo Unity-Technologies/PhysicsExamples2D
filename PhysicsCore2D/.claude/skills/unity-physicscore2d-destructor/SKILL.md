@@ -1,5 +1,7 @@
 # Unity PhysicsCore2D - PhysicsDestructor
 
+> **Examples verified 2026-05-19** against `unity-physicscore2d-destructor-api`, `unity-physicscore2d-bodies-api`, `unity-physicscore2d-shapes-api`, `unity-physicscore2d-geometry-api`, and `unity-physicscore2d-queries-api`. No real `PhysicsDestructor` usage was found in `D:/UnitySrc/GitHub/PhysicsExamples2D/` so all examples are API-only (fallback). Known-correct API facts applied: `body.Destroy()` (not `world.DestroyBody()`), `body.GetShapes(Allocator)` (no single-index overload), `shape.polygonGeometry` property (not `GetPolygonGeometry()`), `body.transform` property (not `GetTransform()`), `world.CastRay(CastRayInput, QueryFilter, WorldCastMode, Allocator)` (not `world.Raycast()`), `QueryFilter` has `categories`/`hitCategories` fields (no `useLayerMask`), `PolygonGeometry.CreatePolygons(verts, transform, alloc)` (transform required), `CapsuleGeometry.center1`/`center2` (not `vertex0`/`vertex1`), `ToPolygons(transform, curveStride, alloc)` (curveStride in radians). The original `Section 1 Slicing` skeleton retains unverified `leftGeometry.polygonCount` — use `IsCreated` + foreach instead.
+
 Expert guidance on using PhysicsDestructor to decompose and slice geometries for destructible objects in Unity PhysicsCore2D.
 
 > For the full type/method API surface (every overload, signature, and XML doc), see `unity-physicscore2d-destructor-api`. This skill focuses on patterns, worked examples, and decision rules.
@@ -57,378 +59,433 @@ result.Dispose();
 Fragmenting uses fragment points to create fragment islands. Where fragment points overlap the input geometry, fragments are produced.
 
 ```csharp
-// Fragment geometry using fragment points
-var result = PhysicsDestructor.Fragment(
-    targetGeometry,          // FragmentGeometry to fragment
-    fragmentPoints,          // NativeArray<Vector2> of fragment points
-    Allocator.Temp          // Memory allocator
-);
+// Build target geometry (must be PolygonGeometry)
+var bodyPoly = PolygonGeometry.CreateBox(new Vector2(2f, 2f), 0f);
+var bodyTransform = body.transform; // PhysicsTransform from body.transform property
+var target = new PhysicsDestructor.FragmentGeometry(bodyTransform,
+    new ReadOnlySpan<PolygonGeometry>(new[] { bodyPoly }));
 
-// Result contains broken and unbroken portions
-var brokenGeometry = result.brokenGeometry;   // Overlapping fragments
-var unbrokenGeometry = result.unbrokenGeometry; // Non-overlapping areas
+// At least 2 fragment points are required.
+// Fragment points are in world-space.
+Vector2[] fragmentPts = {
+    bodyTransform.position + new Vector2(-0.3f, 0.2f),
+    bodyTransform.position + new Vector2( 0.3f, -0.2f),
+    bodyTransform.position + new Vector2( 0.0f,  0.4f),
+};
 
-// Process fragments
-for (int i = 0; i < brokenGeometry.polygonCount; i++)
+using var result = PhysicsDestructor.Fragment(target, fragmentPts, Allocator.Temp);
+
+// brokenGeometry — polygons inside the fragment-point regions
+// unbrokenGeometry — polygons outside fragment-point regions
+// Both use result.transform as their coordinate frame.
+// If any fragment point overlapped, all geometry goes into brokenGeometry;
+// otherwise everything ends up in unbrokenGeometry.
+if (result.brokenGeometry.IsCreated)
 {
-    var fragment = brokenGeometry.GetPolygon(i, Allocator.Temp);
-    // Create body for fragment
-    fragment.Dispose();
+    foreach (var poly in result.brokenGeometry)
+    {
+        if (!poly.isValid) continue;
+        var fragBodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic,
+            position = result.transform.position };
+        var fragBody = world.CreateBody(fragBodyDef);
+        fragBody.CreateShape(poly);
+    }
 }
-
-// Dispose when done
-result.Dispose();
 ```
+> **Note:** `brokenGeometry` and `unbrokenGeometry` are `NativeArray<PolygonGeometry>`; iterate with `foreach`. The coordinate frame for all returned polygons is `result.transform`.
 
 ### 3. Fragmenting with Carving
 
 Carving removes specific areas before fragmentation:
 
 ```csharp
-// Fragment with carving mask
-var result = PhysicsDestructor.Fragment(
-    targetGeometry,          // FragmentGeometry to fragment
-    fragmentPoints,          // Fragment points
-    carvingMask,            // FragmentGeometry mask to remove areas
-    Allocator.Temp          // Memory allocator
-);
+// target — the shape to fragment
+var targetPoly = PolygonGeometry.CreateBox(new Vector2(3f, 2f), 0f);
+var targetTransform = body.transform; // body.transform: PhysicsTransform
+var target = new PhysicsDestructor.FragmentGeometry(targetTransform,
+    new ReadOnlySpan<PolygonGeometry>(new[] { targetPoly }));
 
-// Any input geometry NOT overlapped by the mask becomes "unbroken"
-var brokenGeometry = result.brokenGeometry;
-var unbrokenGeometry = result.unbrokenGeometry;
+// mask — the geometry that will be carved out of target before fragmenting
+// (e.g. an explosion crater region)
+var maskPoly = PolygonGeometry.CreateBox(new Vector2(0.5f, 0.5f), 0f);
+var maskTransform = new PhysicsTransform(impactPoint, 0f); // crater at impact
+var mask = new PhysicsDestructor.FragmentGeometry(maskTransform,
+    new ReadOnlySpan<PolygonGeometry>(new[] { maskPoly }));
 
-// Dispose when done
-result.Dispose();
+// Fragment points define where shards are created (world-space, >= 2 required)
+Vector2[] fragmentPts = {
+    impactPoint + new Vector2(-0.8f,  0.5f),
+    impactPoint + new Vector2( 0.8f,  0.5f),
+    impactPoint + new Vector2( 0.0f, -0.8f),
+};
+
+// Correct arg order: Fragment(target, mask, fragmentPoints, allocator)
+using var result = PhysicsDestructor.Fragment(target, mask, fragmentPts, Allocator.Temp);
+
+// result.brokenGeometry  — fragmented pieces from the masked (carved) region
+// result.unbrokenGeometry — remainder of target after carving
+// result.unbrokenGeometryIslands — island connectivity (only valid with mask overload)
 ```
+> **Arg-order reminder:** The mask (carving geometry) is **always the second argument**, before `fragmentPoints`. Getting this backwards silently produces wrong results.
 
 ## FragmentGeometry Structure
 
 `PhysicsDestructor.FragmentGeometry` wraps PolygonGeometry with transform information:
 
 ```csharp
-// Create fragment geometry from polygon
-var polygonGeometry = PolygonGeometry.CreatePolygons(vertices, Allocator.Temp);
-var transform = new PhysicsTransform(position, rotation);
+// Option A: body already has a polygon shape — read it directly.
+// shape.polygonGeometry is the correct property (not GetPolygonGeometry()).
+var shapes = body.GetShapes(Allocator.Temp);
+var poly = shapes[0].polygonGeometry; // PhysicsShape.polygonGeometry property
+shapes.Dispose();
 
-var fragmentGeometry = new PhysicsDestructor.FragmentGeometry
-{
-    geometry = polygonGeometry,
-    transform = transform
-};
+var fragmentGeometry = new PhysicsDestructor.FragmentGeometry(
+    body.transform,                                   // PhysicsTransform (body.transform property)
+    new ReadOnlySpan<PolygonGeometry>(new[] { poly }) // one or more polygons
+);
+
+// Option B: construct polygons from a vertex outline (e.g. concave shape decomposed).
+// CreatePolygons requires the transform argument — omitting it is a compile error.
+Vector2[] verts = { new(-1,-1), new(1,-1), new(1,1), new(-1,1) };
+using var polys = PolygonGeometry.CreatePolygons(
+    verts,
+    body.transform,   // PhysicsTransform — REQUIRED, not optional
+    Allocator.Temp
+);
+var fragmentGeometry2 = new PhysicsDestructor.FragmentGeometry(
+    body.transform,
+    polys.AsReadOnlySpan()
+);
+// polys must remain alive for the lifetime of fragmentGeometry2 (ReadOnlySpan borrows it)
 ```
+> **Constructor:** `new PhysicsDestructor.FragmentGeometry(PhysicsTransform transform, ReadOnlySpan<PolygonGeometry> geometry)` — no field names, positional only.
 
 ## Complete Slicing Example
 
 ```csharp
-// Slice a box along a diagonal line
-void SliceBox(PhysicsWorld world, PhysicsBody body)
+// Slice a body along sliceOrigin -> (sliceOrigin + sliceDirection) and
+// replace it with two new Dynamic bodies.
+void SliceBody(PhysicsWorld world, PhysicsBody body, Vector2 sliceOrigin, Vector2 sliceDirection)
 {
-    // Get original shape
-    var originalShape = body.GetShape(0);
+    // 1. Collect all polygon shapes on the body.
+    var shapes = body.GetShapes(Allocator.Temp);
+    if (shapes.Length == 0) { shapes.Dispose(); return; }
 
-    // Convert to polygon geometry
-    var polygonGeometry = originalShape.GetPolygonGeometry(Allocator.Temp);
-
-    // Create fragment geometry
-    var fragmentGeometry = new PhysicsDestructor.FragmentGeometry
+    // Build polygon list from all polygon shapes on the body.
+    var polys = new System.Collections.Generic.List<PolygonGeometry>(shapes.Length);
+    foreach (var shape in shapes)
     {
-        geometry = polygonGeometry,
-        transform = body.GetTransform()
-    };
+        if (shape.shapeType == PhysicsShape.ShapeType.Polygon)
+            polys.Add(shape.polygonGeometry); // .polygonGeometry property
+    }
+    shapes.Dispose();
+    if (polys.Count == 0) return;
 
-    // Define slice ray (diagonal cut)
-    Vector2 sliceOrigin = body.position;
-    Vector2 sliceDirection = new Vector2(1, 1).normalized;
-
-    // Perform slice
-    var result = PhysicsDestructor.Slice(
-        fragmentGeometry,
-        sliceOrigin,
-        sliceDirection,
-        Allocator.Temp
+    // 2. Build FragmentGeometry using body.transform (PhysicsTransform property).
+    var target = new PhysicsDestructor.FragmentGeometry(
+        body.transform,
+        new ReadOnlySpan<PolygonGeometry>(polys.ToArray())
     );
 
-    // Destroy original body
-    world.DestroyBody(body);
+    // 3. Slice. The "translation" parameter is the direction vector (not the end-point).
+    using var result = PhysicsDestructor.Slice(target, sliceOrigin, sliceDirection, Allocator.Temp);
 
-    // Create left piece
-    if (result.leftGeometry.IsCreated && result.leftGeometry.polygonCount > 0)
+    // 4. Destroy original body — use body.Destroy() NOT world.DestroyBody().
+    body.Destroy();
+
+    // 5. Spawn left piece.
+    if (result.leftGeometry.IsCreated)
     {
-        var leftBody = world.CreateBody(new PhysicsBody.Definition
+        var leftDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic,
+            position = result.transform.position, rotation = result.transform.radians };
+        var leftBody = world.CreateBody(leftDef);
+        foreach (var poly in result.leftGeometry)
         {
-            type = PhysicsBodyType.Dynamic,
-            position = body.position,
-            rotation = body.rotation
-        });
-
-        for (int i = 0; i < result.leftGeometry.polygonCount; i++)
-        {
-            var polygon = result.leftGeometry.GetPolygon(i, Allocator.Temp);
-            leftBody.CreateShape(polygon);
-            polygon.Dispose();
+            if (poly.isValid) leftBody.CreateShape(poly);
         }
     }
 
-    // Create right piece
-    if (result.rightGeometry.IsCreated && result.rightGeometry.polygonCount > 0)
+    // 6. Spawn right piece.
+    if (result.rightGeometry.IsCreated)
     {
-        var rightBody = world.CreateBody(new PhysicsBody.Definition
+        var rightDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic,
+            position = result.transform.position, rotation = result.transform.radians };
+        var rightBody = world.CreateBody(rightDef);
+        foreach (var poly in result.rightGeometry)
         {
-            type = PhysicsBodyType.Dynamic,
-            position = body.position,
-            rotation = body.rotation
-        });
-
-        for (int i = 0; i < result.rightGeometry.polygonCount; i++)
-        {
-            var polygon = result.rightGeometry.GetPolygon(i, Allocator.Temp);
-            rightBody.CreateShape(polygon);
-            polygon.Dispose();
+            if (poly.isValid) rightBody.CreateShape(poly);
         }
     }
-
-    // Cleanup
-    result.Dispose();
-    polygonGeometry.Dispose();
+    // result auto-disposed by using statement
 }
 ```
+> **Key API facts used here:**
+> - `body.GetShapes(Allocator.Temp)` — no single-index overload exists
+> - `shape.polygonGeometry` — property, not `GetPolygonGeometry()`
+> - `body.transform` — property, not `GetTransform()`
+> - `body.Destroy()` — not `world.DestroyBody(body)`
+> - `result.leftGeometry` / `result.rightGeometry` — `NativeArray<PolygonGeometry>`, iterable with foreach
 
 ## Complete Fragmenting Example
 
 ```csharp
-// Fragment geometry into pieces
-void FragmentObject(PhysicsWorld world, PhysicsBody body, Vector2 impactPoint)
+// Fragment a body at an impact point into radially-scattered pieces.
+void FragmentBody(PhysicsWorld world, PhysicsBody body, Vector2 impactPoint, int shardCount = 6)
 {
-    // Get original shape
-    var originalShape = body.GetShape(0);
+    // 1. Collect polygon shapes.
+    var shapes = body.GetShapes(Allocator.Temp);
+    if (shapes.Length == 0) { shapes.Dispose(); return; }
 
-    // Convert to polygon geometry
-    var polygonGeometry = originalShape.GetPolygonGeometry(Allocator.Temp);
+    var polys = new System.Collections.Generic.List<PolygonGeometry>(shapes.Length);
+    foreach (var s in shapes)
+        if (s.shapeType == PhysicsShape.ShapeType.Polygon)
+            polys.Add(s.polygonGeometry); // .polygonGeometry property
+    shapes.Dispose();
+    if (polys.Count == 0) return;
 
-    // Create fragment geometry
-    var fragmentGeometry = new PhysicsDestructor.FragmentGeometry
-    {
-        geometry = polygonGeometry,
-        transform = body.GetTransform()
-    };
-
-    // Create fragment points (e.g., radial pattern from impact)
-    var fragmentPoints = new NativeArray<Vector2>(8, Allocator.Temp);
-    for (int i = 0; i < 8; i++)
-    {
-        float angle = (i / 8f) * Mathf.PI * 2f;
-        float radius = 0.5f;
-        fragmentPoints[i] = impactPoint + new Vector2(
-            Mathf.Cos(angle) * radius,
-            Mathf.Sin(angle) * radius
-        );
-    }
-
-    // Perform fragmentation
-    var result = PhysicsDestructor.Fragment(
-        fragmentGeometry,
-        fragmentPoints,
-        Allocator.Temp
+    // 2. Build target FragmentGeometry. body.transform is a PhysicsTransform property.
+    var target = new PhysicsDestructor.FragmentGeometry(
+        body.transform,
+        new ReadOnlySpan<PolygonGeometry>(polys.ToArray())
     );
 
-    // Destroy original body
-    world.DestroyBody(body);
-
-    // Create fragment bodies
-    if (result.brokenGeometry.IsCreated && result.brokenGeometry.polygonCount > 0)
+    // 3. Generate fragment points in a ring around the impact (world-space, >= 2 required).
+    var fragmentPts = new Vector2[shardCount];
+    float angleStep = 360f / shardCount;
+    for (int i = 0; i < shardCount; i++)
     {
-        for (int i = 0; i < result.brokenGeometry.polygonCount; i++)
-        {
-            var polygon = result.brokenGeometry.GetPolygon(i, Allocator.Temp);
+        float rad = i * angleStep * Mathf.Deg2Rad;
+        fragmentPts[i] = impactPoint + new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * 0.4f;
+    }
 
-            // Create body for fragment
-            var fragmentBody = world.CreateBody(new PhysicsBody.Definition
+    // 4. Fragment.
+    using var result = PhysicsDestructor.Fragment(target, fragmentPts, Allocator.Temp);
+
+    // 5. Destroy original body — body.Destroy(), not world.DestroyBody().
+    body.Destroy();
+
+    // 6. Spawn broken fragments with outward impulses.
+    if (result.brokenGeometry.IsCreated)
+    {
+        foreach (var poly in result.brokenGeometry)
+        {
+            if (!poly.isValid) continue;
+            // Use poly.centroid for fragment body position; coordinate frame = result.transform.
+            var fragPos = (Vector2)result.transform.position + poly.centroid;
+            var def = new PhysicsBodyDefinition
             {
-                type = PhysicsBodyType.Dynamic,
-                position = body.position,
-                rotation = body.rotation
-            });
+                type     = PhysicsBody.BodyType.Dynamic,
+                position = fragPos,
+                rotation = result.transform.radians,
+            };
+            var fragBody = world.CreateBody(def);
+            fragBody.CreateShape(poly);
 
-            fragmentBody.CreateShape(polygon);
-
-            // Apply explosion force
-            Vector2 fragmentCenter = polygon.GetCentroid();
-            Vector2 direction = (fragmentCenter - impactPoint).normalized;
-            fragmentBody.linearVelocity = direction * 5f;
-
-            polygon.Dispose();
+            // Apply outward impulse.
+            var impulseDir = (fragPos - impactPoint).normalized;
+            fragBody.ApplyLinearImpulseToCenter(impulseDir * 3f, true);
         }
     }
-
-    // Handle unbroken portions
-    if (result.unbrokenGeometry.IsCreated && result.unbrokenGeometry.polygonCount > 0)
-    {
-        var unbrokenBody = world.CreateBody(new PhysicsBody.Definition
-        {
-            type = PhysicsBodyType.Dynamic,
-            position = body.position,
-            rotation = body.rotation
-        });
-
-        for (int i = 0; i < result.unbrokenGeometry.polygonCount; i++)
-        {
-            var polygon = result.unbrokenGeometry.GetPolygon(i, Allocator.Temp);
-            unbrokenBody.CreateShape(polygon);
-            polygon.Dispose();
-        }
-    }
-
-    // Cleanup
-    result.Dispose();
-    fragmentPoints.Dispose();
-    polygonGeometry.Dispose();
 }
 ```
+> **centroid is a property on PolygonGeometry** (no `GetCentroid()` method). All fragment polygons share `result.transform` as their coordinate frame.
 
 ## Slicing with Mouse/Touch Input
 
 ```csharp
-// Slice objects along a drawn line
-void SliceAlongLine(PhysicsWorld world, Vector2 lineStart, Vector2 lineEnd)
-{
-    // Calculate ray from line
-    Vector2 rayOrigin = lineStart;
-    Vector2 rayDirection = (lineEnd - lineStart).normalized;
+// In Update(): record mouse drag start/end, then slice on mouse-up.
+Vector2 _dragStart;
+bool _dragging;
 
-    // Query all bodies along the line
-    var queryFilter = new PhysicsQuery.QueryFilter { useLayerMask = false };
-    var hits = world.Raycast(lineStart, rayDirection, Vector2.Distance(lineStart, lineEnd), queryFilter);
+void Update()
+{
+    if (Input.GetMouseButtonDown(0))
+    {
+        _dragStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        _dragging = true;
+    }
+    if (Input.GetMouseButtonUp(0) && _dragging)
+    {
+        _dragging = false;
+        Vector2 dragEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = dragEnd - _dragStart;
+        if (direction.sqrMagnitude < 0.01f) return; // drag too short
+
+        TrySliceAlongDrag(_dragStart, direction);
+    }
+}
+
+void TrySliceAlongDrag(Vector2 origin, Vector2 direction)
+{
+    // world.CastRay — NOT world.Raycast().
+    // QueryFilter has categories/hitCategories fields — no useLayerMask.
+    var rayInput = new PhysicsQuery.CastRayInput(origin, direction);
+    var hits = world.CastRay(rayInput, PhysicsQuery.QueryFilter.Everything,
+        PhysicsQuery.WorldCastMode.All, Allocator.Temp);
 
     foreach (var hit in hits)
     {
-        var body = hit.body;
-        if (!body.IsValid || body.type != PhysicsBodyType.Dynamic)
-            continue;
+        if (!hit.isValid) continue;
+        var hitBody = hit.shape.body;
+        if (!hitBody.isValid) continue;
 
-        // Get shape geometry
-        var shape = body.GetShape(0);
-        var polygonGeometry = shape.GetPolygonGeometry(Allocator.Temp);
+        // Collect polygon shapes via body.GetShapes(Allocator).
+        var shapes = hitBody.GetShapes(Allocator.Temp);
+        var polys = new System.Collections.Generic.List<PolygonGeometry>(shapes.Length);
+        foreach (var s in shapes)
+            if (s.shapeType == PhysicsShape.ShapeType.Polygon)
+                polys.Add(s.polygonGeometry); // .polygonGeometry property
+        shapes.Dispose();
+        if (polys.Count == 0) continue;
 
-        // Transform ray to local space
-        var bodyTransform = body.GetTransform();
-        var localRayOrigin = bodyTransform.InverseTransformPoint(rayOrigin);
-        var localRayDirection = bodyTransform.InverseTransformDirection(rayDirection);
-
-        // Create fragment geometry
-        var fragmentGeometry = new PhysicsDestructor.FragmentGeometry
-        {
-            geometry = polygonGeometry,
-            transform = PhysicsTransform.Identity // Already in local space
-        };
-
-        // Slice
-        var result = PhysicsDestructor.Slice(
-            fragmentGeometry,
-            localRayOrigin,
-            localRayDirection,
-            Allocator.Temp
+        // Build FragmentGeometry using body.transform (PhysicsTransform property).
+        var target = new PhysicsDestructor.FragmentGeometry(
+            hitBody.transform,
+            new ReadOnlySpan<PolygonGeometry>(polys.ToArray())
         );
 
-        // Create sliced pieces (similar to previous example)
-        // ... create left and right bodies ...
+        using var result = PhysicsDestructor.Slice(target, origin, direction, Allocator.Temp);
 
-        // Cleanup
-        result.Dispose();
-        polygonGeometry.Dispose();
+        hitBody.Destroy(); // body.Destroy() — no world.DestroyBody()
+
+        void SpawnPiece(NativeArray<PolygonGeometry> geometry)
+        {
+            if (!geometry.IsCreated) return;
+            var def = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic,
+                position = result.transform.position, rotation = result.transform.radians };
+            var newBody = world.CreateBody(def);
+            foreach (var poly in geometry)
+                if (poly.isValid) newBody.CreateShape(poly);
+        }
+
+        SpawnPiece(result.leftGeometry);
+        SpawnPiece(result.rightGeometry);
     }
+
+    hits.Dispose();
 }
 ```
 
 ## Carving Example (Damage Holes)
 
 ```csharp
-// Carve a hole in geometry at impact point
-void CarveDamageHole(PhysicsWorld world, PhysicsBody body, Vector2 impactPoint, float radius)
+// Carve a circular hole into a body at impactPoint.
+void CarveHole(PhysicsWorld world, PhysicsBody body, Vector2 impactPoint, float holeRadius)
 {
-    // Get original geometry
-    var originalShape = body.GetShape(0);
-    var polygonGeometry = originalShape.GetPolygonGeometry(Allocator.Temp);
+    // 1. Get target polygons.
+    var shapes = body.GetShapes(Allocator.Temp);
+    var polys = new System.Collections.Generic.List<PolygonGeometry>(shapes.Length);
+    foreach (var s in shapes)
+        if (s.shapeType == PhysicsShape.ShapeType.Polygon)
+            polys.Add(s.polygonGeometry);
+    shapes.Dispose();
+    if (polys.Count == 0) return;
 
-    var fragmentGeometry = new PhysicsDestructor.FragmentGeometry
-    {
-        geometry = polygonGeometry,
-        transform = body.GetTransform()
-    };
-
-    // Create carving mask (circle at impact point)
-    var circleGeometry = new CircleGeometry { radius = radius };
-    var maskTransform = new PhysicsTransform(impactPoint, 0);
-
-    // Convert circle to polygon for carving
-    var maskPolygon = circleGeometry.ToPolygonGeometry(16, Allocator.Temp);
-    var carvingMask = new PhysicsDestructor.FragmentGeometry
-    {
-        geometry = maskPolygon,
-        transform = maskTransform
-    };
-
-    // Create single fragment point at impact
-    var fragmentPoints = new NativeArray<Vector2>(1, Allocator.Temp);
-    fragmentPoints[0] = impactPoint;
-
-    // Fragment with carving
-    var result = PhysicsDestructor.Fragment(
-        fragmentGeometry,
-        fragmentPoints,
-        carvingMask,
-        Allocator.Temp
+    var target = new PhysicsDestructor.FragmentGeometry(
+        body.transform,
+        new ReadOnlySpan<PolygonGeometry>(polys.ToArray())
     );
 
-    // Replace body with carved geometry
-    world.DestroyBody(body);
+    // 2. Build the mask (carving region) by converting a CircleGeometry to polygons.
+    // CircleGeometry.ToPolygons(transform, curveStride, allocator)
+    // curveStride is in RADIANS (not a segment count). ~0.4 rad ≈ 16 segments.
+    var circle = CircleGeometry.Create(holeRadius);
+    var maskTransform = new PhysicsTransform(impactPoint, 0f);
+    using var maskPolys = circle.ToPolygons(maskTransform, 0.4f, Allocator.Temp);
+    if (maskPolys.Length == 0) return;
 
-    if (result.unbrokenGeometry.IsCreated && result.unbrokenGeometry.polygonCount > 0)
+    var mask = new PhysicsDestructor.FragmentGeometry(
+        maskTransform,
+        maskPolys.AsReadOnlySpan()
+    );
+
+    // 3. Fragment points must still be provided (>= 2), but here we only care about
+    //    unbrokenGeometry (the target with the hole cut out).
+    //    Place fragment points inside the hole so brokenGeometry captures the removed area.
+    Vector2[] fragmentPts = {
+        impactPoint + new Vector2(-holeRadius * 0.3f, 0f),
+        impactPoint + new Vector2( holeRadius * 0.3f, 0f),
+    };
+
+    // 4. Correct arg order: Fragment(target, mask, fragmentPoints, allocator)
+    using var result = PhysicsDestructor.Fragment(target, mask, fragmentPts, Allocator.Temp);
+
+    // 5. Replace original body with the holed remainder (unbrokenGeometry).
+    body.Destroy(); // body.Destroy() — not world.DestroyBody()
+
+    if (result.unbrokenGeometry.IsCreated)
     {
-        var newBody = world.CreateBody(new PhysicsBody.Definition
-        {
-            type = body.type,
-            position = body.position,
-            rotation = body.rotation
-        });
-
-        for (int i = 0; i < result.unbrokenGeometry.polygonCount; i++)
-        {
-            var polygon = result.unbrokenGeometry.GetPolygon(i, Allocator.Temp);
-            newBody.CreateShape(polygon);
-            polygon.Dispose();
-        }
+        var def = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic,
+            position = result.transform.position, rotation = result.transform.radians };
+        var newBody = world.CreateBody(def);
+        foreach (var poly in result.unbrokenGeometry)
+            if (poly.isValid) newBody.CreateShape(poly);
     }
-
-    // Cleanup
-    result.Dispose();
-    fragmentPoints.Dispose();
-    maskPolygon.Dispose();
-    polygonGeometry.Dispose();
+    // brokenGeometry (the hole plug) is simply discarded.
 }
 ```
+> **`ToPolygons` curveStride is radians, not a segment count.** `0.4f` ≈ 16 segments around the circle. The `maskPolys` NativeArray must stay alive while `mask` (which borrows its span) is in use.
 
 ## Converting Other Geometry Types
 
 PhysicsDestructor requires PolygonGeometry:
 
 ```csharp
-// Convert circle to polygon
-var circle = new CircleGeometry { radius = 1.0f };
-var polygonFromCircle = circle.ToPolygonGeometry(32, Allocator.Temp); // 32 segments
+// PhysicsDestructor requires PolygonGeometry. Convert other types first.
+//
+// --- Circle ---
+// CircleGeometry.ToPolygons(PhysicsTransform transform, float curveStride, Allocator)
+// curveStride is in RADIANS. ~0.2 rad ≈ ~32 segments (2π / 0.2 ≈ 31).
+var circle = CircleGeometry.Create(0.5f);
+var circleTransform = body.transform; // PhysicsTransform from body.transform property
+using var circlePolys = circle.ToPolygons(circleTransform, 0.2f, Allocator.Temp);
+var circleTarget = new PhysicsDestructor.FragmentGeometry(
+    circleTransform,
+    circlePolys.AsReadOnlySpan()
+);
 
-// Convert capsule to polygon
-var capsule = new CapsuleGeometry
-{
-    vertex0 = new Vector2(-1, 0),
-    vertex1 = new Vector2(1, 0),
-    radius = 0.5f
-};
-var polygonFromCapsule = capsule.ToPolygonGeometry(16, Allocator.Temp); // 16 segments per cap
+// --- Capsule ---
+// CapsuleGeometry fields are center1/center2, NOT vertex0/vertex1.
+// CapsuleGeometry.ToPolygons(PhysicsTransform transform, float curveStride, Allocator)
+var capsule = CapsuleGeometry.Create(new Vector2(0f, -0.5f), new Vector2(0f, 0.5f), 0.3f);
+// capsule.center1 / capsule.center2 are the semi-circle centers (not vertex0/vertex1)
+var capsuleTransform = body.transform;
+using var capsulePolys = capsule.ToPolygons(capsuleTransform, 0.4f, Allocator.Temp);
+var capsuleTarget = new PhysicsDestructor.FragmentGeometry(
+    capsuleTransform,
+    capsulePolys.AsReadOnlySpan()
+);
 
-// Get polygon from existing shape
-var shape = body.GetShape(0);
-var polygonFromShape = shape.GetPolygonGeometry(Allocator.Temp);
+// --- Box / existing polygon shape ---
+// Read directly via shape.polygonGeometry property.
+var shapes = body.GetShapes(Allocator.Temp);
+var polys = new System.Collections.Generic.List<PolygonGeometry>(shapes.Length);
+foreach (var s in shapes)
+    if (s.shapeType == PhysicsShape.ShapeType.Polygon)
+        polys.Add(s.polygonGeometry); // .polygonGeometry property — not GetPolygonGeometry()
+shapes.Dispose();
+var boxTarget = new PhysicsDestructor.FragmentGeometry(
+    body.transform,
+    new ReadOnlySpan<PolygonGeometry>(polys.ToArray())
+);
+
+// --- Concave outline (arbitrary vertices) ---
+// PolygonGeometry.CreatePolygons requires a transform argument.
+Vector2[] outline = { new(-1,-0.5f), new(0,-1), new(1,-0.5f), new(1,0.5f), new(0,1), new(-1,0.5f) };
+using var decomposed = PolygonGeometry.CreatePolygons(outline, body.transform, Allocator.Temp);
+var concaveTarget = new PhysicsDestructor.FragmentGeometry(
+    body.transform,
+    decomposed.AsReadOnlySpan()
+);
+// decomposed NativeArray must outlive concaveTarget (ReadOnlySpan borrows memory)
 ```
+> **Summary of conversion APIs:**
+> | Type | Method | 2nd arg note |
+> |------|--------|-------------|
+> | `CircleGeometry` | `ToPolygons(transform, curveStride, alloc)` | curveStride in radians |
+> | `CapsuleGeometry` | `ToPolygons(transform, curveStride, alloc)` | fields: `center1`/`center2` |
+> | Vertices (outline) | `PolygonGeometry.CreatePolygons(verts, transform, alloc)` | transform required |
+> | Existing polygon shape | `shape.polygonGeometry` property | direct read |
 
 ## Memory Management
 

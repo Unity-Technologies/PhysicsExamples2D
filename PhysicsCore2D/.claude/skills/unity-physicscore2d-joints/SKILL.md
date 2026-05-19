@@ -75,9 +75,35 @@ hinge.upperAngleLimit =  Mathf.PI / 4;  //  45°
 All joint types except `PhysicsIgnoreJoint` expose spring-style softness via `enableSpring`, `springFrequency` (Hz), and `springDamping` (0–1, where 1 ≈ critical). Use this when you want bouncy/compliant behavior:
 
 ```csharp
-fixedJoint.enableSpring = true;
-fixedJoint.springFrequency = 4f;     // 4 Hz oscillation if undamped
-fixedJoint.springDamping   = 0.7f;   // mild damping — visible bounce, settles in ~1 sec
+// Soft-weld two bodies using PhysicsFixedJoint spring parameters.
+// Source: SoftbodyFactory.cs (PhysicsExamples2D) — adapted for clarity.
+//
+// PhysicsFixedJoint has four spring knobs:
+//   linearFrequency  / linearDamping  — controls translational spring (Hz / 0-1)
+//   angularFrequency / angularDamping — controls rotational spring (Hz / 0-1)
+// Use zero frequency for maximum (rigid) stiffness on either axis independently.
+
+var fixedDef = new PhysicsFixedJointDefinition
+{
+    bodyA = bodyA,
+    bodyB = bodyB,
+    // Anchor at each body's local connection point.
+    localAnchorA = new Vector2(0f,  0.5f * segmentLength),
+    localAnchorB = new Vector2(0f, -0.5f * segmentLength),
+    // Soft rotational spring — allows flex like a soft-body segment joint.
+    angularFrequency = 5f,     // Hz; keep below stepRate/4 for stability
+    angularDamping   = 0.7f,   // 0 = no damping, 1 = critically damped
+    // Linear spring — leave at 0 for rigid translation (maximum stiffness).
+    linearFrequency  = 0f,
+    linearDamping    = 1f,
+    collideConnected = false,
+};
+PhysicsFixedJoint.Create(world, fixedDef);
+
+// Runtime tuning (e.g. applying damage):
+fixedJoint.angularFrequency = 2f;   // weaker — more flex
+fixedJoint.angularDamping   = 0.3f; // less damped — more bounce
+fixedJoint.WakeBodies();
 ```
 
 **Tuning rules of thumb:**
@@ -127,23 +153,70 @@ PhysicsHingeJoint.Create(world, def);
 ### 2. Vehicle wheel suspension (wheel joint with motor)
 
 ```csharp
-var def = PhysicsWheelJointDefinition.defaultDefinition;
-def.bodyA = chassis;
-def.bodyB = wheel;
-def.localAnchorA = new PhysicsTransform(wheelMountLocal, 0f);
-def.localAnchorB = new PhysicsTransform(Vector2.zero, 0f);
-def.localAxisA   = new PhysicsRotate(Mathf.PI / 2);     // suspension travels vertically (up axis)
-def.collideConnected = false;
-def.enableSpring = true;
-def.springFrequency = 4f;
-def.springDamping = 0.7f;
-def.enableMotor = true;
-def.motorSpeed  = 0f;                                   // set per-frame from input
-def.maxMotorTorque = 200f;
-var wheelJoint = PhysicsWheelJoint.Create(world, def);
+// Vehicle wheel suspension — source: CarFactory.cs (PhysicsExamples2D).
+//
+// The suspension axis is encoded as the ROTATION of localAnchorA's frame,
+// NOT a separate localAxisA field (which does not exist on PhysicsWheelJointDefinition).
+// PhysicsRotate.FromRadians(PI/2) makes the anchor frame point upward in chassis-local
+// space, so the wheel slides vertically relative to the chassis.
 
-// Per-frame:
-wheelJoint.motorSpeed = throttleInput * maxWheelSpeed;
+var suspensionAxis = PhysicsRotate.FromRadians(PhysicsMath.PI * 0.5f); // straight up
+
+// --- Chassis and wheel bodies (Dynamic) created beforehand ---
+
+// Rear wheel.
+var rearPivot = rearWheelBody.position;        // world-space attach point
+var rearWheelDef = new PhysicsWheelJointDefinition
+{
+    bodyA = chassisBody,
+    bodyB = rearWheelBody,
+    // localAnchorA carries both position AND the suspension-axis rotation.
+    localAnchorA = new PhysicsTransform(chassisBody.GetLocalPoint(rearPivot), suspensionAxis),
+    localAnchorB = rearWheelBody.GetLocalPoint(rearPivot),  // implicit Vector2 → PhysicsTransform
+    collideConnected = false,
+    // Suspension spring — keeps wheel pressed to ground while absorbing bumps.
+    enableSpring      = true,
+    springFrequency   = 5f,     // Hz; typical range 2–8 for vehicle suspension
+    springDamping     = 0.7f,   // 0.7 is a common critically-near value
+    // Travel limits — how far the wheel can compress / extend.
+    enableLimit          = true,
+    lowerTranslationLimit = -0.25f,  // metres downward extension
+    upperTranslationLimit =  0.25f,  // metres upward compression
+    // Drive motor on the wheel axle.
+    enableMotor   = true,
+    motorSpeed    = 0f,           // set at runtime via wheelJoint.motorSpeed
+    maxMotorTorque = 10f,
+};
+var rearWheelJoint = world.CreateJoint(rearWheelDef);
+
+// Front wheel (same pattern, different pivot).
+var frontPivot = frontWheelBody.position;
+var frontWheelDef = new PhysicsWheelJointDefinition
+{
+    bodyA = chassisBody,
+    bodyB = frontWheelBody,
+    localAnchorA = new PhysicsTransform(chassisBody.GetLocalPoint(frontPivot), suspensionAxis),
+    localAnchorB = frontWheelBody.GetLocalPoint(frontPivot),
+    collideConnected      = false,
+    enableSpring          = true,
+    springFrequency       = 5f,
+    springDamping         = 0.7f,
+    enableLimit           = true,
+    lowerTranslationLimit = -0.25f,
+    upperTranslationLimit =  0.25f,
+    enableMotor           = true,
+    motorSpeed            = 0f,
+    maxMotorTorque        = 10f,
+};
+var frontWheelJoint = world.CreateJoint(frontWheelDef);
+
+// --- Drive input (call each frame) ---
+void SetCarSpeed(float degreesPerSec)
+{
+    rearWheelJoint.motorSpeed  = degreesPerSec;
+    frontWheelJoint.motorSpeed = degreesPerSec;
+    rearWheelJoint.WakeBodies();
+}
 ```
 
 ### 3. Mouse drag (distance joint to a kinematic mouse body)
@@ -156,10 +229,10 @@ var def = PhysicsDistanceJointDefinition.defaultDefinition;
 def.bodyA = mouseAnchor;                           // kinematic body following cursor
 def.bodyB = grabbed;
 def.localAnchorA = PhysicsTransform.identity;
-def.localAnchorB = new PhysicsTransform(grabbed.WorldToLocal(cursorWorld), 0f);
+def.localAnchorB = new PhysicsTransform(grabbed.GetLocalPoint(cursorWorld), 0f);
 def.distance = 0f;
-def.minDistance = 0f;
-def.maxDistance = 0f;
+def.minDistanceLimit = 0f;
+def.maxDistanceLimit = 0f;
 def.enableSpring = true;
 def.springFrequency = 5f;       // springy follow
 def.springDamping = 0.7f;
@@ -175,9 +248,9 @@ For a single swing point in world space (no body), create one static body to anc
 
 ```csharp
 var anchorDef = PhysicsBodyDefinition.defaultDefinition;
-anchorDef.bodyType = PhysicsBody.BodyType.Static;
+anchorDef.type = PhysicsBody.BodyType.Static;
 anchorDef.position = pivotWorldPos;
-var anchorBody = world.CreateBody(anchorDef);
+var anchorBody = PhysicsBody.Create(world, anchorDef);
 
 var def = PhysicsHingeJointDefinition.defaultDefinition;
 def.bodyA = anchorBody;
