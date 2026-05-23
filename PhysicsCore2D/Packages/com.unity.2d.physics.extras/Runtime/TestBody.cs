@@ -18,7 +18,7 @@ namespace Unity.U2D.Physics.Extras
         public bool CreateAtTransform = true;
         public bool UseDefaultWorld = true;
         public TestWorld testWorld;
-        public PhysicsWorld.TransformChangeReason WatchTransformChanges = 
+        private PhysicsWorld.TransformChangeReason WatchTransformChanges = 
             PhysicsWorld.TransformChangeReason.WorldPosition | PhysicsWorld.TransformChangeReason.WorldRotation |
             PhysicsWorld.TransformChangeReason.LocalPosition | PhysicsWorld.TransformChangeReason.LocalRotation;
         public PhysicsBody body => m_Body;

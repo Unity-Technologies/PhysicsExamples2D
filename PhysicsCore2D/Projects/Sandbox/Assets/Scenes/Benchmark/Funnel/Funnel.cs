@@ -360,9 +360,8 @@ public class Funnel : MonoBehaviour
                 new(-8.26825142f, 11.906374f), new(-16.8672504f, 17.1978741f)
             };
 
-            var chainGeometry = new ChainGeometry(points.AsArray().AsSpan());
             var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.2f, bounciness = 0f } };
-            groundBody.CreateChain(chainGeometry, chainDef);
+            PhysicsChain.Create(groundBody, points, chainDef);
 
             {
                 var sign = 1.0f;
@@ -396,7 +395,7 @@ public class Funnel : MonoBehaviour
 
                 {
                     var boxGeometry = PolygonGeometry.CreateBox(new Vector2(10f, 4f), radius: 0f, new PhysicsTransform(new Vector2(0f, -32.5f), PhysicsRotate.identity));
-                    var shapeDef = new PhysicsShapeDefinition { isTrigger = true, triggerEvents = true };
+                    var shapeDef = new PhysicsShapeDefinition { isTrigger = true, triggerEvents = true, worldDrawing = false };
                     groundBody.CreateShape(boxGeometry, shapeDef);
                 }
             }

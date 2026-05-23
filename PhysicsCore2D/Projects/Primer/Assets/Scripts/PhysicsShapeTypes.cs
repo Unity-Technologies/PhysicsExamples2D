@@ -53,8 +53,9 @@ public class PhysicsShapeTypes : MonoBehaviour
            new Vector2(0.5f, 0.5f),
            new Vector2(1.0f, -0.5f)
        };
-       body5.CreateChain(
-           new ChainGeometry(points),
+       PhysicsChain.Create(
+           body5,
+           points,
            new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = Color.darkOrange }, isLoop = true });
     }
     

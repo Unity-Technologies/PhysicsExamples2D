@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "com.unity.2d.common": "14.0.0",
+    "com.unity.2d.common": "14.0.1",
     "com.unity.2d.physics.extras": "file:../../../Packages/com.unity.2d.physics.extras",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "1.8.29",
     "com.unity.collections": "6.5.0",
-    "com.unity.ide.rider": "3.0.39",
+    "com.unity.ide.rider": "3.0.40",
     "com.unity.ide.visualstudio": "2.0.27",
     "com.unity.inputsystem": "1.19.0",
     "com.unity.render-pipelines.universal": "17.5.0",

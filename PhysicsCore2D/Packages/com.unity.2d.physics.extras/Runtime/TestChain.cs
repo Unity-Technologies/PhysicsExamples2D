@@ -85,11 +85,9 @@ namespace Unity.U2D.Physics.Extras
             if (!body.isValid)
                 return;
 
-            // Create the chain geometry.
-            var chainGeometry = new ChainGeometry(ReverseChain ? Points.Reverse().ToArray() : Points);
-
             // Create the chain shape.
-            m_Chain = body.CreateChain(chainGeometry, ChainDefinition);
+            var points = ReverseChain ? Points.Reverse().ToArray() : Points;
+            m_Chain = PhysicsChain.Create(body, points, ChainDefinition);
 
             if (m_Chain.isValid)
             {

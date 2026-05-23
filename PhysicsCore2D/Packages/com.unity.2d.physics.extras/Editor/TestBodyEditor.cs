@@ -17,7 +17,7 @@ namespace Unity.U2D.Physics.Editor.Extras
 
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.BodyDefinition))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.UserData))));
-            root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.WatchTransformChanges))));
+            //root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.WatchTransformChanges)))); // Until the UITK bug for EnumFlagsField is fixed.
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.CallbackTarget))));
             root.Add(new PropertyField(serializedObject.FindProperty(nameof(TestBody.CreateAtTransform))));
             
