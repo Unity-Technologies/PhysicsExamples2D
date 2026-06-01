@@ -293,7 +293,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &8792233
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +467,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &50659049
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +545,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &138041593
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,7 +773,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &144729003
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +947,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &196887477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,7 +1106,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &196887480
 Transform:
   m_ObjectHideFlags: 0
@@ -1286,7 +1280,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &206201926
 Transform:
   m_ObjectHideFlags: 0
@@ -1476,7 +1469,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &354157183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,7 +1732,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &534109151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,7 +1906,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &560997283
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,7 +2139,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &600759836
 Transform:
   m_ObjectHideFlags: 0
@@ -2339,7 +2328,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &678265707
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,7 +2502,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &791107170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2689,7 +2676,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &824668145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,7 +2754,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &835922286
 GameObject:
   m_ObjectHideFlags: 0
@@ -2847,7 +2832,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &848471632
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,7 +2991,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &848471635
 Transform:
   m_ObjectHideFlags: 0
@@ -3197,7 +3180,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &889483064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3330,7 +3312,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 12.11, y: -0.13}
     m_Rotation:
-      direction: {x: -0.8278626, y: -0.5609308}
+      direction: {x: -0.8278624, y: -0.5609314}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -3357,7 +3339,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &889483067
 Transform:
   m_ObjectHideFlags: 0
@@ -3366,7 +3347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889483064}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.9559976, w: 0.29337478}
+  m_LocalRotation: {x: 0, y: 0, z: -0.95599747, w: 0.29337505}
   m_LocalPosition: {x: 12.11, y: -0.13, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -3451,7 +3432,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1062612405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,7 +3606,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1092812747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3855,7 +3834,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1115821533
 GameObject:
   m_ObjectHideFlags: 0
@@ -4030,7 +4008,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1200223525
 GameObject:
   m_ObjectHideFlags: 0
@@ -4197,7 +4174,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 3.37, y: 6.84}
     m_Rotation:
-      direction: {x: 0.7458219, y: 0.6661453}
+      direction: {x: 0.7458214, y: 0.666146}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -4224,7 +4201,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &1222623468
 Transform:
   m_ObjectHideFlags: 0
@@ -4233,7 +4209,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222623465}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.35649598, w: 0.93429685}
+  m_LocalRotation: {x: 0, y: 0, z: 0.35649633, w: 0.9342967}
   m_LocalPosition: {x: 3.37, y: 6.84, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -4399,7 +4375,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &1246020629
 Transform:
   m_ObjectHideFlags: 0
@@ -4628,7 +4603,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1305111614
 GameObject:
   m_ObjectHideFlags: 0
@@ -4803,7 +4777,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1341427689
 GameObject:
   m_ObjectHideFlags: 0
@@ -4963,7 +4936,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &1341427692
 Transform:
   m_ObjectHideFlags: 0
@@ -5221,7 +5193,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &1551080463
 Transform:
   m_ObjectHideFlags: 0
@@ -5430,7 +5401,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &1668601931
 Transform:
   m_ObjectHideFlags: 0
@@ -5674,7 +5644,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1698227459
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,7 +5803,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &1698227463
 Transform:
   m_ObjectHideFlags: 0
@@ -6024,7 +5992,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1799124674
 GameObject:
   m_ObjectHideFlags: 0
@@ -6199,7 +6166,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1833011814
 GameObject:
   m_ObjectHideFlags: 0
@@ -6443,7 +6409,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &2004053348
 GameObject:
   m_ObjectHideFlags: 0
@@ -6576,7 +6541,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 8.54, y: 5.11}
     m_Rotation:
-      direction: {x: -0.8278626, y: -0.5609308}
+      direction: {x: -0.8278624, y: -0.5609314}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -6603,7 +6568,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &2004053351
 Transform:
   m_ObjectHideFlags: 0
@@ -6612,7 +6576,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004053348}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.9559976, w: 0.29337478}
+  m_LocalRotation: {x: 0, y: 0, z: -0.95599747, w: 0.29337505}
   m_LocalPosition: {x: 8.54, y: 5.11, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -6793,7 +6757,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

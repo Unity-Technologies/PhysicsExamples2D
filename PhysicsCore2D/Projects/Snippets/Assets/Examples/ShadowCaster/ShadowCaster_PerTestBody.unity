@@ -438,7 +438,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &248055996
 Transform:
   m_ObjectHideFlags: 0
@@ -589,7 +588,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &559315967
 Transform:
   m_ObjectHideFlags: 0

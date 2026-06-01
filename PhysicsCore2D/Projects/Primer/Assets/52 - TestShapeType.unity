@@ -278,7 +278,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &139753163
 Transform:
   m_ObjectHideFlags: 0
@@ -453,7 +452,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &151636279
 Transform:
   m_ObjectHideFlags: 0
@@ -628,7 +626,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &433435632
 Transform:
   m_ObjectHideFlags: 0
@@ -803,7 +800,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &625520183
 Transform:
   m_ObjectHideFlags: 0
@@ -978,7 +974,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &938579597
 Transform:
   m_ObjectHideFlags: 0
@@ -1153,7 +1148,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &1162632281
 Transform:
   m_ObjectHideFlags: 0
@@ -1385,7 +1379,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &1776045672
 Transform:
   m_ObjectHideFlags: 0
@@ -1533,7 +1526,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -2.41, y: -2.96}
     m_Rotation:
-      direction: {x: 0.6772659, y: 0.7357383}
+      direction: {x: 0.6772666, y: 0.7357377}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -1560,7 +1553,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!4 &2097143272
 Transform:
   m_ObjectHideFlags: 0
@@ -1569,7 +1561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097143269}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.4017049, w: 0.91576916}
+  m_LocalRotation: {x: 0, y: 0, z: 0.40170452, w: 0.91576934}
   m_LocalPosition: {x: -2.41, y: -2.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

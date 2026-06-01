@@ -293,7 +293,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &8792233
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +467,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &50465083
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +694,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &50659049
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +772,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &138041593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1000,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &144729003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,7 +1174,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &145671236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,7 +1348,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &264193408
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,7 +1522,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &354157183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,7 +1788,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &477155087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,7 +1962,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &485784287
 GameObject:
   m_ObjectHideFlags: 0
@@ -2050,7 +2040,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &485918428
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,7 +2118,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &507807929
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,7 +2292,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &524853948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,7 +2370,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &534109151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,7 +2544,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &537971313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2787,7 +2772,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &560997283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3036,7 +3020,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &605148272
 GameObject:
   m_ObjectHideFlags: 0
@@ -3211,7 +3194,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &640772410
 GameObject:
   m_ObjectHideFlags: 0
@@ -3290,7 +3272,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &678265707
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,7 +3446,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &791107170
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,7 +3620,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &824668145
 GameObject:
   m_ObjectHideFlags: 0
@@ -3719,7 +3698,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &835922286
 GameObject:
   m_ObjectHideFlags: 0
@@ -3798,7 +3776,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &859224174
 GameObject:
   m_ObjectHideFlags: 0
@@ -4029,7 +4006,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &875938871
 GameObject:
   m_ObjectHideFlags: 0
@@ -4204,7 +4180,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &890457987
 GameObject:
   m_ObjectHideFlags: 0
@@ -4283,7 +4258,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &904521494
 GameObject:
   m_ObjectHideFlags: 0
@@ -4511,7 +4485,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1005381636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4686,7 +4659,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1055976077
 GameObject:
   m_ObjectHideFlags: 0
@@ -4765,7 +4737,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1062612405
 GameObject:
   m_ObjectHideFlags: 0
@@ -4940,7 +4911,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1070417806
 GameObject:
   m_ObjectHideFlags: 0
@@ -5171,7 +5141,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1086296359
 GameObject:
   m_ObjectHideFlags: 0
@@ -5346,7 +5315,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1092812747
 GameObject:
   m_ObjectHideFlags: 0
@@ -5575,7 +5543,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1115821533
 GameObject:
   m_ObjectHideFlags: 0
@@ -5750,7 +5717,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1135509225
 GameObject:
   m_ObjectHideFlags: 0
@@ -5925,7 +5891,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1173146475
 GameObject:
   m_ObjectHideFlags: 0
@@ -6154,7 +6119,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1200223525
 GameObject:
   m_ObjectHideFlags: 0
@@ -6420,7 +6384,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1235040028
 GameObject:
   m_ObjectHideFlags: 0
@@ -6499,7 +6462,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1249772077
 GameObject:
   m_ObjectHideFlags: 0
@@ -6713,7 +6675,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1297724540
 GameObject:
   m_ObjectHideFlags: 0
@@ -6792,7 +6753,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1305111614
 GameObject:
   m_ObjectHideFlags: 0
@@ -6967,7 +6927,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1309292288
 GameObject:
   m_ObjectHideFlags: 0
@@ -7142,7 +7101,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1337879744
 GameObject:
   m_ObjectHideFlags: 0
@@ -7221,7 +7179,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1415967095
 GameObject:
   m_ObjectHideFlags: 0
@@ -7479,7 +7436,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1497156214
 GameObject:
   m_ObjectHideFlags: 0
@@ -7654,7 +7610,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1552431569
 GameObject:
   m_ObjectHideFlags: 0
@@ -7919,7 +7874,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1693972973
 GameObject:
   m_ObjectHideFlags: 0
@@ -8148,7 +8102,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1750004567
 GameObject:
   m_ObjectHideFlags: 0
@@ -8323,7 +8276,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1799124674
 GameObject:
   m_ObjectHideFlags: 0
@@ -8498,7 +8450,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1833011814
 GameObject:
   m_ObjectHideFlags: 0
@@ -8716,7 +8667,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &1909275863
 GameObject:
   m_ObjectHideFlags: 0
@@ -8928,7 +8878,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &2029759315
 GameObject:
   m_ObjectHideFlags: 0
@@ -9103,7 +9052,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &2040859081
 GameObject:
   m_ObjectHideFlags: 0
@@ -9278,7 +9226,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1 &2101177202
 GameObject:
   m_ObjectHideFlags: 0
@@ -9453,7 +9400,6 @@ MonoBehaviour:
   CreateAtTransform: 1
   UseDefaultWorld: 1
   testWorld: {fileID: 0}
-  WatchTransformChanges: 27
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
