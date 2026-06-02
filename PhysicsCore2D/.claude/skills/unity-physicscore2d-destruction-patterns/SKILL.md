@@ -19,9 +19,9 @@ PhysicsCore2D supports various destruction techniques:
 ## Repository Examples
 
 Reference examples from the PhysicsExamples2D repository:
-- **Slicing** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Shapes/Slicing
-- **Fragmenting** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Shapes/Fragmenting
-- **SpriteDestruction** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Shapes/SpriteDestruction
+- **Slicing** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Slicing
+- **Fragmenting** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Fragmenting
+- **SpriteDestruction** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/SpriteDestruction
 
 ## Destruction Techniques
 

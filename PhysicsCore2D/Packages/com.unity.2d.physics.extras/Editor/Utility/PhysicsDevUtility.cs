@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public static class PhysicsDevUtility
 {
-    [MenuItem("Tools/2D/Physics/Resave All Scenes")]
+    [MenuItem("Tools/2D/Physics/Resave All Scenes", false, 2)]
     public static void ResaveScenes()
     {
         var allFiles = Directory.GetFiles(

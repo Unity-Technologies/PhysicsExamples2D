@@ -32,6 +32,21 @@ Label {
     background-color: var(--foreground);
 }
 
+/* Bordered display box for the Determinism example's hash/step Labels (built in code). */
+.hash-label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    white-space: normal;
+    text-overflow: clip;
+    -unity-text-align: upper-center;
+    border-width: 1px;
+    border-color: rgb(55, 55, 55);
+    border-radius: 3px;
+    margin: 3px;
+}
+
 #description {
     background-color: var(--background);
     border-color: var(--foreground);

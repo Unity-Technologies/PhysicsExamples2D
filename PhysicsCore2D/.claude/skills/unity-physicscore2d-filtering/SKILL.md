@@ -19,8 +19,8 @@ PhysicsCore2D provides flexible collision filtering to control which objects int
 ## Repository Examples
 
 Reference examples from the PhysicsExamples2D repository:
-- **CustomFilter** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Shapes/CustomFilter
-- **Triggers** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Benchmark/Triggers
+- **CustomFilter** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/CustomFilter
+- **Triggers** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Triggers
 
 ## Collision Filtering Concepts
 

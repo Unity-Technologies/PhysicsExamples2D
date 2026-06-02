@@ -9,7 +9,7 @@ namespace Unity.U2D.Physics.Editor.Extras
 {
     public sealed class PhysicsCoreInspectorEditor : EditorWindow
     {
-        private const string MenuPath = "Tools/PhysicsCore2D/Inspector";
+        private const string MenuPath = "Tools/2D/Physics/PhysicsCore Inspector";
         private const string AutoSelectGameObjectPrefKey = nameof(PhysicsCoreInspectorEditor) + ".AutoSelectGameObject";
         private const string AutoReadIntervalPrefKey = nameof(PhysicsCoreInspectorEditor) + ".AutoReadInterval";
 
@@ -24,7 +24,9 @@ namespace Unity.U2D.Physics.Editor.Extras
         };
         private const int DefaultAutoReadIntervalMs = 250;
 
-        [MenuItem(MenuPath)]
+        // Priority 13 leaves a >10 gap after "Resave All Scenes" (2), which makes Unity draw a
+        // separator line above this item.
+        [MenuItem(MenuPath, false, 13)]
         private static void Open()
         {
             var window = GetWindow<PhysicsCoreInspectorEditor>("PhysicsCoreInspector2D");

@@ -19,7 +19,7 @@ This project is **PhysicsCore2D only**. Do not use `Rigidbody2D`, `Collider2D`, 
 ## Project layout
 
 - `Projects/Primer/` — focused single-concept examples
-- `Projects/Sandbox/` — interactive playground scenes. To add or modify a Sandbox example, follow [`Projects/Sandbox/CREATING_EXAMPLES.md`](Projects/Sandbox/CREATING_EXAMPLES.md) — the authoritative recipe for the scene/script/uxml + build-list + manifest wiring.
+- `Projects/Sandbox/` — interactive playground scenes. To add or modify a Sandbox example, follow [`Projects/Sandbox/AUTHORING_EXAMPLES.md`](Projects/Sandbox/AUTHORING_EXAMPLES.md) — the authoritative recipe. Examples derive from `SandboxExampleBehaviour`, are tagged `[ExampleScene(category, description)]`, build their option controls in code via the base-class `AddSlider`/`AddToggle`/`AddEnum`/… helpers (no per-example uxml), and self-register via `Tools/2D/Physics/Rebuild Sandbox Registry`.
 - `Projects/Snippets/` — minimal API usage demos
 - `Packages/` — Unity package dependencies
 
