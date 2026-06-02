@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 using UnityEngine.Rendering;
+using UnityEngine.U2D;
 using UnityEngine.UIElements;
 
 [ExampleScene("Shapes", "Demonstrates the use of Sprite fragmenting mapping.")]
@@ -17,7 +18,6 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
 
     private Vector2 m_OldGravity;
     private bool m_OldAutoContactCallbacks;
-    private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;
 
     private readonly PhysicsMask m_ObstacleMask = new(1);
     private readonly PhysicsMask m_GroundMask = new(2);
@@ -33,9 +33,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
     private SegmentGeometry m_VirtualGroundGeometry;
     private PhysicsTransform m_VirtualGroundTransform;
 
-    private SpriteDestructionBatch m_SpriteDestructionBatch;
     private readonly List<Vector2> m_PhysicsShapeVertex = new();
-    private NativeArray<VertexAttributeDescriptor> m_VertexAttributes;
 
     private float m_FragmentRadius;
     private bool m_FragmentCreate;
@@ -44,6 +42,22 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
     private float m_FragmentBounciness;
     private float m_FragmentForce;
     private float m_GravityScale;
+
+    // --- Sprite rendering -------------------------------------------------------------------------
+    // Each destructible/fragment body is drawn as a runtime Sprite whose mesh is the body's polygon
+    // geometry (set GC-free via SpriteDataAccessExtensions) and rendered with Graphics.RenderSprite.
+    // Sprites are pooled and reused so steady-state destruction allocates no managed memory, and the
+    // scratch geometry buffers are reused NativeArrays (native memory, no GC).
+    //
+    // The map stays unmanaged by storing the sprite's EntityId (a managed Sprite ref can't live in a
+    // NativeHashMap); resolve it back with Resources.EntityIdToObject.
+    private NativeHashMap<PhysicsBody, EntityId> m_DrawItems;
+    private readonly Stack<Sprite> m_FreeSprites = new(128);
+    private readonly List<Sprite> m_AllSprites = new(128);
+    private NativeArray<Vector3> m_ScratchPositions;
+    private NativeArray<Vector2> m_ScratchUVs;
+    private NativeArray<ushort> m_ScratchIndices;
+    private RenderParams m_RenderParams;
 
     protected override float CameraSize => 12f;
     protected override Vector2 CameraPosition => Vector2.down * 2f;
@@ -63,10 +77,6 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         m_OldAutoContactCallbacks = world.autoContactCallbacks;
         world.autoContactCallbacks = true;
 
-        // Turn on interior drawing only.
-        m_OldDrawFillOptions = world.drawFillOptions;
-        world.drawFillOptions = PhysicsWorld.DrawFillOptions.Interior;
-
         // Set Overrides.
         SandboxManager.SetOverrideColorShapeState(false);
 
@@ -78,9 +88,19 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         m_FragmentForce = 10f;
         m_GravityScale = 5f;
 
-        // Create the sprite batch.
-        m_SpriteDestructionBatch = new SpriteDestructionBatch();
-        m_SpriteDestructionBatch.Create(SpriteMaterial);
+        // Set up the sprite render state (replaces the old per-fragment Mesh + DrawMeshNow batch).
+        m_DrawItems = new NativeHashMap<PhysicsBody, EntityId>(100, Allocator.Persistent);
+        m_FreeSprites.Clear();
+        m_AllSprites.Clear();
+        m_RenderParams = new RenderParams(SpriteMaterial)
+        {
+            // Leave worldBounds at its default (AABB.zero). RenderSprite only derives the renderer
+            // bounds from the sprite (sprite->GetBounds() transformed by objectToWorld) when
+            // worldBounds is zero; supplying a non-zero worldBounds makes the engine's
+            // CreateSpriteIntermediateRenderer skip that path and pass uninitialised bounds (→ a
+            // per-frame "bounds contain NaN" warning). RenderSprite draws for all cameras (camera == null).
+            camera = null
+        };
 
         m_DestructibleColor = new Color(0.1f, 0f, 0f, 0f);
         m_DestructibleContactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_GroundMask | m_DebrisMask | m_DestructibleMask };
@@ -88,22 +108,29 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) };
         m_VirtualGroundTransform = new PhysicsTransform(Vector2.down * 7.25f);
 
-        // Vertex attributes.
-        m_VertexAttributes = new NativeArray<VertexAttributeDescriptor>(3, Allocator.Persistent);
-        m_VertexAttributes[0] = new VertexAttributeDescriptor(VertexAttribute.Position, VertexAttributeFormat.Float32, 3);
-        m_VertexAttributes[1] = new VertexAttributeDescriptor(VertexAttribute.Normal, VertexAttributeFormat.Float32, 2);
-        m_VertexAttributes[2] = new VertexAttributeDescriptor(VertexAttribute.TexCoord0, VertexAttributeFormat.Float32, 2);
-
         CreateFragmentMaskGeometry();
     }
 
     protected override void OnExampleDisable()
     {
-        // Destroy the sprite batch.
-        m_SpriteDestructionBatch.Destroy();
+        // Destroy the runtime sprites (pooled + active) and dispose the render state.
+        foreach (var sprite in m_AllSprites)
+        {
+            if (sprite != null)
+                Destroy(sprite);
+        }
+        m_AllSprites.Clear();
+        m_FreeSprites.Clear();
 
-        if (m_VertexAttributes.IsCreated)
-            m_VertexAttributes.Dispose();
+        if (m_DrawItems.IsCreated)
+            m_DrawItems.Dispose();
+
+        if (m_ScratchPositions.IsCreated)
+            m_ScratchPositions.Dispose();
+        if (m_ScratchUVs.IsCreated)
+            m_ScratchUVs.Dispose();
+        if (m_ScratchIndices.IsCreated)
+            m_ScratchIndices.Dispose();
 
         // Enable manipulators.
         CameraManipulator.DisableManipulators = false;
@@ -117,9 +144,6 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         // Reset the old gravity.
         world.gravity = m_OldGravity;
 
-        // Reset the draw fill options.
-        world.drawFillOptions = m_OldDrawFillOptions;
-
         // Dispose.
         if (m_FragmentGeometryMask.IsCreated)
             m_FragmentGeometryMask.Dispose();
@@ -127,8 +151,8 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
 
     protected override void OnBeforeResetScene()
     {
-        // Reset the draw batch before the world is reset (it is keyed by body).
-        m_SpriteDestructionBatch.Reset();
+        // Reset the draw items before the world is reset (they are keyed by body).
+        ResetDrawItems();
     }
 
     protected override void SetupOptions()
@@ -213,6 +237,35 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         world.DrawGeometry(m_FragmentGeometryMask, worldPosition, Color.dodgerBlue, 0f, PhysicsWorld.DrawFillOptions.Outline);
     }
 
+    // Render every fragment sprite for the frame. Runs unconditionally (even while the world is
+    // paused) so the scene keeps drawing. Graphics.RenderSprite is batched by the SRP Batcher and
+    // works in every render pipeline, so there is no per-camera callback or immediate-mode drawing.
+    private void LateUpdate()
+    {
+        if (!m_DrawItems.IsCreated || m_DrawItems.IsEmpty)
+            return;
+
+        foreach (var drawItem in m_DrawItems)
+        {
+            var sprite = Resources.EntityIdToObject(drawItem.Value) as Sprite;
+            if (sprite == null)
+                continue;
+
+            var body = drawItem.Key;
+            var world = body.world;
+            var transformPlane = world.transformPlane;
+            var bodyTransform = body.transform;
+
+            var position = PhysicsMath.ToPosition3D(bodyTransform.position, Vector3.zero, transformPlane);
+            var rotation = PhysicsMath.ToRotationFast3D(body.rotation.radians, transformPlane);
+            
+            // SpriteParams is an immutable struct (stack-allocated, no GC); RenderParams/SpriteParams
+            // are `in` parameters so they're passed without the `ref` keyword.
+            var spriteParams = new SpriteParams(sprite);
+            Graphics.RenderSprite(m_RenderParams, spriteParams, 0, Matrix4x4.TRS(position, rotation, Vector3.one));
+        }
+    }
+
     private void DestructAtPosition(Vector2 hitPosition)
     {
         // Get the default world.
@@ -268,7 +321,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
             fragmentPoints.Dispose();
 
             // Destroy the draw item.
-            m_SpriteDestructionBatch.DestroySpriteDrawItem(destructibleBody);
+            DestroySpriteDrawItem(destructibleBody);
 
             // Set-up destructible surface material.
             m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_FragmentFriction, bounciness = m_FragmentBounciness, tangentSpeed = 0f, customColor = m_DestructibleColor };
@@ -336,7 +389,8 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
                     {
                         contactFilter = m_DestructibleContactFilter,
                         contactEvents = true,
-                        surfaceMaterial = m_DestructibleSurfaceMaterial
+                        surfaceMaterial = m_DestructibleSurfaceMaterial,
+                        worldDrawing = false
                     };
 
                     // Create the island geometry as a shape batch.
@@ -369,7 +423,8 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
                     {
                         contactFilter = new PhysicsShape.ContactFilter { categories = m_DebrisMask, contacts = m_GroundMask | m_DestructibleMask | m_ObstacleMask | m_DebrisMask },
                         contactEvents = true,
-                        surfaceMaterial = m_DestructibleSurfaceMaterial
+                        surfaceMaterial = m_DestructibleSurfaceMaterial,
+                        worldDrawing = false
                     };
 
                     // Add a shape for each body.
@@ -462,7 +517,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         }
 
         // Calculate the polygons from the points.
-        using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one, Allocator.Temp);
+        using var polygons = composer.CreatePolygonGeometry(vertexScale: Vector2.one);
 
         // Dispose.
         vertexPath.Dispose();
@@ -486,7 +541,8 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         {
             contactFilter = m_DestructibleContactFilter,
             contactEvents = true,
-            surfaceMaterial = m_DestructibleSurfaceMaterial
+            surfaceMaterial = m_DestructibleSurfaceMaterial,
+            worldDrawing = false
         };
 
         // Create the island geometry as a shape batch.
@@ -504,6 +560,10 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         }
     }
 
+    // Build the body's renderable geometry from its polygons and upload it to a pooled runtime Sprite.
+    // Vertex positions are the polygon vertices (body-local space); UVs map each vertex onto the source
+    // sprite's texture so the texture "stays put" across breaks. All geometry is written into reused
+    // scratch NativeArrays and pushed via SpriteDataAccessExtensions, so there is no managed allocation.
     private void CreateDrawItem(PhysicsBody physicsBody, ReadOnlySpan<PolygonGeometry> polygons)
     {
         // Fetch the sprite details.
@@ -513,45 +573,63 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         // This needs to be calculated!
         var textureOffset = new Vector2(0.5f, 0.5f);
 
-        // Create the vertices and indices data.
-        var initialCapacity = polygons.Length * PhysicsConstants.MaxPolygonVertices * 3;
-        var vertices = new NativeList<SpriteDestructionBatch.BatchVertex>(initialCapacity, Allocator.Temp);
-        var indices = new NativeList<int>(initialCapacity, Allocator.Temp);
+        // Count the vertices/indices so the scratch buffers can be sized once.
+        var vertexCount = 0;
+        var indexCount = 0;
+        foreach (var polygonGeometry in polygons)
+        {
+            var count = polygonGeometry.count;
+            if (count < 3)
+                continue;
+            vertexCount += count;
+            indexCount += (count - 2) * 3;
+        }
+
+        if (vertexCount == 0)
+            return;
+
+        EnsureScratchCapacity(vertexCount, indexCount);
 
         // Create the rendering triangles from the polygon geometry.
+        var vertexIndex = 0;
+        var triangleIndex = 0;
         foreach (var polygonGeometry in polygons)
         {
             var polygonVertexCount = polygonGeometry.count;
-            var polygonVertices = polygonGeometry.vertices;
-            var rootVertex = vertices.Length;
+            if (polygonVertexCount < 3)
+                continue;
 
-            // Add the triangle vertices.
+            var polygonVertices = polygonGeometry.vertices;
+            var rootVertex = vertexIndex;
+
+            // Add the triangle vertices (position + texture UV).
             for (var i = 0; i < polygonVertexCount; ++i)
             {
                 ref var vertex = ref polygonVertices[i];
-                var uv = (vertex * worldToTex) + textureOffset;
-                vertices.Add(new SpriteDestructionBatch.BatchVertex { position = vertex, uv = uv, normals = -Vector3.forward });
+                // The Sprite Position channel is Vector3 (z = 0 for 2D).
+                m_ScratchPositions[vertexIndex] = new Vector3(vertex.x, vertex.y, 0f);
+                m_ScratchUVs[vertexIndex] = (vertex * worldToTex) + textureOffset;
+                ++vertexIndex;
             }
 
-            // Add the triangle indices.
+            // Add the triangle indices (fan triangulation).
             for (var i = 2; i < polygonVertexCount; ++i)
             {
-                indices.Add(rootVertex);
-                indices.Add(rootVertex + i);
-                indices.Add(rootVertex + i - 1);
+                m_ScratchIndices[triangleIndex++] = (ushort)rootVertex;
+                m_ScratchIndices[triangleIndex++] = (ushort)(rootVertex + i);
+                m_ScratchIndices[triangleIndex++] = (ushort)(rootVertex + i - 1);
             }
         }
 
-        // Create the sprite draw item.
-        m_SpriteDestructionBatch.CreateSpriteDrawItem(
-            m_VertexAttributes,
-            vertices.AsArray(),
-            indices.AsArray(),
-            physicsBody);
+        // Rent a pooled sprite and upload the geometry GC-free via SpriteDataAccessExtensions.
+        var sprite = RentSprite();
+        sprite.SetVertexCount(vertexCount);
+        sprite.SetVertexAttribute(VertexAttribute.Position, m_ScratchPositions.GetSubArray(0, vertexCount));
+        sprite.SetVertexAttribute(VertexAttribute.TexCoord0, m_ScratchUVs.GetSubArray(0, vertexCount));
+        sprite.SetIndices(m_ScratchIndices.GetSubArray(0, indexCount));
 
-        // Dispose.
-        vertices.Dispose();
-        indices.Dispose();
+        // Add the draw item (store the sprite by EntityId so the map stays unmanaged).
+        m_DrawItems.Add(physicsBody, sprite.GetEntityId());
     }
 
     public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
@@ -571,11 +649,88 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         if (categoryA != m_GroundMask && categoryB != m_GroundMask)
             return;
 
-        // Destroy whatever hit the ground.
-        // Destroy the draw item.
+        // Destroy whatever hit the ground (and its draw item).
         var destroyShape = categoryA == m_GroundMask ? shapeB : shapeA;
-        m_SpriteDestructionBatch.DestroySpriteDrawItem(destroyShape.body);
+        DestroySpriteDrawItem(destroyShape.body);
     }
 
     public void OnContactEnd2D(PhysicsEvents.ContactEndEvent endEvent) { }
+
+    // --- Sprite pool + draw-item management -------------------------------------------------------
+
+    // Rent a reusable runtime sprite from the pool, creating a new one only when the pool is empty.
+    private Sprite RentSprite()
+    {
+        if (m_FreeSprites.Count > 0)
+            return m_FreeSprites.Pop();
+
+        // Create a runtime sprite over the whole source texture; its geometry is overwritten per use
+        // (so rect/pivot/pixelsPerUnit don't affect the rendered fragment, only the sampled texture).
+        var texture = Sprite.texture;
+        var sprite = Sprite.Create(
+            texture,
+            new Rect(0f, 0f, texture.width, texture.height),
+            new Vector2(0.5f, 0.5f),
+            Sprite.pixelsPerUnit,
+            extrude: 0,
+            SpriteMeshType.FullRect);
+        sprite.hideFlags = HideFlags.HideAndDontSave;
+
+        m_AllSprites.Add(sprite);
+        return sprite;
+    }
+
+    // Grow the reusable scratch geometry buffers if a body needs more than the current capacity.
+    // NativeArrays are native memory, so this never produces managed GC.
+    private void EnsureScratchCapacity(int vertexCount, int indexCount)
+    {
+        if (!m_ScratchPositions.IsCreated || m_ScratchPositions.Length < vertexCount)
+        {
+            if (m_ScratchPositions.IsCreated) m_ScratchPositions.Dispose();
+            if (m_ScratchUVs.IsCreated) m_ScratchUVs.Dispose();
+            m_ScratchPositions = new NativeArray<Vector3>(vertexCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+            m_ScratchUVs = new NativeArray<Vector2>(vertexCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+        }
+
+        if (!m_ScratchIndices.IsCreated || m_ScratchIndices.Length < indexCount)
+        {
+            if (m_ScratchIndices.IsCreated) m_ScratchIndices.Dispose();
+            m_ScratchIndices = new NativeArray<ushort>(indexCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+        }
+    }
+
+    // Remove a body's draw item, return its sprite to the pool, and destroy the body.
+    private void DestroySpriteDrawItem(PhysicsBody physicsBody)
+    {
+        if (!m_DrawItems.TryGetValue(physicsBody, out var spriteId))
+            throw new ArgumentException("Could not find draw item.", nameof(physicsBody));
+
+        // Return the sprite to the pool for reuse (do not destroy it).
+        if (Resources.EntityIdToObject(spriteId) is Sprite sprite)
+            m_FreeSprites.Push(sprite);
+
+        // Remove the draw item.
+        m_DrawItems.Remove(physicsBody);
+
+        // Destroy the body.
+        physicsBody.Destroy();
+    }
+
+    // Return all active sprites to the pool and destroy their bodies (used on scene reset).
+    private void ResetDrawItems()
+    {
+        if (!m_DrawItems.IsCreated)
+            return;
+
+        foreach (var drawItem in m_DrawItems)
+        {
+            if (Resources.EntityIdToObject(drawItem.Value) is Sprite sprite)
+                m_FreeSprites.Push(sprite);
+
+            // Destroy the body.
+            drawItem.Key.Destroy();
+        }
+
+        m_DrawItems.Clear();
+    }
 }
