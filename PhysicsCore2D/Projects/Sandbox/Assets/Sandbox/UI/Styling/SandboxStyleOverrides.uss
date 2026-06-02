@@ -89,3 +89,17 @@ TabView, .unity-tab-view__content-container, Tab, .unity-tab__content-container 
 .unity-tab-view__content-viewport {
     background-color: rgba(0, 0, 0, 0);
 } 
+
+.hash-label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    white-space: normal;
+    text-overflow: clip;
+    -unity-text-align: upper-center;
+    border-width: 1px;
+    border-color: rgb(55, 55, 55);
+    border-radius: 3px;
+    margin: 3px;
+}

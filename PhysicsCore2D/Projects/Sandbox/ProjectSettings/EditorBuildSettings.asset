@@ -9,175 +9,175 @@ EditorBuildSettings:
     path: Assets/Sandbox.unity
     guid: 322af58dd36e2bd45adf1337d19229d5
   - enabled: 1
-    path: Assets/Scenes/Batching/Boids/Boids.unity
+    path: Assets/Scenes/Boids/Boids.unity
     guid: 72bc5cd4c2e5c7949b598e6b2f3128e2
   - enabled: 1
-    path: Assets/Scenes/Batching/Queries/Queries.unity
+    path: Assets/Scenes/Queries/Queries.unity
     guid: 537f9bc67fe6f4d4f8c518ab34b8c3b3
   - enabled: 1
-    path: Assets/Scenes/Batching/Shooter/Shooter.unity
+    path: Assets/Scenes/Shooter/Shooter.unity
     guid: 55e429c5bf7c16946a8449b741fea592
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Barrel/Barrel.unity
+    path: Assets/Scenes/Barrel/Barrel.unity
     guid: 4bd6e13cf53ec7946afcad00ea168ffa
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Capacity/Capacity.unity
+    path: Assets/Scenes/Capacity/Capacity.unity
     guid: 4aaff0443bcce4f46a49c1c9799effac
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Drawing/Drawing.unity
+    path: Assets/Scenes/Drawing/Drawing.unity
     guid: 7d5df83e606abc64d8b4b5973f86aba9
   - enabled: 1
-    path: Assets/Scenes/Benchmark/JointGrid/JointGrid.unity
+    path: Assets/Scenes/JointGrid/JointGrid.unity
     guid: 4ce96d504cbf8464c9db6687690de1d6
   - enabled: 1
-    path: Assets/Scenes/Benchmark/LargeCompound/LargeCompound.unity
+    path: Assets/Scenes/LargeCompound/LargeCompound.unity
     guid: 090f3a7b7f73a484581622c6851b181a
   - enabled: 1
-    path: Assets/Scenes/Benchmark/LargeKinematic/LargeKinematic.unity
+    path: Assets/Scenes/LargeKinematic/LargeKinematic.unity
     guid: 5f2f75677bd59bb40b92ad302663dfb0
   - enabled: 1
-    path: Assets/Scenes/Benchmark/LargePyramid/LargePyramid.unity
+    path: Assets/Scenes/LargePyramid/LargePyramid.unity
     guid: 75539700f28b9de479bb3f795d49c9cc
   - enabled: 1
-    path: Assets/Scenes/Benchmark/LargeWorld/LargeWorld.unity
+    path: Assets/Scenes/LargeWorld/LargeWorld.unity
     guid: 40014d64d8edfc94f847d6b01f5bae54
   - enabled: 1
-    path: Assets/Scenes/Benchmark/ManyTumblers/ManyTumblers.unity
+    path: Assets/Scenes/ManyTumblers/ManyTumblers.unity
     guid: e3dad047f60abd74cbbda22b00499c5e
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Smash/Smash.unity
+    path: Assets/Scenes/Smash/Smash.unity
     guid: c21dfd58241075a43b81322a5ac82db7
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Spinner/Spinner.unity
+    path: Assets/Scenes/Spinner/Spinner.unity
     guid: 720b89258d7347e4aba0192fd6559b38
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Washer/Washer.unity
+    path: Assets/Scenes/Washer/Washer.unity
     guid: cb72e9c965e22c84ca0de7b6dff686c5
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Funnel/Funnel.unity
+    path: Assets/Scenes/Funnel/Funnel.unity
     guid: db1d9ec2a7974ad48a0528f29fa3ead3
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Triggers/Triggers.unity
+    path: Assets/Scenes/Triggers/Triggers.unity
     guid: e6cf696615cc38c4ba042e26f68be47b
   - enabled: 1
-    path: Assets/Scenes/Benchmark/Tumbler/Tumbler.unity
+    path: Assets/Scenes/Tumbler/Tumbler.unity
     guid: b6f9e6d49afe8d74f8157b16a10e0375
   - enabled: 1
-    path: Assets/Scenes/Collision/BounceHouse/BounceHouse.unity
+    path: Assets/Scenes/BounceHouse/BounceHouse.unity
     guid: 2a1b71d7c73ccf0428f66024ce3fb94c
   - enabled: 1
-    path: Assets/Scenes/Collision/BounceRagdolls/BounceRagdolls.unity
+    path: Assets/Scenes/BounceRagdolls/BounceRagdolls.unity
     guid: 233338694a9fd2e458095fa190d051c5
   - enabled: 1
-    path: Assets/Scenes/Collision/CharacterMover/CharacterMover.unity
+    path: Assets/Scenes/CharacterMover/CharacterMover.unity
     guid: dc934a44ec5d5bd45bbbc5364c17e497
   - enabled: 1
-    path: Assets/Scenes/Collision/ContactManifold/ContactManifold.unity
+    path: Assets/Scenes/ContactManifold/ContactManifold.unity
     guid: a40d1ed7d2a9d69458c3b8055816fea9
   - enabled: 1
-    path: Assets/Scenes/Collision/Determinism/Determinism.unity
+    path: Assets/Scenes/Determinism/Determinism.unity
     guid: 58eb55b4f78ad2d4998c5864c0ceb2bb
   - enabled: 1
-    path: Assets/Scenes/Joints/BallAndChain/BallAndChain.unity
+    path: Assets/Scenes/BallAndChain/BallAndChain.unity
     guid: ba1b1c7ba0ff09a44a8f4c6394869e1e
   - enabled: 1
-    path: Assets/Scenes/Joints/DistanceJoint/DistanceJoint.unity
+    path: Assets/Scenes/DistanceJoint/DistanceJoint.unity
     guid: e35de1168d77d2746ba63b31de1d89a7
   - enabled: 1
-    path: Assets/Scenes/Joints/Doohickey/Doohickey.unity
+    path: Assets/Scenes/Doohickey/Doohickey.unity
     guid: 43203e7eec0b42e48990c398be9338ce
   - enabled: 1
-    path: Assets/Scenes/Joints/Driving/Driving.unity
+    path: Assets/Scenes/Driving/Driving.unity
     guid: 6d94882244490e343a9d8efbf6de573d
   - enabled: 1
-    path: Assets/Scenes/Joints/GearLift/GearLift.unity
+    path: Assets/Scenes/GearLift/GearLift.unity
     guid: f9cb718917288df469347cdb8a607f89
   - enabled: 1
-    path: Assets/Scenes/Joints/IgnoreJoint/IgnoreJoint.unity
+    path: Assets/Scenes/IgnoreJoint/IgnoreJoint.unity
     guid: 941d029281a18194090e6a2a10dd1078
   - enabled: 1
-    path: Assets/Scenes/Joints/ScaleRagdoll/ScaleRagdoll.unity
+    path: Assets/Scenes/ScaleRagdoll/ScaleRagdoll.unity
     guid: 54f48b7529cca0045a26ea27ec580ae8
   - enabled: 1
-    path: Assets/Scenes/Joints/ScissorLift/ScissorLift.unity
+    path: Assets/Scenes/ScissorLift/ScissorLift.unity
     guid: c4e99ff41d561a441b2d6f23fa050bb9
   - enabled: 1
-    path: Assets/Scenes/Joints/SliderJoint/SliderJoint.unity
+    path: Assets/Scenes/SliderJoint/SliderJoint.unity
     guid: 8053bfd538096f344b3062526abdab0e
   - enabled: 1
-    path: Assets/Scenes/Joints/SoftBody/SoftBody.unity
+    path: Assets/Scenes/SoftBody/SoftBody.unity
     guid: c2e1d701eb1b050418fd3d3e033372fc
   - enabled: 1
-    path: Assets/Scenes/Joints/TopDownFriction/TopDownFriction.unity
+    path: Assets/Scenes/TopDownFriction/TopDownFriction.unity
     guid: abd1a02162a56cc41bbdc30ffba0735e
   - enabled: 1
-    path: Assets/Scenes/Joints/UserJoint/UserJoint.unity
+    path: Assets/Scenes/UserJoint/UserJoint.unity
     guid: 32568bd859234bb45a7e9db7f9b8bafb
   - enabled: 1
-    path: Assets/Scenes/Joints/WheelJoint/WheelJoint.unity
+    path: Assets/Scenes/WheelJoint/WheelJoint.unity
     guid: 62aef51c4123c7d428ab4e1d31aa11ba
   - enabled: 1
-    path: Assets/Scenes/Shapes/ChainShape/ChainShape.unity
+    path: Assets/Scenes/ChainShape/ChainShape.unity
     guid: 668e090d51c70d543afabbdc14ef1015
   - enabled: 1
-    path: Assets/Scenes/Shapes/Compound/Compound.unity
+    path: Assets/Scenes/Compound/Compound.unity
     guid: 262edbc7fc45c26408296e61899c53c2
   - enabled: 1
-    path: Assets/Scenes/Shapes/ConveyorBelt/ConveyorBelt.unity
+    path: Assets/Scenes/ConveyorBelt/ConveyorBelt.unity
     guid: 016614ea68528a148bd41f6c36dd2266
   - enabled: 1
-    path: Assets/Scenes/Shapes/CustomFilter/CustomFilter.unity
+    path: Assets/Scenes/CustomFilter/CustomFilter.unity
     guid: 4e2737d97000b5648b93664f3688fbb9
   - enabled: 1
-    path: Assets/Scenes/Shapes/Fragmenting/Fragmenting.unity
+    path: Assets/Scenes/Fragmenting/Fragmenting.unity
     guid: fdb61be3e49ccf14f8fea6dd4f5e0bb4
   - enabled: 1
-    path: Assets/Scenes/Shapes/GeometryIslands/GeometryIslands.unity
+    path: Assets/Scenes/GeometryIslands/GeometryIslands.unity
     guid: f5599ea474cb259408d63e5c73ab27d2
   - enabled: 1
-    path: Assets/Scenes/Shapes/SpriteDestruction/SpriteDestruction.unity
+    path: Assets/Scenes/SpriteDestruction/SpriteDestruction.unity
     guid: 8df3c2dc33c548644a3353203018961b
   - enabled: 1
-    path: Assets/Scenes/Shapes/Friction/Friction.unity
+    path: Assets/Scenes/Friction/Friction.unity
     guid: 9f24719bc9196724190879eaa79f9690
   - enabled: 1
-    path: Assets/Scenes/Shapes/Bounciness/Bounciness.unity
+    path: Assets/Scenes/Bounciness/Bounciness.unity
     guid: f2b4456789f99674aa6a868f292305d4
   - enabled: 1
-    path: Assets/Scenes/Shapes/EllipsePolygons/EllipsePolygons.unity
+    path: Assets/Scenes/EllipsePolygons/EllipsePolygons.unity
     guid: 495604bee386d264fb5e0a889d37e8d6
   - enabled: 1
-    path: Assets/Scenes/Shapes/ModifyGeometry/ModifyGeometry.unity
+    path: Assets/Scenes/ModifyGeometry/ModifyGeometry.unity
     guid: 8fd1e3bc45ed31340a863b6381830700
   - enabled: 1
-    path: Assets/Scenes/Shapes/RollingResistance/RollingResistance.unity
+    path: Assets/Scenes/RollingResistance/RollingResistance.unity
     guid: 7024004c57eff984c828c46303385ed0
   - enabled: 1
-    path: Assets/Scenes/Shapes/RoundedPolygons/RoundedPolygons.unity
+    path: Assets/Scenes/RoundedPolygons/RoundedPolygons.unity
     guid: 550003ab5b8b5e744b8d1f0f5cfce422
   - enabled: 1
-    path: Assets/Scenes/Shapes/Slicing/Slicing.unity
+    path: Assets/Scenes/Slicing/Slicing.unity
     guid: 8b67b7b56d6e3a0458e8f5447e8a9c84
   - enabled: 1
-    path: Assets/Scenes/Shapes/Wind/Wind.unity
+    path: Assets/Scenes/Wind/Wind.unity
     guid: ba8fade6bb243d142920465e5187e6c2
   - enabled: 1
-    path: Assets/Scenes/Stacking/Arch/Arch.unity
+    path: Assets/Scenes/Arch/Arch.unity
     guid: 015f448c6c94f1445aa2323d27e48208
   - enabled: 1
-    path: Assets/Scenes/Stacking/CardHouse/CardHouse.unity
+    path: Assets/Scenes/CardHouse/CardHouse.unity
     guid: 1831f598b1d378444adf83e277b75a38
   - enabled: 1
-    path: Assets/Scenes/Stacking/Confined/Confined.unity
+    path: Assets/Scenes/Confined/Confined.unity
     guid: 3957450bf0e11aa4a9806e42299066dd
   - enabled: 1
-    path: Assets/Scenes/Stacking/DoubleDomino/DoubleDomino.unity
+    path: Assets/Scenes/DoubleDomino/DoubleDomino.unity
     guid: f4299d460a86e9f4788a6c2665f911ee
   - enabled: 1
-    path: Assets/Scenes/Stacking/ShapeStack/ShapeStack.unity
+    path: Assets/Scenes/ShapeStack/ShapeStack.unity
     guid: c07d88df5a773a348bb4f3d33f0f14ad
   - enabled: 1
-    path: Assets/Scenes/Custom/Custom.unity
+    path: Assets/Scenes/Example/Example.unity
     guid: e4bebd4f12dd2f74491dbd0bb2b78588
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5c7184836effb7b44bb05e94121cf77e, type: 2}

@@ -622,19 +622,30 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Register a category change.
         m_SceneCategories.RegisterValueChangedCallback(evt => SceneCategoryChanged(evt.newValue));
         
-        // Do we have a start scene?
-        if (StartScene != string.Empty)
+        // Resolve the configured start scene. If it's empty or no longer registered (e.g. the
+        // example was disabled or removed), warn and fall back to the first registered scene so
+        // startup never throws.
+        if (m_SceneManifest.SceneItems.Count == 0)
         {
-            // Yes, so select it.
-            m_IgnoreAutoSceneSelection = true;
-            m_SceneCategories.value = m_SceneManifest.GetSceneItem(StartScene).Category;
-            m_IgnoreAutoSceneSelection = false;
-            m_Scenes.value = StartScene;
+            Debug.LogWarning("[Sandbox] No scenes are registered in the SceneManifest; cannot select a start scene.");
         }
         else
         {
-            // No, so simply select the first category.
-            m_SceneCategories.index = 0;
+            if (!m_SceneManifest.TryGetSceneItem(StartScene, out var startItem))
+            {
+                startItem = m_SceneManifest.SceneItems[0];
+                if (string.IsNullOrEmpty(StartScene))
+                    Debug.LogWarning($"[Sandbox] No start scene set; using the first registered scene '{startItem.Name}'.");
+                else
+                    Debug.LogWarning($"[Sandbox] Start scene '{StartScene}' is not registered; using the first registered scene '{startItem.Name}'.");
+            }
+
+            // Select the resolved scene (suppress the category-change auto-selection so we land on
+            // exactly this scene).
+            m_IgnoreAutoSceneSelection = true;
+            m_SceneCategories.value = startItem.Category;
+            m_IgnoreAutoSceneSelection = false;
+            m_Scenes.value = startItem.Name;
         }
     }
 

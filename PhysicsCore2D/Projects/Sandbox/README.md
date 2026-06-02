@@ -10,28 +10,43 @@ You MUST first enable "Development Build" in the build options for the debug ren
 
 To run, load the main "Sandbox" scene and press "Play". Alternately, build to a player and run.
 
-To change the sample that initially loads when you press "Play", select the "MainMenu" `GameObject` and in the `Sandbox Manager` script, select the sample from the "Statr Scene" drop-down.
-
-Each sample can be found in `Assets/Scenes/<Category>/<SampleName>` and all share the same configuration.
-
-In each sample there is at least a single ".cs" file containing all the sample code. There's also a ".unity" scene and finally a ".uxml" for the sample UI.
-
-Use the `Assets/Scenes/Custom` scene to create your own.
+To change the sample that initially loads when you press "Play", select the "MainMenu" `GameObject` and in the `Sandbox Manager` script, select the sample from the "Start Scene" drop-down.
 
 ---
 
-The structure of the ".cs" script file is consistent for all samples and typically contains the following methods:
+## How a sample is laid out
 
-- **OnEnable()** - Grabs the Sandbox Manager and Camera Manipulator and initializes any sample fields. Also, other global physics or sandbox state may be overriden here. Here we always call "SetupOptions" and "SetupScene" (see below).
-- **OnDisable()** - Typically destroys any temporary storage and restores any global physics or Sandbox state.
-- **SetupOptions()** - This is always called from "OnEnable" and always configures the sample UI to dynamically control the sample (sample option in the lower-level UI).
-- **SetupScene** - This is always called from "OnEnable" but is also called from the sample UI when pressing the "ResetScene" button on all samples. Here is where all the sample physics objects are created.
-- **Update()** - Some samples use this to perform per-frame updates such as world drawing.
-- **Misc** - Some samples have miscellaneous methods (sometimes used in "SetupScene") to spawn or control the physics objects. Some are hooked into the pre/post simulate to perform an action when the simulation is about to or has run.  
+Every sample lives in its own folder directly under `Assets/Scenes/<SampleName>/` and is made of two files:
 
-The "Scripts" folder typically contains utility scripts only used by various scenes such as spawning physics objects i.e. ragdolls, softbodies etc.
+| File | What it is |
+|------|------------|
+| `<SampleName>.cs`        | The sample code — the physics *and* its on-screen option controls (built in code). |
+| `<SampleName>.unity`     | The Unity scene that gets loaded when you pick the sample. |
+
+There are **no category sub-folders** — every sample sits straight under `Assets/Scenes/`. A sample's category (the heading it appears under in the menu) comes purely from its code attribute (see below), so the folder layout stays flat and the category never drifts out of sync with the folder name.
+
+All the repetitive plumbing — finding the shared managers, building the options-menu frame (a single shared `ExampleChrome.uxml`), populating the title/description, hooking up the **Reset** button, framing the camera — lives in one shared base class, **`SandboxExampleBehaviour`**, so each sample's `.cs` file only contains the parts that are actually unique to it. The options panel itself is data-driven: samples add their controls in code via base-class helpers, so there's no per-sample UI file to maintain.
+
+## How a sample's `.cs` script is structured
+
+A sample is a class that **derives from `SandboxExampleBehaviour`** and is tagged with an **`[ExampleScene("Category", "Description")]`** attribute (that attribute is what makes it show up in the menu — see "Adding your own" below). It then fills in only the hooks it needs:
+
+- **`SetupScene()`** *(required)* — Builds the sample: this is where all the physics objects are created. It runs once when the sample loads, and again every time you press the **Reset** button.
+- **`SetupOptions()`** *(optional)* — Builds the option controls in code with the base-class helpers — `AddSlider("Speed", value, min, max, v => m_Speed = v, rebuild: true)`, plus `AddSliderInt`/`AddToggle`/`AddEnum` (and `AddElement` for anything custom). The shared menu frame, title and description are already built for you; pass `rebuild: true` when a change should rebuild the scene.
+- **`OnExampleEnable()` / `OnExampleDisable()`** *(optional)* — One-time setup and tear-down: initialise fields, save/restore global physics state (like gravity), subscribe/unsubscribe from events, allocate/free native collections.
+- **`CameraSize` / `CameraPosition`** *(optional)* — Override these properties to frame the camera for your sample.
+- **`Update()`** *(optional)* — Per-frame work, such as drawing debug lines.
+
+You don't write an `OnEnable`/`OnDisable` yourself — the base class owns those and calls the hooks above in the right order.
+
+The `Assets/Sandbox/Scripts` folder holds shared utility code (e.g. helpers that spawn ragdolls, soft bodies, and other reusable physics objects) used across multiple samples.
+
+## Adding your own
+
+The quickest way is to **copy the starter template** at `Assets/Scenes/Example/`: duplicate the folder, rename the two files to your sample's name, rename the class to match, and edit the `[ExampleScene(...)]` category and description. Then run **`Tools → 2D → Physics → Rebuild Sandbox Registry`** from the Unity menu — that scans for the `[ExampleScene]` attribute and registers your sample in the menu and the build automatically (it also prunes any samples whose folders you've removed or moved).
+
+You can also **ask Claude (Claude Code) to create or modify a sample for you** — "add a sample that…" or "change the X sample to…". It follows the project's authoritative recipe in [`AUTHORING_EXAMPLES.md`](./AUTHORING_EXAMPLES.md), which documents this same pattern in full detail (file-by-file, plus the physics API rules).
 
 ---
 
 ![Sandbox](./Images/Sandbox.png)
-

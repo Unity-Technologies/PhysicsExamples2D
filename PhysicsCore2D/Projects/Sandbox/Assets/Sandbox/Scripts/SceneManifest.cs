@@ -24,9 +24,16 @@ public class SceneManifest : MonoBehaviour
 
     private Coroutine m_LoadSceneRoutine;
 
-    public List<string> GetCategories() => SceneItems.Select(item => item.Category).Distinct().ToList();
-    public List<string> GetScenes(string category) => SceneItems.Where(item => item.Category == category).Select(item => item.Name).ToList();
-    public SceneItem GetSceneItem(string sceneName) => SceneItems.Select((item) => new { Item = item }).First(x => x.Item.Name == sceneName).Item;
+    public List<string> GetCategories() => SceneItems.Select(item => item.Category).Distinct().OrderBy(category => category, StringComparer.OrdinalIgnoreCase).ToList();
+    public List<string> GetScenes(string category) => SceneItems.Where(item => item.Category == category).Select(item => item.Name).OrderBy(name => name, StringComparer.OrdinalIgnoreCase).ToList();
+    // Look up a scene item by Name. Returns false (and a default item) if no match — callers
+    // should handle the missing case rather than assume the name is always valid.
+    public bool TryGetSceneItem(string sceneName, out SceneItem item)
+    {
+        var index = SceneItems.FindIndex(existing => existing.Name == sceneName);
+        item = index >= 0 ? SceneItems[index] : default;
+        return index >= 0;
+    }
 
     private void OnEnable()
     {

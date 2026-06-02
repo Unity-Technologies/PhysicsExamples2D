@@ -1,0 +1,362 @@
+using System;
+using Unity.Collections;
+using Unity.Mathematics;
+using UnityEngine;
+#if UNITY_6000_5_OR_NEWER
+using Unity.U2D.Physics;
+#else
+using UnityEngine.LowLevelPhysics2D;
+#endif
+using UnityEngine.UIElements;
+using Random = Unity.Mathematics.Random;
+
+[ExampleScene("Benchmarks", "Continuously spawns a mix of object types falling through a funnel.")]
+public sealed class Funnel : SandboxExampleBehaviour
+{
+    private enum ObjectType
+    {
+        Circle = 0,
+        Capsule = 1,
+        Polygon = 2,
+        Compound = 3,
+        Ragdoll = 4,
+        Softbody = 5,
+        Random = 6,
+    }
+
+    private ObjectType m_ObjectType;
+    private float m_ObjectScale;
+    private float m_SpawnPeriod;
+    private float m_GravityScale;
+
+    private Vector2 m_OldGravity;
+    private const float SpawnSide = -15f;
+    private float m_SpawnTime;
+
+    protected override float CameraSize => 35f;
+
+    protected override void OnExampleEnable()
+    {
+        // Set Overrides.
+        SandboxManager.SetOverrideColorShapeState(false);
+        SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.AllJoints, fixedOptions: PhysicsWorld.DrawOptions.Off);
+
+        m_ObjectType = ObjectType.Random;
+
+        m_OldGravity = World.gravity;
+        m_GravityScale = 5f;
+        m_ObjectScale = 2.5f;
+        m_SpawnPeriod = 0.5f;
+    }
+
+    protected override void OnExampleDisable()
+    {
+        // Get the default world.
+        var world = World;
+        world.gravity = m_OldGravity;
+    }
+
+    private void Update()
+    {
+        // Finish if the world is paused.
+        if (SandboxManager.WorldPaused)
+            return;
+
+        SpawnObject();
+
+        DestroyTriggerDetections();
+    }
+
+    private static void DestroyTriggerDetections()
+    {
+        // Get the default world.
+        var world = PhysicsWorld.defaultWorld;
+
+        var triggerEvents = world.triggerBeginEvents;
+        foreach (var triggerEvent in triggerEvents)
+        {
+            var visitorShape = triggerEvent.visitorShape;
+            if (!visitorShape.isValid)
+                continue;
+
+            var body = visitorShape.body;
+            if (!body.isValid)
+                continue;
+
+            // Ignore any static bodies.
+            // NOTE: We do this because there's currently a bug in Box2D where sibling (same body) shapes
+            // are detecting events with each other.
+            if (body.type == PhysicsBody.BodyType.Static)
+                return;
+
+            // Destroy the body.
+            body.Destroy();
+        }
+    }
+
+    private void SpawnObject()
+    {
+        m_SpawnTime -= Time.deltaTime;
+        if (m_SpawnTime > 0)
+            return;
+
+        m_SpawnTime = m_SpawnPeriod / math.sqrt(m_GravityScale);
+
+        // Get the default world.
+        var world = World;
+
+        ref var random = ref Random;
+
+        // Spawn Object.
+        var spawnPosition = new Vector2(random.NextFloat(-SpawnSide, SpawnSide), 35f);
+
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = spawnPosition };
+        var shapeDef = new PhysicsShapeDefinition
+        {
+            surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.05f, customColor = ShapeColor },
+            triggerEvents = true
+        };
+
+        switch (m_ObjectType)
+        {
+            case ObjectType.Circle:
+            {
+                var body = world.CreateBody(bodyDef);
+                CreateCircle(body, shapeDef, ref random);
+                return;
+            }
+
+            case ObjectType.Capsule:
+            {
+                var body = world.CreateBody(bodyDef);
+                CreateCapsule(body, shapeDef, ref random);
+                return;
+            }
+
+            case ObjectType.Polygon:
+            {
+                var body = world.CreateBody(bodyDef);
+                CreatePolygon(body, shapeDef, ref random);
+                return;
+            }
+
+            case ObjectType.Compound:
+            {
+                var body = world.CreateBody(bodyDef);
+                CreateCompound(body, shapeDef);
+                return;
+            }
+
+            case ObjectType.Ragdoll:
+            {
+                CreateRagdoll(world, spawnPosition, random);
+                return;
+            }
+
+            case ObjectType.Softbody:
+            {
+                CreateDonut(world, spawnPosition);
+                return;
+            }
+
+            case ObjectType.Random:
+            {
+                var body = world.CreateBody(bodyDef);
+
+                switch (random.NextInt(0, 7))
+                {
+                    case 0:
+                    {
+                        CreateCircle(body, shapeDef, ref random);
+                        return;
+                    }
+
+                    case 1:
+                    {
+                        CreateCapsule(body, shapeDef, ref random);
+                        return;
+                    }
+
+                    case 2:
+                    {
+                        CreatePolygon(body, shapeDef, ref random);
+                        return;
+                    }
+
+                    case 4:
+                    {
+                        CreateCompound(body, shapeDef);
+                        return;
+                    }
+
+                    case 5:
+                    {
+                        CreateRagdoll(world, spawnPosition, random);
+                        return;
+                    }
+
+                    case 6:
+                    {
+                        CreateDonut(world, spawnPosition);
+                        return;
+                    }
+                }
+
+                break;
+            }
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void CreateCircle(PhysicsBody body, PhysicsShapeDefinition shapeDef, ref Random random)
+    {
+        var circleGeometry = new CircleGeometry { center = Vector2.zero, radius = m_ObjectScale * 0.5f };
+        body.CreateShape(circleGeometry, shapeDef);
+    }
+
+    private void CreateCapsule(PhysicsBody body, PhysicsShapeDefinition shapeDef, ref Random random)
+    {
+        var capsuleScale = m_ObjectScale * 0.5f;
+
+        var capsuleGeometry = new CapsuleGeometry
+        {
+            center1 = new Vector2(0f, -0.5f * capsuleScale),
+            center2 = new Vector2(0f, 0.5f * capsuleScale),
+            radius = 0.5f * capsuleScale
+        };
+        body.CreateShape(capsuleGeometry, shapeDef);
+    }
+
+    private void CreatePolygon(PhysicsBody body, PhysicsShapeDefinition shapeDef, ref Random random)
+    {
+        var polygonScale = m_ObjectScale * 0.5f;
+        var radius = m_ObjectScale * 0.25f;
+        var polygonGeometry = SandboxUtility.CreateRandomPolygon(extent: polygonScale, radius: radius, ref random);
+        body.CreateShape(polygonGeometry, shapeDef);
+    }
+
+    private void CreateRagdoll(PhysicsWorld world, Vector2 spawnPosition, Random random)
+    {
+        var ragDollConfiguration = new RagdollFactory.Configuration
+        {
+            ScaleRange = new Vector2(m_ObjectScale * 1.25f, m_ObjectScale * 1.25f),
+            JointFrequency = 1f,
+            JointDamping = 0.1f,
+            JointFriction = 0.0f,
+            GravityScale = 1f,
+            ContactBodyLayer = 0x2,
+            ContactFeetLayer = 0x1,
+            ContactGroupIndex = 0x1,
+            ColorProvider = SandboxManager,
+            TriggerEvents = true,
+            EnableLimits = true,
+            EnableMotor = true
+        };
+
+        using var ragdoll = RagdollFactory.Spawn(world, spawnPosition, ragDollConfiguration, true, ref random);
+    }
+
+    private void CreateDonut(PhysicsWorld world, Vector2 spawnPosition)
+    {
+        using var donut = SoftbodyFactory.SpawnDonut(world, SandboxManager, spawnPosition, sides: 7, scale: m_ObjectScale * 0.5f, triggerEvents: true, jointFrequency: 20f);
+    }
+
+    private void CreateCompound(PhysicsBody body, PhysicsShapeDefinition shapeDef)
+    {
+        var compoundScale = new Vector3(m_ObjectScale, m_ObjectScale, m_ObjectScale) * 0.5f;
+        var scale = Matrix4x4.Scale(compoundScale);
+        var leftGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(-1.0f, 0f), new(0.5f, 1f), new(0f, 2f) }.AsSpan()).Transform(scale, false);
+        var rightGeometry = PolygonGeometry.Create(vertices: new Vector2[] { new(1.0f, 0f), new(-0.5f, 1f), new(0f, 2f) }.AsSpan()).Transform(scale, false);
+        body.CreateShape(leftGeometry, shapeDef);
+        body.CreateShape(rightGeometry, shapeDef);
+    }
+
+    protected override void SetupOptions()
+    {
+        // Get the default world.
+        var world = World;
+
+        // Object Type.
+        AddEnum("Object Type", m_ObjectType, v => m_ObjectType = v, rebuild: false);
+
+        // Object Scale.
+        AddSlider("Object Scale", m_ObjectScale, 1f, 3f, v => m_ObjectScale = v, rebuild: false);
+
+        // Spawn Period.
+        AddSlider("Spawn Period", m_SpawnPeriod, 0.1f, 1f, v => m_SpawnPeriod = v, rebuild: false);
+
+        // Gravity Scale.
+        AddSlider("Gravity Scale", m_GravityScale, 1f, 10f, v =>
+        {
+            m_GravityScale = v;
+            world.gravity = m_OldGravity * m_GravityScale;
+        }, rebuild: false);
+    }
+
+    protected override void SetupScene()
+    {
+        m_SpawnTime = 0f;
+
+        // Get the default world.
+        var world = World;
+        world.gravity = m_OldGravity * m_GravityScale;
+
+        // Ground.
+        {
+            var groundBody = world.CreateBody();
+
+            using var points = new NativeList<Vector2>(Allocator.Temp)
+            {
+                new(-26.8672504f, 41.088623f), new(26.8672485f, 41.088623f), new(16.8672485f, 17.1978741f),
+                new(8.26824951f, 11.906374f), new(16.8672485f, 11.906374f), new(16.8672485f, -0.661376953f),
+                new(8.26824951f, -5.953125f), new(16.8672485f, -5.953125f), new(16.8672485f, -13.229126f),
+                new(3.63799858f, -23.151123f), new(3.63799858f, -31.088623f), new(-3.63800049f, -31.088623f),
+                new(-3.63800049f, -23.151123f), new(-16.8672504f, -13.229126f), new(-16.8672504f, -5.953125f),
+                new(-8.26825142f, -5.953125f), new(-16.8672504f, -0.661376953f), new(-16.8672504f, 11.906374f),
+                new(-8.26825142f, 11.906374f), new(-16.8672504f, 17.1978741f)
+            };
+
+            var chainDef = new PhysicsChainDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.2f, bounciness = 0f } };
+            PhysicsChain.Create(groundBody, new ChainGeometry(points.AsArray()), chainDef);
+
+            {
+                var sign = 1.0f;
+                var y = 28.0f;
+                var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
+                for (var i = 0; i < 4; ++i)
+                {
+                    bodyDef.position = new Vector2(0f, y);
+
+                    var body = world.CreateBody(bodyDef);
+
+                    var boxGeometry = PolygonGeometry.CreateBox(new Vector2(11f, 1f), radius: 0.5f);
+                    var shapeDef = new PhysicsShapeDefinition { density = 1f, surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 1f } };
+                    body.CreateShape(boxGeometry, shapeDef);
+
+                    var jointDef = new PhysicsHingeJointDefinition
+                    {
+                        bodyA = groundBody,
+                        bodyB = body,
+                        localAnchorA = bodyDef.position,
+                        localAnchorB = Vector2.zero,
+                        maxMotorTorque = 200.0f,
+                        motorSpeed = 2.0f * sign,
+                        enableMotor = true
+                    };
+                    world.CreateJoint(jointDef);
+
+                    y -= 14.0f;
+                    sign = -sign;
+                }
+
+                {
+                    var boxGeometry = PolygonGeometry.CreateBox(new Vector2(10f, 4f), radius: 0f, new PhysicsTransform(new Vector2(0f, -32.5f), PhysicsRotate.identity));
+                    var shapeDef = new PhysicsShapeDefinition { isTrigger = true, triggerEvents = true };
+                    groundBody.CreateShape(boxGeometry, shapeDef);
+                }
+            }
+        }
+    }
+}
