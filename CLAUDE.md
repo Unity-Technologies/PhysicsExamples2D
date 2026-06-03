@@ -14,13 +14,13 @@ Never guess at PhysicsCore2D API surface — always verify against a skill or th
 
 ## Never use the legacy Physics2D component system
 
-This project is **PhysicsCore2D only**. Do not use `Rigidbody2D`, `Collider2D`, or any other `UnityEngine` component-based Physics2D types here — those examples live in the sibling `LegacyPhysicsExamples2D/` repo. The two systems coexist in Unity but are unrelated.
+This project is **PhysicsCore2D only**. Do not use `Rigidbody2D`, `Collider2D`, or any other `UnityEngine` component-based Physics2D types here — those examples live in the sibling `OldPhysics2D/` project. The two systems coexist in Unity but are unrelated.
 
 ## Project layout
 
-- `Projects/Primer/` — focused single-concept examples
-- `Projects/Sandbox/` — interactive playground scenes. To add or modify a Sandbox example, follow [`Projects/Sandbox/AUTHORING_EXAMPLES.md`](Projects/Sandbox/AUTHORING_EXAMPLES.md) — the authoritative recipe. Examples derive from `SandboxExampleBehaviour`, are tagged `[ExampleScene(category, description)]`, build their option controls in code via the base-class `AddSlider`/`AddToggle`/`AddEnum`/… helpers (no per-example uxml), and self-register via `Tools/2D/Physics/Rebuild Sandbox Registry`.
-- `Projects/Snippets/` — minimal API usage demos
-- `Packages/` — Unity package dependencies
+- `Primer/` — focused single-concept examples
+- `Sandbox/` — interactive playground scenes. To add or modify a Sandbox example, follow [`Sandbox/AUTHORING_EXAMPLES.md`](Sandbox/AUTHORING_EXAMPLES.md) — the authoritative recipe. Examples derive from `SandboxExampleBehaviour`, are tagged `[ExampleScene(category, description)]`, build their option controls in code via the base-class `AddSlider`/`AddToggle`/`AddEnum`/… helpers (no per-example uxml), and self-register via `Tools/2D/Physics/Rebuild Sandbox Registry`.
+- `Snippets/` — minimal API usage demos
+- `Packages/com.unity.2d.physics.extras/` — shared local package referenced by the projects
 
 When adding a new scene, look at nearby existing scenes for the established pattern (component authoring, lifecycle, naming) before designing a new one.

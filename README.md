@@ -1,7 +1,23 @@
 # Physics Examples
 
-- `LegacyPhysicsExamples2D` project which uses the older "Physics2D" API.
-- `PhysicsCore2D` contains all the examples for the newer physics core API.
+This repository contains test projects, examples, and a test package for Unity's 2D physics, spanning two API generations:
+
+- **PhysicsCore2D** — examples for the newer 2D physics core API (`Unity.U2D.Physics`), located at the repository root:
+  - [Sandbox Project](Sandbox/README.md) — interactive playground scenes
+  - [Primer Project](Primer/README.md) — focused single-concept examples
+  - [Snippets Project](Snippets/README.md) — minimal API usage demos
+- **OldPhysics2D** — examples that use the older "Physics2D" component API.
+
+`Packages/com.unity.2d.physics.extras` is a shared local package referenced by the PhysicsCore2D projects.
+
+`.claude/` contains skills you can copy into your own `.claude` folder to better work with PhysicsCore2D in Unity 6.5+.
+
+- [Dev Videos](https://www.youtube.com/c/melvmay/videos)
+
+---
+Acknowledgement and thanks to Erin Catto (the creator of Box2D v3), upon which significant portions of the "Sandbox" project are based.
+
+https://github.com/erincatto/box2d
 
 ---
 ## Branch Names

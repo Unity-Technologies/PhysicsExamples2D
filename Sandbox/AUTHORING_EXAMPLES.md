@@ -9,7 +9,7 @@ It is the authoritative recipe for this project. Read it fully before creating f
 > (`Unity.U2D.Physics`). Never use the legacy `Physics2D` component system
 > (`Rigidbody2D`, `Collider2D`, …). Verify every PhysicsCore2D API against the
 > bundled `unity-physicscore2d-*` skills — never guess a signature, never use an
-> `[Obsolete]` member. See `PhysicsCore2D/CLAUDE.md`.
+> `[Obsolete]` member. See the repo-root `CLAUDE.md`.
 
 > **Architecture.** Every example derives from **`SandboxExampleBehaviour`** and is tagged with
 > **`[ExampleScene]`**, with the repeated menu chrome factored into shared infrastructure. All

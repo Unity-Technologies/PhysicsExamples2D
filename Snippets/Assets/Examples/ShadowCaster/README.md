@@ -1,6 +1,6 @@
 # Using the ShadowCaster2
 
-This snippet shows how you can create `ShadowCaster2D` providers that can interact with the low-level physics.
+This snippet shows how you can create `ShadowCaster2D` providers that can interact with PhysicsCore2D.
 
 There are three examples scenes, simply load each and hit "Play".
 - `ShadowCaster_PerSceneShape` - Will cast shadows for any `SceneShape` on the same `GameObject` as the `ShadowCaster2D`.

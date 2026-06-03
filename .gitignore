@@ -3,7 +3,7 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-Assets/AssetStoreTools*
+**/Assets/AssetStoreTools*
 **/.idea/
 
 # Visual Studio cache directory
@@ -37,14 +37,11 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-Projects/PublishAll/Logs
-Projects/AllPackages/Logs
 **/Logs
 Build/
 
 EntityCache
 EntityCache.meta
-Projects/Hybrid/UserSettings
 StreamingAssets.meta
 SceneDependencyCache.meta
 SceneDependencyCache/
@@ -62,3 +59,6 @@ UserSettings/
 .DS_Store
 .multitool
 IndexingPerformanceReport
+
+# Claude Code local settings
+**/.claude/settings.local.json

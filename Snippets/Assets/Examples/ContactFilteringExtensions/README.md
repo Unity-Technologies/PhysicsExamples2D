@@ -1,6 +1,6 @@
 # Contact Filtering Extensions
 
-This snippet shows how you can effecitvely filter contacts returned via [PhysicsBody.GetContacts](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsBody.GetContacts.html) or [PhysicsShaope.GetContacts](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/LowLevelPhysics2D.PhysicsShape.GetContacts.html).
+This snippet shows how you can effecitvely filter contacts returned via [PhysicsBody.GetContacts](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody.GetContacts.html) or [PhysicsShape.GetContacts](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.GetContacts.html).
 
 - Load the scene
 - Select the "Example" `GameObject`.

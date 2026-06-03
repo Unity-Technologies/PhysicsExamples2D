@@ -1,7 +1,7 @@
 # Using Ownership in Custom Compound Script Components
 
-This snippet shows how you can create compound script components that fully interact with the low-level physics.
-In addition, the low-level physics components created i.e. [PhysicsBody], [PhysicsShape] (etc.) are all owned by setting the ownership.
+This snippet shows how you can create compound script components that fully interact with PhysicsCore2D.
+In addition, the PhysicsCore2D components created i.e. [PhysicsBody], [PhysicsShape] (etc.) are all owned by setting the ownership.
 When setting ownership you can (optionally) specify any `UnityEngine.Object` as the owner but more importantly an "owner key" value is returned.
 This "owner key" **must** be specified when destroying any of the owner objects by passing it as the second argument to the `Destroy` method for that object.
 Using this feature, tight control over the lifetime of objects is provided, stopping casual deleting of the objects from external code.

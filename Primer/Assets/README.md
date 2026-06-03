@@ -1,6 +1,6 @@
-# Physics 2D LowLevel "Primer" Examples
+# PhysicsCore2D "Primer" Examples
 
-The following examples are provided to give a good start in understanding some of the more important features provided by the low-level Physics API and the "extras" test package provided.
+The following examples are provided to give a good start in understanding some of the more important features provided by the PhysicsCore2D API (`Unity.U2D.Physics`) and the "extras" test package provided.
 Below will add any extra detail not covered in the examples themselves.
 
 Each example has at least a single "Example" GameObject with an example script which you should examine to understand how the example works.
@@ -117,7 +117,7 @@ The net result is that the target geometry has a mask carved from it with the ca
 
 # Physics Core 2D - Extras Package
 
-The following examples show how to use the test package `com.unity.2d.physics.lowlevelextras`.
+The following examples show how to use the test package `com.unity.2d.physics.extras`.
 
 This package is an example-only package which wraps the API you've seen so far into Unity components.
 It is not designed to be used in production projects however you are free to do so if you wish.
@@ -128,7 +128,7 @@ For `PhysicsShape` components, scene tooling is available allowing you to edit g
 
 The main aim for these components is to demonstrate how you can create your own components using the API which is why they expose definitions, callback-targets, user-data etc.
 
-All components begin with a "Test" prefix and can be found in the component menu `Physics 2D > LowLevel`:
+All components begin with a "Test" prefix and can be found in the component menu `Physics 2D > CoreExamples`:
 
 - TestWorld - Wraps ` PhysicsWorld` allowing you to select either the default world or a custom world. 
 - TestBody - Wraps a `PhysicsBody` allowing you to create them in a world.
