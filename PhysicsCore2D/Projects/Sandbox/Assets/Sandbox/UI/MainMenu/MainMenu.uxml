@@ -4,8 +4,8 @@
         <ui:VisualElement name="menu-region" style="margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: flex-start;">
             <ui:TabView tabindex="0" name="selected-tab">
                 <ui:Tab label="Scenes" tabindex="0" name="Tab" style="border-top-right-radius: 0;">
-                    <ui:DropdownField label="Categories" name="scene-categories" picking-mode="Position" focusable="false"/>
-                    <ui:DropdownField label="Scenes" name="scenes" picking-mode="Position" focusable="false"/>
+                    <ui:DropdownField label="Category" name="scene-categories" picking-mode="Position" focusable="false"/>
+                    <ui:DropdownField label="Scene" name="scenes" picking-mode="Position" focusable="false"/>
                 </ui:Tab>
                 <ui:Tab label="World" name="Tab" tabindex="1" style="border-top-right-radius: 0;">
                     <ui:VisualElement name="world">
