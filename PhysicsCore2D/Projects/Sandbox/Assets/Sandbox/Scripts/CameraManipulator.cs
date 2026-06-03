@@ -88,6 +88,7 @@ public class CameraManipulator : MonoBehaviour
     private float m_CameraZoom;
     private InputMode m_TouchMode;
     private ManipulatorState m_ManipulatorState = ManipulatorState.None;
+    private bool m_PanViaRightButton;
     private Vector2 m_LastActionPosition;
     private PhysicsRelativeJoint m_DragJoint;
     private PhysicsBody m_DragGroundBody;
@@ -129,13 +130,24 @@ public class CameraManipulator : MonoBehaviour
         {
             case ManipulatorState.None:
             {
+                // Camera-Pan on a right-mouse drag (an alternative to ctrl + left-drag, kept because
+                // a right mouse button may be unavailable on some platforms).
+                if (!DisableManipulators && Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
+                {
+                    m_ManipulatorState = ManipulatorState.CameraPan;
+                    m_PanViaRightButton = true;
+                    m_LastActionPosition = actionPosition;
+                    return;
+                }
+
                 // Was the left button pressed?
                 if (!DisableManipulators && actionWasPressedThisFrame)
                 {
-                    // Camera-Pan if we're currently pressing the left-ctrl.
-                    if (currentKeyboard.leftCtrlKey.isPressed)
+                    // Camera-Pan if we're currently pressing either ctrl.
+                    if (currentKeyboard.leftCtrlKey.isPressed || currentKeyboard.rightCtrlKey.isPressed)
                     {
                         m_ManipulatorState = ManipulatorState.CameraPan;
+                        m_PanViaRightButton = false;
                         m_LastActionPosition = actionPosition;
                         return;
                     }
@@ -218,12 +230,16 @@ public class CameraManipulator : MonoBehaviour
 
             case ManipulatorState.CameraPan:
             {
-                if (actionWasReleasedThisFrame)
+                // End the pan when the button that started it is released.
+                var panWasReleasedThisFrame = m_PanViaRightButton
+                    ? (Mouse.current == null || Mouse.current.rightButton.wasReleasedThisFrame)
+                    : actionWasReleasedThisFrame;
+                if (panWasReleasedThisFrame)
                 {
                     ResetInputMode();
                     return;
                 }
-                
+
                 // Fetch the world mouse position.
                 var worldDelta = actionPosition - m_LastActionPosition;
                 if (worldDelta.sqrMagnitude < 0.01f)
@@ -272,6 +288,7 @@ public class CameraManipulator : MonoBehaviour
         if (m_DragJoint.isValid)
             m_DragJoint.Destroy();
 
+        m_PanViaRightButton = false;
         m_ManipulatorState = ManipulatorState.None;
     }
 
