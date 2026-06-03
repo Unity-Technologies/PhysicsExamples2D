@@ -616,6 +616,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_SceneCategories = root.Q<DropdownField>("scene-categories");
         m_Scenes = root.Q<DropdownField>("scenes");
 
+        // Suppress the spurious horizontal scrollbar that appears in these dropdown popups at
+        // non-integer panel scales (e.g. 4k full-screen with the PanelSettings "Scale With Screen
+        // Size" 1200x800 reference => 3.2x). See SuppressDropdownHorizontalScrollbar.
+        SuppressDropdownHorizontalScrollbar(m_SceneCategories);
+        SuppressDropdownHorizontalScrollbar(m_Scenes);
+
         // Add categories.
         m_SceneCategories.choices.AddRange(m_SceneManifest.GetCategories());
         
@@ -647,6 +653,30 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             m_IgnoreAutoSceneSelection = false;
             m_Scenes.value = startItem.Name;
         }
+    }
+
+    // A DropdownField's popup is a GenericDropdownMenu created fresh each time it opens and parented
+    // to the panel root (outside this UIDocument's subtree). At non-integer panel scales its internal
+    // ScrollView reports a sub-pixel horizontal overflow and shows a phantom horizontal scrollbar even
+    // though all item text fits. The scroller's visibility is driven by an inline style that USS cannot
+    // override, so we set the official ScrollView.horizontalScrollerVisibility to Hidden on the popup
+    // each time it opens (it persists for that popup's lifetime; the popup is rebuilt on the next open).
+    private static void SuppressDropdownHorizontalScrollbar(DropdownField dropdown)
+    {
+        if (dropdown == null)
+            return;
+
+        dropdown.RegisterCallback<PointerDownEvent>(_ =>
+        {
+            // The popup is added synchronously on open, but defer one tick so it exists in the tree.
+            dropdown.schedule.Execute(() =>
+            {
+                var popup = dropdown.panel?.visualTree.Q(className: "unity-base-dropdown");
+                var scrollView = popup?.Q<ScrollView>();
+                if (scrollView != null)
+                    scrollView.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
+            });
+        });
     }
 
     private void SceneCategoryChanged(string categoryName)
