@@ -87,9 +87,9 @@ public sealed class CharacterMover : SandboxExampleBehaviour
             m_RightButton = SandboxManager.ControlsMenu[1];
             m_JumpButton = SandboxManager.ControlsMenu[0];
 
-            m_LeftButton.Set("Left");
-            m_RightButton.Set("Right");
-            m_JumpButton.Set("Jump");
+            m_LeftButton.Set("Left [←]");
+            m_RightButton.Set("Right [→]");
+            m_JumpButton.Set("Jump [Spc]");
         }
 
         // Set Overrides.

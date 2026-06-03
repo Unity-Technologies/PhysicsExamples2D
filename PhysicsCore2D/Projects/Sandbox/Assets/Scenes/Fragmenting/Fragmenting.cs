@@ -73,9 +73,9 @@ public sealed class Fragmenting : SandboxExampleBehaviour, PhysicsCallbacks.ICon
             m_RightButton = SandboxManager.ControlsMenu[1];
             m_FireButton = SandboxManager.ControlsMenu[0];
 
-            m_LeftButton.Set("Left");
-            m_RightButton.Set("Right");
-            m_FireButton.Set("Fire");
+            m_LeftButton.Set("Left [←]");
+            m_RightButton.Set("Right [→]");
+            m_FireButton.Set("Fire [Spc]");
             m_FireButton.button.clickable.clicked += FirePressed;
         }
 

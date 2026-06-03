@@ -78,9 +78,9 @@ public sealed class GeometryIslands : SandboxExampleBehaviour, PhysicsCallbacks.
             m_RightButton = SandboxManager.ControlsMenu[1];
             m_FireButton = SandboxManager.ControlsMenu[0];
 
-            m_LeftButton.Set("Left");
-            m_RightButton.Set("Right");
-            m_FireButton.Set("Fire");
+            m_LeftButton.Set("Left [←]");
+            m_RightButton.Set("Right [→]");
+            m_FireButton.Set("Fire [Spc]");
         }
 
         // Set Overrides.
