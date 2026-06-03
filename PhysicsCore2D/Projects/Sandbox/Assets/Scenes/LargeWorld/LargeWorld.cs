@@ -40,9 +40,9 @@ public sealed class LargeWorld : SandboxExampleBehaviour
             m_ForwardButton = SandboxManager.ControlsMenu[1];
             m_BrakeButton = SandboxManager.ControlsMenu[0];
 
-            m_ReverseButton.Set("Reverse");
-            m_ForwardButton.Set("Forward");
-            m_BrakeButton.Set("Brake");
+            m_ReverseButton.Set("Reverse [←]");
+            m_ForwardButton.Set("Forward [→]");
+            m_BrakeButton.Set("Brake [Spc]");
         }
 
         // Set Overrides.
