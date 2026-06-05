@@ -5,12 +5,16 @@ using Unity.U2D.Physics;
 #else
 using UnityEngine.LowLevelPhysics2D;
 #endif
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class DebugView : MonoBehaviour
 {
-    public float UpdatePeriodFPS = 0.1f;
-    
+    // How often the debug menu refreshes its UI. The stats themselves are still sampled
+    // every simulation step (see UpdateStats); this only throttles the per-frame UI rebuild.
+    [FormerlySerializedAs("UpdatePeriodFPS")]
+    public float UpdatePeriod = 0.1f;
+
     private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;
 
@@ -21,11 +25,13 @@ public class DebugView : MonoBehaviour
     private PhysicsWorld.WorldProfile m_TotalProfile;
     private PhysicsWorld.WorldProfile m_MaxProfile;
 
+    // Throttles the UI refresh to UpdatePeriod (counts down in unscaled time).
+    private float m_UpdateTimer;
+
     // FPS.
     private ProgressBar m_BarFPS;
     private float m_MaxFPS;
-    private float m_UpdateTimeFPS;
-    
+
     // Profile.
     private Label m_SimulationStepElement;
     private Label m_ContactPairsElement;
@@ -83,11 +89,12 @@ public class DebugView : MonoBehaviour
         // Reset the stats.
         ResetStats();
 
-        // Update states when a world has finished simulating. 
+        // Update states when a world has finished simulating.
         PhysicsEvents.PostSimulate += UpdateStats;
 
-        m_UpdateTimeFPS = UpdatePeriodFPS;
-        
+        // Refresh immediately on enable, then throttle to UpdatePeriod.
+        m_UpdateTimer = 0f;
+
         // Menu Region.
         {
             var menuRegion = root.Q<VisualElement>("menu-region");
@@ -157,6 +164,13 @@ public class DebugView : MonoBehaviour
 
     private void Update()
     {
+        // Throttle the whole debug menu refresh to a fixed period rather than every frame.
+        // Uses unscaled time so the menu still updates when the simulation is paused.
+        m_UpdateTimer -= Time.unscaledDeltaTime;
+        if (m_UpdateTimer > 0f)
+            return;
+        m_UpdateTimer = UpdatePeriod;
+
         var sampleScale = 1f / Mathf.Max(1, m_SampledCount);
         const float memoryScale = 1f / 1048576f;
 
@@ -210,12 +224,6 @@ public class DebugView : MonoBehaviour
         var deltaTime = Time.smoothDeltaTime;
         if (m_BarFPS != null & deltaTime > 0f)
         {
-            m_UpdateTimeFPS -= deltaTime;
-            if (m_UpdateTimeFPS >= 0f)
-                return;
-
-            m_UpdateTimeFPS = UpdatePeriodFPS;
-
             var fps = 1f / deltaTime;
             m_BarFPS.highValue = m_MaxFPS = math.max(m_MaxFPS, fps);
             m_BarFPS.value = fps;
