@@ -15,7 +15,7 @@ using Unity.U2D.Physics.Extras;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
-public class SandboxManager : MonoBehaviour, IShapeColorProvider
+public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 {
     public ref Random Random => ref m_Random;
     public bool WorldPaused { get; private set; }
@@ -35,7 +35,35 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         set => m_CameraZoomElement.value = value;
     }
 
-    public UIDocument SceneOptionsUI { get; set; }
+    // The per-scene controls container in the MainMenu "Scenes" tab. Examples build their controls
+    // here via SandboxExampleBehaviour's AddX helpers; it's cleared on scene build/teardown.
+    public VisualElement SceneOptionsContent => m_SceneOptionsContent;
+    public void SetSceneDescription(string text) => m_SceneDescription.text = text;
+    public void ClearSceneOptions()
+    {
+        m_SceneOptionsContent.Clear();
+        m_SceneDescription.text = string.Empty;
+        m_SceneOptionsHeader.style.display = DisplayStyle.None;
+    }
+
+    // Called by the loaded example after it builds its controls: shows the "Options" section header
+    // only when controls were actually added, and re-applies the collapse state.
+    public void RefreshSceneOptionsSection()
+    {
+        m_SceneOptionsHeader.style.display = m_SceneOptionsContent.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+        SetSceneOptionsCollapsed(m_SceneOptionsCollapsed);
+    }
+
+    // Collapses/expands the per-scene controls under the "Options" header (flips the caret).
+    private void SetSceneOptionsCollapsed(bool collapsed)
+    {
+        m_SceneOptionsCollapsed = collapsed;
+        m_SceneOptionsContent.style.display = collapsed ? DisplayStyle.None : DisplayStyle.Flex;
+        var caret = collapsed ? "▸" : "▾";
+        m_SceneOptionsHeader.text = $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>Options";
+    }
+
+    private void ToggleSceneOptions() => SetSceneOptionsCollapsed(!m_SceneOptionsCollapsed);
 
     public enum FrequencySelection
     {
@@ -75,13 +103,16 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     }
 
     private bool ColorShapeState { get; set; }
-    private ControlsMenu.CustomButton m_PausePlayButton;
-    private ControlsMenu.CustomButton m_SingleStepButton;
-    private ControlsMenu.CustomButton m_ResetButton;
-    private ControlsMenu.CustomButton m_ColorsButton;
-    private ControlsMenu.CustomButton m_DebugButton;
-    private ControlsMenu.CustomButton m_UIButton;
-    private ControlsMenu.CustomButton m_QuitButton;
+
+    // Migrated global-control buttons (now live in the Shortcuts panel).
+    private Button m_PausePlayButton;
+    private Button m_SingleStepButton;
+    private Button m_InteractionButton;
+    private Button m_ColorsButton;
+    private Button m_FoldAllButton;
+
+    // Fold All / Unfold All state.
+    private bool m_AllFolded;
 
     public string StartScene = string.Empty;
     public Action SceneResetAction;
@@ -107,8 +138,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         public bool Continuous;
 
         // Draw.
-        public bool ShowDebugView;
-        public string InputDrag;
         public float ExplodeImpulse;
         public float CameraZoom;
         public bool ColorShapeState;
@@ -124,10 +153,19 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private UIDocument m_MainMenuDocument;
     private DropdownField m_SceneCategories;
     private DropdownField m_Scenes;
+    private VisualElement m_SceneOptionsContent;
+    private Button m_SceneOptionsHeader;
+    private bool m_SceneOptionsCollapsed;
+    private Label m_SceneDescription;
     private VisualElement m_CountersElement;
+
+    // Examples panel roll-up: the "Examples" header caret collapses the panel content (the header
+    // stays). Joins Fold All via IFoldable.
+    private Button m_ExamplesHeader;
+    private VisualElement m_ExamplesDetails;
+    private bool m_ExamplesFolded;
     private MenuDefaults m_MenuDefaults;
     private bool m_DisableUIRestarts;
-    private bool m_ShowUI;
     private Dictionary<PhysicsWorld.DrawOptions, Toggle> m_DrawFlagElements;
 
     // PhysicsWorld Elements.
@@ -137,19 +175,14 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
     private Toggle m_WarmStartingElement;
     private Toggle m_SleepingElement;
     private Toggle m_ContinuousElement;
-    private Button m_SingleStepElement;
-    private Button m_PausePlayElement;
 
     // Draw Elements.
-    private Toggle m_ShowDebugElement;
-    private DropdownField m_InputModeElement;
     private Slider m_ExplodeImpulseElement;
     private Slider m_CameraZoomElement;
     private Slider m_DrawThicknessElement;
     private Slider m_DrawPointScaleElement;
     private Slider m_DrawNormalScaleElement;
     private Slider m_DrawImpulseScaleElement;
-    private Toggle m_ColorShapeStateElement;
     private Toggle m_DrawBodiesElement;
     private Toggle m_DrawShapesElement;
     private Toggle m_DrawJointsElement;
@@ -177,41 +210,55 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Disable this because it's not needed and causing Input system problems.
         UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
         
-        m_ShowUI = true;
-
-        // Show the Shortcut view by default.
+        // Show the Shortcut view by default (it now hosts the global controls).
         ShortcutsView.gameObject.SetActive(true);
 
-        // Reset the controls.
+        // The Debug view is always present now (folding hides it); there's no longer a toggle for it.
+        DebugView.gameObject.SetActive(true);
+
+        // Reset the per-scene controls bar (now holds only scene-custom buttons).
         ControlsMenu.ResetControls();
-        m_PausePlayButton = ControlsMenu.pausePlayButton;
-        m_SingleStepButton = ControlsMenu.singleStepButton;
-        m_ResetButton = ControlsMenu.resetButton;
-        m_ColorsButton = ControlsMenu.colorsButton;
-        m_DebugButton = ControlsMenu.debugButton;
-        m_UIButton = ControlsMenu.uiButton;
-        m_QuitButton = ControlsMenu.quitButton;
 
-        m_PausePlayButton.button.clickable.clicked += TogglePausePlay;
-        m_SingleStepButton.button.clickable.clicked += SingleStep;
-        m_ResetButton.button.clickable.clicked += ResetScene;
-        m_ColorsButton.button.clickable.clicked += ToggleColorShapeState;
-        m_DebugButton.button.clickable.clicked += ToggleDebugView;
-        m_UIButton.button.clickable.clicked += ToggleUI;
+        // Cache the migrated global-control buttons (hosted by the Shortcuts panel).
+        m_PausePlayButton = ShortcutsView.PausePlayButton;
+        m_SingleStepButton = ShortcutsView.SingleStepButton;
+        m_InteractionButton = ShortcutsView.InteractionButton;
+        m_ColorsButton = ShortcutsView.ColorsButton;
+        m_FoldAllButton = ShortcutsView.FoldAllButton;
 
-        m_PausePlayButton.button.text = WorldPaused ? $"Play [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]" : $"Pause [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]";
-        m_SingleStepButton.button.enabledSelf = WorldPaused;
-        m_SingleStepButton.button.text = $"Single-Step [{SandboxUtility.HighlightColor}S{SandboxUtility.EndHighlightColor}]";
-        m_ResetButton.button.text = $"Reset [{SandboxUtility.HighlightColor}R{SandboxUtility.EndHighlightColor}]";
-        m_ColorsButton.button.text = $"Colors [{SandboxUtility.HighlightColor}C{SandboxUtility.EndHighlightColor}]";
-        m_DebugButton.button.text = $"Debug UI [{SandboxUtility.HighlightColor}D{SandboxUtility.EndHighlightColor}]";
-        m_UIButton.button.text = $"All UI [{SandboxUtility.HighlightColor}Tab{SandboxUtility.EndHighlightColor}]";
-        m_QuitButton.button.text = $"Quit [{SandboxUtility.HighlightColor}Esc{SandboxUtility.EndHighlightColor}]";
+        // Interaction: single toggle button; text shows the mode a click will switch to (see
+        // UpdateInputModeVisual).
+        m_InteractionButton.clicked += ToggleInputMode;
+
+        // Colors: single toggle button; text shows the action it will perform (see UpdateColorsVisual).
+        m_ColorsButton.clicked += ToggleColorShapeState;
+
+        // Pause/Play: single toggle button; text shows the action it will perform. Single-Step is
+        // on its own line and enabled only when paused.
+        m_PausePlayButton.clicked += TogglePausePlay;
+        m_SingleStepButton.clicked += SingleStep;
+        m_SingleStepButton.text = $"Single-Step [{SandboxUtility.HighlightColor}S{SandboxUtility.EndHighlightColor}]";
+
+        // Reset (also resets the camera — see ResetScene).
+        ShortcutsView.ResetButton.clicked += ResetScene;
+        ShortcutsView.ResetButton.text = $"Reset [{SandboxUtility.HighlightColor}R{SandboxUtility.EndHighlightColor}]";
+
+        // Restart (resets all settings and reloads the scene).
+        ShortcutsView.RestartButton.clicked += Restart;
+        ShortcutsView.RestartButton.text = $"Restart [{SandboxUtility.HighlightColor}X{SandboxUtility.EndHighlightColor}]";
+
+        // Fold All / Unfold All.
+        m_FoldAllButton.clicked += ToggleFoldAll;
+        UpdateFoldAllVisual();
+
+        // Quit.
+        ShortcutsView.QuitButton.clicked += QuitApplication;
+        ShortcutsView.QuitButton.text = $"Quit [{SandboxUtility.HighlightColor}Esc{SandboxUtility.EndHighlightColor}]";
 
         // Hide the Quit button on the Web platform.
         if (Application.platform == RuntimePlatform.WebGLPlayer)
-            m_QuitButton.button.style.display = DisplayStyle.None;
-        
+            ShortcutsView.QuitButton.style.display = DisplayStyle.None;
+
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
         {
@@ -224,8 +271,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             Continuous = defaultWorld.continuousAllowed,
 
             // Drawing.
-            ShowDebugView = true,
-            InputDrag = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag),
             ExplodeImpulse = 30f,
             CameraZoom = 1f,
             ColorShapeState = false,
@@ -239,6 +284,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // We must set up the options prior to the scene selection controls as we trigger them during selection.
         SetupOptions();
         SetupSceneSelectionControls();
+
+        // Apply the initial Pause/Play visual (sets the Shortcuts button text and disables
+        // Single-Step while playing).
+        UpdatePausePlayVisual();
     }
 
     private void OnEnable()
@@ -256,15 +305,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         {
             var currentKeyboard = Keyboard.current;
 
-            // Quit.
-            // NOTE: We don't want to do this on the Web platform.
-            if (Application.platform != RuntimePlatform.WebGLPlayer && (m_QuitButton.isPressed || currentKeyboard.escapeKey.wasPressedThisFrame))
+            // Quit (no-op on the Web platform).
+            if (currentKeyboard.escapeKey.wasPressedThisFrame)
             {
-#if UNITY_EDITOR
-                EditorApplication.isPlaying = false;
-#else
-                Application.Quit();
-#endif
+                QuitApplication();
                 return;
             }
 
@@ -281,22 +325,22 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 TogglePausePlay();
             }
 
-            // Debug View.
-            if (currentKeyboard.dKey.wasPressedThisFrame)
-            {
-                ToggleDebugView();
-            }
-
             // Reset.
             if (currentKeyboard.rKey.wasPressedThisFrame)
             {
                 ResetScene();
             }
 
-            // Toggle UI.
+            // Restart.
+            if (currentKeyboard.xKey.wasPressedThisFrame)
+            {
+                Restart();
+            }
+
+            // Fold All / Unfold All.
             if (currentKeyboard.tabKey.wasPressedThisFrame)
             {
-                ToggleUI();
+                ToggleFoldAll();
                 return;
             }
 
@@ -307,41 +351,108 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                 return;
             }
 
-            // Touch State.
-            {
-                // Drag Mode.
-                if (currentKeyboard.digit1Key.wasPressedThisFrame)
-                    m_InputModeElement.value = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Drag);
-                else if (currentKeyboard.digit2Key.wasPressedThisFrame)
-                    m_InputModeElement.value = Enum.GetName(typeof(CameraManipulator.InputMode), CameraManipulator.InputMode.Explode);
-            }
+            // Interaction mode (toggles Drag <-> Explode).
+            if (currentKeyboard.iKey.wasPressedThisFrame)
+                ToggleInputMode();
         }
     }
 
-    private void ToggleUI()
+    // Folds (true) or unfolds (false) every foldable panel, then updates the toggle button.
+    private void ToggleFoldAll()
     {
-        m_ShowUI = !m_ShowUI;
+        m_AllFolded = !m_AllFolded;
 
-        // Debug View.
-        if (m_ShowDebugElement.value)
-            DebugView.gameObject.SetActive(m_ShowUI);
+        // Re-gather each time so panels loaded after startup (e.g. the per-scene options panel)
+        // automatically participate — implementing IFoldable is all that's required.
+        foreach (var behaviour in FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Exclude))
+        {
+            if (behaviour is IFoldable foldable && behaviour.isActiveAndEnabled)
+                foldable.SetFolded(m_AllFolded);
+        }
 
-        // Toggle Shortcut View.
-        ShortcutsView.gameObject.SetActive(!ShortcutsView.gameObject.activeInHierarchy);
-
-        // Main Menu.
-        m_MainMenuDocument.rootVisualElement.style.display = m_ShowUI ? DisplayStyle.Flex : DisplayStyle.None;
+        UpdateFoldAllVisual();
     }
 
-    private void ToggleDebugView()
+    private void UpdateFoldAllVisual()
     {
-        m_ShowDebugElement.value = !m_ShowDebugElement.value;
+        m_FoldAllButton.text = m_AllFolded
+            ? $"Unfold All [{SandboxUtility.HighlightColor}Tab{SandboxUtility.EndHighlightColor}]"
+            : $"Fold All [{SandboxUtility.HighlightColor}Tab{SandboxUtility.EndHighlightColor}]";
     }
 
+    // IFoldable: "Fold All" collapses the Examples panel along with the other windows. (The Options
+    // panel folds itself via its own IFoldable.)
+    public void SetFolded(bool folded) => SetExamplesFolded(folded);
+
+    // Rolls the Examples panel up to just its header (folded) or expands it; flips the header caret.
+    private void SetExamplesFolded(bool folded)
+    {
+        m_ExamplesFolded = folded;
+
+        m_ExamplesDetails.style.display = folded ? DisplayStyle.None : DisplayStyle.Flex;
+
+        // Caret to the left of "Examples", with the same half-character spacing as the other panels.
+        var caret = folded ? "▸" : "▾";
+        m_ExamplesHeader.text = $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>Examples";
+    }
+
+    private void ToggleExamplesFolded() => SetExamplesFolded(!m_ExamplesFolded);
+
+    // Quits the application: exits Play mode in the Editor, quits a build, no-op on WebGL.
+    private void QuitApplication()
+    {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+            return;
+
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
+    // Input mode is now held directly on the CameraManipulator (the Options dropdown was removed);
+    // the Shortcuts "Interaction" toggle is the only UI for it.
+    private void SetInputMode(CameraManipulator.InputMode mode)
+    {
+        m_CameraManipulator.TouchMode = mode;
+        UpdateInputModeVisual();
+    }
+
+    // Toggles the interaction mode between Drag and Explode.
+    private void ToggleInputMode()
+    {
+        var isDrag = m_CameraManipulator.TouchMode == CameraManipulator.InputMode.Drag;
+        SetInputMode(isDrag ? CameraManipulator.InputMode.Explode : CameraManipulator.InputMode.Drag);
+    }
+
+    // The Interaction button is a single toggle: its text shows the mode a click will switch to.
+    private void UpdateInputModeVisual()
+    {
+        var isDrag = m_CameraManipulator.TouchMode == CameraManipulator.InputMode.Drag;
+        m_InteractionButton.text = isDrag
+            ? $"Explode [{SandboxUtility.HighlightColor}I{SandboxUtility.EndHighlightColor}]"
+            : $"Drag [{SandboxUtility.HighlightColor}I{SandboxUtility.EndHighlightColor}]";
+    }
+
+    // Colour state is held directly in the ColorShapeState property (the Options toggle was removed);
+    // the Shortcuts "Colors" toggle is the only UI for it. Recolours by rebuilding the scene.
     private void ToggleColorShapeState()
     {
-        if (!m_OverrideColorShapeState)
-            m_ColorShapeStateElement.value = !m_ColorShapeStateElement.value;
+        if (m_OverrideColorShapeState)
+            return;
+
+        ColorShapeState = !ColorShapeState;
+        UpdateColorsVisual();
+        ResetScene();
+    }
+
+    // The Colors button is a single toggle: its text shows the action a click will perform.
+    private void UpdateColorsVisual()
+    {
+        m_ColorsButton.text = ColorShapeState
+            ? $"Colors Off [{SandboxUtility.HighlightColor}C{SandboxUtility.EndHighlightColor}]"
+            : $"Colors On [{SandboxUtility.HighlightColor}C{SandboxUtility.EndHighlightColor}]";
     }
 
     public void ResetSceneState()
@@ -397,14 +508,16 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
     private void SetupOptions()
     {
-        var root = m_MainMenuDocument.rootVisualElement;
-
-        // Menu Region.
+        // The World/Options controls now live in the separate OptionsMenu panel (bottom-left). It
+        // owns its own camera-overlap guard and fold, so we only query its controls here.
+        var optionsMenu = FindAnyObjectByType<OptionsMenu>();
+        if (optionsMenu == null)
         {
-            var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
+            Debug.LogError("[Sandbox] No OptionsMenu found. Add a GameObject to Sandbox.unity with a " +
+                           "UIDocument (Source Asset = OptionsMenu.uxml, the shared PanelSettings) and an OptionsMenu component.");
+            return;
         }
+        var root = optionsMenu.GetComponent<UIDocument>().rootVisualElement;
 
         // PhysicsWorld.
         {
@@ -469,42 +582,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
                     world.continuousAllowed = evt.newValue;
             });
 
-            // Restart.
-            var restart = root.Q<Button>("restart");
-            restart.clicked += Restart;
-
-            // Single-step.
-            m_SingleStepElement = root.Q<Button>("single-step");
-            m_SingleStepElement.text = m_SingleStepButton.button.text;
-            m_SingleStepElement.clicked += SingleStep;
-
-            // Pause/Play.
-            m_PausePlayElement = root.Q<Button>("pause-play");
-            m_PausePlayElement.text = m_PausePlayButton.button.text;
-            m_PausePlayElement.clicked += TogglePausePlay;
-
-            // Quit.
-            var quit = root.Q<Button>("quit-application");
-            quit.text = m_QuitButton.button.text;
-            quit.clicked += Application.Quit;
         }
 
         // Options.
         {
-            // Show Debug View.
-            m_ShowDebugElement = root.Q<Toggle>("show-debug");
-            m_ShowDebugElement.RegisterValueChangedCallback(evt => { DebugView.gameObject.SetActive(evt.newValue); });
-            m_ShowDebugElement.value = m_MenuDefaults.ShowDebugView;
-
-            // Input Mode.
-            m_InputModeElement = root.Q<DropdownField>("input-mode");
-            m_InputModeElement.RegisterValueChangedCallback(evt =>
-            {
-                Enum.TryParse(evt.newValue, true, out CameraManipulator.InputMode touchMode);
-                m_CameraManipulator.TouchMode = touchMode;
-            });
-            m_InputModeElement.value = m_MenuDefaults.InputDrag;
-
             // Explode Impulse.
             m_ExplodeImpulseElement = root.Q<Slider>("explode-impulse");
             m_ExplodeImpulseElement.RegisterValueChangedCallback(evt => { m_CameraManipulator.ExplodeImpulse = evt.newValue; });
@@ -559,15 +640,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
             });
             m_DrawImpulseScaleElement.value = m_MenuDefaults.DrawImpulseScale;
 
-            // PhysicsShape State Color.
-            m_ColorShapeStateElement = root.Q<Toggle>("color-shape-state");
-            ColorShapeState = m_ColorShapeStateElement.value = m_MenuDefaults.ColorShapeState;
-            m_ColorShapeStateElement.RegisterValueChangedCallback(evt =>
-            {
-                ColorShapeState = evt.newValue;
-
-                ResetScene();
-            });
+            // Colour state + input mode have no Options controls any more; initialise them and sync
+            // the Shortcuts "Colors"/"Interaction" buttons (the only UI for them now).
+            ColorShapeState = m_MenuDefaults.ColorShapeState;
+            UpdateColorsVisual();
+            SetInputMode(CameraManipulator.InputMode.Drag);
 
             // Bodies.
             m_DrawBodiesElement = ConfigureDrawFlag(root, "draw-bodies", PhysicsWorld.DrawOptions.AllBodies);
@@ -615,6 +692,27 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Fetch the controls.
         m_SceneCategories = root.Q<DropdownField>("scene-categories");
         m_Scenes = root.Q<DropdownField>("scenes");
+
+        // Per-scene controls + description containers (populated by the loaded example).
+        m_SceneOptionsContent = root.Q<VisualElement>("scene-controls");
+        m_SceneDescription = root.Q<Label>("scene-description");
+
+        // Collapsible "Options" section header above the per-scene controls. Hidden until a scene
+        // actually adds controls (see RefreshSceneOptionsSection).
+        m_SceneOptionsHeader = root.Q<Button>("scene-options-header");
+        m_SceneOptionsHeader.clicked += ToggleSceneOptions;
+        m_SceneOptionsHeader.style.display = DisplayStyle.None;
+
+        // Examples panel roll-up: the "Examples" header caret collapses the panel content.
+        m_ExamplesHeader = root.Q<Button>("examples-header");
+        m_ExamplesDetails = root.Q<VisualElement>("examples-details");
+        m_ExamplesHeader.clicked += ToggleExamplesFolded;
+        SetExamplesFolded(false);
+
+        // Suppress camera input while the pointer is over the Examples menu.
+        var menuRegion = root.Q<VisualElement>("menu-region");
+        menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
+        menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
 
         // Suppress the spurious horizontal scrollbar that appears in these dropdown popups at
         // non-integer panel scales (e.g. 4k full-screen with the PanelSettings "Scale With Screen
@@ -716,15 +814,20 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         // Reset the controls.
         ControlsMenu.ResetControls();
 
-        SceneOptionsUI = null;
         SceneResetAction = null;
         m_SceneManifest.LoadScene(sceneName, ResetSceneState);
     }
 
     private void ResetScene()
     {
-        if (!m_DisableUIRestarts)
-            SceneResetAction?.Invoke();
+        if (m_DisableUIRestarts)
+            return;
+
+        // Reset the camera pan/zoom back to the scene's framing (mirrors Restart/SceneChanged).
+        m_CameraManipulator.ResetPanZoom();
+        m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
+
+        SceneResetAction?.Invoke();
     }
 
     // Reset the settings and reload the current scene.
@@ -741,14 +844,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_ContinuousElement.value = m_MenuDefaults.Continuous;
 
         // Drawing.
-        m_ShowDebugElement.value = m_MenuDefaults.ShowDebugView;
-        m_InputModeElement.value = m_MenuDefaults.InputDrag;
         m_ExplodeImpulseElement.value = m_MenuDefaults.ExplodeImpulse;
         m_CameraManipulator.ResetPanZoom();
         m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
         m_DrawThicknessElement.value = m_MenuDefaults.DrawThickness;
         m_DrawPointScaleElement.value = m_MenuDefaults.DrawPointScale;
-        m_ColorShapeStateElement.value = m_MenuDefaults.ColorShapeState;
         m_DrawBodiesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllBodies);
         m_DrawShapesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllShapes);
         m_DrawJointsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllJoints);
@@ -759,6 +859,11 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_DrawContactTangentsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactFriction);
         m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactImpulse);
 
+        // Input mode + colour state have no Options controls; reset directly + sync Shortcuts buttons.
+        SetInputMode(CameraManipulator.InputMode.Drag);
+        ColorShapeState = m_MenuDefaults.ColorShapeState;
+        UpdateColorsVisual();
+
         DebugView.ResetStats();
 
         // Reload the scene.
@@ -768,17 +873,28 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
         m_DisableUIRestarts = false;
     }
 
-    private void TogglePausePlay()
+    private void TogglePausePlay() => SetPaused(!WorldPaused);
+
+    private void SetPaused(bool paused)
     {
-        WorldPaused = !WorldPaused;
-        m_PausePlayElement.text = m_PausePlayButton.button.text = WorldPaused ? $"Play [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]" : $"Pause [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]";
-        m_SingleStepElement.enabledSelf = WorldPaused;
-        m_SingleStepButton.button.enabledSelf = WorldPaused;
+        WorldPaused = paused;
+        UpdatePausePlayVisual();
 
         // Update the worlds.
         using var worlds = PhysicsWorld.GetWorlds();
         foreach (var world in worlds)
             world.paused = WorldPaused;
+    }
+
+    // Pause/Play is a single Shortcuts toggle: the text shows the action a click will perform.
+    // Single-Step is only meaningful while paused.
+    private void UpdatePausePlayVisual()
+    {
+        m_PausePlayButton.text = WorldPaused
+            ? $"Play [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]"
+            : $"Pause [{SandboxUtility.HighlightColor}P{SandboxUtility.EndHighlightColor}]";
+
+        m_SingleStepButton.enabledSelf = WorldPaused;
     }
 
     private void SingleStep()
@@ -869,17 +985,23 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider
 
         // Set the override.
         m_OverridePreviousColorShapeState = ColorShapeState;
-        m_ColorShapeStateElement.enabledSelf = false;
         ColorShapeState = colorShapeState;
         m_OverrideColorShapeState = true;
+        UpdateColorsVisual();
+
+        // The example controls the colour state, so disable the Shortcuts "Colors" toggle.
+        m_ColorsButton.enabledSelf = false;
     }
 
     public void ResetOverrideColorShapeState()
     {
         // Restore previous flag.
-        m_ColorShapeStateElement.enabledSelf = true;
         ColorShapeState = m_OverridePreviousColorShapeState;
         m_OverrideColorShapeState = m_OverridePreviousColorShapeState = false;
+        UpdateColorsVisual();
+
+        // The example no longer controls the colour state, so re-enable the Shortcuts "Colors" toggle.
+        m_ColorsButton.enabledSelf = true;
     }
 
     public void ShowFPS() => DebugView.ShowFPS();

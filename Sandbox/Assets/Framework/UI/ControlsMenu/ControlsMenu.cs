@@ -6,19 +6,25 @@ public class ControlsMenu : MonoBehaviour
 {
     public sealed class CustomButton
     {
-        public CustomButton(Button button)
+        private readonly Action m_OnShown;
+
+        public CustomButton(Button button, Action onShown = null)
         {
             this.button = button;
+            m_OnShown = onShown;
             isPressed = false;
-            
+
             button.RegisterCallback<PointerDownEvent>(ButtonPointerDown, TrickleDown.TrickleDown);
             button.RegisterCallback<PointerUpEvent>(ButtonPointerUp, TrickleDown.TrickleDown);
         }
-        
+
         public void Set(string label)
         {
             button.text = label;
             button.style.display = DisplayStyle.Flex;
+
+            // Reveal the (otherwise hidden) controls bar now that a scene has claimed a slot.
+            m_OnShown?.Invoke();
         }
 
         public void Reset()
@@ -26,29 +32,21 @@ public class ControlsMenu : MonoBehaviour
             button.UnregisterCallback<PointerDownEvent>(ButtonPointerDown, TrickleDown.TrickleDown);
             button.UnregisterCallback<PointerUpEvent>(ButtonPointerUp, TrickleDown.TrickleDown);
         }
-        
+
         private void ButtonPointerDown(PointerDownEvent evt) => isPressed = true;
         private void ButtonPointerUp(PointerUpEvent evt) => isPressed = false;
-        
+
         public Button button { get; }
         public bool isPressed { get; set; }
     }
 
-    public CustomButton pausePlayButton { get; private set; }
-    public CustomButton singleStepButton { get; private set; }
-    public CustomButton debugButton { get; private set; }
-    public CustomButton uiButton { get; private set; }
-    public CustomButton resetButton { get; private set; }
-    public CustomButton colorsButton { get; private set; }
-    public CustomButton quitButton { get; private set; }
-    
     public CustomButton this[int index]
     {
         get
         {
             if (index < 0 || index >= m_CustomButtons.Length)
                 throw new ArgumentOutOfRangeException(nameof(index));
-            
+
             return m_CustomButtons[index];
         }
         private set
@@ -59,9 +57,10 @@ public class ControlsMenu : MonoBehaviour
             m_CustomButtons[index] = value;
         }
     }
-    
+
     private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;
+    private VisualElement m_Controls;
     private readonly CustomButton[] m_CustomButtons = new CustomButton[3];
 
     private void OnEnable()
@@ -79,17 +78,13 @@ public class ControlsMenu : MonoBehaviour
 
         // Buttons.
         {
-            this[0] = new CustomButton(root.Q<Button>("button0"));
-            this[1] = new CustomButton(root.Q<Button>("button1"));
-            this[2] = new CustomButton(root.Q<Button>("button2"));
-            
-            pausePlayButton = new CustomButton(root.Q<Button>("pause-play"));
-            singleStepButton = new CustomButton(root.Q<Button>("single-step"));
-            debugButton = new CustomButton(root.Q<Button>("debug"));
-            resetButton = new CustomButton(root.Q<Button>("reset"));
-            colorsButton = new CustomButton(root.Q<Button>("shape-colors"));
-            uiButton = new CustomButton(root.Q<Button>("ui"));
-            quitButton = new CustomButton(root.Q<Button>("quit"));
+            // The bar now holds only per-scene custom buttons; it stays hidden until a scene
+            // claims a slot (see ShowControls / ResetControls).
+            m_Controls = root.Q<VisualElement>("controls");
+
+            this[0] = new CustomButton(root.Q<Button>("button0"), ShowControls);
+            this[1] = new CustomButton(root.Q<Button>("button1"), ShowControls);
+            this[2] = new CustomButton(root.Q<Button>("button2"), ShowControls);
 
             ResetControls();
         }
@@ -97,14 +92,18 @@ public class ControlsMenu : MonoBehaviour
 
     private void OnDisable()
     {
-        quitButton.Reset();
-        
         foreach (var button in m_CustomButtons)
             button.Reset();
     }
 
+    private void ShowControls() => m_Controls.style.display = DisplayStyle.Flex;
+
     public void ResetControls()
     {
+        // Hide the whole bar; a scene reveals it again by claiming a slot (CustomButton.Set).
+        if (m_Controls != null)
+            m_Controls.style.display = DisplayStyle.None;
+
         foreach (var customButton in m_CustomButtons)
         {
             // Reset the button.

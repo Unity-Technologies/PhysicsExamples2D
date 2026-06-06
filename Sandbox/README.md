@@ -39,7 +39,7 @@ A sample is a class that **derives from `SandboxExampleBehaviour`** and is tagge
 
 You don't write an `OnEnable`/`OnDisable` yourself — the base class owns those and calls the hooks above in the right order.
 
-The `Assets/Sandbox/Scripts` folder holds shared utility code (e.g. helpers that spawn ragdolls, soft bodies, and other reusable physics objects) used across multiple samples.
+The `Assets/Framework/Scripts` folder holds shared utility code (e.g. helpers that spawn ragdolls, soft bodies, and other reusable physics objects) used across multiple samples.
 
 ## Adding your own
 

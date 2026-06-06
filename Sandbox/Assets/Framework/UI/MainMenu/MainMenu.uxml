@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Framework/UI/Styling/SandboxStyleOverrides.uss?fileID=7433441132597879392&amp;guid=e140b35909eadcf48959626f553b2145&amp;type=3#SandboxStyleOverrides"/>
+    <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="align-items: flex-start; padding-left: 8px; padding-top: 8px;">
+        <ui:VisualElement name="menu-region" style="margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; align-items: stretch; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; border-top-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-right-width: 1px; border-top-left-radius: 6px; border-top-right-radius: 6px; border-bottom-right-radius: 6px; border-bottom-left-radius: 6px; border-left-color: rgb(77, 77, 77); border-right-color: rgb(77, 77, 77); border-top-color: rgb(77, 77, 77); border-bottom-color: rgb(77, 77, 77); background-color: rgb(51, 51, 51); width: 19.5%;">
+            <ui:Button text="▾ Examples" name="examples-header" focusable="false" double-click-selects-word="false" triple-click-selects-line="false" style="-unity-text-align: upper-center; margin-right: 1px; margin-bottom: 0; margin-left: 1px; margin-top: 1px; padding-right: 0; padding-left: 0; border-left-color: rgba(38, 37, 37, 0.3); border-right-color: rgba(38, 37, 37, 0.3); border-top-color: rgba(38, 37, 37, 0.3); border-bottom-color: rgba(38, 37, 37, 0.3); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 6px; border-top-right-radius: 6px;"/>
+            <ui:VisualElement name="examples-details">
+                <ui:DropdownField label="Category" name="scene-categories" picking-mode="Position" focusable="false"/>
+                <ui:DropdownField label="Scene" name="scenes" picking-mode="Position" focusable="false"/>
+                <ui:Button text="▾ Options" name="scene-options-header" focusable="false" double-click-selects-word="false" triple-click-selects-line="false" style="-unity-text-align: upper-center; margin-right: 1px; margin-bottom: 0; margin-left: 1px; margin-top: 4px; padding-right: 0; padding-left: 0; border-left-color: rgba(38, 37, 37, 0.3); border-right-color: rgba(38, 37, 37, 0.3); border-top-color: rgba(38, 37, 37, 0.3); border-bottom-color: rgba(38, 37, 37, 0.3); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 6px; border-top-right-radius: 6px;"/>
+                <ui:VisualElement name="scene-controls"/>
+                <ui:VisualElement name="description" style="flex-grow: 0; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">
+                    <ui:Label text="..." name="scene-description" style="flex-grow: 0; white-space: normal; -unity-text-align: upper-center; max-width: 240px;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,168 @@
+:root {
+    --foreground: rgba(80, 80, 80, 0.9);
+    --background: rgba(50, 50, 50, 0.9);
+    --highlight: rgba(110, 110, 110, 0.9);
+}
+
+/* Collapsible toggles: the Debug roll-up, the Profile/Counters section headers, and the Shortcuts
+   footer. Their resting background lives here (not inline) so the :hover highlight can win — in UI
+   Toolkit an inline style always beats a USS rule, including :hover. */
+#rollup-toggle,
+#shortcuts-footer,
+#examples-header,
+#options-footer {
+    background-color: var(--foreground);
+}
+
+#profile-header,
+#counters-header,
+#scene-options-header {
+    background-color: var(--background);
+}
+
+#rollup-toggle:hover,
+#shortcuts-footer:hover,
+#examples-header:hover,
+#options-footer:hover,
+#profile-header:hover,
+#counters-header:hover,
+#scene-options-header:hover {
+    background-color: var(--highlight);
+}
+
+/* Shortcuts panel control buttons (migrated global controls). Background lives here (not inline)
+   so the :hover highlight can win over it. */
+.sc-button {
+    -unity-text-align: upper-center;
+    background-color: var(--background);
+    margin: 1px;
+    padding-left: 0;
+    padding-right: 0;
+    border-width: 1px;
+    border-color: rgba(38, 37, 37, 0.3);
+    border-radius: 6px;
+}
+
+.sc-button:hover {
+    background-color: var(--highlight);
+}
+
+VisualElement {
+    -unity-font-definition: resource("Fonts/Cozette/CozetteVector");
+}
+
+TreeView {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+Label {
+    min-width: 100px;
+}
+
+#unity-tree-view__item:hover {
+    background-color: var(--foreground);
+}
+
+#unity-tree-view__item:checked {
+    background-color: var(--foreground);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#unity-tree-view__item-content {
+    justify-content: center;
+}
+
+.unity-progress-bar__progress {
+    background-color: var(--foreground);
+}
+
+/* Make the FPS bar span the full panel width (match the 1px side margins of the
+   headers/rows below it) instead of the default ProgressBar inset. */
+#fps {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+#fps .unity-progress-bar__container {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Round all of the FPS bar's corners to match the panel's 6px radius.
+   overflow:hidden clips the progress fill to the rounded corners. */
+#fps .unity-progress-bar__background {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    overflow: hidden;
+}
+
+/* Bordered display box for the Determinism example's hash/step Labels (built in code). */
+.hash-label {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    white-space: normal;
+    text-overflow: clip;
+    -unity-text-align: upper-center;
+    border-width: 1px;
+    border-color: rgb(55, 55, 55);
+    border-radius: 3px;
+    margin: 3px;
+}
+
+#description {
+    margin-top: 2px;
+}
+
+/* Make TabView fill whole window */
+TabView, .unity-tab-view__content-container, Tab, .unity-tab__content-container {
+    flex-grow: 1;
+}
+
+/* By default, each tab header has an underline. This hides the header underline  */
+.unity-tab__header-underline {
+    opacity: 0;
+}
+
+.unity-tab__header {
+    flex-grow: 1;
+    align-content: center;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-color: var(--foreground);
+    background-color: var(--background);
+}
+
+.unity-tab__header-label {
+    flex-grow: 1;
+    min-width: 40px;
+    align-self: stretch;
+}
+
+.unity-tab__header:checked {
+    background-color: var(--foreground);
+}
+
+.unity-tab {
+    border-width: 1px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    border-color: var(--foreground);
+    background-color: var(--background);
+}
+
+.unity-tab-view__next-button {
+    height: 0;
+    width: 0;
+}
+
+.unity-tab-view__content-viewport {
+    background-color: rgba(0, 0, 0, 0);
+} 
