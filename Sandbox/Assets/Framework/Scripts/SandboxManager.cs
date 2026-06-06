@@ -364,7 +364,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 
         // Re-gather each time so panels loaded after startup (e.g. the per-scene options panel)
         // automatically participate — implementing IFoldable is all that's required.
-        foreach (var behaviour in FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Exclude))
+        foreach (var behaviour in FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
         {
             if (behaviour is IFoldable foldable && behaviour.isActiveAndEnabled)
                 foldable.SetFolded(m_AllFolded);
