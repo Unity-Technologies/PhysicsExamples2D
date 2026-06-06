@@ -5,14 +5,12 @@ using Unity.U2D.Physics;
 #else
 using UnityEngine.LowLevelPhysics2D;
 #endif
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 public class DebugView : MonoBehaviour
 {
     // How often the debug menu refreshes its UI. The stats themselves are still sampled
     // every simulation step (see UpdateStats); this only throttles the per-frame UI rebuild.
-    [FormerlySerializedAs("UpdatePeriodFPS")]
     public float UpdatePeriod = 0.1f;
 
     private CameraManipulator m_CameraManipulator;

@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c543dcb12519f44b0620a75f540b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebuggingMenu
-  UpdatePeriodFPS: 0.1
+  UpdatePeriod: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
