@@ -3,11 +3,22 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
-public class DebugView : MonoBehaviour
+public class DebugView : MonoBehaviour, IFoldable
 {
+    // IFoldable: "Fold All" collapses the debug menu to its FPS-only roll-up state.
+    public void SetFolded(bool folded) => SetRolledUp(folded);
+
     // How often the debug menu refreshes its UI. The stats themselves are still sampled
     // every simulation step (see UpdateStats); this only throttles the per-frame UI rebuild.
     public float UpdatePeriod = 0.1f;
+
+    // When rolled up the menu shows only the FPS bar; the profile/counter detail block is
+    // hidden and stat sampling is suspended entirely (see SetRolledUp).
+    public bool StartRolledUp;
+
+    // Initial collapsed state of the individual Profile / Counters sections.
+    public bool StartProfileCollapsed;
+    public bool StartCountersCollapsed;
 
     private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;
@@ -21,6 +32,19 @@ public class DebugView : MonoBehaviour
 
     // Throttles the UI refresh to UpdatePeriod (counts down in unscaled time).
     private float m_UpdateTimer;
+
+    // Roll-up (FPS-only) state.
+    private VisualElement m_DetailsRegion;
+    private Button m_RollupToggle;
+    private bool m_RolledUp;
+
+    // Per-section (Profile / Counters) roll-up state.
+    private Button m_ProfileHeader;
+    private Button m_CountersHeader;
+    private VisualElement m_ProfileRegion;
+    private VisualElement m_CountersRegion;
+    private bool m_ProfileCollapsed;
+    private bool m_CountersCollapsed;
 
     // FPS.
     private ProgressBar m_BarFPS;
@@ -64,9 +88,56 @@ public class DebugView : MonoBehaviour
     private Label m_TaskCountElement;
 
     public void ShowFPS() => m_BarFPS.style.display = DisplayStyle.Flex;
-    
+
     public void HideFPS() => m_BarFPS.style.display = DisplayStyle.None;
-    
+
+    // Rolls the menu up to show only the FPS bar (rolledUp) or expands it to the full view.
+    // When rolled up, stat sampling is suspended (UpdateStats is unsubscribed) so the menu
+    // costs nothing per simulation step.
+    public void SetRolledUp(bool rolledUp)
+    {
+        m_RolledUp = rolledUp;
+
+        // Show/hide the profile + counters detail block.
+        m_DetailsRegion.style.display = rolledUp ? DisplayStyle.None : DisplayStyle.Flex;
+
+        // Suspend or resume per-step stat sampling. The leading unsubscribe keeps this
+        // idempotent across repeated toggles (avoids stacking duplicate subscriptions).
+        PhysicsEvents.PostSimulate -= UpdateStats;
+        if (!rolledUp)
+        {
+            // Start fresh so the running averages aren't skewed by the suspended window.
+            ResetStats();
+            PhysicsEvents.PostSimulate += UpdateStats;
+        }
+
+        // Reflect the state in the toggle caption.
+        var caret = rolledUp ? "▸" : "▾";
+        m_RollupToggle.text = $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>Debug";
+    }
+
+    private void ToggleRollUp() => SetRolledUp(!m_RolledUp);
+
+    // Collapses/expands one titled section (its row block) and updates the header caret.
+    private static void SetSectionCollapsed(Button header, string title, VisualElement region, bool collapsed)
+    {
+        region.style.display = collapsed ? DisplayStyle.None : DisplayStyle.Flex;
+        var caret = collapsed ? "▸" : "▾";
+        header.text = $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>{title}";
+    }
+
+    private void ToggleProfile()
+    {
+        m_ProfileCollapsed = !m_ProfileCollapsed;
+        SetSectionCollapsed(m_ProfileHeader, "Profile (ms)", m_ProfileRegion, m_ProfileCollapsed);
+    }
+
+    private void ToggleCounters()
+    {
+        m_CountersCollapsed = !m_CountersCollapsed;
+        SetSectionCollapsed(m_CountersHeader, "Counters", m_CountersRegion, m_CountersCollapsed);
+    }
+
     public void ResetStats()
     {
         m_SampledCount = 0;
@@ -83,8 +154,8 @@ public class DebugView : MonoBehaviour
         // Reset the stats.
         ResetStats();
 
-        // Update states when a world has finished simulating.
-        PhysicsEvents.PostSimulate += UpdateStats;
+        // NB: the PhysicsEvents.PostSimulate subscription is owned by SetRolledUp (called at
+        // the end of OnEnable) so that rolling up suspends stat sampling entirely.
 
         // Refresh immediately on enable, then throttle to UpdatePeriod.
         m_UpdateTimer = 0f;
@@ -143,10 +214,30 @@ public class DebugView : MonoBehaviour
             m_TaskCountElement = root.Q<Label>("task-count");
         }
 
-        // Reset Stats.
+        // Section roll-ups (click the Profile / Counters headers to collapse each section).
         {
-            var resetStats = root.Q<Button>("reset-stats");
-            resetStats.clicked += ResetStats;
+            m_ProfileHeader = root.Q<Button>("profile-header");
+            m_CountersHeader = root.Q<Button>("counters-header");
+            m_ProfileRegion = root.Q<VisualElement>("profile-region");
+            m_CountersRegion = root.Q<VisualElement>("counters-region");
+
+            m_ProfileHeader.clicked += ToggleProfile;
+            m_CountersHeader.clicked += ToggleCounters;
+
+            m_ProfileCollapsed = StartProfileCollapsed;
+            m_CountersCollapsed = StartCountersCollapsed;
+            SetSectionCollapsed(m_ProfileHeader, "Profile (ms)", m_ProfileRegion, m_ProfileCollapsed);
+            SetSectionCollapsed(m_CountersHeader, "Counters", m_CountersRegion, m_CountersCollapsed);
+        }
+
+        // Roll-up (FPS-only) toggle.
+        {
+            m_DetailsRegion = root.Q<VisualElement>("details-region");
+            m_RollupToggle = root.Q<Button>("rollup-toggle");
+            m_RollupToggle.clicked += ToggleRollUp;
+
+            // Apply the initial state (also wires up the stat-sampling subscription).
+            SetRolledUp(StartRolledUp);
         }
     }
 
@@ -165,15 +256,20 @@ public class DebugView : MonoBehaviour
             return;
         m_UpdateTimer = UpdatePeriod;
 
+        // Update the FPS bar (kept live even when rolled up).
+        UpdateFPS();
+
+        // When rolled up only the FPS bar is shown, and stat sampling is suspended, so skip
+        // the hidden profile/counter rebuilds entirely.
+        if (m_RolledUp)
+            return;
+
         var sampleScale = 1f / Mathf.Max(1, m_SampledCount);
         const float memoryScale = 1f / 1048576f;
 
         const string color = SandboxUtility.HighlightColor;
         const string endColor = SandboxUtility.EndHighlightColor;
 
-        // Update the FPS.
-        UpdateFPS();
-        
         // Profile.
         m_SimulationStepElement.text = $"{color}{m_LastProfile.simulationStep:F2}{endColor} ~[{color}{m_TotalProfile.simulationStep * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.simulationStep:F2}{endColor}]";
         m_ContactPairsElement.text = $"{color}{m_LastProfile.contactPairs:F2}{endColor} ~[{color}{m_TotalProfile.contactPairs * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.contactPairs:F2}{endColor}]";

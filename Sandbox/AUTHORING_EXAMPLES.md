@@ -91,7 +91,7 @@ class <Name> (in <Name>.cs) ────► <Name>.unity  m_EditorClassIdentifie
 ```
 
 The UIDocument's `sourceAsset.guid` is the **constant shared-chrome guid**
-`c705ca6fc9e54f969fcd4dfcc2160e43` (`Assets/Sandbox/UI/ExampleChrome.uxml`) — the same in every
+`c705ca6fc9e54f969fcd4dfcc2160e43` (`Assets/Framework/UI/ExampleChrome.uxml`) — the same in every
 example, not a per-example value.
 
 There is **no asmdef** in this project, so all example scripts compile into the default
@@ -117,7 +117,7 @@ Identical in every example scene — NOT per-asset:
 | Shared `PanelSettings` | `m_PanelSettings: {fileID: 11400000, guid: b3cc2d097ffb6c846acc69277ba50b67, type: 2}` |
 | UIDocument `sourceAsset` (the shared chrome) | `{fileID: 9197481963319205126, guid: c705ca6fc9e54f969fcd4dfcc2160e43, type: 3}` |
 
-Every example's `UIDocument` points at the one shared `Assets/Sandbox/UI/ExampleChrome.uxml`
+Every example's `UIDocument` points at the one shared `Assets/Framework/UI/ExampleChrome.uxml`
 (menu region, tab, `options-content` placeholder, description). The base class finds its regions
 at load, titles/describes the panel, and lets the example add controls into `options-content`.
 

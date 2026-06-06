@@ -1,6 +1,50 @@
 :root {
     --foreground: rgba(80, 80, 80, 0.9);
     --background: rgba(50, 50, 50, 0.9);
+    --highlight: rgba(110, 110, 110, 0.9);
+}
+
+/* Collapsible toggles: the Debug roll-up, the Profile/Counters section headers, and the Shortcuts
+   footer. Their resting background lives here (not inline) so the :hover highlight can win — in UI
+   Toolkit an inline style always beats a USS rule, including :hover. */
+#rollup-toggle,
+#shortcuts-footer,
+#examples-header,
+#options-footer {
+    background-color: var(--foreground);
+}
+
+#profile-header,
+#counters-header,
+#scene-options-header {
+    background-color: var(--background);
+}
+
+#rollup-toggle:hover,
+#shortcuts-footer:hover,
+#examples-header:hover,
+#options-footer:hover,
+#profile-header:hover,
+#counters-header:hover,
+#scene-options-header:hover {
+    background-color: var(--highlight);
+}
+
+/* Shortcuts panel control buttons (migrated global controls). Background lives here (not inline)
+   so the :hover highlight can win over it. */
+.sc-button {
+    -unity-text-align: upper-center;
+    background-color: var(--background);
+    margin: 1px;
+    padding-left: 0;
+    padding-right: 0;
+    border-width: 1px;
+    border-color: rgba(38, 37, 37, 0.3);
+    border-radius: 6px;
+}
+
+.sc-button:hover {
+    background-color: var(--highlight);
 }
 
 VisualElement {
@@ -32,6 +76,28 @@ Label {
     background-color: var(--foreground);
 }
 
+/* Make the FPS bar span the full panel width (match the 1px side margins of the
+   headers/rows below it) instead of the default ProgressBar inset. */
+#fps {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+#fps .unity-progress-bar__container {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Round all of the FPS bar's corners to match the panel's 6px radius.
+   overflow:hidden clips the progress fill to the rounded corners. */
+#fps .unity-progress-bar__background {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    overflow: hidden;
+}
+
 /* Bordered display box for the Determinism example's hash/step Labels (built in code). */
 .hash-label {
     flex-grow: 1;
@@ -48,10 +114,6 @@ Label {
 }
 
 #description {
-    background-color: var(--background);
-    border-color: var(--foreground);
-    border-width: 1px;
-    border-radius: 6px;
     margin-top: 2px;
 }
 

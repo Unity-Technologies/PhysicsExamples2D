@@ -16,14 +16,12 @@ using UnityEngine.UIElements;
 ///   * optionally override <see cref="OnExampleEnable"/>/<see cref="OnExampleDisable"/> for
 ///     per-example setup/teardown (events, native collections, world overrides).
 /// </summary>
-[RequireComponent(typeof(UIDocument))]
 public abstract class SandboxExampleBehaviour : MonoBehaviour
 {
     // Shared infrastructure, resolved once in OnEnable.
     protected SandboxManager SandboxManager { get; private set; }
     protected SceneManifest SceneManifest { get; private set; }
     protected CameraManipulator CameraManipulator { get; private set; }
-    protected UIDocument UIDocument { get; private set; }
 
     // Convenience accessors so examples read like the physics they teach.
     protected PhysicsWorld World => PhysicsWorld.defaultWorld;
@@ -31,10 +29,10 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
     protected Color ShapeColor => SandboxManager.ShapeColorState;
 
     /// <summary>
-    /// The container the option-builder helpers add controls to (the shared chrome's
-    /// "options-content" region). Use it directly with <see cref="AddElement{T}"/> for widgets the
-    /// typed helpers don't cover. It is <see cref="PickingMode.Ignore"/> so empty menu space passes
-    /// camera input through; the controls themselves stay pickable.
+    /// The container the option-builder helpers add controls to. This lives in the persistent
+    /// MainMenu's "Scenes" tab (<see cref="SandboxManager.SceneOptionsContent"/>) and is cleared on
+    /// scene build and teardown. Use it directly with <see cref="AddElement{T}"/> for widgets the
+    /// typed helpers don't cover.
     /// </summary>
     protected VisualElement OptionsContent { get; private set; }
 
@@ -50,10 +48,8 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
         SandboxManager = FindAnyObjectByType<SandboxManager>();
         SceneManifest = FindAnyObjectByType<SceneManifest>();
         CameraManipulator = FindAnyObjectByType<CameraManipulator>();
-        UIDocument = GetComponent<UIDocument>();
 
-        // Register this example's options UI and frame the camera.
-        SandboxManager.SceneOptionsUI = UIDocument;
+        // Frame the camera.
         CameraManipulator.CameraSize = CameraSize;
         CameraManipulator.CameraPosition = CameraPosition;
 
@@ -63,7 +59,7 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
         // Per-example setup (state, world overrides, event subscriptions, native allocation).
         OnExampleEnable();
 
-        // Build the shared menu chrome and let the example wire its own controls.
+        // Build this example's option controls into the shared MainMenu "Scenes" tab.
         BuildOptionsUI();
 
         // Build the initial scene.
@@ -74,6 +70,10 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
     {
         // Per-example teardown (event unsubscription, native disposal, world restoration).
         OnExampleDisable();
+
+        // Remove this example's controls + description from the persistent MainMenu so they don't
+        // linger after the scene unloads.
+        SandboxManager.ClearSceneOptions();
 
         // Clear any overrides the example set. These early-return if nothing was overridden,
         // so calling them unconditionally is safe.
@@ -92,38 +92,21 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
         SetupScene();
     }
 
-    // Locates the regions of the shared ExampleChrome.uxml (rendered by the example's UIDocument)
-    // and lets the example populate its controls in code.
+    // Populates this example's controls + description into the persistent MainMenu "Scenes" tab.
     private void BuildOptionsUI()
     {
-        var root = UIDocument.rootVisualElement;
-
-        // The options-content region is where the AddX helpers add controls. Make it pass camera
-        // input through (empty space) while leaving the controls inside it pickable.
-        OptionsContent = root.Q<VisualElement>("options-content");
-        if (OptionsContent != null)
-            OptionsContent.pickingMode = PickingMode.Ignore;
-
-        // Title the options tab from the loaded scene name.
-        var tab = root.Q<Tab>("Tab");
-        if (tab != null)
-            tab.label = $"{SceneManifest.LoadedSceneName} Options";
-
-        // Suppress camera input while the pointer is over the menu.
-        var menuRegion = root.Q<VisualElement>("menu-region");
-        if (menuRegion != null)
-        {
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++CameraManipulator.OverlapUI);
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --CameraManipulator.OverlapUI);
-        }
+        // The controls now live in the persistent MainMenu, so clear the previous scene's first.
+        OptionsContent = SandboxManager.SceneOptionsContent;
+        OptionsContent.Clear();
 
         // Populate the scene description.
-        var sceneDescription = root.Q<Label>("scene-description");
-        if (sceneDescription != null)
-            sceneDescription.text = $"\"{SceneManifest.LoadedSceneName}\"\n{SceneManifest.LoadedSceneDescription}";
+        SandboxManager.SetSceneDescription(SceneManifest.LoadedSceneDescription);
 
         // Let the example build its controls (into OptionsContent, via the AddX helpers).
         SetupOptions();
+
+        // Show/hide + collapse the "Options" section header now the controls (if any) are added.
+        SandboxManager.RefreshSceneOptionsSection();
     }
 
     /// <summary>
