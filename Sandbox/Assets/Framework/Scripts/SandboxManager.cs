@@ -104,7 +104,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 
     private bool ColorShapeState { get; set; }
 
-    // Migrated global-control buttons (now live in the Shortcuts panel).
+    // Migrated global-control buttons (now live in the BottomLeftMenu's Shortcuts section).
     private Button m_PausePlayButton;
     private Button m_SingleStepButton;
     private Button m_InteractionButton;
@@ -117,7 +117,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     public string StartScene = string.Empty;
     public Action SceneResetAction;
     public DebugView DebugView;
-    public ShortcutsView ShortcutsView;
+    public BottomLeftMenu BottomLeftMenu;
     public ControlsMenu ControlsMenu;
 
     // Override state.
@@ -210,8 +210,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         // Disable this because it's not needed and causing Input system problems.
         UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
         
-        // Show the Shortcut view by default (it now hosts the global controls).
-        ShortcutsView.gameObject.SetActive(true);
+        // Show the bottom-left menu by default (it hosts the Sandbox + Shortcuts sections).
+        BottomLeftMenu.gameObject.SetActive(true);
 
         // The Debug view is always present now (folding hides it); there's no longer a toggle for it.
         DebugView.gameObject.SetActive(true);
@@ -219,12 +219,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         // Reset the per-scene controls bar (now holds only scene-custom buttons).
         ControlsMenu.ResetControls();
 
-        // Cache the migrated global-control buttons (hosted by the Shortcuts panel).
-        m_PausePlayButton = ShortcutsView.PausePlayButton;
-        m_SingleStepButton = ShortcutsView.SingleStepButton;
-        m_InteractionButton = ShortcutsView.InteractionButton;
-        m_ColorsButton = ShortcutsView.ColorsButton;
-        m_FoldAllButton = ShortcutsView.FoldAllButton;
+        // Cache the migrated global-control buttons (hosted by the BottomLeftMenu).
+        m_PausePlayButton = BottomLeftMenu.PausePlayButton;
+        m_SingleStepButton = BottomLeftMenu.SingleStepButton;
+        m_InteractionButton = BottomLeftMenu.InteractionButton;
+        m_ColorsButton = BottomLeftMenu.ColorsButton;
+        m_FoldAllButton = BottomLeftMenu.FoldAllButton;
 
         // Interaction: single toggle button; text shows the mode a click will switch to (see
         // UpdateInputModeVisual).
@@ -240,24 +240,24 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         m_SingleStepButton.text = $"Single-Step [{SandboxUtility.HighlightColor}S{SandboxUtility.EndHighlightColor}]";
 
         // Reset (also resets the camera — see ResetScene).
-        ShortcutsView.ResetButton.clicked += ResetScene;
-        ShortcutsView.ResetButton.text = $"Reset [{SandboxUtility.HighlightColor}R{SandboxUtility.EndHighlightColor}]";
+        BottomLeftMenu.ResetButton.clicked += ResetScene;
+        BottomLeftMenu.ResetButton.text = $"Reset [{SandboxUtility.HighlightColor}R{SandboxUtility.EndHighlightColor}]";
 
         // Restart (resets all settings and reloads the scene).
-        ShortcutsView.RestartButton.clicked += Restart;
-        ShortcutsView.RestartButton.text = $"Restart [{SandboxUtility.HighlightColor}X{SandboxUtility.EndHighlightColor}]";
+        BottomLeftMenu.RestartButton.clicked += Restart;
+        BottomLeftMenu.RestartButton.text = $"Restart [{SandboxUtility.HighlightColor}X{SandboxUtility.EndHighlightColor}]";
 
         // Fold All / Unfold All.
         m_FoldAllButton.clicked += ToggleFoldAll;
         UpdateFoldAllVisual();
 
         // Quit.
-        ShortcutsView.QuitButton.clicked += QuitApplication;
-        ShortcutsView.QuitButton.text = $"Quit [{SandboxUtility.HighlightColor}Esc{SandboxUtility.EndHighlightColor}]";
+        BottomLeftMenu.QuitButton.clicked += QuitApplication;
+        BottomLeftMenu.QuitButton.text = $"Quit [{SandboxUtility.HighlightColor}Esc{SandboxUtility.EndHighlightColor}]";
 
         // Hide the Quit button on the Web platform.
         if (Application.platform == RuntimePlatform.WebGLPlayer)
-            ShortcutsView.QuitButton.style.display = DisplayStyle.None;
+            BottomLeftMenu.QuitButton.style.display = DisplayStyle.None;
 
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
@@ -508,16 +508,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 
     private void SetupOptions()
     {
-        // The World/Options controls now live in the separate OptionsMenu panel (bottom-left). It
-        // owns its own camera-overlap guard and fold, so we only query its controls here.
-        var optionsMenu = FindAnyObjectByType<OptionsMenu>();
-        if (optionsMenu == null)
-        {
-            Debug.LogError("[Sandbox] No OptionsMenu found. Add a GameObject to Sandbox.unity with a " +
-                           "UIDocument (Source Asset = OptionsMenu.uxml, the shared PanelSettings) and an OptionsMenu component.");
-            return;
-        }
-        var root = optionsMenu.GetComponent<UIDocument>().rootVisualElement;
+        // The Sandbox (world/draw) controls now live in the merged BottomLeftMenu panel; query them
+        // from its UIDocument root (it's a serialized reference, so no lookup is needed).
+        var root = BottomLeftMenu.GetComponent<UIDocument>().rootVisualElement;
 
         // PhysicsWorld.
         {
@@ -709,11 +702,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         m_ExamplesHeader.clicked += ToggleExamplesFolded;
         SetExamplesFolded(false);
 
-        // Suppress camera input while the pointer is over the Examples menu.
-        var menuRegion = root.Q<VisualElement>("menu-region");
-        menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
-        menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
-
         // Suppress the spurious horizontal scrollbar that appears in these dropdown popups at
         // non-integer panel scales (e.g. 4k full-screen with the PanelSettings "Scale With Screen
         // Size" 1200x800 reference => 3.2x). See SuppressDropdownHorizontalScrollbar.
@@ -809,10 +797,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
 
         DebugView.ResetStats();
-        m_CameraManipulator.OverlapUI = 0;
 
         // Reset the controls.
         ControlsMenu.ResetControls();
+
+        // Collapse the bottom-left panel so it can't overlap the new scene's options.
+        BottomLeftMenu.Collapse();
 
         SceneResetAction = null;
         m_SceneManifest.LoadScene(sceneName, ResetSceneState);

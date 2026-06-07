@@ -58,23 +58,14 @@ public class ControlsMenu : MonoBehaviour
         }
     }
 
-    private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;
     private VisualElement m_Controls;
     private readonly CustomButton[] m_CustomButtons = new CustomButton[3];
 
     private void OnEnable()
     {
-        m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
         m_UIDocument = GetComponent<UIDocument>();
         var root = m_UIDocument.rootVisualElement;
-
-        // Menu Region.
-        {
-            var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
-        }
 
         // Buttons.
         {
