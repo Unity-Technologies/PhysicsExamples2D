@@ -20,7 +20,6 @@ public class DebugView : MonoBehaviour, IFoldable
     public bool StartProfileCollapsed;
     public bool StartCountersCollapsed;
 
-    private CameraManipulator m_CameraManipulator;
     private UIDocument m_UIDocument;
 
     private int m_SampledCount;
@@ -147,7 +146,6 @@ public class DebugView : MonoBehaviour, IFoldable
 
     private void OnEnable()
     {
-        m_CameraManipulator = FindAnyObjectByType<CameraManipulator>();
         m_UIDocument = GetComponent<UIDocument>();
         var root = m_UIDocument.rootVisualElement;
 
@@ -159,13 +157,6 @@ public class DebugView : MonoBehaviour, IFoldable
 
         // Refresh immediately on enable, then throttle to UpdatePeriod.
         m_UpdateTimer = 0f;
-
-        // Menu Region.
-        {
-            var menuRegion = root.Q<VisualElement>("menu-region");
-            menuRegion.RegisterCallback<PointerEnterEvent>(_ => ++m_CameraManipulator.OverlapUI);
-            menuRegion.RegisterCallback<PointerLeaveEvent>(_ => --m_CameraManipulator.OverlapUI);
-        }
 
         // FPS.
         {

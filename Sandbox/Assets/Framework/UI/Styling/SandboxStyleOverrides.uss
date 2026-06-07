@@ -10,7 +10,7 @@
 #rollup-toggle,
 #shortcuts-footer,
 #examples-header,
-#options-footer {
+#sandbox-footer {
     background-color: var(--foreground);
 }
 
@@ -23,7 +23,7 @@
 #rollup-toggle:hover,
 #shortcuts-footer:hover,
 #examples-header:hover,
-#options-footer:hover,
+#sandbox-footer:hover,
 #profile-header:hover,
 #counters-header:hover,
 #scene-options-header:hover {

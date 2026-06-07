@@ -2,6 +2,7 @@ using System;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 using Unity.U2D.Physics;
 
 public class CameraManipulator : MonoBehaviour
@@ -68,12 +69,6 @@ public class CameraManipulator : MonoBehaviour
 
     public float ExplodeImpulse { get; set; }
 
-    public int OverlapUI
-    {
-        get => m_OverlapUI;
-        set => m_OverlapUI = math.max(value, 0);
-    }
-
     private enum ManipulatorState
     {
         None,
@@ -92,14 +87,14 @@ public class CameraManipulator : MonoBehaviour
     private Vector2 m_LastActionPosition;
     private PhysicsRelativeJoint m_DragJoint;
     private PhysicsBody m_DragGroundBody;
-    private int m_OverlapUI;
+    private IPanel m_UIPanel;
 
     private InputAction m_Click;
     private InputAction m_Position;
     
     private void Awake()
     {
-        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
+        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
         Camera = GetComponentInParent<Camera>();
         CameraPosition = Vector2.zero;
         m_TouchMode = InputMode.Drag;
@@ -112,8 +107,8 @@ public class CameraManipulator : MonoBehaviour
 
     private void Update()
     {
-        // Stop any manipulation if we're over any UI.
-        if (OverlapUI != 0)
+        // Stop any manipulation if the pointer is over any menu UI.
+        if (IsPointerOverUI())
         {
             ResetInputMode();
             return;
@@ -290,6 +285,26 @@ public class CameraManipulator : MonoBehaviour
 
         m_PanViaRightButton = false;
         m_ManipulatorState = ManipulatorState.None;
+    }
+
+    // True when the pointer is over any menu UI. Hit-tests the shared UI Toolkit panel each frame:
+    // every panel root is picking-mode Ignore, so Pick only returns a non-null element when the
+    // pointer is actually over a menu's content. This is robust to panel sort order and overlap,
+    // unlike tracking PointerEnter/Leave per menu-region (which desyncs when regions occlude).
+    private bool IsPointerOverUI()
+    {
+        // Resolve the shared panel lazily (all UIDocuments use the same PanelSettings → one panel).
+        if (m_UIPanel == null)
+        {
+            var document = FindFirstObjectByType<UIDocument>();
+            m_UIPanel = document != null ? document.rootVisualElement?.panel : null;
+            if (m_UIPanel == null)
+                return false;
+        }
+
+        var screenPosition = m_Position.ReadValue<Vector2>();
+        var panelPosition = RuntimePanelUtils.ScreenToPanel(m_UIPanel, screenPosition);
+        return m_UIPanel.Pick(panelPosition) != null;
     }
 
     public void ResetPanZoom()
