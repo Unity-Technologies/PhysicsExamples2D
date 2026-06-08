@@ -78,6 +78,104 @@ public sealed class Queries : SandboxExampleBehaviour
 
     protected override void SetupScene()
     {
+        CreateGeometry(World);
+    }
+
+    private static void CreateGeometry(PhysicsWorld world)
+    {
+        // Arena walls: one static body, four box shapes offset to each wall.
+        {
+            var body = world.CreateBody();
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(29f, 1f),  0f, new PhysicsTransform(new Vector2(0f,  -11f),  PhysicsRotate.identity)));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(29f, 1f),  0f, new PhysicsTransform(new Vector2(0f,   10.4f), PhysicsRotate.identity)));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f,  22f), 0f, new PhysicsTransform(new Vector2(-14f,  0f),  PhysicsRotate.identity)));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f,  22f), 0f, new PhysicsTransform(new Vector2( 14f,  0f),  PhysicsRotate.identity)));
+        }
+
+        // Static capsule obstacles spread across the arena interior.
+        {
+            var capsule = new CapsuleGeometry { center1 = new Vector2(0f, -0.5f), center2 = new Vector2(0f, 0.5f), radius = 0.5f };
+            var obstacles = new (Vector2 pos, float angleDeg)[]
+            {
+                (new Vector2(-9f,  7f),   45f),
+                (new Vector2( 0f,  7f),  -45f),
+                (new Vector2( 9f,  6f),   45f),
+                (new Vector2(-9f,  0f),  -45f),
+                (new Vector2( 9f,  0f),   45f),
+                (new Vector2(-9f, -6f),   45f),
+                (new Vector2( 0f, -6f),  -45f),
+                (new Vector2( 9f, -6f),  -45f),
+            };
+            foreach (var (pos, deg) in obstacles)
+            {
+                world.CreateBody(new PhysicsBodyDefinition { position = pos, rotation = new PhysicsRotate(deg * Mathf.Deg2Rad) })
+                     .CreateShape(capsule);
+            }
+        }
+
+        // Dynamic floating debris circles (zero gravity, bounce off everything).
+        {
+            var circle  = new CircleGeometry { radius = 0.4f };
+            var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 0.6f } };
+            var bodyDef  = new PhysicsBodyDefinition
+            {
+                type                  = PhysicsBody.BodyType.Dynamic,
+                gravityScale          = 0f,
+                angularDamping        = 0.5f,
+                fastCollisionsAllowed = true,
+                fastRotationAllowed   = true,
+            };
+            var positions = new Vector2[]
+            {
+                new(-10.71f, -1.34f), new(-7.34f,  -3.46f), new(-6.53f, 2.69f),
+                new(-10.5f,   4.55f), new( 3.37f,   6.84f), new( 8.13f, 9f),
+                new( 12.11f, -0.13f), new( 6.28f,  -4.4f),  new(-6.08f, -8.18f),
+                new(  8.54f,  5.11f), new( 0.86f,   2.09f), new(-6.98f,  6.84f),
+            };
+            foreach (var pos in positions)
+            {
+                bodyDef.position = pos;
+                world.CreateBody(bodyDef).CreateShape(circle, shapeDef);
+            }
+        }
+
+        // Hinge-joint pendulum arms.
+        {
+            var armShapeDef = new PhysicsShapeDefinition
+            {
+                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, bounciness = 0.6f },
+            };
+            var armBodyDef = new PhysicsBodyDefinition
+            {
+                type           = PhysicsBody.BodyType.Dynamic,
+                angularDamping = 0.5f,
+            };
+
+            // Free pivots: arm swings freely, only the position distinguishes them.
+            var armCapsule = new CapsuleGeometry { center1 = new Vector2(-3.5f, 0f), center2 = new Vector2(3.5f, 0f), radius = 0.1f };
+            foreach (var pos in new[] { new Vector2(0f, 6f), new Vector2(0f, -3.13f) })
+            {
+                var anchor = world.CreateBody(new PhysicsBodyDefinition { position = pos });
+                armBodyDef.position = pos;
+                var arm = world.CreateBody(armBodyDef);
+                arm.CreateShape(armCapsule, armShapeDef);
+                world.CreateJoint(new PhysicsHingeJointDefinition { bodyA = anchor, bodyB = arm });
+            }
+
+            // Spring pivots: arm anchored at one end, springs back to rest.
+            var springCapsule = new CapsuleGeometry { center1 = new Vector2(-4f, 0f), center2 = Vector2.zero, radius = 0.1f };
+            var springJointDef = new PhysicsHingeJointDefinition { enableSpring = true, springFrequency = 2f };
+            foreach (var pos in new[] { new Vector2(8f, -6f), new Vector2(-8f, -6f) })
+            {
+                var anchor = world.CreateBody(new PhysicsBodyDefinition { position = pos });
+                armBodyDef.position = pos;
+                var arm = world.CreateBody(armBodyDef);
+                arm.CreateShape(springCapsule, armShapeDef);
+                springJointDef.bodyA = anchor;
+                springJointDef.bodyB = arm;
+                world.CreateJoint(springJointDef);
+            }
+        }
     }
 
     private void Update()
