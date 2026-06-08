@@ -251,7 +251,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -2, y: 1.2}
     m_Rotation:
-      direction: {x: 0.8449784, y: 0.5348003}
+      direction: {x: 0.84497803, y: 0.53480095}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
@@ -286,7 +286,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36908996}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.2784078, w: 0.960463}
+  m_LocalRotation: {x: 0, y: 0, z: 0.27840817, w: 0.9604629}
   m_LocalPosition: {x: -2, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -425,7 +425,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 2, y: 1.2}
     m_Rotation:
-      direction: {x: 0.8449784, y: 0.5348003}
+      direction: {x: 0.84497803, y: 0.53480095}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
@@ -460,7 +460,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45209099}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.2784078, w: 0.960463}
+  m_LocalRotation: {x: 0, y: 0, z: 0.27840817, w: 0.9604629}
   m_LocalPosition: {x: 2, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
-  m_ComponentVersion: 3
+  m_ComponentVersion: 4
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_Light2DProvider:
@@ -1062,7 +1062,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: 1.2, y: -1.2}
     m_Rotation:
-      direction: {x: 0.70710945, y: 0.7071041}
+      direction: {x: 0.70710963, y: 0.7071039}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: -120
     m_LinearDamping: 0
@@ -1097,7 +1097,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639417873}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.38268173, w: 0.9238803}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268155, w: 0.9238804}
   m_LocalPosition: {x: 1.2, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

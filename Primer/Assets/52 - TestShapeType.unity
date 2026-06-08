@@ -1526,7 +1526,7 @@ MonoBehaviour:
     m_TransformWriteMode: 3
     m_Position: {x: -2.41, y: -2.96}
     m_Rotation:
-      direction: {x: 0.6772666, y: 0.7357377}
+      direction: {x: 0.6772672, y: 0.7357371}
     m_LinearVelocity: {x: 0, y: 0}
     m_AngularVelocity: 0
     m_LinearDamping: 0
@@ -1561,7 +1561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097143269}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.40170452, w: 0.91576934}
+  m_LocalRotation: {x: 0, y: 0, z: 0.40170407, w: 0.9157696}
   m_LocalPosition: {x: -2.41, y: -2.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
