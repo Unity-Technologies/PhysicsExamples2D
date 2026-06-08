@@ -6,8 +6,8 @@ public sealed class DoubleDomino : SandboxExampleBehaviour
 {
     private const int DominoCount = 20;
 
-    protected override float CameraSize => 6f;
-    protected override Vector2 CameraPosition => new(-0.5f, 0f);
+    protected override float CameraSize => 9f;
+    protected override Vector2 CameraPosition => new(0f, 0f);
 
     protected override void SetupScene()
     {

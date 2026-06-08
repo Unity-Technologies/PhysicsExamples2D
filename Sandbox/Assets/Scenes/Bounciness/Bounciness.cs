@@ -17,8 +17,8 @@ public sealed class Bounciness : SandboxExampleBehaviour
     private Vector2 m_OldGravity;
     private float m_GravityScale;
 
-    protected override float CameraSize => 28f;
-    protected override Vector2 CameraPosition => new(0f, 19f);
+    protected override float CameraSize => 35f;
+    protected override Vector2 CameraPosition => new(1f, 26f);
 
     protected override void OnExampleEnable()
     {

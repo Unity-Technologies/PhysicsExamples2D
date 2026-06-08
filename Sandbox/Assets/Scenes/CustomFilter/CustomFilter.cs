@@ -7,7 +7,7 @@ public sealed class CustomFilter : SandboxExampleBehaviour, PhysicsCallbacks.ICo
 {
     private bool m_OldContactFilterCallbacks;
 
-    protected override float CameraSize => 12f;
+    protected override float CameraSize => 17f;
     protected override Vector2 CameraPosition => new(0f, 7f);
 
     protected override void OnExampleEnable()

@@ -40,8 +40,8 @@ public sealed class Boids : SandboxExampleBehaviour
     private bool m_DrawSight;
     private bool m_DrawSeparation;
 
-    protected override float CameraSize => 20f;
-    protected override Vector2 CameraPosition => Vector2.right * 0.25f;
+    protected override float CameraSize => 22f;
+    protected override Vector2 CameraPosition => new(0f, 0f);
 
     protected override void OnExampleEnable()
     {

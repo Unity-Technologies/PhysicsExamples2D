@@ -16,7 +16,7 @@ public sealed class UserJoint : SandboxExampleBehaviour
     private FloatField m_DisplayImpulse1;
     private PhysicsBody m_Body;
 
-    protected override float CameraSize => 4f;
+    protected override float CameraSize => 3f;
     protected override Vector2 CameraPosition => new(0f, -1f);
 
     protected override void OnExampleEnable()

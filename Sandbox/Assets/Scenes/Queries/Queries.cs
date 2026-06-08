@@ -25,7 +25,7 @@ public sealed class Queries : SandboxExampleBehaviour
     private bool m_DrawNormals;
 
     protected override float CameraSize => 14f;
-    protected override Vector2 CameraPosition => Vector2.right * 0.25f;
+    protected override Vector2 CameraPosition => new(0f, 1f);
 
     protected override void OnExampleEnable()
     {

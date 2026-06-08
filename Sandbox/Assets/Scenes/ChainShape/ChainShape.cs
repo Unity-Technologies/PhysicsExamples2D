@@ -25,8 +25,8 @@ public sealed class ChainShape : SandboxExampleBehaviour
     private const float SpawnPeriod = 1.75f;
     private float m_SpawnTime;
 
-    protected override float CameraSize => 35f;
-    protected override Vector2 CameraPosition => new(0f, 0f);
+    protected override float CameraSize => 50f;
+    protected override Vector2 CameraPosition => new(0f, -3f);
 
     protected override void OnExampleEnable()
     {

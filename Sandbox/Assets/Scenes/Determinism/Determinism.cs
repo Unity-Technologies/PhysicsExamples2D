@@ -21,8 +21,8 @@ public sealed class Determinism : SandboxExampleBehaviour
     private UInt32 m_SimulationSteps;
     private bool m_EverythingAsleep;
 
-    protected override float CameraSize => 16f;
-    protected override Vector2 CameraPosition => new(0.5f, 4f);
+    protected override float CameraSize => 15f;
+    protected override Vector2 CameraPosition => new(0f, 10f);
 
     protected override void OnExampleEnable()
     {

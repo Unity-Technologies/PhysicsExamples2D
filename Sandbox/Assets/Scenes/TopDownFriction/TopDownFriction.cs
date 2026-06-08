@@ -13,7 +13,7 @@ public sealed class TopDownFriction : SandboxExampleBehaviour
     private float m_MaxTorque;
 
     protected override float CameraSize => 10f;
-    protected override Vector2 CameraPosition => new(0f, 10f);
+    protected override Vector2 CameraPosition => new(0f, 11f);
 
     protected override void OnExampleEnable()
     {

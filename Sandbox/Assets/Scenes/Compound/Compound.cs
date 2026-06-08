@@ -12,8 +12,8 @@ public sealed class Compound : SandboxExampleBehaviour
     private PhysicsBody m_Ship1;
     private PhysicsBody m_Ship2;
 
-    protected override float CameraSize => 15f;
-    protected override Vector2 CameraPosition => new(0f, 9f);
+    protected override float CameraSize => 21.43f;
+    protected override Vector2 CameraPosition => new(1.01f, 11.82f);
 
     protected override void OnExampleEnable()
     {

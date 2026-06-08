@@ -9,8 +9,8 @@ public sealed class ScaleRagdoll : SandboxExampleBehaviour
     private RagdollFactory.Ragdoll m_Ragdoll;
     private float m_RagdollScale;
 
-    protected override float CameraSize => 6f;
-    protected override Vector2 CameraPosition => new(0f, 4.5f);
+    protected override float CameraSize => 5f;
+    protected override Vector2 CameraPosition => new(0f, 4f);
 
     protected override void OnExampleEnable()
     {

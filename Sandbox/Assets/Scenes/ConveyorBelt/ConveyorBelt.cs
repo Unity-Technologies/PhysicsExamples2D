@@ -14,8 +14,8 @@ public sealed class ConveyorBelt : SandboxExampleBehaviour
     private float m_ConveyorSpeed;
     private float m_ConveyorAngle;
 
-    protected override float CameraSize => 12f;
-    protected override Vector2 CameraPosition => new(0f, 7f);
+    protected override float CameraSize => 17f;
+    protected override Vector2 CameraPosition => new(1f, 12f);
 
     protected override void OnExampleEnable()
     {

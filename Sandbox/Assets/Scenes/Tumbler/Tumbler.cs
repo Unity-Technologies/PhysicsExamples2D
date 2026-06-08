@@ -25,7 +25,7 @@ public sealed class Tumbler : SandboxExampleBehaviour
     private PhysicsBody m_TumblerBody;
 
     protected override float CameraSize => 34f;
-    protected override Vector2 CameraPosition => Vector2.down;
+    protected override Vector2 CameraPosition => new(0f, 4f);
 
     protected override void OnExampleEnable()
     {

@@ -18,8 +18,8 @@ public sealed class BounceRagdolls : SandboxExampleBehaviour
 
     private const bool FastCollisions = true;
 
-    protected override float CameraSize => 12f;
-    protected override Vector2 CameraPosition => Vector2.zero;
+    protected override float CameraSize => 13f;
+    protected override Vector2 CameraPosition => new(0f, 0f);
 
     protected override void OnExampleEnable()
     {
