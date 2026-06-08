@@ -7,6 +7,7 @@ using UnityEngine.LowLevelPhysics2D;
 #endif
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Shapes", "Demonstrating creating pseudo-ellipse shapes as Polygons.")]
 public sealed class EllipsePolygons : SandboxExampleBehaviour
 {

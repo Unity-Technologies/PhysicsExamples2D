@@ -9,6 +9,7 @@ using UnityEngine.LowLevelPhysics2D;
 #endif
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Collision", "Demonstrating the Cast Mover feature.")]
 public sealed class CharacterMover : SandboxExampleBehaviour
 {

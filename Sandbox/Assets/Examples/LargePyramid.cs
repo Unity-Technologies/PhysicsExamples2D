@@ -6,6 +6,7 @@ using UnityEngine.LowLevelPhysics2D;
 #endif
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "A large pyramid of boxes stress-testing stacking stability.")]
 public sealed class LargePyramid : SandboxExampleBehaviour
 {

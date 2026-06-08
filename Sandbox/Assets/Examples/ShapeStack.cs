@@ -7,6 +7,7 @@ using UnityEngine.LowLevelPhysics2D;
 #endif
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Shapes", "Checking the stability of stacking shapes.")]
 public sealed class ShapeStack : SandboxExampleBehaviour
 {

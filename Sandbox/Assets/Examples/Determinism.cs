@@ -8,6 +8,7 @@ using UnityEngine.LowLevelPhysics2D;
 #endif
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Collision", "Checking cross-platform determinism using a complex joint set-up. <b><color=#FF0000>NOTE: Cross-platform determinism is not supported yet!</color></b>")]
 public sealed class Determinism : SandboxExampleBehaviour
 {

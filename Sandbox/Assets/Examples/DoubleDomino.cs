@@ -5,6 +5,7 @@ using Unity.U2D.Physics;
 using UnityEngine.LowLevelPhysics2D;
 #endif
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Shapes", "Demonstrating accuracy by simulating the classic double-domino wave.")]
 public sealed class DoubleDomino : SandboxExampleBehaviour
 {

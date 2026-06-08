@@ -15,6 +15,7 @@ using UnityEngine.UIElements;
 /// Ref: https://www.red3d.com/cwr/
 /// Ref: http://www.kfish.org/boids/pseudocode.html
 /// </summary>
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Batching", "Thousands of flocking boids driven by a Burst job using batched body transforms.")]
 public sealed class Boids : SandboxExampleBehaviour
 {

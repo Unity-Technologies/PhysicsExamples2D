@@ -8,6 +8,7 @@ using UnityEngine.LowLevelPhysics2D;
 #endif
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Collision", "Checking the stability of very fast continuous collision.")]
 public sealed class BounceHouse : SandboxExampleBehaviour
 {

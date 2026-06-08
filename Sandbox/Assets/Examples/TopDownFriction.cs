@@ -7,6 +7,7 @@ using UnityEngine.LowLevelPhysics2D;
 #endif
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Joints", "Demonstrating using the RelativeJoint to achieve \"top down\" friction.")]
 public sealed class TopDownFriction : SandboxExampleBehaviour
 {

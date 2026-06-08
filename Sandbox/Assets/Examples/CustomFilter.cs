@@ -6,6 +6,7 @@ using Unity.U2D.Physics;
 using UnityEngine.LowLevelPhysics2D;
 #endif
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Shapes", "Demonstrates the use of a custom shape filter.")]
 public sealed class CustomFilter : SandboxExampleBehaviour, PhysicsCallbacks.IContactFilterCallback
 {
