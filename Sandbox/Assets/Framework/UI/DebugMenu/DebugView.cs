@@ -111,7 +111,7 @@ public class DebugView : MonoBehaviour, IFoldable
         }
 
         // Reflect the state in the toggle caption.
-        var caret = rolledUp ? "▸" : "▾";
+        var caret = rolledUp ? "▶" : "▼";
         m_RollupToggle.text = $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>Debug";
     }
 
@@ -121,7 +121,7 @@ public class DebugView : MonoBehaviour, IFoldable
     private static void SetSectionCollapsed(Button header, string title, VisualElement region, bool collapsed)
     {
         region.style.display = collapsed ? DisplayStyle.None : DisplayStyle.Flex;
-        var caret = collapsed ? "▸" : "▾";
+        var caret = collapsed ? "▶" : "▼";
         header.text = $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>{title}";
     }
 

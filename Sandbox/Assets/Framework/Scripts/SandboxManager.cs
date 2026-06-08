@@ -55,7 +55,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     {
         m_SceneOptionsCollapsed = collapsed;
         m_SceneOptionsContent.style.display = collapsed ? DisplayStyle.None : DisplayStyle.Flex;
-        var caret = collapsed ? "▸" : "▾";
+        var caret = collapsed ? "▶" : "▼";
         m_SceneOptionsHeader.text = $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>Options";
     }
 
@@ -388,7 +388,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         m_ExamplesDetails.style.display = folded ? DisplayStyle.None : DisplayStyle.Flex;
 
         // Caret to the left of "Examples", with the same half-character spacing as the other panels.
-        var caret = folded ? "▸" : "▾";
+        var caret = folded ? "▶" : "▼";
         m_ExamplesHeader.text = $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>Examples";
     }
 
