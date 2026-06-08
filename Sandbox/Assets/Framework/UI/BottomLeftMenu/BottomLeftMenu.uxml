@@ -5,7 +5,7 @@
             <ui:VisualElement name="sandbox-details">
                 <ui:Slider label="Explode Impulse" value="0" high-value="100" name="explode-impulse" low-value="1" show-input-field="true" focusable="false" inverted="false" fill="true"/>
                 <ui:Slider label="Camera Zoom" value="1" high-value="20" name="camera-zoom" low-value="0.1" show-input-field="true" focusable="false" inverted="false" fill="true"/>
-                <ui:Slider label="Outline Thickness" value="2" high-value="10" name="draw-thickness" low-value="1" show-input-field="true" focusable="false" fill="true"/>
+                <ui:Slider label="Outline Thickness" value="2" high-value="5" name="draw-thickness" low-value="1" show-input-field="true" focusable="false" fill="true"/>
                 <ui:Slider label="Point Scale" value="1" high-value="10" name="draw-point-scale" low-value="0.001" show-input-field="true" focusable="false" fill="true"/>
                 <ui:Slider label="Normal Scale" value="1" high-value="10" name="draw-normal-scale" low-value="0.001" show-input-field="true" focusable="false" fill="true"/>
                 <ui:Slider label="Impulse Scale" value="1" high-value="10" name="draw-impulse-scale" low-value="0.001" show-input-field="true" focusable="false" fill="true"/>
