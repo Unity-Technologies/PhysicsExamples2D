@@ -18,6 +18,7 @@
                 <ui:Toggle label="Contact Normals" name="draw-contact-normals" value="true" focusable="false"/>
                 <ui:Toggle label="Contact Friction" name="draw-contact-tangents" value="true" focusable="false"/>
                 <ui:Toggle label="Contact Impulses" name="draw-contact-impulses" value="true" focusable="false"/>
+                <ui:Slider label="Saturation" value="0.65" high-value="1" name="shape-saturation" low-value="0" show-input-field="true" focusable="false" fill="true"/>
                 <ui:SliderInt label="Workers" value="64" high-value="64" show-input-field="true" name="workers" fill="true"/>
                 <ui:SliderInt label="Sub-steps" value="4" high-value="64" show-input-field="true" low-value="1" inverted="false" name="sub-steps" focusable="false" fill="true"/>
                 <ui:Toggle label="Warm Starting" name="warm-starting" value="true" focusable="false"/>
