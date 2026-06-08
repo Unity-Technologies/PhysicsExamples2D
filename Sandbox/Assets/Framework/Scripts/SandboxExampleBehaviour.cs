@@ -45,9 +45,9 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
     private void OnEnable()
     {
         // Resolve the shared infrastructure (lives in the always-loaded Sandbox.unity).
-        SandboxManager = FindFirstObjectByType<SandboxManager>();
-        SceneManifest = FindFirstObjectByType<SceneManifest>();
-        CameraManipulator = FindFirstObjectByType<CameraManipulator>();
+        SandboxManager = FindAnyObjectByType<SandboxManager>();
+        SceneManifest = FindAnyObjectByType<SceneManifest>();
+        CameraManipulator = FindAnyObjectByType<CameraManipulator>();
 
         // Frame the camera.
         CameraManipulator.CameraSize = CameraSize;

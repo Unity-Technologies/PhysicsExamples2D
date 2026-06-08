@@ -94,7 +94,7 @@ public class CameraManipulator : MonoBehaviour
     
     private void Awake()
     {
-        m_SandboxManager = FindFirstObjectByType<SandboxManager>();
+        m_SandboxManager = FindAnyObjectByType<SandboxManager>();
         Camera = GetComponentInParent<Camera>();
         CameraPosition = Vector2.zero;
         m_TouchMode = InputMode.Drag;
@@ -296,7 +296,7 @@ public class CameraManipulator : MonoBehaviour
         // Resolve the shared panel lazily (all UIDocuments use the same PanelSettings → one panel).
         if (m_UIPanel == null)
         {
-            var document = FindFirstObjectByType<UIDocument>();
+            var document = FindAnyObjectByType<UIDocument>();
             m_UIPanel = document != null ? document.rootVisualElement?.panel : null;
             if (m_UIPanel == null)
                 return false;
