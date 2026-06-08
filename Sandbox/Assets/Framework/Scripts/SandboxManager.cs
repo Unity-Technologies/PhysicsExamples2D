@@ -257,7 +257,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 
         // Hide the Quit button on the Web platform.
         if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
             BottomLeftMenu.QuitButton.style.display = DisplayStyle.None;
+
+            // Remove the Unity-side frame-rate cap on WebGL so the browser's requestAnimationFrame
+            // can run above 60fps on high-refresh displays and avoids the snap-to-30fps halving.
+            Application.targetFrameRate = -1;
+        }
 
         var defaultWorld = PhysicsWorld.defaultWorld;
         m_MenuDefaults = new MenuDefaults
