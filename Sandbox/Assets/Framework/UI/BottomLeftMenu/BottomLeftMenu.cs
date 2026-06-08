@@ -55,11 +55,11 @@ public class BottomLeftMenu : MonoBehaviour, IFoldable
         m_ShortcutsFooter.text = FooterText(state == AccordionState.Shortcuts, "Shortcuts");
     }
 
-    // ▾ = expanded (click to collapse), ▴ = collapsed (click to expand); caret left of the title
+    // ▼ = expanded (click to collapse), ▲ = collapsed (click to expand); caret left of the title
     // with the same half-character spacing as the other panels.
     private static string FooterText(bool expanded, string label)
     {
-        var caret = expanded ? "▾" : "▴";
+        var caret = expanded ? "▼" : "▲";
         return $"{SandboxUtility.HighlightColor}{caret}{SandboxUtility.EndHighlightColor}<size=50%> </size>{label}";
     }
 
