@@ -154,7 +154,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     private Button m_SceneOptionsHeader;
     private bool m_SceneOptionsCollapsed;
     private Label m_SceneDescription;
-    private VisualElement m_CountersElement;
 
     // Examples panel roll-up: the "Examples" header caret collapses the panel content (the header
     // stays). Joins Fold All via IFoldable.
@@ -196,6 +195,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     private readonly List<TreeViewItemData<string>> m_ViewItems = new();
     private Random m_Random;
     private bool m_IgnoreAutoSceneSelection;
+    private EventCallback<ChangeEvent<string>> m_SceneChangedCallback;
 
     private void Start()
     {
@@ -781,15 +781,18 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 
     private void SceneCategoryChanged(string categoryName)
     {
-        m_Scenes.UnregisterValueChangedCallback(evt => SceneChanged(evt.newValue));
-        
+        // Unregister via the cached delegate — unregistering a fresh lambda always fails silently.
+        if (m_SceneChangedCallback != null)
+            m_Scenes.UnregisterValueChangedCallback(m_SceneChangedCallback);
+
         // Add the category scenes.
         m_Scenes.choices.Clear();
         m_Scenes.index = -1;
         m_Scenes.choices.AddRange(m_SceneManifest.GetScenes(categoryName));
-        
+
         // Register a scene change.
-        m_Scenes.RegisterValueChangedCallback(evt => SceneChanged(evt.newValue));
+        m_SceneChangedCallback = evt => SceneChanged(evt.newValue);
+        m_Scenes.RegisterValueChangedCallback(m_SceneChangedCallback);
         
         // Select the first scene (if not ignored).
         if (!m_IgnoreAutoSceneSelection)
@@ -853,6 +856,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
         m_DrawThicknessElement.value = m_MenuDefaults.DrawThickness;
         m_DrawPointScaleElement.value = m_MenuDefaults.DrawPointScale;
+        m_DrawNormalScaleElement.value = m_MenuDefaults.DrawNormalScale;
+        m_DrawImpulseScaleElement.value = m_MenuDefaults.DrawImpulseScale;
         m_DrawBodiesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllBodies);
         m_DrawShapesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllShapes);
         m_DrawJointsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllJoints);
@@ -914,14 +919,12 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         using var worlds = PhysicsWorld.GetWorlds();
         foreach (var world in worlds)
         {
-            var oldPaused = defaultWorld.paused;
-            var oldSimulationType = defaultWorld.simulationType;
+            var oldPaused = world.paused;
+            var oldSimulationType = world.simulationType;
 
-            {
-                world.simulationType = PhysicsWorld.SimulationType.Script;
-                world.paused = false;
-                world.Simulate(oldSimulationType == PhysicsWorld.SimulationType.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
-            }
+            world.simulationType = PhysicsWorld.SimulationType.Script;
+            world.paused = false;
+            world.Simulate(oldSimulationType == PhysicsWorld.SimulationType.FixedUpdate ? Time.fixedDeltaTime : Time.deltaTime);
 
             world.paused = oldPaused;
             world.simulationType = oldSimulationType;

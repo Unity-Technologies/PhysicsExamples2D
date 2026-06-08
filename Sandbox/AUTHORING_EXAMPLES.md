@@ -348,8 +348,9 @@ verbatim** (the starter template) and change only the two MonoBehaviour referenc
 #   keep m_PanelSettings b3cc2d097ffb6c846acc69277ba50b67  (shared PanelSettings)
 #   keep sourceAsset guid c705ca6fc9e54f969fcd4dfcc2160e43  (shared ExampleChrome.uxml)
 ```
-The scene also has a `SampleCamera` (edit-time framing only — `SceneManifest` deactivates it
-after additive load and `CameraManipulator` takes over). Leave it as copied.
+**Do NOT add a Camera GameObject** (of any name) to the scene. Cameras are managed entirely
+by `CameraManipulator` in `Sandbox.unity`; a per-scene camera is never needed and will be
+ignored at runtime.
 
 ---
 
@@ -393,4 +394,5 @@ after additive load and `CameraManipulator` takes over). Leave it as copied.
 - [ ] Registered: ran `Tools/2D/Physics/Rebuild Sandbox Registry` (or hand-added build-list +
       `SceneItems` entries) — scene path matches in all places.
 - [ ] No legacy `Physics2D` types; no `[Obsolete]` PhysicsCore2D members.
+- [ ] No Camera GameObject in the scene (cameras are global; `CameraManipulator` in `Sandbox.unity` handles all framing).
 ```

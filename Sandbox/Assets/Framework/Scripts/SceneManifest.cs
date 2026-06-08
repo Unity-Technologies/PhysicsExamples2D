@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,8 +23,30 @@ public class SceneManifest : MonoBehaviour
 
     private Coroutine m_LoadSceneRoutine;
 
-    public List<string> GetCategories() => SceneItems.Select(item => item.Category).Distinct().OrderBy(category => category, StringComparer.OrdinalIgnoreCase).ToList();
-    public List<string> GetScenes(string category) => SceneItems.Where(item => item.Category == category).Select(item => item.Name).OrderBy(name => name, StringComparer.OrdinalIgnoreCase).ToList();
+    public List<string> GetCategories()
+    {
+        var seen = new HashSet<string>();
+        var result = new List<string>();
+        foreach (var item in SceneItems)
+        {
+            if (seen.Add(item.Category))
+                result.Add(item.Category);
+        }
+        result.Sort(StringComparer.OrdinalIgnoreCase);
+        return result;
+    }
+
+    public List<string> GetScenes(string category)
+    {
+        var result = new List<string>();
+        foreach (var item in SceneItems)
+        {
+            if (item.Category == category)
+                result.Add(item.Name);
+        }
+        result.Sort(StringComparer.OrdinalIgnoreCase);
+        return result;
+    }
     // Look up a scene item by Name. Returns false (and a default item) if no match — callers
     // should handle the missing case rather than assume the name is always valid.
     public bool TryGetSceneItem(string sceneName, out SceneItem item)
@@ -83,16 +104,28 @@ public class SceneManifest : MonoBehaviour
                 yield return null;
         }
 
-        // Deactivate the sample camera.
-        var sampleCamera = GameObject.Find("SampleCamera");
-        if (sampleCamera)
-            sampleCamera.SetActive(false);
+        // Remove any Camera present in the example scene — cameras are managed globally
+        // by CameraManipulator in Sandbox.unity and must not exist in example scenes.
+        var loadedScene = SceneManager.GetSceneByPath(SceneItems[LoadedSceneIndex].ScenePath);
+        foreach (var camera in FindObjectsByType<Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            if (camera.gameObject.scene == loadedScene)
+                Destroy(camera.gameObject);
+        }
 
         // Indicate we're done.
         m_LoadSceneRoutine = null;
     }
 
-    private int FindSceneIndex(string sceneName) => SceneItems.Select((item, i) => new { Item = item, Index = i }).First(x => x.Item.Name == sceneName).Index;
+    private int FindSceneIndex(string sceneName)
+    {
+        var index = SceneItems.FindIndex(item => item.Name == sceneName);
+        if (index >= 0)
+            return index;
+
+        Debug.LogWarning($"[SceneManifest] Scene '{sceneName}' not found — falling back to the first scene.");
+        return 0;
+    }
 
     private AsyncOperation LoadSceneIndex(int sceneIndex, LoadSceneMode loadSceneMode)
     {

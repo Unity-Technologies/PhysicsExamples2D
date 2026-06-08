@@ -33,7 +33,7 @@ public class CameraManipulator : MonoBehaviour
         set
         {
             m_CameraSize = value;
-            Camera.orthographicSize = m_CameraSize / math.max(m_CameraZoom, 0f);
+            Camera.orthographicSize = m_CameraSize / math.max(m_CameraZoom, 0.00001f);
         }
     }
 
