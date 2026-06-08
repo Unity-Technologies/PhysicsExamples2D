@@ -22,7 +22,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         set => m_SleepingElement.value = value;
     }
 
-    public Color ShapeColorState => ColorShapeState ? new Color() : Color.HSVToRGB(H: m_Random.NextFloat(0f, 1f), S: m_Random.NextFloat(0.5f, 1f), V: 1f);
+    public Color ShapeColorState => ColorShapeState ? new Color() : Color.HSVToRGB(m_Random.NextFloat(0f, 1f), m_Random.NextFloat(0.7f, 1f) * m_SaturationScaleElement.value, m_Random.NextFloat(0.5f, 1f));
     bool IShapeColorProvider.IsShapeColorActive => ColorShapeState;
 
     public float CameraZoom
@@ -137,6 +137,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         public float ExplodeImpulse;
         public float CameraZoom;
         public bool ColorShapeState;
+        public float SaturationScale;
         public float DrawThickness;
         public float DrawPointScale;
         public float DrawNormalScale;
@@ -163,6 +164,9 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     private MenuDefaults m_MenuDefaults;
     private bool m_DisableUIRestarts;
     private Dictionary<PhysicsWorld.DrawOptions, Toggle> m_DrawFlagElements;
+
+    // Draw Elements (color).
+    private Slider m_SaturationScaleElement;
 
     // PhysicsWorld Elements.
     private SliderInt m_WorkersElement;
@@ -270,6 +274,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
             ExplodeImpulse = 30f,
             CameraZoom = 1f,
             ColorShapeState = false,
+            SaturationScale = 0.65f,
             DrawThickness = defaultWorld.drawThickness,
             DrawPointScale = defaultWorld.drawPointScale,
             DrawNormalScale = defaultWorld.drawNormalScale,
@@ -507,6 +512,13 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         // The Sandbox (world/draw) controls now live in the merged BottomLeftMenu panel; query them
         // from its UIDocument root (it's a serialized reference, so no lookup is needed).
         var root = BottomLeftMenu.GetComponent<UIDocument>().rootVisualElement;
+
+        // Saturation scale (colour).
+        {
+            m_SaturationScaleElement = root.Q<Slider>("shape-saturation");
+            m_SaturationScaleElement.value = m_MenuDefaults.SaturationScale;
+            m_SaturationScaleElement.RegisterValueChangedCallback(_ => ResetScene());
+        }
 
         // PhysicsWorld.
         {
@@ -844,6 +856,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         m_DrawContactNormalsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactNormal);
         m_DrawContactTangentsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactFriction);
         m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactForces);
+
+        m_SaturationScaleElement.value = m_MenuDefaults.SaturationScale;
 
         // Input mode + colour state have no Options controls; reset directly + sync Shortcuts buttons.
         SetInputMode(CameraManipulator.InputMode.Drag);
