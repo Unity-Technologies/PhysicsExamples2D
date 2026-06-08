@@ -1,7 +1,7 @@
 # Authoring Sandbox Examples (LLM Guide)
 
 This document tells an automated agent (LLM) everything it needs to **add a new example
-scene to the Sandbox project, and to modify an existing one**.
+to the Sandbox project, and to modify an existing one**.
 
 It is the authoritative recipe for this project. Read it fully before creating files.
 
@@ -13,42 +13,37 @@ It is the authoritative recipe for this project. Read it fully before creating f
 
 > **Architecture.** Every example derives from **`SandboxExampleBehaviour`** and is tagged with
 > **`[ExampleScene]`**, with the repeated menu chrome factored into shared infrastructure. All
-> scenes — including the `Template/Example` starter — now use this pattern; the old inline
-> `MonoBehaviour` boilerplate is fully retired. **Author all new and modified examples with the
+> examples use this pattern; the old inline `MonoBehaviour` boilerplate is fully retired.
+> **Author all new and modified examples with the
 > new pattern below.**
 
 ---
 
 ## 1. What an "example" is
 
-Each example is a **self-contained scene** living in its own folder directly under
-`Assets/Scenes/`, named after the example. There are **no category sub-folders** — an example's
-category comes solely from its `[ExampleScene("<Category>", …)]` attribute, so the folder name is
-just the example `<Name>`:
+An example is a **single `.cs` file** inside `Assets/Examples/`. There are no subfolders and no
+scene files. An example's category comes solely from its `[ExampleScene("<Category>", …)]`
+attribute:
 
 ```
-Assets/Scenes/<Name>.meta  ← folder GUID (Unity needs every folder to have one)
-Assets/Scenes/<Name>/
-├── <Name>.cs            ← a SandboxExampleBehaviour subclass tagged [ExampleScene]
-├── <Name>.cs.meta       ← asset GUID for the script
-├── <Name>.unity         ← the scene asset
-└── <Name>.unity.meta    ← asset GUID for the scene
+Assets/Examples/<Name>.cs        ← a SandboxExampleBehaviour subclass tagged [ExampleScene]
+Assets/Examples/<Name>.cs.meta   ← asset GUID (Unity auto-generates this on import)
 ```
 
-There is **no per-example `.uxml`.** Option controls are built in code (see §7); the scene's
+If the example needs serialised assets (sprites, materials, etc.), create a companion
+`<Name>Data : ExampleSceneData` ScriptableObject class and a matching `.asset` instance in
+`Assets/Examples/Assets/` — see §5.
+
+There is **no per-example `.uxml`.** Option controls are built in code (see §6); the
 `UIDocument` renders the single shared `ExampleChrome.uxml`.
 
-> **Folder `.meta`:** every folder is itself an asset, so the new `<Name>` folder needs a
-> sibling `<Name>.meta`. The Editor auto-generates this on import; in a pure file-only
-> workflow author it yourself with a fresh GUID so git state is deterministic (see Step 1b).
-
-Scenes are **loaded additively at runtime** by the shared infrastructure in
-`Assets/Sandbox.unity` (the startup scene):
+Examples are **loaded at runtime** by instantiating a new `GameObject` and calling
+`AddComponent<T>()` — no scene loading, no build settings management.
 
 | Component / type | Role |
 |---|---|
-| `SandboxManager` | Global controls (pause/step/reset/colors/debug), world draw options, shared deterministic `Random`, per-scene reset hook. |
-| `SceneManifest`  | The registry of all examples (`SceneItems` list). Loads/unloads scenes additively by build index. |
+| `SandboxManager` | Global controls (pause/step/reset/colors/debug), world draw options, shared deterministic `Random`, per-example reset hook. |
+| `SceneManifest`  | ScriptableObject registry of all examples. Switches examples by destroying the old `GameObject` and adding the new component. |
 | `CameraManipulator` | Drives the runtime camera (pan/zoom/drag/explode). Each example sets initial framing via overrides. |
 | `SandboxExampleBehaviour` | The base class every example derives from. Resolves the infra, finds the chrome regions, titles/describes the panel, wires Reset, exposes the `AddSlider`/`AddToggle`/`AddEnum`/… control-builder helpers, and clears overrides — so the example file is just its physics + options. |
 
@@ -58,132 +53,101 @@ PhysicsCore2D **debug renderer draws all shapes/joints automatically**. Use a Un
 
 ---
 
-## 2. Registering the example
+## 2. Adding an example — the full recipe
 
-The runtime discovers scenes from two places: the **build list**
-(`ProjectSettings/EditorBuildSettings.asset`) and the **`SceneItems` list** on the
-`SceneManifest` in `Assets/Sandbox.unity`. You no longer maintain those by hand.
+**Step 1 — Create `Assets/Examples/<Name>.cs`** from the §7 template. Set the class name,
+`[ExampleScene]` category and description, camera framing, options, and physics content.
+Unity auto-generates the `.meta` on import.
 
-**Recommended (in-Editor): the `[ExampleScene]` attribute + the registry tool.**
-1. Tag the class: `[ExampleScene("<Category>", "<description>")]`.
-2. Run **`Tools/2D/Physics/Rebuild Sandbox Registry`**.
+**Step 2 — Register.** Run **`Tools > 2D > Physics > Rebuild Sandbox Registry`**.
 
-The tool scans every `[ExampleScene]` type, finds its sibling `<Name>.unity`, and **upserts**
-(by scene path) the manifest entry *and* the build-list entry. It is non-destructive — it
-won't remove scenes it doesn't know about, so it's safe to run even when only some examples are
-tagged. `Category` and `Description` live in the attribute (next to the code), not in the manifest.
+That's it. The tool scans every `[ExampleScene]`-tagged type that derives from
+`SandboxExampleBehaviour`, writes the assembly-qualified `TypeName` into
+`Assets/Framework/SceneManifest.asset`, and removes entries for types that no longer exist.
+No GUIDs to generate, no scene files to author, no build settings to edit.
 
-**Fallback (pure file-only, no Editor):** the registry tool is an Editor menu command, so if
-you're editing files without launching Unity you must still hand-register in both places —
-see Step 5 (alt). Tag the class with `[ExampleScene]` anyway so a later tool run reconciles it.
+**Step 3 — (Optional) Iterate.** Set `StartScene:` on the `SandboxManager` in `Sandbox.unity`
+to your example's display name to boot straight into it (revert before committing if needed).
 
 ---
 
-## 3. The invariant chain (why GUIDs matter)
+## 3. Registering — what the tool does
 
-The scene file references the script **by GUID**, so these must line up exactly:
+`ExampleRegistryBuilder` (`Assets/Editor/ExampleRegistryBuilder.cs`) runs on:
+- the explicit **`Tools > 2D > Physics > Rebuild Sandbox Registry`** menu item, and
+- any script import inside `Assets/Examples/` that introduces a new `[ExampleScene]` type.
 
-```
-<Name>.cs.meta:guid ────────────► <Name>.unity  m_Script.guid  (the example MonoBehaviour)
-<Name>.unity.meta:guid ─────────► EditorBuildSettings.asset  guid (build list entry)
-class <Name> (in <Name>.cs) ────► <Name>.unity  m_EditorClassIdentifier: Assembly-CSharp::<Name>
-<Name>.unity ScenePath ─────────► Sandbox.unity SceneItems[].ScenePath  AND  build list path
-```
-
-The UIDocument's `sourceAsset.guid` is the **constant shared-chrome guid**
-`c705ca6fc9e54f969fcd4dfcc2160e43` (`Assets/Framework/UI/ExampleChrome.uxml`) — the same in every
-example, not a per-example value.
-
-There is **no asmdef** in this project, so all example scripts compile into the default
-`Assembly-CSharp`; `m_EditorClassIdentifier` is always `Assembly-CSharp::<ClassName>`.
-
-### Generating GUIDs
-A Unity asset GUID is **32 lowercase hex characters**, no dashes:
-```bash
-python -c "import uuid;print(uuid.uuid4().hex)"
-# or  openssl rand -hex 16   # or (PowerShell) [guid]::NewGuid().ToString('N')
-```
-Never reuse a GUID that already exists in the project.
+It:
+1. Calls `TypeCache.GetTypesWithAttribute<ExampleSceneAttribute>()` — no file scanning.
+2. Validates that every found type derives from `SandboxExampleBehaviour` (logs a warning otherwise).
+3. Upserts `SceneItem` entries by `TypeName` (assembly-qualified class name).
+4. Auto-discovers companion `ExampleSceneData` assets by searching for a ScriptableObject whose
+   asset name matches `{TypeName}Data` (e.g. `SpriteDestructionData.asset` for `SpriteDestruction`).
+5. Ensures only `Assets/Sandbox.unity` is in `EditorBuildSettings.scenes`; removes any stale
+   `Assets/Scenes/` entries left over from older project layouts.
 
 ---
 
-## 4. Shared constants (copy verbatim into the scene)
+## 4. How `SceneManifest` switches examples at runtime
 
-Identical in every example scene — NOT per-asset:
+`SceneManifest` is a ScriptableObject (`Assets/Framework/SceneManifest.asset`). `SandboxManager`
+holds a direct serialised reference to it.
 
-| Reference | Value |
-|---|---|
-| `UIDocument` built-in script | `m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}` |
-| Shared `PanelSettings` | `m_PanelSettings: {fileID: 11400000, guid: b3cc2d097ffb6c846acc69277ba50b67, type: 2}` |
-| UIDocument `sourceAsset` (the shared chrome) | `{fileID: 9197481963319205126, guid: c705ca6fc9e54f969fcd4dfcc2160e43, type: 3}` |
+When switching to example `name`:
 
-Every example's `UIDocument` points at the one shared `Assets/Framework/UI/ExampleChrome.uxml`
-(menu region, tab, `options-content` placeholder, description). The base class finds its regions
-at load, titles/describes the panel, and lets the example add controls into `options-content`.
+```
+1. SetActive(false) on the current example GameObject → OnDisable fires immediately.
+2. Destroy the current example GameObject.
+3. Invoke the reset callback (clears physics, debug draw, RNG seed).
+4. m_CurrentExampleGO = new GameObject(item.Name)   ← SetActive(false) first
+   example = m_CurrentExampleGO.AddComponent(Type.GetType(item.TypeName))
+   example.ExampleData = item.Data                  ← inject before OnEnable
+   LoadedSceneName = item.Name
+   LoadedSceneDescription = item.Description
+   m_CurrentExampleGO.SetActive(true)               ← OnEnable fires here with all state set
+```
+
+The switch is **synchronous** — no coroutines, no async scene loading.
 
 ---
 
-## 5. Step-by-step recipe (add a new example)
+## 5. Examples with asset dependencies
 
-**Step 0 — Naming.** `Category` (free-text group, e.g. `Shapes`); `<ClassName>`/file stem in
-PascalCase (e.g. `MyExample`) used for the `.cs`, `.unity`, and folder.
-The display name is derived from the class name (`MyExample` → "My Example").
+Most examples are fully procedural. If an example needs a serialised asset (a `Sprite`, a
+`Material`, a `PhysicsMaterial2D`, etc.), use the **companion data** pattern:
 
-**Step 1 — GUIDs.** Generate three fresh ones: `GUID_FOLDER`, `GUID_CS`, `GUID_SCENE`.
+**Step A — Define a data class** (in `Assets/Examples/` or inline):
+```csharp
+using UnityEngine;
 
-**Step 1b — Folder `.meta`** at `Assets/Scenes/<Name>.meta`:
-```yaml
-fileFormatVersion: 2
-guid: GUID_FOLDER
-folderAsset: yes
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+[CreateAssetMenu(fileName = "MyExampleData", menuName = "2D Physics/Example Data/My Example")]
+public class MyExampleData : ExampleSceneData
+{
+    public Sprite MySprite;
+    public Material MyMaterial;
+}
 ```
 
-**Step 2 — `<Name>.cs`** from the §8 template (set class name, `[ExampleScene]`, camera, options,
-physics). `<Name>.cs.meta`:
-```yaml
-fileFormatVersion: 2
-guid: GUID_CS
+**Step B — Read from `ExampleData` in `OnExampleEnable()`:**
+```csharp
+protected override void OnExampleEnable()
+{
+    var data = (MyExampleData)ExampleData;
+    m_Sprite    = data.MySprite;
+    m_Material  = data.MyMaterial;
+}
 ```
 
-**Step 3 — `<Name>.unity`** from the §8 scene template. Swap in `GUID_CS` (MonoBehaviour
-`m_Script.guid`) and `m_EditorClassIdentifier: Assembly-CSharp::<ClassName>`. Leave the UIDocument
-`sourceAsset` pointing at the shared chrome guid `c705ca6fc9e54f969fcd4dfcc2160e43` (already in the
-template — there is no per-example uxml). `<Name>.unity.meta`:
-```yaml
-fileFormatVersion: 2
-guid: GUID_SCENE
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
-```
+**Step C — Create the `.asset` instance** inside Unity: right-click in `Assets/Examples/Assets/`,
+choose *Create > 2D Physics > Example Data > My Example*, name it `MyExampleData`, then assign
+the sprite/material references in the Inspector.
 
-**Step 4 — Register.** Run **`Tools/2D/Physics/Rebuild Sandbox Registry`** (with `[ExampleScene]`
-on the class). Done.
+**Step D — Register.** Run **`Tools > 2D > Physics > Rebuild Sandbox Registry`**. The tool finds
+`MyExampleData.asset` by convention (asset name matches `{TypeName}Data`) and wires it into the
+`SceneManifest` entry automatically.
 
-**Step 4 (alt, no Editor) — Hand-register** in both:
-- `ProjectSettings/EditorBuildSettings.asset` → add to `m_Scenes`:
-  ```yaml
-    - enabled: 1
-      path: Assets/Scenes/<Name>/<Name>.unity
-      guid: GUID_SCENE
-  ```
-- `Assets/Sandbox.unity` → add to the `SceneItems:` list on the `SceneManifest` MonoBehaviour:
-  ```yaml
-    - Name: <Display Name>
-      Category: <Category>
-      Description: <description>
-      ScenePath: Assets/Scenes/<Name>/<Name>.unity
-  ```
-
-**Step 5 — (Optional) Iterate.** Set `StartScene:` on the `SandboxManager` in `Sandbox.unity`
-to your display name to boot straight into it (revert before committing if needed).
+All example assets live in the single flat `Assets/Examples/Assets/` folder — no per-example
+subfolders. This keeps the folder hierarchy flat and makes asset discovery trivial.
 
 ---
 
@@ -243,6 +207,7 @@ Key rules:
 | `World` | `PhysicsWorld.defaultWorld` (reads/methods; local-copy to set properties). |
 | `ref Random Random` | Shared deterministic RNG. |
 | `Color ShapeColor` | Per-shape colour honouring the global Colors toggle. |
+| `ExampleData` | Optional `ExampleSceneData` asset injected before `OnEnable` (null for most examples). |
 | `SandboxManager` / `SceneManifest` / `CameraManipulator` / `UIDocument` | The resolved infra. |
 | `RebuildScene()` | `ResetSceneState()` + `SetupScene()`; call from option callbacks. |
 | `CameraSize` / `CameraPosition` (override) | Initial framing. |
@@ -285,9 +250,9 @@ Controls appear in the order you add them.
 
 ---
 
-## 8. Copy-paste templates
+## 8. Copy-paste template
 
-### `<Name>.cs`
+### `Assets/Examples/<Name>.cs`
 ```csharp
 using UnityEngine;
 using Unity.U2D.Physics;
@@ -335,28 +300,13 @@ Add `OnExampleEnable`/`OnExampleDisable` overrides only if you need per-example 
 (world-property save/restore, `PhysicsEvents` subscribe/unsubscribe, `NativeArray`/`NativeList`
 alloc+dispose, `DisableManipulators`, `ControlsMenu` buttons, `SetOverride*`).
 
-### `<Name>.unity`
-Scene boilerplate is identical to every example — **copy `Assets/Scenes/Example/Example.unity`
-verbatim** (the starter template) and change only the two MonoBehaviour reference lines:
-```yaml
-# --- the example MonoBehaviour (on the "Configuration" GameObject) ---
-  m_Script: {fileID: 11500000, guid: GUID_CS, type: 3}     # ← your script GUID
-  m_EditorClassIdentifier: Assembly-CSharp::<Name>          # ← your class name
-
-# --- the UIDocument component (same GameObject) — leave all of this as copied ---
-#   keep m_Script 19102 / 0000000000000000e000000000000000 (built-in UIDocument)
-#   keep m_PanelSettings b3cc2d097ffb6c846acc69277ba50b67  (shared PanelSettings)
-#   keep sourceAsset guid c705ca6fc9e54f969fcd4dfcc2160e43  (shared ExampleChrome.uxml)
-```
-**Do NOT add a Camera GameObject** (of any name) to the scene. Cameras are managed entirely
-by `CameraManipulator` in `Sandbox.unity`; a per-scene camera is never needed and will be
-ignored at runtime.
+No scene file is required. No GUIDs to generate. No build settings to edit.
 
 ---
 
 ## 9. Modifying an existing example
 
-- Touch only **`<Name>.cs`** — both behaviour and controls live there now.
+- Touch only **`Assets/Examples/<Name>.cs`** — both behaviour and controls live there.
 - **Add a control:** add an `AddSlider`/`AddToggle`/`AddEnum`/… call (or `AddElement(...)`) in
   `SetupOptions()`.
 - **Change a default value:** edit the `m_Field` initialiser in `.cs` (it's passed straight to the
@@ -372,8 +322,7 @@ ignored at runtime.
   delete the infra fields + `OnEnable` preamble, move setup into `OnExampleEnable`, rebuild the
   options in `SetupOptions()` with the `AddX` helpers, make `SetupScene` start at
   `var world = World;`, move teardown into `OnExampleDisable` (drop `ResetOverride*` — auto), add
-  `[ExampleScene]`, point the UIDocument `sourceAsset` at the shared chrome guid, and delete the
-  uxml. Then run the registry tool.
+  `[ExampleScene]`, and run the registry tool.
 - After editing PhysicsCore2D calls, re-verify any unfamiliar member against the
   `unity-physicscore2d-*` skills.
 
@@ -381,18 +330,12 @@ ignored at runtime.
 
 ## 10. Pre-flight checklist
 
-- [ ] Folder `Assets/Scenes/<Name>/` has the 4 files (`.cs`, `.cs.meta`, `.unity`, `.unity.meta`),
-      and the sibling `<Name>.meta` exists.
-- [ ] Three fresh, unique, 32-char lowercase-hex GUIDs (folder, script, scene).
-- [ ] `<Name>.cs`: derives from `SandboxExampleBehaviour`, tagged `[ExampleScene("<Category>", "…")]`,
+- [ ] `Assets/Examples/<Name>.cs` exists (Unity will auto-generate `.meta` on import).
+- [ ] Class derives from `SandboxExampleBehaviour`, tagged `[ExampleScene("<Category>", "…")]`,
       implements `SetupScene()`, overrides `SetupOptions`/camera/`OnExample*` as needed.
 - [ ] No `World.<prop> = …` (use a local); uses `Random`/`ShapeColor`; rebuilds via `RebuildScene()`.
 - [ ] `SetupOptions()` builds controls with the `AddX` helpers (no per-example uxml).
-- [ ] `<Name>.unity`: `m_Script.guid` == `.cs.meta` guid; `m_EditorClassIdentifier` ==
-      `Assembly-CSharp::<ClassName>`; UIDocument `sourceAsset.guid` == shared chrome guid
-      `c705ca6fc9e54f969fcd4dfcc2160e43`.
-- [ ] Registered: ran `Tools/2D/Physics/Rebuild Sandbox Registry` (or hand-added build-list +
-      `SceneItems` entries) — scene path matches in all places.
+- [ ] If asset dependencies are needed: companion `<Name>Data : ExampleSceneData` class defined,
+      `<Name>Data.asset` created in `Assets/Examples/Assets/`, assets assigned in Inspector.
+- [ ] Ran **`Tools > 2D > Physics > Rebuild Sandbox Registry`** — example appears in the menu.
 - [ ] No legacy `Physics2D` types; no `[Obsolete]` PhysicsCore2D members.
-- [ ] No Camera GameObject in the scene (cameras are global; `CameraManipulator` in `Sandbox.unity` handles all framing).
-```

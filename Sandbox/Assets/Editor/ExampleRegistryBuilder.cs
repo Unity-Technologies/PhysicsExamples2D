@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEditor;
@@ -13,13 +12,9 @@ namespace UnityEditor
 {
     /// <summary>
     /// Regenerates the example registry from code: every type marked with
-    /// <see cref="ExampleSceneAttribute"/> is upserted into the <see cref="SceneManifest"/>
-    /// list in Sandbox.unity and into the build settings. This removes the two manual
-    /// registration steps that adding an example used to require.
-    ///
-    /// The operation is an upsert (match by scene path): it adds or updates entries for
-    /// attributed examples and leaves any other entries alone, so it is safe to run while only
-    /// some examples have been migrated to <see cref="SandboxExampleBehaviour"/>.
+    /// <see cref="ExampleSceneAttribute"/> and deriving from <see cref="SandboxExampleBehaviour"/>
+    /// is upserted into the <see cref="SceneManifest"/> asset. No scene files or build settings
+    /// entries are required.
     /// </summary>
     public static class ExampleRegistryBuilder
     {
@@ -28,7 +23,7 @@ namespace UnityEditor
         [MenuItem("Tools/2D/Physics/Rebuild Sandbox Registry", false, 1)]
         public static void Rebuild()
         {
-            // Discover every attributed example and resolve its scene.
+            // Discover every attributed example type.
             var discovered = new List<SceneManifest.SceneItem>();
             foreach (var type in TypeCache.GetTypesWithAttribute<ExampleSceneAttribute>())
             {
@@ -38,69 +33,42 @@ namespace UnityEditor
                     continue;
                 }
 
-                var scriptPath = FindScriptPath(type);
-                if (scriptPath == null)
-                {
-                    Debug.LogWarning($"[ExampleRegistry] Could not locate the script asset for '{type.Name}'. Skipping.");
-                    continue;
-                }
-
-                var folder = Path.GetDirectoryName(scriptPath)?.Replace('\\', '/');
-                var scenePath = $"{folder}/{type.Name}.unity";
-                if (AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath) == null)
-                {
-                    Debug.LogWarning($"[ExampleRegistry] '{type.Name}' has no sibling scene at '{scenePath}'. Skipping.");
-                    continue;
-                }
-
                 var attribute = (ExampleSceneAttribute)Attribute.GetCustomAttribute(type, typeof(ExampleSceneAttribute));
                 discovered.Add(new SceneManifest.SceneItem
                 {
                     Name = ToDisplayName(type.Name),
                     Category = attribute.Category,
                     Description = attribute.Description,
-                    ScenePath = scenePath
+                    TypeName = type.AssemblyQualifiedName,
+                    Data = FindCompanionData(type)
                 });
             }
 
             UpsertManifest(discovered, out var added, out var updated, out var removed);
-            UpsertBuildSettings(discovered, out var buildAdded, out var buildRemoved);
+            EnsureSandboxSceneInBuild(out var buildCleaned);
 
-            Debug.Log($"[ExampleRegistry] Discovered {discovered.Count} example(s): {added} added, {updated} updated, {removed} removed in the manifest; {buildAdded} added, {buildRemoved} removed in build settings.");
+            Debug.Log($"[ExampleRegistry] Discovered {discovered.Count} example(s): {added} added, {updated} updated, {removed} removed in the manifest.{(buildCleaned ? " Cleaned stale Assets/Scenes/ entries from build settings." : "")}");
         }
 
-        // Add/update manifest entries for the discovered examples, matching by scene path.
-        // Also prunes any example entry (under Assets/Scenes/) no longer claimed by an
-        // [ExampleScene] attribute, so commenting/removing the attribute disables the example and
-        // moved/deleted scenes don't leave dead entries. If the pruned set includes the configured
-        // start scene, that reference is reset so play-mode startup can't throw.
+        // Add/update manifest entries for the discovered examples, matching by TypeName.
+        // Prunes entries whose TypeName is no longer claimed by any [ExampleScene] attribute.
         private static void UpsertManifest(List<SceneManifest.SceneItem> discovered, out int added, out int updated, out int removed)
         {
             added = 0;
             updated = 0;
             removed = 0;
 
-            var openedAdditively = false;
-            var scene = SceneManager.GetSceneByPath(SandboxScenePath);
-            if (!scene.IsValid() || !scene.isLoaded)
-            {
-                scene = EditorSceneManager.OpenScene(SandboxScenePath, OpenSceneMode.Additive);
-                openedAdditively = true;
-            }
-
-            var manifest = FindComponent<SceneManifest>(scene);
+            var manifest = FindManifestAsset();
             if (manifest == null)
             {
-                Debug.LogError($"[ExampleRegistry] No SceneManifest found in {SandboxScenePath}.");
-                if (openedAdditively)
-                    EditorSceneManager.CloseScene(scene, removeScene: true);
+                Debug.LogError("[ExampleRegistry] No SceneManifest asset found in the project. Create one via Assets > Create > 2D Physics > Scene Manifest.");
                 return;
             }
 
             var items = manifest.SceneItems ?? new List<SceneManifest.SceneItem>();
             foreach (var entry in discovered)
             {
-                var index = items.FindIndex(existing => existing.ScenePath == entry.ScenePath);
+                var index = items.FindIndex(existing => existing.TypeName == entry.TypeName);
                 if (index >= 0)
                 {
                     items[index] = entry;
@@ -113,90 +81,82 @@ namespace UnityEditor
                 }
             }
 
-            // Prune example entries (under Assets/Scenes/) no longer claimed by an [ExampleScene]
-            // attribute — removing/commenting the attribute is the disable switch. A moved or
-            // deleted scene is naturally absent from the discovered set too, so this also covers
-            // folder moves/renames.
-            var discoveredPaths = new HashSet<string>(discovered.Select(d => d.ScenePath));
+            // Prune entries no longer claimed by any [ExampleScene] attribute.
+            var discoveredTypeNames = new HashSet<string>(discovered.Select(d => d.TypeName));
             removed = items.RemoveAll(item =>
-                !string.IsNullOrEmpty(item.ScenePath) &&
-                item.ScenePath.StartsWith("Assets/Scenes/") &&
-                !discoveredPaths.Contains(item.ScenePath));
+                !string.IsNullOrEmpty(item.TypeName) &&
+                !discoveredTypeNames.Contains(item.TypeName));
 
             manifest.SceneItems = items;
             EditorUtility.SetDirty(manifest);
+            AssetDatabase.SaveAssetIfDirty(manifest);
 
-            // Repair a now-dangling start scene: SandboxManager.StartScene stores a scene Name and
-            // is resolved at startup via a throwing First(...). If it points at a name that no
-            // longer exists (e.g. the example was just disabled), reset it to empty so startup
-            // falls back to the first scene instead of throwing.
-            var sandboxManager = FindComponent<SandboxManager>(scene);
+            // If SandboxManager.StartScene points at a name that no longer exists, reset it.
+            var sandboxScene = SceneManager.GetSceneByPath(SandboxScenePath);
+            var openedAdditively = false;
+            if (!sandboxScene.IsValid() || !sandboxScene.isLoaded)
+            {
+                sandboxScene = EditorSceneManager.OpenScene(SandboxScenePath, OpenSceneMode.Additive);
+                openedAdditively = true;
+            }
+
+            var sandboxManager = FindComponent<SandboxManager>(sandboxScene);
             if (sandboxManager != null &&
                 !string.IsNullOrEmpty(sandboxManager.StartScene) &&
                 items.All(item => item.Name != sandboxManager.StartScene))
             {
-                Debug.LogWarning($"[ExampleRegistry] Start scene '{sandboxManager.StartScene}' is no longer registered; resetting it (startup will use the first scene). Set a new Start Scene on the SandboxManager if desired.");
+                Debug.LogWarning($"[ExampleRegistry] Start scene '{sandboxManager.StartScene}' is no longer registered; resetting it.");
                 sandboxManager.StartScene = string.Empty;
                 EditorUtility.SetDirty(sandboxManager);
+                EditorSceneManager.MarkSceneDirty(sandboxScene);
+                EditorSceneManager.SaveScene(sandboxScene);
             }
-
-            EditorSceneManager.MarkSceneDirty(scene);
-            EditorSceneManager.SaveScene(scene);
 
             if (openedAdditively)
-                EditorSceneManager.CloseScene(scene, removeScene: true);
+                EditorSceneManager.CloseScene(sandboxScene, removeScene: true);
         }
 
-        // Ensure every discovered scene (and Sandbox.unity itself) is in the enabled build list.
-        // Also prunes any example build entry (under Assets/Scenes/) no longer claimed by an
-        // [ExampleScene] attribute, mirroring the manifest prune.
-        private static void UpsertBuildSettings(List<SceneManifest.SceneItem> discovered, out int added, out int removed)
+        // Ensure Sandbox.unity is in build settings and prune any stale Assets/Scenes/ entries.
+        private static void EnsureSandboxSceneInBuild(out bool cleaned)
         {
-            added = 0;
-            removed = 0;
-
+            cleaned = false;
             var scenes = new List<EditorBuildSettingsScene>(EditorBuildSettings.scenes);
-            var present = new HashSet<string>();
-            foreach (var s in scenes)
-                present.Add(s.path);
 
-            // The startup scene must be present (kept wherever it already is, or added first).
-            if (!present.Contains(SandboxScenePath))
-            {
-                scenes.Insert(0, new EditorBuildSettingsScene(SandboxScenePath, true));
-                present.Add(SandboxScenePath);
-            }
-
-            foreach (var entry in discovered)
-            {
-                if (present.Add(entry.ScenePath))
-                {
-                    scenes.Add(new EditorBuildSettingsScene(entry.ScenePath, true));
-                    ++added;
-                }
-            }
-
-            // Prune example build entries (under Assets/Scenes/) no longer claimed by an
-            // [ExampleScene] attribute, mirroring the manifest prune.
-            var discoveredPaths = new HashSet<string>(discovered.Select(d => d.ScenePath));
-            removed = scenes.RemoveAll(s =>
+            var staleCount = scenes.RemoveAll(s =>
                 !string.IsNullOrEmpty(s.path) &&
-                s.path.StartsWith("Assets/Scenes/") &&
-                !discoveredPaths.Contains(s.path));
+                s.path.StartsWith("Assets/Scenes/"));
+            cleaned = staleCount > 0;
+
+            if (scenes.All(s => s.path != SandboxScenePath))
+                scenes.Insert(0, new EditorBuildSettingsScene(SandboxScenePath, true));
 
             EditorBuildSettings.scenes = scenes.ToArray();
         }
 
-        private static string FindScriptPath(Type type)
+        // Find the companion ExampleSceneData asset for a type by convention: looks for a
+        // ScriptableObject whose name matches "{TypeName}Data" anywhere in the project.
+        private static ExampleSceneData FindCompanionData(Type type)
         {
-            foreach (var guid in AssetDatabase.FindAssets($"{type.Name} t:MonoScript"))
+            var dataTypeName = $"{type.Name}Data";
+            foreach (var guid in AssetDatabase.FindAssets($"{dataTypeName} t:ScriptableObject"))
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
-                var monoScript = AssetDatabase.LoadAssetAtPath<MonoScript>(path);
-                if (monoScript != null && monoScript.GetClass() == type)
-                    return path;
+                var asset = AssetDatabase.LoadAssetAtPath<ExampleSceneData>(path);
+                if (asset != null && asset.GetType().Name == dataTypeName)
+                    return asset;
             }
+            return null;
+        }
 
+        private static SceneManifest FindManifestAsset()
+        {
+            foreach (var guid in AssetDatabase.FindAssets("t:SceneManifest"))
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var asset = AssetDatabase.LoadAssetAtPath<SceneManifest>(path);
+                if (asset != null)
+                    return asset;
+            }
             return null;
         }
 
@@ -208,11 +168,10 @@ namespace UnityEditor
                 if (component != null)
                     return component;
             }
-
             return null;
         }
 
-        // "CharacterMover" -> "Character Mover", matching SceneItemsPropertyDrawer's formatting.
+        // "CharacterMover" -> "Character Mover"
         private static string ToDisplayName(string typeName) =>
             CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Regex.Replace(typeName, "(\\B[A-Z])", " $1"));
     }
