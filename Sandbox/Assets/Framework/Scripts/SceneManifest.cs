@@ -107,7 +107,7 @@ public class SceneManifest : MonoBehaviour
         // Remove any Camera present in the example scene — cameras are managed globally
         // by CameraManipulator in Sandbox.unity and must not exist in example scenes.
         var loadedScene = SceneManager.GetSceneByPath(SceneItems[LoadedSceneIndex].ScenePath);
-        foreach (var camera in FindObjectsByType<Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        foreach (var camera in FindObjectsByType<Camera>(FindObjectsInactive.Include))
         {
             if (camera.gameObject.scene == loadedScene)
                 Destroy(camera.gameObject);
