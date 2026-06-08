@@ -17,7 +17,7 @@ public static class SandboxUtility
         geometry.radius = radius;
         ref var vertices = ref geometry.vertices;
 
-        var count = 3 + random.NextInt() % 6;
+        var count = 3 + random.NextInt(0, 6);
         geometry.count = count;
         for (var n = 0; n < count; ++n)
         {

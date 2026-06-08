@@ -146,6 +146,7 @@ public class DebugView : MonoBehaviour, IFoldable
         m_SampledCount = 0;
         m_TotalProfile = m_MaxProfile = default;
         m_MaxCounters = m_LastCounters;
+        m_MaxFPS = 0f;
     }
 
     private void OnEnable()
@@ -176,7 +177,6 @@ public class DebugView : MonoBehaviour, IFoldable
             m_SolveConstraintsElement = root.Q<Label>("solve-constraints");
             m_PrepareStagesElement = root.Q<Label>("prepare-stages");
             m_PrepareConstraintsElement = root.Q<Label>("prepare-constraints");
-            m_SolveConstraintsElement = root.Q<Label>("solve-constraints");
             m_IntegrateVelocitiesElement = root.Q<Label>("integrate-velocities");
             m_WarmStartingElement = root.Q<Label>("warm-starting");
             m_SolveImpulsesElement = root.Q<Label>("solve-impulses");
@@ -188,7 +188,7 @@ public class DebugView : MonoBehaviour, IFoldable
             m_BroadphaseUpdatesElement = root.Q<Label>("broadphase-updates");
             m_SplitIslandsElement = root.Q<Label>("split-islands");
             m_SleepIslandsElement = root.Q<Label>("sleep-islands");
-            m_UpdateTriggersElement = root.Q<Label>("update-Triggers");
+            m_UpdateTriggersElement = root.Q<Label>("update-triggers");
             m_BodyTransformsElement = root.Q<Label>("body-transforms");
             m_WriteTransformsElement = root.Q<Label>("write-transforms");
             m_HitEventsElement = root.Q<Label>("hit-events");
@@ -307,7 +307,7 @@ public class DebugView : MonoBehaviour, IFoldable
     {
         // Fps.
         var deltaTime = Time.smoothDeltaTime;
-        if (m_BarFPS != null & deltaTime > 0f)
+        if (m_BarFPS != null && deltaTime > 0f)
         {
             var fps = 1f / deltaTime;
             m_BarFPS.highValue = m_MaxFPS = math.max(m_MaxFPS, fps);
