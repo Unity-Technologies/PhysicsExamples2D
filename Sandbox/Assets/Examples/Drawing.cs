@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "Stress-tests the debug drawing API with many primitives and lifetimes.")]
 public sealed class Drawing : SandboxExampleBehaviour
 {

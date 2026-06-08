@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "A vast world far from the origin with a drivable car and streamed debris.")]
 public sealed class LargeWorld : SandboxExampleBehaviour
 {

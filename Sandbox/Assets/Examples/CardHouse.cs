@@ -2,6 +2,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Unity.U2D.Physics;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Shapes", "A delicate balance of forces.")]
 public sealed class CardHouse : SandboxExampleBehaviour
 {

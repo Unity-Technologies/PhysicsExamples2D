@@ -4,6 +4,7 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "A large barrel of various object types stress-testing the solver.")]
 public sealed class Barrel : SandboxExampleBehaviour
 {

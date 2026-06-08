@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "A dense field of trigger shapes processing thousands of trigger events.")]
 public sealed class Triggers : SandboxExampleBehaviour
 {

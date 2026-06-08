@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Joints", "Checking the stability of solving forced overlap due to scaling a relatively complex setup.")]
 public sealed class ScaleRagdoll : SandboxExampleBehaviour
 {

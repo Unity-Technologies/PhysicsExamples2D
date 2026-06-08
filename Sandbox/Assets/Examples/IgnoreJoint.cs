@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Joints", "Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.")]
 public sealed class IgnoreJoint : SandboxExampleBehaviour
 {

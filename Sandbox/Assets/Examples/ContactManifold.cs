@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Collision", "Showing contacts manifolds between various shapes.")]
 public sealed class ContactManifold : SandboxExampleBehaviour
 {

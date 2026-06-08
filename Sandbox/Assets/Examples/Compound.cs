@@ -2,6 +2,7 @@ using Unity.Collections;
 using UnityEngine;
 using Unity.U2D.Physics;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Shapes", "Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.")]
 public sealed class Compound : SandboxExampleBehaviour
 {

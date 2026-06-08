@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "A spinning paddle churning thousands of debris pieces.")]
 public sealed class Spinner : SandboxExampleBehaviour
 {

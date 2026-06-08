@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "Many large dynamic compound bodies dropped into a container.")]
 public sealed class LargeCompound : SandboxExampleBehaviour
 {

@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 // Starter template for a new Sandbox example. Copy this file to Examples/, rename it and
 // the class inside, update [ExampleScene] with your category and description, then run
 // Tools > 2D > Physics > Rebuild Sandbox Registry. See AUTHORING_EXAMPLES.md for the full guide.
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Template", "An empty scene for you to experiment with!")]
 public sealed class Example : SandboxExampleBehaviour
 {

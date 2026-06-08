@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Joints", "Demonstrating the use of a Wheel Joint for suspension when driving a car.")]
 public sealed class Driving : SandboxExampleBehaviour
 {

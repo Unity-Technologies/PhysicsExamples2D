@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Batching", "Casts and resolves thousands of rays per frame using a batched query job.")]
 public sealed class Queries : SandboxExampleBehaviour
 {

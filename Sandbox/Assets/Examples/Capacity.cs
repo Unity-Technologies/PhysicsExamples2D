@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 /// This provides an approximate limit for a worst-case scenario with bodies and shapes all in contact with each other on the current device.
 /// The available threads has a huge impact on this limit. The debug rendering defaults to being turned off as the FPS is irrelevant and may result in the Sandbox UI becoming sluggish on some devices.
 /// </summary>
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "Spawns bodies until the per-step simulation time reaches a configurable limit.")]
 public sealed class Capacity : SandboxExampleBehaviour
 {

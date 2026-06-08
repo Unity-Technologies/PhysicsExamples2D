@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Joints", "Checking the stability of solving a complex set of joints.")]
 public sealed class ScissorLift : SandboxExampleBehaviour
 {

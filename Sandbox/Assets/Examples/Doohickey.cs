@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Joints", "Demonstrating some fun contraptions using joints.")]
 public sealed class Doohickey : SandboxExampleBehaviour
 {

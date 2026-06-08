@@ -4,6 +4,7 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
+// Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Benchmarks", "A rotating kinematic tumbler churning many debris pieces.")]
 public sealed class Tumbler : SandboxExampleBehaviour
 {
