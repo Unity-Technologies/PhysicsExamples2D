@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SceneManifest : MonoBehaviour
+[CreateAssetMenu(fileName = "SceneManifest", menuName = "2D Physics/Scene Manifest")]
+public class SceneManifest : ScriptableObject
 {
     [Serializable]
     public struct SceneItem
@@ -12,16 +11,24 @@ public class SceneManifest : MonoBehaviour
         public string Name;
         public string Category;
         public string Description;
-        public string ScenePath;
+        public string TypeName;
+        public ExampleSceneData Data;
     }
 
     public List<SceneItem> SceneItems = new();
 
     public string LoadedSceneName { get; private set; }
     public string LoadedSceneDescription { get; private set; }
-    private int LoadedSceneIndex { get; set; }
 
-    private Coroutine m_LoadSceneRoutine;
+    private GameObject m_CurrentExampleGO;
+
+    // Called by SandboxManager at play-session start to clear any stale runtime state.
+    public void Initialize()
+    {
+        LoadedSceneName = string.Empty;
+        LoadedSceneDescription = string.Empty;
+        m_CurrentExampleGO = null;
+    }
 
     public List<string> GetCategories()
     {
@@ -47,8 +54,7 @@ public class SceneManifest : MonoBehaviour
         result.Sort(StringComparer.OrdinalIgnoreCase);
         return result;
     }
-    // Look up a scene item by Name. Returns false (and a default item) if no match — callers
-    // should handle the missing case rather than assume the name is always valid.
+
     public bool TryGetSceneItem(string sceneName, out SceneItem item)
     {
         var index = SceneItems.FindIndex(existing => existing.Name == sceneName);
@@ -56,92 +62,54 @@ public class SceneManifest : MonoBehaviour
         return index >= 0;
     }
 
-    private void OnEnable()
-    {
-        LoadedSceneIndex = -1;
-        LoadedSceneName = string.Empty;
-        LoadedSceneDescription = string.Empty;
-    }
-
     public void LoadScene(string sceneName, Action action)
     {
-        if (m_LoadSceneRoutine != null)
+        if (sceneName == LoadedSceneName)
             return;
 
-        m_LoadSceneRoutine = StartCoroutine(LoadSceneCoroutine(sceneName, action));
+        // Disable the departing example — OnDisable fires immediately on SetActive(false).
+        if (m_CurrentExampleGO != null)
+        {
+            m_CurrentExampleGO.SetActive(false);
+            UnityEngine.Object.Destroy(m_CurrentExampleGO);
+            m_CurrentExampleGO = null;
+        }
+
+        // Physics reset.
+        action?.Invoke();
+
+        // Resolve target item and set loaded state before OnEnable fires.
+        var index = FindItemIndex(sceneName);
+        var item = SceneItems[index];
+        LoadedSceneName = item.Name;
+        LoadedSceneDescription = item.Description;
+
+        // Create the arriving example inactive so ExampleData can be set before OnEnable fires.
+        m_CurrentExampleGO = new GameObject(item.Name);
+        m_CurrentExampleGO.SetActive(false);
+        var example = (SandboxExampleBehaviour)m_CurrentExampleGO.AddComponent(Type.GetType(item.TypeName));
+        if (example != null)
+            example.ExampleData = item.Data;
+        m_CurrentExampleGO.SetActive(true);
     }
 
     public void ReloadCurrentScene(Action action)
     {
-        if (LoadedSceneName == string.Empty)
+        if (string.IsNullOrEmpty(LoadedSceneName))
             return;
 
-        LoadScene(LoadedSceneName, action);
+        var current = LoadedSceneName;
+        LoadedSceneName = string.Empty;   // bypass same-name guard in LoadScene
+        LoadScene(current, action);
     }
 
-    private IEnumerator LoadSceneCoroutine(string sceneName, Action action)
-    {
-        var sceneIndex = FindSceneIndex(sceneName);
-
-        // Unload any previous scene.
-        if (LoadedSceneIndex != -1)
-        {
-            var operation = UnloadSceneIndex(LoadedSceneIndex);
-            while (!operation.isDone)
-                yield return null;
-        }
-
-        // Call the action.
-        action();
-
-        // Load the new scene.
-        {
-            LoadedSceneIndex = sceneIndex;
-            LoadedSceneName = sceneName;
-            LoadedSceneDescription = SceneItems[sceneIndex].Description;
-            var operation = LoadSceneIndex(LoadedSceneIndex, LoadSceneMode.Additive);
-            while (!operation.isDone)
-                yield return null;
-        }
-
-        // Remove any Camera present in the example scene — cameras are managed globally
-        // by CameraManipulator in Sandbox.unity and must not exist in example scenes.
-        var loadedScene = SceneManager.GetSceneByPath(SceneItems[LoadedSceneIndex].ScenePath);
-        foreach (var camera in FindObjectsByType<Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-        {
-            if (camera.gameObject.scene == loadedScene)
-                Destroy(camera.gameObject);
-        }
-
-        // Indicate we're done.
-        m_LoadSceneRoutine = null;
-    }
-
-    private int FindSceneIndex(string sceneName)
+    private int FindItemIndex(string sceneName)
     {
         var index = SceneItems.FindIndex(item => item.Name == sceneName);
         if (index >= 0)
             return index;
 
-        Debug.LogWarning($"[SceneManifest] Scene '{sceneName}' not found — falling back to the first scene.");
+        Debug.LogWarning($"[SceneManifest] Example '{sceneName}' not found — falling back to the first example.");
         return 0;
-    }
-
-    private AsyncOperation LoadSceneIndex(int sceneIndex, LoadSceneMode loadSceneMode)
-    {
-        var buildIndex = SceneUtility.GetBuildIndexByScenePath(SceneItems[sceneIndex].ScenePath);
-        if (buildIndex != -1)
-            return SceneManager.LoadSceneAsync(buildIndex, loadSceneMode);
-
-        throw new ArgumentException("Invalid Scene Index", nameof(sceneIndex));
-    }
-
-    private AsyncOperation UnloadSceneIndex(int sceneIndex)
-    {
-        var buildIndex = SceneUtility.GetBuildIndexByScenePath(SceneItems[sceneIndex].ScenePath);
-        if (buildIndex != -1)
-            return SceneManager.UnloadSceneAsync(buildIndex);
-
-        throw new ArgumentException("Invalid Scene Index", nameof(sceneIndex));
     }
 }

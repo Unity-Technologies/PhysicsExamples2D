@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
@@ -18,13 +18,12 @@ namespace UnityEditor
         {
             var root = new VisualElement();
 
-            // Add Start Scene.
-            var sandboxManager = (target as SandboxManager);
-            var sceneItems = sandboxManager?.GetComponent<SceneManifest>().SceneItems;
-            var sceneNames = sceneItems.Select(item => item.Name).ToList();
+            // Populate the Start Scene dropdown from the SceneManifest asset reference.
+            var manifestProp = serializedObject.FindProperty("m_SceneManifest");
+            var manifest = manifestProp?.objectReferenceValue as SceneManifest;
+            var sceneNames = manifest?.SceneItems.Select(item => item.Name).ToList() ?? new System.Collections.Generic.List<string>();
             sceneNames.Sort();
-            var sceneNamesField = new DropdownField { label = m_StartSceneNameProperty.displayName, choices = sceneNames, bindingPath = m_StartSceneNameProperty.propertyPath };
-            root.Add(sceneNamesField);
+            root.Add(new DropdownField { label = m_StartSceneNameProperty.displayName, choices = sceneNames, bindingPath = m_StartSceneNameProperty.propertyPath });
 
             InspectorElement.FillDefaultInspector(root, serializedObject, this, m_StartSceneNameProperty.propertyPath);
 

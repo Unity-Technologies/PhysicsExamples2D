@@ -150,7 +150,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     }
 
     private CameraManipulator m_CameraManipulator;
-    private SceneManifest m_SceneManifest;
+    [SerializeField] private SceneManifest m_SceneManifest;
     private UIDocument m_MainMenuDocument;
     private DropdownField m_SceneCategories;
     private DropdownField m_Scenes;
@@ -201,14 +201,17 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     private bool m_IgnoreAutoSceneSelection;
     private EventCallback<ChangeEvent<string>> m_SceneChangedCallback;
 
+    /// <summary>The scene manifest asset. Exposed for <see cref="SandboxExampleBehaviour"/>.</summary>
+    public SceneManifest SceneManifest => m_SceneManifest;
+
     private void Start()
     {
 #if UNITY_EDITOR
         if (!SystemInfo.supportsComputeShaders)
             EditorUtility.DisplayDialog("Compute Shader Support Missing", "2D Physics requires compute shader support for its debug renderer. Without this, you will not see physics debug rendering although physics itself will be unaffected.", "OK");
 #endif
+        m_SceneManifest.Initialize();
         m_CameraManipulator = FindFirstObjectByType<CameraManipulator>();
-        m_SceneManifest = GetComponent<SceneManifest>();
         m_MainMenuDocument = GetComponent<UIDocument>();
 
         // Disable this because it's not needed and causing Input system problems.

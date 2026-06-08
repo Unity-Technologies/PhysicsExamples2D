@@ -16,14 +16,9 @@ To change the sample that initially loads when you press "Play", select the "Mai
 
 ## How a sample is laid out
 
-Every sample lives in its own folder directly under `Assets/Scenes/<SampleName>/` and is made of two files:
-
-| File | What it is |
-|------|------------|
-| `<SampleName>.cs`        | The sample code — the physics *and* its on-screen option controls (built in code). |
-| `<SampleName>.unity`     | The Unity scene that gets loaded when you pick the sample. |
-
-There are **no category sub-folders** — every sample sits straight under `Assets/Scenes/`. A sample's category (the heading it appears under in the menu) comes purely from its code attribute (see below), so the folder layout stays flat and the category never drifts out of sync with the folder name.
+Every sample is a **single `.cs` file** inside `Assets/Examples/` — no scene file, no subfolders.
+A sample's category (the heading it appears under in the menu) comes purely from its code attribute,
+so the folder stays flat and the category never drifts out of sync with the file name.
 
 All the repetitive plumbing — finding the shared managers, building the options-menu frame (a single shared `ExampleChrome.uxml`), populating the title/description, hooking up the **Reset** button, framing the camera — lives in one shared base class, **`SandboxExampleBehaviour`**, so each sample's `.cs` file only contains the parts that are actually unique to it. The options panel itself is data-driven: samples add their controls in code via base-class helpers, so there's no per-sample UI file to maintain.
 
@@ -43,7 +38,12 @@ The `Assets/Framework/Scripts` folder holds shared utility code (e.g. helpers th
 
 ## Adding your own
 
-The quickest way is to **copy the starter template** at `Assets/Scenes/Example/`: duplicate the folder, rename the two files to your sample's name, rename the class to match, and edit the `[ExampleScene(...)]` category and description. Then run **`Tools → 2D → Physics → Rebuild Sandbox Registry`** from the Unity menu — that scans for the `[ExampleScene]` attribute and registers your sample in the menu and the build automatically (it also prunes any samples whose folders you've removed or moved).
+The quickest way is to **copy `Assets/Examples/Example.cs`**, rename the file and the class inside
+it, and edit the `[ExampleScene(...)]` category and description. Then run
+**`Tools → 2D → Physics → Rebuild Sandbox Registry`** from the Unity menu — that scans for the
+`[ExampleScene]` attribute and registers your sample in the menu automatically.
+
+No scene file, no GUIDs, no build-settings editing required.
 
 You can also **ask Claude (Claude Code) to create or modify a sample for you** — "add a sample that…" or "change the X sample to…". It follows the project's authoritative recipe in [`AUTHORING_EXAMPLES.md`](./AUTHORING_EXAMPLES.md), which documents this same pattern in full detail (file-by-file, plus the physics API rules).
 

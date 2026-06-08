@@ -27,6 +27,13 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
     protected SceneManifest SceneManifest { get; private set; }
     protected CameraManipulator CameraManipulator { get; private set; }
 
+    /// <summary>
+    /// Optional per-example data asset. Non-null only for examples that declared a companion
+    /// <see cref="ExampleSceneData"/> subclass. Set by <see cref="SceneManifest"/> before
+    /// <c>OnEnable</c> fires. Cast to your concrete data type in <see cref="OnExampleEnable"/>.
+    /// </summary>
+    public ExampleSceneData ExampleData { get; internal set; }
+
     // Convenience accessors so examples read like the physics they teach.
     protected PhysicsWorld World => PhysicsWorld.defaultWorld;
     protected ref Unity.Mathematics.Random Random => ref SandboxManager.Random;
@@ -50,7 +57,7 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
     {
         // Resolve the shared infrastructure (lives in the always-loaded Sandbox.unity).
         SandboxManager = FindFirstObjectByType<SandboxManager>();
-        SceneManifest = FindFirstObjectByType<SceneManifest>();
+        SceneManifest = SandboxManager.SceneManifest;
         CameraManipulator = FindFirstObjectByType<CameraManipulator>();
 
         // Frame the camera.
