@@ -12,7 +12,7 @@ public sealed class Doohickey : SandboxExampleBehaviour
     private int m_DoohickeyCount;
 
     protected override float CameraSize => 9f;
-    protected override Vector2 CameraPosition => new(0f, 5f);
+    protected override Vector2 CameraPosition => new(0f, 7f);
 
     protected override void OnExampleEnable()
     {

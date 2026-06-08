@@ -22,7 +22,7 @@ public sealed class Washer : SandboxExampleBehaviour
     private PhysicsHingeJoint m_WasherHinge;
 
     protected override float CameraSize => 28f;
-    protected override Vector2 CameraPosition => Vector2.up * 10f;
+    protected override Vector2 CameraPosition => new(0f, 12f);
 
     protected override void OnExampleEnable()
     {

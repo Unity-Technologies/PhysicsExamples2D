@@ -28,7 +28,7 @@ public sealed class Shooter : SandboxExampleBehaviour
     private Vector2 m_OldGravity;
 
     protected override float CameraSize => 14f;
-    protected override Vector2 CameraPosition => Vector2.right * 0.25f;
+    protected override Vector2 CameraPosition => new(0f, 1f);
 
     protected override void OnExampleEnable()
     {

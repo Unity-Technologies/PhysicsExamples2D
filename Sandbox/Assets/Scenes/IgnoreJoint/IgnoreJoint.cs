@@ -16,8 +16,8 @@ public sealed class IgnoreJoint : SandboxExampleBehaviour
 
     private bool m_EnableJoint;
 
-    protected override float CameraSize => 10f;
-    protected override Vector2 CameraPosition => new(0f, 7f);
+    protected override float CameraSize => 14f;
+    protected override Vector2 CameraPosition => new(0f, 9f);
 
     protected override void OnExampleEnable()
     {

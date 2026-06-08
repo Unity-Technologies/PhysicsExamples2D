@@ -22,7 +22,7 @@ public sealed class WheelJoint : SandboxExampleBehaviour
     private float m_LowerTranslationLimit;
     private float m_UpperTranslationLimit;
 
-    protected override float CameraSize => 4f;
+    protected override float CameraSize => 2f;
     protected override Vector2 CameraPosition => new(0f, 10f);
 
     protected override void OnExampleEnable()

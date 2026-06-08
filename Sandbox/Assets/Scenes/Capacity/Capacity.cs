@@ -49,7 +49,7 @@ public sealed class Capacity : SandboxExampleBehaviour
     }
 
     protected override float CameraSize => 300f;
-    protected override Vector2 CameraPosition => new(10f, 70f);
+    protected override Vector2 CameraPosition => new(10f, 234f);
 
     protected override void OnExampleEnable()
     {

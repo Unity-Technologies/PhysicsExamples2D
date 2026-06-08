@@ -23,8 +23,8 @@ public sealed class BounceHouse : SandboxExampleBehaviour
     private ObjectType m_ObjectType;
     private PhysicsEvents.ContactHitEvent m_LastHitEvent;
 
-    protected override float CameraSize => 11f;
-    protected override Vector2 CameraPosition => new(0f, -1f);
+    protected override float CameraSize => 12f;
+    protected override Vector2 CameraPosition => new(0f, 1f);
 
     protected override void OnExampleEnable()
     {

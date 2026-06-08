@@ -17,7 +17,7 @@ public sealed class GearLift : SandboxExampleBehaviour
     private PhysicsHingeJoint m_GearMotor;
 
     protected override float CameraSize => 7f;
-    protected override Vector2 CameraPosition => new(0f, 3.5f);
+    protected override Vector2 CameraPosition => new(-1.55f, 3.41f);
 
     protected override void OnExampleEnable()
     {

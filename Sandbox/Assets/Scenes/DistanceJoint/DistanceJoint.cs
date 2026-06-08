@@ -27,7 +27,7 @@ public sealed class DistanceJoint : SandboxExampleBehaviour
     private float m_MaxMotorForce;
 
     protected override float CameraSize => 8f;
-    protected override Vector2 CameraPosition => new(0f, 14f);
+    protected override Vector2 CameraPosition => new(0f, 15f);
 
     protected override void OnExampleEnable()
     {

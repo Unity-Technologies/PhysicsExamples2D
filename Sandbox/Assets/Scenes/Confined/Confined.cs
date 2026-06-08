@@ -12,7 +12,7 @@ public sealed class Confined : SandboxExampleBehaviour
     private int m_GridCount;
     private Vector2 m_OldGravity;
 
-    protected override float CameraSize => 14f;
+    protected override float CameraSize => 12f;
     protected override Vector2 CameraPosition => new(0f, 10f);
 
     protected override void OnExampleEnable()

@@ -19,7 +19,7 @@ public sealed class BallAndChain : SandboxExampleBehaviour
     private bool m_FixChainLength;
 
     protected override float CameraSize => 28f;
-    protected override Vector2 CameraPosition => new(0f, -8f);
+    protected override Vector2 CameraPosition => new(0f, -4f);
 
     protected override void OnExampleEnable()
     {

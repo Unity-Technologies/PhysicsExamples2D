@@ -15,7 +15,7 @@ public sealed class SoftBody : SandboxExampleBehaviour
     private float m_JointFrequency;
     private float m_JointDamping;
 
-    protected override float CameraSize => 6f;
+    protected override float CameraSize => 5f;
     protected override Vector2 CameraPosition => new(0f, 0f);
 
     protected override void OnExampleEnable()

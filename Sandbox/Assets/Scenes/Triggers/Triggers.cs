@@ -24,7 +24,7 @@ public sealed class Triggers : SandboxExampleBehaviour
     private readonly Color m_DefaultFallingColor = Color.gray4;
 
     protected override float CameraSize => 120f;
-    protected override Vector2 CameraPosition => new(0, 100f);
+    protected override Vector2 CameraPosition => new(0f, 100f);
 
     protected override void OnExampleEnable()
     {

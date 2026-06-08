@@ -14,8 +14,8 @@ public sealed class RoundedPolygons : SandboxExampleBehaviour
     private float m_Friction;
     private float m_Bounciness;
 
-    protected override float CameraSize => 12f;
-    protected override Vector2 CameraPosition => new(0f, 10f);
+    protected override float CameraSize => 17f;
+    protected override Vector2 CameraPosition => new(0f, 13f);
 
     protected override void OnExampleEnable()
     {

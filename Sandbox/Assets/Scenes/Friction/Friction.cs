@@ -26,7 +26,7 @@ public sealed class Friction : SandboxExampleBehaviour
     private float m_SpawnTime;
 
     protected override float CameraSize => 24f;
-    protected override Vector2 CameraPosition => new(0f, 15f);
+    protected override Vector2 CameraPosition => new(0f, 20f);
 
     protected override void OnExampleEnable()
     {

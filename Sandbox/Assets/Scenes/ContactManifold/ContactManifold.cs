@@ -34,8 +34,8 @@ public sealed class ContactManifold : SandboxExampleBehaviour
 
     private const float PointScale = 0.01f;
 
-    protected override float CameraSize => 14f;
-    protected override Vector2 CameraPosition => Vector2.right;
+    protected override float CameraSize => 12f;
+    protected override Vector2 CameraPosition => new(0f, 0f);
 
     protected override void OnExampleEnable()
     {

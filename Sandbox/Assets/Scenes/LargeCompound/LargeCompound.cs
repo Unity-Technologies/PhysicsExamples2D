@@ -14,7 +14,7 @@ public sealed class LargeCompound : SandboxExampleBehaviour
     private int m_CompoundSplits;
 
     protected override float CameraSize => 100f;
-    protected override Vector2 CameraPosition => new(0f, 50f);
+    protected override Vector2 CameraPosition => new(0f, 80f);
 
     protected override void OnExampleEnable()
     {
