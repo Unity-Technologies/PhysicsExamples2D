@@ -485,6 +485,12 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
 
     private void CreateInitialSprite(Vector2 worldPosition)
     {
+        if (m_Sprite == null)
+        {
+            Debug.LogError("[SpriteDestruction] Sprite asset is missing — reimport Building.png in the Project window.");
+            return;
+        }
+
         if (m_Sprite.packed)
         {
             Debug.LogWarning("Sprite is packed in an Atlas which isn't supported.");
