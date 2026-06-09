@@ -14,15 +14,7 @@ public class DebugView : MonoBehaviour, IFoldable
 
     // How often the debug menu refreshes its UI. The stats themselves are still sampled
     // every simulation step (see UpdateStats); this only throttles the per-frame UI rebuild.
-    public float UpdatePeriod = 0.1f;
-
-    // When rolled up the menu shows only the FPS bar; the profile/counter detail block is
-    // hidden and stat sampling is suspended entirely (see SetRolledUp).
-    public bool StartRolledUp;
-
-    // Initial collapsed state of the individual Profile / Counters sections.
-    public bool StartProfileCollapsed;
-    public bool StartCountersCollapsed;
+    private const float k_UpdatePeriod = 0.1f;
 
     private UIDocument m_UIDocument;
 
@@ -219,8 +211,8 @@ public class DebugView : MonoBehaviour, IFoldable
             m_ProfileHeader.clicked += ToggleProfile;
             m_CountersHeader.clicked += ToggleCounters;
 
-            m_ProfileCollapsed = StartProfileCollapsed;
-            m_CountersCollapsed = StartCountersCollapsed;
+            m_ProfileCollapsed = true;
+            m_CountersCollapsed = false;
             SetSectionCollapsed(m_ProfileHeader, "Profile (ms)", m_ProfileRegion, m_ProfileCollapsed);
             SetSectionCollapsed(m_CountersHeader, "Counters", m_CountersRegion, m_CountersCollapsed);
         }
@@ -232,7 +224,7 @@ public class DebugView : MonoBehaviour, IFoldable
             m_RollupToggle.clicked += ToggleRollUp;
 
             // Apply the initial state (also wires up the stat-sampling subscription).
-            SetRolledUp(StartRolledUp);
+            SetRolledUp(true);
         }
     }
 
@@ -249,7 +241,7 @@ public class DebugView : MonoBehaviour, IFoldable
         m_UpdateTimer -= Time.unscaledDeltaTime;
         if (m_UpdateTimer > 0f)
             return;
-        m_UpdateTimer = UpdatePeriod;
+        m_UpdateTimer = k_UpdatePeriod;
 
         // Update the FPS bar (kept live even when rolled up).
         UpdateFPS();
