@@ -11,6 +11,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 068d0a10e8a93cc4b855f6cc449302dc, type: 3}
   m_Name: SpriteDestructionData
-  m_EditorClassIdentifier:
-  Sprite: {fileID: -1370150288747598966, guid: 771415e9d89c06e45a1d93d2df8082e8, type: 3}
+  m_EditorClassIdentifier: 
+  Sprite: {fileID: 21300000, guid: 771415e9d89c06e45a1d93d2df8082e8, type: 3}
   SpriteMaterial: {fileID: 2100000, guid: e9ee782f2a409784ab06a3f9bfad5aee, type: 2}
