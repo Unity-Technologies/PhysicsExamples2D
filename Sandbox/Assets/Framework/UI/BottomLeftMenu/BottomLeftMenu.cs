@@ -12,7 +12,7 @@ public class BottomLeftMenu : MonoBehaviour, IFoldable
     private enum AccordionState { None, Sandbox, Shortcuts }
 
     // When true the panel starts with both sections collapsed.
-    public bool StartFolded = true;
+    private const bool k_StartFolded = true;
 
     // The global-control buttons (wired by SandboxManager).
     public Button InteractionButton { get; private set; }
@@ -93,6 +93,6 @@ public class BottomLeftMenu : MonoBehaviour, IFoldable
         QuitButton = root.Q<Button>("sc-quit");
 
         // Apply the initial state.
-        SetState(StartFolded ? AccordionState.None : AccordionState.Shortcuts);
+        SetState(k_StartFolded ? AccordionState.None : AccordionState.Shortcuts);
     }
 }
