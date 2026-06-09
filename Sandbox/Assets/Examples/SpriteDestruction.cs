@@ -9,7 +9,6 @@ using Unity.U2D.Physics;
 using UnityEngine.LowLevelPhysics2D;
 #endif
 using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Shapes", "Demonstrates the use of Sprite fragmenting mapping.")]
@@ -78,6 +77,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
 
         // Set Overrides.
         SandboxManager.SetOverrideColorShapeState(false);
+        SandboxManager.SetOverrideDrawOptions(overridenOptions: PhysicsWorld.DrawOptions.DefaultAll, fixedOptions: PhysicsWorld.DrawOptions.Off);
 
         m_FragmentRadius = 2f;
         m_FragmentCreate = true;
