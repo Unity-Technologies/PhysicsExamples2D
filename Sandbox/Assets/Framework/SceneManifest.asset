@@ -224,12 +224,6 @@ MonoBehaviour:
     TypeName: SpriteDestruction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     Data: {fileID: 11400000, guid: 1822f37092c340de84c696212fb1bc2f, type: 2}
-  - Name: Determinism
-    Category: Collision
-    Description: 'Checking cross-platform determinism using a complex joint set-up.
-      <b><color=#FF0000>NOTE: Cross-platform determinism is not supported yet!</color></b>'
-    TypeName: Determinism, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    Data: {fileID: 0}
   - Name: Spinner
     Category: Benchmarks
     Description: A spinning paddle churning thousands of debris pieces.
