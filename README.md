@@ -34,6 +34,4 @@ https://github.com/erincatto/box2d
 
 Twitter: https://twitter.com/melvmay
 
-BlueSky: https://bsky.app/profile/melvmay.bsky.social
-
 Unity Discussions: [https://forum.unity.com/members/melvmay.287484/](https://discussions.unity.com/u/melvmay)
