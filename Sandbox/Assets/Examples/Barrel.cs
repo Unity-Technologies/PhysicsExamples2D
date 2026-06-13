@@ -23,7 +23,6 @@ public sealed class Barrel : SandboxExampleBehaviour
 
     private ObjectType m_ObjectType;
     private float m_CollisionThreshold;
-    private bool m_FastCollisionsAllowed;
 
     protected override float CameraSize => 60f;
     protected override Vector2 CameraPosition => new(0f, 58f);
@@ -32,7 +31,6 @@ public sealed class Barrel : SandboxExampleBehaviour
     {
         m_ObjectType = ObjectType.Mix;
         m_CollisionThreshold = 0.5f;
-        m_FastCollisionsAllowed = false;
     }
 
     protected override void SetupOptions()
@@ -41,7 +39,6 @@ public sealed class Barrel : SandboxExampleBehaviour
         AddEnum("Object Type", m_ObjectType, v => m_ObjectType = v, rebuild: true);
 
         AddSlider("Collision Threshold", m_CollisionThreshold, 0f, 1f, v => m_CollisionThreshold = v, rebuild: true);
-        AddToggle("Fast Collisions", m_FastCollisionsAllowed, v => m_FastCollisionsAllowed = v, rebuild: true);
     }
 
     protected override void SetupScene()
@@ -84,7 +81,7 @@ public sealed class Barrel : SandboxExampleBehaviour
             centerX = shift * columnCount / 2.0f;
         }
 
-        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, collisionThreshold = m_CollisionThreshold };
         if (m_ObjectType == ObjectType.Mix)
             bodyDef.angularDamping = 0.3f;
 
@@ -135,8 +132,6 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Circle:
                     {
                         var body = world.CreateBody(bodyDef);
-                        body.collisionThreshold = m_CollisionThreshold;
-                        body.fastCollisionsAllowed = m_FastCollisionsAllowed;
                         CreateCircle(body, shapeDef, ref random);
                         continue;
                     }
@@ -144,8 +139,6 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Capsule:
                     {
                         var body = world.CreateBody(bodyDef);
-                        body.collisionThreshold = m_CollisionThreshold;
-                        body.fastCollisionsAllowed = m_FastCollisionsAllowed;
                         CreateCapsule(body, shapeDef, ref random);
                         continue;
                     }
@@ -153,8 +146,6 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Polygon:
                     {
                         var body = world.CreateBody(bodyDef);
-                        body.collisionThreshold = m_CollisionThreshold;
-                        body.fastCollisionsAllowed = m_FastCollisionsAllowed;
                         CreatePolygon(body, shapeDef, ref random);
                         continue;
                     }
@@ -162,8 +153,6 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Mix:
                     {
                         var body = world.CreateBody(bodyDef);
-                        body.collisionThreshold = m_CollisionThreshold;
-                        body.fastCollisionsAllowed = m_FastCollisionsAllowed;
                         switch (i % 3)
                         {
                             case 0:
@@ -192,8 +181,6 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Compound:
                     {
                         var body = world.CreateBody(bodyDef);
-                        body.collisionThreshold = m_CollisionThreshold;
-                        body.fastCollisionsAllowed = m_FastCollisionsAllowed;
                         body.CreateShape(leftGeometry, shapeDef);
                         body.CreateShape(rightGeometry, shapeDef);
                         continue;
@@ -202,11 +189,6 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Ragdoll:
                     {
                         using var ragdoll = RagdollFactory.Spawn(world, bodyDef.position, ragDollConfiguration, true, ref random);
-                        foreach (var body in ragdoll)
-                        {
-                            body.collisionThreshold = m_CollisionThreshold;
-                            body.fastCollisionsAllowed = m_FastCollisionsAllowed;
-                        }
                         continue;
                     }
 
