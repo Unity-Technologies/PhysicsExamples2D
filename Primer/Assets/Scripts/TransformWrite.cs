@@ -21,7 +21,7 @@ public class TransformWrite : MonoBehaviour
         // YOu can change this dynamically with "PhysicsWorld.transformWriteMode" or preferably by setting the default in the physics low-level settings as is used in this project (it uses "Fast2D").
         m_PhysicsWorld = PhysicsWorld.Create();
 
-       // Create a static area for the shapes to move around in.
+        // Create a static area for the shapes to move around in.
         CreateArea();
         
         // Create two bodies at different positions.
@@ -32,6 +32,9 @@ public class TransformWrite : MonoBehaviour
             
             // We want a dynamic bodi so we move and have collision responses.
             type = PhysicsBody.BodyType.Dynamic,
+
+            // Not needed for the demo but ensure we use CCD against the ground.
+            collisionThreshold = 0f,
             
             // Set the start position to be the Transform position.
             position = transform.position
@@ -56,20 +59,8 @@ public class TransformWrite : MonoBehaviour
     private void CreateArea()
     {
         // Ground Body. 
-        var groundBody = m_PhysicsWorld.CreateBody();
-
-        var extents = new Vector2(8f, 5f);
-        using var extentPoints = new NativeList<Vector2>(Allocator.Temp)
-        {
-            new(-extents.x, extents.y),
-            new(extents.x, extents.y),
-            new(extents.x, -extents.y),
-            new(-extents.x, -extents.y)
-        };
-
-        // Create a chain of line segments.
-        groundBody.CreateChain(
-            geometry: new ChainGeometry(extentPoints.AsArray()),
-            definition: PhysicsChainDefinition.defaultDefinition);
+        var groundBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition { collisionThreshold = 0f, fastCollisionsAllowed = false });
+        var extents = new Vector2(8f, -5f);
+        groundBody.CreateShape(new SegmentGeometry { point1 = extents, point2 = new Vector2(-extents.x, extents.y) });
     }
 }
