@@ -22,6 +22,7 @@ public sealed class Barrel : SandboxExampleBehaviour
     }
 
     private ObjectType m_ObjectType;
+    private float m_CollisionThreshold;
 
     protected override float CameraSize => 60f;
     protected override Vector2 CameraPosition => new(0f, 58f);
@@ -29,16 +30,21 @@ public sealed class Barrel : SandboxExampleBehaviour
     protected override void OnExampleEnable()
     {
         m_ObjectType = ObjectType.Mix;
+        m_CollisionThreshold = 0.5f;
     }
 
     protected override void SetupOptions()
     {
         // Object Type.
         AddEnum("Object Type", m_ObjectType, v => m_ObjectType = v, rebuild: true);
+
+        AddSlider("Collision Threshold", m_CollisionThreshold, 0f, 1f, v => m_CollisionThreshold = v, rebuild: true);
     }
 
     protected override void SetupScene()
     {
+        SandboxManager.SetOverrideColorShapeState(true);
+
         CreateBarrel();
 
         var columnCount = MaxColumns;
@@ -126,6 +132,7 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Circle:
                     {
                         var body = world.CreateBody(bodyDef);
+                        body.collisionThreshold = m_CollisionThreshold;
                         CreateCircle(body, shapeDef, ref random);
                         continue;
                     }
@@ -133,6 +140,7 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Capsule:
                     {
                         var body = world.CreateBody(bodyDef);
+                        body.collisionThreshold = m_CollisionThreshold;
                         CreateCapsule(body, shapeDef, ref random);
                         continue;
                     }
@@ -140,6 +148,7 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Polygon:
                     {
                         var body = world.CreateBody(bodyDef);
+                        body.collisionThreshold = m_CollisionThreshold;
                         CreatePolygon(body, shapeDef, ref random);
                         continue;
                     }
@@ -147,6 +156,7 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Mix:
                     {
                         var body = world.CreateBody(bodyDef);
+                        body.collisionThreshold = m_CollisionThreshold;
                         switch (i % 3)
                         {
                             case 0:
@@ -175,7 +185,7 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Compound:
                     {
                         var body = world.CreateBody(bodyDef);
-
+                        body.collisionThreshold = m_CollisionThreshold;
                         body.CreateShape(leftGeometry, shapeDef);
                         body.CreateShape(rightGeometry, shapeDef);
                         continue;
@@ -184,6 +194,8 @@ public sealed class Barrel : SandboxExampleBehaviour
                     case ObjectType.Ragdoll:
                     {
                         using var ragdoll = RagdollFactory.Spawn(world, bodyDef.position, ragDollConfiguration, true, ref random);
+                        foreach (var body in ragdoll)
+                            body.collisionThreshold = m_CollisionThreshold;
                         continue;
                     }
 
