@@ -1456,7 +1456,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                 AddColumnHeaders("Name", "Time (seconds)");
                 var p = getProfile();
                 AddTime("Simulation step",       p.simulationStep);
-                AddTime("Prepare stages",        p.prepareStages);
+                AddTime("Prepare stages",        p.solverSetup);
                 AddTime("Body transforms",       p.bodyTransforms);
                 AddTime("Broadphase updates",    p.broadphaseUpdates);
                 AddTime("Contact pairs",         p.contactPairs);
@@ -1468,7 +1468,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                 AddTime("Prepare constraints",   p.prepareConstraints);
                 AddTime("Warm starting",         p.warmStarting);
                 AddTime("Solving",               p.solving);
-                AddTime("Solve constraints",     p.solveConstraints);
+                AddTime("Solve constraints",     p.constraints);
                 AddTime("Solve impulses",        p.solveImpulses);
                 AddTime("Relax impulses",        p.relaxImpulses);
                 AddTime("Apply bounciness",      p.applyBounciness);
