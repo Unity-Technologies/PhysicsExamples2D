@@ -8,9 +8,9 @@ public sealed class ChainShapeDeform : SandboxExampleBehaviour
 {
     private int m_VertexCount = 64;
     private float m_BaseRadius = 8f;
-    private float m_ModulationRadius = 1f;
+    private float m_ModulationRadius = 2f;
     private int m_ModulationFrequency = 8;
-    private float m_Speed = 1f;
+    private float m_Speed = 4f;
     private float m_Phase;
 
     private NativeArray<Vector2> m_Vertices;
@@ -33,7 +33,7 @@ public sealed class ChainShapeDeform : SandboxExampleBehaviour
     protected override void SetupOptions()
     {
         AddSliderInt("Vertex Count", m_VertexCount, 8, 1024, v => m_VertexCount = v, rebuild: true);
-        AddSlider("Base Radius", m_BaseRadius, 1f, 20f, v => m_BaseRadius = v);
+        AddSlider("Base Radius", m_BaseRadius, 8f, 20f, v => m_BaseRadius = v);
         AddSlider("Modulation Radius", m_ModulationRadius, 0f, 5f, v => m_ModulationRadius = v);
         AddSliderInt("Modulation Frequency", m_ModulationFrequency, 1, 32, v => m_ModulationFrequency = v);
         AddSlider("Speed", m_Speed, -50f, 50f, v => m_Speed = v);
@@ -50,12 +50,11 @@ public sealed class ChainShapeDeform : SandboxExampleBehaviour
         var world = World;
         var body = world.CreateBody();
 
-        var chainDef = PhysicsChainDefinition.defaultDefinition;
-        chainDef.isLoop = true;
-        var surfaceMaterial = chainDef.surfaceMaterial;
-        surfaceMaterial.customColor = ShapeColor;
-        chainDef.surfaceMaterial = surfaceMaterial;
-
+        var chainDef = new PhysicsChainDefinition
+        {
+            isLoop = true,
+            surfaceMaterial = new PhysicsShape.SurfaceMaterial { customColor = ShapeColor }
+        };
         m_Chain = PhysicsChain.Create(body, m_Vertices.AsReadOnlySpan(), chainDef);
     }
 
