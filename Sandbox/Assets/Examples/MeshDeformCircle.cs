@@ -41,7 +41,7 @@ public sealed class MeshDeformCircle : SandboxExampleBehaviour
     private float m_ContourSpacing = 0.15f;
     private float m_ContourBand = 0.35f;
     private bool m_ShowMesh = false;
-    private Placement m_Placement = Placement.Bands;
+    private Placement m_Placement = Placement.MaximalDisk;
     private float m_MaxDiskRadius = 1f;
     private Packing m_Packing = Packing.Hex;
     private bool m_ClampToContour = true;
