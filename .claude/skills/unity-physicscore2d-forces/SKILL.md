@@ -20,8 +20,8 @@ PhysicsCore2D supports various force application methods:
 ## Repository Examples
 
 Reference examples from the PhysicsExamples2D repository:
-- **Wind** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Wind
-- **ConveyorBelt** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/ConveyorBelt
+- **Wind** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Wind.cs
+- **ConveyorBelt** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/ConveyorBelt.cs
 
 ## Force Application Methods
 

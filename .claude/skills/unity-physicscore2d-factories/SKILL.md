@@ -20,12 +20,12 @@ Factory patterns help create complex multi-body physics systems:
 ## Repository Examples
 
 Reference factory implementations from the PhysicsExamples2D repository:
-- **RagdollFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scripts/RagdollFactory.cs
-- **SoftbodyFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scripts/SoftbodyFactory.cs
-- **CarFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scripts/CarFactory.cs
-- **GearFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scripts/GearFactory.cs
-- **DoohickeyFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scripts/DoohickeyFactory.cs
-- **GearComponent.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scripts/GearComponent.cs
+- **RagdollFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Scripts/RagdollFactory.cs
+- **SoftbodyFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Scripts/SoftbodyFactory.cs
+- **CarFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Scripts/CarFactory.cs
+- **GearFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Scripts/GearFactory.cs
+- **DoohickeyFactory.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Scripts/DoohickeyFactory.cs
+- **GearComponent.cs** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Scripts/GearComponent.cs
 
 ## Factory Pattern Benefits
 

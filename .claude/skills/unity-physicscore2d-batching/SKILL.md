@@ -19,9 +19,9 @@ Batching operations in PhysicsCore2D significantly improves performance:
 ## Repository Examples
 
 Reference examples from the PhysicsExamples2D repository:
-- **Boids** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Boids
-- **Queries** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Queries
-- **Shooter** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Shooter
+- **Boids** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Boids.cs
+- **Queries** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Queries.cs
+- **Shooter** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Shooter.cs
 
 ## Batch Creation
 

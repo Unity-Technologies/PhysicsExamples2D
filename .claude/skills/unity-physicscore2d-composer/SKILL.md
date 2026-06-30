@@ -1,6 +1,6 @@
 # Unity PhysicsCore2D - PhysicsComposer
 
-> **Examples verified against `unity-physicscore2d-composer-api` and real code in `D:/UnitySrc/GitHub/PhysicsExamples2D/PhysicsCore2D/Projects/Primer/Assets/Scripts/PhysicsComposerGeometry.cs` (2026-05-19).** `AddLayer` argument order corrected to `(geometry, transform, operation, order, curveStride, reverseWinding)`. `CreatePolygonGeometry` correctly used as returning `NativeArray<PolygonGeometry>`. `CreateChain` correctly called with two arguments. For the full type/member API surface see `unity-physicscore2d-composer-api`.
+> **Examples verified against `unity-physicscore2d-composer-api` and real code in `D:/UnitySrc/GitHub/PhysicsExamples2D/Primer/Assets/Scripts/PhysicsComposerGeometry.cs` (2026-05-19).** `AddLayer` argument order corrected to `(geometry, transform, operation, order, curveStride, reverseWinding)`. `CreatePolygonGeometry` correctly used as returning `NativeArray<PolygonGeometry>`. `CreateChain` correctly called with two arguments. For the full type/member API surface see `unity-physicscore2d-composer-api`.
 
 Expert guidance on using PhysicsComposer to create complex collision shapes through boolean geometry operations in Unity PhysicsCore2D.
 
@@ -47,7 +47,7 @@ using (var c = PhysicsComposer.Create())
 ```
 
 > **Note:** The real-world pattern is `PhysicsComposer.Create()` with no arguments. `Create(Allocator)` is valid and controls the allocator used for internal layer buffers; use it when creating composers inside jobs (pass `Allocator.TempJob` or `Allocator.Persistent`).
-> Source: `Projects/Primer/Assets/Scripts/PhysicsComposerGeometry.cs:48`; API: `composer-api/SKILL.md:170`
+> Source: `Primer/Assets/Scripts/PhysicsComposerGeometry.cs:48`; API: `composer-api/SKILL.md:170`
 
 ### 2. Add Geometry Layers
 

@@ -19,12 +19,12 @@ Optimizing PhysicsCore2D for performance involves:
 ## Repository Examples
 
 Reference examples from the PhysicsExamples2D repository (Benchmark category):
-- **Capacity** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Capacity
-- **LargeWorld** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/LargeWorld
-- **LargeCompound** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/LargeCompound
-- **JointGrid** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/JointGrid
-- **LargePyramid** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/LargePyramid
-- **Triggers** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Triggers
+- **Capacity** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Capacity.cs
+- **LargeWorld** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/LargeWorld.cs
+- **LargeCompound** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/LargeCompound.cs
+- **JointGrid** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/JointGrid.cs
+- **LargePyramid** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/LargePyramid.cs
+- **Triggers** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Triggers.cs
 
 ## System Capacity
 

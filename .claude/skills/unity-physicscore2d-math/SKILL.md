@@ -302,7 +302,7 @@ using Unity.U2D.Physics;
 using UnityEngine;
 
 // Pogo-stick spring — drives the leg toward its rest length.
-// (Direct lift from CharacterMover.cs, Projects/Sandbox/Assets/Scenes/CharacterMover/)
+// (Direct lift from Sandbox/Assets/Examples/CharacterMover.cs)
 private float m_PogoVelocity;
 private float m_PogoFrequency = 8f;  // Hz
 private float m_PogoDamping   = 0.5f; // under-damped for a bouncy feel

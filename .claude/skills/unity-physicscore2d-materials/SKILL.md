@@ -18,10 +18,10 @@ PhysicsCore2D materials control how surfaces interact during collisions and cont
 ## Repository Examples
 
 Reference examples from the PhysicsExamples2D repository:
-- **Bounciness** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Bounciness
-- **Friction** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Friction
-- **RollingResistance** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/RollingResistance
-- **ConveyorBelt** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/ConveyorBelt
+- **Bounciness** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Bounciness.cs
+- **Friction** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Friction.cs
+- **RollingResistance** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/RollingResistance.cs
+- **ConveyorBelt** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/ConveyorBelt.cs
 
 ## Material Properties
 

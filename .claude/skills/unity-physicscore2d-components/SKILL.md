@@ -18,11 +18,10 @@ To make component authoring easier, the API has many features which make this ea
 - Ability to set an owner object which returns a secret key which must be used when destroying a physics object. This means a component author can stop users of the component from accidentally destroying the physics objects it creates and needs to function correctly.
 
 A complete example package is available which wraps all the available physics objects into Unity components, all of which demonstrate the above features.
-The package can be found here: https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Packages/com.unity.2d.physics.extras
-The package [runtime directory](https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Packages/com.unity.2d.physics.extras/Runtime) contains all the Unity components available.
+The package can be found here: https://github.com/Unity-Technologies/PhysicsExamples2D/tree/master/Packages/com.unity.2d.physics.extras
+The package [runtime directory](https://github.com/Unity-Technologies/PhysicsExamples2D/tree/master/Packages/com.unity.2d.physics.extras/Runtime) contains all the Unity components available.
 All the example components begin with the prefix "Scene" i.e. SceneWorld, SceneBody, SceneShape etc.
 
-You can find an overview of component authoring here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/ComponentAuthoring.md
 
 ## Debug Drawing
 The debug drawing refers to the PhysicsWorld renderer which will automatically draw the world contents (PhysicsBody, PhysicsShape, PhysicsJoint etc).
@@ -33,7 +32,6 @@ You can find the API reference for drawOptions here: https://docs.unity3d.com/60
 
 **Best Practice**: Individual components should NOT modify `world.drawOptions` as this is a global world-level setting. The user controls what is drawn at the world/scene level. If a component wants to conditionally draw something (like a circle, line, etc.), it should use a local boolean field (e.g., `public bool DrawCircle = true`) to control whether that specific component draws, not modify the global world settings.
 
-You can find an overview here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/DebugDrawing.md
 
 ## Worked Examples
 

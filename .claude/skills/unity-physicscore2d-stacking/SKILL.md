@@ -19,11 +19,11 @@ Stacking physics requires careful tuning for stability:
 ## Repository Examples
 
 Reference examples from the PhysicsExamples2D repository:
-- **Arch** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Stacking/Arch
-- **CardHouse** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Stacking/CardHouse
-- **Confined** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Stacking/Confined
-- **DoubleDomino** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Stacking/DoubleDomino
-- **ShapeStack** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Stacking/ShapeStack
+- **Arch** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Arch.cs
+- **CardHouse** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/CardHouse.cs
+- **Confined** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Confined.cs
+- **DoubleDomino** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/DoubleDomino.cs
+- **ShapeStack** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/ShapeStack.cs
 
 ## Stacking Stability
 

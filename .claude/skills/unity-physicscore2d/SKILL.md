@@ -97,8 +97,6 @@ All PhysicsCore2D API follows standard C# conventions:
 
 ## Overview
 
-You can find an overview here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/Overview.md
-
 ## Thread Safety
 
 **IMPORTANT**: The PhysicsCore2D API is 100% thread-safe. All PhysicsCore2D methods and properties can be safely called from multiple threads, including from Unity Jobs (IJob, IJobParallelFor, etc.).
@@ -186,8 +184,6 @@ public PhysicsBodyDefinition bodyDefinition = PhysicsBodyDefinition.defaultDefin
 public PhysicsShapeDefinition shapeDefinition = PhysicsShapeDefinition.defaultDefinition;
 ```
 
-You can find more detail here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/Definitions.md
-
 ### Reusing Definitions
 When creating multiple physics objects with the same definition properties, get the definition once and reuse it rather than calling the static `.defaultDefinition` property repeatedly inside loops. This is more efficient and avoids unnecessary repeated calls.
 
@@ -238,7 +234,6 @@ for (int i = 0; i < 100; i++)
 The PhysicsWorld is the main container for all physics simulation.
 Unity creates a default PhysicsWorld at start-up. To access it, always use: `var world = PhysicsWorld.defaultWorld;`
 You can find the API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html
-You can find an overview here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/PhysicsWorld.md
 
 ### PhysicsBody
 PhysicsBody represents a rigid body in the physics simulation.
@@ -246,7 +241,6 @@ Bodies can be Static, Kinematic, or Dynamic.
 Bodies are created using `world.CreateBody()` and should be destroyed in OnDisable with `body.Destroy()`.
 You can find the API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody.html
 You can find its definition API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBodyDefinition.html
-You can find an overview here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/PhysicsBody.md
 
 #### Transform Integration with transformObject
 
@@ -312,7 +306,6 @@ PhysicsShape represents collision geometry attached to a PhysicsBody.
 Shapes are created using `body.CreateShape()` and are automatically destroyed when the body is destroyed.
 You can find the API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html
 You can find its definition API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShapeDefinition.html
-You can find an overview here: https://github.com/Unity-Technologies/PhysicsExamples2D/blob/6000.5/PhysicsCore2D/Projects/Primer/PhysicsShape.md
 
 ## Best Practices
 When destroying a physics object (all have a "Destroy()" method), you should only call this after checking if the object is valid by calling its isValid property (all have this property).

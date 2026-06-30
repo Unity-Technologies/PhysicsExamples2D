@@ -161,7 +161,7 @@ public class CollisionHandler : MonoBehaviour, PhysicsCallbacks.IContactCallback
 ### Practical Example: Space Invaders Bullet Collision
 
 ```csharp
-// Source: adapted from Sandbox/Scenes/Shapes/Fragmenting/Fragmenting.cs (real-code)
+// Source: adapted from Sandbox/Assets/Examples/Fragmenting.cs (real-code)
 // Pattern: space-invader style — bullet (Dynamic, gravityScale=0) hits an enemy (Dynamic/Static);
 // callback destroys both and records the hit position.
 // NOTE: Callbacks require at least one Dynamic body in the contact pair.
@@ -391,11 +391,11 @@ public void OnContactEnd2D(PhysicsEvents.ContactEndEvent contactEvent)
 ## Repository Examples
 
 Reference examples from the PhysicsExamples2D repository:
-- **BounceHouse** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/BounceHouse
-- **BounceRagdolls** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/BounceRagdolls
-- **CharacterMover** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/CharacterMover
-- **ContactManifold** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/ContactManifold
-- **Determinism** - https://github.com/Unity-Technologies/PhysicsExamples2D/tree/6000.5/PhysicsCore2D/Projects/Sandbox/Assets/Scenes/Determinism
+- **BounceHouse** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/BounceHouse.cs
+- **BounceRagdolls** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/BounceRagdolls.cs
+- **CharacterMover** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/CharacterMover.cs
+- **ContactManifold** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/ContactManifold.cs
+- **Determinism** - https://github.com/Unity-Technologies/PhysicsExamples2D/blob/master/Sandbox/Assets/Examples/Determinism.cs
 
 ## Key Collision Topics
 

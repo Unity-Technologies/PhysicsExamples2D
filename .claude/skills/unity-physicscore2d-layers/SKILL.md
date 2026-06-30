@@ -232,6 +232,34 @@ PhysicsMask everything = PhysicsMask.All;
 PhysicsMask nothing = PhysicsMask.None;
 ```
 
+### Prefer the named constants over raw bitMask comparisons
+
+`PhysicsMask` exposes three canonical constants. Always use them for construction, comparison, and validation. Do not reach into `.bitMask` for these cases.
+
+| Constant            | Meaning                                                  | Backing value         |
+|---------------------|----------------------------------------------------------|-----------------------|
+| `PhysicsMask.None`  | No bits set. Equivalent to `default(PhysicsMask)`.       | `bitMask == 0x0`      |
+| `PhysicsMask.One`   | Only bit 0 set. The default for new shapes.              | `bitMask == 0x1`      |
+| `PhysicsMask.All`   | Every bit set (all 64 layers).                           | `bitMask == ulong.MaxValue` |
+
+```csharp
+// Good: read at the right level of abstraction.
+if (input.mask == PhysicsMask.None)
+    throw new ArgumentException("mask is empty");
+
+if (filter.categories == PhysicsMask.All)
+    return; // hits every layer, no further filtering needed
+
+var defaultCategories = PhysicsMask.One;
+
+// Avoid: reaching past the abstraction.
+if (input.mask.bitMask == 0u) { ... }            // use PhysicsMask.None
+if (filter.categories.bitMask == ulong.MaxValue) // use PhysicsMask.All
+    ...
+```
+
+The constants are `static readonly` fields on `PhysicsMask`, so the comparison compiles to the same code as the raw `bitMask` check while keeping intent visible at the call site.
+
 ## Display Attributes
 
 Use `PhysicsMask.ShowAsPhysicsMaskAttribute` when a `PhysicsMask` field represents arbitrary flag data rather than actual layers:
