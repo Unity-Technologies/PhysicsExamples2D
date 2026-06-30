@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 [ExampleScene("Shapes", "Demonstrates how a Chain Shape can be created and its vertices updated in realtime.")]
-public sealed class ChainShapeDeformed : SandboxExampleBehaviour
+public sealed class ChainShapeDeform : SandboxExampleBehaviour
 {
     private int m_VertexCount = 64;
     private float m_BaseRadius = 8f;

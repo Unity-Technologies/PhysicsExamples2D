@@ -315,10 +315,10 @@ MonoBehaviour:
     Description: A grid of rotating kinematic tumblers churning spawned debris.
     TypeName: ManyTumblers, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
-  - Name: Chain Shape Deformed
+  - Name: Chain Shape Deform
     Category: Shapes
     Description: Demonstrates how a Chain Shape can be created and its vertices updated
       in realtime.
-    TypeName: ChainShapeDeformed, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+    TypeName: ChainShapeDeform, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     Data: {fileID: 0}
