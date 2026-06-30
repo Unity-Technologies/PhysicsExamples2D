@@ -322,3 +322,17 @@ MonoBehaviour:
     TypeName: ChainShapeDeform, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Mesh Deform Circle
+    Category: Experiments
+    Description: Builds a deformable 2D mesh and approximates its interior area with
+      Circle geometry.
+    TypeName: MeshDeformCircle, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    Data: {fileID: 0}
+  - Name: Mesh Deform Polygon
+    Category: Experiments
+    Description: Builds a deformable 2D mesh and maps Polygon geometry directly to
+      its triangles.
+    TypeName: MeshDeformPolygon, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    Data: {fileID: 0}

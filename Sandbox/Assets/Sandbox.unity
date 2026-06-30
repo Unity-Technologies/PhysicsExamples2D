@@ -149,7 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da246a325b1cc5145b1a0931697c1d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BottomLeftMenu
-  StartFolded: 1
 --- !u!114 &465066521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,13 +253,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  StartScene: Barrel
-  m_SceneManifest: {fileID: 11400000, guid: 8be142835cb347f9bdc83c67c118c7b9, type: 2}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartScene: Mesh Deform Polygon
   DebugView: {fileID: 1603435387}
   BottomLeftMenu: {fileID: 465066520}
   ControlsMenu: {fileID: 931634909}
+  m_SceneManifest: {fileID: 11400000, guid: 8be142835cb347f9bdc83c67c118c7b9, type: 2}
 --- !u!1 &931634905
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,10 +569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c543dcb12519f44b0620a75f540b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DebuggingMenu
-  UpdatePeriod: 0.1
-  StartRolledUp: 1
-  StartProfileCollapsed: 0
-  StartCountersCollapsed: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
