@@ -1,5 +1,3 @@
-using System;
-using Unity.Collections;
 using UnityEngine;
 using Unity.U2D.Physics;
 
@@ -10,11 +8,15 @@ using Unity.U2D.Physics;
 /// </summary>
 public class TransformWriteCustom : MonoBehaviour, PhysicsCallbacks.ITransformWriteCallback
 {
-    public PhysicsWorld.TransformWriteMode WorldWriteMode = PhysicsWorld.TransformWriteMode.Custom;
-    public PhysicsWorld.TransformTweenMode WorldTweenMode = PhysicsWorld.TransformTweenMode.Custom;
-    public PhysicsBody.TransformWriteMode TransformWriteMode = PhysicsBody.TransformWriteMode.Current;
-    
+    public PhysicsBody.TransformWriteMode BodyWriteMode = PhysicsBody.TransformWriteMode.Interpolate;
+    public bool DrawShape = true;
+    public bool ConsoleLog = false;
+
+    private const PhysicsWorld.TransformWriteMode WorldWriteMode = PhysicsWorld.TransformWriteMode.Custom;
+    private const PhysicsWorld.TransformTweenMode WorldTweenMode = PhysicsWorld.TransformTweenMode.Custom;
     private PhysicsWorld m_PhysicsWorld;
+    private PhysicsBody m_PhysicsBody;
+    private PhysicsShape m_PhysicsShape;
 
     private void OnEnable()
     {
@@ -36,10 +38,10 @@ public class TransformWriteCustom : MonoBehaviour, PhysicsCallbacks.ITransformWr
         CreateArea();
         
         // Create two bodies at different positions.
-        var body = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition
+        m_PhysicsBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition
         {
             // Set the body transform write mode to whatever is selected in the script.
-            transformWriteMode = TransformWriteMode,
+            transformWriteMode = BodyWriteMode,
             
             // We want a dynamic bodi so we move and have collision responses.
             type = PhysicsBody.BodyType.Dynamic,
@@ -52,13 +54,13 @@ public class TransformWriteCustom : MonoBehaviour, PhysicsCallbacks.ITransformWr
         });
         
         // To perform transform writes, the body must specify which Transform object is being used to convert 2D to 3D custom writes.
-        body.transformObject = transform;
-        
+        m_PhysicsBody.transformObject = transform;
+
         // Create a shape definition that has high bounciness.
-        var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 1f} };
+        var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { bounciness = 1f}, worldDrawing = DrawShape };
         
         // Create a shape.
-        body.CreateShape(new CircleGeometry { radius = 1f }, shapeDef);
+        m_PhysicsShape = m_PhysicsBody.CreateShape(new CircleGeometry { radius = 1f }, shapeDef);
     }
 
     private void OnDisable()
@@ -89,7 +91,8 @@ public class TransformWriteCustom : MonoBehaviour, PhysicsCallbacks.ITransformWr
             PhysicsWorld.SetTransform(writeTween.transform, ref position, ref rotation);
         }
         
-        Debug.Log("OnTransformWrite");
+        if (ConsoleLog)
+            Debug.Log("OnTransformWrite");
     }
 
     public void OnTransformTweenWrite(PhysicsEvents.TransformTweenWriteEvent transformTweenWriteEvent)
@@ -128,15 +131,21 @@ public class TransformWriteCustom : MonoBehaviour, PhysicsCallbacks.ITransformWr
             }
         }
         
-        Debug.Log("OnTransformTweenWrite");
+        if (ConsoleLog)
+            Debug.Log("OnTransformTweenWrite");
     }
 
     private void OnValidate()
     {
-        if (m_PhysicsWorld.isValid)
-        {
-            m_PhysicsWorld.transformWriteMode = WorldWriteMode;
-            m_PhysicsWorld.transformTweenMode = WorldTweenMode;
-        }
+        if (!m_PhysicsWorld.isValid ||
+            !m_PhysicsBody.isValid ||
+            !m_PhysicsShape.isValid)
+            return;
+
+        // Update.
+        m_PhysicsWorld.transformWriteMode = WorldWriteMode;
+        m_PhysicsWorld.transformTweenMode = WorldTweenMode;
+        m_PhysicsBody.transformWriteMode = BodyWriteMode;
+        m_PhysicsShape.worldDrawing = DrawShape;
     }
 }
