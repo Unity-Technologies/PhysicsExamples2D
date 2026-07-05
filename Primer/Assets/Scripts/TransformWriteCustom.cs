@@ -33,7 +33,7 @@ public class TransformWriteCustom : MonoBehaviour, PhysicsCallbacks.ITransformWr
         // Create a static area for the shapes to move around in.
         CreateArea();
         
-        // Create two bodies at different positions.
+        // Create a body.
         m_PhysicsBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition
         {
             // Set the body transform write mode to whatever is selected in the script.
