@@ -2,8 +2,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 /// <summary>
-/// Demonstrates how to control if and what a body will write to a Transform.
-/// Press "Play" to see the bodies, each of which has a different transform write mode.
+/// Demonstrates how to control if and what a body will write to a Transform in custom mode.
 /// See the comments for more information.
 /// </summary>
 public class TransformWriteCustom : MonoBehaviour, PhysicsCallbacks.ITransformWriteCallback
@@ -21,9 +20,6 @@ public class TransformWriteCustom : MonoBehaviour, PhysicsCallbacks.ITransformWr
     private void OnEnable()
     {
         // Create a world.
-        // NOTE: For the world to perform transform writes, it needs to use "TransformWriteMode.Fast2D" or "TransformWriteModeSlow3D".
-        // If the world is set to "TransformWriteMode.Off", no transform writes will occur, irrelevant of what each body requests.
-        // You can change this dynamically with "PhysicsWorld.transformWriteMode" or preferably by setting the default in the physics low-level settings as is used in this project (it uses "Fast2D").
         m_PhysicsWorld = PhysicsWorld.Create(
             new PhysicsWorldDefinition
             {
