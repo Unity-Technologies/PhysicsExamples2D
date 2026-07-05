@@ -18,7 +18,7 @@ public class TransformWrite : MonoBehaviour
         // Create a world.
         // NOTE: For the world to perform transform writes, it needs to use "TransformWriteMode.Fast2D" or "TransformWriteModeSlow3D".
         // If the world is set to "TransformWriteMode.Off", no transform writes will occur, irrelevant of what each body requests.
-        // YOu can change this dynamically with "PhysicsWorld.transformWriteMode" or preferably by setting the default in the physics low-level settings as is used in this project (it uses "Fast2D").
+        // You can change this dynamically with "PhysicsWorld.transformWriteMode" or preferably by setting the default in the physics low-level settings as is used in this project (it uses "Fast2D").
         m_PhysicsWorld = PhysicsWorld.Create();
 
         // Create a static area for the shapes to move around in.
