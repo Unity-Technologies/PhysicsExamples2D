@@ -287,7 +287,7 @@ public class DebugView : MonoBehaviour, IFoldable
         m_StaticBroadphaseHeightElement.text = $"{color}{m_LastCounters.staticBroadphaseHeight}{endColor} >[{color}{m_MaxCounters.staticBroadphaseHeight}{endColor}]";
         m_MoveableBroadphaseHeightElement.text = $"{color}{m_LastCounters.broadphaseHeight}{endColor} >[{color}{m_MaxCounters.broadphaseHeight}{endColor}]";
         m_StackBytesUsedElement.text = $"{color}{m_LastCounters.stackUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.stackUsed * memoryScale:F2}{endColor}]";
-        m_TotalBytesUsedElement.text = $"{color}{m_LastCounters.memoryUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.memoryUsed * memoryScale:F2}{endColor}]";
+        m_TotalBytesUsedElement.text = $"{color}{m_LastCounters.usedMemory * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.usedMemory * memoryScale:F2}{endColor}]";
         m_TaskCountElement.text = $"{color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
     }
     

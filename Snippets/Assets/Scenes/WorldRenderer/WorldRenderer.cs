@@ -1,4 +1,5 @@
 using System;
+using Unity.Scripting.LifecycleManagement;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.Rendering;
@@ -14,13 +15,13 @@ public class WorldRenderer : MonoBehaviour
     public Material PointMaterial;
 
     private DrawerGroup m_DrawerGroup = null;
-    private static Mesh m_RenderMesh;
+    [NoAutoStaticsCleanup] private static Mesh m_RenderMesh;
 
-    private static int ElementBufferShaderProperty = Shader.PropertyToID("element_buffer");
-    private static int TransformPlaneShaderProperty = Shader.PropertyToID("transform_plane");
-    private static int TransformPlaneMatrixShaderProperty = Shader.PropertyToID("transform_plane_matrix");
-    private static int ThicknessShaderProperty = Shader.PropertyToID("thickness");
-    private static int FillAlphaShaderProperty = Shader.PropertyToID("fillAlpha");
+    [NoAutoStaticsCleanup] private static int ElementBufferShaderProperty = Shader.PropertyToID("element_buffer");
+    [NoAutoStaticsCleanup] private static int TransformPlaneShaderProperty = Shader.PropertyToID("transform_plane");
+    [NoAutoStaticsCleanup] private static int TransformPlaneMatrixShaderProperty = Shader.PropertyToID("transform_plane_matrix");
+    [NoAutoStaticsCleanup] private static int ThicknessShaderProperty = Shader.PropertyToID("thickness");
+    [NoAutoStaticsCleanup] private static int FillAlphaShaderProperty = Shader.PropertyToID("fillAlpha");
     
     private const string RenderCommandBufferName = "Snippets.WorldRenderer";
 

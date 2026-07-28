@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using Unity.U2D.Physics.Extras;
@@ -95,7 +96,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         public Color GrabHandleDeleteColor { get; set; }
 
         public override GUIContent toolbarIcon => m_ToolIcon ??= new GUIContent(EditorGUIUtility.IconContent(IconUtility.IconPath + "TestShapeTool.png").image, EditorGUIUtility.TrTextContent("Edit Geometry.").text);
-        private static GUIContent m_ToolIcon;
+        [NoAutoStaticsCleanup] private static GUIContent m_ToolIcon;
         private List<TestShape> m_TestShapeTargets;
         private List<TestShapeGeometryTool> m_GeometryTools;
         private TestGeometryToolOverlay m_Overlay;

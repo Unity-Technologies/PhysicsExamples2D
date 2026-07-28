@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.Scripting.LifecycleManagement;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
@@ -33,7 +34,7 @@ namespace Unity.U2D.Physics.Extras
 
 #if UNITY_EDITOR
         // Editor selection.
-        private static readonly List<IWorldDrawable> SelectedDrawables = new();
+        [NoAutoStaticsCleanup] private static readonly List<IWorldDrawable> SelectedDrawables = new();
         static TestWorld() => EditorApplication.update += DrawEditorSelections;
         private static void DrawEditorSelections()
         {

@@ -26,7 +26,7 @@ internal class TestBodyShadowProvider : TestShadowProviderBase
         m_PersistantShadowShape = null;
     }
 
-    public override void OnBeforeRender(Component sourceComponent, Bounds worldCullingBounds, ShadowShape2D persistantShadowShape)
+    public override void OnBeforeRender(Camera camera, Component sourceComponent, Bounds worldCullingBounds, ShadowShape2D persistantShadowShape)
     {
         // Fetch the scene body shadow.
         var sceneBody = sourceComponent as TestBody;

@@ -18,7 +18,6 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
     private Camera m_Camera;
 
     private Vector2 m_OldGravity;
-    private bool m_OldAutoContactCallbacks;
 
     private readonly PhysicsMask m_ObstacleMask = new(1);
     private readonly PhysicsMask m_GroundMask = new(2);
@@ -77,10 +76,6 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
 
         // Store old gravity.
         m_OldGravity = world.gravity;
-
-        // Turn-on auto contact callbacks.
-        m_OldAutoContactCallbacks = world.autoContactCallbacks;
-        world.autoContactCallbacks = true;
 
         // Set Overrides.
         SandboxManager.SetOverrideColorShapeState(false);
@@ -142,9 +137,6 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
 
         // Get the default world.
         var world = World;
-
-        // Reset the callbacks.
-        world.autoContactCallbacks = m_OldAutoContactCallbacks;
 
         // Reset the old gravity.
         world.gravity = m_OldGravity;
@@ -498,7 +490,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         }
 
         // Finish if no physics outlines are available.
-        var physicsOutlines = m_Sprite.GetPhysicsShapeCount();
+        var physicsOutlines = m_Sprite.GetPhysicsOutlineCount();
         if (physicsOutlines == 0)
         {
             Debug.LogWarning("No physics outlines were found for the initial sprite.");
@@ -514,7 +506,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         for (var i = 0; i < physicsOutlines; ++i)
         {
             // Get the physics shape.
-            if (m_Sprite.GetPhysicsShape(i, m_PhysicsShapeVertex) > 0)
+            if (m_Sprite.GetPhysicsOutline(i, m_PhysicsShapeVertex) > 0)
             {
                 // Add to something we can use.
                 foreach (var vertex in m_PhysicsShapeVertex)

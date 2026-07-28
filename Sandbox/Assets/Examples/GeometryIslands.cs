@@ -9,7 +9,6 @@ using UnityEngine.UIElements;
 [ExampleScene("Shapes", "Demonstrates the use of geometry islands when fragmenting.")]
 public sealed class GeometryIslands : SandboxExampleBehaviour, PhysicsCallbacks.IContactCallback
 {
-    private bool m_OldAutoContactCallbacks;
     private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;
 
     private ControlsMenu.CustomButton m_LeftButton;
@@ -61,10 +60,6 @@ public sealed class GeometryIslands : SandboxExampleBehaviour, PhysicsCallbacks.
         // Get the default world.
         var world = World;
 
-        // Turn-on auto contact callbacks.
-        m_OldAutoContactCallbacks = world.autoContactCallbacks;
-        world.autoContactCallbacks = true;
-
         // Turn on interior drawing only.
         m_OldDrawFillOptions = world.drawFillOptions;
         world.drawFillOptions = PhysicsWorld.DrawFillOptions.Interior;
@@ -106,9 +101,6 @@ public sealed class GeometryIslands : SandboxExampleBehaviour, PhysicsCallbacks.
     {
         // Get the default world.
         var world = World;
-
-        // Reset the callbacks.
-        world.autoContactCallbacks = m_OldAutoContactCallbacks;
 
         // Reset the draw fill options.
         world.drawFillOptions = m_OldDrawFillOptions;

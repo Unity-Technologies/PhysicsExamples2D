@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.Scripting.LifecycleManagement;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Unity.U2D.Physics.Editor.Extras
         private const string AutoReadIntervalPrefKey = nameof(PhysicsCoreInspectorEditor) + ".AutoReadInterval";
 
         // Auto Read dropdown options. Label shown to the user, period in ms (0 = off).
+        [NoAutoStaticsCleanup]
         private static readonly (string label, int periodMs)[] s_AutoReadOptions =
         {
             ("Off",     0),
@@ -1427,7 +1429,7 @@ namespace Unity.U2D.Physics.Editor.Extras
                 AddInfo("Task count", c.taskCount.ToString());
                 AddInfo("Broadphase height", c.broadphaseHeight.ToString());
                 AddInfo("Static broadphase height", c.staticBroadphaseHeight.ToString());
-                AddInfo("Memory used (bytes)", c.memoryUsed.ToString());
+                AddInfo("Memory used (bytes)", c.usedMemory.ToString());
                 AddInfo("Stack used (bytes)", c.stackUsed.ToString());
             });
             ApplyZebraStripes(container, skipFirstN: 1);   // skip the column header row

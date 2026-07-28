@@ -100,7 +100,7 @@ namespace Unity.U2D.Physics.Extras
             if (Sprite == null)
                 return;
 
-            var physicsShapeCount = Sprite.GetPhysicsShapeCount();
+            var physicsShapeCount = Sprite.GetPhysicsOutlineCount();
             if (physicsShapeCount == 0)
                 return;
 
@@ -112,7 +112,7 @@ namespace Unity.U2D.Physics.Extras
             for (var i = 0; i < physicsShapeCount; ++i)
             {
                 // Get the physics shape.
-                if (Sprite.GetPhysicsShape(i, m_PhysicsShapeVertex) > 0)
+                if (Sprite.GetPhysicsOutline(i, m_PhysicsShapeVertex) > 0)
                 {
                     // Add to something we can use.
                     foreach (var vertex in m_PhysicsShapeVertex)

@@ -164,10 +164,11 @@ public sealed class Wind : SandboxExampleBehaviour
         // Calculate the wind.
         var direction = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(m_WindDirection));
         m_CurrentWind = (direction + m_WindNoise) * m_WindSpeed;
+        var windInput = new PhysicsBody.WindInput { drag = m_Drag, lift = m_Lift, force = m_CurrentWind };
 
         // Apply the wind.
         foreach (var physicsShape in m_Shapes)
-            physicsShape.ApplyWind(m_CurrentWind, m_Drag, m_Lift);
+            physicsShape.ApplyWind(windInput);
 
         // Calculate new wind noise.
         ref var random = ref Random;
