@@ -1,13 +1,13 @@
 ---
 name: unity-physicscore2d-queries-api
-description: Authoritative Unity 6000.5 PhysicsCore2D API reference for Queries. Lists every type, property, field, method (with signatures, params, returns) for: PhysicsQuery. Use whenever working with these types in code.
+description: Authoritative Unity 6000.7 PhysicsCore2D API reference for Queries. Lists every type, property, field, method (with signatures, params, returns) for: PhysicsQuery. Use whenever working with these types in code.
 ---
 
 # Unity PhysicsCore2D API — Queries
 
-This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.5, so it should be treated as the source of truth for member names, signatures, and documentation strings.
+This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.7, so it should be treated as the source of truth for member names, signatures, and documentation strings.
 
-_Generated from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`._
+_Generated from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`._
 
 Top-level types in this file: `PhysicsQuery`.
 
@@ -16,7 +16,7 @@ Top-level types in this file: `PhysicsQuery`.
 > Various physics queries.
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery`  
-**Docs:** [Unity.U2D.Physics.PhysicsQuery](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.html)
+**Docs:** [Unity.U2D.Physics.PhysicsQuery](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.html)
 
 ### Methods
 
@@ -28,7 +28,7 @@ Check the intersection between Capsule and Capsule geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -40,7 +40,7 @@ Check the intersection between Capsule and Circle geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -51,6 +51,8 @@ Cast two shape proxies against each other. Initially touching shapes are treated
 **Params:**
 - `castShapePairInput` — The input describing the shape proxies and how they should move.
 
+**Returns:** The cast result.
+
 #### `ChainSegmentAndCapsule(ChainSegmentGeometry, PhysicsTransform, CapsuleGeometry, PhysicsTransform)`
 
 Check the intersection between ChainSegment and Capsule geometries.
@@ -59,7 +61,7 @@ Check the intersection between ChainSegment and Capsule geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -71,7 +73,7 @@ Check the intersection between ChainSegment and Circle geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -83,7 +85,7 @@ Check the intersection between ChainSegment and Polygon geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -95,7 +97,7 @@ Check the intersection between Circle and Circle geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -107,7 +109,7 @@ Check the intersection between Polygon and Capsule geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -119,7 +121,7 @@ Check the intersection between Polygon and Circle geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -131,7 +133,7 @@ Check the intersection between Polygon and Polygon geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -143,7 +145,7 @@ Check the intersection between Segment and Capsule geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -155,7 +157,7 @@ Check the intersection between Segment and Circle geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -167,7 +169,7 @@ Check the intersection between Segment and Polygon geometries.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -179,19 +181,19 @@ Calculate the distance and closest points between two segments.
 - `geometryA` — The first geometry to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `geometryB` — The second geometry to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The segment distance results.
 
 #### `ShapeAndShape(PhysicsShape, PhysicsTransform, PhysicsShape, PhysicsTransform)`
 
-Check the intersection between two .
+Check the intersection between two shapes ([PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html)).
 
 **Params:**
 - `shapeA` — The first shape to use.
 - `transformA` — The transform used to specify where the first geometry is positioned.
 - `shapeB` — The second shape to use.
-- `transformB` — The transform used to specify where the first geometry is positioned.
+- `transformB` — The transform used to specify where the second geometry is positioned.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
@@ -216,7 +218,7 @@ Calculate the upper bound on time before two shape proxies penetrate i.e. the ti
 ### Nested Types
 
 - **CastRayInput** — Cast-Ray arguments used by CastRay queries.
-- **CastResult** — Cast result when performing ray-cast or shape-cast queries against geometry.
+- **CastResult** — Cast result when performing cast-ray or cast-shape queries against geometry.
 - **CastShapeInput** — Cast shape arguments used by CastShape queries. To use existing shape geometries, use the helper constructors that allow creation via a specific shape geometry type.
 - **CastShapePairInput** — Cast two shape proxies against each other. To use existing shape geometries, use the helper constructors that allow creation via a specific shape geometry type.
 - **DistanceInput** — An input used for shape distance queries.
@@ -226,8 +228,8 @@ Calculate the upper bound on time before two shape proxies penetrate i.e. the ti
 - **ShapeSweep** — Describes the motion of a shape for a time-of-impact calculation. The shape is defined with respect to the body origin.
 - **TimeOfImpactInput** — The input for time-of-impact query.
 - **TimeOfImpactResult** — Time-of-impact result from time-of-impact query.
-- **WorldCastMode** — Controls what results are returned from a cast query against the .
-- **WorldCastResult** — The results from performing any Cast query against the .
+- **WorldCastMode** — Controls what results are returned from a cast query against the [PhysicsWorld](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html).
+- **WorldCastResult** — The results from performing any Cast query against the [PhysicsWorld](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html).
 - **WorldMoverInput** — The world mover arguments used by the world mover.
 - **WorldMoverResult** — The world mover result used by the world mover.
 - **WorldOverlapResult** — The results from performing any Overlap query.
@@ -244,7 +246,7 @@ Calculate the upper bound on time before two shape proxies penetrate i.e. the ti
 |------|---------|
 | `maxFraction` | The maximum fraction of the translation to consider in the range (0 to 1), typically 1. |
 | `origin` | The origin (start) of the ray. |
-| `translation` | The translation relative to the of the ray. |
+| `translation` | The translation relative to the [PhysicsQuery.CastRayInput.origin](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastRayInput-origin.html) of the ray. |
 
 #### Methods
 
@@ -258,7 +260,7 @@ Create a Cast-Ray with a default fraction of 1.
 
 **Params:**
 - `origin` — The origin (start) of the ray.
-- `translation` — The translation relative to the of the ray.
+- `translation` — The translation relative to the [PhysicsQuery.CastRayInput.origin](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastRayInput-origin.html) of the ray.
 
 ##### `FromTo(Vector2, Vector2)`
 
@@ -270,7 +272,7 @@ Calculate a Cast-Ray given two positions.
 
 ### CastResult
 
-> Cast result when performing ray-cast or shape-cast queries against geometry.
+> Cast result when performing cast-ray or cast-shape queries against geometry.
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.CastResult`  
 
@@ -281,17 +283,27 @@ Calculate a Cast-Ray given two positions.
 | `fraction` | The fraction of the input translation at collision in the range (0 to 1). |
 | `isValid` | Check if the result is valid. |
 | `iterations` | The number of iterations used in the calculation. |
-| `normal` | The surface normal at the point of contact. In all non-overlapped cases, this will be a unit-normal. If there was an initial overlap, the normal will be zero (degenerate) along with the being zero. |
+| `normal` | The surface normal at the point of contact. In all non-overlapped cases, this will be a unit-normal. If there was an initial overlap, the normal will be zero (degenerate) along with the [PhysicsQuery.CastResult.fraction](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult-fraction.html) being zero. |
 | `point` | The point of contact. |
 
 #### Methods
 
 ##### `operator implicit()`
 
-Implicitly convert the cast output to a bool using the value in the flag.
+Implicitly convert the cast output to a bool using the value in the [PhysicsQuery.CastResult.isValid](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult-isValid.html) flag.
 
 **Params:**
 - `output` — The CastResult to convert.
+
+#### Nested Types
+
+- **SortAscendingOrder** — Ascending distance sort comparer.
+
+#### SortAscendingOrder
+
+> Ascending distance sort comparer.
+
+**Full name:** `Unity.U2D.Physics.PhysicsQuery.CastResult.SortAscendingOrder`  
 
 ### CastShapeInput
 
@@ -316,7 +328,7 @@ Create a default cast shape input.
 
 ##### `new(CircleGeometry, Vector2)`
 
-Create a CastShapeInput the specified . You should transform the geometry into the space you require.
+Create a CastShapeInput the specified [CircleGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CircleGeometry.html). You should transform the geometry into the space you require.
 
 **Params:**
 - `circleGeometry` — The geometry to use.
@@ -324,7 +336,7 @@ Create a CastShapeInput the specified . You should transform the geometry into t
 
 ##### `new(CapsuleGeometry, Vector2)`
 
-Create a CastShapeInput the specified . You should transform the geometry into the space you require.
+Create a CastShapeInput the specified [CapsuleGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CapsuleGeometry.html). You should transform the geometry into the space you require.
 
 **Params:**
 - `capsuleGeometry` — The geometry to use.
@@ -332,7 +344,7 @@ Create a CastShapeInput the specified . You should transform the geometry into t
 
 ##### `new(SegmentGeometry, Vector2)`
 
-Create a CastShapeInput the specified . You should transform the geometry into the space you require.
+Create a CastShapeInput the specified [SegmentGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry.html). You should transform the geometry into the space you require.
 
 **Params:**
 - `segmentGeometry` — The geometry to use.
@@ -340,7 +352,7 @@ Create a CastShapeInput the specified . You should transform the geometry into t
 
 ##### `new(PolygonGeometry, Vector2)`
 
-Create a CastShapeInput the specified . You should transform the geometry into the space you require.
+Create a CastShapeInput the specified [PolygonGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry.html). You should transform the geometry into the space you require.
 
 **Params:**
 - `polygonGeometry` — The geometry to use.
@@ -348,7 +360,7 @@ Create a CastShapeInput the specified . You should transform the geometry into t
 
 ##### `new(ChainSegmentGeometry, Vector2)`
 
-Create a CastShapeInput the specified . You should transform the geometry into the space you require.
+Create a CastShapeInput the specified [ChainSegmentGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.ChainSegmentGeometry.html). You should transform the geometry into the space you require.
 
 **Params:**
 - `chainSegmentGeometry` — The geometry to use.
@@ -412,6 +424,16 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 | `pointA` | Closest point on shape A. |
 | `pointB` | Closest point on shape B. |
 
+#### Nested Types
+
+- **SortAscendingOrder** — Ascending distance sort comparer.
+
+#### SortAscendingOrder
+
+> Ascending distance sort comparer.
+
+**Full name:** `Unity.U2D.Physics.PhysicsQuery.DistanceResult.SortAscendingOrder`  
+
 ### QueryFilter
 
 > A query filter is used to filter query results known as "hits". For example, you may want a ray-cast representing a projectile to hit players and the static environment but not debris.
@@ -423,7 +445,7 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 | Name | Summary |
 |------|---------|
 | `DefaultCategories` | The default categories used. |
-| `defaultFilter` | Get the default query filter that hits everything. See . |
+| `defaultFilter` | Get the default query filter that hits everything. See [PhysicsQuery.QueryFilter.Everything](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.QueryFilter-Everything.html). |
 | `DefaultHitCategories` | The default hit categories used. |
 | `DefaultIgnoreFilter` | The default ignore filter used. |
 | `Everything` | Get a query filter that is all categories, hits everything and doesn't ignore any objects. |
@@ -440,15 +462,15 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 
 ##### `new()`
 
-Create a default filter set as .
+Create a default filter set as [PhysicsQuery.QueryFilter.defaultFilter](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.QueryFilter-defaultFilter.html).
 
 ##### `new(PhysicsMask, PhysicsMask, PhysicsWorld.IgnoreFilter)`
 
 Create a query filter.
 
 **Params:**
-- `categories` — A defining the categories this query is using.
-- `hitCategories` — A defining the categories this query will produce hits with.
+- `categories` — A [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html) defining the categories this query is using.
+- `hitCategories` — A [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html) defining the categories this query will produce hits with.
 - `ignoreFilter` — A filter used to ignore items when filtering.
 
 ### SegmentDistanceResult
@@ -466,6 +488,16 @@ Create a query filter.
 | `distance` | The distance between the closest points |
 | `fraction1` | The barycentric coordinate on the first segment |
 | `fraction2` | The barycentric coordinate on the second segment |
+
+#### Nested Types
+
+- **SortAscendingOrder** — Ascending distance sort comparer.
+
+#### SortAscendingOrder
+
+> Ascending distance sort comparer.
+
+**Full name:** `Unity.U2D.Physics.PhysicsQuery.SegmentDistanceResult.SortAscendingOrder`  
 
 ### ShapeSweep
 
@@ -516,7 +548,14 @@ Create a query filter.
 
 #### Nested Types
 
+- **SortAscendingOrder** — Ascending distance sort comparer.
 - **State** — Describes the time-of-impact state.
+
+#### SortAscendingOrder
+
+> Ascending distance sort comparer.
+
+**Full name:** `Unity.U2D.Physics.PhysicsQuery.TimeOfImpactResult.SortAscendingOrder`  
 
 #### State
 
@@ -536,7 +575,7 @@ Create a query filter.
 
 ### WorldCastMode
 
-> Controls what results are returned from a cast query against the .
+> Controls what results are returned from a cast query against the [PhysicsWorld](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html).
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.WorldCastMode`  
 
@@ -550,7 +589,7 @@ Create a query filter.
 
 ### WorldCastResult
 
-> The results from performing any Cast query against the .
+> The results from performing any Cast query against the [PhysicsWorld](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html).
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.WorldCastResult`  
 
@@ -560,9 +599,19 @@ Create a query filter.
 |------|---------|
 | `fraction` | The fraction of the query cast distance the shape would move to the point of detection, in the range [0, 1]. |
 | `isValid` | Check if the result is valid. |
-| `normal` | The surface normal at the point of contact. In all non-overlapped cases, this will be a unit-normal. If there was an initial overlap, the normal will be zero (degenerate) along with the being zero and being an arbitrary point in the overlapped region. See . |
+| `normal` | The surface normal at the point of contact. In all non-overlapped cases, this will be a unit-normal. If there was an initial overlap, the normal will be zero (degenerate) along with the [PhysicsQuery.WorldCastResult.fraction](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldCastResult-fraction.html) being zero and [PhysicsQuery.WorldCastResult.point](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldCastResult-point.html) being an arbitrary point in the overlapped region. See [PhysicsQuery.WorldCastResult.point](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldCastResult-point.html). |
 | `point` | The point of contact. |
 | `shape` | The shape that was detected by the cast. |
+
+#### Nested Types
+
+- **SortAscendingOrder** — Ascending distance sort comparer.
+
+#### SortAscendingOrder
+
+> Ascending distance sort comparer.
+
+**Full name:** `Unity.U2D.Physics.PhysicsQuery.WorldCastResult.SortAscendingOrder`  
 
 ### WorldMoverInput
 
@@ -574,16 +623,16 @@ Create a query filter.
 
 | Name | Summary |
 |------|---------|
-| `castFilter` | The filter to use for checking casts. The advantage of a separate filter to is that you can check for overlaps in a different way to what you can hit when moving. For instance, you may or may not want to check for other movers in they existing in the world when moving but you want to always check them for overlap initially. |
-| `collisionResults` | Whether to return all the individual results for all iterations or not. All the collisions will be returned in the results. |
+| `castFilter` | The filter to use for checking casts. The advantage of a separate filter to [PhysicsQuery.WorldMoverInput.overlapFilter](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldMoverInput-overlapFilter.html) is that you can check for overlaps in a different way to what you can hit when moving. For instance, you may or may not want to check for other movers in they existing in the world when moving but you want to always check them for overlap initially. |
+| `collisionResults` | Whether to return all the individual [PhysicsShape.MoverCollision](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.MoverCollision.html) results for all iterations or not. All the collisions will be returned in the [PhysicsQuery.WorldMoverResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldMoverResult.html) results. |
 | `defaultInput` | Create a default world mover input. |
 | `geometry` | The mover geometry to use when checking for overlaps and casting. |
-| `maxIterations` | Solving a movement is iterative and will continue until the maximum allowed iterations has been achieve, controlled by this value. The maximum allowed iterations will not always be used and solving will cease if the iteration movement falls below the square of the . |
-| `moveTolerance` | Solving a movement will cease if the movement falls below the square of this value. By default, this value is extremely small. Too high a value will result in solving ceasing too quickly, too small will result in all allowed being used. |
+| `maxIterations` | Solving a movement is iterative and will continue until the maximum allowed iterations has been achieve, controlled by this value. The maximum allowed iterations will not always be used and solving will cease if the iteration movement falls below the square of the [PhysicsQuery.WorldMoverInput.moveTolerance](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldMoverInput-moveTolerance.html). |
+| `moveTolerance` | Solving a movement will cease if the movement falls below the square of this value. By default, this value is extremely small. Too high a value will result in solving ceasing too quickly, too small will result in all allowed [PhysicsQuery.WorldMoverInput.maxIterations](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldMoverInput-maxIterations.html) being used. |
 | `overlapFilter` | The filter to use for checking overlaps. |
 | `targetPosition` | The position desired for the mover to achieve. This is typically calculated using the current velocity, any gravity required and time-integrated by the simulation time-step (delta-time). |
 | `transform` | The transform used to transform the geometry i.e. the mover starting pose. |
-| `velocity` | The velocity used to calculate the . This is not used for movement but it will be returned, modified by any surfaces hit. This velocity can then be used in subsequent inputs for movement. |
+| `velocity` | The velocity used to calculate the [PhysicsQuery.WorldMoverInput.targetPosition](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldMoverInput-targetPosition.html). This is not used for movement but it will be returned, modified by any surfaces hit. This velocity can then be used in subsequent inputs for movement. |
 
 #### Methods
 
@@ -601,8 +650,8 @@ Create a default world mover input.
 
 | Name | Summary |
 |------|---------|
-| `collisionResults` | All the individual results for all iterations. Multiple non-unique contacts for the same may be returned due to iterations, overlapping and casting. This is only populated if is true. |
-| `transform` | The final transform the mover finished at. The transform rotation is always the same as the provided. |
+| `collisionResults` | All the individual [PhysicsShape.MoverCollision](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.MoverCollision.html) results for all iterations. Multiple non-unique contacts for the same [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) may be returned due to iterations, overlapping and casting. This is only populated if [PhysicsQuery.WorldMoverInput.collisionResults](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldMoverInput-collisionResults.html) is true. |
+| `transform` | The final transform the mover finished at. The transform rotation is always the same as the [PhysicsQuery.WorldMoverInput.transform](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.WorldMoverInput-transform.html) provided. |
 | `velocity` | The final velocity the mover finished at. |
 
 #### Methods
@@ -626,4 +675,4 @@ Dispose of any allocated memory for the collision results.
 
 ---
 
-_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
+_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._

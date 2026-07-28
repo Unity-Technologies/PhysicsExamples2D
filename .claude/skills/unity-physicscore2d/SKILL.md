@@ -1,6 +1,6 @@
 ---
 name: unity-physicscore2d
-description: Orientation and getting-started guide for Unity 6000.5 PhysicsCore2D — namespace history, distinction from the legacy Physics2D component system, WORM concurrency model, definitions/handle-struct semantics, and routing to the topic and -api sub-skills. Use for first-time onboarding, conceptual questions about how PhysicsCore2D differs from older Physics2D, or when you need a map of which sub-skill covers what. For specific type APIs use the *-api skills; for specific patterns use the matching topic skill (joints, bodies, queries, batching, factories, etc.).
+description: Orientation and getting-started guide for Unity 6000.7 PhysicsCore2D — namespace history, distinction from the legacy Physics2D component system, WORM concurrency model, definitions/handle-struct semantics, and routing to the topic and -api sub-skills. Use for first-time onboarding, conceptual questions about how PhysicsCore2D differs from older Physics2D, or when you need a map of which sub-skill covers what. For specific type APIs use the *-api skills; for specific patterns use the matching topic skill (joints, bodies, queries, batching, factories, etc.).
 ---
 
 # Unity PhysicsCore2D Expert
@@ -72,9 +72,9 @@ If you're uncertain about ANY PhysicsCore2D API:
 
 ### API Verification Protocol (use this order):
 
-1. **PhysicsCore2D types (`Unity.U2D.Physics.*`):** verify against the relevant `*-api` skill first — it is the source of truth, sourced from the editor's IntelliSense XML for the installed Unity version. If the type is not covered by any `*-api` skill, WebFetch `https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.{TypeName}.html`. Note: per-type pages list members without signatures; to verify a specific signature fetch `https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.{TypeName}.{MethodName}.html`. Web docs may lag the installed editor — prefer the `*-api` skill when both can answer.
+1. **PhysicsCore2D types (`Unity.U2D.Physics.*`):** verify against the relevant `*-api` skill first — it is the source of truth, sourced from the editor's IntelliSense XML for the installed Unity version. If the type is not covered by any `*-api` skill, WebFetch `https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.{TypeName}.html`. Note: per-type pages list members without signatures; to verify a specific signature fetch `https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.{TypeName}.{MethodName}.html`. Web docs may lag the installed editor — prefer the `*-api` skill when both can answer.
 
-2. **Adjacent Unity namespaces (`Unity.Collections.*`, `Unity.Mathematics.*`, `Unity.Jobs.*`, `UnityEngine.*`):** WebFetch `https://docs.unity3d.com/6000.5/Documentation/ScriptReference/{Namespace}.{TypeName}.html`. Generic types use the `_N` suffix (e.g. `Unity.Collections.NativeArray_1` for `NativeArray<T>`).
+2. **Adjacent Unity namespaces (`Unity.Collections.*`, `Unity.Mathematics.*`, `Unity.Jobs.*`, `UnityEngine.*`):** WebFetch `https://docs.unity3d.com/6000.7/Documentation/ScriptReference/{Namespace}.{TypeName}.html`. Generic types use the `_N` suffix (e.g. `Unity.Collections.NativeArray_1` for `NativeArray<T>`).
 
 3. **.NET BCL types (`System.Span<T>`, `System.ReadOnlySpan<T>`, etc.):** WebFetch `https://learn.microsoft.com/dotnet/api/{namespace}.{type}` (e.g. `system.span-1`).
 
@@ -233,14 +233,14 @@ for (int i = 0; i < 100; i++)
 ### PhysicsWorld
 The PhysicsWorld is the main container for all physics simulation.
 Unity creates a default PhysicsWorld at start-up. To access it, always use: `var world = PhysicsWorld.defaultWorld;`
-You can find the API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html
+You can find the API reference here: https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html
 
 ### PhysicsBody
 PhysicsBody represents a rigid body in the physics simulation.
 Bodies can be Static, Kinematic, or Dynamic.
 Bodies are created using `world.CreateBody()` and should be destroyed in OnDisable with `body.Destroy()`.
-You can find the API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody.html
-You can find its definition API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBodyDefinition.html
+You can find the API reference here: https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody.html
+You can find its definition API reference here: https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBodyDefinition.html
 
 #### Transform Integration with transformObject
 
@@ -304,8 +304,8 @@ private void OnDisable()
 ### PhysicsShape
 PhysicsShape represents collision geometry attached to a PhysicsBody.
 Shapes are created using `body.CreateShape()` and are automatically destroyed when the body is destroyed.
-You can find the API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html
-You can find its definition API reference here: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShapeDefinition.html
+You can find the API reference here: https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html
+You can find its definition API reference here: https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShapeDefinition.html
 
 ## Best Practices
 When destroying a physics object (all have a "Destroy()" method), you should only call this after checking if the object is valid by calling its isValid property (all have this property).
@@ -332,7 +332,7 @@ Many PhysicsCore2D methods that return NativeArray<T> include an allocator argum
 
 If you store a NativeArray as a class field (e.g., to persist from OnEnable to OnDisable), you MUST use Allocator.Persistent. Using the default Allocator.Temp will cause errors when accessing the array in subsequent frames.
 
-More information: https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.Collections.Allocator.html
+More information: https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator.html
 
 ### Random Number Generation
 Prefer Unity.Mathematics.Random over UnityEngine.Random for random number generation. Unity.Mathematics.Random is better because:
@@ -598,7 +598,7 @@ PhysicsCore2D coverage is split into two complementary layers. **Always invoke t
 
 **How to invoke:** Use the Skill tool with the sub-skill name, e.g., `Skill(skill="unity-physicscore2d-joints-api")`.
 
-### API Reference Layer (`*-api`) — auto-generated from Unity 6000.5 IntelliSense XML
+### API Reference Layer (`*-api`) — auto-generated from Unity 6000.7 IntelliSense XML
 
 Use these whenever you need to verify a type, property, method signature, parameter, or return type. They list every member with its XML doc summary, structured by type cluster. Reach for these *first* when the user asks "what's the signature of X" or "does property Y exist on type Z" — they are the source of truth that prevents API invention (see the rules at the top of this skill).
 

@@ -1,321 +1,639 @@
 ---
 name: unity-physicscore2d-misc-api
-description: Authoritative Unity 6000.5 PhysicsCore2D API reference for Miscellaneous. Lists every type, property, field, method (with signatures, params, returns) for: IPhysicsJoint, PhysicsBuffer, PhysicsBufferPair, PhysicsEditorOnly, PhysicsTransformTweener, PhysicsTransformWatcher, PhysicsTransformWriter, PhysicsWorldRenderer. Use whenever working with these types in code.
+description: Authoritative Unity 6000.7 PhysicsCore2D API reference for Miscellaneous. Lists every type, property, field, method (with signatures, params, returns) for: IPhysicsResultFilter, PhysicsHandle, PhysicsResultEnumerable, PhysicsResultExtensions, PhysicsSpace. Use whenever working with these types in code.
 ---
 
 # Unity PhysicsCore2D API — Miscellaneous
 
-This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.5, so it should be treated as the source of truth for member names, signatures, and documentation strings.
+This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.7, so it should be treated as the source of truth for member names, signatures, and documentation strings.
 
-_Generated from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`._
+_Generated from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`._
 
-Top-level types in this file: `IPhysicsJoint`, `PhysicsBuffer`, `PhysicsBufferPair`, `PhysicsEditorOnly`, `PhysicsTransformTweener`, `PhysicsTransformWatcher`, `PhysicsTransformWriter`, `PhysicsWorldRenderer`.
+Top-level types in this file: `IPhysicsResultFilter`, `PhysicsHandle`, `PhysicsResultEnumerable`, `PhysicsResultExtensions`, `PhysicsSpace`.
 
-## IPhysicsJoint
+## IPhysicsResultFilter
 
-> Defines a common joint interface. This is a helper implementation interface (used for commonality/consistency) and should not be used to access a joint.
+> A filter applied to each element of a physics result array during enumeration.
 
-**Full name:** `Unity.U2D.Physics.IPhysicsJoint`  
-**Docs:** [Unity.U2D.Physics.IPhysicsJoint](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.IPhysicsJoint.html)
+**Full name:** `Unity.U2D.Physics.IPhysicsResultFilter`  
+**Docs:** [Unity.U2D.Physics.IPhysicsResultFilter](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.IPhysicsResultFilter.html)
+
+### Methods
+
+#### `Keep(T)`
+
+Decide whether a single result element is kept.
+
+**Params:**
+- `item` — The result element being tested.
+
+**Returns:** True to keep the element in the enumeration, false to skip it.
+
+## PhysicsHandle
+
+> An abstract handle that can be used for custom purposes such as handling miscellaneous physics object types abstractly. You can create a handle with [PhysicsHandle.Create](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-Create.html) or [PhysicsHandle.CreateBatch](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-CreateBatch.html). You can destroy a handle with [PhysicsHandle.Destroy](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-Destroy.html) or [PhysicsHandle.DestroyBatch](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-DestroyBatch.html). You can also get a handle from one of the following physics objects: [PhysicsBody.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody-physicsHandle.html), [PhysicsShape.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape-physicsHandle.html), [PhysicsChain.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsChain-physicsHandle.html), [PhysicsJoint.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsJoint-physicsHandle.html), [PhysicsDistanceJoint.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsDistanceJoint-physicsHandle.html), [PhysicsFixedJoint.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsFixedJoint-physicsHandle.html), [PhysicsHingeJoint.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHingeJoint-physicsHandle.html), [PhysicsIgnoreJoint.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsIgnoreJoint-physicsHandle.html), [PhysicsRelativeJoint.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRelativeJoint-physicsHandle.html), [PhysicsSliderJoint.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSliderJoint-physicsHandle.html) and [PhysicsWheelJoint.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWheelJoint-physicsHandle.html). NOTE: When retrieving the handle from another physics object, the object type is not encoded so that must be handled separately. Because of this, it's entirely possible for two handles to be equal, differing only by the type they came from so care must be taken or the object type explicitly stored against handles.
+
+**Full name:** `Unity.U2D.Physics.PhysicsHandle`  
+**Docs:** [Unity.U2D.Physics.PhysicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle.html)
 
 ### Properties
 
 | Name | Summary |
 |------|---------|
-| `bodyA` | — |
-| `bodyB` | — |
-| `callbackTarget` | — |
-| `collideConnected` | — |
-| `currentAngularSeparationError` | — |
-| `currentConstraintForce` | — |
-| `currentConstraintTorque` | — |
-| `currentLinearSeparationError` | — |
-| `drawScale` | — |
-| `forceThreshold` | — |
-| `isOwned` | — |
-| `isValid` | — |
-| `jointType` | — |
-| `localAnchorA` | — |
-| `localAnchorB` | — |
-| `ownerUserData` | — |
-| `torqueThreshold` | — |
-| `tuningDamping` | — |
-| `tuningFrequency` | — |
-| `userData` | — |
-| `world` | — |
-| `worldDrawing` | — |
+| `generation` | Get the handle generation. |
+| `index` | Get the handle index. |
+| `isPoolHandle` | Checks if the physics handle is from the physics handle pool or not. This will return false unless the[PhysicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle.html) was explicitly created with [PhysicsHandle.Create](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-Create.html) or [PhysicsHandle.CreateBatch](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-CreateBatch.html). |
+| `isValid` | Checks if the physics handle is valid in the physics handle pool. This will only work correctly if the [PhysicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle.html) was explicitly created with [PhysicsHandle.Create](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-Create.html) or [PhysicsHandle.CreateBatch](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-CreateBatch.html). If the handle comes from another physics object, it will not validate that object and a warning will be issued. |
+| `world` | Get the handle world index. |
 
 ### Methods
 
-#### `Destroy(int)`
+#### `AsWorld(PhysicsWorld)`
 
-#### `Draw()`
+Get a copy of this handle that refers to the specified [PhysicsWorld](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html). The index and generation are preserved and only the world is changed, so the result refers to the same object slot in the specified world. This is useful when one world shares an identical handle layout with another, such as a world created from a snapshot of, or a clone of, the original.
 
-#### `GetOwner()`
+**Params:**
+- `world` — The world the returned handle should refer to.
 
-#### `SetOwner(Object, int)`
+**Returns:** A handle referring to the same slot and generation in the specified world.
 
-#### `SetOwner(Object)`
+#### `Create()`
 
-#### `SetOwnerUserData(PhysicsUserData, int)`
+Create a [PhysicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle.html).
 
-#### `WakeBodies()`
+**Returns:** The created physics handle.
 
-## PhysicsBuffer
+#### `CreateBatch(int, Unity.Collections.Allocator)`
 
-> Internal buffer used to marshal results efficiently from the native engine.
+Create a batch of [PhysicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle.html).
 
-**Full name:** `Unity.U2D.Physics.Scripting2D.PhysicsBuffer`  
+**Params:**
+- `handleCount` — The quantity of physics handles to create, in the range 1 to 100000.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
 
-### Properties
+**Returns:** The physics handles. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
-| Name | Summary |
-|------|---------|
-| `allocator` | — |
-| `buffer` | — |
-| `isEmpty` | — |
-| `isValid` | — |
-| `size` | — |
+#### `Destroy()`
 
-### Methods
+Destroy the handle. This will only work correctly if the [PhysicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle.html) was explicitly created with [PhysicsHandle.Create](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-Create.html) or [PhysicsHandle.CreateBatch](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle-CreateBatch.html). NOTE: If the handle comes from another physics object, it will not destroy that object and a warning will be issued.
 
-#### `new()`
+#### `DestroyBatch(ReadOnlySpan<PhysicsHandle>)`
 
-#### `new(IntPtr, int, Unity.Collections.Allocator)`
+Destroy the specified span of [PhysicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsHandle.html). NOTE: If any of the handles come from another physics object, it will not destroy that object and a warning will be issued.
 
-#### `As``1(int)`
+**Params:**
+- `physicsHandles` — The physics handles to destroy.
 
-#### `AsEngineObject``1(int)`
+#### `Equals(object)`
 
-#### `Dispose()`
+#### `Equals(PhysicsHandle)`
 
-This should NOT be called if a NativeArray or Span are currently active and being accessed otherwise bad things will happen. Typically, the NativeArray should be disposed of but in other cases, this can be used.
-
-#### `FromNativeArray``1(Unity.Collections.NativeArray{`})`
-
-#### `FromSpan``1(ReadOnlySpan{`})`
-
-#### `ToNativeArray``1()`
-
-#### `ToReadOnlySpan``1()`
-
-#### `ToSpan``1()`
+#### `GetHashCode()`
 
 #### `ToString()`
 
-## PhysicsBufferPair
+## PhysicsResultEnumerable
 
-> Internal buffer pair used to marshal results efficiently from the native engine.
+> ⚠️ **[Obsolete]** (no longer compiles, it is a hard error): Types with embedded references are not supported in this version of your compiler.
+>
+> A lazy, allocation-free view over a physics result array that yields only the elements a filter keeps.
 
-**Full name:** `Unity.U2D.Physics.Scripting2D.PhysicsBufferPair`  
-
-### Fields
-
-| Name | Summary |
-|------|---------|
-| `buffer1` | — |
-| `buffer2` | — |
-
-## PhysicsEditorOnly
-
-**Full name:** `Unity.U2D.Physics.PhysicsEditorOnly`  
-**Docs:** [Unity.U2D.Physics.PhysicsEditorOnly](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsEditorOnly.html)
-
-### Properties
-
-| Name | Summary |
-|------|---------|
-| `physicsSettings` | — |
+**Full name:** `Unity.U2D.Physics.PhysicsResultEnumerable`  
+**Docs:** [Unity.U2D.Physics.PhysicsResultEnumerable](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsResultEnumerable.html)
 
 ### Methods
 
-#### `ReadProjectSettings()`
+#### `new(Unity.Collections.NativeArray<T>, TFilter)`
 
-## PhysicsTransformTweener
+Create a filtered view over a physics result array.
 
-**Full name:** `Unity.U2D.Physics.PhysicsTransformTweener`  
-**Docs:** [Unity.U2D.Physics.PhysicsTransformTweener](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsTransformTweener.html)
+**Params:**
+- `source` — The result array to iterate.
+- `filter` — The filter deciding which elements are kept.
 
-### Methods
+#### `GetEnumerator()`
 
-#### `CreateWorldTransformAccessArray(PhysicsWorld, int, int)`
+Get an enumerator that walks the source array and yields only the kept elements.
 
-#### `DestroyWorldTransformAccessArray(PhysicsWorld)`
-
-#### `GetWorldTransformAccessArray(PhysicsWorld)`
-
-#### `WriteTransformTweensCustom(object, PhysicsWorld, float, float, PhysicsWorld.TransformWriteMode, PhysicsWorld.TransformPlane, PhysicsWorld.TransformPlaneCustom, Scripting2D.PhysicsBuffer)`
-
-#### `WriteTransformTweensTask(bool, float, float, PhysicsWorld.TransformWriteMode, PhysicsWorld.TransformPlane, PhysicsWorld.TransformPlaneCustom, Unity.Collections.NativeArray{Unity.U2D.Physics.PhysicsBody.TransformWriteTween})`
+**Returns:** A value-type enumerator over the filtered elements.
 
 ### Nested Types
 
-- **WriteTransformTweensParallelJob** — —
+- **Enumerator** — ⚠️ **[Obsolete]** (no longer compiles, it is a hard error): Types with embedded references are not supported in this version of your compiler. — Walks a physics result array and yields only the elements the filter keeps.
 
-### WriteTransformTweensParallelJob
+### Enumerator
 
-**Full name:** `Unity.U2D.Physics.PhysicsTransformTweener.WriteTransformTweensParallelJob`  
+> ⚠️ **[Obsolete]** (no longer compiles, it is a hard error): Types with embedded references are not supported in this version of your compiler.
+>
+> Walks a physics result array and yields only the elements the filter keeps.
 
-## PhysicsTransformWatcher
-
-**Full name:** `Unity.U2D.Physics.PhysicsTransformWatcher`  
-**Docs:** [Unity.U2D.Physics.PhysicsTransformWatcher](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsTransformWatcher.html)
-
-### Methods
-
-#### `TransformChangedCallback(Scripting2D.PhysicsBuffer)`
-
-#### `TransformParentHierarchyChangedCallback(Scripting2D.PhysicsBuffer)`
-
-## PhysicsTransformWriter
-
-**Full name:** `Unity.U2D.Physics.PhysicsTransformWriter`  
-**Docs:** [Unity.U2D.Physics.PhysicsTransformWriter](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsTransformWriter.html)
-
-### Methods
-
-#### `WriteTransformsSequentialTask(Unity.Collections.NativeArray{Unity.U2D.Physics.PhysicsBody.TransformWriteTween}, PhysicsWorld.TransformPlane, PhysicsWorld.TransformPlaneCustom, bool, bool)`
-
-#### `WriteWorldTransforms(PhysicsWorld, PhysicsWorld.SimulationType, PhysicsWorld.TransformWriteMode, PhysicsWorld.TransformPlane, PhysicsWorld.TransformPlaneCustom, PhysicsWorld.TransformTweenMode)`
-
-#### `WriteWorldTransformsCustom(object, PhysicsWorld, PhysicsWorld.SimulationType, PhysicsWorld.TransformWriteMode, PhysicsWorld.TransformPlane, PhysicsWorld.TransformPlaneCustom, PhysicsWorld.TransformTweenMode)`
-
-#### `WriteWorldTransformsGetPhysicsTransformPose3D(PhysicsBody.TransformWriteTween, PhysicsWorld.TransformPlane, PhysicsWorld.TransformPlaneCustom, bool, Vector3, Quaternion)`
-
-### Nested Types
-
-- **WriteTransformsParallelJob** — —
-
-### WriteTransformsParallelJob
-
-**Full name:** `Unity.U2D.Physics.PhysicsTransformWriter.WriteTransformsParallelJob`  
-
-## PhysicsWorldRenderer
-
-**Full name:** `Unity.U2D.Physics.PhysicsWorldRenderer`  
-**Docs:** [Unity.U2D.Physics.PhysicsWorldRenderer](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorldRenderer.html)
-
-### Methods
-
-#### `GetCameraViewAABB(Camera)`
-
-#### `GetMesh()`
-
-#### `InitializeRendering()`
-
-#### `IsCameraTypeValid(Camera)`
-
-#### `RenderWorlds_BIRP(Camera)`
-
-#### `RenderWorlds_SRP(Rendering.ScriptableRenderContext, Camera)`
-
-#### `SendDrawResults(bool, bool, PhysicsWorld, PhysicsWorld.DrawResults, PhysicsWorld.TransformPlane, Matrix4x4, float, float)`
-
-#### `ShutdownRendering()`
-
-### Nested Types
-
-- **DrawerGroup** — —
-
-### DrawerGroup
-
-**Full name:** `Unity.U2D.Physics.PhysicsWorldRenderer.DrawerGroup`  
+**Full name:** `Unity.U2D.Physics.PhysicsResultEnumerable.Enumerator`  
 
 #### Properties
 
 | Name | Summary |
 |------|---------|
-| `isValid` | — |
+| `Current` | Get the element at the current position of the enumerator. |
 
 #### Methods
 
-##### `new()`
+##### `new(Unity.Collections.NativeArray<T>, TFilter)`
 
-##### `Dispose()`
+Create an enumerator over a result array and its filter.
 
-##### `Draw(Rendering.CommandBuffer, PhysicsWorld.DrawResults, float, float, PhysicsWorld.TransformPlane, Matrix4x4)`
+**Params:**
+- `source` — The result array to iterate.
+- `filter` — The filter deciding which elements are kept.
+
+##### `MoveNext()`
+
+Advance to the next element the filter keeps.
+
+**Returns:** True if a kept element was found, false once the source is exhausted.
+
+## PhysicsResultExtensions
+
+> Fluent filtering extensions for the physics result arrays returned by queries, events, and other physics operations.
+
+**Full name:** `Unity.U2D.Physics.PhysicsResultExtensions`  
+**Docs:** [Unity.U2D.Physics.PhysicsResultExtensions](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsResultExtensions.html)
+
+### Methods
+
+#### `PhysicsResultEnumerable(Unity.Collections.NativeArray<T>, TFilter)`
+
+## PhysicsSpace
+
+> Provides the ability to store and query information in a spatial database.
+
+**Full name:** `Unity.U2D.Physics.PhysicsSpace`  
+**Docs:** [Unity.U2D.Physics.PhysicsSpace](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace.html)
+
+### Properties
+
+| Name | Summary |
+|------|---------|
+| `isValid` | Check if a Physics Space is valid. |
+| `memoryAllocated` | Get the total memory allocated for the space, in bytes. |
+| `proxyCount` | Get the proxy count in the space. |
+| `rootAABB` | Get the root bounds that contain all the AABB proxies. |
+| `sourceWorld` | Get the world this space is bound to, or a default (invalid) world if the space is not bound. A space is bound by creating it with the world overload of Create. |
+
+### Methods
+
+#### `CastRay(PhysicsQuery.CastRayInput, PhysicsMask, Unity.Collections.Allocator)`
+
+Find proxies that intersect the specified ray. The results indicate that the proxy AABB intersect the specified cast ray, in no specific order.
+
+**Params:**
+- `input` — The configuration of the ray to cast.
+- `categories` — The categories to query for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The query cast results. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `CastShape(PhysicsQuery.CastShapeInput, PhysicsMask, Unity.Collections.Allocator)`
+
+Find proxies that intersect the specified shape. The results indicate that the proxy AABB intersect the specified cast shape, in no specific order.
+
+**Params:**
+- `input` — The configuration of the shape to cast.
+- `categories` — The categories to query for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The query cast results. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `ClearProxies()`
+
+Clear all space proxies. You should no longer use any previously returned [PhysicsSpace.ProxyHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace.ProxyHandle.html) as they may be invalid or direct to the wrong proxy in the future. The space will continue with a similar proxy capacity therefore if full de-allocation is required, the space should be destroyed and a new one created.
+
+**Returns:** If the proxies were destroyed. If the space is invalid, no proxies will be destroyed.
+
+#### `Clone(PhysicsWorld, PhysicsQuery.QueryFilter, bool)`
+
+Clear any existing proxies and clone all [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) found in the specified [PhysicsWorld](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html). Each proxy created will have a user-handle assigned as [PhysicsShape.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape-physicsHandle.html). This means you can get the referenced shape by using [PhysicsShape.#ctor](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape-#ctor.html).
+
+**Params:**
+- `world` — The world to find the [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) in. On a world-bound space this must be the world the space is bound to.
+- `filter` — The filter to control what proxies are created.
+- `destroyExistingProxies` — Controls if any existing proxies are destroyed before cloning from the specified world. If false, care should be taken that any existing proxies refer to [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) otherwise a mix of user-handles will be present.
+
+**Returns:** How many proxies were cloned.
+
+#### `Clone(PhysicsWorld, PhysicsQuery.QueryFilter, PhysicsAABB, bool)`
+
+Clear any existing proxies and clone any [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) found in the specified [PhysicsWorld](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.html) overlapping the specified [PhysicsAABB](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB.html). Each proxy created will have a user-handle assigned as [PhysicsShape.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape-physicsHandle.html). This means you can get the referenced shape by using [PhysicsShape.#ctor](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape-#ctor.html).
+
+**Params:**
+- `world` — The world to find the [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) in. On a world-bound space this must be the world the space is bound to.
+- `aabb` — The AABB used to discover [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) in the specified world. If the AABB size is size (default) then the whole world will be discovered.
+- `filter` — The filter to control what proxies are created.
+- `destroyExistingProxies` — Controls if any existing proxies are destroyed before cloning from the specified world. If false, care should be taken that any existing proxies refer to [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) otherwise a mix of user-handles will be present.
+
+**Returns:** How many proxies were cloned.
+
+#### `Clone(PhysicsQuery.QueryFilter, bool)`
+
+Clear any existing proxies and clone every [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) found in the world this space is bound to. Each proxy created will have a user-handle assigned as [PhysicsShape.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape-physicsHandle.html). This only applies to a space bound to a world.
+
+**Params:**
+- `filter` — The filter to control what proxies are created.
+- `destroyExistingProxies` — Controls if any existing proxies are destroyed before cloning from the bound world. If false, care should be taken that any existing proxies refer to [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) otherwise a mix of user-handles will be present.
+
+**Returns:** How many proxies were cloned.
+
+#### `Clone(PhysicsQuery.QueryFilter, PhysicsAABB, bool)`
+
+Clear any existing proxies and clone any [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) found in the world this space is bound to overlapping the specified [PhysicsAABB](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB.html). Each proxy created will have a user-handle assigned as [PhysicsShape.physicsHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape-physicsHandle.html). This only applies to a space bound to a world.
+
+**Params:**
+- `aabb` — The AABB used to discover [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) in the bound world. If the AABB size is size (default) then the whole world will be discovered.
+- `filter` — The filter to control what proxies are created.
+- `destroyExistingProxies` — Controls if any existing proxies are destroyed before cloning from the bound world. If false, care should be taken that any existing proxies refer to [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) otherwise a mix of user-handles will be present.
+
+**Returns:** How many proxies were cloned.
+
+#### `Create()`
+
+Create a Physics Space.
+
+**Returns:** The new Physics Space.
+
+#### `Create(PhysicsWorld)`
+
+Create a Physics Space bound to the specified world so its proxies represent shapes in that world. While bound, any proxy user handle must be a live shape in this world and you can refresh the proxies from their shapes. The binding lasts for the lifetime of the space and cannot be changed.
+
+**Params:**
+- `world` — The world whose shapes this space's proxies will represent.
+
+**Returns:** The new Physics Space bound to the specified world.
+
+#### `CreateProxy(PhysicsAABB, PhysicsMask, PhysicsHandle)`
+
+Create a space proxy.
+
+**Params:**
+- `aabb` — The AABB the proxy covers.
+- `categories` — The categories as a physics mask associated with the proxy. This can be used when querying the space. If not used, it should be [PhysicsMask.All](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask-All.html).
+- `userHandle` — The custom user handle associated with the proxy. On a world-bound space this must be a live shape in the bound world.
+
+**Returns:** The created proxy handle used to refer to the proxy.
+
+#### `CreateProxyShapes(ReadOnlySpan<PhysicsShape>, Unity.Collections.Allocator)`
+
+Create one proxy per shape, taking each proxy AABB, categories and user handle directly from the shape. This only applies to a space bound to a world, and every shape must be a live shape in that world.
+
+**Params:**
+- `shapes` — The shapes to create proxies for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The created proxy handles, one per shape in the same order. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `Destroy()`
+
+Destroy the Physics Space.
+
+**Returns:** If the space was destroyed or not.
+
+#### `DestroyAll()`
+
+Destroy all active Physics Space.
+
+#### `DestroyProxy(PhysicsSpace.ProxyHandle)`
+
+Destroy a space proxy.
+
+**Params:**
+- `proxyHandle` — The proxy to destroy.
+
+**Returns:** If the proxy was destroyed. If the proxy handle is invalid, no proxy will be destroyed.
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsSpace)`
+
+#### `GetBatchProxyAABB(ReadOnlySpan<PhysicsSpace.ProxyHandle>, Unity.Collections.Allocator)`
+
+Get a batch of proxy AABB. If any proxy handle in the batch is invalid, no results are returned and an empty array is produced.
+
+**Params:**
+- `proxyHandles` — The proxies to get.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The proxy AABB, one per proxy in the same order. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `GetBatchProxyCategories(ReadOnlySpan<PhysicsSpace.ProxyHandle>, Unity.Collections.Allocator)`
+
+Get a batch of proxy categories. If any proxy handle in the batch is invalid, no results are returned and an empty array is produced.
+
+**Params:**
+- `proxyHandles` — The proxies to get.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The proxy categories, one per proxy in the same order. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `GetBatchProxyShapes(ReadOnlySpan<PhysicsSpace.ProxyHandle>, Unity.Collections.Allocator)`
+
+Get a batch of proxy user handles as shapes, valid only on a space bound to a world. On a bound space every proxy user handle is a shape, so each is returned as a shape that the caller can check for validity. This only applies to a space bound to a world.
+
+**Params:**
+- `proxyHandles` — The proxies to get.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The proxy shapes, one per proxy in the same order. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `GetBatchProxyUserHandle(ReadOnlySpan<PhysicsSpace.ProxyHandle>, Unity.Collections.Allocator)`
+
+Get a batch of proxy user handles. If any proxy handle in the batch is invalid, no results are returned and an empty array is produced.
+
+**Params:**
+- `proxyHandles` — The proxies to get.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The proxy user handles, one per proxy in the same order. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `GetHashCode()`
+
+#### `GetProxyAABB(PhysicsSpace.ProxyHandle)`
+
+Set the proxy physics AABB.
+
+**Params:**
+- `proxyHandle` — The proxy to get.
+
+**Returns:** The proxy physics AABB.
+
+#### `GetProxyCategories(PhysicsSpace.ProxyHandle)`
+
+Get the proxy categories.
+
+**Params:**
+- `proxyHandle` — The proxy to get.
+
+**Returns:** The proxy categories as a physics mask.
+
+#### `GetProxyUserHandle(PhysicsSpace.ProxyHandle)`
+
+Get the proxy user handle.
+
+**Params:**
+- `proxyHandle` — The proxy to get.
+
+**Returns:** The proxy user handle.
+
+#### `GetSpaces(Unity.Collections.Allocator)`
+
+Get all the currently active spaces.
+
+**Params:**
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The currently active spaces. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `OverlapAABB(PhysicsAABB, PhysicsMask, Unity.Collections.Allocator)`
+
+Find proxies that overlap the specified AABB. The results indicate that the proxy AABB overlap the specified AABB, in no specific order.
+
+**Params:**
+- `aabb` — The AABB to query.
+- `categories` — The categories to query for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The query overlap results. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `OverlapPoint(Vector2, PhysicsMask, Unity.Collections.Allocator)`
+
+Find proxies that overlap the specified point. The results indicate that the proxy AABB overlap the specified point, in no specific order.
+
+**Params:**
+- `point` — The point to query.
+- `categories` — The categories to query for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The query overlap results. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+#### `SetBatchProxyAABB(ReadOnlySpan<PhysicsSpace.ProxyHandle>, ReadOnlySpan<PhysicsAABB>, bool)`
+
+Set a batch of proxy AABB, where the AABB at each index is set on the corresponding proxy at the same index. The two spans must be the same length. Any invalid proxy handle or AABB in the batch is skipped and reported with a single warning.
+
+**Params:**
+- `proxyHandles` — The proxies to set.
+- `aabbs` — The AABB to set on each corresponding proxy.
+- `updateAncestors` — If the AABB have simply moved then this should be false however if you have changed their size then you should update the space ancestors which takes more time. This applies to the whole batch.
+
+#### `SetBatchProxyCategories(ReadOnlySpan<PhysicsSpace.ProxyHandle>, ReadOnlySpan<PhysicsMask>)`
+
+Set a batch of proxy categories, where the categories at each index are set on the corresponding proxy at the same index. The two spans must be the same length. This can be an expensive operation as all ancestors need to be recalculated. Any invalid proxy handle in the batch is skipped and reported with a single warning.
+
+**Params:**
+- `proxyHandles` — The proxies to set.
+- `categories` — The categories as a physics mask to set on each corresponding proxy.
+
+#### `SetProxyAABB(PhysicsSpace.ProxyHandle, PhysicsAABB, bool)`
+
+Set the proxy AABB.
+
+**Params:**
+- `proxyHandle` — The proxy to set.
+- `aabb` — The AABB to set the proxy to.
+- `updateAncestors` — If the AABB has simply moved then this should be false however if you have changed its size then you should update the space ancestors which takes more time.
+
+#### `SetProxyCategories(PhysicsSpace.ProxyHandle, PhysicsMask)`
+
+Set the proxy categories. This can be an expensive operation as all ancestors need to be recalculated.
+
+**Params:**
+- `proxyHandle` — The proxy to set.
+- `categories` — The categories as a physics mask to set.
+
+#### `SetProxyUserHandle(PhysicsSpace.ProxyHandle, PhysicsHandle)`
+
+Set the proxy user handle. On a world-bound space the user handle must be a live shape in the bound world.
+
+**Params:**
+- `proxyHandle` — The proxy to set.
+- `userHandle` — The user handle to set. On a world-bound space this must be a live shape in the bound world.
+
+#### `SyncShapes()`
+
+Refresh every proxy from its shape, updating each proxy AABB and categories to match the live shape. This only applies to a space bound to a world. A proxy whose shape has been destroyed since it was added is skipped and reported with a single warning.
+
+**Returns:** The number of proxies that were synced.
+
+#### `SyncShapes(ReadOnlySpan<PhysicsSpace.ProxyHandle>)`
+
+Refresh the specified proxies from their shapes, updating each proxy AABB and categories to match the live shape. This only applies to a space bound to a world. An invalid proxy handle, or a proxy whose shape has been destroyed, is skipped and reported with a single warning.
+
+**Params:**
+- `proxyHandles` — The proxies to sync.
+
+**Returns:** The number of proxies that were synced.
+
+#### `SyncShapes(PhysicsSpace.ProxyHandle)`
+
+Refresh a single proxy from its shape, updating the proxy AABB and categories to match the live shape. This only applies to a space bound to a world. The proxy is skipped if its handle is invalid or its shape has been destroyed.
+
+**Params:**
+- `proxyHandle` — The proxy to sync.
+
+**Returns:** The number of proxies that were synced (0 or 1).
+
+#### `ToString()`
+
+### Nested Types
+
+- **CastResult** — The narrowphase cast results.
+- **ProxyHandle** — A proxy identity added to the space.
+- **ProxyResult** — A space result from [PhysicsSpace.OverlapAABB](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace-OverlapAABB.html), [PhysicsSpace.CastRay](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace-CastRay.html) or [PhysicsSpace.CastShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace-CastShape.html).
+- **ShapeSpace** — Query a [PhysicsSpace](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace.html) assuming the [PhysicsSpace.ProxyHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace.ProxyHandle.html) are all [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html).
+
+### CastResult
+
+> The narrowphase cast results.
+
+**Full name:** `Unity.U2D.Physics.PhysicsSpace.CastResult`  
+
+#### Properties
+
+| Name | Summary |
+|------|---------|
+| `castResult` | The narrowphase result (actual). |
+| `proxyResult` | The proxy result (proxy). |
+
+#### Methods
+
+##### `new(PhysicsSpace.ProxyResult, PhysicsQuery.CastResult)`
+
+Create a narrowphase result.
+
+**Params:**
+- `proxyResult` — The proxy result (proxy).
+- `castResult` — The narrowphase result (actual).
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsSpace.CastResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 #### Nested Types
 
-- **BaseDrawer** — Base drawer when using an arbitrary drawing method.
-- **CapsuleGeometryDrawer** — Capsule Geometry Drawer.
-- **CircleGeometryDrawer** — Circle Geometry Drawer.
-- **LineDrawer** — Line Drawer.
-- **PointDrawer** — Point Drawer.
-- **PolygonGeometryDrawer** — Polygon Geometry Drawer.
+- **SortAscendingOrder** — Ascending distance sort comparer.
 
-#### BaseDrawer
+#### SortAscendingOrder
 
-> Base drawer when using an arbitrary drawing method.
+> Ascending distance sort comparer.
 
-**Full name:** `Unity.U2D.Physics.PhysicsWorldRenderer.DrawerGroup.BaseDrawer`  
+**Full name:** `Unity.U2D.Physics.PhysicsSpace.CastResult.SortAscendingOrder`  
 
 ##### Methods
 
-###### `Dispose()`
+###### `Compare(PhysicsSpace.CastResult, PhysicsSpace.CastResult)`
 
-###### `Draw(Rendering.CommandBuffer, PhysicsWorld.DrawResults, float, float, PhysicsWorld.TransformPlane, Matrix4x4)`
+### ProxyHandle
 
-#### CapsuleGeometryDrawer
+> A proxy identity added to the space.
 
-> Capsule Geometry Drawer.
+**Full name:** `Unity.U2D.Physics.PhysicsSpace.ProxyHandle`  
 
-**Full name:** `Unity.U2D.Physics.PhysicsWorldRenderer.DrawerGroup.CapsuleGeometryDrawer`  
+#### Properties
 
-##### Methods
+| Name | Summary |
+|------|---------|
+| `Id` | The Id of the proxy. |
+| `isValid` | Whether this handle refers to a valid proxy slot. A default-constructed handle is always invalid. This does not check that the proxy still exists in any specific space, that the underlying tree slot has not been reused, or that this handle belongs to the space it is passed to. Those are checked when the handle is used. |
 
-###### `new()`
+#### Methods
 
-###### `Draw(Rendering.CommandBuffer, PhysicsWorld.DrawResults, float, float, PhysicsWorld.TransformPlane, Matrix4x4)`
+##### `Equals(object)`
 
-#### CircleGeometryDrawer
+##### `Equals(PhysicsSpace.ProxyHandle)`
 
-> Circle Geometry Drawer.
+##### `GetHashCode()`
 
-**Full name:** `Unity.U2D.Physics.PhysicsWorldRenderer.DrawerGroup.CircleGeometryDrawer`  
+##### `ToString()`
 
-##### Methods
+### ProxyResult
 
-###### `new()`
+> A space result from [PhysicsSpace.OverlapAABB](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace-OverlapAABB.html), [PhysicsSpace.CastRay](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace-CastRay.html) or [PhysicsSpace.CastShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace-CastShape.html).
 
-###### `Draw(Rendering.CommandBuffer, PhysicsWorld.DrawResults, float, float, PhysicsWorld.TransformPlane, Matrix4x4)`
+**Full name:** `Unity.U2D.Physics.PhysicsSpace.ProxyResult`  
 
-#### LineDrawer
+#### Properties
 
-> Line Drawer.
+| Name | Summary |
+|------|---------|
+| `proxyHandle` | The proxy handle. |
+| `userHandle` | The user handle. |
 
-**Full name:** `Unity.U2D.Physics.PhysicsWorldRenderer.DrawerGroup.LineDrawer`  
+#### Methods
 
-##### Methods
+##### `Equals(object)`
 
-###### `new()`
+##### `Equals(PhysicsSpace.ProxyResult)`
 
-###### `Draw(Rendering.CommandBuffer, PhysicsWorld.DrawResults, float, float, PhysicsWorld.TransformPlane, Matrix4x4)`
+##### `GetHashCode()`
 
-#### PointDrawer
+##### `ToString()`
 
-> Point Drawer.
+### ShapeSpace
 
-**Full name:** `Unity.U2D.Physics.PhysicsWorldRenderer.DrawerGroup.PointDrawer`  
+> Query a [PhysicsSpace](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace.html) assuming the [PhysicsSpace.ProxyHandle](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsSpace.ProxyHandle.html) are all [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html).
 
-##### Methods
+**Full name:** `Unity.U2D.Physics.PhysicsSpace.ShapeSpace`  
 
-###### `new()`
+#### Methods
 
-###### `Draw(Rendering.CommandBuffer, PhysicsWorld.DrawResults, float, float, PhysicsWorld.TransformPlane, Matrix4x4)`
+##### `CastRay(PhysicsSpace, PhysicsQuery.CastRayInput, PhysicsMask, Unity.Collections.Allocator)`
 
-#### PolygonGeometryDrawer
+Find [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) that intersect the specified ray. The results indicate [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) that intersect the specified ray, in ascending order.
 
-> Polygon Geometry Drawer.
+**Params:**
+- `physicsSpace` — The PhysicsSpace to query.
+- `input` — The configuration of the ray to cast.
+- `categories` — The categories to query for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
 
-**Full name:** `Unity.U2D.Physics.PhysicsWorldRenderer.DrawerGroup.PolygonGeometryDrawer`  
+**Returns:** The query results. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
-##### Methods
+##### `CastShape(PhysicsSpace, PhysicsQuery.CastShapeInput, PhysicsMask, Unity.Collections.Allocator)`
 
-###### `new()`
+Find [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) that intersect the specified shape. The results indicate [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) that intersect the specified cast shape, in ascending order.
 
-###### `Draw(Rendering.CommandBuffer, PhysicsWorld.DrawResults, float, float, PhysicsWorld.TransformPlane, Matrix4x4)`
+**Params:**
+- `physicsSpace` — The PhysicsSpace to query.
+- `input` — The configuration of the shape to cast.
+- `categories` — The categories to query for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The query results. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+##### `OverlapAABB(PhysicsSpace, PhysicsAABB, PhysicsMask, Unity.Collections.Allocator)`
+
+Find [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) whose AABB overlap the specified AABB. The results indicate [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) AABB overlap the specified AABB, in no specific order.
+
+**Params:**
+- `physicsSpace` — The PhysicsSpace to query.
+- `aabb` — The AABB to query.
+- `categories` — The categories to query for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The query results. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
+
+##### `OverlapPoint(PhysicsSpace, Vector2, PhysicsMask, Unity.Collections.Allocator)`
+
+Find [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) that overlap the specified point. The results indicate [PhysicsShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.html) overlap the specified point, in no specific order.
+
+**Params:**
+- `physicsSpace` — The PhysicsSpace to query.
+- `point` — The point used to query.
+- `categories` — The categories to query for.
+- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+
+**Returns:** The query results. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
 ---
 
-_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
+_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._

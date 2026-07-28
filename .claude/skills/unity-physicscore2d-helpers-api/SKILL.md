@@ -1,13 +1,13 @@
 ---
 name: unity-physicscore2d-helpers-api
-description: Authoritative Unity 6000.5 PhysicsCore2D API reference for Helpers. Lists every type, property, field, method (with signatures, params, returns) for: PhysicsRotate, PhysicsTransform, PhysicsUserData. Use whenever working with these types in code.
+description: Authoritative Unity 6000.7 PhysicsCore2D API reference for Helpers. Lists every type, property, field, method (with signatures, params, returns) for: PhysicsRotate, PhysicsTransform, PhysicsUserData. Use whenever working with these types in code.
 ---
 
 # Unity PhysicsCore2D API — Helpers
 
-This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.5, so it should be treated as the source of truth for member names, signatures, and documentation strings.
+This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.7, so it should be treated as the source of truth for member names, signatures, and documentation strings.
 
-_Generated from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`._
+_Generated from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`._
 
 Top-level types in this file: `PhysicsRotate`, `PhysicsTransform`, `PhysicsUserData`.
 
@@ -16,13 +16,13 @@ Top-level types in this file: `PhysicsRotate`, `PhysicsTransform`, `PhysicsUserD
 > Represents a 2D rotation.
 
 **Full name:** `Unity.U2D.Physics.PhysicsRotate`  
-**Docs:** [Unity.U2D.Physics.PhysicsRotate](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate.html)
+**Docs:** [Unity.U2D.Physics.PhysicsRotate](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate.html)
 
 ### Fields
 
 | Name | Summary |
 |------|---------|
-| `direction` | The rotation direction where X = cos(rotation) and Y = sin(rotation). This should always be normalized otherwise warnings will be produced when used, however this is not enforced. See and . |
+| `direction` | The rotation direction where X = cos(rotation) and Y = sin(rotation). This should always be normalized otherwise warnings will be produced when used, however this is not enforced. See [PhysicsRotate.isNormalized](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate-isNormalized.html) and [PhysicsRotate.Normalized](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate-Normalized.html). |
 
 ### Properties
 
@@ -32,11 +32,11 @@ Top-level types in this file: `PhysicsRotate`, `PhysicsTransform`, `PhysicsUserD
 | `degrees` | Get the rotation, in degrees. |
 | `down` | A rotation of -PI/2 Radians (-90 Degrees or +270 Degrees). |
 | `identity` | The identity rotation i.e. no rotation. |
-| `isNormalized` | Is the rotation normalized? If not, it should be normalized using . |
+| `isNormalized` | Is the rotation normalized? If not, it should be normalized using [PhysicsRotate.Normalized](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate-Normalized.html). |
 | `isValid` | Check if the rotation is valid (not NaN and Normalized). |
 | `left` | A rotation of +PI Radians (+/- 180 Degrees). |
 | `radians` | Get the rotation, in radians. |
-| `right` | A rotation of zero Radians. This is the same as identity. See . |
+| `right` | A rotation of zero Radians. This is the same as identity. See [PhysicsRotate.identity](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate-identity.html). |
 | `sin` | The sine of the rotation angle. |
 | `up` | A rotation of +PI/2 Radians (+90 Degrees). |
 
@@ -55,7 +55,7 @@ Create a rotation with the specified direction.
 
 #### `new(Quaternion, PhysicsWorld.TransformPlane)`
 
-Create a rotation with the specified .
+Create a rotation with the specified [UnityEngine.Quaternion](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.Quaternion.html).
 
 **Params:**
 - `rotation` — The Quaternion rotation to use.
@@ -86,7 +86,7 @@ Calculate the angular velocity necessary to rotate between two rotations over a 
 
 #### `FromDegrees(float)`
 
-Create a rotation with the specified rotation, in degrees. See .
+Create a rotation with the specified rotation, in degrees. See [PhysicsRotate.FromRadians](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate-FromRadians.html).
 
 **Params:**
 - `degrees` — The rotation angle specified, in degrees.
@@ -95,7 +95,7 @@ Create a rotation with the specified rotation, in degrees. See .
 
 #### `FromRadians(float)`
 
-Create a rotation with the specified rotation, in radians. See .
+Create a rotation with the specified rotation, in radians. See [PhysicsRotate.FromDegrees](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate-FromDegrees.html).
 
 **Params:**
 - `radians` — The rotation angle specified, in radians.
@@ -104,7 +104,7 @@ Create a rotation with the specified rotation, in radians. See .
 
 #### `GetMatrix(PhysicsWorld.TransformPlane)`
 
-Calculate a rotation using the specified transform plane.
+Calculate a rotation [UnityEngine.Matrix4x4](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.Matrix4x4.html) using the specified transform plane.
 
 **Params:**
 - `transformPlane` — The transform plane to use.
@@ -113,7 +113,7 @@ Calculate a rotation using the specified transform plane.
 
 #### `GetRelativeAngle(PhysicsRotate)`
 
-Get the relative angle between this rotation and the specified rotation. The limits of this are +/- .
+Get the relative angle between this rotation and the specified rotation. The limits of this are +/- [PhysicsMath.PI](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMath-PI.html).
 
 **Params:**
 - `rotation` — The rotation to calculate the relative angle against.
@@ -226,10 +226,10 @@ Convert any angle into the range [-pi, pi].
 
 ## PhysicsTransform
 
-> Represents a 2D transformation combining a translation and a .
+> Represents a 2D transformation combining a translation and a [PhysicsRotate](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate.html).
 
 **Full name:** `Unity.U2D.Physics.PhysicsTransform`  
-**Docs:** [Unity.U2D.Physics.PhysicsTransform](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsTransform.html)
+**Docs:** [Unity.U2D.Physics.PhysicsTransform](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsTransform.html)
 
 ### Fields
 
@@ -243,7 +243,7 @@ Convert any angle into the range [-pi, pi].
 | Name | Summary |
 |------|---------|
 | `identity` | The identity transformation i.e. a transformation with no translation or rotation. |
-| `isValid` | Check if the PhysicsTransform is valid (position is not NaN and ). |
+| `isValid` | Check if the PhysicsTransform is valid (position is not NaN and [PhysicsRotate.isValid](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate-isValid.html)). |
 
 ### Methods
 
@@ -303,14 +303,14 @@ Multiply the specified transform with the current transform.
 
 #### `operator implicit()`
 
-Implicit conversion of a that represents a translation transformation with no rotation.
+Implicit conversion of a [UnityEngine.Vector2](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.Vector2.html) that represents a translation transformation with no rotation.
 
 **Params:**
 - `position` — The translation for the transformation.
 
 #### `operator implicit()`
 
-Implicit conversion of a that represents a rotation transformation with no translation.
+Implicit conversion of a [PhysicsRotate](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsRotate.html) that represents a rotation transformation with no translation.
 
 **Params:**
 - `rotation` — The translation for the transformation.
@@ -331,19 +331,20 @@ Transform a point using the current transform translation and rotation.
 > Custom user data. The physics system doesn't use this data, it is entirely for custom use.
 
 **Full name:** `Unity.U2D.Physics.PhysicsUserData`  
-**Docs:** [Unity.U2D.Physics.PhysicsUserData](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsUserData.html)
+**Docs:** [Unity.U2D.Physics.PhysicsUserData](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsUserData.html)
 
 ### Properties
 
 | Name | Summary |
 |------|---------|
-| `boolValue` | A custom . |
-| `floatValue` | A custom 32-bit . |
-| `int64Value` | A custom 64-bit . |
-| `intValue` | A custom 32-bit . |
-| `objectValue` | A custom Unity object. To get the of the object, use . |
-| `objectValueId` | The EntityId of a Unity object. This is the object referred to with |
-| `physicsMaskValue` | A custom 64-bit . |
+| `boolValue` | A custom [System.Boolean](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/System.Boolean.html). |
+| `floatValue` | A custom 32-bit [System.Single](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/System.Single.html). |
+| `int64Value` | A custom 64-bit [System.Int64](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/System.Int64.html). |
+| `intValue` | A custom 32-bit [System.Int32](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/System.Int32.html). |
+| `objectValue` | A custom Unity object. To get the [UnityEngine.EntityId](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.EntityId.html) of the object, use [PhysicsUserData.objectValueId](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsUserData-objectValueId.html). |
+| `objectValueId` | The EntityId of a Unity object. This is the object referred to with [PhysicsUserData.objectValue](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsUserData-objectValue.html) |
+| `physicsMaskValue` | A custom 64-bit [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html). |
+| `vector3IntValue` | A custom [UnityEngine.Vector3Int](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.Vector3Int.html). |
 
 ### Methods
 
@@ -351,4 +352,4 @@ Transform a point using the current transform translation and rotation.
 
 ---
 
-_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.5.0b9 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
+_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
