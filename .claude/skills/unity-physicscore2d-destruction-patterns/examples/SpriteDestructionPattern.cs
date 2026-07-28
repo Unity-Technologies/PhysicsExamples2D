@@ -24,7 +24,6 @@ public class SpriteDestructionPattern : MonoBehaviour, PhysicsCallbacks.IContact
     public float GravityScale = 5f;
     public uint RandomSeed = 1234;
 
-    private bool m_OldAutoContactCallbacks;
     private Vector2 m_OldGravity;
     private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;
 
@@ -51,8 +50,6 @@ public class SpriteDestructionPattern : MonoBehaviour, PhysicsCallbacks.IContact
         m_OldGravity = world.gravity;
         world.gravity = m_OldGravity * GravityScale;
 
-        m_OldAutoContactCallbacks = world.autoContactCallbacks;
-        world.autoContactCallbacks = true;
         m_OldDrawFillOptions = world.drawFillOptions;
         world.drawFillOptions = PhysicsWorld.DrawFillOptions.Interior;
 
@@ -72,7 +69,6 @@ public class SpriteDestructionPattern : MonoBehaviour, PhysicsCallbacks.IContact
     private void OnDisable()
     {
         var world = PhysicsWorld.defaultWorld;
-        world.autoContactCallbacks = m_OldAutoContactCallbacks;
         world.gravity = m_OldGravity;
         world.drawFillOptions = m_OldDrawFillOptions;
 

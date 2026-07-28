@@ -130,6 +130,8 @@ Update many transforms at once:
 - Reduce overhead
 - Job system integration
 
+`PhysicsBody.SetBatchTransform(ReadOnlySpan<PhysicsBody.BatchTransform>, bool writePoses)` — the `writePoses` overload also writes each pose directly to the body's `transformObject` in the same call, without producing a `PhysicsEvents.TransformChangeEvent`. Useful when a job already computed the poses and you want them on the Unity transforms immediately, without a separate sync pass. Must be called on the main thread; all bodies in the batch need their own `transformObject` (not shared) and must belong to the same `PhysicsWorld`.
+
 ### Property Updates
 Modify multiple bodies together:
 - Batch velocity changes

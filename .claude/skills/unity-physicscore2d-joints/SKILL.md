@@ -41,6 +41,7 @@ var hinge = PhysicsHingeJoint.Create(world, def);
 **Key gotchas:**
 - Definition is a value type. Always start from `defaultDefinition` so future-added fields get sensible defaults.
 - `localAnchorA/B` are in each body's local space. The joint origin is where the two anchor frames coincide in world space at creation time. **The initial transforms can violate the constraint slightly** — the solver will pull them together over a few steps, often with a visible jolt. Pre-position bodies so the anchors coincide.
+- Every joint definition also has `autoAnchorA`/`autoAnchorB`: when set, `localAnchorA`/`localAnchorB` are recomputed from the bodies' current placement at create, so both anchor frames coincide without hand-computing local points or pre-positioning bodies. `PhysicsDistanceJointDefinition` additionally has `autoDistance`, which recomputes `distance` from the anchors' resulting world separation instead of setting it by hand.
 - `collideConnected = false` is almost always what you want for body pairs you're explicitly joining (otherwise the wrist will collide with the forearm).
 
 ## Motors

@@ -23,6 +23,22 @@ The `PhysicsWorld` generates seven event types after simulation completes:
 
 All events are accessed via `ReadOnlySpan<EventType>` for direct memory access.
 
+### World Change Events
+Unlike the seven event types above, which are per-step buffers read from `world.*Events`, `PhysicsEvents.WorldTransformPlaneChange` is a static delegate event you subscribe to directly, firing only when a `PhysicsWorld`'s [PhysicsWorld.TransformPlane](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsWorld.TransformPlane.html) actually changes (e.g. after setting `world.transformPlane` to a new value):
+
+```csharp
+PhysicsEvents.WorldTransformPlaneChange += OnTransformPlaneChanged;
+// ...
+PhysicsEvents.WorldTransformPlaneChange -= OnTransformPlaneChanged;
+
+void OnTransformPlaneChanged(PhysicsWorld world, PhysicsWorld.TransformPlane oldTransformPlane, PhysicsWorld.TransformPlane newTransformPlane)
+{
+    // e.g. re-orient a camera rig or reset cached swizzle state for the new plane.
+}
+```
+
+Subscribe via a cached delegate (as above), never a method group passed inline each time, and always unsubscribe in `OnDisable`.
+
 ## Enabling Events
 
 To generate events for specific shapes, you must explicitly configure them using these properties:
@@ -60,7 +76,7 @@ Six callback interfaces are available for automatic event processing:
 
 ### Contact Callbacks
 
-Implement `PhysicsCallbacks.IContactCallback` to receive begin/end contact notifications. Set `shape.contactEvents = true` and `shape.callbackTarget = this` to wire up the shape. Enable `world.autoContactCallbacks = true` (or call `world.SendContactCallbacks()` manually after simulation).
+Implement `PhysicsCallbacks.IContactCallback` to receive begin/end contact notifications. Set `shape.contactEvents = true` and `shape.callbackTarget = this` to wire up the shape. Contact callbacks are dispatched automatically every simulation step, no world-level toggle needed.
 
 ```csharp
 // Source: PhysicsShapeContactCallback.cs (Primer example)
@@ -74,7 +90,6 @@ public class ContactReceiver : MonoBehaviour, PhysicsCallbacks.IContactCallback
     private void OnEnable()
     {
         m_World = PhysicsWorld.Create();
-        m_World.autoContactCallbacks = true;
 
         var body = m_World.CreateBody(new PhysicsBodyDefinition
         {
@@ -127,7 +142,6 @@ public class TriggerReceiver : MonoBehaviour, PhysicsCallbacks.ITriggerCallback
     private void OnEnable()
     {
         m_World = PhysicsWorld.Create();
-        m_World.autoTriggerCallbacks = true;
 
         // Visitor: a dynamic body that falls into the trigger.
         var visitorBody = m_World.CreateBody(new PhysicsBodyDefinition
@@ -174,6 +188,31 @@ public class TriggerReceiver : MonoBehaviour, PhysicsCallbacks.ITriggerCallback
     }
 }
 ```
+
+### Event Grouping (compound / collider-style objects)
+
+A multi-shape object touching another produces one begin/end event per shape pair by default, which is rarely what's wanted at the object level. Assigning every shape belonging to a logical object the same group lets contact and trigger events report a single begin and end per group pair instead:
+
+```csharp
+PhysicsWorld.PhysicsGroup enemyGroup = m_World.CreateGroup();  // globally unique, minted once
+
+foreach (var shape in enemyShapes)
+    shape.physicsGroup = enemyGroup;   // assignable once per shape; a second attempt is ignored with a warning
+```
+
+`ContactBeginEvent`/`ContactEndEvent`/`TriggerBeginEvent`/`TriggerEndEvent` all expose `.firstGroup`/`.lastGroup`: whether this is the first (or last) event between the two groups involved, so a per-object callback can ignore every event except the first begin and the last end:
+
+```csharp
+public void OnContactBegin2D(PhysicsEvents.ContactBeginEvent beginEvent)
+{
+    if (!beginEvent.firstGroup)
+        return;   // a sibling shape in the same group already reported this contact starting
+
+    // ... react once per object pair, not once per shape pair.
+}
+```
+
+`firstGroup`/`lastGroup` are always `true` when either shape has no group assigned, or when the world has grouping disallowed, so ungrouped shapes keep the plain per-shape-pair behavior. Grouping is controlled by `PhysicsWorldDefinition.eventGroupingAllowed` (default on) and the matching `world.eventGroupingAllowed` runtime property; a world that never assigns any group pays effectively no cost for leaving it enabled.
 
 ### Body Update Callbacks
 
@@ -374,32 +413,27 @@ public class OneWayPlatform : MonoBehaviour, PhysicsCallbacks.IPreSolveCallback
 
 ## Automatic vs Manual Callbacks
 
-### Automatic Callbacks (Recommended)
-Enable automatic callback dispatch on the PhysicsWorld:
+Contact and trigger callbacks are always dispatched automatically every simulation step — there is no toggle for them and no manual alternative. Production of the underlying events is still controlled per-shape via `contactEvents`/`triggerEvents`, so nothing is lost by this being unconditional; don't call `world.SendContactCallbacks()`/`world.SendTriggerCallbacks()` yourself, since that would fire the same callbacks a second time.
 
+Body update and joint threshold callbacks are still optional:
+
+### Automatic Callbacks (Recommended)
 ```csharp
 // Enable automatic callbacks (called after simulation)
-world.autoContactCallbacks = true;
-world.autoTriggerCallbacks = true;
 world.autoBodyUpdateCallbacks = true;
 world.autoJointThresholdCallbacks = true;
 ```
 
 ### Manual Callback Invocation
-Alternatively, manually invoke callbacks:
+If left `false`, invoke them yourself after simulating:
 
 ```csharp
 // After world.Simulate(deltaTime)
-world.SendAllCallbacks();
-
-// Or send specific callback types
-world.SendContactCallbacks();
-world.SendTriggerCallbacks();
 world.SendBodyUpdateCallbacks();
 world.SendJointThresholdCallbacks();
 ```
 
-**Important:** Avoid combining automatic and manual callback approaches to prevent duplicate event processing.
+**Important:** `world.SendAllCallbacks()` unconditionally calls all four `Send*Callbacks()` methods, including contact and trigger — using it double-fires contact/trigger callbacks (already sent automatically every step) unless that's genuinely intended. Prefer calling `SendBodyUpdateCallbacks()`/`SendJointThresholdCallbacks()` individually for manual control.
 
 ## Implementation Pattern
 
@@ -440,7 +474,6 @@ public class ImpactDamage : MonoBehaviour, PhysicsCallbacks.IContactCallback
     private void OnEnable()
     {
         m_World = PhysicsWorld.defaultWorld;
-        m_World.autoContactCallbacks = true;
 
         // Projectile body.
         var projBody = m_World.CreateBody(new PhysicsBodyDefinition
@@ -510,7 +543,6 @@ public class TriggerZone : MonoBehaviour, PhysicsCallbacks.ITriggerCallback
     private void OnEnable()
     {
         m_World = PhysicsWorld.Create();
-        m_World.autoTriggerCallbacks = true;
 
         // Zone: large static trigger covering a region.
         var zoneBody = m_World.CreateBody(new PhysicsBodyDefinition

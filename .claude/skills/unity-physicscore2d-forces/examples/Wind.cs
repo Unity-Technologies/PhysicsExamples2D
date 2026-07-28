@@ -5,7 +5,7 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 /// <summary>
-/// Wind force applied per-shape via `PhysicsShape.ApplyWind(wind, drag, lift)`. A vertical chain of dynamic
+/// Wind force applied per-shape via `PhysicsShape.ApplyWind(PhysicsBody.WindInput)`. A vertical chain of dynamic
 /// bodies hangs from a static anchor via spring hinge joints; on each `PreSimulate`, wind (with low-pass-filtered
 /// noise) is applied to every shape. Drag opposes motion; lift acts perpendicular to the wind direction.
 /// </summary>
@@ -111,8 +111,10 @@ public class Wind : MonoBehaviour
         m_CurrentWind = (direction.direction + m_WindNoise) * WindSpeed;
 
         // ApplyWind dispatches lift+drag based on shape geometry; per-shape so each body's surface area matters.
+        var windInput = new PhysicsBody.WindInput { force = m_CurrentWind, drag = Drag, lift = Lift };
+
         foreach (var physicsShape in m_Shapes)
-            physicsShape.ApplyWind(m_CurrentWind, Drag, Lift);
+            physicsShape.ApplyWind(windInput);
 
         var noise = new Vector2(m_Random.NextFloat(-0.3f, 0.3f), m_Random.NextFloat(-0.3f, 0.3f));
         m_WindNoise = Vector2.Lerp(m_WindNoise, noise, 0.05f);

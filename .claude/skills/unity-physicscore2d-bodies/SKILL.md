@@ -244,7 +244,6 @@ public class BulletSystem : MonoBehaviour, PhysicsCallbacks.IContactCallback
     private void OnEnable()
     {
         m_World = PhysicsWorld.defaultWorld;
-        m_World.autoContactCallbacks = true;
     }
 
     public PhysicsBody SpawnBullet(Vector2 position, Vector2 velocity)
@@ -284,8 +283,8 @@ public class BulletSystem : MonoBehaviour, PhysicsCallbacks.IContactCallback
         // Destroy both immediately — this is safe here (post-simulation).
         bulletBody.Destroy();
 
-        // GetOwner() returns Object (no generic overload).
-        var owner = otherBody.GetOwner();
+        // owner is Object (no generic overload).
+        var owner = otherBody.owner;
         if (owner is IDestructible destructible)
             destructible.OnHit();
     }

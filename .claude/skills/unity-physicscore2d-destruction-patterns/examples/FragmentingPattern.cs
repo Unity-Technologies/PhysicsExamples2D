@@ -20,7 +20,6 @@ public class FragmentingPattern : MonoBehaviour, PhysicsCallbacks.IContactCallba
     public bool FragmentExplode = false;
     public uint RandomSeed = 1234;
 
-    private bool m_OldAutoContactCallbacks;
     private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;
 
     private readonly PhysicsMask m_ObstacleMask = new(1);
@@ -48,8 +47,6 @@ public class FragmentingPattern : MonoBehaviour, PhysicsCallbacks.IContactCallba
     {
         var world = PhysicsWorld.defaultWorld;
 
-        m_OldAutoContactCallbacks = world.autoContactCallbacks;
-        world.autoContactCallbacks = true;
         m_OldDrawFillOptions = world.drawFillOptions;
         world.drawFillOptions = PhysicsWorld.DrawFillOptions.Interior;
 
@@ -71,7 +68,6 @@ public class FragmentingPattern : MonoBehaviour, PhysicsCallbacks.IContactCallba
     private void OnDisable()
     {
         var world = PhysicsWorld.defaultWorld;
-        world.autoContactCallbacks = m_OldAutoContactCallbacks;
         world.drawFillOptions = m_OldDrawFillOptions;
 
         if (m_FragmentGeometryMask.IsCreated)

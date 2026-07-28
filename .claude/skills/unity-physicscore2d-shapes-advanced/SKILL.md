@@ -59,10 +59,11 @@ The standalone path is what you want when:
 
 #### Mutating chain segments in place (Unity 6000.5.0b9+)
 
-Two new mutation paths avoid destroy/recreate:
+Three new mutation paths avoid destroy/recreate:
 
 - **`PhysicsShape.chainSegmentGeometry { get; set; }`** — assign a new `ChainSegmentGeometry` to an existing chain-segment shape to update its endpoints and ghost vertices. Wakes the body. The shape's contact state is preserved (no destroy/recreate cost). Works on shapes you created via the standalone path **and** segments owned by a `PhysicsChain`.
 - **`PhysicsChain.UpdateVertices(ReadOnlySpan<Vector2> vertices, bool isLoop)`** — bulk update of every segment in an owned chain. **Vertex count and `isLoop` must match the original** or you get a warning. Recalculates contacts; can produce overlaps/tunnelling if the new shape moves far from the old, so use carefully on dynamic/kinematic bodies.
+- **`ChainSegmentGeometry.UpdateSegments(Span<ChainSegmentGeometry>, ReadOnlySpan<Vector2> vertices, PhysicsTransform, bool isLoop)`** — the standalone-path complement to `CreateSegments`: recomputes an existing segment batch from a new vertex set in place, so a `CreateSegments` array can be refreshed every frame without reallocating. The span length must match the segment count the vertices produce. It only recalculates the geometry values, not the shapes; push each updated element onto its live shape via `chainSegmentGeometry` to apply it.
 
 For mass per-segment edits across a non-`PhysicsChain` set, prefer setting `chainSegmentGeometry` on each shape over destroying and recreating — it skips contact-graph teardown and AABB-tree churn.
 
@@ -106,6 +107,14 @@ Shapes can be modified at runtime:
 - May affect physics stability temporarily
 - Call appropriate update methods after modification
 - Consider recreating shapes for major changes
+
+### Batch geometry updates
+
+`PhysicsShape.SetBatchGeometry` sets many shapes' geometry in one call instead of looping the per-shape setter properties (`shape.circleGeometry`, `shape.polygonGeometry`, etc.). It comes in two forms, for each of `CircleGeometry`, `CapsuleGeometry`, `PolygonGeometry`, `SegmentGeometry`, and `ChainSegmentGeometry`:
+- `SetBatchGeometry(ReadOnlySpan<PhysicsShape>, ReadOnlySpan<TGeometry>)` — `shape[i]` gets `geometry[i]`; spans must be the same length.
+- `SetBatchGeometry(ReadOnlySpan<PhysicsShape>, TGeometry)` — every shape in the batch gets the same geometry.
+
+Same caveats as the single-shape setters: this updates the shape type and broadphase but not body mass (call `PhysicsBody.ApplyMassFromShapes` on affected bodies if needed), and invalid shapes in the batch are ignored rather than throwing. For a `ChainSegmentGeometry` batch, a shape that's already a chain segment keeps its owning chain.
 
 ### In-place `PolygonGeometry` mutation
 

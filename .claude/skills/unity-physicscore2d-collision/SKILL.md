@@ -82,9 +82,6 @@ public class CollisionHandler : MonoBehaviour, PhysicsCallbacks.IContactCallback
     {
         m_PhysicsWorld = PhysicsWorld.Create();
 
-        // Enable auto-dispatch of contact callbacks for this world.
-        m_PhysicsWorld.autoContactCallbacks = true;
-
         // Shape definition: contactEvents = true is required for callbacks to fire.
         var shapeDef = new PhysicsShapeDefinition
         {
@@ -185,9 +182,6 @@ public class SpaceInvadersCollision : MonoBehaviour, PhysicsCallbacks.IContactCa
     private void OnEnable()
     {
         m_World = PhysicsWorld.defaultWorld;
-
-        // Enable contact callbacks for the world.
-        m_World.autoContactCallbacks = true;
 
         SpawnEnemies();
         SpawnWalls();
@@ -320,7 +314,7 @@ public class SpaceInvadersCollision : MonoBehaviour, PhysicsCallbacks.IContactCa
 }
 ```
 
-> **Key reminder:** `shape.contactEvents = true` (or in the `PhysicsShapeDefinition`) must be set on at least one shape in the pair, and `world.autoContactCallbacks = true` must be set, or no callbacks will be dispatched. Callbacks fire on the **main thread** after `PhysicsWorld.Step()` completes.
+> **Key reminder:** `shape.contactEvents = true` (or in the `PhysicsShapeDefinition`) must be set on at least one shape in the pair, or no events are produced. Contact callbacks are dispatched automatically every step, no world-level toggle needed. Callbacks fire on the **main thread** after `PhysicsWorld.Step()` completes.
 
 ### Important Notes
 

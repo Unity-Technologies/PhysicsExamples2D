@@ -218,5 +218,5 @@ When users need information about:
 > All examples below assume the standard PhysicsCore2D `OnEnable`/`OnDisable` lifecycle. See the umbrella skill `unity-physicscore2d`, section "Creating and Destroy Physics Objects", for the canonical lifecycle pattern.
 
 - [examples/ApplyForceBasics.cs](examples/ApplyForceBasics.cs) — minimal demo of `ApplyForceToCenter`, `ApplyLinearImpulseToCenter`, `ApplyTorque`, and `ApplyForce` (at offset point) on a single dynamic body, mapped to arrow keys + space.
-- [examples/Wind.cs](examples/Wind.cs) — vertical chain of dynamic bodies on spring hinges; `PreSimulate` event applies `PhysicsShape.ApplyWind(wind, drag, lift)` per shape with low-pass-filtered noise.
+- [examples/Wind.cs](examples/Wind.cs) — vertical chain of dynamic bodies on spring hinges; `PreSimulate` event applies `PhysicsShape.ApplyWind(PhysicsBody.WindInput)` per shape with low-pass-filtered noise.
 - [examples/Explosion.cs](examples/Explosion.cs) — `PhysicsWorld.Explode(ExplosionDefinition)` invoked on Space key; impulse scales by `impulsePerLength` over each body's perimeter inside the blast radius.
