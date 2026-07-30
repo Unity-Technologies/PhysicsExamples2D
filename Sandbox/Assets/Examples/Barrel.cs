@@ -29,7 +29,7 @@ public sealed class Barrel : SandboxExampleBehaviour
 
     protected override void OnExampleEnable()
     {
-        m_ObjectType = ObjectType.Mix;
+        m_ObjectType = ObjectType.Circle;
         m_CollisionThreshold = 0.5f;
     }
 
