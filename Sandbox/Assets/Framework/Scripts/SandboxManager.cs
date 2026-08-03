@@ -7,7 +7,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
-using Unity.U2D.Physics.Extras;
 using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
@@ -212,7 +211,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 
         // Disable this because it's not needed and causing Input system problems.
         UnityEngine.Rendering.DebugManager.instance.enableRuntimeUI = false;
-        
+
         // Show the bottom-left menu by default (it hosts the Sandbox + Shortcuts sections).
         BottomLeftMenu.gameObject.SetActive(true);
 
@@ -467,6 +466,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 
     public void ResetSceneState()
     {
+#if false
         // Disable any "TestBody".
         foreach (var testBody in FindObjectsByType<TestBody>(FindObjectsInactive.Include))
             testBody.enabled = false;
@@ -474,7 +474,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         // Disable any "TestWorld".
         foreach (var testWorld in FindObjectsByType<TestWorld>(FindObjectsInactive.Include))
             testWorld.enabled = false;
-
+#endif
         {
             var destroyBodies = new NativeList<PhysicsBody>(1000, Allocator.Temp);
 
@@ -507,6 +507,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         // Reset the default world.
         PhysicsWorld.defaultWorld.Reset();
 
+#if false
         // Enable any "TestWorld".
         foreach (var testWorld in FindObjectsByType<TestWorld>(FindObjectsInactive.Include))
             testWorld.enabled = true;
@@ -514,6 +515,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         // Enable all "TestBody" again.
         foreach (var testBody in FindObjectsByType<TestBody>(FindObjectsInactive.Include))
             testBody.enabled = true;
+#endif
     }
 
     private void SetupOptions()
@@ -727,10 +729,10 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
 
         // Add categories.
         m_SceneCategories.choices.AddRange(m_SceneManifest.GetCategories());
-        
+
         // Register a category change.
         m_SceneCategories.RegisterValueChangedCallback(evt => SceneCategoryChanged(evt.newValue));
-        
+
         // Resolve the configured start scene. If it's empty or no longer registered (e.g. the
         // example was disabled or removed), warn and fall back to the first registered scene so
         // startup never throws.
@@ -796,7 +798,7 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         // Register a scene change.
         m_SceneChangedCallback = evt => SceneChanged(evt.newValue);
         m_Scenes.RegisterValueChangedCallback(m_SceneChangedCallback);
-        
+
         // Select the first scene (if not ignored).
         if (!m_IgnoreAutoSceneSelection)
             m_Scenes.index = 0;
@@ -1017,6 +1019,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     }
 
     public void ShowFPS() => DebugView.ShowFPS();
-    
+
     public void HideFPS() => DebugView.HideFPS();
 }
