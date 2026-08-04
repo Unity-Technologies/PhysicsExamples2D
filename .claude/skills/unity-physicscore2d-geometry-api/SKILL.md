@@ -7,16 +7,13 @@ description: Authoritative Unity 6000.7 PhysicsCore2D API reference for Geometry
 
 This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.7, so it should be treated as the source of truth for member names, signatures, and documentation strings.
 
-_Generated from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`._
-
 Top-level types in this file: `CapsuleGeometry`, `ChainGeometry`, `ChainSegmentGeometry`, `CircleGeometry`, `PhysicsAABB`, `PhysicsPlane`, `PolygonGeometry`, `SegmentGeometry`.
 
 ## CapsuleGeometry
 
-> The geometry of a closed capsule which can be viewed as two semi-circles connected by a rectangle. See [PhysicsBody.CreateShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody-CreateShape.html).
+> The geometry of a closed capsule which can be viewed as two semi-circles connected by a rectangle. See PhysicsBody.CreateShape.
 
-**Full name:** `Unity.U2D.Physics.CapsuleGeometry`  
-**Docs:** [Unity.U2D.Physics.CapsuleGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CapsuleGeometry.html)
+**Full name:** `Unity.U2D.Physics.CapsuleGeometry`
 
 ### Fields
 
@@ -28,6 +25,7 @@ Top-level types in this file: `CapsuleGeometry`, `ChainGeometry`, `ChainSegmentG
 
 | Name | Summary |
 |------|---------|
+| `areEdgesValid` | Whether CapsuleGeometry.center1 and CapsuleGeometry.center2 are far enough apart to form a valid edge. |
 | `center1` | Local center of the first semi-circle. |
 | `center2` | Local center of the second semi-circle. |
 | `isValid` | Check if the geometry is valid or not. |
@@ -37,7 +35,7 @@ Top-level types in this file: `CapsuleGeometry`, `ChainGeometry`, `ChainSegmentG
 
 #### `new()`
 
-Create a default Capsule. See [CapsuleGeometry.defaultGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CapsuleGeometry-defaultGeometry.html).
+Create a default Capsule. See CapsuleGeometry.defaultGeometry.
 
 #### `CalculateAABB(PhysicsTransform)`
 
@@ -59,7 +57,7 @@ Calculate the mass configuration of the geometry.
 
 #### `CastRay(PhysicsQuery.CastRayInput)`
 
-Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a world ray intersects the geometry. See PhysicsQuery.CastResult.
 
 **Params:**
 - `castRayInput` — The configuration of the ray to cast.
@@ -68,7 +66,7 @@ Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](
 
 #### `CastShape(PhysicsQuery.CastShapeInput)`
 
-Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See [PhysicsQuery.CastShapeInput](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastShapeInput.html) and [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See PhysicsQuery.CastShapeInput and PhysicsQuery.CastResult.
 
 **Params:**
 - `input` — The cast shape input used to check for intersection.
@@ -108,7 +106,7 @@ Create a shape proxy from the geometry, transformed by the specified transform.
 
 #### `CreateShapeProxy(Matrix4x4, bool)`
 
-Create a shape proxy from the geometry, transformed by the specified transform. The maximum absolute value component from the scale will be used to scale the radius when `scaleRadius` is true.
+Create a shape proxy from the geometry, transformed by the specified transform. The maximum absolute value component from the scale will be used to scale the radius when scaleRadius is true.
 
 **Params:**
 - `transform` — The transform used to position the geometry.
@@ -169,7 +167,7 @@ Inverse-Transform the geometry.
 
 #### `InverseTransform(Matrix4x4, bool)`
 
-Inverse-Transform the geometry. The maximum (minimum in the inverse) absolute value component from the scale will be used to scale the [CapsuleGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CapsuleGeometry-radius.html).
+Inverse-Transform the geometry. The maximum (minimum in the inverse) absolute value component from the scale will be used to scale the CapsuleGeometry.radius.
 
 **Params:**
 - `transform` — The transform to be used on the geometry.
@@ -187,14 +185,14 @@ Inverse-Transform a batch of geometry in place.
 
 #### `InverseTransform(Span<CapsuleGeometry>, Matrix4x4, bool)`
 
-Inverse-Transform a batch of geometry in place. The minimum absolute value component from the inverted scale will be used to scale the [CapsuleGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CapsuleGeometry-radius.html).
+Inverse-Transform a batch of geometry in place. The minimum absolute value component from the inverted scale will be used to scale the CapsuleGeometry.radius.
 
 **Params:**
 - `geometry` — The geometry to inverse-transform in place.
 - `transform` — The transform to apply.
 - `scaleRadius` — Whether to scale the radius of the shape.
 
-#### `operator implicit()`
+#### `operator implicit(CapsuleGeometry)`
 
 #### `OverlapPoint(Vector2)`
 
@@ -207,12 +205,12 @@ Calculate if a point overlaps the geometry.
 
 #### `ToPolygons(PhysicsTransform, float, Unity.Collections.Allocator)`
 
-Creates multiple [PolygonGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry.html) from the geometry. A limit is imposed on small vertex distances so it is recommended that the geometry is scaled appropriately rather than on the returned geometry so geometry is not discarded due to it being invalid.
+Creates multiple PolygonGeometry from the geometry. A limit is imposed on small vertex distances so it is recommended that the geometry is scaled appropriately rather than on the returned geometry so geometry is not discarded due to it being invalid.
 
 **Params:**
 - `transform` — The transform used to specify where the geometry is positioned.
-- `curveStride` — The curve stride used when creating curves, in radians. Valid range is [[PhysicsComposer.MinCurveStride](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsComposer-MinCurveStride.html), 1.0].
-- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+- `curveStride` — The curve stride used when creating curves, in radians. Valid range is [PhysicsComposer.MinCurveStride, 1.0].
+- `allocator` — The memory allocator to use for the results. This can only be Allocator.Temp, Allocator.TempJob or Allocator.Persistent.
 
 **Returns:** The created polygon geometry. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
@@ -227,7 +225,7 @@ Transform the geometry.
 
 #### `Transform(Matrix4x4, bool)`
 
-Transform the geometry. The maximum absolute value component from the scale will be used to scale the [CapsuleGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CapsuleGeometry-radius.html).
+Transform the geometry. The maximum absolute value component from the scale will be used to scale the CapsuleGeometry.radius.
 
 **Params:**
 - `transform` — The transform to be used on the geometry.
@@ -245,7 +243,7 @@ Transform a batch of geometry in place.
 
 #### `Transform(Span<CapsuleGeometry>, Matrix4x4, bool)`
 
-Transform a batch of geometry in place. The maximum absolute value component from the scale will be used to scale the [CapsuleGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CapsuleGeometry-radius.html).
+Transform a batch of geometry in place. The maximum absolute value component from the scale will be used to scale the CapsuleGeometry.radius.
 
 **Params:**
 - `geometry` — The geometry to transform in place.
@@ -256,14 +254,13 @@ Transform a batch of geometry in place. The maximum absolute value component fro
 
 Get a validated version of the geometry, if possible.
 
-**Returns:** A validated copy of the geometry with an updated length and radius if required. See [CapsuleGeometry.isValid](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CapsuleGeometry-isValid.html).
+**Returns:** A validated copy of the geometry with an updated length and radius if required. See CapsuleGeometry.isValid.
 
 ## ChainGeometry
 
 > The geometry of a chain of ChainSegment.
 
-**Full name:** `Unity.U2D.Physics.ChainGeometry`  
-**Docs:** [Unity.U2D.Physics.ChainGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.ChainGeometry.html)
+**Full name:** `Unity.U2D.Physics.ChainGeometry`
 
 ### Properties
 
@@ -292,7 +289,7 @@ Calculate the AABB of the geometry.
 
 #### `CastRay(PhysicsQuery.CastRayInput, bool)`
 
-Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a world ray intersects the geometry. See PhysicsQuery.CastResult.
 
 **Params:**
 - `castRayInput` — The configuration of the ray to cast.
@@ -302,7 +299,7 @@ Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](
 
 #### `CastShape(PhysicsQuery.CastShapeInput)`
 
-Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See [PhysicsQuery.CastShapeInput](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastShapeInput.html) and [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See PhysicsQuery.CastShapeInput and PhysicsQuery.CastResult.
 
 **Params:**
 - `input` — The cast shape input used to check for intersection.
@@ -322,8 +319,7 @@ Calculate the closest point on this geometry to the specified point.
 
 > The geometry of a chain line segment with one-sided collision which only collides on the "right" side. Several of these are generated for a chain, connected as ghost1 -> point1 -> point2 -> ghost2.
 
-**Full name:** `Unity.U2D.Physics.ChainSegmentGeometry`  
-**Docs:** [Unity.U2D.Physics.ChainSegmentGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.ChainSegmentGeometry.html)
+**Full name:** `Unity.U2D.Physics.ChainSegmentGeometry`
 
 ### Fields
 
@@ -335,6 +331,7 @@ Calculate the closest point on this geometry to the specified point.
 
 | Name | Summary |
 |------|---------|
+| `areEdgesValid` | Whether the two points defining ChainSegmentGeometry.segment are far enough apart to form a valid edge. |
 | `ghost1` | The tail ghost vertex. A ghost vertex is used by the solver to define how a collision response should be handled when a contact with the vertex occurs. |
 | `ghost2` | The head ghost vertex A ghost vertex is used by the solver to define how a collision response should be handled when a contact with the vertex occurs. |
 | `isValid` | Check if the geometry is valid or not. |
@@ -344,7 +341,7 @@ Calculate the closest point on this geometry to the specified point.
 
 #### `new()`
 
-Create a default ChainSegment. See [ChainSegmentGeometry.defaultGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.ChainSegmentGeometry-defaultGeometry.html).
+Create a default ChainSegment. See ChainSegmentGeometry.defaultGeometry.
 
 #### `new(SegmentGeometry, Vector2, Vector2)`
 
@@ -352,8 +349,8 @@ Create a default ChainSegment.
 
 **Params:**
 - `segmentGeometry` — The segment geometry.
-- `ghost1` — The 'ghost' vertex preceding [SegmentGeometry.point1](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-point1.html).
-- `ghost2` — The 'ghost' vertex following [SegmentGeometry.point2](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-point2.html).
+- `ghost1` — The 'ghost' vertex preceding SegmentGeometry.point1.
+- `ghost2` — The 'ghost' vertex following SegmentGeometry.point2.
 
 #### `CalculateAABB(PhysicsTransform)`
 
@@ -366,7 +363,7 @@ Calculate the AABB of the geometry.
 
 #### `CastRay(PhysicsQuery.CastRayInput, bool)`
 
-Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a world ray intersects the geometry. See PhysicsQuery.CastResult.
 
 **Params:**
 - `castRayInput` — The configuration of the ray to cast.
@@ -376,7 +373,7 @@ Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](
 
 #### `CastShape(PhysicsQuery.CastShapeInput)`
 
-Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See [PhysicsQuery.CastShapeInput](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastShapeInput.html) and [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See PhysicsQuery.CastShapeInput and PhysicsQuery.CastResult.
 
 **Params:**
 - `input` — The cast shape input used to check for intersection.
@@ -394,13 +391,13 @@ Calculate the closest point on this geometry to the specified point.
 
 #### `CreateSegments(ReadOnlySpan<Vector2>, PhysicsTransform, bool, Unity.Collections.Allocator)`
 
-Create multiple [ChainSegmentGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.ChainSegmentGeometry.html) from a set of vertices. The rules for interpreting the specified vertices when creating segments is described in [PhysicsChain](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsChain.html).
+Create multiple ChainSegmentGeometry from a set of vertices. The rules for interpreting the specified vertices when creating segments is described in PhysicsChain.
 
 **Params:**
 - `vertices` — The vertices to create the ChainSegmentGeometry from.
 - `transform` — The transform used to specify where the geometry is positioned.
 - `isLoop` — Indicates a closed chain formed by connecting the first and last vertices specified. This changes how the vertices are interpreted.
-- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+- `allocator` — The memory allocator to use for the results. This can only be Allocator.Temp, Allocator.TempJob or Allocator.Persistent.
 
 **Returns:** The created ChainSegment geometry. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
@@ -456,7 +453,7 @@ Inverse-Transform a batch of geometry in place.
 - `geometry` — The geometry to inverse-transform in place.
 - `transform` — The transform to apply.
 
-#### `operator implicit()`
+#### `operator implicit(ChainSegmentGeometry)`
 
 #### `Transform(PhysicsTransform)`
 
@@ -494,7 +491,7 @@ Transform a batch of geometry in place.
 
 #### `UpdateSegments(Span<ChainSegmentGeometry>, ReadOnlySpan<Vector2>, PhysicsTransform, bool)`
 
-Update an existing batch of [ChainSegmentGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.ChainSegmentGeometry.html) from a set of vertices, writing the results into the specified span in place. This pairs with [ChainSegmentGeometry.CreateSegments](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.ChainSegmentGeometry-CreateSegments.html): it recalculates the same segment and ghost vertices, but reuses a caller-provided span rather than allocating a new one. The span length must equal the segment count the vertices produce, which is the vertex count when `isLoop` is true, otherwise the vertex count minus three.
+Update an existing batch of ChainSegmentGeometry from a set of vertices, writing the results into the specified span in place. This pairs with ChainSegmentGeometry.CreateSegments: it recalculates the same segment and ghost vertices, but reuses a caller-provided span rather than allocating a new one. The span length must equal the segment count the vertices produce, which is the vertex count when isLoop is true, otherwise the vertex count minus three.
 
 **Params:**
 - `segments` — The segment batch to update in place. Its length must equal the segment count the vertices produce.
@@ -504,10 +501,9 @@ Update an existing batch of [ChainSegmentGeometry](https://docs.unity3d.com/6000
 
 ## CircleGeometry
 
-> The geometry of a closed circle. See [PhysicsBody.CreateShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody-CreateShape.html).
+> The geometry of a closed circle. See PhysicsBody.CreateShape.
 
-**Full name:** `Unity.U2D.Physics.CircleGeometry`  
-**Docs:** [Unity.U2D.Physics.CircleGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CircleGeometry.html)
+**Full name:** `Unity.U2D.Physics.CircleGeometry`
 
 ### Fields
 
@@ -527,7 +523,7 @@ Update an existing batch of [ChainSegmentGeometry](https://docs.unity3d.com/6000
 
 #### `new()`
 
-Create a default Circle. See [CircleGeometry.defaultGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CircleGeometry-defaultGeometry.html).
+Create a default Circle. See CircleGeometry.defaultGeometry.
 
 #### `CalculateAABB(PhysicsTransform)`
 
@@ -549,7 +545,7 @@ Calculate the mass configuration of the geometry.
 
 #### `CastRay(PhysicsQuery.CastRayInput)`
 
-Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a world ray intersects the geometry. See PhysicsQuery.CastResult.
 
 **Params:**
 - `castRayInput` — The configuration of the ray to cast.
@@ -558,7 +554,7 @@ Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](
 
 #### `CastShape(PhysicsQuery.CastShapeInput)`
 
-Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See [PhysicsQuery.CastShapeInput](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastShapeInput.html) and [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See PhysicsQuery.CastShapeInput and PhysicsQuery.CastResult.
 
 **Params:**
 - `input` — The cast shape input used to check for intersection.
@@ -606,7 +602,7 @@ Create a shape proxy from the geometry, transformed by the specified transform.
 
 #### `CreateShapeProxy(Matrix4x4, bool)`
 
-Create a shape proxy from the geometry, transformed by the specified transform. The maximum absolute value component from the scale will be used to scale the radius when `scaleRadius` is true.
+Create a shape proxy from the geometry, transformed by the specified transform. The maximum absolute value component from the scale will be used to scale the radius when scaleRadius is true.
 
 **Params:**
 - `transform` — The transform used to position the geometry.
@@ -667,7 +663,7 @@ Inverse-Transform the geometry.
 
 #### `InverseTransform(Matrix4x4, bool)`
 
-Inverse-Transform the geometry. The maximum (minimum in the inverse) absolute value component from the scale will be used to scale the [CircleGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CircleGeometry-radius.html).
+Inverse-Transform the geometry. The maximum (minimum in the inverse) absolute value component from the scale will be used to scale the CircleGeometry.radius.
 
 **Params:**
 - `transform` — The transform to be used on the geometry.
@@ -685,14 +681,14 @@ Inverse-Transform a batch of geometry in place.
 
 #### `InverseTransform(Span<CircleGeometry>, Matrix4x4, bool)`
 
-Inverse-Transform a batch of geometry in place. The minimum absolute value component from the inverted scale will be used to scale the [CircleGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CircleGeometry-radius.html).
+Inverse-Transform a batch of geometry in place. The minimum absolute value component from the inverted scale will be used to scale the CircleGeometry.radius.
 
 **Params:**
 - `geometry` — The geometry to inverse-transform in place.
 - `transform` — The transform to apply.
 - `scaleRadius` — Whether to scale the radius of the shape.
 
-#### `operator implicit()`
+#### `operator implicit(CircleGeometry)`
 
 #### `OverlapPoint(Vector2)`
 
@@ -705,12 +701,12 @@ Calculate if a point overlaps the geometry.
 
 #### `ToPolygons(PhysicsTransform, float, Unity.Collections.Allocator)`
 
-Creates multiple [PolygonGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry.html) from the geometry. A limit is imposed on small vertex distances so it is recommended that the geometry is scaled appropriately rather than on the returned geometry so geometry is not discarded due to it being invalid.
+Creates multiple PolygonGeometry from the geometry. A limit is imposed on small vertex distances so it is recommended that the geometry is scaled appropriately rather than on the returned geometry so geometry is not discarded due to it being invalid.
 
 **Params:**
 - `transform` — The transform used to specify where the geometry is positioned.
-- `curveStride` — The curve stride used when creating curves, in radians. Valid range is [[PhysicsComposer.MinCurveStride](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsComposer-MinCurveStride.html), 1.0].
-- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+- `curveStride` — The curve stride used when creating curves, in radians. Valid range is [PhysicsComposer.MinCurveStride, 1.0].
+- `allocator` — The memory allocator to use for the results. This can only be Allocator.Temp, Allocator.TempJob or Allocator.Persistent.
 
 **Returns:** The created polygon geometry. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
@@ -725,7 +721,7 @@ Transform the geometry.
 
 #### `Transform(Matrix4x4, bool)`
 
-Transform the geometry. The maximum absolute value component from the scale will be used to scale the [CircleGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CircleGeometry-radius.html).
+Transform the geometry. The maximum absolute value component from the scale will be used to scale the CircleGeometry.radius.
 
 **Params:**
 - `transform` — The transform to be used on the geometry.
@@ -743,7 +739,7 @@ Transform a batch of geometry in place.
 
 #### `Transform(Span<CircleGeometry>, Matrix4x4, bool)`
 
-Transform a batch of geometry in place. The maximum absolute value component from the scale will be used to scale the [CircleGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.CircleGeometry-radius.html).
+Transform a batch of geometry in place. The maximum absolute value component from the scale will be used to scale the CircleGeometry.radius.
 
 **Params:**
 - `geometry` — The geometry to transform in place.
@@ -754,8 +750,7 @@ Transform a batch of geometry in place. The maximum absolute value component fro
 
 > Represents a 2D axis-aligned bounding-box.
 
-**Full name:** `Unity.U2D.Physics.PhysicsAABB`  
-**Docs:** [Unity.U2D.Physics.PhysicsAABB](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB.html)
+**Full name:** `Unity.U2D.Physics.PhysicsAABB`
 
 ### Properties
 
@@ -763,11 +758,11 @@ Transform a batch of geometry in place. The maximum absolute value component fro
 |------|---------|
 | `center` | Get the center of the AABB. |
 | `extents` | Get the extents (half size) of the AABB. |
-| `isValid` | Check if the AABB is valid. To be valid, [PhysicsAABB.upperBound](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-upperBound.html) should be equal to or above [PhysicsAABB.lowerBound](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-lowerBound.html). |
-| `lowerBound` | The lower-left bounding vertex. This should be equal to or lower than [PhysicsAABB.upperBound](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-upperBound.html). |
-| `normalized` | Get a new normalized copy of the AABB ensuring that [PhysicsAABB.lowerBound](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-lowerBound.html) is lower than or equal to [PhysicsAABB.upperBound](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-upperBound.html). |
+| `isValid` | Check if the AABB is valid. To be valid, PhysicsAABB.upperBound should be equal to or above PhysicsAABB.lowerBound. |
+| `lowerBound` | The lower-left bounding vertex. This should be equal to or lower than PhysicsAABB.upperBound. |
+| `normalized` | Get a new normalized copy of the AABB ensuring that PhysicsAABB.lowerBound is lower than or equal to PhysicsAABB.upperBound. |
 | `perimeter` | Get the surface area (perimeter length) of the AABB. |
-| `upperBound` | The upper-right bounding vertex. This should be equal to or above [PhysicsAABB.lowerBound](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-lowerBound.html). |
+| `upperBound` | The upper-right bounding vertex. This should be equal to or above PhysicsAABB.lowerBound. |
 
 ### Methods
 
@@ -776,8 +771,8 @@ Transform a batch of geometry in place. The maximum absolute value component fro
 Create an axis-aligned bounding-box with the specified bounds.
 
 **Params:**
-- `lowerBound` — The lower-left bounding vertex. This should be equal to or lower than `upperBound`.
-- `upperBound` — The upper-right bounding vertex. This should be equal to or above `lowerBound`.
+- `lowerBound` — The lower-left bounding vertex. This should be equal to or lower than upperBound.
+- `upperBound` — The upper-right bounding vertex. This should be equal to or above lowerBound.
 
 #### `new(Vector2)`
 
@@ -788,7 +783,7 @@ Create an axis-aligned bounding-box that encapsulates the specified point.
 
 #### `CastRay(PhysicsQuery.CastRayInput)`
 
-Perform a raycast against this AABB. Nothing will be detected if the ray starts inside the AABB. To check if the ray starts inside the AABB use [PhysicsAABB.OverlapPoint](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-OverlapPoint.html).
+Perform a raycast against this AABB. Nothing will be detected if the ray starts inside the AABB. To check if the ray starts inside the AABB use PhysicsAABB.OverlapPoint.
 
 **Params:**
 - `castRayInput` — The configuration of the ray to cast.
@@ -806,7 +801,7 @@ Checks if the AABB contains (completely encapsulates) the specified AABB.
 
 #### `Normalize()`
 
-Normalize the AABB ensuring that [PhysicsAABB.lowerBound](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-lowerBound.html) is lower than or equal to [PhysicsAABB.upperBound](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsAABB-upperBound.html).
+Normalize the AABB ensuring that PhysicsAABB.lowerBound is lower than or equal to PhysicsAABB.upperBound.
 
 #### `Overlap(PhysicsAABB)`
 
@@ -859,8 +854,7 @@ Create a union of the specified AABB and this AABB where resulting AABB complete
 
 > Represents a 2D plane.
 
-**Full name:** `Unity.U2D.Physics.PhysicsPlane`  
-**Docs:** [Unity.U2D.Physics.PhysicsPlane](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsPlane.html)
+**Full name:** `Unity.U2D.Physics.PhysicsPlane`
 
 ### Fields
 
@@ -873,7 +867,7 @@ Create a union of the specified AABB and this AABB where resulting AABB complete
 
 | Name | Summary |
 |------|---------|
-| `isValid` | Check if the plane is valid. To be valid, the [PhysicsPlane.normal](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsPlane-normal.html) must be normalized. |
+| `isValid` | Check if the plane is valid. To be valid, the PhysicsPlane.normal must be normalized. |
 
 ### Methods
 
@@ -888,7 +882,7 @@ Get the signed separation of a point from a plane.
 
 #### `ToPositionAndNormal(Vector2, Vector2)`
 
-Decompose the plane into a point lying on the plane and the plane's normal direction. The returned position is the foot of the perpendicular from the world origin to the plane, computed as normal * offset. This is the unique closest-to-origin point on the plane; any other point on the plane would describe the same plane equation but be non-deterministic. Useful for feeding a plane into APIs that take a (position, normal) pair such as [PhysicsBody.BuoyancyInput.surfacePosition](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody.BuoyancyInput-surfacePosition.html) and [PhysicsBody.BuoyancyInput.surfaceNormal](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody.BuoyancyInput-surfaceNormal.html).
+Decompose the plane into a point lying on the plane and the plane's normal direction. The returned position is the foot of the perpendicular from the world origin to the plane, computed as normal * offset. This is the unique closest-to-origin point on the plane; any other point on the plane would describe the same plane equation but be non-deterministic. Useful for feeding a plane into APIs that take a (position, normal) pair such as PhysicsBody.BuoyancyInput.surfacePosition and PhysicsBody.BuoyancyInput.surfaceNormal.
 
 **Params:**
 - `position` — A point lying on the plane (the foot of the perpendicular from the origin).
@@ -898,23 +892,23 @@ Decompose the plane into a point lying on the plane and the plane's normal direc
 
 ## PolygonGeometry
 
-> The geometry of a closed convex polygon. The geometry has a fixed maximum number of vertices as defined by the constant [PhysicsConstants.MaxPolygonVertices](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsConstants-MaxPolygonVertices.html). Polygon regions that require a larger quantity of vertices or are concave are defined by multiple polygon geometry using the [PhysicsComposer](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsComposer.html) or the [PolygonGeometry.CreatePolygons](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry-CreatePolygons.html) utility. See [PhysicsBody.CreateShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody-CreateShape.html).
+> The geometry of a closed convex polygon. The geometry has a fixed maximum number of vertices as defined by the constant PhysicsConstants.MaxPolygonVertices. Polygon regions that require a larger quantity of vertices or are concave are defined by multiple polygon geometry using the PhysicsComposer or the PolygonGeometry.CreatePolygons utility. See PhysicsBody.CreateShape.
 
-**Full name:** `Unity.U2D.Physics.PolygonGeometry`  
-**Docs:** [Unity.U2D.Physics.PolygonGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry.html)
+**Full name:** `Unity.U2D.Physics.PolygonGeometry`
 
 ### Fields
 
 | Name | Summary |
 |------|---------|
 | `defaultGeometry` | Get the default Polygon. |
-| `normals` | The geometry normal stored in a [PhysicsShape.ShapeArray](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.ShapeArray.html). |
-| `vertices` | The geometry vertices stored in a [PhysicsShape.ShapeArray](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.ShapeArray.html). |
+| `normals` | The geometry normal stored in a PhysicsShape.ShapeArray. |
+| `vertices` | The geometry vertices stored in a PhysicsShape.ShapeArray. |
 
 ### Properties
 
 | Name | Summary |
 |------|---------|
+| `areEdgesValid` | Whether every edge of this polygon is far enough apart and no three consecutive vertices are collinear, matching the rules applied when building a polygon from vertices. |
 | `centroid` | The centroid of the polygon. |
 | `count` | The number of polygon vertices. |
 | `isValid` | Check if the geometry is valid or not. |
@@ -924,7 +918,7 @@ Decompose the plane into a point lying on the plane and the plane's normal direc
 
 #### `new()`
 
-Create a default Polygon. See [PolygonGeometry.defaultGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry-defaultGeometry.html).
+Create a default Polygon. See PolygonGeometry.defaultGeometry.
 
 #### `AsReadOnlySpan()`
 
@@ -958,7 +952,7 @@ Calculate the mass configuration of the geometry.
 
 #### `CastRay(PhysicsQuery.CastRayInput)`
 
-Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a world ray intersects the geometry. See PhysicsQuery.CastResult.
 
 **Params:**
 - `castRayInput` — The configuration of the ray to cast.
@@ -967,7 +961,7 @@ Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](
 
 #### `CastShape(PhysicsQuery.CastShapeInput)`
 
-Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See [PhysicsQuery.CastShapeInput](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastShapeInput.html) and [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See PhysicsQuery.CastShapeInput and PhysicsQuery.CastResult.
 
 **Params:**
 - `input` — The cast shape input used to check for intersection.
@@ -985,7 +979,7 @@ Calculate the closest point on this geometry to the specified point.
 
 #### `Create(ReadOnlySpan<Vector2>, float)`
 
-Create a Polygon from the specified vertices. The number of vertices must be in the range 3 to [PhysicsConstants.MaxPolygonVertices](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsConstants-MaxPolygonVertices.html).
+Create a Polygon from the specified vertices. The number of vertices must be in the range 3 to PhysicsConstants.MaxPolygonVertices.
 
 **Params:**
 - `vertices` — The vertices to use.
@@ -995,7 +989,7 @@ Create a Polygon from the specified vertices. The number of vertices must be in 
 
 #### `Create(ReadOnlySpan<Vector2>, float, PhysicsTransform)`
 
-Create a Polygon from the specified vertices. The number of vertices must be in the range 3 to [PhysicsConstants.MaxPolygonVertices](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsConstants-MaxPolygonVertices.html).
+Create a Polygon from the specified vertices. The number of vertices must be in the range 3 to PhysicsConstants.MaxPolygonVertices.
 
 **Params:**
 - `vertices` — The vertices to use.
@@ -1006,7 +1000,7 @@ Create a Polygon from the specified vertices. The number of vertices must be in 
 
 #### `Create(ReadOnlySpan<Vector2>, float, Matrix4x4)`
 
-Create a Polygon from the specified vertices. The number of vertices must be in the range 3 to [PhysicsConstants.MaxPolygonVertices](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsConstants-MaxPolygonVertices.html).
+Create a Polygon from the specified vertices. The number of vertices must be in the range 3 to PhysicsConstants.MaxPolygonVertices.
 
 **Params:**
 - `vertices` — The vertices to use.
@@ -1050,30 +1044,30 @@ Create a Polygon as a four-sided box.
 
 #### `CreatePolygons(ReadOnlySpan<Vector2>, PhysicsTransform, Unity.Collections.Allocator)`
 
-Create multiple [PolygonGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry.html) from a set of vertices. The vertices are assumed to produce a closed loop but can describe a concave shape if required. There must be at least 3 vertices. A limit is imposed on small vertex distances so be aware that this overload uses a vertex scale of [UnityEngine.Vector2.one](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.Vector2-one.html) so consider using the overload which allows you to increase this if required.
+Create multiple PolygonGeometry from a set of vertices. The vertices are assumed to produce a closed loop but can describe a concave shape if required. There must be at least 3 vertices. A limit is imposed on small vertex distances so be aware that this overload uses a vertex scale of Vector2.one so consider using the overload which allows you to increase this if required.
 
 **Params:**
 - `vertices` — The vertices to create the polygons from.
 - `transform` — The transform used to specify where the geometry is positioned.
-- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+- `allocator` — The memory allocator to use for the results. This can only be Allocator.Temp, Allocator.TempJob or Allocator.Persistent.
 
 **Returns:** The created polygon geometry. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
 #### `CreatePolygons(ReadOnlySpan<Vector2>, PhysicsTransform, Vector2, Unity.Collections.Allocator)`
 
-Create multiple [PolygonGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry.html) from a set of vertices. The vertices are assumed to produce a closed loop but can describe a concave shape if required. There must be at least 3 vertices. A limit is imposed on small vertex distances so it is recommended that scaling is applied here rather than on the returned geometry so geometry is not discarded due to it being invalid.
+Create multiple PolygonGeometry from a set of vertices. The vertices are assumed to produce a closed loop but can describe a concave shape if required. There must be at least 3 vertices. A limit is imposed on small vertex distances so it is recommended that scaling is applied here rather than on the returned geometry so geometry is not discarded due to it being invalid.
 
 **Params:**
 - `vertices` — The vertices to create the polygons from.
 - `transform` — The transform used to specify where the geometry is positioned.
 - `vertexScale` — The scaling to be applied to the vertices.
-- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+- `allocator` — The memory allocator to use for the results. This can only be Allocator.Temp, Allocator.TempJob or Allocator.Persistent.
 
 **Returns:** The created polygon geometry. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
 #### `CreatePolygons(ReadOnlySpan<Vector2>, PhysicsTransform, Vector2, float, bool, Unity.Collections.Allocator)`
 
-Create multiple [PolygonGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry.html) from a set of vertices. The vertices are assumed to produce a closed loop but can describe a concave shape if required. There must be at least 3 vertices. A limit is imposed on small vertex distances so it is recommended that scaling is applied here rather than on the returned geometry so geometry is not discarded due to it being invalid.
+Create multiple PolygonGeometry from a set of vertices. The vertices are assumed to produce a closed loop but can describe a concave shape if required. There must be at least 3 vertices. A limit is imposed on small vertex distances so it is recommended that scaling is applied here rather than on the returned geometry so geometry is not discarded due to it being invalid.
 
 **Params:**
 - `vertices` — The vertices to create the polygons from.
@@ -1081,7 +1075,7 @@ Create multiple [PolygonGeometry](https://docs.unity3d.com/6000.7/Documentation/
 - `vertexScale` — The scaling to be applied to the vertices.
 - `radius` — The radius to apply to all generated polygons. Note that this will likely mean that the same polygon region defined by the vertices will not match.
 - `useDelaunay` — Whether Delaunay tessellation will be used.
-- `allocator` — The memory allocator to use for the results. This can only be [Unity.Collections.Allocator.Temp](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Temp.html), [Unity.Collections.Allocator.TempJob](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-TempJob.html) or [Unity.Collections.Allocator.Persistent](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.Collections.Allocator-Persistent.html).
+- `allocator` — The memory allocator to use for the results. This can only be Allocator.Temp, Allocator.TempJob or Allocator.Persistent.
 
 **Returns:** The created polygon geometry. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
@@ -1098,7 +1092,7 @@ Create a shape proxy from the geometry, transformed by the specified transform.
 
 #### `CreateShapeProxy(Matrix4x4, bool)`
 
-Create a shape proxy from the geometry, transformed by the specified transform. The maximum absolute value component from the scale will be used to scale the radius when `scaleRadius` is true.
+Create a shape proxy from the geometry, transformed by the specified transform. The maximum absolute value component from the scale will be used to scale the radius when scaleRadius is true.
 
 **Params:**
 - `transform` — The transform used to position the geometry.
@@ -1180,7 +1174,7 @@ Inverse-Transform the geometry.
 
 #### `InverseTransform(Matrix4x4, bool)`
 
-Inverse-Transform the geometry. The maximum (minimum in the inverse) absolute value component from the scale will be used to scale the [PolygonGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry-radius.html).
+Inverse-Transform the geometry. The maximum (minimum in the inverse) absolute value component from the scale will be used to scale the PolygonGeometry.radius.
 
 **Params:**
 - `transform` — The transform to be used on the geometry.
@@ -1198,14 +1192,14 @@ Inverse-Transform a batch of geometry in place. A transform that degenerates the
 
 #### `InverseTransform(Span<PolygonGeometry>, Matrix4x4, bool)`
 
-Inverse-Transform a batch of geometry in place. The minimum absolute value component from the inverted scale will be used to scale each [PolygonGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry-radius.html). A transform that degenerates the geometry hull writes an invalid (zero-vertex) polygon in its place.
+Inverse-Transform a batch of geometry in place. The minimum absolute value component from the inverted scale will be used to scale each PolygonGeometry.radius. A transform that degenerates the geometry hull writes an invalid (zero-vertex) polygon in its place.
 
 **Params:**
 - `geometry` — The geometry to inverse-transform in place.
 - `transform` — The transform to apply.
 - `scaleRadius` — Whether to scale the radius of the shape.
 
-#### `operator implicit()`
+#### `operator implicit(PolygonGeometry)`
 
 #### `OverlapPoint(Vector2)`
 
@@ -1227,7 +1221,7 @@ Transform the specified geometry.
 
 #### `Transform(Matrix4x4, bool)`
 
-Transform the specified geometry. The maximum absolute value component from the scale will be used to scale the [PolygonGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry-radius.html).
+Transform the specified geometry. The maximum absolute value component from the scale will be used to scale the PolygonGeometry.radius.
 
 **Params:**
 - `transform` — The transform used to specify where the geometry is positioned.
@@ -1245,7 +1239,7 @@ Transform a batch of geometry in place. A transform that degenerates the geometr
 
 #### `Transform(Span<PolygonGeometry>, Matrix4x4, bool)`
 
-Transform a batch of geometry in place. The maximum absolute value component from the scale will be used to scale each [PolygonGeometry.radius](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry-radius.html). A transform that degenerates the geometry hull writes an invalid (zero-vertex) polygon in its place.
+Transform a batch of geometry in place. The maximum absolute value component from the scale will be used to scale each PolygonGeometry.radius. A transform that degenerates the geometry hull writes an invalid (zero-vertex) polygon in its place.
 
 **Params:**
 - `geometry` — The geometry to transform in place.
@@ -1256,7 +1250,7 @@ Transform a batch of geometry in place. The maximum absolute value component fro
 
 Get a validated version of the geometry, if possible.
 
-**Returns:** A validated copy of the geometry with updated normals, centroid etc. Depending on the current geometry, the returned geometry may not be valid. See [PolygonGeometry.isValid](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PolygonGeometry-isValid.html).
+**Returns:** A validated copy of the geometry with updated normals, centroid etc. Depending on the current geometry, the returned geometry may not be valid. See PolygonGeometry.isValid.
 
 ### Nested Types
 
@@ -1266,13 +1260,13 @@ Get a validated version of the geometry, if possible.
 
 > A simple convex hull. The hull is not validated by physics so cannot be used directly for shapes.
 
-**Full name:** `Unity.U2D.Physics.PolygonGeometry.ConvexHull`  
+**Full name:** `Unity.U2D.Physics.PolygonGeometry.ConvexHull`
 
 #### Fields
 
 | Name | Summary |
 |------|---------|
-| `vertices` | The geometry vertices stored in a [PhysicsShape.ShapeArray](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsShape.ShapeArray.html). |
+| `vertices` | The geometry vertices stored in a PhysicsShape.ShapeArray. |
 
 #### Properties
 
@@ -1296,10 +1290,9 @@ Get the convex-hull vertices as a span.
 
 ## SegmentGeometry
 
-> The geometry of a line segment. See [PhysicsBody.CreateShape](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsBody-CreateShape.html).
+> The geometry of a line segment. See PhysicsBody.CreateShape.
 
-**Full name:** `Unity.U2D.Physics.SegmentGeometry`  
-**Docs:** [Unity.U2D.Physics.SegmentGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry.html)
+**Full name:** `Unity.U2D.Physics.SegmentGeometry`
 
 ### Fields
 
@@ -1311,10 +1304,11 @@ Get the convex-hull vertices as a span.
 
 | Name | Summary |
 |------|---------|
-| `backward` | Calculate the vector from [SegmentGeometry.point2](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-point2.html) to [SegmentGeometry.point1](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-point1.html). See [SegmentGeometry.forward](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-forward.html). |
-| `forward` | Calculate the vector from [SegmentGeometry.point1](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-point1.html) to [SegmentGeometry.point2](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-point2.html). See [SegmentGeometry.backward](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-backward.html). |
+| `areEdgesValid` | Whether SegmentGeometry.point1 and SegmentGeometry.point2 are far enough apart to form a valid edge. |
+| `backward` | Calculate the vector from SegmentGeometry.point2 to SegmentGeometry.point1. See SegmentGeometry.forward. |
+| `forward` | Calculate the vector from SegmentGeometry.point1 to SegmentGeometry.point2. See SegmentGeometry.backward. |
 | `isValid` | Check if the geometry is valid or not. |
-| `midPoint` | The mid-point between [SegmentGeometry.point1](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-point1.html) and [SegmentGeometry.point2](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-point2.html). |
+| `midPoint` | The mid-point between SegmentGeometry.point1 and SegmentGeometry.point2. |
 | `point1` | The first point. |
 | `point2` | The second point. |
 
@@ -1322,7 +1316,7 @@ Get the convex-hull vertices as a span.
 
 #### `new()`
 
-Create a default Segment. See [SegmentGeometry.defaultGeometry](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-defaultGeometry.html).
+Create a default Segment. See SegmentGeometry.defaultGeometry.
 
 #### `CalculateAABB(PhysicsTransform)`
 
@@ -1335,7 +1329,7 @@ Calculate the AABB of the geometry.
 
 #### `CastRay(PhysicsQuery.CastRayInput, bool)`
 
-Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a world ray intersects the geometry. See PhysicsQuery.CastResult.
 
 **Params:**
 - `castRayInput` — The configuration of the ray to cast.
@@ -1345,7 +1339,7 @@ Calculate if a world ray intersects the geometry. See [PhysicsQuery.CastResult](
 
 #### `CastShape(PhysicsQuery.CastShapeInput)`
 
-Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See [PhysicsQuery.CastShapeInput](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastShapeInput.html) and [PhysicsQuery.CastResult](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsQuery.CastResult.html).
+Calculate if a cast shape intersects the geometry. Initially touching shapes are treated as a miss. You should check for overlap first if initial overlap is required. See PhysicsQuery.CastShapeInput and PhysicsQuery.CastResult.
 
 **Params:**
 - `input` — The cast shape input used to check for intersection.
@@ -1456,11 +1450,11 @@ Inverse-Transform a batch of geometry in place.
 - `geometry` — The geometry to inverse-transform in place.
 - `transform` — The transform to apply.
 
-#### `operator implicit()`
+#### `operator implicit(SegmentGeometry)`
 
 #### `Scale(float)`
 
-Scale the geometry along the [SegmentGeometry.forward](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-forward.html) and [SegmentGeometry.backward](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.SegmentGeometry-backward.html) direction.
+Scale the geometry along the SegmentGeometry.forward and SegmentGeometry.backward direction.
 
 **Params:**
 - `scale` — —
@@ -1501,4 +1495,4 @@ Transform a batch of geometry in place.
 
 ---
 
-_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
+_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._

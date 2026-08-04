@@ -43,6 +43,15 @@ PhysicsBody.DestroyBatch(bodies);
 bodies.Dispose();
 ```
 
+To own the batch, pass the owner and its key at creation rather than following up with `SetOwner`, then release with the keyed destroy:
+
+```csharp
+var bodies = PhysicsBody.CreateBatch(world, bodyDefinition, 1000, this, ownerKey, Allocator.Persistent);
+PhysicsBody.DestroyBatch(bodies, ownerKey);
+```
+
+The keyed destroy skips anything whose owner key does not match and emits one summary warning for the call. `PhysicsShape.DestroyBatch` and `PhysicsJoint.DestroyBatch` take the same key, and all three types accept a span overload of `SetOwnerUserData` for stamping per-object data in one call.
+
 ### Batch Shape Creation
 Create shapes for multiple bodies efficiently:
 - Reuse shape definitions

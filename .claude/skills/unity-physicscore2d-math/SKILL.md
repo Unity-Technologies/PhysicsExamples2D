@@ -134,6 +134,28 @@ Vector3 rotAxes        = PhysicsMath.GetRotationAxes(plane);        // e.g. XY �
 Vector3 rotIgnoredAxes = PhysicsMath.GetRotationIgnoredAxes(plane); // e.g. XY → (1, 1, 0)
 ```
 
+### Relative matrices between two transforms
+
+`GetRelativeMatrix2D` throws on a degenerate matrix. Prefer the `Try` forms whenever the input can come from
+authored data, because a flattened 2D transform has a zero out-of-plane scale and is therefore singular:
+
+```csharp
+// Returns false rather than a matrix with a NaN rotation.
+if (PhysicsMath.TryGetRelativeMatrix2D(fromMatrix, toMatrix, plane, planeCustom, out var relative))
+{
+    // 'relative' maps geometry authored in the 'to' space into the 'from' space.
+}
+
+// Sanitizes one matrix on its own: a zero or negative out-of-plane scale is rebuilt as one,
+// keeping the real position and rotation. Returns false when an in-plane axis is too small to build from.
+if (PhysicsMath.TryGetPlaneMatrix2D(matrix, plane, out var planeMatrix)) { }
+```
+
+Both take matrices, not `Transform` objects, so convert first if you are starting from a `Transform`.
+
+Supporting members: `PhysicsMath.Epsilon` is the threshold both use to decide an axis is too small, and
+`PhysicsMath.IsFinite(Vector2)` checks a 2D value for NaN and infinity.
+
 ### Swizzle
 
 `Swizzle` reorders a vector's components so that the physics-plane axes map to the correct 3D axes. There is **no** `(Vector3, int, int, int)` overload — the only overloads take a `TransformPlane`.

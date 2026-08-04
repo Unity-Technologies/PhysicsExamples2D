@@ -7,16 +7,13 @@ description: Authoritative Unity 6000.7 PhysicsCore2D API reference for Layers &
 
 This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.7, so it should be treated as the source of truth for member names, signatures, and documentation strings.
 
-_Generated from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`._
-
 Top-level types in this file: `PhysicsLayers`, `PhysicsMask`.
 
 ## PhysicsLayers
 
-> This provides a common method to retrieving layer information. If a [PhysicsCoreSettings2D](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsCoreSettings2D.html) asset is assigned then the full layers ([PhysicsCoreSettings2D.physicsLayerNames](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsCoreSettings2D-physicsLayerNames.html)) will be used if [PhysicsCoreSettings2D.usePhysicsLayers](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsCoreSettings2D-usePhysicsLayers.html) is also active. If no [PhysicsCoreSettings2D](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsCoreSettings2D.html) asset is assigned then the global layers (See [UnityEngine.LayerMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.LayerMask.html)) will be used.
+> This provides a common method to retrieving layer information. If a PhysicsCoreSettings2D asset is assigned then the full layers (PhysicsCoreSettings2D.physicsLayerNames) will be used if PhysicsCoreSettings2D.usePhysicsLayers is also active. If no PhysicsCoreSettings2D asset is assigned then the global layers (See LayerMask) will be used.
 
-**Full name:** `Unity.U2D.Physics.PhysicsLayers`  
-**Docs:** [Unity.U2D.Physics.PhysicsLayers](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsLayers.html)
+**Full name:** `Unity.U2D.Physics.PhysicsLayers`
 
 ### Fields
 
@@ -28,12 +25,12 @@ Top-level types in this file: `PhysicsLayers`, `PhysicsMask`.
 
 #### `GetLayerMask(string[])`
 
-Get a [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html) for the specified layer name(s).
+Get a PhysicsMask for the specified layer name(s).
 
 **Params:**
 - `layerNames` — The layer names (case sensitive) to find a combined physics mask for.
 
-**Returns:** The combined physics mask associated with the specified layer names or, if not found, [PhysicsMask.None](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask-None.html) will be returned in which case a console warning will also be produced.
+**Returns:** The combined physics mask associated with the specified layer names or, if not found, PhysicsMask.None will be returned in which case a console warning will also be produced.
 
 #### `GetLayerName(int)`
 
@@ -42,7 +39,7 @@ Get a layer name for the specified layer ordinal (index).
 **Params:**
 - `layerOrdinal` — The layer ordinal (index). When using the full layers this should be within the range [0, 63] however if not then the range must be [0, 31].
 
-**Returns:** The layer name. If no layer name is present then [System.String.Empty](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/System.String-Empty.html) is returned.
+**Returns:** The layer name. If no layer name is present then String.Empty is returned.
 
 #### `GetLayerOrdinal(string)`
 
@@ -51,7 +48,7 @@ Get a layer ordinal (index) for the specified layer name. This is not a 32-bit m
 **Params:**
 - `layerName` — The layer name (case sensitive) to find the layer ordinal for.
 
-**Returns:** The layer ordinal associated with the specified layer name or, if not found, [PhysicsLayers.InvalidLayerOrdinal](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsLayers-InvalidLayerOrdinal.html) will be returned in which case a console warning will also be produced.
+**Returns:** The layer ordinal associated with the specified layer name or, if not found, PhysicsLayers.InvalidLayerOrdinal will be returned in which case a console warning will also be produced.
 
 ### Nested Types
 
@@ -59,7 +56,7 @@ Get a layer ordinal (index) for the specified layer name. This is not a 32-bit m
 
 ### LayerNames
 
-**Full name:** `Unity.U2D.Physics.PhysicsLayers.LayerNames`  
+**Full name:** `Unity.U2D.Physics.PhysicsLayers.LayerNames`
 
 #### Methods
 
@@ -73,8 +70,7 @@ Get a layer ordinal (index) for the specified layer name. This is not a 32-bit m
 
 > A 64-bit mask, effectively 64 flags. The default enumerator will iterate all the bits that are set (1).
 
-**Full name:** `Unity.U2D.Physics.PhysicsMask`  
-**Docs:** [Unity.U2D.Physics.PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html)
+**Full name:** `Unity.U2D.Physics.PhysicsMask`
 
 ### Fields
 
@@ -89,8 +85,8 @@ Get a layer ordinal (index) for the specified layer name. This is not a 32-bit m
 
 | Name | Summary |
 |------|---------|
-| `resetBits` | Gets an enumerable group of bits that are currently reset (0). The bits are returned in ascending bit-index order. This uses [PhysicsMask.ResetBitIterator](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.ResetBitIterator.html). |
-| `setBits` | Gets an enumerable group of bits that are currently set (1). The bits are returned in ascending bit-index order. This uses [PhysicsMask.SetBitIterator](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.SetBitIterator.html). |
+| `resetBits` | Gets an enumerable group of bits that are currently reset (0). The bits are returned in ascending bit-index order. This uses PhysicsMask.ResetBitIterator. |
+| `setBits` | Gets an enumerable group of bits that are currently set (1). The bits are returned in ascending bit-index order. This uses PhysicsMask.SetBitIterator. |
 
 ### Methods
 
@@ -103,7 +99,7 @@ Create a PhysicsMask by specifying multiple bits to set (1).
 
 #### `new(LayerMask)`
 
-Create a PhysicsMask from a LayerMask. A [UnityEngine.LayerMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.LayerMask.html) is only 32-bits wide so the PhysicsMask will have the upper 32-bits set to zero.
+Create a PhysicsMask from a LayerMask. A LayerMask is only 32-bits wide so the PhysicsMask will have the upper 32-bits set to zero.
 
 **Params:**
 - `layerMask` — The LayerMask to use.
@@ -137,9 +133,9 @@ Is the specified bit set.
 
 **Returns:** Whether the specified bit is set or not.
 
-#### `operator implicit()`
+#### `operator implicit(ulong)`
 
-#### `operator implicit()`
+#### `operator implicit(PhysicsMask)`
 
 #### `ResetBit(int)`
 
@@ -157,7 +153,7 @@ Set (1) the specified bit.
 
 #### `ToLayerMask()`
 
-Convert the lower 32-bits of the 64-bit mask to the 32-bit [UnityEngine.LayerMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.LayerMask.html). A [UnityEngine.LayerMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/UnityEngine.LayerMask.html) is only 32-bits wide so the upper 32-bits of the PhysicsMask will be ignored.
+Convert the lower 32-bits of the 64-bit mask to the 32-bit LayerMask. A LayerMask is only 32-bits wide so the upper 32-bits of the PhysicsMask will be ignored.
 
 **Returns:** A 32-bit layer-mask converted from the lower 32-bits of the 64-bit mask.
 
@@ -165,15 +161,15 @@ Convert the lower 32-bits of the 64-bit mask to the 32-bit [UnityEngine.LayerMas
 
 ### Nested Types
 
-- **ResetBitIterator** — An iterator that will iterate only the bits that are reset (0) in a [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html)
-- **SetBitIterator** — An iterator that will iterate only the bits that are set (1) in a [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html)
-- **ShowAsPhysicsMaskAttribute** — When applied to a field/property of type [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html), the field/property drawer will not be display it as [PhysicsLayers](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsLayers.html). Instead, the field/property will be displayed as bit numbers only i.e. a raw 64-bit mask allowing each bit to be (de)selected. This is only used when physics layers are active (see [PhysicsCoreSettings2D.usePhysicsLayers](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsCoreSettings2D-usePhysicsLayers.html)).
+- **ResetBitIterator** — An iterator that will iterate only the bits that are reset (0) in a PhysicsMask
+- **SetBitIterator** — An iterator that will iterate only the bits that are set (1) in a PhysicsMask
+- **ShowAsPhysicsMaskAttribute** — When applied to a field/property of type PhysicsMask, the field/property drawer will not be display it as PhysicsLayers. Instead, the field/property will be displayed as bit numbers only i.e. a raw 64-bit mask allowing each bit to be (de)selected. This is only used when physics layers are active (see PhysicsCoreSettings2D.usePhysicsLayers).
 
 ### ResetBitIterator
 
-> An iterator that will iterate only the bits that are reset (0) in a [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html)
+> An iterator that will iterate only the bits that are reset (0) in a PhysicsMask
 
-**Full name:** `Unity.U2D.Physics.PhysicsMask.ResetBitIterator`  
+**Full name:** `Unity.U2D.Physics.PhysicsMask.ResetBitIterator`
 
 #### Methods
 
@@ -183,9 +179,9 @@ Convert the lower 32-bits of the 64-bit mask to the 32-bit [UnityEngine.LayerMas
 
 ### SetBitIterator
 
-> An iterator that will iterate only the bits that are set (1) in a [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html)
+> An iterator that will iterate only the bits that are set (1) in a PhysicsMask
 
-**Full name:** `Unity.U2D.Physics.PhysicsMask.SetBitIterator`  
+**Full name:** `Unity.U2D.Physics.PhysicsMask.SetBitIterator`
 
 #### Methods
 
@@ -195,9 +191,9 @@ Convert the lower 32-bits of the 64-bit mask to the 32-bit [UnityEngine.LayerMas
 
 ### ShowAsPhysicsMaskAttribute
 
-> When applied to a field/property of type [PhysicsMask](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsMask.html), the field/property drawer will not be display it as [PhysicsLayers](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsLayers.html). Instead, the field/property will be displayed as bit numbers only i.e. a raw 64-bit mask allowing each bit to be (de)selected. This is only used when physics layers are active (see [PhysicsCoreSettings2D.usePhysicsLayers](https://docs.unity3d.com/6000.7/Documentation/ScriptReference/Unity.U2D.Physics.PhysicsCoreSettings2D-usePhysicsLayers.html)).
+> When applied to a field/property of type PhysicsMask, the field/property drawer will not be display it as PhysicsLayers. Instead, the field/property will be displayed as bit numbers only i.e. a raw 64-bit mask allowing each bit to be (de)selected. This is only used when physics layers are active (see PhysicsCoreSettings2D.usePhysicsLayers).
 
-**Full name:** `Unity.U2D.Physics.PhysicsMask.ShowAsPhysicsMaskAttribute`  
+**Full name:** `Unity.U2D.Physics.PhysicsMask.ShowAsPhysicsMaskAttribute`
 
 #### Methods
 
@@ -205,4 +201,4 @@ Convert the lower 32-bits of the 64-bit mask to the 32-bit [UnityEngine.LayerMas
 
 ---
 
-_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from Unity 6000.7.0a3 `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._
+_Generated by `~/.claude/physicscore2d-api-generator/_generate.py` from `UnityEngine.PhysicsCore2DModule.xml`. Do not hand-edit; re-run the generator._

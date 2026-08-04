@@ -140,6 +140,35 @@ Same single-engine-call cost as `Create`.
 
 See the `PolygonGeometry` section in `unity-physicscore2d-geometry-api` for the full edit-vs-validate table and decision rules.
 
+### Asking why geometry is degenerate
+
+`isValid` is all-or-nothing. `areEdgesValid` answers the narrower question of whether the points are far enough
+apart to build from, which is what usually fails when geometry comes from authored or generated data:
+
+```csharp
+// On SegmentGeometry, CapsuleGeometry and ChainSegmentGeometry: are the two points far enough apart?
+if (!segment.areEdgesValid) { }
+
+// On PolygonGeometry: every edge long enough AND no three consecutive vertices collinear.
+if (!poly.areEdgesValid) { }
+```
+
+Each reads the instance's own current data, so set the vertices and ask, rather than pre-checking a separate span.
+It reports `false` instead of throwing when there are too few vertices to describe a polygon at all, which is what a
+failed `Create` leaves behind. `CircleGeometry` has no such member: a point plus a radius has no edge.
+
+The thresholds behind it are public, for scaling authored data before it gets rejected:
+
+| Property | Value | Applies to |
+|---|---|---|
+| `PhysicsWorld.minEdgeLength` | `linearSlop` | Segment, Capsule, ChainSegment |
+| `PhysicsWorld.minPolygonEdgeLength` | `4 * linearSlop` | Polygon edges; two vertices closer than this are welded into one |
+| `PhysicsWorld.minPolygonCollinearDistance` | `2 * linearSlop` | A polygon vertex this close to the line through its neighbours is stripped as collinear |
+
+Polygons genuinely use different, larger thresholds than everything else, so do not assume one rule covers all
+geometry. All three scale with `lengthUnitsPerMeter`, so read them rather than hard-coding a multiple of
+`linearSlop`.
+
 ## Geometry Islands
 
 Disconnected groups of shapes:

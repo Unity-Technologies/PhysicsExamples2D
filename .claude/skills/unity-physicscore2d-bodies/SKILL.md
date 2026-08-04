@@ -182,6 +182,20 @@ body.Destroy();   // logs a warning if the body is owned
 
 Useful in libraries/middleware where you want defensive ownership without complex reference tracking.
 
+Ownership works on whole batches too, so a batch you own can be released in one call rather than object by object:
+
+```csharp
+// Take ownership at creation time, rather than a separate SetOwner pass afterwards.
+var bodies = PhysicsBody.CreateBatch(world, bodyDefinition, 1000, this, ownerKey, Allocator.Persistent);
+
+// Destroys every body whose owner key matches and skips the rest, with one summary warning for the whole call.
+PhysicsBody.DestroyBatch(bodies, ownerKey);
+```
+
+`ownerKey` on an owner-taking create overload is required and must be non-zero: a caller that never learns the key back could never destroy what it just created. Get one from `PhysicsWorld.CreateOwnerKey`.
+
+`PhysicsShape` and `PhysicsJoint` carry the same pair, and `PhysicsShape.CreateShapeBatch` fuses owner assignment into creation for all five geometry types. All three also take a span overload of `SetOwnerUserData`, so per-object user data can be stamped in one call instead of a loop.
+
 ## Iteration & introspection
 
 ```csharp
