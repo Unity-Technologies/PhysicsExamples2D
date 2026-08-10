@@ -70,7 +70,7 @@ public sealed class ConveyorBelt : SandboxExampleBehaviour
 
         // Platform.
         {
-            m_ConveyorBeltBody = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f, rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(m_ConveyorAngle)) });
+            m_ConveyorBeltBody = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f, rotation = PhysicsRotate.FromDegrees(m_ConveyorAngle) });
 
             var geometry = PolygonGeometry.CreateBox(new Vector2(20f, 0.5f), 0.25f);
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.8f, tangentSpeed = m_ConveyorSpeed } };
@@ -114,7 +114,7 @@ public sealed class ConveyorBelt : SandboxExampleBehaviour
     private void UpdateConveyorAngle()
     {
         // Update the conveyor angle.
-        m_ConveyorBeltBody.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(m_ConveyorAngle));
+        m_ConveyorBeltBody.rotation = PhysicsRotate.FromDegrees(m_ConveyorAngle);
     }
 
     private void UpdateConveyorSpeed()

@@ -107,7 +107,7 @@ public class Wind : MonoBehaviour
         if (!m_Shapes.IsCreated || world != PhysicsWorld.defaultWorld)
             return;
 
-        var direction = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(WindDirectionDegrees));
+        var direction = PhysicsRotate.FromDegrees(WindDirectionDegrees);
         m_CurrentWind = (direction.direction + m_WindNoise) * WindSpeed;
 
         // ApplyWind dispatches lift+drag based on shape geometry; per-shape so each body's surface area matters.

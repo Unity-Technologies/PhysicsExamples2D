@@ -58,7 +58,7 @@ public class ConveyorBelt : MonoBehaviour
             m_ConveyorBeltBody = m_PhysicsWorld.CreateBody(new PhysicsBodyDefinition
             {
                 position = Vector2.up * 8f,
-                rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(ConveyorAngle))
+                rotation = PhysicsRotate.FromDegrees(ConveyorAngle)
             });
 
             var geometry = PolygonGeometry.CreateBox(new Vector2(20f, 0.5f), 0.25f);
@@ -105,7 +105,7 @@ public class ConveyorBelt : MonoBehaviour
     private void UpdateConveyorAngle()
     {
         if (m_ConveyorBeltBody.isValid)
-            m_ConveyorBeltBody.rotation = PhysicsRotate.FromRadians(PhysicsMath.ToRadians(ConveyorAngle));
+            m_ConveyorBeltBody.rotation = PhysicsRotate.FromDegrees(ConveyorAngle);
     }
 
     private void UpdateConveyorSpeed()
