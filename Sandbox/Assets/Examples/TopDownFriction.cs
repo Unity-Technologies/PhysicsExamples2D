@@ -90,7 +90,8 @@ public sealed class TopDownFriction : SandboxExampleBehaviour
                 bodyA = groundBody,
                 collideConnected = true,
                 maxForce = m_MaxForce,
-                maxTorque = m_MaxTorque
+                maxTorque = m_MaxTorque,
+                worldDrawing = false
             };
 
             var capsule = new CapsuleGeometry { center1 = Vector2.left * 0.25f, center2 = Vector2.right * 0.25f, radius = 0.25f };
