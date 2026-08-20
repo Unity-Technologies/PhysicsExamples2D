@@ -18,8 +18,9 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
     private Camera m_Camera;
 
     private Vector2 m_OldGravity;
+#if !UNITY_6000_6_OR_NEWER
     private bool m_OldAutoContactCallbacks;
-
+#endif
     private readonly PhysicsMask m_ObstacleMask = new(1);
     private readonly PhysicsMask m_GroundMask = new(2);
     private readonly PhysicsMask m_DestructibleMask = new(3);
@@ -78,10 +79,11 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         // Store old gravity.
         m_OldGravity = world.gravity;
 
+#if !UNITY_6000_6_OR_NEWER
         // Turn-on auto contact callbacks.
         m_OldAutoContactCallbacks = world.autoContactCallbacks;
         world.autoContactCallbacks = true;
-
+#endif
         // Set Overrides.
         SandboxManager.SetOverrideColorShapeState(false);
 
@@ -143,9 +145,10 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
         // Get the default world.
         var world = World;
 
+#if !UNITY_6000_6_OR_NEWER
         // Reset the callbacks.
         world.autoContactCallbacks = m_OldAutoContactCallbacks;
-
+#endif
         // Reset the old gravity.
         world.gravity = m_OldGravity;
 
@@ -263,7 +266,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
 
             var position = PhysicsMath.ToPosition3D(bodyTransform.position, Vector3.zero, transformPlane);
             var rotation = PhysicsMath.ToRotationFast3D(body.rotation.radians, transformPlane);
-            
+
             // SpriteParams is an immutable struct (stack-allocated, no GC); RenderParams/SpriteParams
             // are `in` parameters so they're passed without the `ref` keyword.
             var spriteParams = new SpriteParams(sprite);

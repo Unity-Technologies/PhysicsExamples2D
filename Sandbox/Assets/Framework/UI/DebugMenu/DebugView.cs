@@ -155,7 +155,7 @@ public class DebugView : MonoBehaviour, IFoldable
         {
             m_BarFPS = root.Q<ProgressBar>("fps");
         }
-        
+
         // Profile.
         {
             m_SimulationStepElement = root.Q<Label>("simulation-step");
@@ -226,7 +226,7 @@ public class DebugView : MonoBehaviour, IFoldable
 
     private void OnDisable()
     {
-        // Unsubscribe to the post-simulate event. 
+        // Unsubscribe to the post-simulate event.
         PhysicsEvents.PostSimulate -= UpdateStats;
     }
 
@@ -287,10 +287,14 @@ public class DebugView : MonoBehaviour, IFoldable
         m_StaticBroadphaseHeightElement.text = $"{color}{m_LastCounters.staticBroadphaseHeight}{endColor} >[{color}{m_MaxCounters.staticBroadphaseHeight}{endColor}]";
         m_MoveableBroadphaseHeightElement.text = $"{color}{m_LastCounters.broadphaseHeight}{endColor} >[{color}{m_MaxCounters.broadphaseHeight}{endColor}]";
         m_StackBytesUsedElement.text = $"{color}{m_LastCounters.stackUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.stackUsed * memoryScale:F2}{endColor}]";
+#if UNITY_6000_6_OR_NEWER
+        m_TotalBytesUsedElement.text = $"{color}{m_LastCounters.usedMemory * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.usedMemory * memoryScale:F2}{endColor}]";
+#else
         m_TotalBytesUsedElement.text = $"{color}{m_LastCounters.memoryUsed * memoryScale:F2}{endColor} >[{color}{m_MaxCounters.memoryUsed * memoryScale:F2}{endColor}]";
+#endif
         m_TaskCountElement.text = $"{color}{m_LastCounters.taskCount}{endColor} >[{color}{m_MaxCounters.taskCount}{endColor}]";
     }
-    
+
     private void UpdateFPS()
     {
         // Fps.
@@ -303,7 +307,7 @@ public class DebugView : MonoBehaviour, IFoldable
             m_BarFPS.title = $"{SandboxUtility.HighlightColor}{fps:F1}{SandboxUtility.EndHighlightColor} fps ({SandboxUtility.HighlightColor}{1000f / fps:F1}{SandboxUtility.EndHighlightColor} ms)";
         }
     }
-    
+
     private void UpdateStats(PhysicsWorld world, float deltaTime)
     {
         if (!world.isDefaultWorld)
