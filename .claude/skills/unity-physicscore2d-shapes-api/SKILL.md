@@ -34,6 +34,7 @@ Top-level types in this file: `PhysicsShape`, `PhysicsShapeDefinition`.
 | `contactFilterCallbacks` | Controls whether this shape produces contact filter callbacks. A contact filter callback allows direct control over whether a contact will be created between a pair of shapes. This applies to both triggers and non-triggers but only with to Dynamic bodies These are relatively expensive so disabling them can provide a significant performance benefit. A contact filter callback will call the PhysicsShape.callbackTarget for both shapes involved if they implement PhysicsCallbacks.IContactFilterCallback. |
 | `customColor` | Custom debug draw color. Any color value other than Color.clear (RGBA=0) will be used to render the shape.. This value is passed back when using the PhysicsWorld drawing. The alpha value here is always ignored. This is assigned to the current PhysicsShape.surfaceMaterial. |
 | `definition` | Get/Set a shape definition by accessing all of its current properties. This is provided as convenience only and should not be used when performance is important as all the properties defined in the definition are accessed sequentially. You should try to only use the specific properties you need rather than using this feature. |
+| `drawTarget` | Controls which Unity editor views this shape is drawn into. |
 | `friction` | The Coulomb (dry) friction coefficient, usually in the range [0, 1]. This is assigned to the current PhysicsShape.surfaceMaterial. |
 | `frictionMixing` | Defines the method used when mixing the friction values of two shapes to form a contact. This is assigned to the current PhysicsShape.surfaceMaterial. |
 | `frictionPriority` | The priority for combining the PhysicsShape.friction properties when two shapes come into contact. If the priority of one shape is higher than the other shape then the higher priority PhysicsShape.SurfaceMaterial.frictionMixing will be used. If the priority of both shapes are the same then simply the higher enumeration value of PhysicsMaterialCombine2D from both shapes will be used. This is assigned to the current PhysicsShape.surfaceMaterial. |
@@ -53,6 +54,7 @@ Top-level types in this file: `PhysicsShape`, `PhysicsShapeDefinition`.
 | `preSolveCallbacks` | Controls whether this shape produces pre-solve callbacks. This only applies to Dynamic bodies and is ignored for triggers. These are relatively expensive so disabling them can provide a significant performance benefit. A pre-solve callback will call the PhysicsShape.callbackTarget for both shapes involved if they implement PhysicsCallbacks.IPreSolveCallback. |
 | `rollingResistance` | The rolling resistance usually in the range [0, 1]. This is assigned to the current PhysicsShape.surfaceMaterial. |
 | `segmentGeometry` | Get/Set the Segment associated with this shape. When getting the shape geometry, the shape type must match the geometry type otherwise a warning will be produced and invalid geometry will be returned. Setting the geometry will change the type of shape represented even if the shape type was different before. Setting the geometry will also result in waking the body the shape is attached to. |
+| `selectedDrawing` | Controls whether this shape is drawn individually when the world is drawn. |
 | `shapeType` | The type of shape. See PhysicsShape.ShapeType. |
 | `startMassUpdate` | Should the body update its mass properties when this shape is created. Disabling this improves performance when multiple shapes are being added to the same body. The mass of a body can then be explicitly updated by calling PhysicsBody.ApplyMassFromShapes See PhysicsShapeDefinition.startMassUpdate. |
 | `startStaticContacts` | Normally shapes on Static bodies don't create contacts when they are added to the world. This overrides that behavior and causes contact creation. This significantly slows down Static body creation which can be important when there are many Static shapes. This is implicitly always true for Triggers, Dynamic bodies and Kinematic bodies. See PhysicsShapeDefinition.startStaticContacts. |
@@ -457,7 +459,7 @@ Get the minimum distance between this shape and all the shapes attached to the s
 
 #### `Draw()`
 
-Draw the PhysicsShape that visually represents its current state in the world.
+Draw this shape's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -641,6 +643,22 @@ Set a batch of PhysicsShape all to the same ChainSegmentGeometry. If a shape is 
 
 **Returns:** The number of shapes that were ignored (not set because the shape was invalid). If the geometry is invalid, no shapes are set.
 
+#### `SetContactFilter(ReadOnlySpan<PhysicsShape>, ReadOnlySpan<PhysicsShape.ContactFilter>)`
+
+Set the PhysicsShape.ContactFilter on a batch of shapes. The shapes and filters spans must be the same length; shapes[n] receives filters[n].
+
+**Params:**
+- `shapes` — The shapes to set the contact filter on.
+- `filters` — The contact filters to set, one entry per shape.
+
+#### `SetContactFilter(ReadOnlySpan<PhysicsShape>, PhysicsShape.ContactFilter)`
+
+Set the same PhysicsShape.ContactFilter on a batch of shapes.
+
+**Params:**
+- `shapes` — The shapes to set the contact filter on.
+- `contactFilter` — The contact filter to set on every shape.
+
 #### `SetDensity(float, bool)`
 
 Set the shape density. See PhysicsBody.massConfiguration.
@@ -692,6 +710,55 @@ Set PhysicsUserData on a batch of shapes that can be used for any purpose, typic
 - `userDatas` — The user data to set, one entry per shape.
 - `ownerKey` — Optional owner key returned when using PhysicsShape.SetOwner.
 
+#### `SetOwnerUserData(ReadOnlySpan<PhysicsShape>, PhysicsUserData, int)`
+
+Set the same PhysicsUserData on a batch of shapes that can be used for any purpose, typically by the owner only.
+
+**Params:**
+- `shapes` — The shapes to set the owner user data on.
+- `physicsUserData` — The user data to set on every shape.
+- `ownerKey` — Optional owner key returned when using PhysicsShape.SetOwner.
+
+#### `SetSelectedDrawing(ReadOnlySpan<PhysicsShape>, bool)`
+
+Set the selected drawing state on a batch of shapes.
+
+**Params:**
+- `shapes` — The shapes to set the selected drawing state on.
+- `selected` — The selected drawing state to set on every shape.
+
+#### `SetSurfaceMaterial(ReadOnlySpan<PhysicsShape>, ReadOnlySpan<PhysicsShape.SurfaceMaterial>)`
+
+Set the PhysicsShape.SurfaceMaterial on a batch of shapes. The shapes and surfaceMaterials spans must be the same length; shapes[n] receives surfaceMaterials[n].
+
+**Params:**
+- `shapes` — The shapes to set the surface material on.
+- `surfaceMaterials` — The surface materials to set, one entry per shape.
+
+#### `SetSurfaceMaterial(ReadOnlySpan<PhysicsShape>, PhysicsShape.SurfaceMaterial)`
+
+Set the same PhysicsShape.SurfaceMaterial on a batch of shapes.
+
+**Params:**
+- `shapes` — The shapes to set the surface material on.
+- `surfaceMaterial` — The surface material to set on every shape.
+
+#### `SetUserData(ReadOnlySpan<PhysicsShape>, ReadOnlySpan<PhysicsUserData>)`
+
+Set PhysicsUserData on a batch of shapes that can be used for any purpose. The shapes and userDatas spans must be the same length; shapes[n] receives userDatas[n].
+
+**Params:**
+- `shapes` — The shapes to set the user data on.
+- `userDatas` — The user data to set, one entry per shape.
+
+#### `SetUserData(ReadOnlySpan<PhysicsShape>, PhysicsUserData)`
+
+Set the same PhysicsUserData on a batch of shapes that can be used for any purpose.
+
+**Params:**
+- `shapes` — The shapes to set the user data on.
+- `physicsUserData` — The user data to set on every shape.
+
 #### `ToString()`
 
 ### Nested Types
@@ -723,6 +790,16 @@ Set PhysicsUserData on a batch of shapes that can be used for any purpose, typic
 | `manifold` | The contact manifold describing the contact. |
 | `shapeA` | One of the shapes involved in the contact. |
 | `shapeB` | The other shape involved in the contact. |
+
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.Contact)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### ContactFilter
 
@@ -767,6 +844,14 @@ Will this contact filter produce a contact with the specified contact filter. Th
 
 **Returns:** Whether a contact would be produced by both contact filters or not.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.ContactFilter)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### ContactFilterGroupMode
 
 > The mode used to determine how PhysicsShape.ContactFilter.groupIndex is used.
@@ -808,6 +893,12 @@ Will this contact filter produce a contact with the specified contact filter. Th
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.ContactId)`
+
+##### `GetHashCode()`
+
 ##### `ToString()`
 
 ### ContactManifold
@@ -828,7 +919,15 @@ Will this contact filter produce a contact with the specified contact filter. Th
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.ContactManifold)`
+
 ##### `GetEnumerator()`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 #### Nested Types
 
@@ -858,6 +957,16 @@ Will this contact filter produce a contact with the specified contact filter. Th
 | `tangentImpulse` | The friction impulse. |
 | `totalNormalImpulse` | The total normal impulse applied across sub-stepping and restitution. This includes the warm starting impulse, the sub-step delta impulse, and the restitution impulse. This can be used to identify speculative contact points that had an interaction during the simulation step. |
 
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsShape.ContactManifold.ManifoldPoint)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
+
 #### ManifoldPointArray
 
 > Fixed-sized manifold point array.
@@ -871,6 +980,16 @@ Will this contact filter produce a contact with the specified contact filter. Th
 | `contactInfo0` | Manifold Point #0. |
 | `contactInfo1` | Manifold Point #1. |
 | `speculativePointCount` | The number of manifold points available that are speculative, in the range [0, 2]. |
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsShape.ContactManifold.ManifoldPointArray)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 #### ManifoldPointIterator
 
@@ -894,6 +1013,16 @@ Will this contact filter produce a contact with the specified contact filter. Th
 | `point` | The collision point on the shape. |
 | `shape` | The shape the mover collided with. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.MoverCollision)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### MoverData
 
 > The mover data assigned to a PhysicsShape.moverData. This is used when PhysicsShape are encountered when using PhysicsWorld.CastMover.
@@ -912,6 +1041,14 @@ Will this contact filter produce a contact with the specified contact filter. Th
 ##### `new()`
 
 Create a default mover data.
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.MoverData)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### ShapeArray
 
@@ -958,6 +1095,14 @@ Get the shape array as a span.
 - `count` — The number of shape array elements to return.
 
 **Returns:** The span representing the shape array.
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.ShapeArray)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### ShapeProxy
 
@@ -1030,6 +1175,14 @@ Get the convex-hull vertices as a span.
 
 **Returns:** The span representing the vertices in the convex-hull.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.ShapeProxy)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### ShapeType
 
 > The type of shape. Some shapes are "closed" meaning they have an interior which will produce contacts. Some shapes are "open" meaning they do not have an interior and will only produce contacts when their boundary is intersected.
@@ -1079,6 +1232,14 @@ Create a default surface material.
 
 **Params:**
 - `useSettings` — Controls whether the default come settings from the physics settings or not.
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsShape.SurfaceMaterial)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 #### Nested Types
 
@@ -1142,6 +1303,14 @@ Create a default PhysicsShape definition.
 
 **Params:**
 - `useSettings` — Controls whether the default come settings from the physics settings or not.
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsShapeDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
 
 ---
 

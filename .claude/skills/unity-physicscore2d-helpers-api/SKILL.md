@@ -81,6 +81,10 @@ Calculate the angular velocity necessary to rotate between two rotations over a 
 
 **Returns:** The angular velocity required to rotate between the specified rotations.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsRotate)`
+
 #### `FromDegrees(float)`
 
 Create a rotation with the specified rotation, in degrees. See PhysicsRotate.FromRadians.
@@ -98,6 +102,8 @@ Create a rotation with the specified rotation, in radians. See PhysicsRotate.Fro
 - `radians` — The rotation angle specified, in radians.
 
 **Returns:** The rotation represented by the specified rotation, in radians.
+
+#### `GetHashCode()`
 
 #### `GetMatrix(PhysicsWorld.TransformPlane)`
 
@@ -263,6 +269,12 @@ Create a transformation with the specified translation and rotation.
 - `position` — The translation for the transformation.
 - `rotation` — The rotation for the transformation.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsTransform)`
+
+#### `GetHashCode()`
+
 #### `GetPositionAndRotation(Vector2, PhysicsRotate)`
 
 Get both the position and rotation.
@@ -343,6 +355,12 @@ Transform a point using the current transform translation and rotation.
 | `vector3IntValue` | A custom Vector3Int. |
 
 ### Methods
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsUserData)`
+
+#### `GetHashCode()`
 
 #### `ToString()`
 

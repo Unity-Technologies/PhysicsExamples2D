@@ -1,6 +1,6 @@
 ---
 name: unity-physicscomponents2d-pose
-description: The PhysicsPose component of com.unity.2d.physics — the component that manages a PhysicsBody and keeps it synced to the Unity Transform. Covers definition versus definitionAsset, ApplyDefinition and what it resets, the BodyCreated/BodyDestroyed events, the four callback source modes (Off/Pose/Bodies/Events) and their guards, and compositeMode for a body-less pose. Use for questions about creating or configuring a body from a component, why a body property change had no effect, wiring body callbacks in the inspector, or a pose that has no body.
+description: The PhysicsPose component of com.unity.2d.physics — the component that manages a PhysicsBody and keeps it synced to the Unity Transform. Covers definition versus definitionAsset, ApplyDefinition and why it preserves velocity, the BodyCreated/BodyDestroyed events, the four callback source modes (Off/Pose/Bodies/Events) and their guards, and the read-only compositeMode for a body-less pose. Use for questions about creating or configuring a body from a component, why a body property change had no effect, wiring body callbacks in the inspector, or a pose that has no body.
 ---
 
 # PhysicsPose
@@ -12,8 +12,8 @@ Shapes are not its job: `PhysicsArea` components on the same GameObject attach s
 
 ## The Transform owns the pose
 
-**The Unity Transform is the source of truth for position and rotation, always.**
-The body follows world and local position and rotation, in edit mode and in play. That tracking set is fixed, not configurable.
+**The Unity Transform is the source of truth for position and rotation.**
+By default the body follows world and local position and rotation, in edit mode and in play; `transformChangeReasons` (below) lets you narrow which of those the body follows, or stop following altogether.
 
 This is why `PhysicsPoseDefinition` hides the body definition's position and rotation fields in its inspector: they would never be read. A pose seeds the body's placement from the Transform, overwriting whatever the definition carries.
 
@@ -37,12 +37,9 @@ Two sources of body configuration, one winner:
 
 Changing `definition`, `definitionAsset`, `callbackSource` or `callbackTarget` does **nothing** to the running body until you call `ApplyDefinition()`.
 
-It updates the body in place, keeping it and its attached shapes alive. But a body definition writes the full state, so during play it:
+It updates the body in place, keeping it and its attached shapes alive. A body definition writes the full state, but before writing it the pose seeds the definition's velocity and awake fields from the body's own current values, so calling `ApplyDefinition()` during play does **not** reset velocity or awake state: the body keeps moving as it already was. Everything else in the definition (mass, damping, constraints, and so on) is overwritten from the definition, so anything you changed directly on the `body` handle other than velocity or awake state is lost.
 
-- resets linear and angular velocity,
-- overwrites anything you changed directly on the `body` handle since the last apply.
-
-So `ApplyDefinition()` is an authoring operation. During play, prefer setting properties on the `body` handle directly. It has no effect when no body exists.
+So `ApplyDefinition()` is mainly an authoring operation, safe to call in play mode without disturbing motion. It has no effect when no body exists.
 
 Do not confuse it with `Apply()`, which is the inherited `PhysicsWorldProvider` method for re-resolving *which world* the body lives in. See `unity-physicscomponents2d-providers`.
 
@@ -50,7 +47,7 @@ Do not confuse it with `Apply()`, which is the inherited `PhysicsWorldProvider` 
 
 Inherited from `PhysicsWorldProvider`: `source` is a `SimulationSource` (`DefaultWorld` or `SimulationWorld`), paired with the `simulationWorld` asset, and changes need `Apply()`.
 
-Assigning `simulationWorld` while `source` is not `SimulationWorld` throws. See `unity-physicscomponents2d-simulation` for world lifetime.
+Assigning a non-null `simulationWorld` while `source` is not `SimulationWorld` throws; clearing it to null is always allowed regardless of `source`. See `unity-physicscomponents2d-simulation` for world lifetime.
 
 ## Events
 
@@ -87,13 +84,15 @@ Body-update callbacks also depend on the world: they only fire when the world ha
 
 ## compositeMode
 
-Set it and the pose **never creates a body**. Instead it only supplies its areas' geometry to a `PhysicsAreaComposite`'s Pose layer.
+`compositeMode` is **read-only**: it reports whether a `PhysicsAreaComposite` has claimed this pose, it is not a switch you flip. When true, the pose **never creates a body**; instead it only supplies its areas' geometry to that composite's Pose layer. The paired `composite` property returns the claiming `PhysicsAreaComposite`, or null.
 
-It is authoring-only, and enforced as such: settable while there is no live body, but **throws `InvalidOperationException` once a body exists**, because flipping it on a running body would discard transient runtime state (velocity, sleep state, joint attachments) that cannot be restored.
-
-In the editor, changing it rebuilds or tears down the body automatically, so no explicit call is needed there.
+Put a pose into composite mode by assigning it to a composite's Pose layer, and take it out again by removing that layer. See `PhysicsAreaComposite.AddPoseLayer` in `unity-physicscomponents2d-areas`.
 
 A `compositeMode` pose still raises the internal "a pose appeared" notification when enabled, so an `Auto`-source area or constraint elsewhere can still resolve against it.
+
+## Following the Transform
+
+`transformChangeReasons` (a `PhysicsWorld.TransformChangeReason` flag set) controls which kinds of Transform edit re-place the body; `defaultTransformChangeReasons` is the public default (world and local position and rotation). Set it to `None` and the body is placed once at creation but never follows the Transform afterward — useful when something else drives the body directly and the Transform should not fight it.
 
 ## Where to go next
 

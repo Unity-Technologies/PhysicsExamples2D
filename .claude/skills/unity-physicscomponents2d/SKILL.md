@@ -24,7 +24,7 @@ Everything you then do with that object (queries, forces, events, batching) is e
 | Building physics with no components at all | Engine | `unity-physicscore2d` |
 
 Every component exposes the object it built, so you cross from one layer to the other through a property:
-`PhysicsSimulation.world`, `PhysicsPose.body`, `PhysicsArea.shape` (or index it for many), `PhysicsConstraint.joint`.
+`PhysicsSimulation.world`, `PhysicsPose.body`, `PhysicsArea.shape` (or index it for many), `PhysicsConstraint.joint`. Any `PhysicsWorldProvider`/`PhysicsPoseProvider` also has `resolvedWorld`/`resolvedPose`, reporting what the live physics was actually built against rather than what `source` currently says.
 
 ## The four families
 
@@ -32,7 +32,7 @@ Listed in build order, which is also script execution order: a world must exist 
 
 | Family | Component | Builds | Base |
 |---|---|---|---|
-| Simulation | `PhysicsSimulation` | keeps a `PhysicsWorld` alive | `MonoBehaviour` |
+| Simulation | `PhysicsSimulation` | keeps a `PhysicsWorld` alive, optionally across scene loads via `persistAcrossScenes` | `MonoBehaviour` |
 | Pose | `PhysicsPose` | a `PhysicsBody` | `PhysicsWorldProvider` |
 | Area | `PhysicsArea*` (9 of them) | one or more `PhysicsShape` | `PhysicsPoseProvider` |
 | Constraint | `PhysicsConstraint*` (7 of them) | a `PhysicsJoint` | `MonoBehaviour` |
@@ -63,7 +63,7 @@ MonoBehaviour
 ```
 
 `PhysicsConstraint` deliberately does not derive from `PhysicsPoseProvider`, because it needs two poses rather than one.
-It declares its own `PoseSource` enum, so `PhysicsArea.PoseSource` and `PhysicsConstraint.PoseSource` are separate types with the same shape.
+It declares its own `PoseSource` enum, so `PhysicsConstraint.PoseSource` and the inherited `PhysicsPoseProvider.PoseSource` (accessible as `PhysicsArea.PoseSource`) are separate types with the same shape.
 
 See `unity-physicscomponents2d-providers` for what the bases actually do. That is the skill to read before scripting any component edit.
 
@@ -78,6 +78,8 @@ See `unity-physicscomponents2d-providers` for what the bases actually do. That i
 | `unity-physicscomponents2d-constraints` | the seven constraint components, two-pose resolution, anchors |
 
 Preferences and project settings are a thin editor-internal surface (a Project Settings page under **Physics 2D (Core)** carrying component defaults and default callback modes), so they have no skill of their own.
+
+Every provider-style component picks a `CallbackSourceType` (`Off`/one component-centric mode/the engine-interface mode/`Events`) for dispatching its callbacks; `PhysicsPose` and `PhysicsConstraint` each declare their own copy of this enum, matched to what they can deliver. See the family-specific skills for the exact modes and guards.
 
 ## Two namespaces
 
@@ -101,6 +103,8 @@ Every such asset derives `PhysicsAssetBase<T>` wrapping one engine definition st
 
 Where a component has both, the asset wins when assigned, and the component exposes the winner as `activeDefinition`.
 
+On a `PhysicsArea`, `contactAsset` (`PhysicsContactFilter`) and `materialAsset` (`PhysicsSurfaceMaterial`) are a further, independent layer: when assigned, they override the contact filter or surface material inside whatever `activeDefinition` already resolved to, ranking above both the local definition and the definition asset for just those two fields.
+
 ## Script execution order
 
 `PhysicsExecutionOrder` holds the `[DefaultExecutionOrder]` values, and is also what the editor's undo handler reads to rebuild components in dependency order.
@@ -118,5 +122,4 @@ The base gives you a guaranteed create/destroy pairing, world or pose resolution
 - A custom shape source derives `PhysicsArea` and implements `GenerateShapes`.
 - A component that builds several objects at once (bodies plus shapes plus joints) derives `PhysicsWorldProvider`.
 
-`PhysicsWorldProvider` and `PhysicsPoseProvider` have internal constructors, so an external assembly cannot derive them directly; derive `PhysicsArea` instead.
 Worked examples live in the `com.unity.2d.physics.extras` package in the `PhysicsExamples2D` repo.

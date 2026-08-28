@@ -23,6 +23,12 @@ Top-level types in this file: `PhysicsLayers`, `PhysicsMask`.
 
 ### Methods
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsLayers)`
+
+#### `GetHashCode()`
+
 #### `GetLayerMask(string[])`
 
 Get a PhysicsMask for the specified layer name(s).
@@ -49,6 +55,8 @@ Get a layer ordinal (index) for the specified layer name. This is not a 32-bit m
 - `layerName` — The layer name (case sensitive) to find the layer ordinal for.
 
 **Returns:** The layer ordinal associated with the specified layer name or, if not found, PhysicsLayers.InvalidLayerOrdinal will be returned in which case a console warning will also be produced.
+
+#### `ToString()`
 
 ### Nested Types
 
@@ -122,7 +130,13 @@ Checks if all the provided PhysicsMask set bits are also set in this PhysicsMask
 
 **Returns:** True if all bits in the specified PhysicsMask are also set in this PhysicsMask, false otherwise.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsMask)`
+
 #### `GetEnumerator()`
+
+#### `GetHashCode()`
 
 #### `IsBitSet(int)`
 

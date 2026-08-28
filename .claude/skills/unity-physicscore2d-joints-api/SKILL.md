@@ -32,6 +32,7 @@ Top-level types in this file: `PhysicsDistanceJoint`, `PhysicsDistanceJointDefin
 | `definition` | Get or set the joint definition. Reading returns the joint's current configuration, including PhysicsDistanceJoint.bodyA and PhysicsDistanceJoint.bodyB. Writing applies every configurable property in place but does not change the connected bodies, which are fixed when the joint is created. |
 | `distance` | The desired distance constraint i.e. the rest length of this joint. This has a lower stable limit of just above zero. |
 | `drawScale` | Controls the scaling of the joint drawing. |
+| `drawTarget` | Controls which Unity editor views this joint is drawn into. |
 | `enableLimit` | Enable/Disable the joint distance limit. |
 | `enableMotor` | Enable/Disable the joint motor. |
 | `enableSpring` | Enable/Disable the spring behaviour. If false then the joint will be rigid, overriding the limit and motor. |
@@ -48,6 +49,7 @@ Top-level types in this file: `PhysicsDistanceJoint`, `PhysicsDistanceJointDefin
 | `owner` | The owner object associated with this joint, or NULL if no owner has been specified. This is a convenience property that returns the same value as PhysicsDistanceJoint.GetOwner. |
 | `ownerUserData` | Get PhysicsUserData that can be used for any purpose, typically by the owner only. |
 | `physicsHandle` | Get the physics handle. |
+| `selectedDrawing` | Controls whether this joint is drawn individually when the world is drawn. |
 | `springDamping` | The spring linear damping, non-dimensional. |
 | `springFrequency` | The spring linear stiffness frequency, in cycles per second. |
 | `springLowerForce` | The lower spring force controls how much tension the spring can sustain. |
@@ -103,7 +105,7 @@ Destroy a batch of joints. Owned joints will produce a warning and will not be d
 
 #### `Draw()`
 
-Draw a PhysicsJoint that visually represents its current state in the world.
+Draw this joint's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -213,6 +215,14 @@ Create a default PhysicsDistanceJoint definition.
 **Params:**
 - `useSettings` — Controls whether the default settings come from the physics settings or not.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsDistanceJointDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
+
 ## PhysicsFixedJoint
 
 > A joint to constrain a pair of bodies together rigidly. This constraint provides springs to mimic soft-body simulation. The approximate solver cannot always hold many bodies together completely rigidly.
@@ -235,6 +245,7 @@ Create a default PhysicsDistanceJoint definition.
 | `currentLinearSeparationError` | Get the current linear separation error for this joint, usually in meters. This does not consider admissible movement. |
 | `definition` | Get or set the joint definition. Reading returns the joint's current configuration, including PhysicsFixedJoint.bodyA and PhysicsFixedJoint.bodyB. Writing applies every configurable property in place but does not change the connected bodies, which are fixed when the joint is created. |
 | `drawScale` | Controls the scaling of the joint drawing. |
+| `drawTarget` | Controls which Unity editor views this joint is drawn into. |
 | `forceThreshold` | The force threshold beyond which a joint event will be produced. |
 | `isOwned` | Get if the joint is owned. See PhysicsJoint.SetOwner. |
 | `isValid` | Checks if the joint is valid. |
@@ -246,6 +257,7 @@ Create a default PhysicsDistanceJoint definition.
 | `owner` | The owner object associated with this joint, or NULL if no owner has been specified. This is a convenience property that returns the same value as PhysicsFixedJoint.GetOwner. |
 | `ownerUserData` | Get PhysicsUserData that can be used for any purpose, typically by the owner only. |
 | `physicsHandle` | Get the physics handle. |
+| `selectedDrawing` | Controls whether this joint is drawn individually when the world is drawn. |
 | `torqueThreshold` | The torque threshold beyond which a joint event will be produced. |
 | `tuningDamping` | Controls the joint stiffness damping, non-dimensional. Use 1 for critical damping. |
 | `tuningFrequency` | Controls the joint stiffness frequency, in cycles per second. |
@@ -297,7 +309,7 @@ Destroy a batch of joints. Owned joints will produce a warning and will not be d
 
 #### `Draw()`
 
-Draw a PhysicsJoint that visually represents its current state in the world.
+Draw this joint's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -398,6 +410,14 @@ Create a default PhysicsFixedJoint definition.
 **Params:**
 - `useSettings` — Controls whether the default settings come from the physics settings or not.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsFixedJointDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
+
 ## PhysicsHingeJoint
 
 > A joint where an anchor point on body B is fixed to an anchor point on body A. This joint allows relative rotation.
@@ -420,6 +440,7 @@ Create a default PhysicsFixedJoint definition.
 | `currentMotorTorque` | Get the current motor torque. |
 | `definition` | Get or set the joint definition. Reading returns the joint's current configuration, including PhysicsHingeJoint.bodyA and PhysicsHingeJoint.bodyB. Writing applies every configurable property in place but does not change the connected bodies, which are fixed when the joint is created. |
 | `drawScale` | Controls the scaling of the joint drawing. |
+| `drawTarget` | Controls which Unity editor views this joint is drawn into. |
 | `enableLimit` | Enable/Disable the joint rotation limit. |
 | `enableMotor` | Enable/Disable the joint motor. |
 | `enableSpring` | Enable/Disable the rotational spring. |
@@ -436,6 +457,7 @@ Create a default PhysicsFixedJoint definition.
 | `owner` | The owner object associated with this joint, or NULL if no owner has been specified. This is a convenience property that returns the same value as PhysicsHingeJoint.GetOwner. |
 | `ownerUserData` | Get PhysicsUserData that can be used for any purpose, typically by the owner only. |
 | `physicsHandle` | Get the physics handle. |
+| `selectedDrawing` | Controls whether this joint is drawn individually when the world is drawn. |
 | `springDamping` | The spring damping, non-dimensional. |
 | `springFrequency` | The spring stiffness, in cycles per second. |
 | `springTargetAngle` | The spring target angle, in degrees. |
@@ -491,7 +513,7 @@ Destroy a batch of joints. Owned joints will produce a warning and will not be d
 
 #### `Draw()`
 
-Draw a PhysicsJoint that visually represents its current state in the world.
+Draw this joint's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -599,6 +621,14 @@ Create a default PhysicsHingeJoint definition.
 **Params:**
 - `useSettings` — Controls whether the default settings come from the physics settings or not.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsHingeJointDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
+
 ## PhysicsIgnoreJoint
 
 > A joint used to ignore collision between two specific bodies. As a side effect of being a joint, it also keeps the two bodies in the same simulation island meaning they'll wake/sleep at the same time and be solved together on the same thread.
@@ -619,6 +649,7 @@ Create a default PhysicsHingeJoint definition.
 | `currentLinearSeparationError` | This is unused in this specific joint. Typically this would get the current linear separation error for this joint. |
 | `definition` | Get or set the joint definition. Reading returns the joint's current configuration, including PhysicsIgnoreJoint.bodyA and PhysicsIgnoreJoint.bodyB. Writing applies every configurable property in place but does not change the connected bodies, which are fixed when the joint is created. |
 | `drawScale` | This is unused in this specific joint. Typically this would control the scaling of the joint drawing. |
+| `drawTarget` | Controls which Unity editor views this joint is drawn into. |
 | `forceThreshold` | This is unused in this specific joint. Typically this is the force threshold beyond which a joint event will be produced. |
 | `isOwned` | Get if the joint is owned. See PhysicsJoint.SetOwner. |
 | `isValid` | Checks if the joint is valid. |
@@ -628,6 +659,7 @@ Create a default PhysicsHingeJoint definition.
 | `owner` | The owner object associated with this joint, or NULL if no owner has been specified. This is a convenience property that returns the same value as PhysicsIgnoreJoint.GetOwner. |
 | `ownerUserData` | Get PhysicsUserData that can be used for any purpose, typically by the owner only. |
 | `physicsHandle` | Get the physics handle. |
+| `selectedDrawing` | Controls whether this joint is drawn individually when the world is drawn. |
 | `torqueThreshold` | This is unused in this specific joint. Typically this is the torque threshold beyond which a joint event will be produced. |
 | `tuningDamping` | This is unused in this specific joint. Typically this would control the joint stiffness damping, non-dimensional. Use 1 for critical damping. |
 | `tuningFrequency` | This is unused in this specific joint. Typically this would control the joint stiffness frequency, in cycles per second. |
@@ -679,7 +711,7 @@ Destroy a batch of joints. Owned joints will produce a warning and will not be d
 
 #### `Draw()`
 
-Draw a PhysicsJoint that visually represents its current state in the world.
+Draw this joint's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -759,6 +791,14 @@ Wake the pair of bodies the joint is constraining.
 
 Create a default PhysicsIgnoreJoint definition.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsIgnoreJointDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
+
 ## PhysicsJoint
 
 > A joint is used to constrain bodies to the world or to each other in various ways. A joint is automatically destroyed when either body it is attached to is destroyed. A joint cannot exist unattached from a body.
@@ -778,6 +818,7 @@ Create a default PhysicsIgnoreJoint definition.
 | `currentConstraintTorque` | Get the current constraint torque used by the joint, usually in newton-meters. |
 | `currentLinearSeparationError` | Get the current linear separation error for this joint, usually in meters. This does not consider admissible movement. |
 | `drawScale` | Controls the scaling of the joint drawing. Not all joints have scalable elements but those that do will use this scaling. |
+| `drawTarget` | Controls which Unity editor views this joint is drawn into. |
 | `forceThreshold` | The force threshold beyond which a joint event will be produced. |
 | `isOwned` | Get if the joint is owned. See PhysicsJoint.SetOwner. |
 | `isValid` | Checks if the joint is valid. |
@@ -787,6 +828,7 @@ Create a default PhysicsIgnoreJoint definition.
 | `owner` | The owner object associated with this joint, or NULL if no owner has been specified. This is a convenience property that returns the same value as PhysicsJoint.GetOwner. |
 | `ownerUserData` | Get PhysicsUserData that can be used for any purpose, typically by the owner only. |
 | `physicsHandle` | Get the physics handle. |
+| `selectedDrawing` | Controls whether this joint is drawn individually when the world is drawn. |
 | `torqueThreshold` | The torque threshold beyond which a joint event will be produced. |
 | `tuningDamping` | Controls the joint stiffness damping, non-dimensional. Use 1 for critical damping. |
 | `tuningFrequency` | Controls the joint stiffness frequency, in cycles per second. |
@@ -899,7 +941,7 @@ Destroy a batch of joints. Any invalid joints are ignored. A joint owned by a di
 
 #### `Draw()`
 
-Draw a PhysicsJoint that visually represents its current state in the world.
+Draw this joint's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -956,6 +998,39 @@ Set PhysicsUserData on a batch of joints that can be used for any purpose, typic
 - `userDatas` — The user data to set, one entry per joint.
 - `ownerKey` — Optional owner key returned when using PhysicsJoint.SetOwner.
 
+#### `SetOwnerUserData(ReadOnlySpan<PhysicsJoint>, PhysicsUserData, int)`
+
+Set the same PhysicsUserData on a batch of joints that can be used for any purpose, typically by the owner only.
+
+**Params:**
+- `joints` — The joints to set the owner user data on.
+- `physicsUserData` — The user data to set on every joint.
+- `ownerKey` — Optional owner key returned when using PhysicsJoint.SetOwner.
+
+#### `SetSelectedDrawing(ReadOnlySpan<PhysicsJoint>, bool)`
+
+Set the selected drawing state on a batch of joints.
+
+**Params:**
+- `joints` — The joints to set the selected drawing state on.
+- `selected` — The selected drawing state to set on every joint.
+
+#### `SetUserData(ReadOnlySpan<PhysicsJoint>, ReadOnlySpan<PhysicsUserData>)`
+
+Set PhysicsUserData on a batch of joints that can be used for any purpose. The joints and userDatas spans must be the same length; joints[n] receives userDatas[n].
+
+**Params:**
+- `joints` — The joints to set the user data on.
+- `userDatas` — The user data to set, one entry per joint.
+
+#### `SetUserData(ReadOnlySpan<PhysicsJoint>, PhysicsUserData)`
+
+Set the same PhysicsUserData on a batch of joints that can be used for any purpose.
+
+**Params:**
+- `joints` — The joints to set the user data on.
+- `physicsUserData` — The user data to set on every joint.
+
 #### `ToString()`
 
 #### `WakeBodies()`
@@ -1005,6 +1080,7 @@ Wake the pair of bodies the joint is constraining.
 | `currentLinearSeparationError` | Get the current linear separation error for this joint, usually in meters. This does not consider admissible movement. |
 | `definition` | Get or set the joint definition. Reading returns the joint's current configuration, including PhysicsRelativeJoint.bodyA and PhysicsRelativeJoint.bodyB. Writing applies every configurable property in place but does not change the connected bodies, which are fixed when the joint is created. |
 | `drawScale` | Controls the scaling of the joint drawing. |
+| `drawTarget` | Controls which Unity editor views this joint is drawn into. |
 | `forceThreshold` | The force threshold beyond which a joint event will be produced. |
 | `isOwned` | Get if the joint is owned. See PhysicsJoint.SetOwner. |
 | `isValid` | Checks if the joint is valid. |
@@ -1017,6 +1093,7 @@ Wake the pair of bodies the joint is constraining.
 | `owner` | The owner object associated with this joint, or NULL if no owner has been specified. This is a convenience property that returns the same value as PhysicsRelativeJoint.GetOwner. |
 | `ownerUserData` | Get PhysicsUserData that can be used for any purpose, typically by the owner only. |
 | `physicsHandle` | Get the physics handle. |
+| `selectedDrawing` | Controls whether this joint is drawn individually when the world is drawn. |
 | `springAngularDamping` | The spring angular damping. |
 | `springAngularFrequency` | The spring angular frequency, in cycles per second. A value of zero is a special case which turns the angular spring off. |
 | `springLinearDamping` | The spring linear damping. |
@@ -1074,7 +1151,7 @@ Destroy a batch of joints. Owned joints will produce a warning and will not be d
 
 #### `Draw()`
 
-Draw a PhysicsJoint that visually represents its current state in the world.
+Draw this joint's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -1181,6 +1258,14 @@ Create a default PhysicsRelativeJoint definition.
 **Params:**
 - `useSettings` — Controls whether the default settings come from the physics settings or not.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsRelativeJointDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
+
 ## PhysicsSliderJoint
 
 > A joint that requires defining a line of motion defined by the local anchor A. Body B may slide along the axis defined by the local anchor A. Body B cannot rotate relative to body A. The joint translation is zero when the local anchor origins coincide in world space. The joint uses local anchors so that the initial configuration can violate the constraint slightly.
@@ -1204,6 +1289,7 @@ Create a default PhysicsRelativeJoint definition.
 | `currentTranslation` | Get the current joint translation, usually in meters. |
 | `definition` | Get or set the joint definition. Reading returns the joint's current configuration, including PhysicsSliderJoint.bodyA and PhysicsSliderJoint.bodyB. Writing applies every configurable property in place but does not change the connected bodies, which are fixed when the joint is created. |
 | `drawScale` | Controls the scaling of the joint drawing. |
+| `drawTarget` | Controls which Unity editor views this joint is drawn into. |
 | `enableLimit` | Enable/Disable the joint translation limit. |
 | `enableMotor` | Enable/Disable the joint motor. |
 | `enableSpring` | Enable/Disable a spring along the slider joint axis. |
@@ -1219,6 +1305,7 @@ Create a default PhysicsRelativeJoint definition.
 | `owner` | The owner object associated with this joint, or NULL if no owner has been specified. This is a convenience property that returns the same value as PhysicsSliderJoint.GetOwner. |
 | `ownerUserData` | Get PhysicsUserData that can be used for any purpose, typically by the owner only. |
 | `physicsHandle` | Get the physics handle. |
+| `selectedDrawing` | Controls whether this joint is drawn individually when the world is drawn. |
 | `springDamping` | The spring damping, non-dimensional. |
 | `springFrequency` | The spring stiffness, in cycles per second. |
 | `springTargetTranslation` | The spring target translation, usually in meters. The spring-damper will drive to this translation. |
@@ -1274,7 +1361,7 @@ Destroy a batch of joints. Owned joints will produce a warning and will not be d
 
 #### `Draw()`
 
-Draw a PhysicsJoint that visually represents its current state in the world.
+Draw this joint's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -1345,6 +1432,7 @@ Wake the pair of bodies the joint is constraining.
 |------|---------|
 | `autoAnchorA` | When set, PhysicsSliderJointDefinition.localAnchorA is recomputed from the bodies' current placement at create so both anchor frames coincide in world space. |
 | `autoAnchorB` | When set, PhysicsSliderJointDefinition.localAnchorB is recomputed from the bodies' current placement at create so both anchor frames coincide in world space. |
+| `autoAxis` | When set, both local anchor frame rotations are recomputed at create so the slide axis is the direction from anchor A to anchor B, preserving the bodies' relative rotation. |
 | `bodyA` | The first body the joint constrains. |
 | `bodyB` | The second body the joint constrains. |
 | `collideConnected` | Whether the shapes on the pair of bodies can come into contact. |
@@ -1381,6 +1469,14 @@ Create a default PhysicsSliderJoint definition.
 **Params:**
 - `useSettings` — Controls whether the default settings come from the physics settings or not.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsSliderJointDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
+
 ## PhysicsWheelJoint
 
 > A joint that requires defining a line of motion using an axis and an anchor point. The joint translation is zero when the local anchors coincide in world space. The joint uses local anchors so that the initial configuration can violate the constraint slightly.
@@ -1402,6 +1498,7 @@ Create a default PhysicsSliderJoint definition.
 | `currentMotorTorque` | Get the current motor torque, usually in newton-meters. |
 | `definition` | Get or set the joint definition. Reading returns the joint's current configuration, including PhysicsWheelJoint.bodyA and PhysicsWheelJoint.bodyB. Writing applies every configurable property in place but does not change the connected bodies, which are fixed when the joint is created. |
 | `drawScale` | Controls the scaling of the joint drawing. |
+| `drawTarget` | Controls which Unity editor views this joint is drawn into. |
 | `enableLimit` | Enable/disable the joint limit. |
 | `enableMotor` | Enable/Disable the joint motor. |
 | `enableSpring` | Enable/Disable a spring along the joint axis. |
@@ -1417,6 +1514,7 @@ Create a default PhysicsSliderJoint definition.
 | `owner` | The owner object associated with this joint, or NULL if no owner has been specified. This is a convenience property that returns the same value as PhysicsWheelJoint.GetOwner. |
 | `ownerUserData` | Get PhysicsUserData that can be used for any purpose, typically by the owner only. |
 | `physicsHandle` | Get the physics handle. |
+| `selectedDrawing` | Controls whether this joint is drawn individually when the world is drawn. |
 | `springDamping` | The spring damping, non-dimensional. |
 | `springFrequency` | The spring stiffness, in cycles per second. |
 | `torqueThreshold` | The torque threshold beyond which a joint event will be produced. |
@@ -1471,7 +1569,7 @@ Destroy a batch of joints. Owned joints will produce a warning and will not be d
 
 #### `Draw()`
 
-Draw a PhysicsJoint that visually represents its current state in the world.
+Draw this joint's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -1542,6 +1640,7 @@ Wake the pair of bodies the joint is constraining.
 |------|---------|
 | `autoAnchorA` | When set, PhysicsWheelJointDefinition.localAnchorA is recomputed from the bodies' current placement at create so both anchor frames coincide in world space. |
 | `autoAnchorB` | When set, PhysicsWheelJointDefinition.localAnchorB is recomputed from the bodies' current placement at create so both anchor frames coincide in world space. |
+| `autoAxis` | When set, local anchor frame A's rotation is recomputed at create so the slide axis is the direction from anchor A to anchor B. |
 | `bodyA` | The first body the joint constrains. |
 | `bodyB` | The second body the joint constrains. |
 | `collideConnected` | Whether the shapes on the pair of bodies can come into contact. |
@@ -1576,6 +1675,14 @@ Create a default PhysicsWheelJoint definition.
 
 **Params:**
 - `useSettings` — Controls whether the default settings come from the physics settings or not.
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsWheelJointDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
 
 ---
 

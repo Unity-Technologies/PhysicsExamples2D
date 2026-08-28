@@ -24,7 +24,7 @@ Unlike a pose, an area is **not** `[DisallowMultipleComponent]`: stack several o
 | `PhysicsAreaPath` | many, a run of chain segments | `PhysicsArea` |
 | `PhysicsAreaComposite` | many, from merged layers | `PhysicsArea` |
 
-`PhysicsAreaPrimitive` is the general one: a `shapeType` selector plus a separate geometry field per type (`circleGeometry`, `capsuleGeometry`, and so on), each with its own asset and `active*Geometry` resolver. The four single-type components exist so the inspector shows only the fields that matter.
+`PhysicsAreaPrimitive` is the general one: a `shapeType` selector plus a separate geometry field per type (`circleGeometry`, `capsuleGeometry`, `polygonGeometry`, `segmentGeometry`, and `chainSegmentGeometry`), each with its own asset and `active*Geometry` resolver. The four single-type components exist so the inspector shows only the fields that matter; `PhysicsAreaPrimitive` is the only one of the five that can produce a chain segment shape.
 
 ## Reaching the shapes
 
@@ -42,13 +42,15 @@ Use `shape` only where you know the area is single-shape. On a contour or compos
 
 ## Geometry: inline, asset, resolved
 
-Every area follows the same three-property pattern:
+A single-type area (`PhysicsAreaCircle`, `PhysicsAreaCapsule`, `PhysicsAreaPolygon`, `PhysicsAreaSegment`) follows the same three-property pattern:
 
 | Property | Meaning |
 |---|---|
 | `geometry` | the inline geometry struct |
 | `geometryAsset` | an optional shared `Physics*Geometry` asset that overrides it |
 | `activeGeometry` | read-only, the one actually in effect |
+
+`PhysicsAreaPrimitive` is the exception: because it can be any one of five shape types, it has no single `geometry`/`geometryAsset`/`activeGeometry` set. Instead each shape type gets its own triple (`circleGeometry`/`circleGeometryAsset`/`activeCircleGeometry`, and so on for capsule, polygon, segment and chain segment), and `shapeType` picks which one is currently live.
 
 The asset wins when assigned. Assets live in `Unity.U2D.Physics.Assets` and are created from **Assets > Create > 2D > Physics (Core)**.
 
@@ -64,9 +66,9 @@ This is the distinction that catches people, because both look like "update the 
 
 **Geometry is not part of the definition.** A shape definition carries the filter, material, density and flags; the geometry is separate. That is why they have separate apply methods, and why calling the wrong one appears to do nothing.
 
-`ApplyGeometry()` is virtual: a single-shape primitive overrides it to update its one shape in place rather than recreating it, since the shape count cannot change. The base implementation rebuilds, which is what a contour or composite needs because their shape count varies with the input.
+`ApplyGeometry()` is virtual: a single-shape primitive overrides it to update its one shape in place rather than recreating it, since the shape count cannot change, and that override is a no-op when it has no shape yet. The base `PhysicsArea.ApplyGeometry()` — used by contour areas and `PhysicsAreaPath` — instead rebuilds unconditionally, since their shape count varies with the input; calling it on an area with no shapes can create them, it is not a no-op.
 
-Both are no-ops when no shapes exist.
+`ApplyDefinition()` is a no-op when no shapes exist.
 
 ## Definition, with two targeted overrides
 
@@ -87,11 +89,11 @@ Scale is clamped to zero or above.
 
 Changing any of it needs `ApplyGeometry()`.
 
-## Transform changes rebuild in edit mode only
+## Transform changes: position rides the body, scale and hierarchy still rebuild
 
 Areas watch a wider set of Transform changes than poses do, because geometry depends on scale and hierarchy as well as position and rotation.
 
-In **edit mode** any of those triggers a geometry rebuild. In **play** the shape rides the body, so no rebuild happens. That difference is deliberate, not a bug to work around.
+In **edit mode** any of those triggers a geometry rebuild. In **play**, only a position/rotation change on the same GameObject as the owning pose is skipped, because the shape already rides the body for that. A scale change or a hierarchy change (reparenting) still requests a rebuild in play mode, deferred to the next post-simulate. That difference is deliberate, not a bug to work around.
 
 ## Contour areas
 
@@ -107,7 +109,7 @@ Supporting settings: `maxPolygonVertices`, `useDelaunay` (decomposition strategy
 Two concrete components:
 
 - `PhysicsAreaContour` holds a `ContourGroupGeometry` inline or via a `PhysicsContourGroupGeometry` asset.
-- `PhysicsAreaSprite` derives its contour from a sprite. It has a `spriteSource` (its own reference or a `SpriteRenderer`), a `spriteRendererUpdate` mode for following renderer changes, and `flipX`/`flipY`.
+- `PhysicsAreaSprite` derives its contour from a sprite. `spriteSource` picks where the sprite comes from: a `SpriteRenderer` on the GameObject, or `Custom`, in which case the explicit `sprite` property supplies it directly. It also has a `spriteRendererUpdate` mode for following renderer changes, and `flipX`/`flipY`.
 
 Sprite physics outlines are authored in the Sprite Editor, and only regenerate in play mode or at import, not from edit-mode scripting.
 
@@ -115,20 +117,20 @@ Sprite physics outlines are authored in the Sprite Editor, and only regenerate i
 
 The one area that takes geometry from **several sources and merges them** through a composer, emitting the result as shapes on its own body.
 
-Its `geometry` is a `CompositeGeometry`: a mutable list of `CompositeLayer` with `Add`, `Insert`, `RemoveAt`, `Clear`, `layerCount`, an indexer, and `isValid`. As with other areas there is a `geometryAsset` (`PhysicsCompositeGeometry`) and a resolved `activeGeometry`.
+Its `geometry` is a `CompositeGeometry`: a mutable list of `CompositeLayer` with `Add`, `Insert`, `RemoveAt`, `Clear`, an indexer, and `isValid`. As with other areas there is a `geometryAsset` (`PhysicsCompositeGeometry`) and a resolved `activeGeometry`. `CompositeGeometry.Add()` throws on a Pose layer, though, so don't build layers through it directly — use the mutation API on `PhysicsAreaComposite` itself instead: `AddPoseLayer(PhysicsPose)`, `AddGeometryLayer()`, `RemoveLayer(int)`, `GetLayer(int)`, `SetLayer(int, CompositeLayer)`. The composite also exposes `layerCount` and `rejectedShapeCount` (how many candidate shapes the last build discarded) as its own runtime stats.
 
-Each `CompositeLayer` has a `type`:
+Each `CompositeLayer` has a `layerKind`:
 
-| `LayerType` | Supplies |
+| `LayerKind` | Supplies |
 |---|---|
-| `Geometry` | one shape geometry or a contour group, inline or from an asset |
+| `Geometry` | one shape geometry — circle, capsule or polygon — inline or from an asset; chain segments and contour groups are not accepted here |
 | `Pose` | **every area on a referenced `PhysicsPose`, taken as one unit** |
 
 A layer carries its own `transformation`, `scale`, `scaleRadius`, per-layer composite settings, and an `enabled` flag, so you can position and toggle contributions independently.
 
 The rule that bites: **a `Pose` layer's referenced pose must have `compositeMode` enabled.** That flag stops the pose creating a body of its own so its areas feed the composite instead. A referenced pose not in composite mode makes the layer invalid.
 
-Composite-wide `settings` (a `CompositeSettings`) carry `output`, `useDelaunay` and `maxPolygonVertices` for the merged result.
+Composite-wide `settings` (a `CompositeSettings`) carry `output`, `useDelaunay` and `maxPolygonVertices` for the merged result. `output` defaults to `Compound`, which passes each layer's native shape straight through with no boolean composition at all; `Polygons` and `Segments` are the two modes that actually run the composer to merge overlapping geometry.
 
 ## Where to go next
 

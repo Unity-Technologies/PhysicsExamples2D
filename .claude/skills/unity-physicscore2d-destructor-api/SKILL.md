@@ -17,6 +17,10 @@ Top-level types in this file: `PhysicsDestructor`.
 
 ### Methods
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsDestructor)`
+
 #### `Fragment(PhysicsDestructor.FragmentGeometry, ReadOnlySpan<Vector2>, Unity.Collections.Allocator)`
 
 Fragment the specified target geometry using the specified fragment points. The fragment points define areas where polygon fragments will be produced from the target geometry. If the resulting polygon fragments have more polygon vertices than can fit into a single PolygonGeometry then the fragment will be split into multiple polygon fragments. The maximum number of vertices a single polygon fragment can have is defined by PhysicsConstants.MaxPolygonVertices. If even a single fragment point overlaps the target geometry then all results will be returned in PhysicsDestructor.FragmentResult.brokenGeometry. If none of the fragment points overlap the target geometry then all the results will be returned in PhysicsDestructor.FragmentResult.unbrokenGeometry. See PhysicsDestructor.FragmentResult.
@@ -40,6 +44,8 @@ Fragment the specified mask geometry using the specified fragment points, after 
 
 **Returns:** The fragment results. The transform returned here is the one provided in the target geometry. These results must be disposed of after use otherwise leaks will occur.
 
+#### `GetHashCode()`
+
 #### `Slice(PhysicsDestructor.FragmentGeometry, Vector2, Vector2, Unity.Collections.Allocator)`
 
 Slice the specified target geometry using the specified slice line. The target geometry is sliced using the specified ray as defined by origin and translation. The specified line segment origin and translation are extended to infinity and so defines a 2D intersection plane. All valid target geometry will returned in either the PhysicsDestructor.SliceResult.leftGeometry or PhysicsDestructor.SliceResult.rightGeometry depending on its side of the line (sliced or not). Left and Right are defined as "looking" along the ray in the direction defined by translation with Left being anything to the left of the ray and Right being anything to the right of the ray. See PhysicsDestructor.SliceResult.
@@ -51,6 +57,8 @@ Slice the specified target geometry using the specified slice line. The target g
 - `allocator` — The memory allocator to use for the results. This can only be Allocator.Temp, Allocator.TempJob or Allocator.Persistent.
 
 **Returns:** The slice results. The transform returned here is the one provided in the target geometry. These results must be disposed of after use otherwise leaks will occur.
+
+#### `ToString()`
 
 ### Nested Types
 
@@ -74,6 +82,14 @@ Create fragment geometry.
 - `transform` — The transform used to transform the specified Polygon geometry.
 - `geometry` — The Polygon geometry to use.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsDestructor.FragmentGeometry)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### FragmentResult
 
 > The result of a fragment operation. This must be disposed of after use otherwise leaks will occur. See PhysicsDestructor.Fragment and PhysicsDestructor.Fragment.
@@ -95,6 +111,14 @@ Create fragment geometry.
 
 Dispose of the fragment result.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsDestructor.FragmentResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### SliceResult
 
 > The result of a slice operation. This must be disposed of after use otherwise leaks will occur. See PhysicsDestructor.Slice.
@@ -114,6 +138,14 @@ Dispose of the fragment result.
 ##### `Dispose()`
 
 Dispose of the slice result.
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsDestructor.SliceResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ---
 

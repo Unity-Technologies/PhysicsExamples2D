@@ -341,6 +341,12 @@ Creates multiple PolygonGeometry from the specified geometry. A limit is imposed
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsComposer.LayerHandle)`
+
+##### `GetHashCode()`
+
 ##### `ToString()`
 
 ### Operation

@@ -27,6 +27,7 @@ Top-level types in this file: `PhysicsBody`, `PhysicsBodyDefinition`.
 | `constraints` | Get/Set the degrees of freedom constraints (locks) for the body of Linear X, Linear Y and Rotation Z. |
 | `contactRecyclingAllowed` | Controls contact recycling for this body. Enabled by default. Contact recycling reuses contact manifolds when bodies move only slightly, improving performance. Disabling it can avoid ghost collisions, at the cost of higher simulation time. Both bodies in a contact must have recycling enabled for that contact to be recycled. Existing contacts retain their prior setting; only contacts created after a change will be recycled. See PhysicsBodyDefinition.contactRecyclingAllowed. |
 | `definition` | Get/Set a body definition by accessing all of its current properties. This is provided as convenience only and should not be used when performance is important as all the properties defined in the definition are accessed sequentially. You should try to only use the specific properties you need rather than using this feature. |
+| `drawTarget` | Controls which Unity editor views this body is drawn into. |
 | `enabled` | The enabled state of the body. If false, the body and anything attached to it will not participate in the simulation. |
 | `fastCollisionsAllowed` | Treat this body as high speed object that performs continuous collision detection against dynamic and kinematic bodies, but not other high speed bodies. Fast collision bodies should be used sparingly, not because they are slow but because everything using fast collisions does not work well. They are not a solution for general dynamic-versus-dynamic continuous collision. They also may interfere with joint constraints. |
 | `fastRotationAllowed` | This allows this body to bypass rotational speed limits. This should only be used for circular objects, such as wheels, balls etc. |
@@ -46,6 +47,7 @@ Top-level types in this file: `PhysicsBody`, `PhysicsBodyDefinition`.
 | `position` | The position of the body in the world. |
 | `rotation` | The rotation of the body. |
 | `rotationalInertia` | The rotational inertia of the body, usually in kg*m^2. This can be accessed as a union of PhysicsBody.mass, PhysicsBody.rotationalInertia and PhysicsBody.localCenterOfMass using PhysicsBody.massConfiguration. When this value is overridden with PhysicsBody.massOverride, setting it authors the override value, which persists across mass recalculations. |
+| `selectedDrawing` | Controls whether this body is drawn individually when the world is drawn. |
 | `shapeCount` | Get the number of shapes attached to this body. Use PhysicsBody.GetShapes to retrieve the shapes. |
 | `sleepingAllowed` | The sleeping ability of the body. If false, the body will never sleep and will be woken up. See PhysicsBody.awake. |
 | `sleepThreshold` | The threshold below which the body will sleep, in meters/sec. |
@@ -518,7 +520,7 @@ Get the minimum distance between all the shapes attached to this body and the sp
 
 #### `Draw()`
 
-Draw a body that visually represents its current state in the world.
+Draw this body's current state once, as custom drawing.
 
 #### `Equals(object)`
 
@@ -741,6 +743,23 @@ Set PhysicsUserData on a batch of bodies that can be used for any purpose, typic
 - `userDatas` — The user data to set, one entry per body.
 - `ownerKey` — Optional owner key returned when using PhysicsBody.SetOwner.
 
+#### `SetOwnerUserData(ReadOnlySpan<PhysicsBody>, PhysicsUserData, int)`
+
+Set the same PhysicsUserData on a batch of bodies that can be used for any purpose, typically by the owner only.
+
+**Params:**
+- `bodies` — The bodies to set the owner user data on.
+- `physicsUserData` — The user data to set on every body.
+- `ownerKey` — Optional owner key returned when using PhysicsBody.SetOwner.
+
+#### `SetSelectedDrawing(ReadOnlySpan<PhysicsBody>, bool)`
+
+Set the selected drawing state on a batch of bodies.
+
+**Params:**
+- `bodies` — The bodies to set the selected drawing state on.
+- `selected` — The selected drawing state to set on every body.
+
 #### `SetTransformTarget(PhysicsTransform, float)`
 
 Set the PhysicsBody.linearVelocity and PhysicsBody.angularVelocity to reach the specified transform in the specified time. The resultant transform will be closed by may not be exact. This is designed ideally for Kinematic bodies but will work with Dynamic bodies if nothing changes the assigned velocities. This will be ignored if the calculated PhysicsBody.linearVelocity and PhysicsBody.angularVelocity would be below the PhysicsBody.sleepThreshold. This will automatically wake the body if it is asleep.
@@ -748,6 +767,22 @@ Set the PhysicsBody.linearVelocity and PhysicsBody.angularVelocity to reach the 
 **Params:**
 - `transform` — The transform target for the body.
 - `deltaTime` — The timer over which to calculate the required velocities to move to the transform.
+
+#### `SetUserData(ReadOnlySpan<PhysicsBody>, ReadOnlySpan<PhysicsUserData>)`
+
+Set PhysicsUserData on a batch of bodies that can be used for any purpose. The bodies and userDatas spans must be the same length; bodies[n] receives userDatas[n].
+
+**Params:**
+- `bodies` — The bodies to set the user data on.
+- `userDatas` — The user data to set, one entry per body.
+
+#### `SetUserData(ReadOnlySpan<PhysicsBody>, PhysicsUserData)`
+
+Set the same PhysicsUserData on a batch of bodies that can be used for any purpose.
+
+**Params:**
+- `bodies` — The bodies to set the user data on.
+- `physicsUserData` — The user data to set on every body.
 
 #### `ToString()`
 
@@ -822,6 +857,14 @@ Apply a torque. This affects the angular velocity without affecting the linear v
 - `torque` — Torque, usually in N*m.
 - `wake` — Should the body be woken up.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsBody.BatchForce)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### BatchImpulse
 
 > A batch item used to apply an impulse to a PhysicsBody.
@@ -868,6 +911,14 @@ Apply an impulse to the center of mass. This immediately modifies the velocity. 
 - `impulse` — The world impulse vector, usually in N*s or kg*m/s.
 - `wake` — Should the body be woken up.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsBody.BatchImpulse)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### BatchTransform
 
 > A batch item used to get/set the pose of a PhysicsBody.
@@ -892,6 +943,14 @@ Create a default batch transform, assigning the PhysicsBody.
 **Params:**
 - `physicsBody` — The PhysicsBody to write to.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsBody.BatchTransform)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### BatchVelocity
 
 > A batch item used to set the velocity of a PhysicsBody.
@@ -914,6 +973,14 @@ Create a default batch velocity, assigning the PhysicsBody.
 
 **Params:**
 - `physicsBody` — The PhysicsBody to write to.
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsBody.BatchVelocity)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### BodyConstraints
 
@@ -972,6 +1039,14 @@ Create a default batch velocity, assigning the PhysicsBody.
 
 Create a default PhysicsBody.BuoyancyInput. The PhysicsBody.BuoyancyInput.mask defaults to PhysicsMask.All so every attached shape contributes unless explicitly filtered out. The surface defaults to a flat horizontal water surface at the world origin (PhysicsBody.BuoyancyInput.surfacePosition = Vector2.zero, PhysicsBody.BuoyancyInput.surfaceNormal = Vector2.up).
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsBody.BuoyancyInput)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### MassConfiguration
 
 > This holds the mass configuration computed for a PhysicsBody.
@@ -986,6 +1061,16 @@ Create a default PhysicsBody.BuoyancyInput. The PhysicsBody.BuoyancyInput.mask d
 | `defaultConfiguration` | Get a default mass configuration with a mass of one, a rotational inertia of one and a centroid at the origin. |
 | `mass` | The mass of the shape, usually in kilograms. |
 | `rotationalInertia` | The rotational inertia of the shape about the shape center. |
+
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsBody.MassConfiguration)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### MassOverride
 
@@ -1040,6 +1125,10 @@ Create a default PhysicsBody.BuoyancyInput. The PhysicsBody.BuoyancyInput.mask d
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsBody.TransformWriteTween)`
+
 ##### `GetExtrapolatedPose(PhysicsWorld.TransformPlane, PhysicsWorld.TransformPlaneCustom, float, Vector3, Quaternion)`
 
 Get the extrapolated pose for the current write tween.
@@ -1050,6 +1139,8 @@ Get the extrapolated pose for the current write tween.
 - `extrapolationTime` — The extrapolation time to use in the range [0, 1].
 - `position` — The calculated position.
 - `rotation` — The calculated rotation.
+
+##### `GetHashCode()`
 
 ##### `GetInterpolatedPose(PhysicsWorld.TransformPlane, PhysicsWorld.TransformPlaneCustom, bool, float, Vector3, Quaternion)`
 
@@ -1074,18 +1165,26 @@ Get the write pose for the current write tween.
 - `position` — The calculated position.
 - `rotation` — The calculated rotation.
 
+##### `ToString()`
+
 ### WindInput
 
 > Input to PhysicsBody.ApplyWind describing the wind velocity, drag and lift coefficients and the shape filter used to compute aerodynamic forces per attached shape.
 
 **Full name:** `Unity.U2D.Physics.PhysicsBody.WindInput`
 
+#### Fields
+
+| Name | Summary |
+|------|---------|
+| `MaxForce` | The maximum magnitude allowed for each component of PhysicsBody.WindInput.force. Larger magnitudes have no useful effect because body speeds are capped each simulation step, so values are clamped into this range. |
+
 #### Properties
 
 | Name | Summary |
 |------|---------|
 | `drag` | Drag coefficient. Scales the wind contribution in the relative-velocity term that drives the per-shape aerodynamic force. |
-| `force` | The wind velocity vector. Scaled by PhysicsBody.WindInput.drag when computing the per-shape aerodynamic relative velocity. |
+| `force` | The wind velocity vector. Scaled by PhysicsBody.WindInput.drag when computing the per-shape aerodynamic relative velocity. Each component's magnitude is clamped to PhysicsBody.WindInput.MaxForce. |
 | `lift` | Lift coefficient. Scales the perpendicular component of the per-edge aerodynamic force (capsules and polygons only; circles ignore lift). |
 | `mask` | Category mask used to filter which attached shapes contribute. A shape participates iff (shape.contactFilter.categories.bitMask & mask.bitMask) != 0. Defaults to PhysicsMask.All when the input is created via the parameterless constructor. |
 | `useTriggers` | When true, trigger shapes contribute to wind alongside solid shapes. When false, trigger shapes are skipped. |
@@ -1095,6 +1194,14 @@ Get the write pose for the current write tween.
 ##### `new()`
 
 Create a default PhysicsBody.WindInput. The PhysicsBody.WindInput.mask defaults to PhysicsMask.All so every attached shape contributes unless explicitly filtered out.
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsBody.WindInput)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ## PhysicsBodyDefinition
 
@@ -1141,6 +1248,14 @@ Create a default PhysicsBody definition.
 
 **Params:**
 - `useSettings` — Controls whether the default settings come from the physics settings or not.
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsBodyDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
 
 ---
 

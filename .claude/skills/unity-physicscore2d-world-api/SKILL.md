@@ -22,6 +22,17 @@ Top-level types in this file: `PhysicsConstants`, `PhysicsCoreSettings2D`, `Phys
 | `MaxPolygonVertices` | The maximum number of supported vertices in PolygonGeometry. |
 | `MaxWorkers` | A constant defining the maximum number of worker threads supported by physics simulation. The current device may support fewer or more than this. |
 | `MaxWorldCapacity` | The maximum number of PhysicsWorld that can exist at one time. The world array grows on demand up to this ceiling, which is the limit of the 16-bit world index carried in physics handles. |
+| `MaxWorldNameLength` | The maximum length of a PhysicsWorld name, beyond which PhysicsWorld.SetName truncates it. |
+
+### Methods
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsConstants)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
 
 ## PhysicsCoreSettings2D
 
@@ -81,7 +92,7 @@ Top-level types in this file: `PhysicsConstants`, `PhysicsCoreSettings2D`, `Phys
 | `bodyUpdateEvents` | Get the body events from the last simulation. The PhysicsBody objects returned should be checked to see if they are valid before accessing as they may have been deleted since this event was produced (see PhysicsBody.isValid). Any change to the world state can invalidate this data so referring to this data afterwards may cause an unavoidable crash! You must immediately extract what information you need and not directly reference the returned data as it will be cleared immediately after being provided. See PhysicsEvents.BodyUpdateEvent. |
 | `bounceThreshold` | Adjust the bounce threshold, usually in meters per second. It is recommended not to make this value very small because it will prevent bodies from sleeping. |
 | `bounds` | Get the bounding box that encloses all the shapes in the world. |
-| `capacity` | Get the current world capacities reached since the world was created. This reflects the peak object counts and can be used to presize a PhysicsWorldDefinition.capacity for similar worlds. See PhysicsWorldDefinition.capacity. |
+| `capacity` | Get the current world capacities reached since the world was created. This reflects the peak object counts and can be used to presize a PhysicsWorldDefinition.capacity for similar worlds. Peaks are not capped, so a peak above PhysicsWorld.WorldCapacity.MaxCapacity is clamped to it when used to presize another world. |
 | `concurrentSimulations` | Gets how many simulations can be started in parallel. Whilst running simulations in parallel can improver overall performance, workers should ideally be left free for the simulation solver otherwise it may degrade solving performance. The actual quantity of workers used will always be capped to those available on the current device. If the total number of workers available is below 4 then parallel simulation won't occur as generally this would reduce overall performance, however parallel solving of each simulation using workers will still be used. This should not be confused with the quantity of workers used when solving a simulation. |
 | `contactBeginEvents` | Get the contact begin events from the last simulation. The PhysicsShape objects returned should be checked to see if they are valid before accessing as they may have been deleted since this event was produced (see PhysicsShape.isValid). The PhysicsShape.Contact objects returned should be checked to see if they are valid before accessing as they may have been deleted since this event was produced. Any change to the world state can invalidate this data so referring to this data afterwards may cause an unavoidable crash! You must immediately extract what information you need and not directly reference the returned data as it will be cleared immediately after being provided. See PhysicsEvents.ContactBeginEvent. |
 | `contactDamping` | The contact bounciness with 1 being critical damping (non-dimensional). |
@@ -172,12 +183,12 @@ Apply buoyancy, flow and damping forces to every dynamic body shape that overlap
 
 #### `ApplySnapshot(PhysicsWorld.Snapshot)`
 
-Restore this world to the state captured in snapshot, in place. The world keeps the same handles, so any PhysicsBody, PhysicsShape and PhysicsJoint you already hold remain valid.
+Restore this world to the state captured in snapshot, in place. The world keeps the same handles, so any PhysicsBody, PhysicsShape and PhysicsJoint you already hold remain valid. Applying a snapshot taken from a different world means existing handles for this world may alias objects restored from the snapshot or report invalid. The snapshot image is fully validated before the world is touched, so a rejected snapshot leaves the world unchanged.
 
 **Params:**
 - `snapshot` — A snapshot produced by PhysicsWorld.CreateSnapshot on a compatible world.
 
-**Returns:** Whether the world was restored. Returns false if the snapshot or world is invalid, or the image is rejected.
+**Returns:** Whether the world was restored. Returns false if the snapshot or world is invalid, or the image is rejected, in which case the world is unchanged.
 
 #### `ApplyWind(PhysicsAABB, PhysicsBody.WindInput)`
 
@@ -283,6 +294,10 @@ Checks for any transform changes. Anything using PhysicsWorld.RegisterTransformC
 
 Clear all the custom drawn items.
 
+#### `ClearDrawSelected()`
+
+Clear the selected drawing state on every body, shape and joint in the world.
+
 #### `Clone()`
 
 Creates a new PhysicsWorld that is a copy of this world, including all of its PhysicsBody, PhysicsShape and PhysicsJoint.
@@ -312,7 +327,7 @@ Creates a new PhysicsWorld from snapshot, using definition for the settings a sn
 - `snapshot` — A snapshot produced by PhysicsWorld.CreateSnapshot.
 - `definition` — The world definition supplying the settings the snapshot does not store.
 
-**Returns:** The created world, restored to the snapshot state.
+**Returns:** The created world restored to the snapshot state, or an invalid world if the snapshot was rejected or no world could be created.
 
 #### `CreateBody()`
 
@@ -827,6 +842,13 @@ Draw the specified span of PhysicsShape.ShapeProxy.
 - `lifetime` — How long the element should be drawn for, in seconds. The default is zero indicating that it should only be drawn once. Lifetime is only used when the world is playing.
 - `drawFillOptions` — Controls what aspects of the primitive is drawn.
 
+#### `DrawShapes(ReadOnlySpan<PhysicsShape>)`
+
+Draw a batch of shapes once, as custom drawing, each drawn into the world it belongs to.
+
+**Params:**
+- `shapes` — The shapes to draw.
+
 #### `DrawTransformAxis(PhysicsTransform, float, float)`
 
 Draw a Transform axis.
@@ -911,6 +933,12 @@ Get all current PhysicsWorld.jointThresholdEvents where either of the PhysicsJoi
 - `allocator` — The memory allocator to use for the results. This can only be Allocator.Temp, Allocator.TempJob or Allocator.Persistent.
 
 **Returns:** The joint callback target results. This must be disposed of after use otherwise leaks will occur. The exception to this is if there are no targets returned.
+
+#### `GetName()`
+
+Get the name of the world, or "World #N" where N is the PhysicsWorld.index when no name has been set. The PhysicsWorld.defaultWorld is always named "Default World".
+
+**Returns:** The name of the world.
 
 #### `GetOwnedTransforms()`
 
@@ -1173,6 +1201,14 @@ Set the element depth using the specified 3D position. The relevant axis will be
 
 **Params:**
 - `position` — The 3D position to extract the element depth from.
+
+#### `SetName(string, int)`
+
+Set the name of the world, truncated to PhysicsConstants.MaxWorldNameLength characters. The name of the PhysicsWorld.defaultWorld cannot be set and will always be "Default World".
+
+**Params:**
+- `name` — The name to set.
+- `ownerKey` — Optional owner key returned when using PhysicsWorld.SetOwner.
 
 #### `SetOwner(ReadOnlySpan<PhysicsWorld>, Object, int)`
 
@@ -1461,7 +1497,7 @@ Unregister a transform watched to stop calling the specified callback when a tra
 - **TransformPlaneCustom** — A transformation applied to the transform write if PhysicsWorld.transformPlane is set to PhysicsWorld.TransformPlane.Custom.
 - **TransformTweenMode** — Defines if and how Transform tweens are calculated and/or written.
 - **TransformWriteMode** — Defines how the 2D Transforms from each PhysicsBody are written to the 3D Transform system.
-- **WorldCapacity** — Describes the expected world capacities used to presize internal allocations when a PhysicsWorld is created. All counts default to zero, in which case the engine uses its own minimum defaults. See PhysicsWorldDefinition.capacity and PhysicsWorld.capacity.
+- **WorldCapacity** — Describes the expected world capacities used to presize internal allocations when a PhysicsWorld is created. All counts default to zero, in which case the engine uses its own minimum defaults. Every count is in the range zero to PhysicsWorld.WorldCapacity.MaxCapacity and any value outside that range is clamped into it.
 - **WorldCounters** — PhysicsWorld counters that give details of the world simulation size.
 - **WorldProfile** — PhysicsWorld profile that contains the timings of specific world simulation stages. All times are in milliseconds.
 
@@ -1490,12 +1526,25 @@ Unregister a transform watched to stop calling the specified callback when a tra
 | `contactNormal` | A contact normal. |
 | `contactPersisted` | A contact that already existed at the start of the last simulation step. |
 | `contactSpeculative` | A contact that is speculative. |
+| `jointAnchor` | The anchor points of a joint. |
+| `jointLine` | The line connecting the anchors of a joint. |
+| `jointSpring` | The spring target of a joint. |
 | `shapeBounds` | The shape bounds. |
 | `shapeOther` | The default color used when no other shape state is indicated. |
 | `shapeTrigger` | A shape that is marked as a trigger. |
 | `solverIsland` | A solver island region. |
 | `transformAxisX` | The X component of the Transform axis. |
 | `transformAxisY` | The Y component of the Transform axis. |
+
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsWorld.DrawColors)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### DrawContactType
 
@@ -1551,10 +1600,10 @@ Unregister a transform watched to stop calling the specified callback when a tra
 | `DefaultAll` | The default drawing when drawing all. Draw all the shapes, joints and custom drawing in the world. |
 | `DefaultSelected` | The default drawing when drawing selections. Draw selected shapes, joints and custom drawing in the world. |
 | `Off` | No drawing. |
-| `SelectedBodies` | Draw the selected bodies. |
-| `SelectedJoints` | Draw the selected joints. |
-| `SelectedShapeBounds` | Draw the selected shape bounds. |
-| `SelectedShapes` | Draw the selected shapes. |
+| `SelectedBodies` | Draw the bodies that have selected drawing enabled. |
+| `SelectedJoints` | Draw the joints that have selected drawing enabled. |
+| `SelectedShapeBounds` | Draw the bounds of the shapes that have selected drawing enabled. |
+| `SelectedShapes` | Draw the shapes that have selected drawing enabled. |
 
 ### DrawResults
 
@@ -1579,6 +1628,12 @@ Unregister a transform watched to stop calling the specified callback when a tra
 | `polygonGeometrySpan` | Retrieve the Polygon Geometry Elements. Any new PhysicsWorld drawing will invalidate this data so referring to this data afterwards may cause an unavoidable crash! You must immediately extract what information you need and not directly reference the returned data as it will be cleared immediately after being provided. |
 
 #### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsWorld.DrawResults)`
+
+##### `GetHashCode()`
 
 ##### `ToString()`
 
@@ -1609,11 +1664,19 @@ Unregister a transform watched to stop calling the specified callback when a tra
 
 ##### Methods
 
+###### `Equals(object)`
+
+###### `Equals(PhysicsWorld.DrawResults.CapsuleGeometryElement)`
+
+###### `GetHashCode()`
+
 ###### `Size()`
 
 The data size of the capsule element. This can be useful in understanding the memory stride in a ComputeBuffer or other structure.
 
 **Returns:** The size in bytes.
+
+###### `ToString()`
 
 #### CircleGeometryElement
 
@@ -1633,11 +1696,19 @@ The data size of the capsule element. This can be useful in understanding the me
 
 ##### Methods
 
+###### `Equals(object)`
+
+###### `Equals(PhysicsWorld.DrawResults.CircleGeometryElement)`
+
+###### `GetHashCode()`
+
 ###### `Size()`
 
 The data size of the circle element. This can be useful in understanding the memory stride in a ComputeBuffer or other structure.
 
 **Returns:** The size in bytes.
+
+###### `ToString()`
 
 #### LineElement
 
@@ -1656,11 +1727,19 @@ The data size of the circle element. This can be useful in understanding the mem
 
 ##### Methods
 
+###### `Equals(object)`
+
+###### `Equals(PhysicsWorld.DrawResults.LineElement)`
+
+###### `GetHashCode()`
+
 ###### `Size()`
 
 The data size of the line element. This can be useful in understanding the memory stride in a ComputeBuffer or other structure.
 
 **Returns:** The size in bytes.
+
+###### `ToString()`
 
 #### PointElement
 
@@ -1679,11 +1758,19 @@ The data size of the line element. This can be useful in understanding the memor
 
 ##### Methods
 
+###### `Equals(object)`
+
+###### `Equals(PhysicsWorld.DrawResults.PointElement)`
+
+###### `GetHashCode()`
+
 ###### `Size()`
 
 The data size of the point element. This can be useful in understanding the memory stride in a ComputeBuffer or other structure.
 
 **Returns:** The size in bytes.
+
+###### `ToString()`
 
 #### PolygonGeometryElement
 
@@ -1712,11 +1799,19 @@ The data size of the point element. This can be useful in understanding the memo
 
 ##### Methods
 
+###### `Equals(object)`
+
+###### `Equals(PhysicsWorld.DrawResults.PolygonGeometryElement)`
+
+###### `GetHashCode()`
+
 ###### `Size()`
 
 The data size of the polygon element. This can be useful in understanding the memory stride in a ComputeBuffer or other structure.
 
 **Returns:** The size in bytes.
+
+###### `ToString()`
 
 ### DrawTarget
 
@@ -1738,6 +1833,12 @@ The data size of the polygon element. This can be useful in understanding the me
 
 **Full name:** `Unity.U2D.Physics.PhysicsWorld.ExplosionDefinition`
 
+#### Fields
+
+| Name | Summary |
+|------|---------|
+| `MaxImpulse` | The maximum magnitude allowed for PhysicsWorld.ExplosionDefinition.impulsePerLength. Larger magnitudes have no useful effect because body speeds are capped each simulation step, so values are clamped into this range. |
+
 #### Properties
 
 | Name | Summary |
@@ -1745,7 +1846,7 @@ The data size of the polygon element. This can be useful in understanding the me
 | `defaultDefinition` | Create a default explode definition. |
 | `falloff` | The falloff distance beyond the radius. Impulse is reduced to zero at this distance. |
 | `hitCategories` | The categories that will produce hits. |
-| `impulsePerLength` | Impulse per unit length. This applies an impulse according to the shape perimeter that is facing the explosion. Explosions only apply to circles, capsules, and polygons. This may be negative for implosions. |
+| `impulsePerLength` | Impulse per unit length. This applies an impulse according to the shape perimeter that is facing the explosion. Explosions only apply to circles, capsules, and polygons. This may be negative for implosions. The magnitude is clamped to PhysicsWorld.ExplosionDefinition.MaxImpulse. |
 | `position` | The center of the explosion in world space. |
 | `radius` | The radius of the explosion. |
 
@@ -1754,6 +1855,14 @@ The data size of the polygon element. This can be useful in understanding the me
 ##### `new()`
 
 Create a default explode definition.
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsWorld.ExplosionDefinition)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### IgnoreFilter
 
@@ -1923,6 +2032,10 @@ Create a transform plane custom.
 - `rotate` — The custom EULER rotation.
 - `scale` — The custom scale.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsWorld.TransformPlaneCustom)`
+
 ##### `FromPosition(Vector3)`
 
 Transform from a 3D custom world-space position back to a 2D PhysicsWorld position.
@@ -1932,6 +2045,8 @@ Transform from a 3D custom world-space position back to a 2D PhysicsWorld positi
 
 **Returns:** The transformed 2D position.
 
+##### `GetHashCode()`
+
 ##### `ToPosition(Vector2)`
 
 Transform a 2D PhysicsWorld position to a 3D custom world-space position.
@@ -1940,6 +2055,8 @@ Transform a 2D PhysicsWorld position to a 3D custom world-space position.
 - `position` — The 2D position to transform.
 
 **Returns:** The transformed 3D position.
+
+##### `ToString()`
 
 ### TransformTweenMode
 
@@ -1973,19 +2090,35 @@ Transform a 2D PhysicsWorld position to a 3D custom world-space position.
 
 ### WorldCapacity
 
-> Describes the expected world capacities used to presize internal allocations when a PhysicsWorld is created. All counts default to zero, in which case the engine uses its own minimum defaults. See PhysicsWorldDefinition.capacity and PhysicsWorld.capacity.
+> Describes the expected world capacities used to presize internal allocations when a PhysicsWorld is created. All counts default to zero, in which case the engine uses its own minimum defaults. Every count is in the range zero to PhysicsWorld.WorldCapacity.MaxCapacity and any value outside that range is clamped into it.
 
 **Full name:** `Unity.U2D.Physics.PhysicsWorld.WorldCapacity`
+
+#### Fields
+
+| Name | Summary |
+|------|---------|
+| `MaxCapacity` | The maximum value allowed for each of the counts. Each count presizes an internal allocation, so this ceiling keeps the memory a single world can reserve up-front to a sane amount. |
 
 #### Properties
 
 | Name | Summary |
 |------|---------|
-| `contactCount` | The expected number of contacts. |
-| `dynamicBodyCount` | The expected number of dynamic and kinematic bodies. |
-| `dynamicShapeCount` | The expected number of dynamic and kinematic shapes. |
-| `staticBodyCount` | The expected number of static bodies. |
-| `staticShapeCount` | The expected number of static shapes. |
+| `contactCount` | The expected number of contacts, in the range zero to PhysicsWorld.WorldCapacity.MaxCapacity. Values outside that range are clamped into it. |
+| `dynamicBodyCount` | The expected number of dynamic and kinematic bodies, in the range zero to PhysicsWorld.WorldCapacity.MaxCapacity. Values outside that range are clamped into it. |
+| `dynamicShapeCount` | The expected number of dynamic and kinematic shapes, in the range zero to PhysicsWorld.WorldCapacity.MaxCapacity. Values outside that range are clamped into it. |
+| `staticBodyCount` | The expected number of static bodies, in the range zero to PhysicsWorld.WorldCapacity.MaxCapacity. Values outside that range are clamped into it. |
+| `staticShapeCount` | The expected number of static shapes, in the range zero to PhysicsWorld.WorldCapacity.MaxCapacity. Values outside that range are clamped into it. |
+
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsWorld.WorldCapacity)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### WorldCounters
 
@@ -2022,6 +2155,12 @@ Add the specified world counters together.
 
 **Returns:** The world counters added together.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsWorld.WorldCounters)`
+
+##### `GetHashCode()`
+
 ##### `Maximum(PhysicsWorld.WorldCounters, PhysicsWorld.WorldCounters)`
 
 Find the maximum values the specified world counters.
@@ -2031,6 +2170,8 @@ Find the maximum values the specified world counters.
 - `countersB` — The second world counters to find the maximum of.
 
 **Returns:** The maximum values from both world counters.
+
+##### `ToString()`
 
 ### WorldProfile
 
@@ -2079,6 +2220,12 @@ Add the specified world profiles together.
 
 **Returns:** The world profiles added together.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsWorld.WorldProfile)`
+
+##### `GetHashCode()`
+
 ##### `Maximum(PhysicsWorld.WorldProfile, PhysicsWorld.WorldProfile)`
 
 Find the maximum values the specified world profiles.
@@ -2088,6 +2235,8 @@ Find the maximum values the specified world profiles.
 - `profileB` — The second world profile to find the maximum of.
 
 **Returns:** The maximum values from both world profile.
+
+##### `ToString()`
 
 ## PhysicsWorldDefinition
 
@@ -2102,7 +2251,7 @@ Find the maximum values the specified world profiles.
 | `autoBodyUpdateCallbacks` | Controls if body update callback targets are automatically called. See PhysicsWorld.SendBodyUpdateCallbacks. |
 | `autoJointThresholdCallbacks` | Controls if joint threshold callback targets are automatically called. See PhysicsWorld.SendJointThresholdCallbacks. |
 | `bounceThreshold` | Adjust the bounce threshold, usually in meters per second. It is recommended not to make this value very small because it will prevent bodies from sleeping. See PhysicsWorld.bounceThreshold. |
-| `capacity` | The expected world capacities used to presize internal allocations when the PhysicsWorld is created. All counts default to zero, in which case the engine uses its own minimum defaults. Presizing avoids reallocations during the first simulation steps for worlds with a known object count. See PhysicsWorld.capacity. |
+| `capacity` | The expected world capacities used to presize internal allocations when the PhysicsWorld is created. All counts default to zero, in which case the engine uses its own minimum defaults. Presizing avoids reallocations during the first simulation steps for worlds with a known object count. Every count is in the range zero to PhysicsWorld.WorldCapacity.MaxCapacity and any value outside that range is clamped into it. |
 | `contactDamping` | The contact bounciness with 1 being critical damping (non-dimensional). See PhysicsWorld.contactDamping. |
 | `contactFilterCallbacks` | Controls if contact filter callbacks will be called. A contact filter callback allows direct control over whether a contact will be created between a pair of shapes. This applies to both triggers and non-triggers but only with Dynamic bodies. These are relatively expensive so disabling them can provide a significant performance benefit. A contact filter callback will call the PhysicsShape.callbackTarget for both shapes involved if they implement PhysicsCallbacks.IContactFilterCallback. |
 | `contactFrequency` | The contact stiffness, in cycles per second. See PhysicsWorld.contactFrequency. |
@@ -2149,6 +2298,14 @@ Create a default PhysicsWorld definition.
 
 **Params:**
 - `useSettings` — Controls whether the default settings come from the physics settings or not.
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsWorldDefinition)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
 
 ---
 

@@ -69,6 +69,12 @@ Calculate both the Cosine and Sine of the specified angle.
 
 **Returns:** A 2D vector where X is the Cosine and Y is the Sine of the specified angle.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsMath)`
+
+#### `GetHashCode()`
+
 #### `GetRelativeMatrix(Transform, Transform, PhysicsWorld.TransformPlane, bool)`
 
 Get the relative transformation matrix between the two specified transforms using the specified transform plane. If PhysicsWorld.TransformPlane.Custom is used, PhysicsWorld.TransformPlane.XY will be used instead which may not provide the correct results.
@@ -372,6 +378,8 @@ Transform a 2D angle into a 3D rotation using the selected transform plane (Slow
 - `angle` — The 2D angle to transform in radians.
 - `reference` — The 3D rotation used as a reference.
 - `transformPlane` — The transform plane to use.
+
+#### `ToString()`
 
 #### `TryGetPlaneMatrix2D(Matrix4x4, PhysicsWorld.TransformPlane, Matrix4x4)`
 

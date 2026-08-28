@@ -15,6 +15,16 @@ Top-level types in this file: `PhysicsCallbacks`, `PhysicsEvents`.
 
 **Full name:** `Unity.U2D.Physics.PhysicsCallbacks`
 
+### Methods
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsCallbacks)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
+
 ### Nested Types
 
 - **BodyUpdateCallbackTargets** — Contains all the body update callback targets returned from PhysicsWorld.GetBodyUpdateCallbackTargets.
@@ -48,6 +58,14 @@ Top-level types in this file: `PhysicsCallbacks`, `PhysicsEvents`.
 
 Dispose of any allocated memory. This must be called if any targets are returned otherwise memory leaks will occur.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsCallbacks.BodyUpdateCallbackTargets)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 #### Nested Types
 
 - **BodyUpdateTarget** — Body update event target for callbacks.
@@ -64,6 +82,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 |------|---------|
 | `bodyTarget` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.BodyUpdateEvent. This returns any implemented PhysicsCallbacks.IBodyUpdateCallback or NULL if not implemented or no target. |
 | `bodyUpdateEvent` | The event. |
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsCallbacks.BodyUpdateCallbackTargets.BodyUpdateTarget)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ### ContactCallbackTargets
 
@@ -84,6 +112,14 @@ Dispose of any allocated memory. This must be called if any targets are returned
 
 Dispose of any allocated memory. This must be called if any targets are returned otherwise memory leaks will occur.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsCallbacks.ContactCallbackTargets)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 #### Nested Types
 
 - **ContactBeginTarget** — Contact begin event target for callbacks.
@@ -103,6 +139,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `shapeTargetA` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.ContactBeginEvent.shapeA. This returns any implemented PhysicsCallbacks.IContactCallback or NULL if not implemented or no target. |
 | `shapeTargetB` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.ContactBeginEvent.shapeB. This returns any implemented PhysicsCallbacks.IContactCallback or NULL if not implemented or no target. |
 
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsCallbacks.ContactCallbackTargets.ContactBeginTarget)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
+
 #### ContactEndTarget
 
 > Contact end event target for callbacks.
@@ -116,6 +162,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `endEvent` | The event. |
 | `shapeTargetA` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.ContactEndEvent.shapeA. This returns any implemented PhysicsCallbacks.IContactCallback or NULL if not implemented or no target. |
 | `shapeTargetB` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.ContactEndEvent.shapeB. This returns any implemented PhysicsCallbacks.IContactCallback or NULL if not implemented or no target. |
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsCallbacks.ContactCallbackTargets.ContactEndTarget)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ### IBodyUpdateCallback
 
@@ -280,6 +336,14 @@ Called when a PhysicsEvents.TriggerEndEvent for the object occurs. This will alw
 
 Dispose of any allocated memory. This must be called if any targets are returned otherwise memory leaks will occur.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsCallbacks.JointThresholdCallbackTargets)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 #### Nested Types
 
 - **JointThresholdTarget** — Joint threshold event target for callbacks.
@@ -296,6 +360,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 |------|---------|
 | `jointTarget` | The PhysicsShape target (PhysicsShape.callbackTarget) associated with PhysicsEvents.JointThresholdEvent.joint. This returns any implemented PhysicsCallbacks.IJointThresholdCallback or NULL if not implemented or no target. |
 | `jointThresholdEvent` | The event. |
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsCallbacks.JointThresholdCallbackTargets.JointThresholdTarget)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ### TriggerCallbackTargets
 
@@ -316,6 +390,14 @@ Dispose of any allocated memory. This must be called if any targets are returned
 
 Dispose of any allocated memory. This must be called if any targets are returned otherwise memory leaks will occur.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsCallbacks.TriggerCallbackTargets)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 #### Nested Types
 
 - **TriggerBeginTarget** — Trigger begin event target for callbacks.
@@ -335,6 +417,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `triggerShapeTarget` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.TriggerBeginEvent.triggerShape. This returns any implemented PhysicsCallbacks.ITriggerCallback or NULL if not implemented or no target. |
 | `visitorShapeTarget` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.TriggerBeginEvent.visitorShape. This returns any implemented PhysicsCallbacks.ITriggerCallback or NULL if not implemented or no target. |
 
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsCallbacks.TriggerCallbackTargets.TriggerBeginTarget)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
+
 #### TriggerEndTarget
 
 > Trigger end event target for callbacks.
@@ -348,6 +440,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `endEvent` | The trigger end event. |
 | `triggerShapeTarget` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.TriggerEndEvent.triggerShape. This returns any implemented PhysicsCallbacks.ITriggerCallback or NULL if not implemented or no target. |
 | `visitorShapeTarget` | The callback target (PhysicsShape.callbackTarget) associated with PhysicsEvents.TriggerEndEvent.visitorShape. This returns any implemented PhysicsCallbacks.ITriggerCallback or NULL if not implemented or no target. |
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsCallbacks.TriggerCallbackTargets.TriggerEndTarget)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ## PhysicsEvents
 
@@ -364,6 +466,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `WorldDefinitionChange` | Event callback for a world definition change event. |
 | `WorldDrawResults` | Event callback for a world draw results event. This is only called if the world is currently rendering as specified by PhysicsWorld.renderingMode or if PhysicsCoreSettings2D.alwaysDrawWorlds is true. CAUTION: The world is READ locked during this event so ANY write operation on the world will cause an immediate deadlock. See PhysicsEvents.WorldDrawResultsEventHandler. |
 | `WorldTransformPlaneChange` | Event callback for a world transform-plane change event. This only fires when the transform plane actually changes. |
+
+### Methods
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsEvents)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
 
 ### Nested Types
 
@@ -401,6 +513,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.BodyUpdateEvent)`
+
+##### `GetHashCode()`
+
 ##### `ToString()`
 
 ### ContactBeginEvent
@@ -419,6 +537,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `shapeB` | The other shape involved in the event. |
 
 #### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.ContactBeginEvent)`
+
+##### `GetHashCode()`
 
 ##### `ToString()`
 
@@ -439,6 +563,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.ContactEndEvent)`
+
+##### `GetHashCode()`
+
 ##### `ToString()`
 
 ### ContactFilterEvent
@@ -456,6 +586,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `shapeB` | The other shape involved in the event. |
 
 #### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.ContactFilterEvent)`
+
+##### `GetHashCode()`
 
 ##### `ToString()`
 
@@ -478,6 +614,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.ContactHitEvent)`
+
+##### `GetHashCode()`
+
 ##### `ToString()`
 
 ### JointThresholdEvent
@@ -493,6 +635,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `joint` | The joint involved in the event. |
 
 #### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.JointThresholdEvent)`
+
+##### `GetHashCode()`
 
 ##### `ToString()`
 
@@ -526,6 +674,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.PreSolveEvent)`
+
+##### `GetHashCode()`
+
 ##### `ToString()`
 
 ### TransformChangeEvent
@@ -540,6 +694,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 |------|---------|
 | `changeReason` | The reason(s) the transform changed. |
 | `transform` | The transform that changed. |
+
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.TransformChangeEvent)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### TransformTweenWriteEvent
 
@@ -558,6 +722,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `transformPlaneCustom` | The transform plane (custom) of the physics world when the event was created. This maybe not be relevant unless the transform plane is PhysicsWorld.TransformPlane.Custom. |
 | `tweens` | The transform write tweens available to be configured. The returned NativeArray aliases the per-frame internal buffer owned by the world; it does not own its memory (so disposing it does nothing). The contents are only valid until the next simulation step runs, after which the buffer may be reused or destroyed. If a longer-lived copy is required, copy the contents into a caller-owned NativeArray. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.TransformTweenWriteEvent)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### TransformWriteEvent
 
 > An event produced and sent to the callback target set with PhysicsWorld.transformWriteCallbackTarget which must implement PhysicsCallbacks.ITransformWriteCallback which will have PhysicsCallbacks.ITransformWriteCallback.OnTransformWrite called allowing custom transform writing.
@@ -575,6 +749,16 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `transformTweenMode` | The transform tween mode of the physics world when the event was created. |
 | `tweens` | The transform write tweens available to be configured. The returned NativeArray aliases the per-frame internal buffer owned by the world; it does not own its memory (so disposing it does nothing). The contents are only valid until the next simulation step runs, after which the buffer may be reused or destroyed. If a longer-lived copy is required, copy the contents into a caller-owned NativeArray. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.TransformWriteEvent)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### TriggerBeginEvent
 
 > An event produced when a pair of Shapes, one of which was a trigger, began touching. The shapes provided may have been destroyed so they should always be validated with PhysicsShape.isValid. See PhysicsWorld.triggerBeginEvents.
@@ -590,6 +774,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `visitorShape` | The shape that began touching the trigger shape. |
 
 #### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.TriggerBeginEvent)`
+
+##### `GetHashCode()`
 
 ##### `ToString()`
 
@@ -608,6 +798,12 @@ Dispose of any allocated memory. This must be called if any targets are returned
 | `visitorShape` | The shape that stopped touching the trigger shape. |
 
 #### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsEvents.TriggerEndEvent)`
+
+##### `GetHashCode()`
 
 ##### `ToString()`
 

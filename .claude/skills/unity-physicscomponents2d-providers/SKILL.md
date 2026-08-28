@@ -38,7 +38,8 @@ Three separate methods, and they are not interchangeable.
 
 | Method | On | What it re-resolves | Cost |
 |---|---|---|---|
-| `Apply()` | providers, constraints | the world or pose reference | rebuilds only if the resolved target changed |
+| `Apply()` | `PhysicsWorldProvider`, `PhysicsPoseProvider` | the world or pose reference | rebuilds only if the resolved target changed |
+| `Apply()` | `PhysicsConstraint` | poseA/poseB | always destroys and recreates the joint (see below) |
 | `ApplyGeometry()` | `PhysicsArea` | this area's geometry | in-place shape update for a single-shape primitive, otherwise a shape rebuild |
 | `ApplyDefinition()` | `PhysicsPose`, `PhysicsArea`, `PhysicsConstraint` | the definition or definition asset | in place, keeps the object alive |
 
@@ -52,7 +53,7 @@ Pick by what you changed:
 
 A constraint is the exception: a joint bakes both bodies at creation and cannot have them reassigned, so `PhysicsConstraint.Apply()` always destroys and recreates the joint.
 
-`PhysicsPose.ApplyDefinition()` writes the full body state, so calling it during play resets linear and angular velocity and overwrites anything you set directly on the `body` handle since the last apply.
+`PhysicsPose.ApplyDefinition()` writes the full body state, but it first seeds the definition's velocity and awake fields from the body's own live values, so calling it during play does not reset motion. It still overwrites anything else you set directly on the `body` handle since the last apply.
 
 ## Rebuild timing and WORM safety
 
@@ -63,6 +64,8 @@ The bases handle that for you through two protected methods:
 - `RequestRebuild()` rebuilds now in edit mode, and in play mode defers to the next `PhysicsEvents.PostSimulate`, coalescing repeated requests into one rebuild. Safe from anywhere, including inside a physics callback.
 
 Prefer `RequestRebuild()` from your own component code.
+
+To read the currently live target without triggering a rebuild, use `resolvedWorld` (`PhysicsWorldProvider`) or `resolvedPose` (`PhysicsPoseProvider`) — these report what the physics was actually built against, which can lag `source`/`simulationWorld`/`pose` until the next `Apply()`.
 
 ## Undo does not re-run OnEnable
 
@@ -113,16 +116,18 @@ Points worth keeping:
 
 When deriving a base, these are the methods available. The naming distinguishes once-per-enable setup from per-build work.
 
-| Override | Runs | Use for |
-|---|---|---|
-| `OnCreatePhysics` | every build | create your physics objects |
-| `OnDestroyPhysics` | every teardown | drop handles; the owning object may already be gone |
-| `OnProviderEnable` / `OnProviderDisable` | once per enable/disable, not on undo | native storage, transform-change registration |
-| `OnBeforeCreatePhysics` / `OnAfterDestroyPhysics` | every build/teardown, undo included | subscriptions |
-| `OnProviderEnableComplete` | end of enable, after the first build | announce state that needs resolution to be done |
-| `OnProviderReset` | editor Reset | your own serialized fields only; the base resets its own |
+| Override | Runs | On | Use for |
+|---|---|---|---|
+| `OnCreatePhysics` | every build | both bases | create your physics objects |
+| `OnDestroyPhysics` | every teardown | both bases | drop handles; the owning object may already be gone |
+| `OnProviderEnable` / `OnProviderDisable` | once per enable/disable, not on undo | both bases | native storage, transform-change registration |
+| `OnBeforeCreatePhysics` / `OnAfterDestroyPhysics` | every build/teardown, undo included | both bases | subscriptions |
+| `OnProviderEnableComplete` | end of enable, after the first build | `PhysicsPoseProvider` only | announce state that needs resolution to be done |
+| `OnProviderReset` | editor Reset | both bases | your own serialized fields only; the base resets its own |
 
 The engine cascades a body's shapes and joints away when the body is destroyed, so `OnDestroyPhysics` must not assume the owning object is still valid. Drop handles or check `isValid`.
+
+`PhysicsPoseProvider` also exposes a protected `anchorBody`: the live body of the resolved pose, invalid if none. Reach for it inside `OnCreatePhysics` rather than resolving the pose's body yourself.
 
 ## Where to go next
 

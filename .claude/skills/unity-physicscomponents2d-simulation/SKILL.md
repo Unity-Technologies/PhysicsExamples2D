@@ -51,11 +51,11 @@ A `PhysicsPose` picks its world through the `PhysicsWorldProvider` base, not thr
 - `source = SimulationSource.DefaultWorld` uses the default world and ignores the asset reference.
 - `source = SimulationSource.SimulationWorld` uses the assigned `simulationWorld` asset, creating that world on demand and releasing it on disable.
 
-Assigning `simulationWorld` while `source` is not `SimulationWorld` throws. Set the enum first. See `unity-physicscomponents2d-providers`.
+Assigning a non-null `simulationWorld` while `source` is not `SimulationWorld` throws; clearing it to null is always allowed. Set the enum first. See `unity-physicscomponents2d-providers`.
 
 ## `persistAcrossScenes`
 
-Off by default, giving the world a scene-scoped lifetime. Set it and the world's lifetime spans every scene load.
+Off by default, giving the world a scene-scoped lifetime. Set it and the world's lifetime spans every scene load — but only in play mode; setting it in edit mode has no effect since `DontDestroyOnLoad` only runs while playing.
 
 Three constraints, all enforced rather than documented-and-hoped:
 
@@ -65,9 +65,9 @@ Three constraints, all enforced rather than documented-and-hoped:
 
 ## Editing the assets at runtime
 
-A plain `ScriptableObject` has no change notification, so a live world would never notice an edit to the asset it was built from. `PhysicsSimulationWorld` fixes that: swapping its `definition` or changing its `userData` raises an internal change event, and the live world re-reads the asset.
+A plain `ScriptableObject` has no change notification, so a live world would never notice an edit to the asset it was built from. `PhysicsSimulationWorld` fixes that: swapping its `definition` or changing its `userData` (an arbitrary `PhysicsUserData` payload you can attach to the world for your own lookup purposes) raises a `changed` event, and the live world re-reads the asset.
 
-That works from code as well as from the inspector, because the property setters raise it too. So assigning `simulationWorld.definition = someOtherDefinition` reaches the live world without any explicit apply call.
+That works from code as well as from the inspector, because the property setters raise it too. So assigning `simulationWorld.definition = someOtherDefinition` reaches the live world without any explicit apply call. `changed` itself is `internal`, so only the package's own registry can subscribe to it; there is no supported way to hook your own code into "this world's asset just changed."
 
 `PhysicsSimulation.simulationWorld` behaves the same way: assigning a different asset while enabled releases the previous world and acquires the new one immediately, with no `Apply()` needed. This family is the exception; every other component family requires an explicit apply.
 

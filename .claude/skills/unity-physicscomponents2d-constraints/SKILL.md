@@ -27,7 +27,7 @@ The asymmetry between the two sides is the thing to remember:
 
 An unresolved `Auto` `poseA` waits for a `PhysicsPose` to appear anywhere and re-resolves itself. `poseB` never waits, because it has no search to retry.
 
-Read the results with `resolvedPoseA` and `resolvedPoseB`. Reach the joint with `joint`, and test with `hasJoint`.
+Read the results with `resolvedPoseA` and `resolvedPoseB`. Reach the joint with `joint`, and test with `hasJoint`. Each concrete constraint also exposes a typed `GetJoint()` (e.g. `PhysicsConstraintHinge.GetJoint()` returns a `PhysicsHingeJoint`), so you don't need to cast `joint` yourself.
 
 ## Apply always recreates the joint
 
@@ -70,7 +70,7 @@ Two caveats:
 | `Off` | nothing | no target registered, so nothing is delivered regardless of the joint's force and torque thresholds |
 | `Constraint` | `callbackTarget` | `PhysicsConstraintCallbacks.IJointThresholdCallback`, receives the *constraint* |
 | `Joints` | `callbackTarget` | the engine `PhysicsCallbacks` interfaces, receives the *joint* |
-| `Events` | this component | nothing; wire a method in the inspector |
+| `Events` | this component | nothing; wire a method in the inspector via `onJointThreshold`, a `UnityEvent` accepting `PhysicsConstraintCallbacks.JointThresholdEvent` |
 
 The constraint-centric event carries both the resolved `constraint` and the original engine `thresholdEvent`, so joint-level data stays available. A class can implement both the constraint-centric and the engine interface at once, since the methods differ by parameter type.
 
@@ -82,9 +82,9 @@ The same guards as the pose apply to `callbackTarget`: assigning non-null while 
 
 `JointCreated` and `JointDestroyed`, both `Action<PhysicsConstraint>`. Subscribe with a cached handler delegate rather than a method group.
 
-## Extending
+## The set is fixed
 
-An out-of-assembly subclass can override `definitionAssetBase` so the shared editor and scene tools find its asset slot. A constraint whose joint type is not yet wired up creates nothing and shows a not-implemented notice in its inspector rather than failing.
+`PhysicsConstraint`'s constructor is `private protected`, so it cannot be subclassed outside this assembly: the seven components above are the complete set, and you cannot add your own. `definitionAssetBase` and the not-implemented inspector fallback exist to support in-assembly stub constraints, not as a public extension point.
 
 ## Where to go next
 

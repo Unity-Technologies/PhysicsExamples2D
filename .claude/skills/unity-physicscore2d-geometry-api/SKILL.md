@@ -112,6 +112,12 @@ Create a shape proxy from the geometry, transformed by the specified transform. 
 - `transform` — The transform used to position the geometry.
 - `scaleRadius` — Whether to scale the radius of the shape.
 
+#### `Equals(object)`
+
+#### `Equals(CapsuleGeometry)`
+
+#### `GetHashCode()`
+
 #### `Intersect(PhysicsTransform, CircleGeometry, PhysicsTransform)`
 
 Check the intersection between this geometry and another.
@@ -214,6 +220,8 @@ Creates multiple PolygonGeometry from the geometry. A limit is imposed on small 
 
 **Returns:** The created polygon geometry. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
+#### `ToString()`
+
 #### `Transform(PhysicsTransform)`
 
 Transform the geometry.
@@ -314,6 +322,14 @@ Calculate the closest point on this geometry to the specified point.
 - `point` — The point to check.
 
 **Returns:** The closest point on the geometry to the specified point.
+
+#### `Equals(object)`
+
+#### `Equals(ChainGeometry)`
+
+#### `GetHashCode()`
+
+#### `ToString()`
 
 ## ChainSegmentGeometry
 
@@ -419,6 +435,12 @@ Create a shape proxy from the geometry, transformed by the specified transform.
 **Params:**
 - `transform` — The transform used to position the geometry.
 
+#### `Equals(object)`
+
+#### `Equals(ChainSegmentGeometry)`
+
+#### `GetHashCode()`
+
 #### `InverseTransform(PhysicsTransform)`
 
 Inverse-Transform the geometry.
@@ -454,6 +476,8 @@ Inverse-Transform a batch of geometry in place.
 - `transform` — The transform to apply.
 
 #### `operator implicit(ChainSegmentGeometry)`
+
+#### `ToString()`
 
 #### `Transform(PhysicsTransform)`
 
@@ -608,6 +632,12 @@ Create a shape proxy from the geometry, transformed by the specified transform. 
 - `transform` — The transform used to position the geometry.
 - `scaleRadius` — Whether to scale the radius of the shape.
 
+#### `Equals(object)`
+
+#### `Equals(CircleGeometry)`
+
+#### `GetHashCode()`
+
 #### `Intersect(PhysicsTransform, CircleGeometry, PhysicsTransform)`
 
 Check the intersection between this geometry and another.
@@ -710,6 +740,8 @@ Creates multiple PolygonGeometry from the geometry. A limit is imposed on small 
 
 **Returns:** The created polygon geometry. This NativeArray must be disposed of after use otherwise leaks will occur. The exception to this is if the array is empty.
 
+#### `ToString()`
+
 #### `Transform(PhysicsTransform)`
 
 Transform the geometry.
@@ -799,6 +831,12 @@ Checks if the AABB contains (completely encapsulates) the specified AABB.
 
 **Returns:** True if the specified AABB is contained by this AABB. False if not.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsAABB)`
+
+#### `GetHashCode()`
+
 #### `Normalize()`
 
 Normalize the AABB ensuring that PhysicsAABB.lowerBound is lower than or equal to PhysicsAABB.upperBound.
@@ -870,6 +908,12 @@ Create a union of the specified AABB and this AABB where resulting AABB complete
 | `isValid` | Check if the plane is valid. To be valid, the PhysicsPlane.normal must be normalized. |
 
 ### Methods
+
+#### `Equals(object)`
+
+#### `Equals(PhysicsPlane)`
+
+#### `GetHashCode()`
 
 #### `GetSeparation(Vector2)`
 
@@ -1108,6 +1152,12 @@ Delete a vertex from the geometry returning a new geometry with updated normals 
 
 **Returns:** The new geometry with the deleted vertex.
 
+#### `Equals(object)`
+
+#### `Equals(PolygonGeometry)`
+
+#### `GetHashCode()`
+
 #### `InsertVertex(PolygonGeometry, int, Vector2)`
 
 Insert a vertex into the geometry returning a new geometry with updated normals and centroid.
@@ -1210,6 +1260,8 @@ Calculate if a point overlaps the geometry.
 
 **Returns:** If the point overlaps the geometry.
 
+#### `ToString()`
+
 #### `Transform(PhysicsTransform)`
 
 Transform the specified geometry.
@@ -1287,6 +1339,14 @@ Get the convex-hull vertices as a read-only span.
 Get the convex-hull vertices as a span.
 
 **Returns:** The span representing the vertices in the geometry.
+
+##### `Equals(object)`
+
+##### `Equals(PolygonGeometry.ConvexHull)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ## SegmentGeometry
 
@@ -1383,6 +1443,12 @@ Create a shape proxy from the geometry, transformed by the specified transform.
 **Params:**
 - `transform` — The transform used to position the geometry.
 
+#### `Equals(object)`
+
+#### `Equals(SegmentGeometry)`
+
+#### `GetHashCode()`
+
 #### `Intersect(PhysicsTransform, CircleGeometry, PhysicsTransform)`
 
 Check the intersection between this geometry and another.
@@ -1458,6 +1524,8 @@ Scale the geometry along the SegmentGeometry.forward and SegmentGeometry.backwar
 
 **Params:**
 - `scale` — —
+
+#### `ToString()`
 
 #### `Transform(PhysicsTransform)`
 

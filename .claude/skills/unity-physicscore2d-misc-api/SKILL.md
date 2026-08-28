@@ -1,13 +1,13 @@
 ---
 name: unity-physicscore2d-misc-api
-description: Authoritative Unity 6000.7 PhysicsCore2D API reference for Miscellaneous. Lists every type, property, field, method (with signatures, params, returns) for: IPhysicsResultFilter, PhysicsHandle, PhysicsResultEnumerable, PhysicsResultExtensions, PhysicsSpace. Use whenever working with these types in code.
+description: Authoritative Unity 6000.7 PhysicsCore2D API reference for Miscellaneous. Lists every type, property, field, method (with signatures, params, returns) for: IPhysicsResultFilter, PhysicsHandle, PhysicsHandleExtensions, PhysicsResultEnumerable, PhysicsResultExtensions, PhysicsSpace. Use whenever working with these types in code.
 ---
 
 # Unity PhysicsCore2D API — Miscellaneous
 
 This skill is the auto-generated API surface for the listed types. It pre-dates Claude's training data on Unity 6000.7, so it should be treated as the source of truth for member names, signatures, and documentation strings.
 
-Top-level types in this file: `IPhysicsResultFilter`, `PhysicsHandle`, `PhysicsResultEnumerable`, `PhysicsResultExtensions`, `PhysicsSpace`.
+Top-level types in this file: `IPhysicsResultFilter`, `PhysicsHandle`, `PhysicsHandleExtensions`, `PhysicsResultEnumerable`, `PhysicsResultExtensions`, `PhysicsSpace`.
 
 ## IPhysicsResultFilter
 
@@ -87,6 +87,131 @@ Destroy the specified span of PhysicsHandle. NOTE: If any of the handles come fr
 #### `GetHashCode()`
 
 #### `ToString()`
+
+## PhysicsHandleExtensions
+
+> Extensions that let a physics handle be written through when it is reached by something other than a plain variable.
+
+**Full name:** `Unity.U2D.Physics.PhysicsHandleExtensions`
+
+### Methods
+
+#### `Get(PhysicsWorld)`
+
+Returns this world in a form that can be written through.
+
+**Params:**
+- `physicsWorld` — The world to return.
+
+**Returns:** The same world.
+
+#### `Get(PhysicsBody)`
+
+Returns this body in a form that can be written through.
+
+**Params:**
+- `physicsBody` — The body to return.
+
+**Returns:** The same body.
+
+#### `Get(PhysicsShape)`
+
+Returns this shape in a form that can be written through.
+
+**Params:**
+- `physicsShape` — The shape to return.
+
+**Returns:** The same shape.
+
+#### `Get(PhysicsComposer)`
+
+Returns this composer in a form that can be written through.
+
+**Params:**
+- `physicsComposer` — The composer to return.
+
+**Returns:** The same composer.
+
+#### `Get(PhysicsChain)`
+
+Returns this chain in a form that can be written through.
+
+**Params:**
+- `physicsChain` — The chain to return.
+
+**Returns:** The same chain.
+
+#### `Get(PhysicsJoint)`
+
+Returns this joint in a form that can be written through.
+
+**Params:**
+- `physicsJoint` — The joint to return.
+
+**Returns:** The same joint.
+
+#### `Get(PhysicsDistanceJoint)`
+
+Returns this distance joint in a form that can be written through.
+
+**Params:**
+- `physicsDistanceJoint` — The distance joint to return.
+
+**Returns:** The same distance joint.
+
+#### `Get(PhysicsFixedJoint)`
+
+Returns this fixed joint in a form that can be written through.
+
+**Params:**
+- `physicsFixedJoint` — The fixed joint to return.
+
+**Returns:** The same fixed joint.
+
+#### `Get(PhysicsHingeJoint)`
+
+Returns this hinge joint in a form that can be written through.
+
+**Params:**
+- `physicsHingeJoint` — The hinge joint to return.
+
+**Returns:** The same hinge joint.
+
+#### `Get(PhysicsIgnoreJoint)`
+
+Returns this ignore joint in a form that can be written through.
+
+**Params:**
+- `physicsIgnoreJoint` — The ignore joint to return.
+
+**Returns:** The same ignore joint.
+
+#### `Get(PhysicsRelativeJoint)`
+
+Returns this relative joint in a form that can be written through.
+
+**Params:**
+- `physicsRelativeJoint` — The relative joint to return.
+
+**Returns:** The same relative joint.
+
+#### `Get(PhysicsSliderJoint)`
+
+Returns this slider joint in a form that can be written through.
+
+**Params:**
+- `physicsSliderJoint` — The slider joint to return.
+
+**Returns:** The same slider joint.
+
+#### `Get(PhysicsWheelJoint)`
+
+Returns this wheel joint in a form that can be written through.
+
+**Params:**
+- `physicsWheelJoint` — The wheel joint to return.
+
+**Returns:** The same wheel joint.
 
 ## PhysicsResultEnumerable
 
@@ -524,6 +649,14 @@ Create a narrowphase result.
 ##### Methods
 
 ###### `Compare(PhysicsSpace.CastResult, PhysicsSpace.CastResult)`
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsSpace.CastResult.SortAscendingOrder)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ### ProxyHandle
 

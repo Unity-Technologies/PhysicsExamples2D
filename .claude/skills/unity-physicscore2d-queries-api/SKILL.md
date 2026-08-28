@@ -98,6 +98,12 @@ Check the intersection between Circle and Circle geometries.
 
 **Returns:** The contact manifold fully detailing the intersection.
 
+#### `Equals(object)`
+
+#### `Equals(PhysicsQuery)`
+
+#### `GetHashCode()`
+
 #### `PolygonAndCapsule(PolygonGeometry, PhysicsTransform, CapsuleGeometry, PhysicsTransform)`
 
 Check the intersection between Polygon and Capsule geometries.
@@ -212,6 +218,8 @@ Calculate the upper bound on time before two shape proxies penetrate i.e. the ti
 
 **Returns:** The time of impact result.
 
+#### `ToString()`
+
 ### Nested Types
 
 - **CastRayInput** — Cast-Ray arguments used by CastRay queries.
@@ -259,6 +267,10 @@ Create a Cast-Ray with a default fraction of 1.
 - `origin` — The origin (start) of the ray.
 - `translation` — The translation relative to the PhysicsQuery.CastRayInput.origin of the ray.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.CastRayInput)`
+
 ##### `FromTo(Vector2, Vector2)`
 
 Calculate a Cast-Ray given two positions.
@@ -266,6 +278,10 @@ Calculate a Cast-Ray given two positions.
 **Params:**
 - `from` — The position the ray starts.
 - `to` — The position the ray ends.
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### CastResult
 
@@ -285,12 +301,20 @@ Calculate a Cast-Ray given two positions.
 
 #### Methods
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.CastResult)`
+
+##### `GetHashCode()`
+
 ##### `operator implicit(PhysicsQuery.CastResult)`
 
 Implicitly convert the cast output to a bool using the value in the PhysicsQuery.CastResult.isValid flag.
 
 **Params:**
 - `output` — The CastResult to convert.
+
+##### `ToString()`
 
 #### Nested Types
 
@@ -301,6 +325,16 @@ Implicitly convert the cast output to a bool using the value in the PhysicsQuery
 > Ascending distance sort comparer.
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.CastResult.SortAscendingOrder`
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsQuery.CastResult.SortAscendingOrder)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ### CastShapeInput
 
@@ -363,6 +397,10 @@ Create a CastShapeInput the specified ChainSegmentGeometry. You should transform
 - `chainSegmentGeometry` — The geometry to use.
 - `translation` — The cast translation to use.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.CastShapeInput)`
+
 ##### `FromShape(PhysicsShape, Vector2)`
 
 Create a CastShapeInput the specified world shape. The geometry will automatically be translated into world-space.
@@ -370,6 +408,10 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 **Params:**
 - `shape` — The shape to use.
 - `translation` — The cast translation to use.
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### CastShapePairInput
 
@@ -389,6 +431,16 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 | `transformB` | The world transform for shape B |
 | `translationB` | Translation of the shape proxy B. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.CastShapePairInput)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### DistanceInput
 
 > An input used for shape distance queries.
@@ -404,6 +456,16 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 | `transformA` | The world transform for shape A |
 | `transformB` | The world transform for shape B |
 | `useRadii` | Should the proxy radius be considered? |
+
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.DistanceInput)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ### DistanceResult
 
@@ -421,6 +483,16 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 | `pointA` | Closest point on shape A. |
 | `pointB` | Closest point on shape B. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.DistanceResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 #### Nested Types
 
 - **SortAscendingOrder** — Ascending distance sort comparer.
@@ -430,6 +502,16 @@ Create a CastShapeInput the specified world shape. The geometry will automatical
 > Ascending distance sort comparer.
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.DistanceResult.SortAscendingOrder`
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsQuery.DistanceResult.SortAscendingOrder)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ### QueryFilter
 
@@ -470,6 +552,14 @@ Create a query filter.
 - `hitCategories` — A PhysicsMask defining the categories this query will produce hits with.
 - `ignoreFilter` — A filter used to ignore items when filtering.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.QueryFilter)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### SegmentDistanceResult
 
 > Segment distance result from segment distance queries.
@@ -486,6 +576,16 @@ Create a query filter.
 | `fraction1` | The barycentric coordinate on the first segment |
 | `fraction2` | The barycentric coordinate on the second segment |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.SegmentDistanceResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 #### Nested Types
 
 - **SortAscendingOrder** — Ascending distance sort comparer.
@@ -495,6 +595,16 @@ Create a query filter.
 > Ascending distance sort comparer.
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.SegmentDistanceResult.SortAscendingOrder`
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsQuery.SegmentDistanceResult.SortAscendingOrder)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ### ShapeSweep
 
@@ -512,6 +622,16 @@ Create a query filter.
 | `rotationEnd` | The world rotation end. |
 | `rotationStart` | The world rotation start. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.ShapeSweep)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### TimeOfImpactInput
 
 > The input for time-of-impact query.
@@ -528,6 +648,16 @@ Create a query filter.
 | `shapeSweepA` | The movement of shape A. |
 | `shapeSweepB` | The movement of shape B. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.TimeOfImpactInput)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### TimeOfImpactResult
 
 > Time-of-impact result from time-of-impact query.
@@ -543,6 +673,16 @@ Create a query filter.
 | `normal` | The surface normal at the point of contact. |
 | `point` | The point of contact. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.TimeOfImpactResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 #### Nested Types
 
 - **SortAscendingOrder** — Ascending distance sort comparer.
@@ -553,6 +693,16 @@ Create a query filter.
 > Ascending distance sort comparer.
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.TimeOfImpactResult.SortAscendingOrder`
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsQuery.TimeOfImpactResult.SortAscendingOrder)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 #### State
 
@@ -600,6 +750,16 @@ Create a query filter.
 | `point` | The point of contact. |
 | `shape` | The shape that was detected by the cast. |
 
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.WorldCastResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 #### Nested Types
 
 - **SortAscendingOrder** — Ascending distance sort comparer.
@@ -609,6 +769,16 @@ Create a query filter.
 > Ascending distance sort comparer.
 
 **Full name:** `Unity.U2D.Physics.PhysicsQuery.WorldCastResult.SortAscendingOrder`
+
+##### Methods
+
+###### `Equals(object)`
+
+###### `Equals(PhysicsQuery.WorldCastResult.SortAscendingOrder)`
+
+###### `GetHashCode()`
+
+###### `ToString()`
 
 ### WorldMoverInput
 
@@ -637,6 +807,14 @@ Create a query filter.
 
 Create a default world mover input.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.WorldMoverInput)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### WorldMoverResult
 
 > The world mover result used by the world mover.
@@ -657,6 +835,14 @@ Create a default world mover input.
 
 Dispose of any allocated memory for the collision results.
 
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.WorldMoverResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
+
 ### WorldOverlapResult
 
 > The results from performing any Overlap query.
@@ -669,6 +855,16 @@ Dispose of any allocated memory for the collision results.
 |------|---------|
 | `isValid` | Check if the result is valid. |
 | `shape` | The shape that was detected by the overlap. |
+
+#### Methods
+
+##### `Equals(object)`
+
+##### `Equals(PhysicsQuery.WorldOverlapResult)`
+
+##### `GetHashCode()`
+
+##### `ToString()`
 
 ---
 
