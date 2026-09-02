@@ -294,7 +294,7 @@ public sealed class Fragmenting : SandboxExampleBehaviour, PhysicsCallbacks.ICon
 
             // Fetch the contact.
             var contact = beginEvent.contactId.contact;
-            var hitPosition = contact.manifold.points[0].point;
+            var hitPosition = contact.manifold.points[0].pointA;
 
             // Get the default world.
             var world = World;

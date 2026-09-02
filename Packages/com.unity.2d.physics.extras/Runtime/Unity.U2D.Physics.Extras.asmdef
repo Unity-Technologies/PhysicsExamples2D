@@ -1,0 +1,12 @@
+{
+  "name": "Unity.U2D.Physics.Extras",
+  "references": [
+    "Unity.U2D.Physics",
+    "Unity.Burst",
+    "Unity.Collections",
+    "Unity.Mathematics"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false
+}

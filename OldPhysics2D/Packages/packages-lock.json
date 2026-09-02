@@ -54,13 +54,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.19.0",
+      "version": "6.7.0",
       "depth": 0,
-      "source": "registry",
+      "source": "builtin",
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
+      }
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
@@ -106,7 +105,7 @@
       }
     },
     "com.unity.searcher": {
-      "version": "4.9.4",
+      "version": "4.9.5",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
@@ -123,7 +122,7 @@
       }
     },
     "com.unity.test-framework": {
-      "version": "1.8.0",
+      "version": "1.9.0",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -132,13 +131,19 @@
       }
     },
     "com.unity.test-framework.performance": {
-      "version": "6.6.0",
+      "version": "6.7.0",
       "depth": 3,
       "source": "builtin",
       "dependencies": {
         "com.unity.test-framework": "1.1.33",
         "com.unity.modules.jsonserialize": "1.0.0"
       }
+    },
+    "com.unity.modules.accessibility": {
+      "version": "1.0.0",
+      "depth": 2,
+      "source": "builtin",
+      "dependencies": {}
     },
     "com.unity.modules.animation": {
       "version": "1.0.0",
@@ -206,7 +211,9 @@
       "version": "1.0.0",
       "depth": 0,
       "source": "builtin",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      }
     },
     "com.unity.modules.tetgen": {
       "version": "1.0.0",
@@ -230,7 +237,8 @@
         "com.unity.modules.jsonserialize": "1.0.0",
         "com.unity.modules.hierarchycore": "1.0.0",
         "com.unity.modules.physics": "1.0.0",
-        "com.unity.modules.animation": "1.0.0"
+        "com.unity.modules.animation": "1.0.0",
+        "com.unity.modules.accessibility": "1.0.0"
       }
     },
     "com.unity.modules.vectorgraphics": {

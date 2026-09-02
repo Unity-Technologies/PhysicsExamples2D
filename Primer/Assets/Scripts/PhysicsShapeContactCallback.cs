@@ -68,7 +68,7 @@ public class PhysicsShapeContactCallback : MonoBehaviour, PhysicsCallbacks.ICont
 
         // Draw all the manifold points.
         foreach (var manifoldPoint in contact.manifold)
-            m_PhysicsWorld.DrawPoint(position: manifoldPoint.point, radius: 25f, color: Color.softYellow, lifetime: 10f);
+            m_PhysicsWorld.DrawPoint(position: manifoldPoint.pointA, radius: 25f, color: Color.softYellow, lifetime: 10f);
     }
 
     // Called when a pair of shapes have ended contacting.

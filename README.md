@@ -2,24 +2,17 @@
 
 This repository contains test projects, examples, and a test package for Unity's 2D physics, spanning two API generations:
 
-- **PhysicsCore2D** — examples for the newer 2D physics core API (`Unity.U2D.Physics`), located at the repository root:
-  - [Sandbox Project](Sandbox/README.md) — interactive playground scenes
-  - [Primer Project](Primer/README.md) — focused single-concept examples
-  - [Snippets Project](Snippets/README.md) — minimal API usage demos
-- **OldPhysics2D** — examples that use the older "Physics2D" component API.
+- [Sandbox Project](Sandbox/README.md) — interactive playground scenes
+- [Primer Project](Primer/README.md) — focused single-concept examples
+- [Extras Package](Packages/com.unity.2d.physics.extras/README.md) - unsupported experimental extras
+- [OldPhysics2D](OldPhysics2D/README.md) — examples that use the older "Physics2D" component API.
+- `.claude/` contains skills you can copy into your own `.claude` folder to better work with PhysicsCore2D.
 
-`Packages/com.unity.2d.physics.extras` is a shared local package referenced by the PhysicsCore2D projects.
-
-`.claude/` contains skills you can copy into your own `.claude` folder to better work with PhysicsCore2D.
-
+---
 - [Dev Videos](https://www.youtube.com/c/melvmay/videos)
+- [Twitter](https://x.com/melvmay)
+- [Unity Discussions](https://discussions.unity.com/u/melvmay)
 
----
-Acknowledgement and thanks to Erin Catto (the creator of Box2D v3), upon which significant portions of the "Sandbox" project are based.
-
-https://github.com/erincatto/box2d
-
----
 ## Branch Names
 
 Each branch represents a specific version of Unity. As features are added in a public release, those features should be represented in that branch and future Unity version branches i.e. branch names such as "2022", "6000.3" (etc) exist.
@@ -46,7 +39,9 @@ git branch 2019 archive/2019
 ```
 
 ---
+## Acknowledgements
 
-Twitter: https://twitter.com/melvmay
+Thanks to Erin Catto (the creator of Box2D v3), upon which significant portions of the "Sandbox" project are based.
 
-Unity Discussions: [https://forum.unity.com/members/melvmay.287484/](https://discussions.unity.com/u/melvmay)
+https://github.com/erincatto/box2d
+

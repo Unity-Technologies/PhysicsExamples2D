@@ -1,0 +1,13 @@
+{
+  "name": "Unity.U2D.Physics.Extras.Tests.RuntimeTests",
+  "references": [
+    "Unity.U2D.Physics.Extras",
+    "Unity.U2D.Physics",
+    "Unity.Collections"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": []
+}

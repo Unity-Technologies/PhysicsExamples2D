@@ -74,9 +74,11 @@ MonoBehaviour:
       - rid: 3112234970573963264
       - rid: 3112234970573963265
       - rid: 3112234970573963266
+      - rid: 3571433725549346818
+      - rid: 3571433725549346819
     m_RuntimeSettings:
       m_List: []
-  m_AssetVersion: 11
+  m_AssetVersion: 13
   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
   m_RenderingLayerNames:
   - Default
@@ -234,6 +236,7 @@ MonoBehaviour:
         easuPS: {fileID: 4800000, guid: 562b7ae4f629f144aa97780546fce7c6, type: 3}
         uberPostPS: {fileID: 4800000, guid: e7857e9d0c934dc4f83f270f8447b006, type: 3}
         finalPostPassPS: {fileID: 4800000, guid: c49e63ed1bbcb334780a3bd19dfed403, type: 3}
+        reactiveMaskPS: {fileID: 4800000, guid: a32e79e9a0e86a14894684c864a169a3, type: 3}
         m_ShaderResourcesVersion: 0
     - rid: 764659080778481670
       type: {class: URPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
@@ -468,6 +471,7 @@ MonoBehaviour:
         m_ScreenResolveUpsamplingShader: {fileID: 7200000, guid: 7c302ee1d7410a6458981a5f329520b4, type: 3}
         m_DebugShader: {fileID: 7200000, guid: 4d40202dfa5473d44bcdc97e00d74703, type: 3}
         m_FlatNormalResolutionShader: {fileID: 7200000, guid: 134e9451a58aaba43ba713adbd103d92, type: 3}
+        m_ScreenResolveDenoisingShader: {fileID: 7200000, guid: 9aaca22ca1855764983a8f22970677a9, type: 3}
     - rid: 3112234970573963266
       type: {class: SurfaceCacheRenderPipelineResourceSet, ns: UnityEngine.Rendering, asm: Unity.SurfaceCache.Runtime}
       data:
@@ -485,6 +489,16 @@ MonoBehaviour:
         m_EmissiveTriangleRemovalComputeShader: {fileID: 7200000, guid: 3d386645a85b4e758a7b7eb1bf87fa24, type: 3}
         m_EstimationComputeShader: {fileID: -6772857160820960102, guid: 94a39d12848d8d64ca962a72b74e7c50, type: 3}
         m_EstimationRayTracingShader: {fileID: -5126288278712620388, guid: 94a39d12848d8d64ca962a72b74e7c50, type: 3}
+    - rid: 3571433725549346818
+      type: {class: URPExposureSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        version: 1
+        m_UseExposure: 0
+    - rid: 3571433725549346819
+      type: {class: URPShadowBiasSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Version: 1
+        m_DepthBiasMode: 0
     - rid: 8192759505231020032
       type: {class: UniversalRenderPipelineRuntimeTerrainShaders, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:

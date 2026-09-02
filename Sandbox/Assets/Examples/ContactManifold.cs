@@ -494,7 +494,7 @@ public sealed class ContactManifold : SandboxExampleBehaviour
         {
             var contact = manifold[i];
 
-            var p1 = contact.point;
+            var p1 = contact.pointA;
             var p2 = p1 + manifold.normal * 0.5f;
             world.DrawLine(p1, p2, Color.white);
 
