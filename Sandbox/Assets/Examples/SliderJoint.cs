@@ -166,6 +166,7 @@ public sealed class SliderJoint : SandboxExampleBehaviour
             {
                 bodyA = groundBody,
                 bodyB = body,
+                autoAxis = false,
                 localAnchorA = new PhysicsTransform(groundBody.GetLocalPoint(jointPivot), slideRotation),
                 localAnchorB = new PhysicsTransform(body.GetLocalPoint(jointPivot), slideRotation),
                 drawScale = 2f,

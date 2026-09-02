@@ -56,7 +56,6 @@ public class DebugView : MonoBehaviour, IFoldable
     private Label m_StoreImpulsesElement;
     private Label m_SolveContinuousElement;
     private Label m_IntegrateTransformsElement;
-    private Label m_ApplyBouncinessElement;
     private Label m_BroadphaseUpdatesElement;
     private Label m_SplitIslandsElement;
     private Label m_SleepIslandsElement;
@@ -172,7 +171,6 @@ public class DebugView : MonoBehaviour, IFoldable
             m_StoreImpulsesElement = root.Q<Label>("store-impulses");
             m_SolveContinuousElement = root.Q<Label>("solve-continuous");
             m_IntegrateTransformsElement = root.Q<Label>("integrate-transforms");
-            m_ApplyBouncinessElement = root.Q<Label>("apply-bounciness");
             m_BroadphaseUpdatesElement = root.Q<Label>("broadphase-updates");
             m_SplitIslandsElement = root.Q<Label>("split-islands");
             m_SleepIslandsElement = root.Q<Label>("sleep-islands");
@@ -268,7 +266,6 @@ public class DebugView : MonoBehaviour, IFoldable
         m_StoreImpulsesElement.text = $"{color}{m_LastProfile.storeImpulses:F2}{endColor} ~[{color}{m_TotalProfile.storeImpulses * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.storeImpulses:F2}{endColor}]";
         m_SolveContinuousElement.text = $"{color}{m_LastProfile.solveContinuous:F2}{endColor} ~[{color}{m_TotalProfile.solveContinuous * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.solveContinuous:F2}{endColor}]";
         m_IntegrateTransformsElement.text = $"{color}{m_LastProfile.integrateTransforms:F2}{endColor} ~[{color}{m_TotalProfile.integrateTransforms * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.integrateTransforms:F2}{endColor}]";
-        m_ApplyBouncinessElement.text = $"{color}{m_LastProfile.applyBounciness:F2}{endColor} ~[{color}{m_TotalProfile.applyBounciness * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.applyBounciness:F2}{endColor}]";
         m_BroadphaseUpdatesElement.text = $"{color}{m_LastProfile.broadphaseUpdates:F2}{endColor} ~[{color}{m_TotalProfile.broadphaseUpdates * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.broadphaseUpdates:F2}{endColor}]";
         m_SplitIslandsElement.text = $"{color}{m_LastProfile.splitIslands:F2}{endColor} ~[{color}{m_TotalProfile.splitIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.splitIslands:F2}{endColor}]";
         m_SleepIslandsElement.text = $"{color}{m_LastProfile.sleepIslands:F2}{endColor} ~[{color}{m_TotalProfile.sleepIslands * sampleScale:F2}{endColor}] >[{color}{m_MaxProfile.sleepIslands:F2}{endColor}]";

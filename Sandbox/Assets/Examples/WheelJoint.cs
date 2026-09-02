@@ -157,6 +157,7 @@ public sealed class WheelJoint : SandboxExampleBehaviour
             {
                 bodyA = groundBody,
                 bodyB = body,
+                autoAxis = false,
                 localAnchorA = new PhysicsTransform(groundBody.GetLocalPoint(jointPivot), wheelRotation),
                 localAnchorB = PhysicsTransform.identity,
                 drawScale = 2f,

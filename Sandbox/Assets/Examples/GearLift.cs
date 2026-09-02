@@ -330,6 +330,7 @@ public sealed class GearLift : SandboxExampleBehaviour
                 {
                     bodyA = groundBody,
                     bodyB = body,
+                    autoAxis = false,
                     localAnchorA = new PhysicsTransform(groundBody.GetLocalPoint(doorPosition), PhysicsRotate.up),
                     localAnchorB = new PhysicsTransform(Vector2.zero, PhysicsRotate.up),
                     maxMotorForce = 0.2f,

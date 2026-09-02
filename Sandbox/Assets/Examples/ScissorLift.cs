@@ -99,6 +99,7 @@ public sealed class ScissorLift : SandboxExampleBehaviour
                 {
                     bodyA = base2,
                     bodyB = body2,
+                    autoAxis = false,
                     localAnchorA = baseAnchor2,
                     localAnchorB = new PhysicsTransform(new Vector2(2.5f, 0.0f)),
                     enableSpring = false,
@@ -155,6 +156,7 @@ public sealed class ScissorLift : SandboxExampleBehaviour
         {
             bodyA = platform,
             bodyB = base2,
+            autoAxis = false,
             localAnchorA = new PhysicsTransform(new Vector2(2.5f, -0.4f)),
             localAnchorB = baseAnchor2,
             enableSpring = false,
