@@ -10,8 +10,6 @@ This repository contains test projects, examples, and a test package for Unity's
 
 `Packages/com.unity.2d.physics.extras` is a shared local package referenced by the PhysicsCore2D projects.
 
-`.claude/` contains skills you can copy into your own `.claude` folder to better work with PhysicsCore2D.
-
 - [Dev Videos](https://www.youtube.com/c/melvmay/videos)
 
 ---
