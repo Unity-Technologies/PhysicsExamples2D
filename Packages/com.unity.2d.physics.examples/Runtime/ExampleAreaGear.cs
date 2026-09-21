@@ -21,13 +21,13 @@ namespace Unity.U2D.Physics.Examples
         /// </summary>
         /// <remarks>
         /// Measured to the base of the cogs, so the gear reaches this plus <see cref="cogHeight"/> in total.
-        /// Values below 0.01 are raised to it, because a hub with no radius is not a shape.
+        /// Values below zero are raised to it. A radius of zero builds no hub at all, leaving the cogs meeting at the center.
         /// Changing this does not update the running shapes until you call <see cref="PhysicsArea.ApplyGeometry"/>.
         /// </remarks>
         public float radius
         {
             get => m_Radius;
-            set => m_Radius = Mathf.Max(value, MinimumSize);
+            set => m_Radius = Mathf.Max(value, 0f);
         }
 
         /// <summary>
@@ -47,26 +47,26 @@ namespace Unity.U2D.Physics.Examples
         /// How wide each cog is across the face of the gear, in world units.
         /// </summary>
         /// <remarks>
-        /// Values below 0.01 are raised to it, because a cog with no width is not a shape. Widen the cogs past the spacing the hub allows and neighboring cogs overlap into one solid rim.
+        /// Values below 0.05 are raised to it, because a cog that small is not a shape worth building. Widen the cogs past the spacing the hub allows and neighboring cogs overlap into one solid rim.
         /// Changing this does not update the running shapes until you call <see cref="PhysicsArea.ApplyGeometry"/>.
         /// </remarks>
         public float cogWidth
         {
             get => m_CogWidth;
-            set => m_CogWidth = Mathf.Max(value, MinimumSize);
+            set => m_CogWidth = Mathf.Max(value, MinimumCogSize);
         }
 
         /// <summary>
         /// How far each cog stands out from the hub, in world units.
         /// </summary>
         /// <remarks>
-        /// Values below 0.01 are raised to it, because a cog with no height is not a shape. This is what decides how far apart two gears can sit and still reach each other.
+        /// Values below 0.05 are raised to it, because a cog that small is not a shape worth building. This is what decides how far apart two gears can sit and still reach each other.
         /// Changing this does not update the running shapes until you call <see cref="PhysicsArea.ApplyGeometry"/>.
         /// </remarks>
         public float cogHeight
         {
             get => m_CogHeight;
-            set => m_CogHeight = Mathf.Max(value, MinimumSize);
+            set => m_CogHeight = Mathf.Max(value, MinimumCogSize);
         }
 
         /// <summary>
@@ -154,12 +154,12 @@ namespace Unity.U2D.Physics.Examples
         // The fewest cogs a gear can have. One is lopsided but valid, so nothing higher is enforced.
         private const int MinimumCogCount = 1;
 
-        // The smallest any dimension can be. Zero is degenerate here: a circle with no radius and a box with no extent are not shapes at all.
+        // The smallest either side of a cog can be. A box this small is not worth building, and the rounding on its corners has no room left to sit in.
         // A constant rather than a derived value, so the Min attribute and the property clamps agree and nothing is silently corrected after the user types it.
-        private const float MinimumSize = 0.01f;
+        private const float MinimumCogSize = 0.05f;
 
         [Tooltip("The radius of the hub the cogs are set around, in world units.")]
-        [Min(MinimumSize)]
+        [Min(0f)]
         [SerializeField] private float m_Radius = 1f;
 
         [Tooltip("How many cogs are set evenly around the hub.")]
@@ -167,11 +167,11 @@ namespace Unity.U2D.Physics.Examples
         [SerializeField] private int m_CogCount = 12;
 
         [Tooltip("How wide each cog is across the face of the gear, in world units.")]
-        [Min(MinimumSize)]
+        [Min(MinimumCogSize)]
         [SerializeField] private float m_CogWidth = 0.25f;
 
         [Tooltip("How far each cog stands out from the hub, in world units.")]
-        [Min(MinimumSize)]
+        [Min(MinimumCogSize)]
         [SerializeField] private float m_CogHeight = 0.5f;
 
         [Tooltip("How far the corners of each cog are rounded off, in world units.")]
