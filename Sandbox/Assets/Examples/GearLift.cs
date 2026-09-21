@@ -119,115 +119,38 @@ public sealed class GearLift : SandboxExampleBehaviour
         }
 
         const float gearRadius = 1.0f;
-        const float toothHalfWidth = 0.09f;
-        const float toothHalfHeight = 0.06f;
-        const float toothRadius = 0.03f;
         const float linkHalfLength = 0.07f;
         const float linkRadius = 0.05f;
         const int linkCount = 40;
         const float doorHalfHeight = 1.5f;
 
+        // The gears take the default contact filter, which is what they used when their shapes were built here.
+        var gearContactFilter = PhysicsShapeDefinition.defaultDefinition.contactFilter;
+
         var gearPosition1 = new Vector2(-4.25f + 0.15f, 10.25f - 1.6f);
         var gearPosition2 = gearPosition1 + new Vector2(2.0f + 0.15f, 1.0f - 1.6f);
-        var linkAttachPosition = gearPosition2 + new Vector2(gearRadius + 2.0f * toothHalfWidth + toothRadius, 0.0f);
+
+        // The links hang from just past the tips of the follower's teeth, so the reach is taken from the factory's tooth scales rather than restated here.
+        var linkAttachPosition = gearPosition2 + new Vector2(gearRadius * (1f + 2f * GearFactory.ToothHalfWidthScale + GearFactory.ToothRadiusScale), 0f);
         var doorPosition = linkAttachPosition - new Vector2(0.0f, 2.0f * linkCount * linkHalfLength + doorHalfHeight);
 
+        // Drive Gear.
         {
-            var bodyDef = new PhysicsBodyDefinition
-            {
-                type = PhysicsBody.BodyType.Dynamic,
-                position = gearPosition1
-            };
-
-            var gearBody = world.CreateBody(bodyDef);
-
-            var shapeDef = new PhysicsShapeDefinition
-            {
-                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.saddleBrown }
-            };
-
-            var circle = new CircleGeometry { radius = gearRadius };
-            gearBody.CreateShape(circle, shapeDef);
-
-            const int count = 16;
-            var deltaAngle = PhysicsMath.TAU / 16f;
-            var dq = PhysicsRotate.FromRadians(deltaAngle);
-            var center = new Vector2(gearRadius + toothHalfHeight, 0f);
-            var rotation = PhysicsRotate.identity;
-
-            for (var i = 0; i < count; ++i)
-            {
-                var tooth = PolygonGeometry.CreateBox(
-                    size: new Vector2(toothHalfWidth, toothHalfHeight) * 2f,
-                    radius: toothRadius,
-                    transform: new PhysicsTransform(center, rotation));
-
-                shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.gray };
-                gearBody.CreateShape(tooth, shapeDef);
-
-                rotation = dq.MultiplyRotation(rotation);
-                center = rotation.RotateVector(new Vector2(gearRadius + toothHalfHeight, 0.0f));
-            }
-
             var jointDef = new PhysicsHingeJointDefinition
             {
-                bodyA = groundBody,
-                bodyB = gearBody,
-                localAnchorA = groundBody.GetLocalPoint(gearPosition1),
-                localAnchorB = Vector2.zero,
                 enableMotor = m_UseMotor,
                 maxMotorTorque = m_MaxMotorTorque,
                 motorSpeed = m_MotorSpeed
             };
 
-            m_GearMotor = world.CreateJoint(jointDef);
+            GearFactory.Spawn(world, groundBody, SandboxManager, gearContactFilter, gearPosition1, gearRadius, jointDef, out m_GearMotor);
         }
 
+        // Follower Gear.
         PhysicsBody followerBody;
         {
-            var position = gearPosition2;
-            var bodyDef = new PhysicsBodyDefinition
-            {
-                type = PhysicsBody.BodyType.Dynamic,
-                position = position
-            };
-
-            followerBody = world.CreateBody(bodyDef);
-
-            var shapeDef = new PhysicsShapeDefinition
-            {
-                surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.saddleBrown }
-            };
-
-            var circle = new CircleGeometry { radius = gearRadius };
-            followerBody.CreateShape(circle, shapeDef);
-
-            const int count = 16;
-            var deltaAngle = PhysicsMath.TAU / 16f;
-            var dq = PhysicsRotate.FromRadians(deltaAngle);
-            var center = new Vector2(gearRadius + toothHalfWidth, 0f);
-            var rotation = PhysicsRotate.identity;
-
-            for (var i = 0; i < count; ++i)
-            {
-                var tooth = PolygonGeometry.CreateBox(
-                    size: new Vector2(toothHalfWidth, toothHalfHeight) * 2f,
-                    radius: toothRadius,
-                    transform: new PhysicsTransform(center, rotation));
-
-                shapeDef.surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.1f, customColor = Color.gray };
-                followerBody.CreateShape(tooth, shapeDef);
-
-                rotation = dq.MultiplyRotation(rotation);
-                center = rotation.RotateVector(new Vector2(gearRadius + toothHalfHeight, 0f));
-            }
-
             var jointDef = new PhysicsHingeJointDefinition
             {
-                bodyA = groundBody,
-                bodyB = followerBody,
-                localAnchorA = groundBody.GetLocalPoint(position),
-                localAnchorB = PhysicsTransform.identity,
                 enableMotor = true,
                 maxMotorTorque = 0.5f,
                 enableLimit = true,
@@ -235,7 +158,7 @@ public sealed class GearLift : SandboxExampleBehaviour
                 upperAngleLimit = PhysicsMath.ToDegrees(0.8f * PhysicsMath.PI)
             };
 
-            world.CreateJoint(jointDef);
+            followerBody = GearFactory.Spawn(world, groundBody, SandboxManager, gearContactFilter, gearPosition2, gearRadius, jointDef, out _);
         }
 
         PhysicsBody lastLinkBody;
