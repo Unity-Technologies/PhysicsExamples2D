@@ -7,7 +7,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Scripting.LifecycleManagement;
 
-namespace Unity.U2D.Physics
+namespace Unity.U2D.Physics.Examples
 {
     /// <summary>
     /// Merges overlapping and touching geometry into the surfaces of their union, at a cost proportional to what changed rather than to the whole set.
@@ -16,7 +16,7 @@ namespace Unity.U2D.Physics
     /// Contour groups go in and chain segments come out. Adding and removing are bookkeeping only; all the work happens in <see cref="Compute"/>.
     /// Each produced segment occupies a slot that persists for as long as that segment exists, so a caller's shapes stay married to their slots and only the reported slots need touching.
     /// </remarks>
-    public sealed partial class PhysicsGeometrySegmenter : IDisposable
+    public sealed partial class ExampleGeometrySegmenter : IDisposable
     {
         /// <summary>
         /// Create a segmenter.
@@ -27,7 +27,7 @@ namespace Unity.U2D.Physics
         /// the distance physics treats as insignificant, and passing zero or less does exactly that. See <see cref="defaultTolerance"/>.
         /// </remarks>
         /// <param name="tolerance">How far apart two vertices, or two lines, may be and still be treated as one, in world units. Zero or less follows the project's scale.</param>
-        public PhysicsGeometrySegmenter(float tolerance = 0f)
+        public ExampleGeometrySegmenter(float tolerance = 0f)
         {
             m_Tolerance = tolerance > 0f ? tolerance : defaultTolerance;
 
@@ -697,7 +697,7 @@ namespace Unity.U2D.Physics
         private void ThrowIfDisposed()
         {
             if (m_Disposed)
-                throw new ObjectDisposedException(nameof(PhysicsGeometrySegmenter));
+                throw new ObjectDisposedException(nameof(ExampleGeometrySegmenter));
         }
 
         // Changing what work in flight is reading would corrupt its answer, so anything that changes the input is refused until
@@ -705,7 +705,7 @@ namespace Unity.U2D.Physics
         private void ThrowIfPending()
         {
             if (m_Pending)
-                throw new InvalidOperationException($"{nameof(PhysicsGeometrySegmenter)} holds results from a previous {nameof(Compute)} that have not been read. Read them before changing the geometry or computing again.");
+                throw new InvalidOperationException($"{nameof(ExampleGeometrySegmenter)} holds results from a previous {nameof(Compute)} that have not been read. Read them before changing the geometry or computing again.");
         }
 
         // Wait for the scheduled work, then place its segments into slots, which is what turns them into results a caller can read.

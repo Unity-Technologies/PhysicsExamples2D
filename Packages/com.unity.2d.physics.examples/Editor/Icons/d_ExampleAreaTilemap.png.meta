@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ccbda15d9cf33f748b90a5b1bf11f01c
+guid: 01820c9c5a0569e42b77a83b4266cbb7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6246447005295785276
-    second: PhysicsAreaTilemap_0
+      213: -915720439297548916
+    second: d_PhysicsAreaTilemap_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -111,11 +111,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PhysicsAreaTilemap_0
+      name: d_PhysicsAreaTilemap_0
       rect:
         serializedVersion: 2
         x: 2
@@ -130,8 +143,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c3535fac476dfa650800000000000000
-      internalID: 6246447005295785276
+      spriteID: c8dda16bc15ba43f0800000000000000
+      internalID: -915720439297548916
       vertices: []
       indices: 
       edges: []
@@ -150,9 +163,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PhysicsAreaTilemap_0: 6246447005295785276
+      d_PhysicsAreaTilemap_0: -915720439297548916
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 21037, guid: 0000000000000000e000000000000000, type: 0}

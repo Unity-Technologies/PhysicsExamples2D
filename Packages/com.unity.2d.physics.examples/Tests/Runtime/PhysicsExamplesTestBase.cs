@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Unity.U2D.Physics.Extras.Tests
+namespace Unity.U2D.Physics.Examples.Tests
 {
-    // Shared base for the extras component tests.
+    // Shared base for the example component tests.
     // It tracks every object a test creates and destroys them all in TearDown, so each test starts from a clean scene.
-    public abstract class PhysicsExtrasTestBase
+    public abstract class PhysicsExamplesTestBase
     {
         private readonly List<Object> m_Created = new();
 

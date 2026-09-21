@@ -1,5 +1,5 @@
 {
-  "name": "Unity.U2D.Physics.Extras",
+  "name": "Unity.U2D.Physics.Examples",
   "references": [
     "Unity.U2D.Physics",
     "Unity.Burst",

@@ -4,7 +4,7 @@ This repository contains test projects, examples, and a test package for Unity's
 
 - [Sandbox Project](Sandbox/README.md) — interactive playground scenes
 - [Primer Project](Primer/README.md) — focused single-concept examples
-- [Extras Package](Packages/com.unity.2d.physics.extras/README.md) - unsupported experimental extras
+- [Examples Package](Packages/com.unity.2d.physics.examples/README.md) - unsupported experimental example components
 - [OldPhysics2D](OldPhysics2D/README.md) — examples that use the older "Physics2D" component API.
 - `.claude/` contains skills you can copy into your own `.claude` folder to better work with PhysicsCore2D.
 

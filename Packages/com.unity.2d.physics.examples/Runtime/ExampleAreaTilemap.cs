@@ -4,7 +4,7 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Unity.U2D.Physics
+namespace Unity.U2D.Physics.Examples
 {
     /// <summary>
     /// Produces shapes from the occupied cells of a Tilemap.
@@ -14,10 +14,10 @@ namespace Unity.U2D.Physics
     /// and its cells should be free to carry different surface materials, neither of which the area contract allows.
     /// Owning the shapes is also what lets <see cref="OutputType.Segments"/> update only the shapes an edit disturbed.
     /// </remarks>
-    [AddComponentMenu("Physics 2D (Core)/Physics Area Tilemap", 41)]
-    [Icon("Packages/com.unity.2d.physics.extras/Editor/Icons/PhysicsAreaTilemap.png")]
+    [AddComponentMenu("Physics 2D (Core)/Example Area Tilemap", 41)]
+    [Icon("Packages/com.unity.2d.physics.examples/Editor/Icons/ExampleAreaTilemap.png")]
     [PhysicsCustomProperties]
-    public sealed class PhysicsAreaTilemap : PhysicsPoseProvider, PhysicsCallbacks.ITransformChangedCallback, IPhysicsSelectable
+    public sealed class ExampleAreaTilemap : PhysicsPoseProvider, PhysicsCallbacks.ITransformChangedCallback, IPhysicsSelectable
     {
         /// <summary>
         /// How the occupied cells become shapes.
@@ -93,7 +93,7 @@ namespace Unity.U2D.Physics
         /// </remarks>
         public float activeSegmentTolerance => m_SegmentTolerance > 0f
             ? Mathf.Max(m_SegmentTolerance, PhysicsWorld.linearSlop)
-            : PhysicsGeometrySegmenter.defaultTolerance;
+            : ExampleGeometrySegmenter.defaultTolerance;
 
         /// <summary>
         /// The shape definition every produced shape is created with.
@@ -609,7 +609,7 @@ namespace Unity.U2D.Physics
             if (m_Segmenter != null)
                 return;
 
-            m_Segmenter = new PhysicsGeometrySegmenter(activeSegmentTolerance);
+            m_Segmenter = new ExampleGeometrySegmenter(activeSegmentTolerance);
             m_CellGroups = new NativeHashMap<Vector3Int, PhysicsHandle>(InitialShapeCapacity, Allocator.Persistent);
             m_GroupCells = new NativeHashMap<PhysicsHandle, Vector3Int>(InitialShapeCapacity, Allocator.Persistent);
 
@@ -752,7 +752,7 @@ namespace Unity.U2D.Physics
         private NativeList<PhysicsShape> m_Shapes;
 
         // Segment state, alive only while that output is selected: the merged surface and which group each cell owns.
-        private PhysicsGeometrySegmenter m_Segmenter;
+        private ExampleGeometrySegmenter m_Segmenter;
         // Which group each cell was added as, and the cell each group stands for, so a produced segment can name its tile.
         private NativeHashMap<Vector3Int, PhysicsHandle> m_CellGroups;
         private NativeHashMap<PhysicsHandle, Vector3Int> m_GroupCells;

@@ -4,15 +4,15 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Unity.U2D.Physics.Extras.Tests
+namespace Unity.U2D.Physics.Examples.Tests
 {
-    // Covers PhysicsAreaTilemap turning a Tilemap's occupied cells into shapes on the body of its owning pose.
+    // Covers ExampleAreaTilemap turning a Tilemap's occupied cells into shapes on the body of its owning pose.
     // The focus is the two output modes and what a tile change costs: Polygons emits per-cell polygons, Segments emits
     // the merged surface as chain segments and reuses its shapes rather than recreating them.
     // The component derives PhysicsPoseProvider rather than PhysicsArea, because a tilemap holds no geometry of its own,
     // so it owns its shapes and there is no area machinery under it to lean on.
     // Play-mode (runtime) tests so they run in a built player.
-    public class PhysicsAreaTilemapTests : PhysicsExtrasTestBase
+    public class ExampleAreaTilemapTests : PhysicsExamplesTestBase
     {
         #region Polygons
 
@@ -22,7 +22,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Polygons;
+            area.output = ExampleAreaTilemap.OutputType.Polygons;
 
             // The test sprite's outline is one square, so each of the nine cells contributes one polygon.
             Assert.That(area.shapeCount, Is.EqualTo(9));
@@ -34,7 +34,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             map.SetTile(new Vector3Int(2, 3, 0), m_Tile);
 
-            area.output = PhysicsAreaTilemap.OutputType.Polygons;
+            area.output = ExampleAreaTilemap.OutputType.Polygons;
 
             foreach (var shape in area.GetShapes())
                 Assert.That(shape.ownerUserData.vector3IntValue, Is.EqualTo(new Vector3Int(2, 3, 0)));
@@ -50,7 +50,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             // Twelve cell edges bound a solid three by three block; the twelve interior joins all cancel. Collinear edges are not
             // joined into one segment, because each belongs to a different cell and a segment reports the cell it came from.
@@ -63,7 +63,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
             map.SetTile(new Vector3Int(1, 1, 0), null);
 
             // The outer perimeter plus the four walls facing into the gap, which are real collidable surfaces.
@@ -76,7 +76,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
             map.SetTile(new Vector3Int(1, 1, 0), null);
             map.SetTile(new Vector3Int(1, 1, 0), m_Tile);
 
@@ -90,7 +90,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             for (var y = 0; y < 3; ++y)
             {
@@ -107,7 +107,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             map.SetTile(Vector3Int.zero, m_Tile);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             var segments = new List<ChainSegmentGeometry>();
             foreach (var shape in area.GetShapes())
@@ -138,7 +138,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             // Every surviving surface came from exactly one cell's outline, so each shape names a cell inside the painted block.
             foreach (var shape in area.GetShapes())
@@ -156,10 +156,10 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
             Assert.That(area.shapeCount, Is.EqualTo(12));
 
-            area.output = PhysicsAreaTilemap.OutputType.Polygons;
+            area.output = ExampleAreaTilemap.OutputType.Polygons;
             Assert.That(area.shapeCount, Is.EqualTo(9));
         }
 
@@ -173,7 +173,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 5, 5);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             var before = ShapeSnapshot(area);
             map.SetTile(new Vector3Int(2, 2, 0), null);
@@ -190,7 +190,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 5, 5);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             var before = ShapeSnapshot(area);
             map.SetTile(new Vector3Int(0, 0, 0), null);
@@ -211,7 +211,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out _);
 
             Assert.That(area.segmentTolerance, Is.LessThanOrEqualTo(0f), "The serialized default should defer to the project rather than name a number.");
-            Assert.That(area.activeSegmentTolerance, Is.EqualTo(PhysicsGeometrySegmenter.defaultTolerance));
+            Assert.That(area.activeSegmentTolerance, Is.EqualTo(ExampleGeometrySegmenter.defaultTolerance));
         }
 
         [Test]
@@ -232,7 +232,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             area.segmentTolerance = -5f;
 
             Assert.That(area.segmentTolerance, Is.Zero);
-            Assert.That(area.activeSegmentTolerance, Is.EqualTo(PhysicsGeometrySegmenter.defaultTolerance));
+            Assert.That(area.activeSegmentTolerance, Is.EqualTo(ExampleGeometrySegmenter.defaultTolerance));
         }
 
         [Test]
@@ -256,7 +256,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             Fill(map, 2, 1);
 
             area.segmentTolerance = 0.01f;
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             Assert.That(area.shapeCount, Is.EqualTo(8), "A gap wider than the tolerance should stop the cells merging.");
         }
@@ -269,7 +269,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             Fill(map, 2, 1);
 
             area.segmentTolerance = 0.2f;
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             Assert.That(area.shapeCount, Is.EqualTo(6), "A tolerance wider than the gap should merge the cells.");
         }
@@ -280,7 +280,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map, cellFraction: 0.9f);
             Fill(map, 2, 1);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
             area.segmentTolerance = 0.01f;
             Assert.That(area.shapeCount, Is.EqualTo(8));
 
@@ -299,7 +299,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
             var shapes = ShapeSnapshot(area);
 
             area.enabled = false;
@@ -327,7 +327,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             var area = NewTilemapArea(out var map);
             Fill(map, 3, 3);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
             area.enabled = false;
 
             // Change the map while nothing is watching, so the rebuild has to read the tiles rather than trust anything cached.
@@ -343,7 +343,7 @@ namespace Unity.U2D.Physics.Extras.Tests
         {
             var area = NewTilemapArea(out _);
 
-            area.output = PhysicsAreaTilemap.OutputType.Segments;
+            area.output = ExampleAreaTilemap.OutputType.Segments;
 
             Assert.That(area.shapeCount, Is.Zero);
         }
@@ -355,7 +355,7 @@ namespace Unity.U2D.Physics.Extras.Tests
         // A tilemap with a pose and a tilemap area on the same GameObject, so the body-relative transform is identity.
         // The cell fraction sets how much of its cell each tile's outline covers, so a value below one leaves a deliberate
         // gap between neighbours for the tolerance tests to bridge.
-        PhysicsAreaTilemap NewTilemapArea(out Tilemap map, float cellFraction = 1f)
+        ExampleAreaTilemap NewTilemapArea(out Tilemap map, float cellFraction = 1f)
         {
             var gridObject = NewObject("Grid");
             gridObject.AddComponent<Grid>();
@@ -369,7 +369,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             m_Tile = Track(ScriptableObject.CreateInstance<Tile>());
             m_Tile.sprite = NewCellSprite(cellFraction);
 
-            return mapObject.AddComponent<PhysicsAreaTilemap>();
+            return mapObject.AddComponent<ExampleAreaTilemap>();
         }
 
         // A sprite whose physics outline covers the given fraction of its cell, centered.
@@ -409,7 +409,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             }
         }
 
-        static List<PhysicsShape> ShapeSnapshot(PhysicsAreaTilemap area)
+        static List<PhysicsShape> ShapeSnapshot(ExampleAreaTilemap area)
         {
             var shapes = new List<PhysicsShape>();
             foreach (var shape in area.GetShapes())

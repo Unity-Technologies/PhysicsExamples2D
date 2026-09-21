@@ -4,18 +4,18 @@ using NUnit.Framework;
 using Unity.Collections;
 using UnityEngine;
 
-namespace Unity.U2D.Physics.Extras.Tests
+namespace Unity.U2D.Physics.Examples.Tests
 {
-    // Covers PhysicsGeometrySegmenter producing the surfaces of the union of its contour groups, as chain segments with ghost vertices.
+    // Covers ExampleGeometrySegmenter producing the surfaces of the union of its contour groups, as chain segments with ghost vertices.
     // Three properties are checked: the surfaces match a known-good boolean union, the ghosts close into loops, and an
     // incremental build agrees exactly with a rebuild from nothing.
     // The reference union comes from PhysicsComposer, which already performs a correct merge, so these tests compare against
     // the engine rather than against a hand-written expectation.
     // Play-mode (runtime) tests so they run in a built player.
-    public class PhysicsGeometrySegmenterTests : PhysicsExtrasTestBase
+    public class ExampleGeometrySegmenterTests : PhysicsExamplesTestBase
     {
         [SetUp]
-        public void CreateSegmenter() => m_Segmenter = new PhysicsGeometrySegmenter(Tolerance);
+        public void CreateSegmenter() => m_Segmenter = new ExampleGeometrySegmenter(Tolerance);
 
         [TearDown]
         public void DisposeSegmenter()
@@ -191,7 +191,7 @@ namespace Unity.U2D.Physics.Extras.Tests
 
             var incremental = OccupiedSegments();
 
-            using var fresh = new PhysicsGeometrySegmenter(Tolerance);
+            using var fresh = new ExampleGeometrySegmenter(Tolerance);
             foreach (var group in groups)
                 fresh.Add(group, PhysicsTransform.identity);
 
@@ -216,7 +216,7 @@ namespace Unity.U2D.Physics.Extras.Tests
             m_Segmenter.Remove(handles[Removed]);
             Compute(m_Segmenter);
 
-            using var fresh = new PhysicsGeometrySegmenter(Tolerance);
+            using var fresh = new ExampleGeometrySegmenter(Tolerance);
             for (var i = 0; i < groups.Count; ++i)
             {
                 if (i != Removed)
@@ -548,7 +548,7 @@ namespace Unity.U2D.Physics.Extras.Tests
 
         // Computing hands back a job handle and the segmenter holds its results until one is read, so finishing the work means
         // reading something. A test that only wants the geometry settled before changing it again reads the slot count.
-        static void Compute(PhysicsGeometrySegmenter segmenter)
+        static void Compute(ExampleGeometrySegmenter segmenter)
         {
             segmenter.Compute();
 
@@ -575,7 +575,7 @@ namespace Unity.U2D.Physics.Extras.Tests
 
         List<ChainSegmentGeometry> OccupiedSegments() => SegmentsOf(m_Segmenter);
 
-        static List<ChainSegmentGeometry> SegmentsOf(PhysicsGeometrySegmenter segmenter)
+        static List<ChainSegmentGeometry> SegmentsOf(ExampleGeometrySegmenter segmenter)
         {
             var segments = new List<ChainSegmentGeometry>();
             for (var slot = 0; slot < segmenter.slotCount; ++slot)
@@ -703,7 +703,7 @@ namespace Unity.U2D.Physics.Extras.Tests
 
         const float Tolerance = 0.01f;
 
-        PhysicsGeometrySegmenter m_Segmenter;
+        ExampleGeometrySegmenter m_Segmenter;
 
         #endregion
     }
