@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6ebc245ff03b44289ea91c3f012973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ToolboxManager
-  StartScene: Template
+  StartScene: Barrel
   DebugView: {fileID: 482454012}
   BottomLeftMenu: {fileID: 358065833}
   ControlsMenu: {fileID: 1110951634}
