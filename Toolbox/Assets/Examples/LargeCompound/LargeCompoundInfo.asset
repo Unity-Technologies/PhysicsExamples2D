@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Large Compound
   m_Category: Benchmarks
   m_Description: Many large dynamic compound bodies dropped into a container.
+  m_State:
+    overriddenDrawOptions: 0
+    fixedDrawOptions: 0
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

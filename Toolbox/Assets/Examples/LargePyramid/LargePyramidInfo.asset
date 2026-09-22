@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Large Pyramid
   m_Category: Benchmarks
   m_Description: A large pyramid of boxes stress-testing stacking stability.
+  m_State:
+    overriddenDrawOptions: 0
+    fixedDrawOptions: 0
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

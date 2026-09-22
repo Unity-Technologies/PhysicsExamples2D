@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Large Kinematic
   m_Category: Benchmarks
   m_Description: A single large rotating kinematic body composed of many shapes.
+  m_State:
+    overriddenDrawOptions: 0
+    fixedDrawOptions: 0
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

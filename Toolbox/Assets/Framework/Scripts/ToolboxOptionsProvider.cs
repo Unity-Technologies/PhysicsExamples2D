@@ -23,10 +23,14 @@ public abstract class ToolboxOptionsProvider : MonoBehaviour
     /// Adds a float slider to the options panel and returns it, so a caller can update it later.
     /// The value passed in is the slider's starting value, so the field it writes to stays the single place the default lives.
     /// </summary>
+    /// <remarks>
+    /// The callback runs when the drag ends rather than as the handle moves, so a control that rebuilds an example does that once per drag.
+    /// Typing in the slider's field or nudging it with the arrow keys still takes effect straight away.
+    /// </remarks>
     protected Slider AddSlider(string label, float value, float low, float high, Action<float> onChanged)
     {
         var slider = new Slider(label, low, high) { value = value, showInputField = true, fill = true, focusable = false };
-        slider.RegisterValueChangedCallback(evt => onChanged?.Invoke(evt.newValue));
+        DeferUntilSettled<Slider, float>(slider, onChanged);
 
         return AddElement(slider);
     }
@@ -34,10 +38,14 @@ public abstract class ToolboxOptionsProvider : MonoBehaviour
     /// <summary>
     /// Adds a whole number slider to the options panel and returns it, so a caller can update it later.
     /// </summary>
+    /// <remarks>
+    /// The callback runs when the drag ends rather than as the handle moves, so a control that rebuilds an example does that once per drag.
+    /// Typing in the slider's field or nudging it with the arrow keys still takes effect straight away.
+    /// </remarks>
     protected SliderInt AddSliderInt(string label, int value, int low, int high, Action<int> onChanged)
     {
         var slider = new SliderInt(label, low, high) { value = value, showInputField = true, fill = true, focusable = false };
-        slider.RegisterValueChangedCallback(evt => onChanged?.Invoke(evt.newValue));
+        DeferUntilSettled<SliderInt, int>(slider, onChanged);
 
         return AddElement(slider);
     }
@@ -81,10 +89,27 @@ public abstract class ToolboxOptionsProvider : MonoBehaviour
     /// </summary>
     protected ControlsMenu controlsMenu => m_ControlsMenu;
 
+    /// <summary>
+    /// The Toolbox itself, for the few controls that change something the Toolbox owns rather than something in the example scene.
+    /// Anything an example wants set for its whole lifetime should be declared on its <see cref="ToolboxExampleInfo"/> instead, since that is applied before the scene loads and put back when it unloads.
+    /// </summary>
+    protected ToolboxManager toolbox => m_Toolbox;
+
+    // Reports a slider's value once it stops moving, rather than on every step of a drag, so a control that rebuilds an example does that once instead of on every frame of the drag.
+    // Each change pushes the report back, so a drag reports only when the handle comes to rest, and typing a value or nudging it with the arrow keys reports a moment later.
+    private static void DeferUntilSettled<TSlider, TValue>(TSlider slider, Action<TValue> onChanged) where TSlider : BaseSlider<TValue> where TValue : IComparable<TValue>
+    {
+        var pendingReport = slider.schedule.Execute(() => onChanged?.Invoke(slider.value));
+        pendingReport.Pause();
+
+        slider.RegisterValueChangedCallback(_ => pendingReport.ExecuteLater(SettleMilliseconds));
+    }
+
     // Connects the provider to the menu's panel and control bar, then lets the example build its controls.
     // Only the UI calls this, once, after the example scene has loaded.
-    internal void BuildOptions(VisualElement optionsContent, ControlsMenu controlsMenu)
+    internal void BuildOptions(ToolboxManager toolbox, VisualElement optionsContent, ControlsMenu controlsMenu)
     {
+        m_Toolbox = toolbox;
         m_OptionsContent = optionsContent;
         m_ControlsMenu = controlsMenu;
 
@@ -93,6 +118,11 @@ public abstract class ToolboxOptionsProvider : MonoBehaviour
 
     #region Internal
 
+    // How long a slider must hold still before its value is reported, in milliseconds.
+    // Long enough that a drag reports once, short enough that typing a value feels immediate.
+    const long SettleMilliseconds = 150;
+
+    ToolboxManager m_Toolbox;
     VisualElement m_OptionsContent;
     ControlsMenu m_ControlsMenu;
 

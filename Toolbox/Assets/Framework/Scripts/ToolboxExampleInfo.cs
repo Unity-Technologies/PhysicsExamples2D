@@ -37,6 +37,12 @@ public sealed class ToolboxExampleInfo : ScriptableObject
     /// </summary>
     public string scenePath => m_ScenePath;
 
+    /// <summary>
+    /// The global settings this example asks the Toolbox to change while it is loaded, such as forcing joints to be drawn.
+    /// Anything left at its default is not touched, and anything changed is put back when the example unloads.
+    /// </summary>
+    public ToolboxExampleState state => m_State;
+
 #if UNITY_EDITOR
 
     // Copies the assigned scene's path into the serialized string the runtime reads.
@@ -66,6 +72,7 @@ public sealed class ToolboxExampleInfo : ScriptableObject
     [SerializeField] string m_ExampleName;
     [SerializeField] string m_Category = "Uncategorized";
     [SerializeField, TextArea] string m_Description;
+    [SerializeField] ToolboxExampleState m_State;
 
     #endregion
 }

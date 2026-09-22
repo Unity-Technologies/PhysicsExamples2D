@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Funnel
   m_Category: Benchmarks
   m_Description: Continuously spawns a mix of object types falling through a funnel.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 0
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

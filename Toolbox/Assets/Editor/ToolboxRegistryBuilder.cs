@@ -61,7 +61,8 @@ internal static class ToolboxRegistryBuilder
                 exampleName = info.exampleName,
                 category = string.IsNullOrEmpty(info.category) ? "Uncategorized" : info.category,
                 description = info.description,
-                scenePath = info.scenePath
+                scenePath = info.scenePath,
+                state = info.state
             });
         }
 

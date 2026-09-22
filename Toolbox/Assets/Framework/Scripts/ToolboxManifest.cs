@@ -38,6 +38,11 @@ public sealed class ToolboxManifest : ScriptableObject
         /// Project relative path of the scene to load, for example "Assets/Examples/Hinge/Hinge.unity".
         /// </summary>
         public string scenePath;
+
+        /// <summary>
+        /// The global settings this example asks the Toolbox to change while it is loaded.
+        /// </summary>
+        public ToolboxExampleState state;
     }
 
     /// <summary>

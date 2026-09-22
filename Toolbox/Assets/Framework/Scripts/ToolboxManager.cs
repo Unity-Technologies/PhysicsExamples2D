@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Jobs.LowLevel.Unsafe;
@@ -108,6 +109,8 @@ public class ToolboxManager : MonoBehaviour, IFoldable
     public DebugView DebugView;
     public BottomLeftMenu BottomLeftMenu;
     public ControlsMenu ControlsMenu;
+    public LoadingOverlay LoadingOverlay;
+    public GameObject FallbackCamera;
 
     // Override state.
     private FrequencySelection m_FrequencySelection;
@@ -193,6 +196,12 @@ public class ToolboxManager : MonoBehaviour, IFoldable
     // Both are empty until the first example loads.
     private Scene m_LoadedExampleScene;
     private string m_LoadedExampleName = string.Empty;
+
+    // The global settings the loaded example asked for, and the values they replaced.
+    // Only the settings the example actually asked for are saved, so anything it left alone is never written back over a change the player made in the menu.
+    private ToolboxExampleState m_AppliedExampleState;
+    private bool m_SavedWorldSleeping;
+    private float m_SavedMaximumDeltaTime;
 
     /// <summary>
     /// The generated list of every example available in the menu.
@@ -799,12 +808,12 @@ public class ToolboxManager : MonoBehaviour, IFoldable
 
         // Reloading the example scene restores it from what is saved on disk, which is the whole reset for a scene of components.
         if (!string.IsNullOrEmpty(m_LoadedExampleName))
-            LoadExample(m_LoadedExampleName);
+            LoadExample(m_LoadedExampleName, reloading: true);
     }
 
     // Loads the specified example on top of the UI scene, replacing whatever example is loaded now.
-    // Scene loading and unloading both finish a frame or more later, so the switch runs as a chain of completion steps rather than straight down this method.
-    private void LoadExample(string exampleName)
+    // The switch runs as a coroutine, because the unload, the load and the example filling itself each finish a frame or more after the one before.
+    private void LoadExample(string exampleName, bool reloading = false)
     {
         if (!m_Manifest.TryGetExample(exampleName, out var item))
         {
@@ -819,36 +828,61 @@ public class ToolboxManager : MonoBehaviour, IFoldable
         m_Switching = true;
         m_PendingExampleName = item.exampleName;
 
-        var unloadOperation = UnloadCurrentExample();
+        if (LoadingOverlay != null)
+            LoadingOverlay.Show($"{(reloading ? "Reloading" : "Loading")} \"{item.exampleName}\" example ...");
 
-        if (unloadOperation == null)
-            LoadExampleScene(item);
-        else
-            unloadOperation.completed += _ => LoadExampleScene(item);
+        StartCoroutine(SwitchExample(item));
     }
 
-    // Starts loading the example's scene once the previous one is fully gone, and connects it when it arrives.
-    private void LoadExampleScene(ToolboxManifest.ExampleItem item)
+    // Takes the loaded example down and brings the next one up, a step at a time.
+    // Both the unload and the load finish a frame or more later, and an example builds its contents in Start, so each step waits for the one before it rather than assuming it has already happened.
+    private IEnumerator SwitchExample(ToolboxManifest.ExampleItem item)
     {
+        // Everything after this blocks the main thread in places, so the overlay is given a frame to lay out and draw before any of it starts.
+        yield return null;
+        yield return new WaitForEndOfFrame();
+
+        var unloadOperation = UnloadCurrentExample();
+
+        // The outgoing example's camera has just been switched off and the incoming one does not exist yet, so something has to hold the screen or Unity reports that nothing is rendering.
+        // It is only up for the switch, so it never shares the screen with an example's own camera.
+        if (FallbackCamera != null)
+            FallbackCamera.SetActive(true);
+
+        if (unloadOperation != null)
+            yield return unloadOperation;
+
         // Reset the now empty default world, so every example starts from the same state and stays deterministic.
         // This runs before the load, so the arriving components create their physics objects into a clean world.
         ResetSceneState();
 
-        var loadOperation = SceneManager.LoadSceneAsync(item.scenePath, LoadSceneMode.Additive);
+        // Apply what the example asked for before its components exist, so the first frame it runs already has the settings it expects.
+        ApplyExampleState(item.state);
 
-        loadOperation.completed += _ =>
-        {
-            m_LoadedExampleScene = SceneManager.GetSceneByPath(item.scenePath);
-            m_LoadedExampleName = item.exampleName;
-            m_PendingExampleName = string.Empty;
-            m_Switching = false;
+        yield return SceneManager.LoadSceneAsync(item.scenePath, LoadSceneMode.Additive);
 
-            // Render settings and baked lighting come from the active scene, so the example supplies them rather than the UI.
-            if (m_LoadedExampleScene.IsValid() && m_LoadedExampleScene.isLoaded)
-                SceneManager.SetActiveScene(m_LoadedExampleScene);
+        m_LoadedExampleScene = SceneManager.GetSceneByPath(item.scenePath);
+        m_LoadedExampleName = item.exampleName;
+        m_PendingExampleName = string.Empty;
 
-            ConnectExample(item);
-        };
+        // Render settings and baked lighting come from the active scene, so the example supplies them rather than the UI.
+        if (m_LoadedExampleScene.IsValid() && m_LoadedExampleScene.isLoaded)
+            SceneManager.SetActiveScene(m_LoadedExampleScene);
+
+        ConnectExample(item);
+
+        // The example brings its own camera, so the stand-in is switched off again before it can render alongside it.
+        if (FallbackCamera != null)
+            FallbackCamera.SetActive(false);
+
+        // An example fills itself in Start, which has not run yet, so the overlay stays up for the frame that does the building and comes down once something has actually been drawn with it in place.
+        yield return null;
+        yield return new WaitForEndOfFrame();
+
+        m_Switching = false;
+
+        if (LoadingOverlay != null)
+            LoadingOverlay.Hide();
     }
 
     // Switches off and unloads the example currently loaded on top of the UI scene.
@@ -858,6 +892,7 @@ public class ToolboxManager : MonoBehaviour, IFoldable
     {
         ClearSceneOptions();
         ControlsMenu.ResetControls();
+        RestoreExampleState();
 
         m_CameraManipulator = null;
 
@@ -877,6 +912,58 @@ public class ToolboxManager : MonoBehaviour, IFoldable
         m_LoadedExampleName = string.Empty;
 
         return unloadOperation;
+    }
+
+    // Applies the global settings the specified example declared, remembering enough about each one to put it back.
+    // These settings belong to the Toolbox rather than to the scene, so nothing in an example can restore them once that example has been unloaded.
+    private void ApplyExampleState(ToolboxExampleState state)
+    {
+        m_AppliedExampleState = state;
+
+        if (state.overridesDrawOptions)
+            SetOverrideDrawOptions(state.overriddenDrawOptions, state.fixedDrawOptions);
+
+        if (state.sleeping != ToolboxExampleState.Override.Default)
+        {
+            m_SavedWorldSleeping = WorldSleeping;
+            WorldSleeping = state.sleeping == ToolboxExampleState.Override.On;
+        }
+
+        if (state.frameRateVisible != ToolboxExampleState.Override.Default)
+        {
+            if (state.frameRateVisible == ToolboxExampleState.Override.On)
+                ShowFPS();
+            else
+                HideFPS();
+        }
+
+        // Holding a frame to one fixed step stops a slow frame running the simulation several times to catch up, which an example measuring the cost of a step would read as one very expensive step.
+        if (state.catchUpSteps == ToolboxExampleState.Override.Off)
+        {
+            m_SavedMaximumDeltaTime = Time.maximumDeltaTime;
+            Time.maximumDeltaTime = Time.fixedDeltaTime;
+        }
+    }
+
+    // Puts back every global setting the outgoing example changed, so the next example starts from the menu's own values.
+    // A control the example supplied may have moved any of these while it ran, which is why each one is restored from what was saved rather than from what the example asked for.
+    private void RestoreExampleState()
+    {
+        var state = m_AppliedExampleState;
+        m_AppliedExampleState = default;
+
+        if (state.overridesDrawOptions)
+            ResetOverrideDrawOptions();
+
+        if (state.sleeping != ToolboxExampleState.Override.Default)
+            WorldSleeping = m_SavedWorldSleeping;
+
+        // The readout is visible unless an example hides it, so restoring it means showing it again.
+        if (state.frameRateVisible != ToolboxExampleState.Override.Default)
+            ShowFPS();
+
+        if (state.catchUpSteps == ToolboxExampleState.Override.Off)
+            Time.maximumDeltaTime = m_SavedMaximumDeltaTime;
     }
 
     // Connects a freshly loaded example to the UI: its camera, its description, and any controls it supplies.
@@ -903,7 +990,7 @@ public class ToolboxManager : MonoBehaviour, IFoldable
         var optionsProvider = FindAnyObjectByType<ToolboxOptionsProvider>();
 
         if (optionsProvider != null)
-            optionsProvider.BuildOptions(SceneOptionsContent, ControlsMenu);
+            optionsProvider.BuildOptions(this, SceneOptionsContent, ControlsMenu);
 
         RefreshSceneOptionsSection();
     }
@@ -950,7 +1037,7 @@ public class ToolboxManager : MonoBehaviour, IFoldable
 
         // Reload the example so it comes back exactly as it is saved on disk.
         if (!string.IsNullOrEmpty(m_LoadedExampleName))
-            LoadExample(m_LoadedExampleName);
+            LoadExample(m_LoadedExampleName, reloading: true);
 
         m_DisableUIRestarts = false;
     }

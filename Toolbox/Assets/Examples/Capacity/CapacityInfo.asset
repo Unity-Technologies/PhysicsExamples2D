@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Capacity
   m_Category: Benchmarks
   m_Description: Spawns bodies until the per-step simulation time reaches a configurable limit.
+  m_State:
+    overriddenDrawOptions: 0
+    fixedDrawOptions: 0
+    sleeping: 2
+    frameRateVisible: 2
+    catchUpSteps: 2
