@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425f70a701d340949ad6110bc3f45d64, type: 3}
+  m_Name: BallAndChainInfo
+  m_EditorClassIdentifier: Assembly-CSharp::ToolboxExampleInfo
+  m_Scene: {fileID: 102900000, guid: 0b8079d80b344f944a90d66d9cff5518, type: 3}
+  m_ScenePath: Assets/Examples/BallAndChain/BallAndChain.unity
+  m_ExampleName: Ball And Chain
+  m_Category: Joints
+  m_Description: Demonstrating a chain of joints.

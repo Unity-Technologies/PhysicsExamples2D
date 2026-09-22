@@ -1,0 +1,187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Toolbox.unity
+    guid: 0698def8912f7344b84441fb0384ae04
+  - enabled: 1
+    path: Assets/Examples/Boids/Boids.unity
+    guid: 9c427a88a51803e4889ae93c7db6ee61
+  - enabled: 1
+    path: Assets/Examples/Queries/Queries.unity
+    guid: 68858c7db432d1347b5af7e80816e12a
+  - enabled: 1
+    path: Assets/Examples/Shooter/Shooter.unity
+    guid: 70dfff42887efe54c9e5c9514faabe2d
+  - enabled: 1
+    path: Assets/Examples/Barrel/Barrel.unity
+    guid: 5b5bedde531a61f47ae434cdaaa1cc5e
+  - enabled: 1
+    path: Assets/Examples/Capacity/Capacity.unity
+    guid: be5bc532480153e41976b5b40b2b986d
+  - enabled: 1
+    path: Assets/Examples/Drawing/Drawing.unity
+    guid: 63803df463cab36419bceba20ca6afde
+  - enabled: 1
+    path: Assets/Examples/Funnel/Funnel.unity
+    guid: af2e383579f02d5409d24cf466d3bba5
+  - enabled: 1
+    path: Assets/Examples/JointGrid/JointGrid.unity
+    guid: 436a4717cb437034bb091cf6d3882910
+  - enabled: 1
+    path: Assets/Examples/LargeCompound/LargeCompound.unity
+    guid: 55b04be2cba5b394db8e6e8f99a59c47
+  - enabled: 1
+    path: Assets/Examples/LargeKinematic/LargeKinematic.unity
+    guid: 65390437b64b9e244b18e16ddb0630c0
+  - enabled: 1
+    path: Assets/Examples/LargePyramid/LargePyramid.unity
+    guid: 94e8553050d0bab4fb9508ec33692c83
+  - enabled: 1
+    path: Assets/Examples/LargeWorld/LargeWorld.unity
+    guid: 734bd388f399c1544b3d4e46aa1ad49d
+  - enabled: 1
+    path: Assets/Examples/ManyTumblers/ManyTumblers.unity
+    guid: 32c1d5fdaa590ed43a58ca82b217a160
+  - enabled: 1
+    path: Assets/Examples/Smash/Smash.unity
+    guid: 4e4c85acd81c4584596813087ba15380
+  - enabled: 1
+    path: Assets/Examples/Spinner/Spinner.unity
+    guid: 47626b7706a566946a24a3ebb866272b
+  - enabled: 1
+    path: Assets/Examples/Triggers/Triggers.unity
+    guid: 87f1463f2143e2f429c316c9a4146c78
+  - enabled: 1
+    path: Assets/Examples/Tumbler/Tumbler.unity
+    guid: b92e89da2909adc4a9e355949bc8c8fc
+  - enabled: 1
+    path: Assets/Examples/Washer/Washer.unity
+    guid: a11f22b4023bfa94ca7b75b47e496ae6
+  - enabled: 1
+    path: Assets/Examples/BounceHouse/BounceHouse.unity
+    guid: 3f695f9d9b3e77f4c8d361f9900c3d47
+  - enabled: 1
+    path: Assets/Examples/BounceRagdolls/BounceRagdolls.unity
+    guid: 390db57b32496c24cb0531f4015f6c40
+  - enabled: 1
+    path: Assets/Examples/CharacterMover/CharacterMover.unity
+    guid: 9b6abc2b0dd11f542a924e2f6824e482
+  - enabled: 1
+    path: Assets/Examples/ContactManifold/ContactManifold.unity
+    guid: ca19375cbfe488843b1f57b77a874cca
+  - enabled: 1
+    path: Assets/Examples/BallAndChain/BallAndChain.unity
+    guid: 0b8079d80b344f944a90d66d9cff5518
+  - enabled: 1
+    path: Assets/Examples/DistanceJoint/DistanceJoint.unity
+    guid: 6f4174a7e6aad7e41a76a1fbe408b31f
+  - enabled: 1
+    path: Assets/Examples/Doohickey/Doohickey.unity
+    guid: 02415923b9eda264e901e55304c064b5
+  - enabled: 1
+    path: Assets/Examples/Driving/Driving.unity
+    guid: 022c448e33436734982e125bd91b7a03
+  - enabled: 1
+    path: Assets/Examples/GearLift/GearLift.unity
+    guid: f72f82df5e75dd94caef5826897db527
+  - enabled: 1
+    path: Assets/Examples/IgnoreJoint/IgnoreJoint.unity
+    guid: 5f8c9d37288e0104da0609a7f3e8605d
+  - enabled: 1
+    path: Assets/Examples/ScaleRagdoll/ScaleRagdoll.unity
+    guid: c40d4471af26d864b8eeeb4383b038db
+  - enabled: 1
+    path: Assets/Examples/ScissorLift/ScissorLift.unity
+    guid: a98ba719227b43c42b1b21fce30c8a1d
+  - enabled: 1
+    path: Assets/Examples/SliderJoint/SliderJoint.unity
+    guid: 5e8f79c94932a8348b49b47ebf86e2f4
+  - enabled: 1
+    path: Assets/Examples/SoftBody/SoftBody.unity
+    guid: fdcc2fa7f0faaa241ac7a26686bef955
+  - enabled: 1
+    path: Assets/Examples/TopDownFriction/TopDownFriction.unity
+    guid: 35712a3bd33b4a34fbb17c272d533100
+  - enabled: 1
+    path: Assets/Examples/UserJoint/UserJoint.unity
+    guid: 1d61d35b63529d740abba725341aded1
+  - enabled: 1
+    path: Assets/Examples/WheelJoint/WheelJoint.unity
+    guid: 041b5ba97b33fce4ebd5192aaea4450c
+  - enabled: 1
+    path: Assets/Examples/Arch/Arch.unity
+    guid: 1e6efe697cb904d4c947f2eb2434e71d
+  - enabled: 1
+    path: Assets/Examples/Bounciness/Bounciness.unity
+    guid: d4da90bc50f31ab46872642237741293
+  - enabled: 1
+    path: Assets/Examples/Buoyancy/Buoyancy.unity
+    guid: 1b3ad1d875e744149959ae7a8dcad314
+  - enabled: 1
+    path: Assets/Examples/CardHouse/CardHouse.unity
+    guid: 7379004132a72fe4f94e689302d1c3f9
+  - enabled: 1
+    path: Assets/Examples/ChainShape/ChainShape.unity
+    guid: 15b2bc11cccea104587b31b30cb0800c
+  - enabled: 1
+    path: Assets/Examples/ChainShapeDeform/ChainShapeDeform.unity
+    guid: 1f138626163fc014cbe322127f9bdabf
+  - enabled: 1
+    path: Assets/Examples/Compound/Compound.unity
+    guid: e21df1e3484cd2f4f88a7eb4a4e43edf
+  - enabled: 1
+    path: Assets/Examples/Confined/Confined.unity
+    guid: 23eb2a4cfd29857429f8737c618df813
+  - enabled: 1
+    path: Assets/Examples/ConveyorBelt/ConveyorBelt.unity
+    guid: 1cad828c243f8554989dfd0673be5d96
+  - enabled: 1
+    path: Assets/Examples/CustomFilter/CustomFilter.unity
+    guid: 44ee37f5f44641546be3eacdfcbbe3a0
+  - enabled: 1
+    path: Assets/Examples/DoubleDomino/DoubleDomino.unity
+    guid: 5a88592eefd21544bb7370be497859d9
+  - enabled: 1
+    path: Assets/Examples/EllipsePolygons/EllipsePolygons.unity
+    guid: f596a2ba3399b58458c8fa9e558ddf4e
+  - enabled: 1
+    path: Assets/Examples/Fragmenting/Fragmenting.unity
+    guid: 84f457b4bb8630a4db20c4cebf6a3d37
+  - enabled: 1
+    path: Assets/Examples/Friction/Friction.unity
+    guid: 29e0fddbb65c51949a11df60eafa32a3
+  - enabled: 1
+    path: Assets/Examples/GeometryIslands/GeometryIslands.unity
+    guid: 47644e14dc8ad09498a137ae3723ff34
+  - enabled: 1
+    path: Assets/Examples/ModifyGeometry/ModifyGeometry.unity
+    guid: fb64af15ae899c743bd123d530cdbc00
+  - enabled: 1
+    path: Assets/Examples/RollingResistance/RollingResistance.unity
+    guid: 70f650c0e02e54f43b13d4d86f34e60c
+  - enabled: 1
+    path: Assets/Examples/RoundedPolygons/RoundedPolygons.unity
+    guid: 99f6b3e53e6116248b5cf5e80d563d09
+  - enabled: 1
+    path: Assets/Examples/ShapeStack/ShapeStack.unity
+    guid: b198bb9b23b9f3045a6436c321afaf0d
+  - enabled: 1
+    path: Assets/Examples/Slicing/Slicing.unity
+    guid: 63005a90906f5784c9b44d59bb795781
+  - enabled: 1
+    path: Assets/Examples/SpriteDestruction/SpriteDestruction.unity
+    guid: efc672c300f6b1f479882b96c86f2bef
+  - enabled: 1
+    path: Assets/Examples/Wind/Wind.unity
+    guid: 86fb4fbdfdc46f0428e07b1288dfe162
+  - enabled: 1
+    path: Assets/Examples/Template/Template.unity
+    guid: 6d04821f1a3f2b646ae01142c1bb174c
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 5c7184836effb7b44bb05e94121cf77e, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 5e595f43d792d284e973974c69bbb765, type: 3}

@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682147ea71cd1de4fbb86f5b7ce44564, type: 3}
+  m_Name: ToolboxManifest
+  m_EditorClassIdentifier: Assembly-CSharp::ToolboxManifest
+  m_Examples:
+  - exampleName: Boids
+    category: Batching
+    description: Thousands of flocking boids driven by a Burst job using batched body transforms.
+    scenePath: Assets/Examples/Boids/Boids.unity
+  - exampleName: Queries
+    category: Batching
+    description: Casts and resolves thousands of rays per frame using a batched query job.
+    scenePath: Assets/Examples/Queries/Queries.unity
+  - exampleName: Shooter
+    category: Batching
+    description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
+    scenePath: Assets/Examples/Shooter/Shooter.unity
+  - exampleName: Barrel
+    category: Benchmarks
+    description: A large barrel of various object types stress-testing the solver.
+    scenePath: Assets/Examples/Barrel/Barrel.unity
+  - exampleName: Capacity
+    category: Benchmarks
+    description: Spawns bodies until the per-step simulation time reaches a configurable limit.
+    scenePath: Assets/Examples/Capacity/Capacity.unity
+  - exampleName: Drawing
+    category: Benchmarks
+    description: Stress-tests the debug drawing API with many primitives and lifetimes.
+    scenePath: Assets/Examples/Drawing/Drawing.unity
+  - exampleName: Funnel
+    category: Benchmarks
+    description: Continuously spawns a mix of object types falling through a funnel.
+    scenePath: Assets/Examples/Funnel/Funnel.unity
+  - exampleName: Joint Grid
+    category: Benchmarks
+    description: A large grid of bodies connected by Hinge Joints.
+    scenePath: Assets/Examples/JointGrid/JointGrid.unity
+  - exampleName: Large Compound
+    category: Benchmarks
+    description: Many large dynamic compound bodies dropped into a container.
+    scenePath: Assets/Examples/LargeCompound/LargeCompound.unity
+  - exampleName: Large Kinematic
+    category: Benchmarks
+    description: A single large rotating kinematic body composed of many shapes.
+    scenePath: Assets/Examples/LargeKinematic/LargeKinematic.unity
+  - exampleName: Large Pyramid
+    category: Benchmarks
+    description: A large pyramid of boxes stress-testing stacking stability.
+    scenePath: Assets/Examples/LargePyramid/LargePyramid.unity
+  - exampleName: Large World
+    category: Benchmarks
+    description: A vast world far from the origin with a drivable car and streamed debris.
+    scenePath: Assets/Examples/LargeWorld/LargeWorld.unity
+  - exampleName: Many Tumblers
+    category: Benchmarks
+    description: A grid of rotating kinematic tumblers churning spawned debris.
+    scenePath: Assets/Examples/ManyTumblers/ManyTumblers.unity
+  - exampleName: Smash
+    category: Benchmarks
+    description: A large dense body smashing through a field of small boxes.
+    scenePath: Assets/Examples/Smash/Smash.unity
+  - exampleName: Spinner
+    category: Benchmarks
+    description: A spinning paddle churning thousands of debris pieces.
+    scenePath: Assets/Examples/Spinner/Spinner.unity
+  - exampleName: Triggers
+    category: Benchmarks
+    description: A dense field of trigger shapes processing thousands of trigger events.
+    scenePath: Assets/Examples/Triggers/Triggers.unity
+  - exampleName: Tumbler
+    category: Benchmarks
+    description: A rotating kinematic tumbler churning many debris pieces.
+    scenePath: Assets/Examples/Tumbler/Tumbler.unity
+  - exampleName: Washer
+    category: Benchmarks
+    description: A rotating washer-drum with paddles agitating thousands of debris circles.
+    scenePath: Assets/Examples/Washer/Washer.unity
+  - exampleName: Bounce House
+    category: Collision
+    description: Checking the stability of very fast continuous collision.
+    scenePath: Assets/Examples/BounceHouse/BounceHouse.unity
+  - exampleName: Bounce Ragdolls
+    category: Collision
+    description: Checking the stability of very fast continuous collision.
+    scenePath: Assets/Examples/BounceRagdolls/BounceRagdolls.unity
+  - exampleName: Character Mover
+    category: Collision
+    description: Demonstrating the Cast Mover feature.
+    scenePath: Assets/Examples/CharacterMover/CharacterMover.unity
+  - exampleName: Contact Manifold
+    category: Collision
+    description: Showing contacts manifolds between various shapes.
+    scenePath: Assets/Examples/ContactManifold/ContactManifold.unity
+  - exampleName: Ball And Chain
+    category: Joints
+    description: Demonstrating a chain of joints.
+    scenePath: Assets/Examples/BallAndChain/BallAndChain.unity
+  - exampleName: Distance Joint
+    category: Joints
+    description: Demonstrating the features of the Distance Joint.
+    scenePath: Assets/Examples/DistanceJoint/DistanceJoint.unity
+  - exampleName: Doohickey
+    category: Joints
+    description: Demonstrating some fun contraptions using joints.
+    scenePath: Assets/Examples/Doohickey/Doohickey.unity
+  - exampleName: Driving
+    category: Joints
+    description: Demonstrating the use of a Wheel Joint for suspension when driving a car.
+    scenePath: Assets/Examples/Driving/Driving.unity
+  - exampleName: Gear Lift
+    category: Joints
+    description: Demonstrating a gear-driven lift using Hinge and Slider Joints.
+    scenePath: Assets/Examples/GearLift/GearLift.unity
+  - exampleName: Ignore Joint
+    category: Joints
+    description: Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.
+    scenePath: Assets/Examples/IgnoreJoint/IgnoreJoint.unity
+  - exampleName: Scale Ragdoll
+    category: Joints
+    description: Checking the stability of solving forced overlap due to scaling a relatively complex setup.
+    scenePath: Assets/Examples/ScaleRagdoll/ScaleRagdoll.unity
+  - exampleName: Scissor Lift
+    category: Joints
+    description: Checking the stability of solving a complex set of joints.
+    scenePath: Assets/Examples/ScissorLift/ScissorLift.unity
+  - exampleName: Slider Joint
+    category: Joints
+    description: Demonstrating the features of the Slider Joint.
+    scenePath: Assets/Examples/SliderJoint/SliderJoint.unity
+  - exampleName: Soft Body
+    category: Joints
+    description: Demonstrating using joints to create a soft body.
+    scenePath: Assets/Examples/SoftBody/SoftBody.unity
+  - exampleName: Top Down Friction
+    category: Joints
+    description: Demonstrating using the RelativeJoint to achieve "top down" friction.
+    scenePath: Assets/Examples/TopDownFriction/TopDownFriction.unity
+  - exampleName: User Joint
+    category: Joints
+    description: Demonstrating the implementation of a custom joint.
+    scenePath: Assets/Examples/UserJoint/UserJoint.unity
+  - exampleName: Wheel Joint
+    category: Joints
+    description: Demonstrating the features of the Wheel Joint.
+    scenePath: Assets/Examples/WheelJoint/WheelJoint.unity
+  - exampleName: Arch
+    category: Shapes
+    description: A delicate balance of forces.
+    scenePath: Assets/Examples/Arch/Arch.unity
+  - exampleName: Bounciness
+    category: Shapes
+    description: Demonstrating the effect of Bounciness on shapes.
+    scenePath: Assets/Examples/Bounciness/Bounciness.unity
+  - exampleName: Buoyancy
+    category: Shapes
+    description: Demonstrating buoyancy applied to random shapes dropped into a liquid region.
+    scenePath: Assets/Examples/Buoyancy/Buoyancy.unity
+  - exampleName: Card House
+    category: Shapes
+    description: A delicate balance of forces.
+    scenePath: Assets/Examples/CardHouse/CardHouse.unity
+  - exampleName: Chain Shape
+    category: Shapes
+    description: Demonstrates how a Chain Shape doesn't produce "ghost" collisions.
+    scenePath: Assets/Examples/ChainShape/ChainShape.unity
+  - exampleName: Chain Shape Deform
+    category: Shapes
+    description: Demonstrates how a Chain Shape can be created and its vertices updated in realtime.
+    scenePath: Assets/Examples/ChainShapeDeform/ChainShapeDeform.unity
+  - exampleName: Compound
+    category: Shapes
+    description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.
+    scenePath: Assets/Examples/Compound/Compound.unity
+  - exampleName: Confined
+    category: Shapes
+    description: Showing the solver dealing with tight/overlapping confinement.
+    scenePath: Assets/Examples/Confined/Confined.unity
+  - exampleName: Conveyor Belt
+    category: Shapes
+    description: Demonstrates the use of the Tangent Speed surface material property.
+    scenePath: Assets/Examples/ConveyorBelt/ConveyorBelt.unity
+  - exampleName: Custom Filter
+    category: Shapes
+    description: Demonstrates the use of a custom shape filter.
+    scenePath: Assets/Examples/CustomFilter/CustomFilter.unity
+  - exampleName: Double Domino
+    category: Shapes
+    description: Demonstrating accuracy by simulating the classic double-domino wave.
+    scenePath: Assets/Examples/DoubleDomino/DoubleDomino.unity
+  - exampleName: Ellipse Polygons
+    category: Shapes
+    description: Demonstrating creating pseudo-ellipse shapes as Polygons.
+    scenePath: Assets/Examples/EllipsePolygons/EllipsePolygons.unity
+  - exampleName: Fragmenting
+    category: Shapes
+    description: Demonstrates the use of geometry fragmenting.
+    scenePath: Assets/Examples/Fragmenting/Fragmenting.unity
+  - exampleName: Friction
+    category: Shapes
+    description: Demonstrating the effect of Friction on shapes.
+    scenePath: Assets/Examples/Friction/Friction.unity
+  - exampleName: Geometry Islands
+    category: Shapes
+    description: Demonstrates the use of geometry islands when fragmenting.
+    scenePath: Assets/Examples/GeometryIslands/GeometryIslands.unity
+  - exampleName: Modify Geometry
+    category: Shapes
+    description: Demonstrates modifying the geometry of existing shapes.
+    scenePath: Assets/Examples/ModifyGeometry/ModifyGeometry.unity
+  - exampleName: Rolling Resistance
+    category: Shapes
+    description: Demonstrating Rolling Resistance Surface Property.
+    scenePath: Assets/Examples/RollingResistance/RollingResistance.unity
+  - exampleName: Rounded Polygons
+    category: Shapes
+    description: Demonstrating rounded polygons.
+    scenePath: Assets/Examples/RoundedPolygons/RoundedPolygons.unity
+  - exampleName: Shape Stack
+    category: Shapes
+    description: Checking the stability of stacking shapes.
+    scenePath: Assets/Examples/ShapeStack/ShapeStack.unity
+  - exampleName: Slicing
+    category: Shapes
+    description: Demonstrates the use of geometry slicing.
+    scenePath: Assets/Examples/Slicing/Slicing.unity
+  - exampleName: Sprite Destruction
+    category: Shapes
+    description: Demonstrates the use of Sprite fragmenting mapping.
+    scenePath: Assets/Examples/SpriteDestruction/SpriteDestruction.unity
+  - exampleName: Wind
+    category: Shapes
+    description: Demonstrating the application of Wind with drag and lift.
+    scenePath: Assets/Examples/Wind/Wind.unity
+  - exampleName: Template
+    category: Template
+    description: An empty scene to drop components into.
+    scenePath: Assets/Examples/Template/Template.unity

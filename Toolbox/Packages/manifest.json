@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "com.unity.2d.physics": "1.1.0",
+    "com.unity.2d.sprite": "1.0.0",
+    "com.unity.burst": "2.0.0",
+    "com.unity.collections": "6.7.0",
+    "com.unity.ide.rider": "3.0.40",
+    "com.unity.ide.visualstudio": "2.0.28",
+    "com.unity.inputsystem": "6.7.0",
+    "com.unity.pipeline": "0.7.0-exp.1",
+    "com.unity.render-pipelines.universal": "17.7.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.physicscore2d": "1.0.0",
+    "com.unity.modules.smartstrings": "1.0.0",
+    "com.unity.modules.tetgen": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.vectorgraphics": "1.0.0"
+  }
+}
