@@ -100,10 +100,13 @@ public class CameraManipulator : MonoBehaviour
         m_ToolboxManager = FindAnyObjectByType<ToolboxManager>();
         Camera = GetComponentInParent<Camera>();
         Projection = CameraProjection.For(Camera);
-        CameraPosition = Vector2.zero;
         m_TouchMode = InputMode.Drag;
-        CameraZoom = 1f;
-        CameraSize = 6f;
+
+        // Take the framing from how the camera is set up in the example's own scene, rather than imposing one.
+        // The fields are set directly because the camera is already in this state, so there is nothing to apply.
+        m_CameraZoom = 1f;
+        m_CameraSize = Projection.framing;
+        m_CameraPosition = Projection.planePosition;
 
         m_Click = InputSystem.actions.FindAction("Click");
         m_Position = InputSystem.actions.FindAction("Point");

@@ -26,11 +26,13 @@ public static class RagdollFactory
             bool triggerEvents = false,
             bool fastCollisionsAllowed = true,
             bool enableMotor = true,
-            bool enableLimits = true
+            bool enableLimits = true,
+            Vector2 armSpreadRange = default
         )
         {
             ScaleRange = scaleRange;
             AngularImpulseRange = angularImpulseRange;
+            ArmSpreadRange = armSpreadRange;
             JointFrequency = jointFrequency;
             JointDamping = jointDamping;
             JointFriction = jointFriction;
@@ -47,6 +49,10 @@ public static class RagdollFactory
 
         public Vector2 ScaleRange;
         public Vector2 AngularImpulseRange;
+
+        // How far forward both arms start, in degrees, with the far arm swung twice as far as the near one.
+        // Left at zero the ragdoll starts with its arms straight down, which reads as a standing figure rather than a body.
+        public Vector2 ArmSpreadRange;
         [Min(0f)] public float JointFrequency;
         [Min(0f)] public float JointDamping;
         [Min(0f)] public float JointFriction;
@@ -250,6 +256,10 @@ public static class RagdollFactory
 
         var scale = random.NextFloat(configuration.ScaleRange.x, configuration.ScaleRange.y);
         var angularImpulse = random.NextFloat(configuration.AngularImpulseRange.x, configuration.AngularImpulseRange.y);
+        var armSpread = random.NextFloat(configuration.ArmSpreadRange.x, configuration.ArmSpreadRange.y) * (rightFacing ? 1f : -1f);
+        var shoulder = position + new Vector2(0f, 1.35f * scale);
+        var nearArmRotation = PhysicsRotate.FromDegrees(armSpread);
+        var farArmRotation = PhysicsRotate.FromDegrees(armSpread * 2f);
         var maxTorque = configuration.JointFriction * scale;
         var jointFrequency = configuration.JointFrequency;
         var dampingRatio = configuration.JointDamping;
@@ -591,6 +601,7 @@ public static class RagdollFactory
             // Create body.
             bodyDef.position = position + new Vector2(0f, 1.225f * scale);
             bodyDef.linearDamping = 0f;
+            SwingArm(ref bodyDef, shoulder, nearArmRotation);
             bone.body = world.CreateBody(bodyDef);
 
             // Create shape.
@@ -601,7 +612,7 @@ public static class RagdollFactory
             bone.body.CreateShape(capsuleGeometry, shapeDef);
 
             // Create joint.
-            var pivot = position + new Vector2(0f, 1.35f * scale);
+            var pivot = shoulder;
             var bodyA = ragdoll[bone.parentBone].body;
             var bodyB = bone.body;
             var lowerAngleLimit = PhysicsMath.ToDegrees(-0.1f * PhysicsMath.PI);
@@ -637,6 +648,7 @@ public static class RagdollFactory
             // Create body.
             bodyDef.position = position + new Vector2(0f, 0.975f * scale);
             bodyDef.linearDamping = 0.1f;
+            SwingArm(ref bodyDef, shoulder, nearArmRotation);
             bone.body = world.CreateBody(bodyDef);
 
             // Create shape.
@@ -647,7 +659,8 @@ public static class RagdollFactory
             bone.body.CreateShape(capsuleGeometry, shapeDef);
 
             // Create joint.
-            var pivot = position + new Vector2(0f, 1.1f * scale);
+            // The elbow swings with the arm, so the pivot turns about the shoulder by the same amount.
+            var pivot = shoulder + nearArmRotation.RotateVector(position + new Vector2(0f, 1.1f * scale) - shoulder);
             var bodyA = ragdoll[bone.parentBone].body;
             var bodyB = bone.body;
             var lowerAngleLimit = PhysicsMath.ToDegrees(-0.2f * PhysicsMath.PI);
@@ -683,6 +696,7 @@ public static class RagdollFactory
             // Create body.
             bodyDef.position = position + new Vector2(0f, 1.225f * scale);
             bodyDef.linearDamping = 0f;
+            SwingArm(ref bodyDef, shoulder, farArmRotation);
             bone.body = world.CreateBody(bodyDef);
 
             // Create shape.
@@ -693,7 +707,7 @@ public static class RagdollFactory
             bone.body.CreateShape(capsuleGeometry, shapeDef);
 
             // Create joint.
-            var pivot = position + new Vector2(0f, 1.35f * scale);
+            var pivot = shoulder;
             var bodyA = ragdoll[bone.parentBone].body;
             var bodyB = bone.body;
             var lowerAngleLimit = PhysicsMath.ToDegrees(-0.1f * PhysicsMath.PI);
@@ -729,6 +743,7 @@ public static class RagdollFactory
             // Create body.
             bodyDef.position = position + new Vector2(0f, 0.975f * scale);
             bodyDef.linearDamping = 0.1f;
+            SwingArm(ref bodyDef, shoulder, farArmRotation);
             bone.body = world.CreateBody(bodyDef);
 
             // Create shape.
@@ -739,7 +754,8 @@ public static class RagdollFactory
             bone.body.CreateShape(capsuleGeometry, shapeDef);
 
             // Create joint.
-            var pivot = position + new Vector2(0f, 1.1f * scale);
+            // The elbow swings with the arm, so the pivot turns about the shoulder by the same amount.
+            var pivot = shoulder + farArmRotation.RotateVector(position + new Vector2(0f, 1.1f * scale) - shoulder);
             var bodyA = ragdoll[bone.parentBone].body;
             var bodyB = bone.body;
             var lowerAngleLimit = PhysicsMath.ToDegrees(-0.2f * PhysicsMath.PI);
@@ -766,5 +782,13 @@ public static class RagdollFactory
         }
 
         return ragdoll;
+    }
+
+    // Swings an arm bone forward about the shoulder, keeping its distance from it.
+    // Rotating a bone about its own center instead would carry the shoulder and elbow away from where the joints pin them.
+    private static void SwingArm(ref PhysicsBodyDefinition bodyDef, Vector2 shoulder, PhysicsRotate rotation)
+    {
+        bodyDef.position = shoulder + rotation.RotateVector(bodyDef.position - shoulder);
+        bodyDef.rotation = rotation;
     }
 }

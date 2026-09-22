@@ -76,6 +76,7 @@ GraphicsSettings:
     numInternalDefines: 0
     defines: []
     compilerSettings: []
+    fastBuildMode: 0
   m_LightsUseLinearIntensity: 0
   m_LightsUseColorTemperature: 1
   m_LogWhenShaderIsCompiled: 0

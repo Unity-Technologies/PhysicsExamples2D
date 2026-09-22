@@ -60,7 +60,6 @@ public sealed class Barrel : SandboxExampleBehaviour
         }
 
         var shift = 1.15f;
-        var centerX = shift * columnCount / 2.0f;
         var centerY = shift / 2.0f;
         var side = -0.1f;
         var extray = 0.5f;
@@ -70,16 +69,19 @@ public sealed class Barrel : SandboxExampleBehaviour
             extray = 0.25f;
             side = 0.25f;
             shift = 2.0f;
-            centerX = shift * columnCount / 2.0f - 1.0f;
         }
         else if (m_ObjectType == ObjectType.Ragdoll)
         {
-            columnCount = 11;
-            extray = 0.5f;
+            // Spaced so that even the largest ragdoll, 3.96 wide and 23.65 tall, clears its neighbours on both axes.
+            // The side alternation brings neighbouring columns to within a shift of two, so the shift carries that as well as the width.
+            columnCount = 9;
+            extray = 16f;
             side = 1.0f;
-            shift = 6.5f;
-            centerX = shift * columnCount / 2.0f;
+            shift = 8f;
         }
+
+        // Center the grid in the barrel, so the last column stands as far from the right wall as the first does from the left.
+        var centerX = shift * (columnCount - 1) / 2.0f;
 
         var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, collisionThreshold = m_CollisionThreshold };
         if (m_ObjectType == ObjectType.Mix)
@@ -87,12 +89,15 @@ public sealed class Barrel : SandboxExampleBehaviour
 
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.5f } };
 
+        // The joints need friction and damping to hold a limb, or the ragdoll's arms swing to their limits and stay there.
+        // A contact group is assigned per ragdoll below, so a ragdoll ignores its own overlapping limbs while still colliding with every other ragdoll.
         var ragDollConfiguration = new RagdollFactory.Configuration
         {
-            ScaleRange = new Vector2(5f, 9f),
+            ScaleRange = new Vector2(10f, 18f),
+            ArmSpreadRange = new Vector2(10f, 15f),
             JointFrequency = 1f,
-            JointDamping = 0.1f,
-            JointFriction = 0.0f,
+            JointDamping = 0.5f,
+            JointFriction = 0.03f,
             GravityScale = 1f,
             ContactBodyLayer = 2,
             ContactFeetLayer = 1,
@@ -112,6 +117,7 @@ public sealed class Barrel : SandboxExampleBehaviour
         ref var random = ref Random;
 
         var startY = m_ObjectType == ObjectType.Ragdoll ? 25.0f : 120.0f;
+        var ragdollCount = 0;
 
         for (var i = 0; i < columnCount; ++i)
         {
@@ -188,6 +194,9 @@ public sealed class Barrel : SandboxExampleBehaviour
 
                     case ObjectType.Ragdoll:
                     {
+                        // Each ragdoll gets its own group, which the factory negates, so its limbs never contact each other.
+                        ragDollConfiguration.ContactGroupIndex = ++ragdollCount;
+
                         using var ragdoll = RagdollFactory.Spawn(world, bodyDef.position, ragDollConfiguration, true, ref random);
                         continue;
                     }

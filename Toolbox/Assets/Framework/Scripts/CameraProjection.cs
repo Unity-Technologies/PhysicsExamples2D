@@ -41,6 +41,17 @@ public abstract class CameraProjection
     public abstract void MoveTo(Vector2 planePosition);
 
     /// <summary>
+    /// Half the height of the physics plane the camera currently frames, in meters.
+    /// Read at startup so an example keeps the framing it was authored with.
+    /// </summary>
+    public abstract float framing { get; }
+
+    /// <summary>
+    /// The point on the physics plane the camera is currently centered on.
+    /// </summary>
+    public abstract Vector2 planePosition { get; }
+
+    /// <summary>
     /// The camera this projection drives.
     /// </summary>
     public Camera camera { get; }
@@ -67,6 +78,10 @@ public abstract class CameraProjection
             var cameraTransform = camera.transform;
             cameraTransform.position = new Vector3(planePosition.x, planePosition.y, cameraTransform.position.z);
         }
+
+        public override float framing => camera.orthographicSize;
+
+        public override Vector2 planePosition => camera.transform.position;
 
         public Orthographic(Camera camera) : base(camera) { }
     }
@@ -114,6 +129,18 @@ public abstract class CameraProjection
 
             cameraTransform.position = PlaneToWorld(planePosition) - cameraTransform.forward * distance;
         }
+
+        public override float framing
+        {
+            get
+            {
+                var distance = Vector3.Distance(camera.transform.position, LookAtPoint());
+
+                return distance * math.tan(math.radians(camera.fieldOfView * 0.5f));
+            }
+        }
+
+        public override Vector2 planePosition => WorldToPlane(LookAtPoint());
 
         // The point on the physics plane the camera is currently aimed at.
         // Falls back to the plane's origin when the camera is aimed away from the plane entirely, which only happens while an example is being set up.
