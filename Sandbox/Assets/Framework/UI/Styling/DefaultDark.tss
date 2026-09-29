@@ -1345,6 +1345,12 @@
     border-radius: 3px;
 }
 
+.unity-base-dropdown__container-inner > .unity-scroll-view__horizontal-scroller {
+    height: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
 .unity-base-dropdown__item {
     flex-direction: row;
     -unity-text-align: middle-left;

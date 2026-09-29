@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Bounce Ragdolls
   m_Category: Collision
   m_Description: Checking the stability of very fast continuous collision.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 0
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

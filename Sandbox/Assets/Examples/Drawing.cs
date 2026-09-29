@@ -22,6 +22,8 @@ public sealed class Drawing : SandboxExampleBehaviour
         LineStrip
     }
 
+    private const int LineStripVertexCount = 10;
+
     private DrawingType m_DrawingType;
     private int m_DrawingCount;
     private float m_DrawingLifetime;
@@ -80,16 +82,25 @@ public sealed class Drawing : SandboxExampleBehaviour
             drawOptions |= PhysicsWorld.DrawFillOptions.Interior;
 
         // Line Strip.
+        // The count is the approximate number of vertices in total, drawn as many short strips so each gets its own color and lifetime.
         if (m_DrawingType == DrawingType.LineStrip)
         {
-            var color = ShapeColor;
-            var vertices = new NativeArray<Vector2>(m_DrawingCount, Allocator.Temp);
-            for (var i = 0; i < m_DrawingCount; ++i)
+            var stripCount = Mathf.Max(1, m_DrawingCount / LineStripVertexCount);
+            var vertices = new NativeArray<Vector2>(LineStripVertexCount, Allocator.Temp);
+
+            for (var n = 0; n < stripCount; ++n)
             {
-                vertices[i] = new Vector2(random.NextFloat(-extents.x, extents.x), random.NextFloat(-extents.y, extents.y));
+                for (var i = 0; i < LineStripVertexCount; ++i)
+                {
+                    vertices[i] = new Vector2(random.NextFloat(-extents.x, extents.x), random.NextFloat(-extents.y, extents.y));
+                }
+
+                var color = ShapeColor;
+                var lifetime = m_SpreadLifetime ? random.NextFloat(1f, m_DrawingLifetime) : m_DrawingLifetime;
+
+                world.DrawLineStrip(PhysicsTransform.identity, vertices, true, color, lifetime);
             }
 
-            world.DrawLineStrip(PhysicsTransform.identity, vertices, true, color, m_DrawingLifetime);
             vertices.Dispose();
 
             return;
@@ -113,7 +124,7 @@ public sealed class Drawing : SandboxExampleBehaviour
                 {
                     CircleGeometry geometry = new() { radius = random.NextFloat(0.05f, 0.5f) };
                     if (geometry.isValid)
-                        world.DrawGeometry(geometry, physicsTransform, color, lifetime);
+                        world.DrawGeometry(geometry, physicsTransform, color, lifetime, drawOptions);
 
                     continue;
                 }
@@ -127,7 +138,7 @@ public sealed class Drawing : SandboxExampleBehaviour
                         radius = random.NextFloat(0.05f, 0.5f)
                     };
                     if (geometry.isValid)
-                        world.DrawGeometry(geometry, physicsTransform, color, lifetime);
+                        world.DrawGeometry(geometry, physicsTransform, color, lifetime, drawOptions);
 
                     continue;
                 }
@@ -135,7 +146,7 @@ public sealed class Drawing : SandboxExampleBehaviour
                 {
                     var geometry = SandboxUtility.CreateRandomPolygon(0.5f, random.NextFloat(0f, 0.25f), ref random);
                     if (geometry.isValid)
-                        world.DrawGeometry(geometry, physicsTransform, color, lifetime);
+                        world.DrawGeometry(geometry, physicsTransform, color, lifetime, drawOptions);
 
                     continue;
                 }

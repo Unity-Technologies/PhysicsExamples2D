@@ -60,7 +60,7 @@ public sealed class Queries : SandboxExampleBehaviour
         AddSlider("Batch Distance ", m_BatchDistance, 1f, 50f, v => m_BatchDistance = v);
 
         // Batch Force.
-        AddSlider("Batch Force", m_BatchDistance, 0f, 10f, v => m_BatchForce = v);
+        AddSlider("Batch Force", m_BatchForce, 0f, 10f, v => m_BatchForce = v);
 
         // Draw Rays.
         AddToggle("Draw Rays", m_DrawRays, v => m_DrawRays = v);
@@ -69,7 +69,7 @@ public sealed class Queries : SandboxExampleBehaviour
         AddToggle("Draw Points", m_DrawPoints, v => m_DrawPoints = v);
 
         // Draw Normals.
-        AddToggle("Draw Normals", m_DrawPoints, v => m_DrawNormals = v);
+        AddToggle("Draw Normals", m_DrawNormals, v => m_DrawNormals = v);
     }
 
     protected override void SetupScene()
@@ -201,7 +201,6 @@ public sealed class Queries : SandboxExampleBehaviour
 
         // Draw gizmos.
         world.DrawGeometry(new CircleGeometry { radius = 0.1f }, m_BatchOrigin, ShapeColor);
-        world.DrawTransformAxis(new PhysicsTransform(worldPosition), 1f);
         if (m_BatchDistance < 20.0f)
             world.DrawGeometry(new CircleGeometry { radius = m_BatchDistance }, m_BatchOrigin, m_BatchDistanceColor);
 

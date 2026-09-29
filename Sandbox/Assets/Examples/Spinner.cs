@@ -59,6 +59,7 @@ public sealed class Spinner : SandboxExampleBehaviour
 
         // Max Motor Torque.
         m_MotorTorqueElement = AddSlider("Motor Torque", m_MaxMotorTorque, 0f, 100000f, v => m_SpinnerHinge.maxMotorTorque = m_MaxMotorTorque = v);
+        m_MotorTorqueElement.enabledSelf = !m_KinematicSpinner;
 
         // Kinematic Spinner.
         AddToggle("Kinematic Spinner", m_KinematicSpinner, v =>

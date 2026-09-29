@@ -19,24 +19,24 @@ Engine defaults the Sandbox relies on: `PhysicsChainDefinition.isLoop` is true (
 - [x] Capacity
 - [x] Arch
 - [x] BallAndChain
-- [ ] Boids
-- [ ] BounceHouse
-- [ ] BounceRagdolls
+- [x] Boids
+- [x] BounceHouse
+- [x] BounceRagdolls
 - [x] Bounciness
 - [x] Buoyancy
 - [ ] CardHouse (removed from the Toolbox until the hull tolerance is resolved; 0.002 cards fail PolygonGeometry.isValid)
 - [x] ChainShape
 - [x] ChainShapeDeform
-- [ ] CharacterMover
+- [x] CharacterMover
 - [x] Compound
 - [x] Confined
-- [ ] ContactManifold
+- [x] ContactManifold
 - [x] ConveyorBelt
 - [x] CustomFilter
 - [x] DistanceJoint
 - [x] Doohickey
 - [x] DoubleDomino
-- [ ] Drawing
+- [x] Drawing
 - [x] Driving
 - [x] EllipsePolygons
 - [x] Fragmenting
@@ -49,26 +49,26 @@ Engine defaults the Sandbox relies on: `PhysicsChainDefinition.isLoop` is true (
 - [x] LargeCompound
 - [x] LargeKinematic
 - [x] LargePyramid
-- [ ] LargeWorld
-- [ ] ManyTumblers
+- [x] LargeWorld
+- [x] ManyTumblers
 - [x] ModifyGeometry
-- [ ] Queries
+- [x] Queries
 - [x] RollingResistance
 - [x] RoundedPolygons
 - [x] ScaleRagdoll
 - [x] ScissorLift
 - [x] ShapeStack
-- [ ] Shooter
+- [x] Shooter
 - [x] Slicing
 - [x] SliderJoint
-- [ ] Smash
+- [x] Smash
 - [x] SoftBody
-- [ ] Spinner
+- [x] Spinner
 - [x] SpriteDestruction
 - [x] TopDownFriction
-- [ ] Triggers
-- [ ] Tumbler
+- [x] Triggers
+- [x] Tumbler
 - [x] UserJoint
-- [ ] Washer
+- [x] Washer
 - [x] WheelJoint
 - [x] Wind

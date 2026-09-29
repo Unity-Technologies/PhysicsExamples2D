@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Shooter
   m_Category: Batching
   m_Description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 128
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

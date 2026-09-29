@@ -119,6 +119,80 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &337381952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 337381955}
+  - component: {fileID: 337381954}
+  - component: {fileID: 337381953}
+  m_Layer: 0
+  m_Name: Boids
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &337381953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337381952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f69ec43c1f8ce441a85e82fd3942eb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoidsOptions
+  m_Contents: {fileID: 337381954}
+--- !u!114 &337381954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337381952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1100d486768eae24ea65f7d0a8d150c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoidsContents
+  m_CameraManipulator: {fileID: 1200458272}
+  m_BoidPrefab: {fileID: 4072302653082884238, guid: e56dfc435a174004393b2d3e26a97464, type: 3}
+  m_BoidCount: 1000
+  m_BoidSize: 0.25
+  m_MaxSpeed: 6
+  m_SightRadius: 0.5
+  m_SeparationRadius: 0.3
+  m_SeparationStrength: 0.5
+  m_CohesionStrength: 0.005
+  m_AlignmentStrength: 0.05
+  m_BoundsRadius: 20
+  m_BoidBoundsWrap: 1
+  m_BoidGroups: 0
+  m_DrawTrails: 0
+  m_DrawSight: 0
+  m_DrawSeparation: 0
+--- !u!4 &337381955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337381952}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1200458269
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +262,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 22
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -265,3 +339,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1200458270}
+  - {fileID: 337381955}

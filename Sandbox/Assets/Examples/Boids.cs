@@ -19,8 +19,6 @@ public sealed class Boids : SandboxExampleBehaviour
     private NativeArray<BoidState> m_BoidStates;
 
     private Color m_BoidTrailColor;
-    private Color m_BoidSightColor;
-    private Color m_BoidSeparationColor;
     private Color m_BoidBoundsColor;
     private CircleGeometry m_BoidBounds;
 
@@ -38,8 +36,6 @@ public sealed class Boids : SandboxExampleBehaviour
     private bool m_BoidBoundsWrap;
     private bool m_BoidGroups;
     private bool m_DrawTrails;
-    private bool m_DrawSight;
-    private bool m_DrawSeparation;
 
     protected override float CameraSize => 22f;
     protected override Vector2 CameraPosition => new(0f, 0f);
@@ -47,8 +43,6 @@ public sealed class Boids : SandboxExampleBehaviour
     protected override void OnExampleEnable()
     {
         m_BoidTrailColor = Color.gray3;
-        m_BoidSightColor = Color.lemonChiffon;
-        m_BoidSeparationColor = Color.lightBlue;
         m_BoidBoundsColor = Color.slateGray;
 
         // Set Overrides.
@@ -70,8 +64,6 @@ public sealed class Boids : SandboxExampleBehaviour
         m_BoidBoundsWrap = true;
         m_BoidGroups = false;
         m_DrawTrails = false;
-        m_DrawSight = false;
-        m_DrawSeparation = false;
     }
 
     protected override void OnExampleDisable()
@@ -128,12 +120,6 @@ public sealed class Boids : SandboxExampleBehaviour
 
         // Draw Trails.
         AddToggle("Draw Trails", m_DrawTrails, v => { m_DrawTrails = v; });
-
-        // Draw Sight.
-        AddToggle("Draw Sight", m_DrawSight, v => { m_DrawSight = v; });
-
-        // Draw Separation.
-        AddToggle("Draw Separation", m_DrawSeparation, v => m_DrawSeparation = v);
     }
 
     protected override void SetupScene()
@@ -265,14 +251,6 @@ public sealed class Boids : SandboxExampleBehaviour
                     world.DrawLine(boidPosition, boidPosition - state.linearVelocity * deltaTime, m_BoidTrailColor, 0.5f);
                 }
             }
-
-            // Draw Sight.
-            if (m_DrawSight && m_SightRadius > 0f)
-                world.DrawCircle(m_BoidStates[0].position, m_SightRadius, m_BoidSightColor);
-
-            // Draw Separation.
-            if (m_DrawSeparation && m_SeparationRadius > 0f)
-                world.DrawCircle(m_BoidStates[0].position, m_SeparationRadius, m_BoidSeparationColor);
         }
     }
 

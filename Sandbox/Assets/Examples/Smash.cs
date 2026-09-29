@@ -14,7 +14,7 @@ public sealed class Smash : SandboxExampleBehaviour
     private float m_Density;
     private float m_Bounciness;
     private float m_Spacing;
-    private bool m_FastCollisionsAllowed;
+    private float m_CollisionThreshold;
 
     protected override float CameraSize => 60f;
 
@@ -25,7 +25,7 @@ public sealed class Smash : SandboxExampleBehaviour
         m_Density = 5;
         m_Bounciness = 0f;
         m_Spacing = 0f;
-        m_FastCollisionsAllowed = false;
+        m_CollisionThreshold = 0.5f;
     }
 
     protected override void OnExampleDisable()
@@ -49,8 +49,8 @@ public sealed class Smash : SandboxExampleBehaviour
         // Spacing.
         AddSlider("Spacing", m_Spacing, 0f, 0.5f, v => m_Spacing = v, rebuild: true);
 
-        // Fast Collisions.
-        AddToggle("Fast Collisions", m_FastCollisionsAllowed, v => m_FastCollisionsAllowed = v, rebuild: true);
+        // Collision Threshold.
+        AddSlider("Collision Threshold", m_CollisionThreshold, 0f, 1f, v => m_CollisionThreshold = v, rebuild: true);
     }
 
     protected override void SetupScene()
@@ -82,7 +82,7 @@ public sealed class Smash : SandboxExampleBehaviour
                 position = new Vector2(-90f, 0f),
                 linearVelocity = new Vector2(m_Speed, 0f),
                 angularVelocity = PhysicsMath.PI * 0.1f,
-                fastCollisionsAllowed = m_FastCollisionsAllowed
+                collisionThreshold = m_CollisionThreshold
             };
             var body = world.CreateBody(bodyDef);
             body.CreateShape(
@@ -95,7 +95,7 @@ public sealed class Smash : SandboxExampleBehaviour
             var bodyDef = new PhysicsBodyDefinition
             {
                 type = PhysicsBody.BodyType.Dynamic,
-                fastCollisionsAllowed = m_FastCollisionsAllowed,
+                collisionThreshold = m_CollisionThreshold,
                 awake = false
             };
             var largeBody = world.CreateBody(bodyDef);
@@ -110,7 +110,7 @@ public sealed class Smash : SandboxExampleBehaviour
             {
                 for (var j = 0; j < Rows; ++j)
                 {
-                    bodyDef.position = new Vector2(i * spacing - 60f, (j - Rows / 2.0f) * spacing);
+                    bodyDef.position = new Vector2((i - (Columns - 1) / 2.0f) * spacing, (j - (Rows - 1) / 2.0f) * spacing);
                     var boxBody = world.CreateBody(bodyDef);
 
                     // Fetch the appropriate shape color.

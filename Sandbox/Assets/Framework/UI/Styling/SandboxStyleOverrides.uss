@@ -10,14 +10,11 @@
 #rollup-toggle,
 #shortcuts-footer,
 #examples-header,
-#sandbox-footer {
-    background-color: var(--foreground);
-}
-
+#sandbox-footer,
 #profile-header,
 #counters-header,
 #scene-options-header {
-    background-color: var(--background);
+    background-color: var(--foreground);
 }
 
 #rollup-toggle:hover,

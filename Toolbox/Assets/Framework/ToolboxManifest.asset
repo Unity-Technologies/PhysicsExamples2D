@@ -38,8 +38,8 @@ MonoBehaviour:
     description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
     scenePath: Assets/Examples/Shooter/Shooter.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
     description: A vast world far from the origin with a drivable car and streamed debris.
     scenePath: Assets/Examples/LargeWorld/LargeWorld.unity
     state:
-      overriddenDrawOptions: 0
+      overriddenDrawOptions: 128
       fixedDrawOptions: 0
       sleeping: 0
       frameRateVisible: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
     description: Checking the stability of very fast continuous collision.
     scenePath: Assets/Examples/BounceRagdolls/BounceRagdolls.unity
     state:
-      overriddenDrawOptions: 0
+      overriddenDrawOptions: 128
       fixedDrawOptions: 0
       sleeping: 0
       frameRateVisible: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
     description: Demonstrating the Cast Mover feature.
     scenePath: Assets/Examples/CharacterMover/CharacterMover.unity
     state:
-      overriddenDrawOptions: 0
+      overriddenDrawOptions: 128
       fixedDrawOptions: 0
       sleeping: 0
       frameRateVisible: 0

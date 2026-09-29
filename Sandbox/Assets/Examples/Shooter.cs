@@ -102,9 +102,9 @@ public sealed class Shooter : SandboxExampleBehaviour
         // ── Walls ──────────────────────────────────────────────────────────
         {
             var body = world.CreateBody();
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(29f, 1f),  0f, new PhysicsTransform(new Vector2( 0f,  10.4f), PhysicsRotate.identity)));
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f,  22f), 0f, new PhysicsTransform(new Vector2(-14f,  0f),  PhysicsRotate.identity)));
-            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f,  22f), 0f, new PhysicsTransform(new Vector2( 14f,  0f),  PhysicsRotate.identity)));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(29f, 1f),  0f, new PhysicsTransform(new Vector2( 0f,  14f), PhysicsRotate.identity)));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f,  26f), 0f, new PhysicsTransform(new Vector2(-14f,  1.5f),  PhysicsRotate.identity)));
+            body.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f,  26f), 0f, new PhysicsTransform(new Vector2( 14f,  1.5f),  PhysicsRotate.identity)));
         }
 
         // Kill zone: contactEvents=true feeds DestroyBatch(); categories=0x100 prevents it being
@@ -130,7 +130,7 @@ public sealed class Shooter : SandboxExampleBehaviour
 
             // Top row
             foreach (var x in new[] { -11f, -7f, -3f, 0f, 3f, 7f, 11f })
-                obstacleBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f, 1f), 0f, new PhysicsTransform(new Vector2(x, 9.9f), rot45)));
+                obstacleBody.CreateShape(PolygonGeometry.CreateBox(new Vector2(1f, 1f), 0f, new PhysicsTransform(new Vector2(x, 13.5f), rot45)));
 
             // Bottom cluster
             foreach (var pos in new Vector2[]
