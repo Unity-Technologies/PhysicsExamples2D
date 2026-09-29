@@ -110,7 +110,7 @@ public sealed class Fragmenting : SandboxExampleBehaviour, PhysicsCallbacks.ICon
     protected override void SetupOptions()
     {
         // Fragment Radius.
-        AddSlider("Fragment  Radius", m_FragmentRadius, 0.5f, 5f, v =>
+        AddSlider("Fragment Radius", m_FragmentRadius, 0.5f, 5f, v =>
         {
             m_FragmentRadius = v;
             UpdateFragmentGeometry();

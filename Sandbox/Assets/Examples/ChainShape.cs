@@ -20,7 +20,7 @@ public sealed class ChainShape : SandboxExampleBehaviour
     private int m_ObjectCount;
     private const float Friction = 0.1f;
     private float m_GravityScale;
-    private bool m_FastCollisionsAllowed;
+    private float m_CollisionThreshold;
 
     private int m_ItemsSpawned;
     private const float SpawnPeriod = 1.75f;
@@ -35,7 +35,7 @@ public sealed class ChainShape : SandboxExampleBehaviour
         m_ObjectCount = 100;
 
         m_GravityScale = 10f;
-        m_FastCollisionsAllowed = false;
+        m_CollisionThreshold = 0f;
     }
 
     private void Update()
@@ -61,7 +61,7 @@ public sealed class ChainShape : SandboxExampleBehaviour
             var startPosition = new Vector2(-55f, 13.5f);
             var startLinearVelocity = new Vector2(2f, -1f);
 
-            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, gravityScale = m_GravityScale, fastCollisionsAllowed = m_FastCollisionsAllowed, position = startPosition, linearVelocity = startLinearVelocity };
+            var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, gravityScale = m_GravityScale, collisionThreshold = m_CollisionThreshold, position = startPosition, linearVelocity = startLinearVelocity };
             var body = world.CreateBody(bodyDef);
 
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = Friction, bounciness = 0f, customColor = ShapeColor } };
@@ -103,8 +103,8 @@ public sealed class ChainShape : SandboxExampleBehaviour
         // Gravity Scale (applied per-body on spawn; rebuilds to respawn with the new scale).
         AddSlider("Gravity Scale", m_GravityScale, 1f, 20f, v => m_GravityScale = v, rebuild: true);
 
-        // Fast Collisions.
-        AddToggle("Fast Collisions", m_FastCollisionsAllowed, v => m_FastCollisionsAllowed = v, rebuild: true);
+        // Collision Threshold.
+        AddSlider("Collision Threshold", m_CollisionThreshold, 0f, 1f, v => m_CollisionThreshold = v, rebuild: true);
     }
 
     protected override void SetupScene()

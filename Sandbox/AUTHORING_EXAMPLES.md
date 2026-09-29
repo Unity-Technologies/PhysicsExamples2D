@@ -244,7 +244,6 @@ protected T         AddElement<T>(T element) where T : VisualElement;   // displ
   `PhysicsBody.BodyType`) works directly.
 - For widgets the typed helpers don't cover (`ProgressBar`, `MinMaxSlider`, read-only `FloatField`,
   `Label`), construct them and pass to `AddElement(...)`; cache the return for later updates.
-  Add the `hash-label` USS class for a bordered display box (see `SandboxStyleOverrides.uss`).
 
 Controls appear in the order you add them.
 

@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Top Down Friction
   m_Category: Joints
   m_Description: Demonstrating using the RelativeJoint to achieve "top down" friction.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 128
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

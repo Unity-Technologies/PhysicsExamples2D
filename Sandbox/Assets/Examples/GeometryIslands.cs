@@ -113,7 +113,7 @@ public sealed class GeometryIslands : SandboxExampleBehaviour, PhysicsCallbacks.
     protected override void SetupOptions()
     {
         // Fragment Radius.
-        AddSlider("Fragment  Radius", m_FragmentRadius, 0.5f, 3f, v =>
+        AddSlider("Fragment Radius", m_FragmentRadius, 0.5f, 3f, v =>
         {
             m_FragmentRadius = v;
             UpdateFragmentGeometry();

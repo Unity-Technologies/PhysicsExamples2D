@@ -124,7 +124,7 @@ public sealed class ShapeStack : SandboxExampleBehaviour
     {
         var world = World;
 
-        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic };
+        var bodyDef = new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, collisionThreshold = 0f };
         var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.3f } };
 
         for (var i = 0; i < m_StackHeight; ++i)

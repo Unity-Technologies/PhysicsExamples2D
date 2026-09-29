@@ -18,7 +18,7 @@ public sealed class ScaleRagdoll : SandboxExampleBehaviour
         // Set Overrides.
         SandboxManager.SetOverrideColorShapeState(false);
 
-        m_RagdollScale = 1f;
+        m_RagdollScale = 3f;
     }
 
     protected override void OnExampleDisable()

@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Driving
   m_Category: Joints
   m_Description: Demonstrating the use of a Wheel Joint for suspension when driving a car.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 0
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

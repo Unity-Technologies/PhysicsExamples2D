@@ -20,7 +20,6 @@ public class BottomLeftMenu : MonoBehaviour, IFoldable
     public Button SingleStepButton { get; private set; }
     public Button ColorsButton { get; private set; }
     public Button ResetButton { get; private set; }
-    public Button RestartButton { get; private set; }
     public Button FoldAllButton { get; private set; }
     public Button QuitButton { get; private set; }
 
@@ -88,7 +87,6 @@ public class BottomLeftMenu : MonoBehaviour, IFoldable
         SingleStepButton = root.Q<Button>("sc-single-step");
         ColorsButton = root.Q<Button>("sc-colors");
         ResetButton = root.Q<Button>("sc-reset");
-        RestartButton = root.Q<Button>("sc-restart");
         FoldAllButton = root.Q<Button>("sc-fold-all");
         QuitButton = root.Q<Button>("sc-quit");
 

@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Scissor Lift
   m_Category: Joints
   m_Description: Checking the stability of solving a complex set of joints.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 128
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

@@ -248,10 +248,6 @@ public class ToolboxManager : MonoBehaviour, IFoldable
         BottomLeftMenu.ResetButton.clicked += ResetScene;
         BottomLeftMenu.ResetButton.text = $"Reset [{ToolboxUtility.HighlightColor}R{ToolboxUtility.EndHighlightColor}]";
 
-        // Restart (resets all settings and reloads the scene).
-        BottomLeftMenu.RestartButton.clicked += Restart;
-        BottomLeftMenu.RestartButton.text = $"Restart [{ToolboxUtility.HighlightColor}X{ToolboxUtility.EndHighlightColor}]";
-
         // Fold All / Unfold All.
         m_FoldAllButton.clicked += ToggleFoldAll;
         UpdateFoldAllVisual();
@@ -339,12 +335,6 @@ public class ToolboxManager : MonoBehaviour, IFoldable
             if (currentKeyboard.rKey.wasPressedThisFrame)
             {
                 ResetScene();
-            }
-
-            // Restart.
-            if (currentKeyboard.xKey.wasPressedThisFrame)
-            {
-                Restart();
             }
 
             // Fold All / Unfold All.
@@ -993,53 +983,6 @@ public class ToolboxManager : MonoBehaviour, IFoldable
             optionsProvider.BuildOptions(this, SceneOptionsContent, ControlsMenu);
 
         RefreshSceneOptionsSection();
-    }
-
-    // Reset the settings and reload the current scene.
-    private void Restart()
-    {
-        m_DisableUIRestarts = true;
-
-        // Worlds.
-        m_WorkersElement.value = m_MenuDefaults.Workers;
-        m_SubStepsElement.value = m_MenuDefaults.SubSteps;
-        m_FrequencyElement.value = m_MenuDefaults.Frequency;
-        m_WarmStartingElement.value = m_MenuDefaults.WarmStarting;
-        m_SleepingElement.value = m_MenuDefaults.Sleeping;
-        m_ContinuousElement.value = m_MenuDefaults.Continuous;
-
-        // Drawing.
-        m_ExplodeImpulseElement.value = m_MenuDefaults.ExplodeImpulse;
-
-        if (m_CameraManipulator != null)
-            m_CameraManipulator.ResetPanZoom();
-
-        m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
-        m_DrawThicknessElement.value = m_MenuDefaults.DrawThickness;
-        m_DrawPointScaleElement.value = m_MenuDefaults.DrawPointScale;
-        m_DrawNormalScaleElement.value = m_MenuDefaults.DrawNormalScale;
-        m_DrawImpulseScaleElement.value = m_MenuDefaults.DrawImpulseScale;
-        m_DrawBodiesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllBodies);
-        m_DrawShapesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllShapes);
-        m_DrawJointsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllJoints);
-        m_DrawBoundsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllShapeBounds);
-        m_DrawIslandsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllSolverIslands);
-        m_DrawContactPointsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactPoints);
-        m_DrawContactNormalsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactNormal);
-        m_DrawContactTangentsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactFriction);
-        m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactForces);
-
-
-        // Input mode has no Options control; reset it directly and sync the Shortcuts button.
-        SetInputMode(CameraManipulator.InputMode.Drag);
-
-        DebugView.ResetStats();
-
-        // Reload the example so it comes back exactly as it is saved on disk.
-        if (!string.IsNullOrEmpty(m_LoadedExampleName))
-            LoadExample(m_LoadedExampleName, reloading: true);
-
-        m_DisableUIRestarts = false;
     }
 
     private void TogglePausePlay() => SetPaused(!WorldPaused);

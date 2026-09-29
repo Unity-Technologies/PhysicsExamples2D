@@ -24,7 +24,6 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
     private readonly PhysicsMask m_DestructibleMask = new(3);
     private readonly PhysicsMask m_DebrisMask = new(4);
 
-    private Color m_DestructibleColor;
     private PhysicsShape.ContactFilter m_DestructibleContactFilter;
     private PhysicsShape.SurfaceMaterial m_DestructibleSurfaceMaterial;
 
@@ -102,7 +101,6 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
             camera = null
         };
 
-        m_DestructibleColor = new Color(0.1f, 0f, 0f, 0f);
         m_DestructibleContactFilter = new PhysicsShape.ContactFilter { categories = m_DestructibleMask, contacts = m_GroundMask | m_DebrisMask | m_DestructibleMask };
 
         m_VirtualGroundGeometry = new SegmentGeometry { point1 = new Vector2(-100f, 0f), point2 = new Vector2(100f, 0f) };
@@ -321,7 +319,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
             DestroySpriteDrawItem(destructibleBody);
 
             // Set-up destructible surface material.
-            m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_FragmentFriction, bounciness = m_FragmentBounciness, tangentSpeed = 0f, customColor = m_DestructibleColor };
+            m_DestructibleSurfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = m_FragmentFriction, bounciness = m_FragmentBounciness, tangentSpeed = 0f };
 
             // Fetch the fragment transform.
             var fragmentTransform = fragmentResults.transform;
@@ -387,7 +385,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
                         contactFilter = m_DestructibleContactFilter,
                         contactEvents = true,
                         surfaceMaterial = m_DestructibleSurfaceMaterial,
-                        worldDrawing = false
+                        worldDrawing = true
                     };
 
                     // Create the island geometry as a shape batch.
@@ -421,7 +419,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
                         contactFilter = new PhysicsShape.ContactFilter { categories = m_DebrisMask, contacts = m_GroundMask | m_DestructibleMask | m_ObstacleMask | m_DebrisMask },
                         contactEvents = true,
                         surfaceMaterial = m_DestructibleSurfaceMaterial,
-                        worldDrawing = false
+                        worldDrawing = true
                     };
 
                     // Add a shape for each body.
@@ -545,7 +543,7 @@ public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallback
             contactFilter = m_DestructibleContactFilter,
             contactEvents = true,
             surfaceMaterial = m_DestructibleSurfaceMaterial,
-            worldDrawing = false
+            worldDrawing = true
         };
 
         // Create the island geometry as a shape batch.

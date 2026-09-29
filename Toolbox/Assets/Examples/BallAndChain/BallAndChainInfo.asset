@@ -17,3 +17,9 @@ MonoBehaviour:
   m_ExampleName: Ball And Chain
   m_Category: Joints
   m_Description: Demonstrating a chain of joints.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 128
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

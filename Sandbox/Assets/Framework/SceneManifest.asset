@@ -178,11 +178,6 @@ MonoBehaviour:
     Description: Showing contacts manifolds between various shapes.
     TypeName: ContactManifold, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
-  - Name: Example
-    Category: Template
-    Description: An empty scene for you to experiment with!
-    TypeName: Example, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    Data: {fileID: 0}
   - Name: Friction
     Category: Shapes
     Description: Demonstrating the effect of Friction on shapes.

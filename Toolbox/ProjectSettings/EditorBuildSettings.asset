@@ -123,9 +123,6 @@ EditorBuildSettings:
     path: Assets/Examples/Buoyancy/Buoyancy.unity
     guid: 1b3ad1d875e744149959ae7a8dcad314
   - enabled: 1
-    path: Assets/Examples/CardHouse/CardHouse.unity
-    guid: 7379004132a72fe4f94e689302d1c3f9
-  - enabled: 1
     path: Assets/Examples/ChainShape/ChainShape.unity
     guid: 15b2bc11cccea104587b31b30cb0800c
   - enabled: 1
@@ -179,9 +176,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Examples/Wind/Wind.unity
     guid: 86fb4fbdfdc46f0428e07b1288dfe162
-  - enabled: 1
-    path: Assets/Examples/Template/Template.unity
-    guid: 6d04821f1a3f2b646ae01142c1bb174c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5c7184836effb7b44bb05e94121cf77e, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 5e595f43d792d284e973974c69bbb765, type: 3}

@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Rebuilds the generated Toolbox example registry from the ToolboxExampleInfo assets in the project.
 // Discovery is by asset type, so an example is registered purely by having its info asset in its folder, with no code to edit and no scene list to maintain by hand.
@@ -21,6 +23,7 @@ internal static class ToolboxRegistryBuilder
         var examples = CollectExamples();
 
         manifest.SetExamples(examples);
+        ResetUnregisteredStartScene(examples);
         UpdateBuildSettingsScenes(examples);
 
         AssetDatabase.SaveAssets();
@@ -74,6 +77,49 @@ internal static class ToolboxRegistryBuilder
         });
 
         return examples;
+    }
+
+    // Clears the manager's start example when it names an example that is no longer registered, so the manager falls back to the first registered example.
+    // A start example that is empty or still registered is left exactly as it is.
+    private static void ResetUnregisteredStartScene(List<ToolboxManifest.ExampleItem> examples)
+    {
+        var uiScene = SceneManager.GetSceneByPath(UIScenePath);
+        var openedAdditively = false;
+
+        if (!uiScene.IsValid() || !uiScene.isLoaded)
+        {
+            uiScene = EditorSceneManager.OpenScene(UIScenePath, OpenSceneMode.Additive);
+            openedAdditively = true;
+        }
+
+        var manager = FindComponent<ToolboxManager>(uiScene);
+
+        if (manager != null && !string.IsNullOrEmpty(manager.StartScene) && examples.All(example => example.exampleName != manager.StartScene))
+        {
+            Debug.LogWarning($"[Toolbox] Start example '{manager.StartScene}' is no longer registered; resetting it.");
+            manager.StartScene = string.Empty;
+
+            EditorUtility.SetDirty(manager);
+            EditorSceneManager.MarkSceneDirty(uiScene);
+            EditorSceneManager.SaveScene(uiScene);
+        }
+
+        if (openedAdditively)
+            EditorSceneManager.CloseScene(uiScene, removeScene: true);
+    }
+
+    // Returns the first component of the specified type anywhere in the scene, including on inactive objects, or null when there is none.
+    private static T FindComponent<T>(Scene scene) where T : Component
+    {
+        foreach (var root in scene.GetRootGameObjects())
+        {
+            var component = root.GetComponentInChildren<T>(includeInactive: true);
+
+            if (component != null)
+                return component;
+        }
+
+        return null;
     }
 
     // Rewrites the build settings scene list as the UI scene followed by every example scene.

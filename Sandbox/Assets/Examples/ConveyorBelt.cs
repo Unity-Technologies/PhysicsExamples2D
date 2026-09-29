@@ -9,8 +9,6 @@ public sealed class ConveyorBelt : SandboxExampleBehaviour
 {
     private const int SpawnCount = 10;
     private ControlsMenu.CustomButton m_SpawnButton;
-    private PhysicsBody m_ConveyorBeltBody;
-    private PhysicsShape m_ConveyorBeltShape;
 
     private float m_ConveyorSpeed;
     private float m_ConveyorAngle;
@@ -37,18 +35,10 @@ public sealed class ConveyorBelt : SandboxExampleBehaviour
     protected override void SetupOptions()
     {
         // Conveyor Speed.
-        AddSlider("Conveyor Speed", m_ConveyorSpeed, -30f, 30f, v =>
-        {
-            m_ConveyorSpeed = v;
-            UpdateConveyorSpeed();
-        });
+        AddSlider("Conveyor Speed", m_ConveyorSpeed, -30f, 30f, v => m_ConveyorSpeed = v, rebuild: true);
 
         // Conveyor Angle.
-        AddSlider("Conveyor Angle", m_ConveyorAngle, -25f, 25f, v =>
-        {
-            m_ConveyorAngle = v;
-            UpdateConveyorAngle();
-        });
+        AddSlider("Conveyor Angle", m_ConveyorAngle, -25f, 25f, v => m_ConveyorAngle = v, rebuild: true);
     }
 
     protected override void SetupScene()
@@ -70,11 +60,11 @@ public sealed class ConveyorBelt : SandboxExampleBehaviour
 
         // Platform.
         {
-            m_ConveyorBeltBody = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f, rotation = PhysicsRotate.FromDegrees(m_ConveyorAngle) });
+            var conveyorBeltBody = world.CreateBody(new PhysicsBodyDefinition { position = Vector2.up * 8f, rotation = PhysicsRotate.FromDegrees(m_ConveyorAngle) });
 
             var geometry = PolygonGeometry.CreateBox(new Vector2(20f, 0.5f), 0.25f);
             var shapeDef = new PhysicsShapeDefinition { surfaceMaterial = new PhysicsShape.SurfaceMaterial { friction = 0.8f, tangentSpeed = m_ConveyorSpeed } };
-            m_ConveyorBeltShape = m_ConveyorBeltBody.CreateShape(geometry, shapeDef);
+            conveyorBeltBody.CreateShape(geometry, shapeDef);
         }
 
         // Spawn Debris.
@@ -109,19 +99,5 @@ public sealed class ConveyorBelt : SandboxExampleBehaviour
                 body.CreateShape(new CapsuleGeometry { center1 = Vector2.left * scale, center2 = Vector2.right * scale, radius = radius }, shapeDef);
             }
         }
-    }
-
-    private void UpdateConveyorAngle()
-    {
-        // Update the conveyor angle.
-        m_ConveyorBeltBody.rotation = PhysicsRotate.FromDegrees(m_ConveyorAngle);
-    }
-
-    private void UpdateConveyorSpeed()
-    {
-        // Update the tangent speed.
-        var surfaceMaterial = m_ConveyorBeltShape.surfaceMaterial;
-        surfaceMaterial.tangentSpeed = m_ConveyorSpeed;
-        m_ConveyorBeltShape.surfaceMaterial = surfaceMaterial;
     }
 }

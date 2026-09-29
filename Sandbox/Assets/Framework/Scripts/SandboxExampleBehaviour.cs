@@ -60,9 +60,6 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
         CameraManipulator.CameraSize = CameraSize;
         CameraManipulator.CameraPosition = CameraPosition;
 
-        // The Reset (R) control rebuilds the scene.
-        SandboxManager.SceneResetAction = RebuildScene;
-
         // Per-example setup (state, world overrides, event subscriptions, native allocation).
         OnExampleEnable();
 

@@ -33,7 +33,7 @@ public sealed class WheelJoint : SandboxExampleBehaviour
         m_SpringFrequency = 1.5f;
         m_SpringDamping = 0.7f;
         m_EnableMotor = true;
-        m_MotorSpeed = 2f;
+        m_MotorSpeed = 120f;
         m_MaxMotorTorque = 5f;
         m_EnableLimit = true;
         m_LowerTranslationLimit = -1f;
@@ -78,7 +78,7 @@ public sealed class WheelJoint : SandboxExampleBehaviour
         });
 
         // Motor Speed.
-        AddSlider("Motor Speed", m_MotorSpeed, -50f, 50f, v =>
+        AddSlider("Motor Speed", m_MotorSpeed, -3000f, 3000f, v =>
         {
             m_MotorSpeed = v;
             m_Joint.motorSpeed = m_MotorSpeed;

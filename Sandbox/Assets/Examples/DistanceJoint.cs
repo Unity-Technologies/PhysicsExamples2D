@@ -58,14 +58,10 @@ public sealed class DistanceJoint : SandboxExampleBehaviour
     protected override void SetupOptions()
     {
         // Joint Count.
-        AddSliderInt("Joint Count", m_JointCount, 1, 10, v => m_JointCount = v, rebuild: true);
+        AddSliderInt("Joint Count", m_JointCount, 1, 20, v => m_JointCount = v, rebuild: true);
 
         // Joint Distance.
-        AddSlider("Distance", m_JointDistance, 0.1f, 4f, v =>
-        {
-            m_JointDistance = v;
-            UpdateJoints();
-        });
+        AddSlider("Distance", m_JointDistance, 0.5f, 4f, v => m_JointDistance = v, rebuild: true);
 
         // Enable Spring.
         AddToggle("Enable Spring", m_EnableSpring, v =>

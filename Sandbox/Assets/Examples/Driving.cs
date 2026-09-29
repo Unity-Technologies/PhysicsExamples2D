@@ -77,7 +77,7 @@ public sealed class Driving : SandboxExampleBehaviour
         });
 
         // Motor Speed.
-        AddSlider("Motor Speed", m_MotorSpeed, -50f, 50f, v =>
+        AddSlider("Motor Speed", m_MotorSpeed, -3000f, 3000f, v =>
         {
             m_MotorSpeed = v;
             SetCarSpeed(m_MotorSpeed * m_Throttle);

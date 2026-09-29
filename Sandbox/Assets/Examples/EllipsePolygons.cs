@@ -17,7 +17,7 @@ public sealed class EllipsePolygons : SandboxExampleBehaviour
 
     protected override void OnExampleEnable()
     {
-        m_ColumnCount = 30;
+        m_ColumnCount = 35;
         m_RowCount = 20;
         m_Friction = 0.6f;
         m_Bounciness = 0f;

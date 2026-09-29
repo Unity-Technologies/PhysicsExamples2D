@@ -238,8 +238,8 @@ MonoBehaviour:
     description: Demonstrating a chain of joints.
     scenePath: Assets/Examples/BallAndChain/BallAndChain.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -248,8 +248,8 @@ MonoBehaviour:
     description: Demonstrating the features of the Distance Joint.
     scenePath: Assets/Examples/DistanceJoint/DistanceJoint.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -258,8 +258,8 @@ MonoBehaviour:
     description: Demonstrating some fun contraptions using joints.
     scenePath: Assets/Examples/Doohickey/Doohickey.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
     description: Demonstrating the use of a Wheel Joint for suspension when driving a car.
     scenePath: Assets/Examples/Driving/Driving.unity
     state:
-      overriddenDrawOptions: 0
+      overriddenDrawOptions: 128
       fixedDrawOptions: 0
       sleeping: 0
       frameRateVisible: 0
@@ -288,8 +288,8 @@ MonoBehaviour:
     description: Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.
     scenePath: Assets/Examples/IgnoreJoint/IgnoreJoint.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -308,8 +308,8 @@ MonoBehaviour:
     description: Checking the stability of solving a complex set of joints.
     scenePath: Assets/Examples/ScissorLift/ScissorLift.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -318,8 +318,8 @@ MonoBehaviour:
     description: Demonstrating the features of the Slider Joint.
     scenePath: Assets/Examples/SliderJoint/SliderJoint.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -338,8 +338,8 @@ MonoBehaviour:
     description: Demonstrating using the RelativeJoint to achieve "top down" friction.
     scenePath: Assets/Examples/TopDownFriction/TopDownFriction.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -358,8 +358,8 @@ MonoBehaviour:
     description: Demonstrating the features of the Wheel Joint.
     scenePath: Assets/Examples/WheelJoint/WheelJoint.unity
     state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -387,16 +387,6 @@ MonoBehaviour:
     category: Shapes
     description: Demonstrating buoyancy applied to random shapes dropped into a liquid region.
     scenePath: Assets/Examples/Buoyancy/Buoyancy.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-  - exampleName: Card House
-    category: Shapes
-    description: A delicate balance of forces.
-    scenePath: Assets/Examples/CardHouse/CardHouse.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0
@@ -577,16 +567,6 @@ MonoBehaviour:
     category: Shapes
     description: Demonstrating the application of Wind with drag and lift.
     scenePath: Assets/Examples/Wind/Wind.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-  - exampleName: Template
-    category: Template
-    description: An empty scene to drop components into.
-    scenePath: Assets/Examples/Template/Template.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0

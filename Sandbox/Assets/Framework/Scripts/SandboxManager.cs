@@ -110,7 +110,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     private bool m_AllFolded;
 
     public string StartScene = string.Empty;
-    public Action SceneResetAction;
     public DebugView DebugView;
     public BottomLeftMenu BottomLeftMenu;
     public ControlsMenu ControlsMenu;
@@ -245,10 +244,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         BottomLeftMenu.ResetButton.clicked += ResetScene;
         BottomLeftMenu.ResetButton.text = $"Reset [{SandboxUtility.HighlightColor}R{SandboxUtility.EndHighlightColor}]";
 
-        // Restart (resets all settings and reloads the scene).
-        BottomLeftMenu.RestartButton.clicked += Restart;
-        BottomLeftMenu.RestartButton.text = $"Restart [{SandboxUtility.HighlightColor}X{SandboxUtility.EndHighlightColor}]";
-
         // Fold All / Unfold All.
         m_FoldAllButton.clicked += ToggleFoldAll;
         UpdateFoldAllVisual();
@@ -338,12 +333,6 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
             if (currentKeyboard.rKey.wasPressedThisFrame)
             {
                 ResetScene();
-            }
-
-            // Restart.
-            if (currentKeyboard.xKey.wasPressedThisFrame)
-            {
-                Restart();
             }
 
             // Fold All / Unfold All.
@@ -826,67 +815,20 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         // Collapse the bottom-left panel so it can't overlap the new scene's options.
         BottomLeftMenu.Collapse();
 
-        SceneResetAction = null;
         m_SceneManifest.LoadScene(sceneName, ResetSceneState);
     }
 
+    // Destroys and recreates the current example from scratch, so its options reset to their code defaults, matching a fresh scene load.
     private void ResetScene()
     {
         if (m_DisableUIRestarts)
             return;
 
-        // Reset the camera pan/zoom back to the scene's framing (mirrors Restart/SceneChanged).
+        // Reset the camera pan/zoom back to the scene's framing (mirrors SceneChanged).
         m_CameraManipulator.ResetPanZoom();
         m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
 
-        SceneResetAction?.Invoke();
-    }
-
-    // Reset the settings and reload the current scene.
-    private void Restart()
-    {
-        m_DisableUIRestarts = true;
-
-        // Worlds.
-        m_WorkersElement.value = m_MenuDefaults.Workers;
-        m_SubStepsElement.value = m_MenuDefaults.SubSteps;
-        m_FrequencyElement.value = m_MenuDefaults.Frequency;
-        m_WarmStartingElement.value = m_MenuDefaults.WarmStarting;
-        m_SleepingElement.value = m_MenuDefaults.Sleeping;
-        m_ContinuousElement.value = m_MenuDefaults.Continuous;
-
-        // Drawing.
-        m_ExplodeImpulseElement.value = m_MenuDefaults.ExplodeImpulse;
-        m_CameraManipulator.ResetPanZoom();
-        m_CameraZoomElement.value = m_MenuDefaults.CameraZoom;
-        m_DrawThicknessElement.value = m_MenuDefaults.DrawThickness;
-        m_DrawPointScaleElement.value = m_MenuDefaults.DrawPointScale;
-        m_DrawNormalScaleElement.value = m_MenuDefaults.DrawNormalScale;
-        m_DrawImpulseScaleElement.value = m_MenuDefaults.DrawImpulseScale;
-        m_DrawBodiesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllBodies);
-        m_DrawShapesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllShapes);
-        m_DrawJointsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllJoints);
-        m_DrawBoundsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllShapeBounds);
-        m_DrawIslandsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllSolverIslands);
-        m_DrawContactPointsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactPoints);
-        m_DrawContactNormalsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactNormal);
-        m_DrawContactTangentsElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactFriction);
-        m_DrawContactImpulsesElement.value = m_MenuDefaults.DrawOptions.HasFlag(PhysicsWorld.DrawOptions.AllContactForces);
-
-        m_SaturationScaleElement.value = m_MenuDefaults.SaturationScale;
-
-        // Input mode + colour state have no Options controls; reset directly + sync Shortcuts buttons.
-        SetInputMode(CameraManipulator.InputMode.Drag);
-        ColorShapeState = m_MenuDefaults.ColorShapeState;
-        UpdateColorsVisual();
-
-        DebugView.ResetStats();
-
-        // Reload the scene.
-        SceneResetAction = null;
         m_SceneManifest.ReloadCurrentScene(ResetSceneState);
-
-        m_DisableUIRestarts = false;
     }
 
     private void TogglePausePlay() => SetPaused(!WorldPaused);

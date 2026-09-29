@@ -13,8 +13,8 @@ public sealed class IgnoreJoint : SandboxExampleBehaviour
 
     private bool m_EnableJoint;
 
-    protected override float CameraSize => 14f;
-    protected override Vector2 CameraPosition => new(0f, 9f);
+    protected override float CameraSize => 3.5f;
+    protected override Vector2 CameraPosition => new(0f, 2.25f);
 
     protected override void OnExampleEnable()
     {
@@ -45,10 +45,10 @@ public sealed class IgnoreJoint : SandboxExampleBehaviour
             var groundBody = world.CreateBody();
 
             var vertices = new NativeList<Vector2>(Allocator.Temp);
-            vertices.Add(Vector2.right * 17f + Vector2.up * 17f);
-            vertices.Add(Vector2.right * 17f);
-            vertices.Add(Vector2.left * 17f);
-            vertices.Add(Vector2.left * 17f + Vector2.up * 17f);
+            vertices.Add(Vector2.right * 4.25f + Vector2.up * 4.25f);
+            vertices.Add(Vector2.right * 4.25f);
+            vertices.Add(Vector2.left * 4.25f);
+            vertices.Add(Vector2.left * 4.25f + Vector2.up * 4.25f);
 
             var geometry = new ChainGeometry(vertices.AsArray());
             groundBody.CreateChain(geometry, PhysicsChainDefinition.defaultDefinition);
@@ -56,20 +56,20 @@ public sealed class IgnoreJoint : SandboxExampleBehaviour
 
         // Obstacle Body.
         {
-            var geometry = PolygonGeometry.CreateBox(size: new Vector2(2f, 6f));
+            var geometry = PolygonGeometry.CreateBox(size: new Vector2(0.5f, 1.5f));
 
-            var body = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(0f, 3f) });
+            var body = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(0f, 0.75f) });
             body.CreateShape(geometry);
         }
 
         // Ignored Bodies.
         {
-            var geometry = PolygonGeometry.CreateBox(size: new Vector2(4f, 4f));
+            var geometry = PolygonGeometry.CreateBox(size: new Vector2(1f, 1f));
 
-            m_BodyA = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(-4f, 2f) });
+            m_BodyA = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(-1f, 0.5f) });
             m_BodyA.CreateShape(geometry);
 
-            m_BodyB = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(4f, 2f) });
+            m_BodyB = world.CreateBody(new PhysicsBodyDefinition { type = PhysicsBody.BodyType.Dynamic, position = new Vector2(1f, 0.5f) });
             m_BodyB.CreateShape(geometry);
 
             UpdateJoint();
