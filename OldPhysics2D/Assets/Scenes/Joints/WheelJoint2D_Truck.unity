@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: d3036ae031d232d40b995df26ca17773,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: d3036ae031d232d40b995df26ca17773, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -122,8 +121,7 @@ NavMeshSettings:
   m_NavMeshData: {fileID: 0}
 --- !u!50 &64880567 stripped
 Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 50086387663055158, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 50086387663055158, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
   m_PrefabInstance: {fileID: 1081281173}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &130082706
@@ -274,8 +272,7 @@ SpriteRenderer:
   m_BlendShapeWeights: []
 --- !u!50 &544797852 stripped
 Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 50086387663055158, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 50086387663055158, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
   m_PrefabInstance: {fileID: 647705188}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &647705188
@@ -330,58 +327,47 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 50086387663055158, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 50086387663055158, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_GravityScale
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 50237546622640290, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 50237546622640290, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_GravityScale
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 50754531745234152, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 50754531745234152, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_GravityScale
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 114491919481783694, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 114491919481783694, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_InvertMotor
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 235592588456214006, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 235592588456214006, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Suspension.m_Frequency
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 235942036081987590, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 235942036081987590, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Suspension.m_Frequency
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_MaxForce
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 1.3500006
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_ConnectedRigidBody
       value: 
       objectReference: {fileID: 544797852}
@@ -588,38 +574,31 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 235592588456214006, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 235592588456214006, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Suspension.m_Frequency
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 235942036081987590, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 235942036081987590, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Suspension.m_Frequency
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_MaxForce
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 1.3500006
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_ConnectedRigidBody
       value: 
       objectReference: {fileID: 64880567}
@@ -761,8 +740,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637084127}
-  m_Text: "Truck should move forward and reverse in a realistic manner.\nSuspension
-    should not collapse.\t"
+  m_Text: "Truck should move forward and reverse in a realistic manner.\nSuspension should not collapse.\t"
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

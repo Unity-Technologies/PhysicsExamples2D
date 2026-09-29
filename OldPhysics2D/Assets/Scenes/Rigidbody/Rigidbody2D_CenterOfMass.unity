@@ -147,8 +147,7 @@ TextMesh:
   m_GameObject: {fileID: 833136576}
   m_Text: 'The Rigidbody2D should rotate around the Center-Of-Mass which is set
 
-    via
-    the CenterOfMass Script on the "Red (Pivot)" GameObject.'
+    via the CenterOfMass Script on the "Red (Pivot)" GameObject.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

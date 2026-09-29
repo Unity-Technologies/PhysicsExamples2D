@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 6afb17d8a7fffde438530df1eb6c3226,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 6afb17d8a7fffde438530df1eb6c3226, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -403,8 +402,7 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114860475555786646, guid: de56f1443e496f4408095248d6b6f0fd,
-        type: 3}
+    - target: {fileID: 114860475555786646, guid: de56f1443e496f4408095248d6b6f0fd, type: 3}
       propertyPath: m_DragLayers.m_Bits
       value: 256
       objectReference: {fileID: 0}
@@ -576,8 +574,7 @@ MonoBehaviour:
     m_Bits: 0
   m_PhysicsMaterial: {fileID: 6200000, guid: 8af2ed97ea7f87540b0b1ac7cc710ad9, type: 2}
   m_SpawnParent: {fileID: 0}
-  m_SpawnItem: {fileID: 5399772162092463286, guid: 5d2d85cada350ff46b25022887993793,
-    type: 3}
+  m_SpawnItem: {fileID: 5399772162092463286, guid: 5d2d85cada350ff46b25022887993793, type: 3}
 --- !u!1 &1980240141
 GameObject:
   m_ObjectHideFlags: 0

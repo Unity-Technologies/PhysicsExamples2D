@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.2d.physics": "1.0.0",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.burst": "2.0.0",
     "com.unity.collections": "6.7.0",

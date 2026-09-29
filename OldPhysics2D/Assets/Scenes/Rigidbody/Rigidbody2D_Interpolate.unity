@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 1d70b79ed04dd284a85b10a53a739179,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 1d70b79ed04dd284a85b10a53a739179, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1274,8 +1273,7 @@ TextMesh:
   m_GameObject: {fileID: 1969883638}
   m_Text: 'The "Interpolator" GameObject can control the FixedUpdate FPS.
 
-    Interpolation
-    should always be smooth regardless of the FPS interval.'
+    Interpolation should always be smooth regardless of the FPS interval.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

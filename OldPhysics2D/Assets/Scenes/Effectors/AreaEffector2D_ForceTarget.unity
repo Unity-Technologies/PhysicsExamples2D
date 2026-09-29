@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: b4b6d77f291fd4d40940bd1653629179,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: b4b6d77f291fd4d40940bd1653629179, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -321,8 +320,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 21723d1c440aea7439e585ee65e3f89a, type: 3}
 --- !u!4 &255818447 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 2010691030}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &268662342
@@ -594,8 +592,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
 --- !u!4 &1031478963 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4394624170104538, guid: 21723d1c440aea7439e585ee65e3f89a, type: 3}
   m_PrefabInstance: {fileID: 181182247}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1087606922
@@ -866,8 +863,7 @@ MeshRenderer:
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &1236798831 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 872327136}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1403029062
@@ -1261,13 +1257,9 @@ TextMesh:
   m_GameObject: {fileID: 1969883638}
   m_Text: 'The AreaEffector2D Force Target controls where the Area force is applied.
 
-    Force
-    Target = Rigidbody means force is applied at the Center-of-Mass so no Torque
-    is applied therefore no rotation is produced.
+    Force Target = Rigidbody means force is applied at the Center-of-Mass so no Torque is applied therefore no rotation is produced.
 
-    Force Target = Collider means
-    force is applied at the average Contact Point on all Colliders. If this isn''t
-    the Center-of-Mass then Torque is applied therefore rotation is produced.'
+    Force Target = Collider means force is applied at the average Contact Point on all Colliders. If this isn''t the Center-of-Mass then Torque is applied therefore rotation is produced.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

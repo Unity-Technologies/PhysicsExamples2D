@@ -754,12 +754,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478344388}
-  m_Text: 'Various Combinations of Including/Excluding Layers via the Rigidbody2D
-    to affect all attached Colliders or on specific Colliders.
+  m_Text: 'Various Combinations of Including/Excluding Layers via the Rigidbody2D to affect all attached Colliders or on specific Colliders.
 
-    Additionally
-    conflicting Including/Exluding Layer configurations "decided" by Layer Override
-    Priority Property.'
+    Additionally conflicting Including/Exluding Layer configurations "decided" by Layer Override Priority Property.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

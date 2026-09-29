@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: a5d341497d15b674a8e4b591503b86e6,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: a5d341497d15b674a8e4b591503b86e6, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2986,13 +2985,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 442295463}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1176031187}
   m_SourcePrefab: {fileID: 100100000, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
@@ -3268,8 +3265,7 @@ MonoBehaviour:
   m_KillTrigger: 1
 --- !u!1 &1176031186 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 908881838}
   m_PrefabAsset: {fileID: 0}
 --- !u!247 &1176031187
@@ -3285,8 +3281,7 @@ ConstantForce2D:
   m_Torque: 0
 --- !u!4 &1176031191 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 908881838}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1201434310
@@ -4398,12 +4393,9 @@ TextMesh:
   m_GameObject: {fileID: 1969883638}
   m_Text: 'Each box has a ConstantForce2D slowing it down.
 
-    The force used by
-    the SurfaceEffector2D to get the box to reach the selected Surface Speed is scaled
-    by the Force Scale.
+    The force used by the SurfaceEffector2D to get the box to reach the selected Surface Speed is scaled by the Force Scale.
 
-    As the Force Scale increases so should the effectiveness
-    of the SurfaceEffector2D to reach the selected Surface Speed.'
+    As the Force Scale increases so should the effectiveness of the SurfaceEffector2D to reach the selected Surface Speed.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

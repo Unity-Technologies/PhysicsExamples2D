@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: bc4a074f24a4db94ca73156e7f8f3a4c,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: bc4a074f24a4db94ca73156e7f8f3a4c, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -713,13 +712,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 442295463}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1176031187}
   m_SourcePrefab: {fileID: 100100000, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
@@ -786,8 +783,7 @@ MonoBehaviour:
   - {fileID: 1120110121640304, guid: 1234123af01455741802be8b7bdb04bd, type: 3}
 --- !u!1 &1176031186 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 908881838}
   m_PrefabAsset: {fileID: 0}
 --- !u!247 &1176031187
@@ -803,8 +799,7 @@ ConstantForce2D:
   m_Torque: 0
 --- !u!4 &1176031191 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 908881838}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1213550727
@@ -1211,13 +1206,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969883638}
-  m_Text: 'With Contact Force = OFF it is expected that the force is applied to the
-    Center-of-Mass therefore no Torque and subsequently no rotation is created.
+  m_Text: 'With Contact Force = OFF it is expected that the force is applied to the Center-of-Mass therefore no Torque and subsequently no rotation is created.
 
-    With
-    Contact Force = ON it is expected that the force is applied to the Contact Point
-    which, if not at the Center-of-Mass, will apply Torque therefore rotation is
-    created'
+    With Contact Force = ON it is expected that the force is applied to the Contact Point which, if not at the Center-of-Mass, will apply Torque therefore rotation is created'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

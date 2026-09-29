@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: f62780b30c1b6684ab006930052f0adc,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: f62780b30c1b6684ab006930052f0adc, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -223,14 +222,11 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017114267}
-  m_Text: 'NOTE: When the surface level is low and colliders are in contact then
-    they will effectively
+  m_Text: 'NOTE: When the surface level is low and colliders are in contact then they will effectively
 
-    rest of the bottom. They should not begin to be buoyant
-    until the surface level rises above
+    rest of the bottom. They should not begin to be buoyant until the surface level rises above
 
-    their center-of-mass. Here that is the
-    center of the colliders.'
+    their center-of-mass. Here that is the center of the colliders.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -438,8 +434,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095908064}
-  m_Text: Buoyancy should cause the Colliders to rest at equillibrium. This is where
-    the surface level intersects the center of the Colliders.
+  m_Text: Buoyancy should cause the Colliders to rest at equillibrium. This is where the surface level intersects the center of the Colliders.
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -557,8 +552,7 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114860475555786646, guid: de56f1443e496f4408095248d6b6f0fd,
-        type: 3}
+    - target: {fileID: 114860475555786646, guid: de56f1443e496f4408095248d6b6f0fd, type: 3}
       propertyPath: m_DragLayers.m_Bits
       value: 256
       objectReference: {fileID: 0}
@@ -799,8 +793,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969883638}
-  m_Text: The BuoyancyEffector2D should ensure that buoyant colliders are balanced
-    at the surface level.
+  m_Text: The BuoyancyEffector2D should ensure that buoyant colliders are balanced at the surface level.
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
