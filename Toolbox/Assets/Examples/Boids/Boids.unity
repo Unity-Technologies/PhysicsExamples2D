@@ -171,13 +171,11 @@ MonoBehaviour:
   m_SeparationRadius: 0.3
   m_SeparationStrength: 0.5
   m_CohesionStrength: 0.005
-  m_AlignmentStrength: 0.05
+  m_AlignmentStrength: 0.2
   m_BoundsRadius: 20
   m_BoidBoundsWrap: 1
   m_BoidGroups: 0
   m_DrawTrails: 0
-  m_DrawSight: 0
-  m_DrawSeparation: 0
 --- !u!4 &337381955
 Transform:
   m_ObjectHideFlags: 0

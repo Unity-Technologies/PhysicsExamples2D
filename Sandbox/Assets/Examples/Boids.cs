@@ -17,12 +17,16 @@ public sealed class Boids : SandboxExampleBehaviour
 {
     private NativeArray<PhysicsBody> m_BoidBodies;
     private NativeArray<BoidState> m_BoidStates;
+    private NativeParallelMultiHashMap<int, int> m_BoidGrid;
 
     private Color m_BoidTrailColor;
     private Color m_BoidBoundsColor;
     private CircleGeometry m_BoidBounds;
 
     private const int BoidGroupCount = 16;
+
+    // How many boids each job batch works on, small enough to spread the flock evenly over many cores.
+    private const int JobBatchSize = 32;
 
     private int m_BoidCount;
     private float m_BoidSize;
@@ -58,7 +62,7 @@ public sealed class Boids : SandboxExampleBehaviour
         m_SeparationRadius = 0.3f;
         m_SeparationStrength = 0.5f;
         m_CohesionStrength = 0.005f;
-        m_AlignmentStrength = 0.05f;
+        m_AlignmentStrength = 0.2f;
         m_BoundsRadius = 20f;
         m_BoidBounds = new CircleGeometry { radius = m_BoundsRadius };
         m_BoidBoundsWrap = true;
@@ -77,12 +81,15 @@ public sealed class Boids : SandboxExampleBehaviour
 
         if (m_BoidStates.IsCreated)
             m_BoidStates.Dispose();
+
+        if (m_BoidGrid.IsCreated)
+            m_BoidGrid.Dispose();
     }
 
     protected override void SetupOptions()
     {
         // Boid Count.
-        AddSliderInt("Boid Count", m_BoidCount, 3, 3000, v => m_BoidCount = v, rebuild: true);
+        AddSliderInt("Boid Count", m_BoidCount, 3, 5000, v => m_BoidCount = v, rebuild: true);
 
         // Boid Size.
         AddSlider("Boid Size", m_BoidSize, 0.1f, 0.5f, v => m_BoidSize = v, rebuild: true);
@@ -136,6 +143,9 @@ public sealed class Boids : SandboxExampleBehaviour
 
         if (m_BoidStates.IsCreated)
             m_BoidStates.Dispose();
+
+        if (m_BoidGrid.IsCreated)
+            m_BoidGrid.Dispose();
 
         // Boids.
         {
@@ -258,12 +268,18 @@ public sealed class Boids : SandboxExampleBehaviour
     private void UpdateBoids(PhysicsWorld world, float deltaTime)
     {
         // We're only interested in the default world.
-        if (world != PhysicsWorld.defaultWorld)
+        if (world != PhysicsWorld.defaultWorld || !m_BoidBodies.IsCreated)
             return;
 
-        // Create the boid states if needed.
+        // The number of boids comes from the bodies, so a changed count that has not been rebuilt yet cannot run the jobs off the end of an array.
+        var boidCount = m_BoidBodies.Length;
+
+        // Create the boid states and the grid if needed.
         if (!m_BoidStates.IsCreated)
-            m_BoidStates = new NativeArray<BoidState>(m_BoidCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+            m_BoidStates = new NativeArray<BoidState>(boidCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+
+        if (!m_BoidGrid.IsCreated)
+            m_BoidGrid = new NativeParallelMultiHashMap<int, int>(boidCount, Allocator.Persistent);
 
         // Initialize the batches.
         var initializeBatchesHandle = new InitializeBatchesJob
@@ -271,11 +287,23 @@ public sealed class Boids : SandboxExampleBehaviour
             BoidBodies = m_BoidBodies,
             BoidStates = m_BoidStates
 
-        }.Schedule(m_BoidCount, m_BoidCount / 16);
+        }.Schedule(boidCount, JobBatchSize);
+
+        // Sort the boids into a grid of cells as big as the furthest a boid looks, so a boid only has to check the cells around it.
+        var cellSize = math.max(math.max(m_SightRadius, m_SeparationRadius), 0.1f);
+        m_BoidGrid.Clear();
+
+        var buildGridHandle = new BuildGridJob
+        {
+            CellSize = cellSize,
+            BoidStates = m_BoidStates,
+            Grid = m_BoidGrid.AsParallelWriter()
+
+        }.Schedule(boidCount, JobBatchSize, initializeBatchesHandle);
 
         // Create the output of the boid dynamics calculated in the job.
-        var batchTransforms = new NativeArray<PhysicsBody.BatchTransform>(m_BoidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
-        var batchVelocities = new NativeArray<PhysicsBody.BatchVelocity>(m_BoidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
+        var batchTransforms = new NativeArray<PhysicsBody.BatchTransform>(boidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
+        var batchVelocities = new NativeArray<PhysicsBody.BatchVelocity>(boidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
         new BoidFlockingJob
         {
             BoidBoundsWrap = m_BoidBoundsWrap,
@@ -289,10 +317,12 @@ public sealed class Boids : SandboxExampleBehaviour
             AlignmentStrength = m_AlignmentStrength,
             PointerPosition = CameraManipulator.ManipulatorActionPosition,
             PointerAvoidRadiusSqr = m_BoidBounds.radius * 0.2f * m_BoidBounds.radius * 0.2f,
+            CellSize = cellSize,
+            Grid = m_BoidGrid,
             BoidStates = m_BoidStates,
             BatchTransforms = batchTransforms,
             BatchVelocities = batchVelocities
-        }.Schedule(m_BoidCount, m_BoidCount / 16, initializeBatchesHandle).Complete();
+        }.Schedule(boidCount, JobBatchSize, buildGridHandle).Complete();
 
         // Update the boid transforms and velocities.
         PhysicsBody.SetBatchTransform(batchTransforms);
@@ -302,6 +332,10 @@ public sealed class Boids : SandboxExampleBehaviour
         batchTransforms.Dispose();
         batchVelocities.Dispose();
     }
+
+    // Returns the key of a grid cell for boids of one group.
+    // The cell coordinates and the group are packed into separate bits of the key, so two different cells never share one.
+    private static int GridKey(int cellX, int cellY, int groupIndex) => (cellX & 0x3FFF) | ((cellY & 0x3FFF) << 14) | (groupIndex << 28);
 
     private struct BoidState
     {
@@ -332,6 +366,23 @@ public sealed class Boids : SandboxExampleBehaviour
         }
     }
 
+    // Puts every boid into the grid cell it is in, keyed by cell and group so a boid only ever finds boids of its own group.
+    [BurstCompile]
+    private struct BuildGridJob : IJobParallelFor
+    {
+        [ReadOnly] public float CellSize;
+        [ReadOnly] public NativeArray<BoidState> BoidStates;
+        [WriteOnly] public NativeParallelMultiHashMap<int, int>.ParallelWriter Grid;
+
+        public void Execute(int index)
+        {
+            var boidState = BoidStates[index];
+            var cell = (int2)math.floor(boidState.position / CellSize);
+
+            Grid.Add(GridKey(cell.x, cell.y, boidState.groupIndex), index);
+        }
+    }
+
     [BurstCompile]
     private struct BoidFlockingJob : IJobParallelFor
     {
@@ -346,6 +397,8 @@ public sealed class Boids : SandboxExampleBehaviour
         [ReadOnly] public float AlignmentStrength;
         [ReadOnly] public float2 PointerPosition;
         [ReadOnly] public float PointerAvoidRadiusSqr;
+        [ReadOnly] public float CellSize;
+        [ReadOnly] public NativeParallelMultiHashMap<int, int> Grid;
         [ReadOnly] public NativeArray<BoidState> BoidStates;
         [WriteOnly] public NativeArray<PhysicsBody.BatchTransform> BatchTransforms;
         [WriteOnly] public NativeArray<PhysicsBody.BatchVelocity> BatchVelocities;
@@ -368,44 +421,52 @@ public sealed class Boids : SandboxExampleBehaviour
                 var alignment = float2.zero;
 
                 var boidsInSight = 0;
-                var boidCount = BoidStates.Length;
-                for (var otherIndex = 0; otherIndex < boidCount; ++otherIndex)
-                {
-                    // Ignore self.
-                    if (otherIndex != index)
-                    {
-                        // Fetch the other boid state.
-                        var otherBoidState = BoidStates[otherIndex];
-                        var otherBoidPosition = otherBoidState.position;
-                        var otherBoidLinearVelocity = otherBoidState.linearVelocity;
-                        var otherBoidGroupIndex = otherBoidState.groupIndex;
 
-                        // Skip if not the same boid group index.
-                        if (boidGroupIndex != otherBoidGroupIndex)
+                // Only the boids of the same group in this cell and the eight around it can be close enough to matter.
+                var cell = (int2)math.floor(boidPosition / CellSize);
+                for (var cellOffsetY = -1; cellOffsetY <= 1; ++cellOffsetY)
+                {
+                    for (var cellOffsetX = -1; cellOffsetX <= 1; ++cellOffsetX)
+                    {
+                        var key = GridKey(cell.x + cellOffsetX, cell.y + cellOffsetY, boidGroupIndex);
+                        if (!Grid.TryGetFirstValue(key, out var otherIndex, out var iterator))
                             continue;
 
-                        // Calculate boid delta position.
-                        var boidDeltaPosition = otherBoidPosition - boidPosition;
-
-                        // Calculate sqr-distance to boid.
-                        var boidDistanceSqr = math.lengthsq(boidDeltaPosition);
-
-                        // Calculate Separation if we're within the separation radius.
-                        if (boidDistanceSqr < SeparationRadiusSqr)
-                            separation -= boidDeltaPosition;
-
-                        // Are we in sight of the other boid?
-                        if (boidDistanceSqr < SightRadiusSqr)
+                        do
                         {
-                            // Yes, so keep track so we can calculate the mean averages.
-                            ++boidsInSight;
+                            // Ignore self.
+                            if (otherIndex == index)
+                                continue;
 
-                            // Calculate the cohesion (local boid center).
-                            cohesion += otherBoidPosition;
+                            // Fetch the other boid state.
+                            var otherBoidState = BoidStates[otherIndex];
+                            var otherBoidPosition = otherBoidState.position;
+                            var otherBoidLinearVelocity = otherBoidState.linearVelocity;
 
-                            // Calculate the alignment (local linear velocity).
-                            alignment += otherBoidLinearVelocity;
+                            // Calculate boid delta position.
+                            var boidDeltaPosition = otherBoidPosition - boidPosition;
+
+                            // Calculate sqr-distance to boid.
+                            var boidDistanceSqr = math.lengthsq(boidDeltaPosition);
+
+                            // Calculate Separation if we're within the separation radius.
+                            if (boidDistanceSqr < SeparationRadiusSqr)
+                                separation -= boidDeltaPosition;
+
+                            // Are we in sight of the other boid?
+                            if (boidDistanceSqr < SightRadiusSqr)
+                            {
+                                // Yes, so keep track so we can calculate the mean averages.
+                                ++boidsInSight;
+
+                                // Calculate the cohesion (local boid center).
+                                cohesion += otherBoidPosition;
+
+                                // Calculate the alignment (local linear velocity).
+                                alignment += otherBoidLinearVelocity;
+                            }
                         }
+                        while (Grid.TryGetNextValue(out otherIndex, ref iterator));
                     }
                 }
 
@@ -415,8 +476,8 @@ public sealed class Boids : SandboxExampleBehaviour
                     // Scale the separation.
                     separation *= SeparationStrength;
 
-                    // Calculate the Cohesion and Alignment Mean average if we have more than a single neighbour.
-                    var meanScale = boidsInSight > 1 ? math.rcp(boidsInSight - 1) : 1f;
+                    // Calculate the Cohesion and Alignment mean average over the boids in sight.
+                    var meanScale = math.rcp(boidsInSight);
                     cohesion = (cohesion * meanScale - boidPosition) * CohesionStrength;
                     alignment = (alignment * meanScale - boidLinearVelocity) * AlignmentStrength;
 
@@ -429,11 +490,11 @@ public sealed class Boids : SandboxExampleBehaviour
                 // No, so handle bounds behaviour.
                 if (BoidBoundsWrap)
                 {
-                    boidPosition = math.normalize(-boidPosition) * (BoidBounds.radius - BoidSize);
+                    boidPosition = math.normalizesafe(-boidPosition, new float2(1f, 0f)) * (BoidBounds.radius - BoidSize);
                 }
                 else
                 {
-                    boidPosition = math.normalize(boidPosition) * (BoidBounds.radius - BoidSize);
+                    boidPosition = math.normalizesafe(boidPosition, new float2(1f, 0f)) * (BoidBounds.radius - BoidSize);
                     boidLinearVelocity = -boidPosition;
                 }
             }
@@ -441,15 +502,18 @@ public sealed class Boids : SandboxExampleBehaviour
             // Pointer Avoidance.
             var pointerDirection = boidPosition - PointerPosition;
             if (math.lengthsq(pointerDirection) < PointerAvoidRadiusSqr)
-                boidLinearVelocity += math.normalize(pointerDirection * MaxSpeed);
+                boidLinearVelocity += math.normalizesafe(pointerDirection) * MaxSpeed;
 
             // Fetch the direction.
-            var direction = math.normalize(boidLinearVelocity);
+            var direction = math.normalizesafe(boidLinearVelocity, new float2(1f, 0f));
 
-            // Clamp to the maximum speed.
+            // Keep the speed between half the maximum and the maximum.
             var speedSqr = math.lengthsq(boidLinearVelocity);
+            var minSpeed = MaxSpeed * 0.5f;
             if (speedSqr > MaxSpeed * MaxSpeed)
                 boidLinearVelocity = direction * MaxSpeed;
+            else if (speedSqr < minSpeed * minSpeed)
+                boidLinearVelocity = direction * minSpeed;
 
             // Set rotation to be the current velocity direction.
             PhysicsRotate rotation = default;

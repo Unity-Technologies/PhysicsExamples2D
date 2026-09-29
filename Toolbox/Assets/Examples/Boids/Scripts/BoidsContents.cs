@@ -119,6 +119,9 @@ public sealed class BoidsContents : MonoBehaviour
         if (m_BoidStates.IsCreated)
             m_BoidStates.Dispose();
 
+        if (m_BoidGrid.IsCreated)
+            m_BoidGrid.Dispose();
+
         if (m_GroupIndices.IsCreated)
             m_GroupIndices.Dispose();
     }
@@ -304,18 +307,35 @@ public sealed class BoidsContents : MonoBehaviour
         if (world != PhysicsWorld.defaultWorld || !m_BoidBodies.IsCreated)
             return;
 
+        // The number of boids comes from the bodies, so a changed count that has not been rebuilt yet cannot run the jobs off the end of an array.
+        var boidCount = m_BoidBodies.Length;
+
         if (!m_BoidStates.IsCreated)
-            m_BoidStates = new NativeArray<BoidState>(m_BoidCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+            m_BoidStates = new NativeArray<BoidState>(boidCount, Allocator.Persistent, NativeArrayOptions.UninitializedMemory);
+
+        if (!m_BoidGrid.IsCreated)
+            m_BoidGrid = new NativeParallelMultiHashMap<int, int>(boidCount, Allocator.Persistent);
 
         var initializeBatchesHandle = new InitializeBatchesJob
         {
             BoidBodies = m_BoidBodies,
             GroupIndices = m_GroupIndices,
             BoidStates = m_BoidStates
-        }.Schedule(m_BoidCount, m_BoidCount / 16);
+        }.Schedule(boidCount, JobBatchSize);
 
-        var batchTransforms = new NativeArray<PhysicsBody.BatchTransform>(m_BoidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
-        var batchVelocities = new NativeArray<PhysicsBody.BatchVelocity>(m_BoidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
+        // The boids are sorted into a grid of cells as big as the furthest a boid looks, so a boid only has to check the cells around it.
+        var cellSize = math.max(math.max(m_SightRadius, m_SeparationRadius), 0.1f);
+        m_BoidGrid.Clear();
+
+        var buildGridHandle = new BuildGridJob
+        {
+            CellSize = cellSize,
+            BoidStates = m_BoidStates,
+            Grid = m_BoidGrid.AsParallelWriter()
+        }.Schedule(boidCount, JobBatchSize, initializeBatchesHandle);
+
+        var batchTransforms = new NativeArray<PhysicsBody.BatchTransform>(boidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
+        var batchVelocities = new NativeArray<PhysicsBody.BatchVelocity>(boidCount, Allocator.TempJob, NativeArrayOptions.UninitializedMemory);
         var pointerAvoidRadius = m_BoidBounds.radius * 0.2f;
 
         new BoidFlockingJob
@@ -331,10 +351,12 @@ public sealed class BoidsContents : MonoBehaviour
             AlignmentStrength = m_AlignmentStrength,
             PointerPosition = m_CameraManipulator != null ? m_CameraManipulator.ManipulatorActionPosition : Vector2.zero,
             PointerAvoidRadiusSqr = pointerAvoidRadius * pointerAvoidRadius,
+            CellSize = cellSize,
+            Grid = m_BoidGrid,
             BoidStates = m_BoidStates,
             BatchTransforms = batchTransforms,
             BatchVelocities = batchVelocities
-        }.Schedule(m_BoidCount, m_BoidCount / 16, initializeBatchesHandle).Complete();
+        }.Schedule(boidCount, JobBatchSize, buildGridHandle).Complete();
 
         PhysicsBody.SetBatchTransform(batchTransforms);
         PhysicsBody.SetBatchVelocity(batchVelocities);
@@ -342,6 +364,10 @@ public sealed class BoidsContents : MonoBehaviour
         batchTransforms.Dispose();
         batchVelocities.Dispose();
     }
+
+    // Returns the key of a grid cell for boids of one group.
+    // The cell coordinates and the group are packed into separate bits of the key, so two different cells never share one.
+    private static int GridKey(int cellX, int cellY, int groupIndex) => (cellX & 0x3FFF) | ((cellY & 0x3FFF) << 14) | (groupIndex << 28);
 
     #region Internal
 
@@ -376,6 +402,23 @@ public sealed class BoidsContents : MonoBehaviour
         }
     }
 
+    // Puts every boid into the grid cell it is in, keyed by cell and group so a boid only ever finds boids of its own group.
+    [BurstCompile]
+    struct BuildGridJob : IJobParallelFor
+    {
+        [ReadOnly] public float CellSize;
+        [ReadOnly] public NativeArray<BoidState> BoidStates;
+        [WriteOnly] public NativeParallelMultiHashMap<int, int>.ParallelWriter Grid;
+
+        public void Execute(int index)
+        {
+            var boidState = BoidStates[index];
+            var cell = (int2)math.floor(boidState.position / CellSize);
+
+            Grid.Add(GridKey(cell.x, cell.y, boidState.groupIndex), index);
+        }
+    }
+
     // Works out the new position, heading and velocity of every boid from the boids around it.
     [BurstCompile]
     struct BoidFlockingJob : IJobParallelFor
@@ -391,6 +434,8 @@ public sealed class BoidsContents : MonoBehaviour
         [ReadOnly] public float AlignmentStrength;
         [ReadOnly] public float2 PointerPosition;
         [ReadOnly] public float PointerAvoidRadiusSqr;
+        [ReadOnly] public float CellSize;
+        [ReadOnly] public NativeParallelMultiHashMap<int, int> Grid;
         [ReadOnly] public NativeArray<BoidState> BoidStates;
         [WriteOnly] public NativeArray<PhysicsBody.BatchTransform> BatchTransforms;
         [WriteOnly] public NativeArray<PhysicsBody.BatchVelocity> BatchVelocities;
@@ -411,29 +456,38 @@ public sealed class BoidsContents : MonoBehaviour
                 var alignment = float2.zero;
 
                 var boidsInSight = 0;
-                var boidCount = BoidStates.Length;
 
-                for (var otherIndex = 0; otherIndex < boidCount; ++otherIndex)
+                // Only the boids of the same group in this cell and the eight around it can be close enough to matter.
+                var cell = (int2)math.floor(boidPosition / CellSize);
+
+                for (var cellOffsetY = -1; cellOffsetY <= 1; ++cellOffsetY)
                 {
-                    if (otherIndex == index)
-                        continue;
-
-                    var otherBoidState = BoidStates[otherIndex];
-
-                    if (boidGroupIndex != otherBoidState.groupIndex)
-                        continue;
-
-                    var boidDeltaPosition = otherBoidState.position - boidPosition;
-                    var boidDistanceSqr = math.lengthsq(boidDeltaPosition);
-
-                    if (boidDistanceSqr < SeparationRadiusSqr)
-                        separation -= boidDeltaPosition;
-
-                    if (boidDistanceSqr < SightRadiusSqr)
+                    for (var cellOffsetX = -1; cellOffsetX <= 1; ++cellOffsetX)
                     {
-                        ++boidsInSight;
-                        cohesion += otherBoidState.position;
-                        alignment += otherBoidState.linearVelocity;
+                        var key = GridKey(cell.x + cellOffsetX, cell.y + cellOffsetY, boidGroupIndex);
+                        if (!Grid.TryGetFirstValue(key, out var otherIndex, out var iterator))
+                            continue;
+
+                        do
+                        {
+                            if (otherIndex == index)
+                                continue;
+
+                            var otherBoidState = BoidStates[otherIndex];
+                            var boidDeltaPosition = otherBoidState.position - boidPosition;
+                            var boidDistanceSqr = math.lengthsq(boidDeltaPosition);
+
+                            if (boidDistanceSqr < SeparationRadiusSqr)
+                                separation -= boidDeltaPosition;
+
+                            if (boidDistanceSqr < SightRadiusSqr)
+                            {
+                                ++boidsInSight;
+                                cohesion += otherBoidState.position;
+                                alignment += otherBoidState.linearVelocity;
+                            }
+                        }
+                        while (Grid.TryGetNextValue(out otherIndex, ref iterator));
                     }
                 }
 
@@ -442,7 +496,7 @@ public sealed class BoidsContents : MonoBehaviour
                     separation *= SeparationStrength;
 
                     // The cohesion and alignment are averages over the boids in sight.
-                    var meanScale = boidsInSight > 1 ? math.rcp(boidsInSight - 1) : 1f;
+                    var meanScale = math.rcp(boidsInSight);
                     cohesion = (cohesion * meanScale - boidPosition) * CohesionStrength;
                     alignment = (alignment * meanScale - boidLinearVelocity) * AlignmentStrength;
 
@@ -451,24 +505,29 @@ public sealed class BoidsContents : MonoBehaviour
             }
             else if (BoidBoundsWrap)
             {
-                boidPosition = math.normalize(-boidPosition) * (BoidBounds.radius - BoidSize);
+                boidPosition = math.normalizesafe(-boidPosition, new float2(1f, 0f)) * (BoidBounds.radius - BoidSize);
             }
             else
             {
-                boidPosition = math.normalize(boidPosition) * (BoidBounds.radius - BoidSize);
+                boidPosition = math.normalizesafe(boidPosition, new float2(1f, 0f)) * (BoidBounds.radius - BoidSize);
                 boidLinearVelocity = -boidPosition;
             }
 
             // Boids steer away from the pointer.
             var pointerDirection = boidPosition - PointerPosition;
             if (math.lengthsq(pointerDirection) < PointerAvoidRadiusSqr)
-                boidLinearVelocity += math.normalize(pointerDirection * MaxSpeed);
+                boidLinearVelocity += math.normalizesafe(pointerDirection) * MaxSpeed;
 
-            var direction = math.normalize(boidLinearVelocity);
+            var direction = math.normalizesafe(boidLinearVelocity, new float2(1f, 0f));
 
+            // The speed is kept between half the maximum and the maximum, because averaging the headings of nearby boids slowly takes speed out of the flock.
             var speedSqr = math.lengthsq(boidLinearVelocity);
+            var minSpeed = MaxSpeed * 0.5f;
+
             if (speedSqr > MaxSpeed * MaxSpeed)
                 boidLinearVelocity = direction * MaxSpeed;
+            else if (speedSqr < minSpeed * minSpeed)
+                boidLinearVelocity = direction * minSpeed;
 
             // A boid faces the way it is moving.
             PhysicsRotate rotation = default;
@@ -479,8 +538,9 @@ public sealed class BoidsContents : MonoBehaviour
         }
     }
 
-    // How many groups the boids are split into when groups are on.
+    // How many groups the boids are split into when groups are on, and how many boids each job batch works on, which is small enough to spread the flock evenly over many cores.
     const int BoidGroupCount = 16;
+    const int JobBatchSize = 32;
 
     // The colors of the bounds and the trails, how washed out the random colors are, and the seed they start from.
     static readonly Color BoundsColor = Color.slateGray;
@@ -490,14 +550,14 @@ public sealed class BoidsContents : MonoBehaviour
 
     [SerializeField] CameraManipulator m_CameraManipulator;
     [SerializeField] GameObject m_BoidPrefab;
-    [SerializeField, Range(3, 3000)] int m_BoidCount = 1000;
+    [SerializeField, Range(3, 5000)] int m_BoidCount = 1000;
     [SerializeField, Range(0.1f, 0.5f)] float m_BoidSize = 0.25f;
     [SerializeField, Range(1f, 20f)] float m_MaxSpeed = 6f;
     [SerializeField, Range(0.1f, 3f)] float m_SightRadius = 0.5f;
     [SerializeField, Range(0f, 10f)] float m_SeparationRadius = 0.3f;
     [SerializeField, Range(0f, 1f)] float m_SeparationStrength = 0.5f;
     [SerializeField, Range(0f, 0.1f)] float m_CohesionStrength = 0.005f;
-    [SerializeField, Range(0f, 1f)] float m_AlignmentStrength = 0.05f;
+    [SerializeField, Range(0f, 1f)] float m_AlignmentStrength = 0.2f;
     [SerializeField, Range(5f, 30f)] float m_BoundsRadius = 20f;
     [SerializeField] bool m_BoidBoundsWrap = true;
     [SerializeField] bool m_BoidGroups;
@@ -507,6 +567,7 @@ public sealed class BoidsContents : MonoBehaviour
     NativeArray<int> m_GroupIndices;
     Transform m_BoidRoot;
     NativeArray<BoidState> m_BoidStates;
+    NativeParallelMultiHashMap<int, int> m_BoidGrid;
     CircleGeometry m_BoidBounds;
     ToolboxManager m_Toolbox;
 

@@ -13,7 +13,7 @@ public sealed class BoidsOptions : ToolboxOptionsProvider
 
         m_Contents.SetToolbox(toolbox);
 
-        AddSliderInt("Boid Count", m_Contents.boidCount, 3, 3000, value =>
+        AddSliderInt("Boid Count", m_Contents.boidCount, 3, 5000, value =>
         {
             m_Contents.boidCount = value;
             m_Contents.Rebuild();
