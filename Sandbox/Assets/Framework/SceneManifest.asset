@@ -303,3 +303,8 @@ MonoBehaviour:
     Description: Demonstrates the distance and closest points between two shapes as they orbit the origin and spin.
     TypeName: ShapeDistance, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Pinball
+    Category: Collision
+    Description: A pinball table showing small fast balls using continuous collision against moving flippers.
+    TypeName: Pinball, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}

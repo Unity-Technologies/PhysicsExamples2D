@@ -233,6 +233,16 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+  - exampleName: Pinball
+    category: Collision
+    description: A pinball table showing small fast balls using continuous collision against moving flippers.
+    scenePath: Assets/Examples/Pinball/Pinball.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
   - exampleName: Ball And Chain
     category: Joints
     description: Demonstrating a chain of joints.

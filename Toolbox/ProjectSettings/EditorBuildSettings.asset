@@ -75,6 +75,9 @@ EditorBuildSettings:
     path: Assets/Examples/ContactManifold/ContactManifold.unity
     guid: ca19375cbfe488843b1f57b77a874cca
   - enabled: 1
+    path: Assets/Examples/Pinball/Pinball.unity
+    guid: 286ab2fcc0189f04da620ed16396ae59
+  - enabled: 1
     path: Assets/Examples/BallAndChain/BallAndChain.unity
     guid: 0b8079d80b344f944a90d66d9cff5518
   - enabled: 1

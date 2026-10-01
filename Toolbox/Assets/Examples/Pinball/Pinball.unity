@@ -1,0 +1,2363 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 10
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 2
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 1
+    m_PVRDenoiserTypeDirect: 2
+    m_PVRDenoiserTypeIndirect: 2
+    m_PVRDenoiserTypeAO: 2
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 1
+    m_PVRFilteringGaussRadiusAO: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
+  m_LightingSettings: {fileID: 0}
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 3
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    buildHeightMesh: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &99592370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 99592371}
+  - component: {fileID: 99592373}
+  - component: {fileID: 99592372}
+  m_Layer: 0
+  m_Name: Bumper A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &99592371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99592370}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &99592372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99592370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c79862b9e6459045a7d5c56265ea844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaCircle
+  m_Source: 0
+  m_Pose: {fileID: 99592373}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 1.5
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Geometry:
+    m_Center: {x: 0, y: 0}
+    m_Radius: 1
+  m_GeometryAsset: {fileID: 0}
+--- !u!114 &99592373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99592370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5cab806479227418445289d7193e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsPose
+  m_Source: 0
+  m_SimulationWorld: {fileID: 0}
+  onBodyUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    m_BodyType: 2
+    m_BodyConstraints: 0
+    m_TransformWriteMode: 3
+    m_Position: {x: 0, y: 0}
+    m_Rotation:
+      direction: {x: 1, y: 0}
+    m_LinearVelocity: {x: 0, y: 0}
+    m_AngularVelocity: 0
+    m_LinearDamping: 0
+    m_AngularDamping: 0
+    m_GravityScale: 1
+    m_SleepThreshold: 0.05
+    m_CollisionThreshold: 0.5
+    m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
+    m_ContactRecyclingAllowed: 1
+    m_SleepingAllowed: 1
+    m_Awake: 1
+    m_Enabled: 1
+    m_WorldDrawing: 1
+    m_MassOverride: 0
+    m_MassConfiguration:
+      m_Mass: 1
+      m_Center: {x: 0, y: 0}
+      m_RotationalInertia: 1
+  m_Composite: {fileID: 0}
+--- !u!1 &216611468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 216611469}
+  - component: {fileID: 216611470}
+  m_Layer: 0
+  m_Name: Arm B
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &216611469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216611468}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 947850213}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &216611470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216611468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a4af6a834fddd40a7fadd3c55e0b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaPolygon
+  m_Source: 0
+  m_Pose: {fileID: 947850212}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Geometry:
+    vertices:
+      m_Vertex0: {x: -0.125, y: -1.5}
+      m_Vertex1: {x: 0.125, y: -1.5}
+      m_Vertex2: {x: 0.125, y: 1.5}
+      m_Vertex3: {x: -0.125, y: 1.5}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    normals:
+      m_Vertex0: {x: 0, y: -1}
+      m_Vertex1: {x: 1, y: 0}
+      m_Vertex2: {x: 0, y: 1}
+      m_Vertex3: {x: -1, y: 0}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    m_Centroid: {x: 0, y: 0}
+    m_Radius: 0
+    m_Count: 4
+  m_GeometryAsset: {fileID: 0}
+--- !u!1 &458776999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 458777000}
+  - component: {fileID: 458777001}
+  m_Layer: 0
+  m_Name: Spinner B Hinge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &458777000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458776999}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &458777001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458776999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1ffb64c8821474ea5d83a0f196ea91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsConstraintHinge
+  onJointThreshold:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Source: 1
+  m_PoseA: {fileID: 1015863050}
+  m_PoseB: {fileID: 1058753651}
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_Definition:
+    m_LocalAnchorA:
+      position: {x: 4, y: 8}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_AutoAnchorA: 0
+    m_AutoAnchorB: 0
+    m_EnableUnpinned: 0
+    m_EnableSpring: 0
+    m_SpringTargetAngle: 0
+    m_SpringFrequency: 0
+    m_SpringDamping: 0
+    m_EnableMotor: 1
+    m_MotorSpeed: 0
+    m_MaxMotorTorque: 0.1
+    m_EnableLimit: 0
+    m_LowerAngleLimit: 0
+    m_UpperAngleLimit: 0
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDamping: 0
+    m_DrawScale: 1
+    m_WorldDrawing: 1
+    m_CollideConnected: 0
+  m_DefinitionAsset: {fileID: 0}
+--- !u!1 &947850211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 947850213}
+  - component: {fileID: 947850212}
+  m_Layer: 0
+  m_Name: Spinner A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &947850212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947850211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5cab806479227418445289d7193e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsPose
+  m_Source: 0
+  m_SimulationWorld: {fileID: 0}
+  onBodyUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    m_BodyType: 0
+    m_BodyConstraints: 0
+    m_TransformWriteMode: 3
+    m_Position: {x: 0, y: 0}
+    m_Rotation:
+      direction: {x: 1, y: 0}
+    m_LinearVelocity: {x: 0, y: 0}
+    m_AngularVelocity: 0
+    m_LinearDamping: 0
+    m_AngularDamping: 0
+    m_GravityScale: 1
+    m_SleepThreshold: 0.05
+    m_CollisionThreshold: 0.5
+    m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
+    m_ContactRecyclingAllowed: 1
+    m_SleepingAllowed: 1
+    m_Awake: 1
+    m_Enabled: 1
+    m_WorldDrawing: 1
+    m_MassOverride: 0
+    m_MassConfiguration:
+      m_Mass: 1
+      m_Center: {x: 0, y: 0}
+      m_RotationalInertia: 1
+  m_Composite: {fileID: 0}
+--- !u!4 &947850213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947850211}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4, y: 17, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1950071196}
+  - {fileID: 216611469}
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1007383522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007383523}
+  - component: {fileID: 1007383524}
+  m_Layer: 0
+  m_Name: Arm B
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1007383523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007383522}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1058753652}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1007383524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007383522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a4af6a834fddd40a7fadd3c55e0b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaPolygon
+  m_Source: 0
+  m_Pose: {fileID: 1058753651}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Geometry:
+    vertices:
+      m_Vertex0: {x: -0.125, y: -1.5}
+      m_Vertex1: {x: 0.125, y: -1.5}
+      m_Vertex2: {x: 0.125, y: 1.5}
+      m_Vertex3: {x: -0.125, y: 1.5}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    normals:
+      m_Vertex0: {x: 0, y: -1}
+      m_Vertex1: {x: 1, y: 0}
+      m_Vertex2: {x: 0, y: 1}
+      m_Vertex3: {x: -1, y: 0}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    m_Centroid: {x: 0, y: 0}
+    m_Radius: 0
+    m_Count: 4
+  m_GeometryAsset: {fileID: 0}
+--- !u!1 &1015863049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1015863052}
+  - component: {fileID: 1015863050}
+  - component: {fileID: 1015863051}
+  m_Layer: 0
+  m_Name: Table
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1015863050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015863049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5cab806479227418445289d7193e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsPose
+  m_Source: 0
+  m_SimulationWorld: {fileID: 0}
+  onBodyUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    m_BodyType: 2
+    m_BodyConstraints: 0
+    m_TransformWriteMode: 3
+    m_Position: {x: 0, y: 0}
+    m_Rotation:
+      direction: {x: 1, y: 0}
+    m_LinearVelocity: {x: 0, y: 0}
+    m_AngularVelocity: 0
+    m_LinearDamping: 0
+    m_AngularDamping: 0
+    m_GravityScale: 1
+    m_SleepThreshold: 0.05
+    m_CollisionThreshold: 0.5
+    m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
+    m_ContactRecyclingAllowed: 1
+    m_SleepingAllowed: 1
+    m_Awake: 1
+    m_Enabled: 1
+    m_WorldDrawing: 1
+    m_MassOverride: 0
+    m_MassConfiguration:
+      m_Mass: 1
+      m_Center: {x: 0, y: 0}
+      m_RotationalInertia: 1
+  m_Composite: {fileID: 0}
+--- !u!114 &1015863051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015863049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9457fe5dff7c5c34d86be66c8ef6da69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaContour
+  m_Source: 0
+  m_Pose: {fileID: 1015863050}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Output: 1
+  m_MaxPolygonVertices: 8
+  m_UseDelaunay: 1
+  m_ReverseWinding: 0
+  m_Geometry:
+    m_Contours:
+    - m_Vertices:
+      - {x: -8, y: 6}
+      - {x: -8, y: 20}
+      - {x: 8, y: 20}
+      - {x: 8, y: 6}
+      - {x: 3.6, y: 1.6}
+      - {x: 3.6, y: -2}
+      - {x: -3.6, y: -2}
+      - {x: -3.6, y: 1.6}
+      m_Transformation:
+        position: {x: 0, y: 0}
+        rotation:
+          direction: {x: 1, y: 0}
+  m_GeometryAsset: {fileID: 0}
+--- !u!4 &1015863052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015863049}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1058753650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1058753652}
+  - component: {fileID: 1058753651}
+  m_Layer: 0
+  m_Name: Spinner B
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1058753651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058753650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5cab806479227418445289d7193e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsPose
+  m_Source: 0
+  m_SimulationWorld: {fileID: 0}
+  onBodyUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    m_BodyType: 0
+    m_BodyConstraints: 0
+    m_TransformWriteMode: 3
+    m_Position: {x: 0, y: 0}
+    m_Rotation:
+      direction: {x: 1, y: 0}
+    m_LinearVelocity: {x: 0, y: 0}
+    m_AngularVelocity: 0
+    m_LinearDamping: 0
+    m_AngularDamping: 0
+    m_GravityScale: 1
+    m_SleepThreshold: 0.05
+    m_CollisionThreshold: 0.5
+    m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
+    m_ContactRecyclingAllowed: 1
+    m_SleepingAllowed: 1
+    m_Awake: 1
+    m_Enabled: 1
+    m_WorldDrawing: 1
+    m_MassOverride: 0
+    m_MassConfiguration:
+      m_Mass: 1
+      m_Center: {x: 0, y: 0}
+      m_RotationalInertia: 1
+  m_Composite: {fileID: 0}
+--- !u!4 &1058753652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058753650}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2087409556}
+  - {fileID: 1007383523}
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1094111767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1094111769}
+  - component: {fileID: 1094111768}
+  m_Layer: 0
+  m_Name: Left Flipper Hinge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1094111768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094111767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1ffb64c8821474ea5d83a0f196ea91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsConstraintHinge
+  onJointThreshold:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Source: 1
+  m_PoseA: {fileID: 1015863050}
+  m_PoseB: {fileID: 1413775403}
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_Definition:
+    m_LocalAnchorA:
+      position: {x: -3.6, y: 1.6}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_AutoAnchorA: 0
+    m_AutoAnchorB: 0
+    m_EnableUnpinned: 0
+    m_EnableSpring: 0
+    m_SpringTargetAngle: 0
+    m_SpringFrequency: 0
+    m_SpringDamping: 0
+    m_EnableMotor: 1
+    m_MotorSpeed: -572.9578
+    m_MaxMotorTorque: 1000
+    m_EnableLimit: 1
+    m_LowerAngleLimit: -30
+    m_UpperAngleLimit: 5
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDamping: 0
+    m_DrawScale: 1
+    m_WorldDrawing: 1
+    m_CollideConnected: 0
+  m_DefinitionAsset: {fileID: 0}
+--- !u!4 &1094111769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094111767}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1139597671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1139597673}
+  - component: {fileID: 1139597672}
+  m_Layer: 0
+  m_Name: Right Flipper Hinge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1139597672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139597671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1ffb64c8821474ea5d83a0f196ea91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsConstraintHinge
+  onJointThreshold:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Source: 1
+  m_PoseA: {fileID: 1015863050}
+  m_PoseB: {fileID: 1251737499}
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_Definition:
+    m_LocalAnchorA:
+      position: {x: 3.6, y: 1.6}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_AutoAnchorA: 0
+    m_AutoAnchorB: 0
+    m_EnableUnpinned: 0
+    m_EnableSpring: 0
+    m_SpringTargetAngle: 0
+    m_SpringFrequency: 0
+    m_SpringDamping: 0
+    m_EnableMotor: 1
+    m_MotorSpeed: 572.9578
+    m_MaxMotorTorque: 1000
+    m_EnableLimit: 1
+    m_LowerAngleLimit: -5
+    m_UpperAngleLimit: 30
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDamping: 0
+    m_DrawScale: 1
+    m_WorldDrawing: 1
+    m_CollideConnected: 0
+  m_DefinitionAsset: {fileID: 0}
+--- !u!4 &1139597673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139597671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1200458269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1200458270}
+  - component: {fileID: 1200458271}
+  - component: {fileID: 1200458272}
+  - component: {fileID: 1200458273}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1200458270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200458269}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 9, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1200458271
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200458269}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 13
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!114 &1200458272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200458269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2044b6c87cc8074883abe8cd1953ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraManipulator
+--- !u!114 &1200458273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200458269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
+--- !u!1 &1251737498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1251737501}
+  - component: {fileID: 1251737499}
+  - component: {fileID: 1251737500}
+  m_Layer: 0
+  m_Name: Right Flipper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1251737499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251737498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5cab806479227418445289d7193e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsPose
+  m_Source: 0
+  m_SimulationWorld: {fileID: 0}
+  onBodyUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    m_BodyType: 0
+    m_BodyConstraints: 0
+    m_TransformWriteMode: 3
+    m_Position: {x: 0, y: 0}
+    m_Rotation:
+      direction: {x: 1, y: 0}
+    m_LinearVelocity: {x: 0, y: 0}
+    m_AngularVelocity: 0
+    m_LinearDamping: 0
+    m_AngularDamping: 0
+    m_GravityScale: 1
+    m_SleepThreshold: 0.05
+    m_CollisionThreshold: 0
+    m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
+    m_ContactRecyclingAllowed: 1
+    m_SleepingAllowed: 0
+    m_Awake: 1
+    m_Enabled: 1
+    m_WorldDrawing: 1
+    m_MassOverride: 0
+    m_MassConfiguration:
+      m_Mass: 1
+      m_Center: {x: 0, y: 0}
+      m_RotationalInertia: 1
+  m_Composite: {fileID: 0}
+--- !u!114 &1251737500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251737498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a4af6a834fddd40a7fadd3c55e0b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaPolygon
+  m_Source: 0
+  m_Pose: {fileID: 1251737499}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Geometry:
+    vertices:
+      m_Vertex0: {x: -3, y: -0.1}
+      m_Vertex1: {x: -0.100000024, y: -0.1}
+      m_Vertex2: {x: -0.100000024, y: 0.1}
+      m_Vertex3: {x: -3, y: 0.1}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    normals:
+      m_Vertex0: {x: 0, y: -1}
+      m_Vertex1: {x: 1, y: 0}
+      m_Vertex2: {x: 0, y: 1}
+      m_Vertex3: {x: -1, y: 0}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    m_Centroid: {x: -1.55, y: 0}
+    m_Radius: 0.1
+    m_Count: 4
+  m_GeometryAsset: {fileID: 0}
+--- !u!4 &1251737501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251737498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.6, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1336860267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1336860268}
+  - component: {fileID: 1336860269}
+  m_Layer: 0
+  m_Name: Spinner A Hinge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1336860268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336860267}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1336860269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336860267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1ffb64c8821474ea5d83a0f196ea91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsConstraintHinge
+  onJointThreshold:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Source: 1
+  m_PoseA: {fileID: 1015863050}
+  m_PoseB: {fileID: 947850212}
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_Definition:
+    m_LocalAnchorA:
+      position: {x: -4, y: 17}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_LocalAnchorB:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_AutoAnchorA: 0
+    m_AutoAnchorB: 0
+    m_EnableUnpinned: 0
+    m_EnableSpring: 0
+    m_SpringTargetAngle: 0
+    m_SpringFrequency: 0
+    m_SpringDamping: 0
+    m_EnableMotor: 1
+    m_MotorSpeed: 0
+    m_MaxMotorTorque: 0.1
+    m_EnableLimit: 0
+    m_LowerAngleLimit: 0
+    m_UpperAngleLimit: 0
+    m_ForceThreshold: 1000000
+    m_TorqueThreshold: 1000000
+    m_TuningFrequency: 60
+    m_TuningDamping: 0
+    m_DrawScale: 1
+    m_WorldDrawing: 1
+    m_CollideConnected: 0
+  m_DefinitionAsset: {fileID: 0}
+--- !u!1 &1413775402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1413775405}
+  - component: {fileID: 1413775403}
+  - component: {fileID: 1413775404}
+  m_Layer: 0
+  m_Name: Left Flipper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1413775403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413775402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5cab806479227418445289d7193e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsPose
+  m_Source: 0
+  m_SimulationWorld: {fileID: 0}
+  onBodyUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    m_BodyType: 0
+    m_BodyConstraints: 0
+    m_TransformWriteMode: 3
+    m_Position: {x: 0, y: 0}
+    m_Rotation:
+      direction: {x: 1, y: 0}
+    m_LinearVelocity: {x: 0, y: 0}
+    m_AngularVelocity: 0
+    m_LinearDamping: 0
+    m_AngularDamping: 0
+    m_GravityScale: 1
+    m_SleepThreshold: 0.05
+    m_CollisionThreshold: 0
+    m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
+    m_ContactRecyclingAllowed: 1
+    m_SleepingAllowed: 0
+    m_Awake: 1
+    m_Enabled: 1
+    m_WorldDrawing: 1
+    m_MassOverride: 0
+    m_MassConfiguration:
+      m_Mass: 1
+      m_Center: {x: 0, y: 0}
+      m_RotationalInertia: 1
+  m_Composite: {fileID: 0}
+--- !u!114 &1413775404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413775402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a4af6a834fddd40a7fadd3c55e0b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaPolygon
+  m_Source: 0
+  m_Pose: {fileID: 1413775403}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Geometry:
+    vertices:
+      m_Vertex0: {x: 0.100000024, y: -0.1}
+      m_Vertex1: {x: 3, y: -0.1}
+      m_Vertex2: {x: 3, y: 0.1}
+      m_Vertex3: {x: 0.100000024, y: 0.1}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    normals:
+      m_Vertex0: {x: 0, y: -1}
+      m_Vertex1: {x: 1, y: 0}
+      m_Vertex2: {x: 0, y: 1}
+      m_Vertex3: {x: -1, y: 0}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    m_Centroid: {x: 1.55, y: 0}
+    m_Radius: 0.1
+    m_Count: 4
+  m_GeometryAsset: {fileID: 0}
+--- !u!4 &1413775405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413775402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.6, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1618087954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1618087955}
+  - component: {fileID: 1618087957}
+  - component: {fileID: 1618087956}
+  m_Layer: 0
+  m_Name: Bumper B
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1618087955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618087954}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4, y: 17, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1904837598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1618087956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618087954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c79862b9e6459045a7d5c56265ea844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaCircle
+  m_Source: 0
+  m_Pose: {fileID: 1618087957}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 1.5
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Geometry:
+    m_Center: {x: 0, y: 0}
+    m_Radius: 1
+  m_GeometryAsset: {fileID: 0}
+--- !u!114 &1618087957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618087954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5cab806479227418445289d7193e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsPose
+  m_Source: 0
+  m_SimulationWorld: {fileID: 0}
+  onBodyUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    m_BodyType: 2
+    m_BodyConstraints: 0
+    m_TransformWriteMode: 3
+    m_Position: {x: 0, y: 0}
+    m_Rotation:
+      direction: {x: 1, y: 0}
+    m_LinearVelocity: {x: 0, y: 0}
+    m_AngularVelocity: 0
+    m_LinearDamping: 0
+    m_AngularDamping: 0
+    m_GravityScale: 1
+    m_SleepThreshold: 0.05
+    m_CollisionThreshold: 0.5
+    m_FastCollisionsAllowed: 0
+    m_FastRotationAllowed: 0
+    m_ContactRecyclingAllowed: 1
+    m_SleepingAllowed: 1
+    m_Awake: 1
+    m_Enabled: 1
+    m_WorldDrawing: 1
+    m_MassOverride: 0
+    m_MassConfiguration:
+      m_Mass: 1
+      m_Center: {x: 0, y: 0}
+      m_RotationalInertia: 1
+  m_Composite: {fileID: 0}
+--- !u!1 &1904837595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1904837598}
+  - component: {fileID: 1904837597}
+  - component: {fileID: 1904837596}
+  m_Layer: 0
+  m_Name: Pinball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1904837596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904837595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7822f6d2cc42ea47a4b8ffb2cc1adf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PinballOptions
+  m_Contents: {fileID: 1904837597}
+--- !u!114 &1904837597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904837595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed682b31aaa98140b77450a381a1bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PinballContents
+  m_BallPrefab: {fileID: 4187443331772833416, guid: 01ca189453d15294b9176fd801215070, type: 3}
+  m_LeftFlipperHinge: {fileID: 1094111768}
+  m_RightFlipperHinge: {fileID: 1139597672}
+--- !u!4 &1904837598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904837595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1015863052}
+  - {fileID: 1413775405}
+  - {fileID: 1251737501}
+  - {fileID: 947850213}
+  - {fileID: 1058753652}
+  - {fileID: 99592371}
+  - {fileID: 1618087955}
+  - {fileID: 1094111769}
+  - {fileID: 1139597673}
+  - {fileID: 1336860268}
+  - {fileID: 458777000}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1950071195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1950071196}
+  - component: {fileID: 1950071197}
+  m_Layer: 0
+  m_Name: Arm A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1950071196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950071195}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 947850213}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1950071197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950071195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a4af6a834fddd40a7fadd3c55e0b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaPolygon
+  m_Source: 0
+  m_Pose: {fileID: 947850212}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Geometry:
+    vertices:
+      m_Vertex0: {x: -1.5, y: -0.125}
+      m_Vertex1: {x: 1.5, y: -0.125}
+      m_Vertex2: {x: 1.5, y: 0.125}
+      m_Vertex3: {x: -1.5, y: 0.125}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    normals:
+      m_Vertex0: {x: 0, y: -1}
+      m_Vertex1: {x: 1, y: 0}
+      m_Vertex2: {x: 0, y: 1}
+      m_Vertex3: {x: -1, y: 0}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    m_Centroid: {x: 0, y: 0}
+    m_Radius: 0
+    m_Count: 4
+  m_GeometryAsset: {fileID: 0}
+--- !u!1 &2087409555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2087409556}
+  - component: {fileID: 2087409557}
+  m_Layer: 0
+  m_Name: Arm A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2087409556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087409555}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1058753652}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2087409557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087409555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a4af6a834fddd40a7fadd3c55e0b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaPolygon
+  m_Source: 0
+  m_Pose: {fileID: 1058753651}
+  m_Transformation:
+    m_Transform:
+      position: {x: 0, y: 0}
+      rotation:
+        direction: {x: 1, y: 0}
+    m_Scale: 1
+    m_ScaleRadius: 1
+  m_UserData:
+    m_EntityId:
+      m_rawData: 0
+    m_PhysicsMask:
+      bitMask: 0
+    m_Float: 0
+    m_Int: 0
+    m_Int64: 0
+    m_Vector3Int: {x: 0, y: 0, z: 0}
+    m_Bool: 0
+  m_CallbackSource: 0
+  m_CallbackTarget: {fileID: 0}
+  m_AreasOnly: 1
+  m_DefinitionAsset: {fileID: 0}
+  m_Definition:
+    contactFilter:
+      m_Categories:
+        bitMask: 1
+      m_Contacts:
+        bitMask: 18446744073709551615
+      m_GroupIndex: 0
+    surfaceMaterial:
+      m_Friction: 0.6
+      m_Bounciness: 0
+      m_FrictionMixing: 1
+      m_BouncinessMixing: 4
+      m_FrictionPriority: 0
+      m_BouncinessPriority: 0
+      m_RollingResistance: 0
+      m_TangentSpeed: 0
+      m_CustomColor:
+        serializedVersion: 2
+        rgba: 0
+    m_Density: 1
+    m_IsTrigger: 0
+    m_TriggerEvents: 0
+    m_ContactEvents: 0
+    m_HitEvents: 0
+    m_ContactFilterCallbacks: 0
+    m_PreContactCallbacks: 0
+    m_StartStaticContacts: 1
+    m_StartMassUpdate: 1
+    m_WorldDrawing: 1
+    moverData:
+      m_PushLimit: 1000000
+      m_ClipVelocity: 1
+  m_ContactAsset: {fileID: 0}
+  m_MaterialAsset: {fileID: 0}
+  onContactBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onContactEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  onTriggerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Geometry:
+    vertices:
+      m_Vertex0: {x: -1.5, y: -0.125}
+      m_Vertex1: {x: 1.5, y: -0.125}
+      m_Vertex2: {x: 1.5, y: 0.125}
+      m_Vertex3: {x: -1.5, y: 0.125}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    normals:
+      m_Vertex0: {x: 0, y: -1}
+      m_Vertex1: {x: 1, y: 0}
+      m_Vertex2: {x: 0, y: 1}
+      m_Vertex3: {x: -1, y: 0}
+      m_Vertex4: {x: 0, y: 0}
+      m_Vertex5: {x: 0, y: 0}
+      m_Vertex6: {x: 0, y: 0}
+      m_Vertex7: {x: 0, y: 0}
+    m_Centroid: {x: 0, y: 0}
+    m_Radius: 0
+    m_Count: 4
+  m_GeometryAsset: {fileID: 0}
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1200458270}
+  - {fileID: 1904837598}
