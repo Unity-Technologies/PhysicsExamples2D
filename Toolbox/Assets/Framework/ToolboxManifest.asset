@@ -533,6 +533,16 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+  - exampleName: Shape Distance
+    category: Shapes
+    description: Demonstrates the distance and closest points between two shapes as they orbit the origin and spin.
+    scenePath: Assets/Examples/ShapeDistance/ShapeDistance.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
   - exampleName: Shape Stack
     category: Shapes
     description: Checking the stability of stacking shapes.

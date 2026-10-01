@@ -165,6 +165,9 @@ EditorBuildSettings:
     path: Assets/Examples/RoundedPolygons/RoundedPolygons.unity
     guid: 99f6b3e53e6116248b5cf5e80d563d09
   - enabled: 1
+    path: Assets/Examples/ShapeDistance/ShapeDistance.unity
+    guid: 1ac2c1d3f8a9d3940b02c6f095ec0fcd
+  - enabled: 1
     path: Assets/Examples/ShapeStack/ShapeStack.unity
     guid: b198bb9b23b9f3045a6436c321afaf0d
   - enabled: 1

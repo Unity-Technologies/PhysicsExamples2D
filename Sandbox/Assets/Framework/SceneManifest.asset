@@ -298,3 +298,8 @@ MonoBehaviour:
     Description: Demonstrating buoyancy applied to random shapes dropped into a liquid region.
     TypeName: Buoyancy, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Shape Distance
+    Category: Shapes
+    Description: Demonstrates the distance and closest points between two shapes as they orbit the origin and spin.
+    TypeName: ShapeDistance, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}
