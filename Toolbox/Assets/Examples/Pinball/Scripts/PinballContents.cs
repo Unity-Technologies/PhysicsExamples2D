@@ -131,8 +131,8 @@ public sealed class PinballContents : MonoBehaviour
     #region Internal
 
     // The motor speeds that raise and lower a flipper, in degrees per second.
-    const float FlipperRaiseSpeed = 20f * Mathf.Rad2Deg;
-    const float FlipperLowerSpeed = 10f * Mathf.Rad2Deg;
+    static readonly float FlipperRaiseSpeed = PhysicsMath.ToDegrees(20f);
+    static readonly float FlipperLowerSpeed = PhysicsMath.ToDegrees(10f);
 
     // How often a ball is emitted, how many there can be at once, and where and how fast one enters the table.
     const float BallInterval = 3f;

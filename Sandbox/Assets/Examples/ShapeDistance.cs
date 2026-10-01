@@ -106,9 +106,9 @@ public sealed class ShapeDistance : SandboxExampleBehaviour
         if (!SandboxManager.WorldPaused)
         {
             var fullTurn = 2f * PhysicsMath.PI;
-            m_OrbitAngle = Mathf.Repeat(m_OrbitAngle + m_OrbitSpeed * Mathf.Deg2Rad * Time.deltaTime, fullTurn);
-            m_SpinAngle = Mathf.Repeat(m_SpinAngle + m_SpinSpeed * Mathf.Deg2Rad * Time.deltaTime, fullTurn);
-            m_InnerSpinAngle = Mathf.Repeat(m_InnerSpinAngle + InnerSpinSpeed * Mathf.Deg2Rad * Time.deltaTime, fullTurn);
+            m_OrbitAngle = Mathf.Repeat(m_OrbitAngle + PhysicsMath.ToRadians(m_OrbitSpeed) * Time.deltaTime, fullTurn);
+            m_SpinAngle = Mathf.Repeat(m_SpinAngle + PhysicsMath.ToRadians(m_SpinSpeed) * Time.deltaTime, fullTurn);
+            m_InnerSpinAngle = Mathf.Repeat(m_InnerSpinAngle + PhysicsMath.ToRadians(InnerSpinSpeed) * Time.deltaTime, fullTurn);
         }
 
         // Get the default world.

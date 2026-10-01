@@ -81,6 +81,9 @@ EditorBuildSettings:
     path: Assets/Examples/BallAndChain/BallAndChain.unity
     guid: 0b8079d80b344f944a90d66d9cff5518
   - enabled: 1
+    path: Assets/Examples/DeskLamp/DeskLamp.unity
+    guid: dccf3cfebe78f414faec8155dbd2de74
+  - enabled: 1
     path: Assets/Examples/DistanceJoint/DistanceJoint.unity
     guid: 6f4174a7e6aad7e41a76a1fbe408b31f
   - enabled: 1
@@ -149,6 +152,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Examples/EllipsePolygons/EllipsePolygons.unity
     guid: f596a2ba3399b58458c8fa9e558ddf4e
+  - enabled: 1
+    path: Assets/Examples/Explode/Explode.unity
+    guid: f772b2035b0bedb42a7fd1b668c5522b
   - enabled: 1
     path: Assets/Examples/Fragmenting/Fragmenting.unity
     guid: 84f457b4bb8630a4db20c4cebf6a3d37

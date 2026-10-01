@@ -308,3 +308,13 @@ MonoBehaviour:
     Description: A pinball table showing small fast balls using continuous collision against moving flippers.
     TypeName: Pinball, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Explode
+    Category: Shapes
+    Description: Demonstrates an explosion that pushes shapes away from a point, or pulls them in when the impulse is negative.
+    TypeName: Explode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}
+  - Name: Desk Lamp
+    Category: Joints
+    Description: An Anglepoise style desk lamp whose springs balance the arm and shade at any pose. Drag the shade to move it.
+    TypeName: DeskLamp, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}

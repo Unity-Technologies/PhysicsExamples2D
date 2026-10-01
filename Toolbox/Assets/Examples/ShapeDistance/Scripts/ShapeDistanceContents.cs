@@ -111,9 +111,9 @@ public sealed class ShapeDistanceContents : MonoBehaviour
             return;
 
         var fullTurn = 2f * PhysicsMath.PI;
-        m_OrbitAngle = Mathf.Repeat(m_OrbitAngle + m_OrbitSpeed * Mathf.Deg2Rad * timeStep, fullTurn);
-        m_SpinAngle = Mathf.Repeat(m_SpinAngle + m_SpinSpeed * Mathf.Deg2Rad * timeStep, fullTurn);
-        m_InnerSpinAngle = Mathf.Repeat(m_InnerSpinAngle + InnerSpinSpeed * Mathf.Deg2Rad * timeStep, fullTurn);
+        m_OrbitAngle = Mathf.Repeat(m_OrbitAngle + PhysicsMath.ToRadians(m_OrbitSpeed) * timeStep, fullTurn);
+        m_SpinAngle = Mathf.Repeat(m_SpinAngle + PhysicsMath.ToRadians(m_SpinSpeed) * timeStep, fullTurn);
+        m_InnerSpinAngle = Mathf.Repeat(m_InnerSpinAngle + PhysicsMath.ToRadians(InnerSpinSpeed) * timeStep, fullTurn);
 
         var innerDirection = PhysicsRotate.FromRadians(m_OrbitAngle).direction;
         m_InnerPose.body.SetTransformTarget(new PhysicsTransform(innerDirection * InnerOrbitRadius, PhysicsRotate.FromRadians(m_InnerSpinAngle)), timeStep);

@@ -14,8 +14,6 @@ public sealed class Pinball : SandboxExampleBehaviour
     private const float FlipperPivotX = 3.6f;
     private const float FlipperPivotY = 1.6f;
     private const float TableBottom = -2f;
-    private const float FlipperRaiseSpeed = 20f * Mathf.Rad2Deg;
-    private const float FlipperLowerSpeed = 10f * Mathf.Rad2Deg;
     private const float FlipperMaxTorque = 1000f;
 
     private const float BallRadius = 0.4f;
@@ -25,6 +23,9 @@ public sealed class Pinball : SandboxExampleBehaviour
     private const float BallSpawnY = 18f;
     private const float BallSpawnSpeed = 2f;
     private const float DrainHeight = TableBottom + BallRadius * 2f;
+
+    private static readonly float FlipperRaiseSpeed = PhysicsMath.ToDegrees(20f);
+    private static readonly float FlipperLowerSpeed = PhysicsMath.ToDegrees(10f);
 
     private float m_SpawnTime;
     private bool m_SpawnLeft;
