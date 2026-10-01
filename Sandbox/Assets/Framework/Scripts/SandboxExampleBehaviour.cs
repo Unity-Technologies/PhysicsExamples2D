@@ -82,6 +82,7 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
         // Clear any overrides the example set. These early-return if nothing was overridden,
         // so calling them unconditionally is safe.
         SandboxManager.ResetOverrideDrawOptions();
+        SandboxManager.ResetOverrideSubSteps();
         SandboxManager.ResetOverrideColorShapeState();
     }
 

@@ -118,6 +118,8 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
     private FrequencySelection m_FrequencySelection;
     private PhysicsWorld.DrawOptions m_OverrideDrawOptions;
     private PhysicsWorld.DrawOptions m_OverridePreviousDrawOptions;
+    private bool m_OverrideSubSteps;
+    private int m_OverridePreviousSubSteps;
     private bool m_OverrideColorShapeState;
     private bool m_OverridePreviousColorShapeState;
 
@@ -931,6 +933,43 @@ public class SandboxManager : MonoBehaviour, IShapeColorProvider, IFoldable
         using var worlds = PhysicsWorld.GetWorlds();
         foreach (var world in worlds)
             world.drawOptions = newDrawOptions;
+    }
+
+    // Sets the world's sub-steps for as long as the example is loaded, which can be called again to change them.
+    // The first call remembers the value the user had set in the menu and greys the menu's slider out, since the example now controls it.
+    public void SetOverrideSubSteps(int subSteps)
+    {
+        if (!m_OverrideSubSteps)
+        {
+            m_OverridePreviousSubSteps = m_SubStepsElement.value;
+            m_OverrideSubSteps = true;
+            m_SubStepsElement.enabledSelf = false;
+        }
+
+        ApplySubSteps(subSteps);
+    }
+
+    // Puts back the sub-steps the user had set in the menu before the example took them over.
+    public void ResetOverrideSubSteps()
+    {
+        // Finish if we're not overriding.
+        if (!m_OverrideSubSteps)
+            return;
+
+        m_OverrideSubSteps = false;
+        m_SubStepsElement.enabledSelf = true;
+        ApplySubSteps(m_OverridePreviousSubSteps);
+    }
+
+    // Gives every world the sub-steps and shows them on the menu's slider without it applying them a second time.
+    private void ApplySubSteps(int subSteps)
+    {
+        m_SubStepsElement.SetValueWithoutNotify(subSteps);
+
+        // Update the worlds.
+        using var worlds = PhysicsWorld.GetWorlds();
+        foreach (var world in worlds)
+            world.simulationSubSteps = subSteps;
     }
 
     public void SetOverrideColorShapeState(bool colorShapeState)

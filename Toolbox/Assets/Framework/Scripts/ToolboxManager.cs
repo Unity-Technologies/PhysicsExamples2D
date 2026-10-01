@@ -202,6 +202,7 @@ public class ToolboxManager : MonoBehaviour, IFoldable
     private ToolboxExampleState m_AppliedExampleState;
     private bool m_SavedWorldSleeping;
     private float m_SavedMaximumDeltaTime;
+    private int m_SavedSubSteps;
 
     /// <summary>
     /// The generated list of every example available in the menu.
@@ -933,6 +934,14 @@ public class ToolboxManager : MonoBehaviour, IFoldable
             m_SavedMaximumDeltaTime = Time.maximumDeltaTime;
             Time.maximumDeltaTime = Time.fixedDeltaTime;
         }
+
+        // The example now controls the sub-steps, so the menu's slider is greyed out until the example is unloaded.
+        if (state.overridesSubSteps)
+        {
+            m_SavedSubSteps = m_SubStepsElement.value;
+            m_SubStepsElement.enabledSelf = false;
+            SetExampleSubSteps(state.subSteps);
+        }
     }
 
     // Puts back every global setting the outgoing example changed, so the next example starts from the menu's own values.
@@ -954,6 +963,27 @@ public class ToolboxManager : MonoBehaviour, IFoldable
 
         if (state.catchUpSteps == ToolboxExampleState.Override.Off)
             Time.maximumDeltaTime = m_SavedMaximumDeltaTime;
+
+        // The menu's slider goes back to the value the user had set before the example took the sub-steps over.
+        if (state.overridesSubSteps)
+        {
+            m_SubStepsElement.enabledSelf = true;
+            SetExampleSubSteps(m_SavedSubSteps);
+        }
+    }
+
+    /// <summary>
+    /// Gives every world the specified number of sub-steps, and shows it on the menu's greyed out slider without that slider applying it a second time.
+    /// An example that declared its own sub-steps calls this from its own control, and the Toolbox puts the menu's value back when the example unloads.
+    /// </summary>
+    /// <param name="subSteps">The number of sub-steps each world takes in every step.</param>
+    public void SetExampleSubSteps(int subSteps)
+    {
+        m_SubStepsElement.SetValueWithoutNotify(subSteps);
+
+        using var worlds = PhysicsWorld.GetWorlds();
+        foreach (var world in worlds)
+            world.simulationSubSteps = subSteps;
     }
 
     // Connects a freshly loaded example to the UI: its camera, its description, and any controls it supplies.

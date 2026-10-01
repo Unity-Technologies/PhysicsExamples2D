@@ -23,6 +23,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Queries
     category: Batching
     description: Casts and resolves thousands of rays per frame using a batched query job.
@@ -33,6 +34,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Shooter
     category: Batching
     description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
@@ -43,6 +45,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Barrel
     category: Benchmarks
     description: A large barrel of various object types stress-testing the solver.
@@ -53,6 +56,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Capacity
     category: Benchmarks
     description: Spawns bodies until the per-step simulation time reaches a configurable limit.
@@ -63,6 +67,7 @@ MonoBehaviour:
       sleeping: 2
       frameRateVisible: 2
       catchUpSteps: 2
+      subSteps: 0
   - exampleName: Drawing
     category: Benchmarks
     description: Stress-tests the debug drawing API with many primitives and lifetimes.
@@ -73,6 +78,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Funnel
     category: Benchmarks
     description: Continuously spawns a mix of object types falling through a funnel.
@@ -83,6 +89,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Joint Grid
     category: Benchmarks
     description: A large grid of bodies connected by Hinge Joints.
@@ -93,6 +100,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Large Compound
     category: Benchmarks
     description: Many large dynamic compound bodies dropped into a container.
@@ -103,6 +111,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Large Kinematic
     category: Benchmarks
     description: A single large rotating kinematic body composed of many shapes.
@@ -113,6 +122,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Large Pyramid
     category: Benchmarks
     description: A large pyramid of boxes stress-testing stacking stability.
@@ -123,6 +133,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Large World
     category: Benchmarks
     description: A vast world far from the origin with a drivable car and streamed debris.
@@ -133,6 +144,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Many Tumblers
     category: Benchmarks
     description: A grid of rotating kinematic tumblers churning spawned debris.
@@ -143,6 +155,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Smash
     category: Benchmarks
     description: A large dense body smashing through a field of small boxes.
@@ -153,6 +166,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Spinner
     category: Benchmarks
     description: A spinning paddle churning thousands of debris pieces.
@@ -163,6 +177,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Triggers
     category: Benchmarks
     description: A dense field of trigger shapes processing thousands of trigger events.
@@ -173,6 +188,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Tumbler
     category: Benchmarks
     description: A rotating kinematic tumbler churning many debris pieces.
@@ -183,6 +199,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Washer
     category: Benchmarks
     description: A rotating washer-drum with paddles agitating thousands of debris circles.
@@ -193,6 +210,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Bounce House
     category: Collision
     description: Checking the stability of very fast continuous collision.
@@ -203,6 +221,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Bounce Ragdolls
     category: Collision
     description: Checking the stability of very fast continuous collision.
@@ -213,6 +232,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Character Mover
     category: Collision
     description: Demonstrating the Cast Mover feature.
@@ -223,6 +243,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Contact Manifold
     category: Collision
     description: Showing contacts manifolds between various shapes.
@@ -233,6 +254,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Pinball
     category: Collision
     description: A pinball table showing small fast balls using continuous collision against moving flippers.
@@ -243,6 +265,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Ball And Chain
     category: Joints
     description: Demonstrating a chain of joints.
@@ -253,6 +276,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Desk Lamp
     category: Joints
     description: An Anglepoise style desk lamp whose springs balance the arm and shade at any pose. Drag the shade to move it.
@@ -263,6 +287,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Distance Joint
     category: Joints
     description: Demonstrating the features of the Distance Joint.
@@ -273,6 +298,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Doohickey
     category: Joints
     description: Demonstrating some fun contraptions using joints.
@@ -283,6 +309,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Driving
     category: Joints
     description: Demonstrating the use of a Wheel Joint for suspension when driving a car.
@@ -293,6 +320,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Gear Lift
     category: Joints
     description: Demonstrating a gear-driven lift using Hinge and Slider Joints.
@@ -303,6 +331,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Ignore Joint
     category: Joints
     description: Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.
@@ -313,6 +342,18 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Many Prismatics
+    category: Joints
+    description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
+    scenePath: Assets/Examples/ManyPrismatics/ManyPrismatics.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 4
   - exampleName: Scale Ragdoll
     category: Joints
     description: Checking the stability of solving forced overlap due to scaling a relatively complex setup.
@@ -323,6 +364,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Scissor Lift
     category: Joints
     description: Checking the stability of solving a complex set of joints.
@@ -333,6 +375,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Slider Joint
     category: Joints
     description: Demonstrating the features of the Slider Joint.
@@ -343,6 +386,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Soft Body
     category: Joints
     description: Demonstrating using joints to create a soft body.
@@ -353,6 +397,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Theo Jansen
     category: Joints
     description: Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.
@@ -363,6 +408,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Top Down Friction
     category: Joints
     description: Demonstrating using the RelativeJoint to achieve "top down" friction.
@@ -373,6 +419,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: User Joint
     category: Joints
     description: Demonstrating the implementation of a custom joint.
@@ -383,6 +430,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Wheel Joint
     category: Joints
     description: Demonstrating the features of the Wheel Joint.
@@ -393,6 +441,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Arch
     category: Shapes
     description: A delicate balance of forces.
@@ -403,6 +452,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Bounciness
     category: Shapes
     description: Demonstrating the effect of Bounciness on shapes.
@@ -413,6 +463,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Buoyancy
     category: Shapes
     description: Demonstrating buoyancy applied to random shapes dropped into a liquid region.
@@ -423,6 +474,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Chain Shape
     category: Shapes
     description: Demonstrates how a Chain Shape doesn't produce "ghost" collisions.
@@ -433,6 +485,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Chain Shape Deform
     category: Shapes
     description: Demonstrates how a Chain Shape can be created and its vertices updated in realtime.
@@ -443,6 +496,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Compound
     category: Shapes
     description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.
@@ -453,6 +507,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Confined
     category: Shapes
     description: Showing the solver dealing with tight/overlapping confinement.
@@ -463,6 +518,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Conveyor Belt
     category: Shapes
     description: Demonstrates the use of the Tangent Speed surface material property.
@@ -473,6 +529,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Custom Filter
     category: Shapes
     description: Demonstrates the use of a custom shape filter.
@@ -483,6 +540,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Double Domino
     category: Shapes
     description: Demonstrating accuracy by simulating the classic double-domino wave.
@@ -493,6 +551,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Ellipse Polygons
     category: Shapes
     description: Demonstrating creating pseudo-ellipse shapes as Polygons.
@@ -503,6 +562,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Explode
     category: Shapes
     description: Demonstrates an explosion that pushes shapes away from a point, or pulls them in when the impulse is negative.
@@ -513,6 +573,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Fragmenting
     category: Shapes
     description: Demonstrates the use of geometry fragmenting.
@@ -523,6 +584,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Friction
     category: Shapes
     description: Demonstrating the effect of Friction on shapes.
@@ -533,6 +595,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Geometry Islands
     category: Shapes
     description: Demonstrates the use of geometry islands when fragmenting.
@@ -543,6 +606,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Modify Geometry
     category: Shapes
     description: Demonstrates modifying the geometry of existing shapes.
@@ -553,6 +617,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Rolling Resistance
     category: Shapes
     description: Demonstrating Rolling Resistance Surface Property.
@@ -563,6 +628,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Rounded Polygons
     category: Shapes
     description: Demonstrating rounded polygons.
@@ -573,6 +639,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Shape Distance
     category: Shapes
     description: Demonstrates the distance and closest points between two shapes as they orbit the origin and spin.
@@ -583,6 +650,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Shape Stack
     category: Shapes
     description: Checking the stability of stacking shapes.
@@ -593,6 +661,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Slicing
     category: Shapes
     description: Demonstrates the use of geometry slicing.
@@ -603,6 +672,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Sprite Destruction
     category: Shapes
     description: Demonstrates the use of Sprite fragmenting mapping.
@@ -613,6 +683,7 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0
   - exampleName: Wind
     category: Shapes
     description: Demonstrating the application of Wind with drag and lift.
@@ -623,3 +694,4 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+      subSteps: 0

@@ -67,7 +67,19 @@ public struct ToolboxExampleState
     public Override catchUpSteps;
 
     /// <summary>
+    /// How many sub-steps the world takes in every step while this example is loaded, greying out the menu's sub-steps slider.
+    /// The number of sub-steps decides how well joints hold when they are stretched, so an example showing that sets it.
+    /// Zero leaves the sub-steps as the menu has them.
+    /// </summary>
+    public int subSteps;
+
+    /// <summary>
     /// Whether this example takes control of any part of the debug drawing.
     /// </summary>
     public readonly bool overridesDrawOptions => overriddenDrawOptions != PhysicsWorld.DrawOptions.Off;
+
+    /// <summary>
+    /// Whether this example takes control of the number of sub-steps.
+    /// </summary>
+    public readonly bool overridesSubSteps => subSteps > 0;
 }

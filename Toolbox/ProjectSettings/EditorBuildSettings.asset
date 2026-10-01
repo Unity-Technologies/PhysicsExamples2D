@@ -99,6 +99,9 @@ EditorBuildSettings:
     path: Assets/Examples/IgnoreJoint/IgnoreJoint.unity
     guid: 5f8c9d37288e0104da0609a7f3e8605d
   - enabled: 1
+    path: Assets/Examples/ManyPrismatics/ManyPrismatics.unity
+    guid: 632d3f99cef30ad4db885840f30916dd
+  - enabled: 1
     path: Assets/Examples/ScaleRagdoll/ScaleRagdoll.unity
     guid: c40d4471af26d864b8eeeb4383b038db
   - enabled: 1

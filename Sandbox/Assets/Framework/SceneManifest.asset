@@ -323,3 +323,8 @@ MonoBehaviour:
     Description: Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.
     TypeName: TheoJansen, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Many Prismatics
+    Category: Joints
+    Description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
+    TypeName: ManyPrismatics, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}
