@@ -92,7 +92,8 @@ public class CameraManipulator : MonoBehaviour
     private InputAction m_Click;
     private InputAction m_Position;
     
-    private void Awake()
+    // Set up here rather than in Awake because Unity calls this again after a script reload while playing, and Awake it does not.
+    private void OnEnable()
     {
         m_SandboxManager = FindAnyObjectByType<SandboxManager>();
         Camera = GetComponentInParent<Camera>();
