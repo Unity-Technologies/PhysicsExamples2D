@@ -353,6 +353,16 @@ MonoBehaviour:
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
+  - exampleName: Theo Jansen
+    category: Joints
+    description: Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.
+    scenePath: Assets/Examples/TheoJansen/TheoJansen.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
   - exampleName: Top Down Friction
     category: Joints
     description: Demonstrating using the RelativeJoint to achieve "top down" friction.

@@ -318,3 +318,8 @@ MonoBehaviour:
     Description: An Anglepoise style desk lamp whose springs balance the arm and shade at any pose. Drag the shade to move it.
     TypeName: DeskLamp, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Theo Jansen
+    Category: Joints
+    Description: Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.
+    TypeName: TheoJansen, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}
