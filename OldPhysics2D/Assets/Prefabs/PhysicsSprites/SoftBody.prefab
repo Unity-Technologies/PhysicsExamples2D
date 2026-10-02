@@ -100,6 +100,7 @@ CircleCollider2D:
   m_Radius: 0.5
 --- !u!212 &6470904054402341545
 SpriteRenderer:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -145,6 +146,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 4ab436a21174c6d40b931c913c7aba66, type: 3}
   m_Color: {r: 0.990566, g: 0.23362409, b: 0.23362409, a: 0.7490196}
   m_FlipX: 0
@@ -154,8 +156,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!231 &5786662496814513452
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -313,6 +315,7 @@ CircleCollider2D:
   m_Radius: 0.5
 --- !u!212 &6470904054699611530
 SpriteRenderer:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -358,6 +361,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 4ab436a21174c6d40b931c913c7aba66, type: 3}
   m_Color: {r: 0, g: 1, b: 0.3498757, a: 0.7490196}
   m_FlipX: 0
@@ -367,8 +371,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!231 &7991822419354976611
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -490,6 +494,7 @@ CircleCollider2D:
   m_Radius: 0.5
 --- !u!212 &6470904055245601864
 SpriteRenderer:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -535,6 +540,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 4ab436a21174c6d40b931c913c7aba66, type: 3}
   m_Color: {r: 0.6886792, g: 0.21440016, b: 0.632423, a: 0.7490196}
   m_FlipX: 0
@@ -544,8 +550,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!231 &842018510134967668
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -667,6 +673,7 @@ CircleCollider2D:
   m_Radius: 0.5
 --- !u!212 &6470904055590489300
 SpriteRenderer:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -712,6 +719,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 4ab436a21174c6d40b931c913c7aba66, type: 3}
   m_Color: {r: 0.82022893, g: 0.8584906, b: 0.31585974, a: 0.7490196}
   m_FlipX: 0
@@ -721,8 +729,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!231 &542912387715829863
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -844,6 +852,7 @@ CircleCollider2D:
   m_Radius: 0.5
 --- !u!212 &6470904056279869121
 SpriteRenderer:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -889,6 +898,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 4ab436a21174c6d40b931c913c7aba66, type: 3}
   m_Color: {r: 0, g: 0.4922409, b: 1, a: 0.7490196}
   m_FlipX: 0
@@ -898,8 +908,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!231 &6369391526013633426
 SpringJoint2D:
   m_ObjectHideFlags: 0

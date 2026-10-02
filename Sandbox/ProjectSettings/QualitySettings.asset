@@ -332,6 +332,7 @@ QualitySettings:
     LinuxHeadlessSimulation: 0
     Lumin: 5
     Nintendo Switch: 5
+    Nintendo Switch 2: 5
     PS4: 5
     PS5: 5
     Stadia: 5

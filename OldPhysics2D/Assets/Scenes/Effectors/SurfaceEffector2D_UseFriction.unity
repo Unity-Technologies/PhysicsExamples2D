@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 05c90928c803a4147ab59661a52273a5,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 05c90928c803a4147ab59661a52273a5, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -477,8 +476,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529855927}
-  m_Text: Use Friction = OFF (Friction between Wheel and Ground is NOT used) - Wheel
-    should NOT rotate.
+  m_Text: Use Friction = OFF (Friction between Wheel and Ground is NOT used) - Wheel should NOT rotate.
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -737,8 +735,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306851041}
-  m_Text: Use Friction = ON (Friction between Wheel and Ground is used) - Wheel SHOULD
-    rotate.
+  m_Text: Use Friction = ON (Friction between Wheel and Ground is used) - Wheel SHOULD rotate.
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1164,11 +1161,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969883638}
-  m_Text: 'With Friction = OFF it is expected that no friction is used when a Collider2D
-    contacts the SurfaceEffector.
+  m_Text: 'With Friction = OFF it is expected that no friction is used when a Collider2D contacts the SurfaceEffector.
 
-    With Friction = ON it is expected that friction
-    is used when a Collider2D contacts the SurfaceEffector.'
+    With Friction = ON it is expected that friction is used when a Collider2D contacts the SurfaceEffector.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

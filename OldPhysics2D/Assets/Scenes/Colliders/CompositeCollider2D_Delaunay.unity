@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 97918a7d57f4f1a4dac714b9e6ce493a,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 97918a7d57f4f1a4dac714b9e6ce493a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5544,8 +5543,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431794181}
-  m_Text: 'Generally Delaunay Produces Fewer Shapes of better quality, especially
-    when curved regions are involved.
+  m_Text: 'Generally Delaunay Produces Fewer Shapes of better quality, especially when curved regions are involved.
 
 '
   m_OffsetZ: 0

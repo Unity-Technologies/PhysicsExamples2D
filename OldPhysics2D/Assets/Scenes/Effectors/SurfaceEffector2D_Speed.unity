@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 3775d27d6cedcd24aad98ba662c51e28,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 3775d27d6cedcd24aad98ba662c51e28, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1111,14 +1110,12 @@ MeshRenderer:
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &631691165 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 1918801856}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &631691170 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 1918801856}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &698451417
@@ -1777,16 +1774,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 50179722466569718, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - target: {fileID: 50179722466569718, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8477777}
     m_AddedComponents: []
@@ -1819,9 +1814,7 @@ TextMesh:
   m_GameObject: {fileID: 1969883638}
   m_Text: 'The boxes should match the selected Surface Speed.
 
-    NOTE: Rigidbody2D
-    Speed is always show as positive even if surface speed is negative.  The sign
-    of the speed is unimportant here.'
+    NOTE: Rigidbody2D Speed is always show as positive even if surface speed is negative.  The sign of the speed is unimportant here.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

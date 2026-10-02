@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 532449e48e6d8854898ed45dc30e3092,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 532449e48e6d8854898ed45dc30e3092, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -286,8 +285,7 @@ TextMesh:
   m_GameObject: {fileID: 209005875}
   m_Text: 'Object should follow Mouse Position.
 
-    Other Objects should correctly
-    move away relative to the velocity of the impact.'
+    Other Objects should correctly move away relative to the velocity of the impact.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -367,8 +365,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1865544950 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1705186379396494, guid: a24daaec1d0b9914d98f42e6a305e862,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1705186379396494, guid: a24daaec1d0b9914d98f42e6a305e862, type: 3}
   m_PrefabInstance: {fileID: 1946181805}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1865544952
@@ -447,8 +444,7 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 50201798178224048, guid: a24daaec1d0b9914d98f42e6a305e862,
-        type: 3}
+    - target: {fileID: 50201798178224048, guid: a24daaec1d0b9914d98f42e6a305e862, type: 3}
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
@@ -456,12 +452,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1705186379396494, guid: a24daaec1d0b9914d98f42e6a305e862,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1705186379396494, guid: a24daaec1d0b9914d98f42e6a305e862, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1865544956}
-    - targetCorrespondingSourceObject: {fileID: 1705186379396494, guid: a24daaec1d0b9914d98f42e6a305e862,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1705186379396494, guid: a24daaec1d0b9914d98f42e6a305e862, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1865544952}
   m_SourcePrefab: {fileID: 100100000, guid: a24daaec1d0b9914d98f42e6a305e862, type: 3}

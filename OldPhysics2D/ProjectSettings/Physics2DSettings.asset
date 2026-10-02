@@ -3,12 +3,12 @@
 --- !u!19 &1
 Physics2DSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 6
+  serializedVersion: 11
   m_Gravity: {x: 0, y: -9.81}
   m_DefaultMaterial: {fileID: 0}
   m_VelocityIterations: 8
   m_PositionIterations: 3
-  m_VelocityThreshold: 1
+  m_BounceThreshold: 1
   m_MaxLinearCorrection: 0.2
   m_MaxAngularCorrection: 8
   m_MaxTranslationSpeed: 100
@@ -19,6 +19,7 @@ Physics2DSettings:
   m_LinearSleepTolerance: 0.01
   m_AngularSleepTolerance: 2
   m_DefaultContactOffset: 0.01
+  m_ContactThreshold: 0
   m_JobOptions:
     serializedVersion: 2
     useMultithreading: 0
@@ -39,10 +40,18 @@ Physics2DSettings:
     m_IslandSolverBodiesPerJob: 50
     m_IslandSolverContactsPerJob: 50
   m_SimulationMode: 0
+  m_SimulationLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxSubStepCount: 4
+  m_MinSubStepFPS: 30
+  m_UseSubStepping: 0
+  m_UseSubStepContacts: 0
   m_QueriesHitTriggers: 1
   m_QueriesStartInColliders: 1
   m_CallbacksOnDisable: 1
   m_ReuseCollisionCallbacks: 1
   m_AutoSyncTransforms: 0
   m_GizmoOptions: 15
-  m_LayerCollisionMatrix: ffefffffffefffffffefffffffffffffffefffffffefffffffffffffffffffffffefffffffe5ffffffefffffffedffffc8e0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+  m_LayerCollisionMatrix: ffefffffffefffffffefffffffffffffffefffffffefffffffffffffffffffffffefffffffe5ffffffefffffffedffffc8e0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffu
+  m_PhysicsLowLevelSettings: {fileID: 0}

@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 8438014c0987eaf4aa971bd54ee47102,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 8438014c0987eaf4aa971bd54ee47102, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1483,8 +1482,7 @@ MonoBehaviour:
   - {fileID: 940294804}
 --- !u!1 &940294804 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 1346093419}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &940294805
@@ -1503,8 +1501,7 @@ MonoBehaviour:
   m_AngularVelocity: 90
 --- !u!4 &940294808 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
   m_PrefabInstance: {fileID: 1346093419}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &954508015
@@ -2801,26 +2798,22 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 50179722466569718, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - target: {fileID: 50179722466569718, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 50179722466569718, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - target: {fileID: 50179722466569718, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       propertyPath: m_GravityScale
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4466296256582546, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1621429654}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1033520549217764, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 940294805}
   m_SourcePrefab: {fileID: 100100000, guid: 8079363d4482b034a97e0c2e8bfed93e, type: 3}
@@ -3523,9 +3516,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969883638}
-  m_Text: "The AreaEffector2D Angular Drag should result in angular deceleration.
-    \nAs the Angular Drag increases so should the angular deceleration therefore
-    the Angular Velocity should slow quicker."
+  m_Text: "The AreaEffector2D Angular Drag should result in angular deceleration. \nAs the Angular Drag increases so should the angular deceleration therefore the Angular Velocity should slow quicker."
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

@@ -2039,8 +2039,7 @@ TextMesh:
   m_GameObject: {fileID: 2006754525}
   m_Text: 'Demonstrating that using Rigidbody2D.totalForce and Rigidbody2D.totalTorque
 
-    will
-    give direct access to any force/torque applied to the Rigidbody2D.'
+    will give direct access to any force/torque applied to the Rigidbody2D.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

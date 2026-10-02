@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: d8dbfedde6c71cb46807a4dd644000df,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: d8dbfedde6c71cb46807a4dd644000df, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -282,8 +281,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008517904}
-  m_Text: "The Truck>Chassis GameObject has all constraints on.\nIt should not translate
-    or rotate.\t"
+  m_Text: "The Truck>Chassis GameObject has all constraints on.\nIt should not translate or rotate.\t"
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -425,23 +423,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 50086387663055158, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 50086387663055158, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Constraints
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 50237546622640290, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 50237546622640290, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Constraints
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 50754531745234152, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 50754531745234152, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_Constraints
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860,
-        type: 3}
+    - target: {fileID: 256767785923941280, guid: 0e0fbe488ca9a464cbe30d0d8d579860, type: 3}
       propertyPath: m_ConnectedAnchor.y
       value: -0.53
       objectReference: {fileID: 0}

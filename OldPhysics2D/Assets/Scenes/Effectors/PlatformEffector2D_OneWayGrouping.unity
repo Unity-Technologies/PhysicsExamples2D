@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 32c663440bf8c324eb90b7099dd8e19f,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 32c663440bf8c324eb90b7099dd8e19f, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -168,8 +167,7 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 50818109290664944, guid: 1234123af01455741802be8b7bdb04bd,
-        type: 3}
+    - target: {fileID: 50818109290664944, guid: 1234123af01455741802be8b7bdb04bd, type: 3}
       propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
@@ -181,8 +179,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 1234123af01455741802be8b7bdb04bd, type: 3}
 --- !u!4 &59598512 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4818404107769620, guid: 1234123af01455741802be8b7bdb04bd,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4818404107769620, guid: 1234123af01455741802be8b7bdb04bd, type: 3}
   m_PrefabInstance: {fileID: 59598511}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &130082706
@@ -325,8 +322,7 @@ SpriteRenderer:
   m_BlendShapeWeights: []
 --- !u!1 &139668370 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1123100741247400, guid: 82f28643f1945d645951dabc907d6511,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1123100741247400, guid: 82f28643f1945d645951dabc907d6511, type: 3}
   m_PrefabInstance: {fileID: 210069348}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &139668374
@@ -345,8 +341,7 @@ MonoBehaviour:
   m_AngularVelocity: 0
 --- !u!4 &139668376 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4555571306448326, guid: 82f28643f1945d645951dabc907d6511,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4555571306448326, guid: 82f28643f1945d645951dabc907d6511, type: 3}
   m_PrefabInstance: {fileID: 210069348}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &190884900
@@ -393,45 +388,37 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_UsedByEffector
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_UsedByComposite
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 212263307891915656, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212263307891915656, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 212833659467136164, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212833659467136164, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 212939847984338430, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212939847984338430, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 323853148}
-    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1523444595}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1023203538}
   m_SourcePrefab: {fileID: 100100000, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
@@ -486,13 +473,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4555571306448326, guid: 82f28643f1945d645951dabc907d6511,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4555571306448326, guid: 82f28643f1945d645951dabc907d6511, type: 3}
       insertIndex: -1
       addedObject: {fileID: 59598512}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1123100741247400, guid: 82f28643f1945d645951dabc907d6511,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1123100741247400, guid: 82f28643f1945d645951dabc907d6511, type: 3}
       insertIndex: -1
       addedObject: {fileID: 139668374}
   m_SourcePrefab: {fileID: 100100000, guid: 82f28643f1945d645951dabc907d6511, type: 3}
@@ -601,45 +586,37 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_UsedByEffector
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_UsedByComposite
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 212263307891915656, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212263307891915656, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 212833659467136164, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212833659467136164, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 212939847984338430, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212939847984338430, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 472207549}
-    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1820898088}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 601134063}
   m_SourcePrefab: {fileID: 100100000, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
@@ -706,14 +683,12 @@ MonoBehaviour:
   - {fileID: 139668370}
 --- !u!1 &601134061 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
   m_PrefabInstance: {fileID: 415130847}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &601134062 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
   m_PrefabInstance: {fileID: 415130847}
   m_PrefabAsset: {fileID: 0}
 --- !u!251 &601134063
@@ -794,8 +769,7 @@ TextMesh:
 
     One Way Grouping = ON
 
-    (Character DOES stand on
-    platform because
+    (Character DOES stand on platform because
 
     All Character Collider2D above surface)'
   m_OffsetZ: 0
@@ -904,45 +878,37 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_UsedByEffector
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 61109999153674706, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_UsedByComposite
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 212263307891915656, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212263307891915656, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 212833659467136164, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212833659467136164, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 212939847984338430, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - target: {fileID: 212939847984338430, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 846082855}
-    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 759286934}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-        type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1148234201}
   m_SourcePrefab: {fileID: 100100000, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
@@ -1009,8 +975,7 @@ MonoBehaviour:
   - {fileID: 139668370}
 --- !u!1 &1023203537 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
   m_PrefabInstance: {fileID: 190884900}
   m_PrefabAsset: {fileID: 0}
 --- !u!251 &1023203538
@@ -1034,20 +999,17 @@ PlatformEffector2D:
   m_SideArc: 1
 --- !u!4 &1023203541 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
   m_PrefabInstance: {fileID: 190884900}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1148234199 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 1563923424470800, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
   m_PrefabInstance: {fileID: 796576513}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1148234200 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4185666135733932, guid: 6af7a7857c30d744781bffdde2e6f7a8, type: 3}
   m_PrefabInstance: {fileID: 796576513}
   m_PrefabAsset: {fileID: 0}
 --- !u!251 &1148234201
@@ -1115,8 +1077,7 @@ TextMesh:
 
     One Way Grouping = OFF
 
-    (Character DOES stand on
-    platform)'
+    (Character DOES stand on platform)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1285,8 +1246,7 @@ TextMesh:
 
     One Way Grouping = ON
 
-    (Character does NOT stand
-    on platform)'
+    (Character does NOT stand on platform)'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1375,14 +1335,11 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969883638}
-  m_Text: 'Character should either pass or not pass through from underneath the platform
-    as specified.
+  m_Text: 'Character should either pass or not pass through from underneath the platform as specified.
 
-    When OneWayGrouping = OFF then each Collider2D is handled
-    separately.
+    When OneWayGrouping = OFF then each Collider2D is handled separately.
 
-    When OneWayGrouping = ON then each Collider2D is handled as
-    one.'
+    When OneWayGrouping = ON then each Collider2D is handled as one.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1

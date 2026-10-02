@@ -94,8 +94,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: cd20e7c107380ed4c94f229f54ec1df1,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: cd20e7c107380ed4c94f229f54ec1df1, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -347,11 +346,9 @@ TextMesh:
   m_GameObject: {fileID: 355815069}
   m_Text: 'Ragdolls should be stable under normal conditions.
 
-    Limbs can separate
-    but only under high forces or if separate Ragdoll Colliders force separation.
+    Limbs can separate but only under high forces or if separate Ragdoll Colliders force separation.
 
-    Ragdolls
-    overlapping should return to stable configuration when separated.'
+    Ragdolls overlapping should return to stable configuration when separated.'
   m_OffsetZ: 0
   m_CharacterSize: 0.3
   m_LineSpacing: 1
@@ -469,8 +466,7 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114860475555786646, guid: de56f1443e496f4408095248d6b6f0fd,
-        type: 3}
+    - target: {fileID: 114860475555786646, guid: de56f1443e496f4408095248d6b6f0fd, type: 3}
       propertyPath: m_DragLayers.m_Bits
       value: 256
       objectReference: {fileID: 0}
