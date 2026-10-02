@@ -1,21 +1,19 @@
-# Authoring Sandbox Examples (LLM Guide)
+# Authoring Sandbox Examples
 
-This document tells an automated agent (LLM) everything it needs to **add a new example
-to the Sandbox project, and to modify an existing one**.
+This guide explains how to **add a new example to the Sandbox project, and how to modify an existing one**.
+It is written for both people and automated agents (LLMs). Read it fully before creating files.
+It is the authoritative recipe for this project.
 
-It is the authoritative recipe for this project. Read it fully before creating files.
+> **PhysicsCore2D only.** This project uses `Unity.U2D.Physics` directly, with no components.
+> Never use the legacy `Physics2D` component system (`Rigidbody2D`, `Collider2D`, ...).
+> Check every API against the
+> [2D Physics Core manual](https://docs.unity3d.com/6000.7/Documentation/Manual/2d-physics-api/2d-physics-api-landing.html),
+> the [package documentation](https://docs.unity3d.com/Packages/com.unity.2d.physics@latest/) and the scripting reference
+> (`https://docs.unity3d.com/6000.7/Documentation/ScriptReference/`). Never guess a signature, and never use an `[Obsolete]` member.
 
-> **PhysicsCore2D rules still apply.** This project is **PhysicsCore2D only**
-> (`Unity.U2D.Physics`). Never use the legacy `Physics2D` component system
-> (`Rigidbody2D`, `Collider2D`, …). Verify every PhysicsCore2D API against the
-> bundled `unity-physicscore2d-*` skills — never guess a signature, never use an
-> `[Obsolete]` member. See the repo-root `CLAUDE.md`.
-
-> **Architecture.** Every example derives from **`SandboxExampleBehaviour`** and is tagged with
-> **`[ExampleScene]`**, with the repeated menu chrome factored into shared infrastructure. All
-> examples use this pattern; the old inline `MonoBehaviour` boilerplate is fully retired.
-> **Author all new and modified examples with the
-> new pattern below.**
+> **Direct API.** An example is a single class that derives from **`SandboxExampleBehaviour`**, is tagged with
+> **`[ExampleScene]`**, and creates its bodies, shapes and joints in code. The shared infrastructure builds the menu around it.
+> If you want the same example authored with components, that is the [Workshop](../Workshop/README.md) project.
 
 ---
 
@@ -34,7 +32,7 @@ If the example needs serialised assets (sprites, materials, etc.), create a comp
 `<Name>Data : ExampleSceneData` ScriptableObject class and a matching `.asset` instance in
 `Assets/Examples/Assets/` — see §5.
 
-There is **no per-example `.uxml`.** Option controls are built in code (see §6); the
+There is **no per-example `.uxml`.** Option controls are built in code (see §7); the
 `UIDocument` renders the single shared `ExampleChrome.uxml`.
 
 Examples are **loaded at runtime** by instantiating a new `GameObject` and calling
@@ -55,7 +53,7 @@ PhysicsCore2D **debug renderer draws all shapes/joints automatically**. Use a Un
 
 ## 2. Adding an example — the full recipe
 
-**Step 1 — Create `Assets/Examples/<Name>.cs`** from the §7 template. Set the class name,
+**Step 1 — Create `Assets/Examples/<Name>.cs`** from the §8 template. Set the class name,
 `[ExampleScene]` category and description, camera framing, options, and physics content.
 Unity auto-generates the `.meta` on import.
 
@@ -73,9 +71,10 @@ to your example's display name to boot straight into it (revert before committin
 
 ## 3. Registering — what the tool does
 
-`ExampleRegistryBuilder` (`Assets/Editor/ExampleRegistryBuilder.cs`) runs on:
-- the explicit **`Tools > 2D > Physics > Rebuild Sandbox Registry`** menu item, and
-- any script import inside `Assets/Examples/` that introduces a new `[ExampleScene]` type.
+`ExampleRegistryBuilder` (`Assets/Editor/ExampleRegistryBuilder.cs`) runs from the
+**`Tools > 2D > Physics > Rebuild Sandbox Registry`** menu item.
+
+It only runs from that menu item, so run it after adding, renaming or removing an example.
 
 It:
 1. Calls `TypeCache.GetTypesWithAttribute<ExampleSceneAttribute>()` — no file scanning.
@@ -194,7 +193,7 @@ Key rules:
 - **Shape colours:** set `shapeDef.surfaceMaterial.customColor = ShapeColor;` so the global
   "Colors" toggle works.
 - **Overrides auto-reset.** If you call `SandboxManager.SetOverrideDrawOptions(...)` /
-  `SetOverrideColorShapeState(...)` in `OnExampleEnable`, you do **not** need to reset them —
+  `SetOverrideSubSteps(...)` / `SetOverrideColorShapeState(...)` in `OnExampleEnable`, you do **not** need to reset them —
   the base `OnDisable` does it. Only undo things the base doesn't know about
   (e.g. `CameraManipulator.DisableManipulators`, world contact params, `PhysicsEvents` subs).
 - **Do not create/destroy bodies during the simulation step** (WORM rule).
@@ -214,7 +213,7 @@ Key rules:
 | `OnExampleEnable` / `OnExampleDisable` / `SetupOptions` / `SetupScene` (override) | Your hooks. |
 
 ### `SandboxManager` extras an example may use
-`SetOverrideDrawOptions(...)` / `SetOverrideColorShapeState(bool)` (auto-reset by the base),
+`SetOverrideDrawOptions(overridenOptions, fixedOptions)` / `SetOverrideSubSteps(int)` / `SetOverrideColorShapeState(bool)` (all auto-reset by the base),
 `ShowFPS()` / `HideFPS()`, `WorldPaused`, `ControlsMenu[i]` (touch buttons), `WorldSleeping`.
 
 ---
@@ -323,7 +322,7 @@ No scene file is required. No GUIDs to generate. No build settings to edit.
   `var world = World;`, move teardown into `OnExampleDisable` (drop `ResetOverride*` — auto), add
   `[ExampleScene]`, and run the registry tool.
 - After editing PhysicsCore2D calls, re-verify any unfamiliar member against the
-  `unity-physicscore2d-*` skills.
+  scripting reference.
 
 ---
 

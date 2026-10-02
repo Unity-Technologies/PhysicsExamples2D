@@ -1,7 +1,7 @@
 using Unity.U2D.Physics;
 
 /// <summary>
-/// Adds the multiple prismatic example's one control to the Workshop menu: how many sub-steps the world takes in every step.
+/// Adds the many prismatics example's one control to the Workshop menu: how many sub-steps the world takes in every step.
 /// The sub-steps decide how well the stretched slider joints hold, and the Workshop puts back the menu's own value when the example unloads.
 /// </summary>
 public sealed class ManyPrismaticsOptions : WorkshopOptionsProvider

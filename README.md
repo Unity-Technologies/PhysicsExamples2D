@@ -3,7 +3,7 @@
 This repository contains test projects, examples, and a test package for Unity's 2D physics, spanning two API generations:
 
 - [Sandbox Project](Sandbox/README.md) — interactive playground scenes that use the physics API directly
-- [Workshop Project](Workshop) — interactive workshop scenes that use the physics components
+- [Workshop Project](Workshop/README.md) — interactive workshop scenes that use the physics components
 - [Examples Package](Packages/com.unity.2d.physics.examples/README.md) - unsupported experimental example components
 - [OldPhysics2D](OldPhysics2D/README.md) — examples that use the older "Physics2D" component API.
 

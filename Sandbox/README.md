@@ -26,7 +26,7 @@ A sample is a class that **derives from `SandboxExampleBehaviour`** and is tagge
 
 - **`SetupScene()`** *(required)* — Builds the sample: this is where all the physics objects are created. It runs once when the sample loads, and again every time you press the **Reset** button.
 - **`SetupOptions()`** *(optional)* — Builds the option controls in code with the base-class helpers — `AddSlider("Speed", value, min, max, v => m_Speed = v, rebuild: true)`, plus `AddSliderInt`/`AddToggle`/`AddEnum` (and `AddElement` for anything custom). The shared menu frame, title and description are already built for you; pass `rebuild: true` when a change should rebuild the scene.
-- **`OnExampleEnable()` / `OnExampleDisable()`** *(optional)* — One-time setup and tear-down: initialise fields, save/restore global physics state (like gravity), subscribe/unsubscribe from events, allocate/free native collections.
+- **`OnExampleEnable()` / `OnExampleDisable()`** *(optional)* — One-time setup and tear-down: initialize fields, save/restore global physics state (like gravity), subscribe/unsubscribe from events, allocate/free native collections.
 - **`CameraSize` / `CameraPosition`** *(optional)* — Override these properties to frame the camera for your sample.
 - **`Update()`** *(optional)* — Per-frame work, such as drawing debug lines.
 
@@ -36,8 +36,8 @@ The `Assets/Framework/Scripts` folder holds shared utility code (e.g. helpers th
 
 ## Adding your own
 
-The quickest way is to **copy `Assets/Examples/Example.cs`**, rename the file and the class inside
-it, and edit the `[ExampleScene(...)]` category and description. Then run
+Create a new `.cs` file in `Assets/Examples/` from the template in [`AUTHORING_EXAMPLES.md`](./AUTHORING_EXAMPLES.md) (section 8), naming the file and the class the same,
+and set the `[ExampleScene(...)]` category and description. Then run
 **`Tools → 2D → Physics → Rebuild Sandbox Registry`** from the Unity menu — that scans for the
 `[ExampleScene]` attribute and registers your sample in the menu automatically.
 
