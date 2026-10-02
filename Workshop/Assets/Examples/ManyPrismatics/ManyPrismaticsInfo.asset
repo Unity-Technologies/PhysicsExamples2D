@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425f70a701d340949ad6110bc3f45d64, type: 3}
+  m_Name: ManyPrismaticsInfo
+  m_EditorClassIdentifier: Assembly-CSharp::WorkshopExampleInfo
+  m_Scene: {fileID: 102900000, guid: 632d3f99cef30ad4db885840f30916dd, type: 3}
+  m_ScenePath: Assets/Examples/ManyPrismatics/ManyPrismatics.unity
+  m_ExampleName: Many Prismatics
+  m_Category: Joints
+  m_Description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 128
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0
+    subSteps: 4
