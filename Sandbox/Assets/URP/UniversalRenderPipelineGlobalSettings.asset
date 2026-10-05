@@ -77,6 +77,8 @@ MonoBehaviour:
       - rid: 3571433725549346818
       - rid: 3571433725549346819
       - rid: 3571434153094152196
+      - rid: 2594326403588816896
+      - rid: 2594326403588816897
     m_RuntimeSettings:
       m_List: []
   m_AssetVersion: 14
@@ -237,7 +239,6 @@ MonoBehaviour:
         easuPS: {fileID: 4800000, guid: 562b7ae4f629f144aa97780546fce7c6, type: 3}
         uberPostPS: {fileID: 4800000, guid: e7857e9d0c934dc4f83f270f8447b006, type: 3}
         finalPostPassPS: {fileID: 4800000, guid: c49e63ed1bbcb334780a3bd19dfed403, type: 3}
-        reactiveMaskPS: {fileID: 4800000, guid: a32e79e9a0e86a14894684c864a169a3, type: 3}
         m_ShaderResourcesVersion: 0
     - rid: 764659080778481670
       type: {class: URPDefaultVolumeProfileSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
@@ -457,6 +458,15 @@ MonoBehaviour:
       data:
         m_Version: 0
         m_UberPostShader: {fileID: 4800000, guid: fe4f13c1004a07d4ea1e30bfd0326d9e, type: 3}
+    - rid: 2594326403588816896
+      type: {class: AlphaUpscaler/RuntimeResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_AlphaUpscaleCS: {fileID: 7200000, guid: f10c23179af641eea368ee165b2e97cf, type: 3}
+    - rid: 2594326403588816897
+      type: {class: UpscalerReactiveMaskResources, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
+      data:
+        m_Version: 0
+        m_reactiveMaskPS: {fileID: 4800000, guid: a32e79e9a0e86a14894684c864a169a3, type: 3}
     - rid: 3112234970573963264
       type: {class: RenderingCapabilitiesSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
