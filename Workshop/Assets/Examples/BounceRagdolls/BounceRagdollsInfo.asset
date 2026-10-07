@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 390db57b32496c24cb0531f4015f6c40, type: 3}
   m_ScenePath: Assets/Examples/BounceRagdolls/BounceRagdolls.unity
   m_ExampleName: Bounce Ragdolls
-  m_Category: Collision
+  m_Category: Benchmarks
   m_Description: Checking the stability of very fast continuous collision.
   m_State:
     overriddenDrawOptions: 128

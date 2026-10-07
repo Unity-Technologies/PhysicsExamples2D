@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 84f457b4bb8630a4db20c4cebf6a3d37, type: 3}
   m_ScenePath: Assets/Examples/Fragmenting/Fragmenting.unity
   m_ExampleName: Fragmenting
-  m_Category: Shapes
+  m_Category: Advanced
   m_Description: Demonstrates the use of geometry fragmenting.

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 9b6abc2b0dd11f542a924e2f6824e482, type: 3}
   m_ScenePath: Assets/Examples/CharacterMover/CharacterMover.unity
   m_ExampleName: Character Mover
-  m_Category: Collision
+  m_Category: Shapes
   m_Description: Demonstrating the Cast Mover feature.
   m_State:
     overriddenDrawOptions: 128

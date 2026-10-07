@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 63005a90906f5784c9b44d59bb795781, type: 3}
   m_ScenePath: Assets/Examples/Slicing/Slicing.unity
   m_ExampleName: Slicing
-  m_Category: Shapes
+  m_Category: Advanced
   m_Description: Demonstrates the use of geometry slicing.

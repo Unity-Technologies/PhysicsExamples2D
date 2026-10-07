@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 286ab2fcc0189f04da620ed16396ae59, type: 3}
   m_ScenePath: Assets/Examples/Pinball/Pinball.unity
   m_ExampleName: Pinball
-  m_Category: Collision
+  m_Category: Joints
   m_Description: A pinball table showing small fast balls using continuous collision against moving flippers.

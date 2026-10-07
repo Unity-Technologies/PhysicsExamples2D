@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 9c427a88a51803e4889ae93c7db6ee61, type: 3}
   m_ScenePath: Assets/Examples/Boids/Boids.unity
   m_ExampleName: Boids
-  m_Category: Batching
+  m_Category: Benchmarks
   m_Description: Thousands of flocking boids driven by a Burst job using batched body transforms.

@@ -6,7 +6,7 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates the use of geometry islands when fragmenting.")]
+[ExampleScene("Advanced", "Demonstrates the use of geometry islands when fragmenting.")]
 public sealed class GeometryIslands : SandboxExampleBehaviour, PhysicsCallbacks.IContactCallback
 {
     private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 70dfff42887efe54c9e5c9514faabe2d, type: 3}
   m_ScenePath: Assets/Examples/Shooter/Shooter.unity
   m_ExampleName: Shooter
-  m_Category: Batching
+  m_Category: Benchmarks
   m_Description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
   m_State:
     overriddenDrawOptions: 128

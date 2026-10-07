@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 87f1463f2143e2f429c316c9a4146c78, type: 3}
   m_ScenePath: Assets/Examples/Triggers/Triggers.unity
   m_ExampleName: Triggers
-  m_Category: Benchmarks
+  m_Category: Shapes
   m_Description: A dense field of trigger shapes processing thousands of trigger events.

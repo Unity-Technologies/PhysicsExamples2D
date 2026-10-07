@@ -39,12 +39,12 @@ MonoBehaviour:
     TypeName: CustomFilter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Triggers
-    Category: Benchmarks
+    Category: Shapes
     Description: A dense field of trigger shapes processing thousands of trigger events.
     TypeName: Triggers, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Bounce Ragdolls
-    Category: Collision
+    Category: Benchmarks
     Description: Checking the stability of very fast continuous collision.
     TypeName: BounceRagdolls, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
     TypeName: SliderJoint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Slicing
-    Category: Shapes
+    Category: Advanced
     Description: Demonstrates the use of geometry slicing.
     TypeName: Slicing, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
     TypeName: Driving, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Bounce House
-    Category: Collision
+    Category: Shapes
     Description: Checking the stability of very fast continuous collision.
     TypeName: BounceHouse, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
@@ -139,7 +139,7 @@ MonoBehaviour:
     TypeName: Drawing, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Geometry Islands
-    Category: Shapes
+    Category: Advanced
     Description: Demonstrates the use of geometry islands when fragmenting.
     TypeName: GeometryIslands, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
@@ -169,12 +169,12 @@ MonoBehaviour:
     TypeName: TopDownFriction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Shooter
-    Category: Batching
+    Category: Benchmarks
     Description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
     TypeName: Shooter, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Contact Manifold
-    Category: Collision
+    Category: Shapes
     Description: Showing contacts manifolds between various shapes.
     TypeName: ContactManifold, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
     TypeName: DistanceJoint, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Sprite Destruction
-    Category: Shapes
+    Category: Advanced
     Description: Demonstrates the use of Sprite fragmenting mapping.
     TypeName: SpriteDestruction, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 11400000, guid: 1822f37092c340de84c696212fb1bc2f, type: 2}
@@ -264,22 +264,22 @@ MonoBehaviour:
     TypeName: CardHouse, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Character Mover
-    Category: Collision
+    Category: Shapes
     Description: Demonstrating the Cast Mover feature.
     TypeName: CharacterMover, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Fragmenting
-    Category: Shapes
+    Category: Advanced
     Description: Demonstrates the use of geometry fragmenting.
     TypeName: Fragmenting, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Boids
-    Category: Batching
+    Category: Benchmarks
     Description: Thousands of flocking boids driven by a Burst job using batched body transforms.
     TypeName: Boids, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Queries
-    Category: Batching
+    Category: Benchmarks
     Description: Casts and resolves thousands of rays per frame using a batched query job.
     TypeName: Queries, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
@@ -304,7 +304,7 @@ MonoBehaviour:
     TypeName: ShapeDistance, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
   - Name: Pinball
-    Category: Collision
+    Category: Joints
     Description: A pinball table showing small fast balls using continuous collision against moving flippers.
     TypeName: Pinball, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}

@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: ca19375cbfe488843b1f57b77a874cca, type: 3}
   m_ScenePath: Assets/Examples/ContactManifold/ContactManifold.unity
   m_ExampleName: Contact Manifold
-  m_Category: Collision
+  m_Category: Shapes
   m_Description: Showing contacts manifolds between various shapes.

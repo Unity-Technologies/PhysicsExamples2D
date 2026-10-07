@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 3f695f9d9b3e77f4c8d361f9900c3d47, type: 3}
   m_ScenePath: Assets/Examples/BounceHouse/BounceHouse.unity
   m_ExampleName: Bounce House
-  m_Category: Collision
+  m_Category: Shapes
   m_Description: Checking the stability of very fast continuous collision.

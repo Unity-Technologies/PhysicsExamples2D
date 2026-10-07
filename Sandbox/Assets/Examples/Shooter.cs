@@ -5,7 +5,7 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Batching", "Continuously fires batches of projectiles and destroys them on contact using batched body APIs.")]
+[ExampleScene("Benchmarks", "Continuously fires batches of projectiles and destroys them on contact using batched body APIs.")]
 public sealed class Shooter : SandboxExampleBehaviour
 {
     public PhysicsShape.ContactFilter BatchFilter = new PhysicsShape.ContactFilter { categories = 0x2, contacts = ~(ulong)0x2 };

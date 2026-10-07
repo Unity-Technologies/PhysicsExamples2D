@@ -5,7 +5,7 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Collision", "Checking the stability of very fast continuous collision.")]
+[ExampleScene("Shapes", "Checking the stability of very fast continuous collision.")]
 public sealed class BounceHouse : SandboxExampleBehaviour
 {
     private const float DrawLifetime = 2f;

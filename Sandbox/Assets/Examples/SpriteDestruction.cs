@@ -9,7 +9,7 @@ using UnityEngine.U2D;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates the use of Sprite fragmenting mapping.")]
+[ExampleScene("Advanced", "Demonstrates the use of Sprite fragmenting mapping.")]
 public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallbacks.IContactCallback
 {
     private Sprite m_Sprite;

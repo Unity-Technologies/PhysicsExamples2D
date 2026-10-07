@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Collision", "A pinball table showing small fast balls using continuous collision against moving flippers.")]
+[ExampleScene("Joints", "A pinball table showing small fast balls using continuous collision against moving flippers.")]
 public sealed class Pinball : SandboxExampleBehaviour
 {
     private const float FlipperHalfLength = 1.55f;

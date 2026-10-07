@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: 47644e14dc8ad09498a137ae3723ff34, type: 3}
   m_ScenePath: Assets/Examples/GeometryIslands/GeometryIslands.unity
   m_ExampleName: Geometry Islands
-  m_Category: Shapes
+  m_Category: Advanced
   m_Description: Demonstrates the use of geometry islands when fragmenting.

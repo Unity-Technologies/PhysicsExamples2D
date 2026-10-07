@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WorkshopManifest
   m_EditorClassIdentifier: Assembly-CSharp::WorkshopManifest
   m_Examples:
-  - exampleName: Boids
-    category: Batching
-    description: Thousands of flocking boids driven by a Burst job using batched body transforms.
-    scenePath: Assets/Examples/Boids/Boids.unity
+  - exampleName: Fragmenting
+    category: Advanced
+    description: Demonstrates the use of geometry fragmenting.
+    scenePath: Assets/Examples/Fragmenting/Fragmenting.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0
@@ -24,10 +24,10 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
-  - exampleName: Queries
-    category: Batching
-    description: Casts and resolves thousands of rays per frame using a batched query job.
-    scenePath: Assets/Examples/Queries/Queries.unity
+  - exampleName: Geometry Islands
+    category: Advanced
+    description: Demonstrates the use of geometry islands when fragmenting.
+    scenePath: Assets/Examples/GeometryIslands/GeometryIslands.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0
@@ -35,13 +35,24 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
-  - exampleName: Shooter
-    category: Batching
-    description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
-    scenePath: Assets/Examples/Shooter/Shooter.unity
+  - exampleName: Slicing
+    category: Advanced
+    description: Demonstrates the use of geometry slicing.
+    scenePath: Assets/Examples/Slicing/Slicing.unity
     state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Sprite Destruction
+    category: Advanced
+    description: Demonstrates the use of Sprite fragmenting mapping.
+    scenePath: Assets/Examples/SpriteDestruction/SpriteDestruction.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -52,6 +63,28 @@ MonoBehaviour:
     scenePath: Assets/Examples/Barrel/Barrel.unity
     state:
       overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Boids
+    category: Benchmarks
+    description: Thousands of flocking boids driven by a Burst job using batched body transforms.
+    scenePath: Assets/Examples/Boids/Boids.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Bounce Ragdolls
+    category: Benchmarks
+    description: Checking the stability of very fast continuous collision.
+    scenePath: Assets/Examples/BounceRagdolls/BounceRagdolls.unity
+    state:
+      overriddenDrawOptions: 128
       fixedDrawOptions: 0
       sleeping: 0
       frameRateVisible: 0
@@ -156,6 +189,28 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
+  - exampleName: Queries
+    category: Benchmarks
+    description: Casts and resolves thousands of rays per frame using a batched query job.
+    scenePath: Assets/Examples/Queries/Queries.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Shooter
+    category: Benchmarks
+    description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
+    scenePath: Assets/Examples/Shooter/Shooter.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
   - exampleName: Smash
     category: Benchmarks
     description: A large dense body smashing through a field of small boxes.
@@ -178,17 +233,6 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
-  - exampleName: Triggers
-    category: Benchmarks
-    description: A dense field of trigger shapes processing thousands of trigger events.
-    scenePath: Assets/Examples/Triggers/Triggers.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
   - exampleName: Tumbler
     category: Benchmarks
     description: A rotating kinematic tumbler churning many debris pieces.
@@ -204,61 +248,6 @@ MonoBehaviour:
     category: Benchmarks
     description: A rotating washer-drum with paddles agitating thousands of debris circles.
     scenePath: Assets/Examples/Washer/Washer.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Bounce House
-    category: Collision
-    description: Checking the stability of very fast continuous collision.
-    scenePath: Assets/Examples/BounceHouse/BounceHouse.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Bounce Ragdolls
-    category: Collision
-    description: Checking the stability of very fast continuous collision.
-    scenePath: Assets/Examples/BounceRagdolls/BounceRagdolls.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Character Mover
-    category: Collision
-    description: Demonstrating the Cast Mover feature.
-    scenePath: Assets/Examples/CharacterMover/CharacterMover.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Contact Manifold
-    category: Collision
-    description: Showing contacts manifolds between various shapes.
-    scenePath: Assets/Examples/ContactManifold/ContactManifold.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Pinball
-    category: Collision
-    description: A pinball table showing small fast balls using continuous collision against moving flippers.
-    scenePath: Assets/Examples/Pinball/Pinball.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0
@@ -354,6 +343,17 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 4
+  - exampleName: Pinball
+    category: Joints
+    description: A pinball table showing small fast balls using continuous collision against moving flippers.
+    scenePath: Assets/Examples/Pinball/Pinball.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
   - exampleName: Scale Ragdoll
     category: Joints
     description: Checking the stability of solving forced overlap due to scaling a relatively complex setup.
@@ -453,6 +453,17 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
+  - exampleName: Bounce House
+    category: Shapes
+    description: Checking the stability of very fast continuous collision.
+    scenePath: Assets/Examples/BounceHouse/BounceHouse.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
   - exampleName: Bounciness
     category: Shapes
     description: Demonstrating the effect of Bounciness on shapes.
@@ -497,6 +508,17 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
+  - exampleName: Character Mover
+    category: Shapes
+    description: Demonstrating the Cast Mover feature.
+    scenePath: Assets/Examples/CharacterMover/CharacterMover.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
   - exampleName: Compound
     category: Shapes
     description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.
@@ -512,6 +534,17 @@ MonoBehaviour:
     category: Shapes
     description: Showing the solver dealing with tight/overlapping confinement.
     scenePath: Assets/Examples/Confined/Confined.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Contact Manifold
+    category: Shapes
+    description: Showing contacts manifolds between various shapes.
+    scenePath: Assets/Examples/ContactManifold/ContactManifold.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0
@@ -574,32 +607,10 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
-  - exampleName: Fragmenting
-    category: Shapes
-    description: Demonstrates the use of geometry fragmenting.
-    scenePath: Assets/Examples/Fragmenting/Fragmenting.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
   - exampleName: Friction
     category: Shapes
     description: Demonstrating the effect of Friction on shapes.
     scenePath: Assets/Examples/Friction/Friction.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Geometry Islands
-    category: Shapes
-    description: Demonstrates the use of geometry islands when fragmenting.
-    scenePath: Assets/Examples/GeometryIslands/GeometryIslands.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0
@@ -662,21 +673,10 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
-  - exampleName: Slicing
+  - exampleName: Triggers
     category: Shapes
-    description: Demonstrates the use of geometry slicing.
-    scenePath: Assets/Examples/Slicing/Slicing.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Sprite Destruction
-    category: Shapes
-    description: Demonstrates the use of Sprite fragmenting mapping.
-    scenePath: Assets/Examples/SpriteDestruction/SpriteDestruction.unity
+    description: A dense field of trigger shapes processing thousands of trigger events.
+    scenePath: Assets/Examples/Triggers/Triggers.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0

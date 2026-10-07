@@ -15,5 +15,5 @@ MonoBehaviour:
   m_Scene: {fileID: 102900000, guid: efc672c300f6b1f479882b96c86f2bef, type: 3}
   m_ScenePath: Assets/Examples/SpriteDestruction/SpriteDestruction.unity
   m_ExampleName: Sprite Destruction
-  m_Category: Shapes
+  m_Category: Advanced
   m_Description: Demonstrates the use of Sprite fragmenting mapping.
