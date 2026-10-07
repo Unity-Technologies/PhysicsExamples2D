@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425f70a701d340949ad6110bc3f45d64, type: 3}
+  m_Name: StrandbeestInfo
+  m_EditorClassIdentifier: Assembly-CSharp::WorkshopExampleInfo
+  m_Scene: {fileID: 102900000, guid: a4c8d90f9128111409d69eba82dc027f, type: 3}
+  m_ScenePath: Assets/Examples/Strandbeest/Strandbeest.unity
+  m_ExampleName: Strandbeest
+  m_Category: Joints
+  m_Purpose: "Demonstrates a complex linkage of joints driven by a single motor. A Strandbeest, Theo Jansen's walking machine, turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.\nThe wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of Strandpebbles.\nTheo Jansen's own Strandbeests can be seen at https://www.strandbeest.com/"
+  m_Controls: "Left and Right arrow keys, or the Walk Left and Walk Right buttons: turn the motor one way or the other.\nSpace, or the Stop button: stop the motor.\nMotor Speed and Motor Torque: how fast the motor turns and how much torque it has.\nDrag the machine to move it."
+  m_Description: A Strandbeest, Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of Strandpebbles.
+  m_State:
+    overriddenDrawOptions: 128
+    fixedDrawOptions: 128
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0

@@ -114,7 +114,7 @@ EditorBuildSettings:
     path: Assets/Examples/SoftBody/SoftBody.unity
     guid: fdcc2fa7f0faaa241ac7a26686bef955
   - enabled: 1
-    path: Assets/Examples/TheoJansen/TheoJansen.unity
+    path: Assets/Examples/Strandbeest/Strandbeest.unity
     guid: a4c8d90f9128111409d69eba82dc027f
   - enabled: 1
     path: Assets/Examples/TopDownFriction/TopDownFriction.unity

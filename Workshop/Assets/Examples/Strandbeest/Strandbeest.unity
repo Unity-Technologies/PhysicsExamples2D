@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 30656270}
   - component: {fileID: 30656269}
   m_Layer: 0
-  m_Name: Ball 35
+  m_Name: Strandpebble 35
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 100217908}
   - component: {fileID: 100217907}
   m_Layer: 0
-  m_Name: Ball 19
+  m_Name: Strandpebble 19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1239,7 +1239,7 @@ GameObject:
   - component: {fileID: 212130449}
   - component: {fileID: 212130448}
   m_Layer: 0
-  m_Name: Ball 47
+  m_Name: Strandpebble 47
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1775,7 +1775,7 @@ GameObject:
   - component: {fileID: 302726912}
   - component: {fileID: 302726911}
   m_Layer: 0
-  m_Name: Ball 21
+  m_Name: Strandpebble 21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1950,7 +1950,7 @@ GameObject:
   - component: {fileID: 304861362}
   - component: {fileID: 304861361}
   m_Layer: 0
-  m_Name: Ball 41
+  m_Name: Strandpebble 41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2125,7 +2125,7 @@ GameObject:
   - component: {fileID: 338056539}
   - component: {fileID: 338056538}
   m_Layer: 0
-  m_Name: Ball 37
+  m_Name: Strandpebble 37
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2588,7 +2588,7 @@ GameObject:
   - component: {fileID: 394625661}
   - component: {fileID: 394625660}
   m_Layer: 0
-  m_Name: Ball 13
+  m_Name: Strandpebble 13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2957,7 +2957,7 @@ GameObject:
   - component: {fileID: 396896141}
   - component: {fileID: 396896140}
   m_Layer: 0
-  m_Name: Ball 49
+  m_Name: Strandpebble 49
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3132,7 +3132,7 @@ GameObject:
   - component: {fileID: 409918638}
   - component: {fileID: 409918637}
   m_Layer: 0
-  m_Name: Ball 2
+  m_Name: Strandpebble 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3501,7 +3501,7 @@ GameObject:
   - component: {fileID: 412697134}
   - component: {fileID: 412697133}
   m_Layer: 0
-  m_Name: Ball 18
+  m_Name: Strandpebble 18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3676,7 +3676,7 @@ GameObject:
   - component: {fileID: 438365121}
   - component: {fileID: 438365120}
   m_Layer: 0
-  m_Name: Ball 22
+  m_Name: Strandpebble 22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3945,7 +3945,7 @@ GameObject:
   - component: {fileID: 444963395}
   - component: {fileID: 444963394}
   m_Layer: 0
-  m_Name: Ball 42
+  m_Name: Strandpebble 42
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4120,7 +4120,7 @@ GameObject:
   - component: {fileID: 446327311}
   - component: {fileID: 446327310}
   m_Layer: 0
-  m_Name: Ball 7
+  m_Name: Strandpebble 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4863,7 +4863,7 @@ GameObject:
   - component: {fileID: 689827409}
   - component: {fileID: 689827408}
   m_Layer: 0
-  m_Name: Ball 16
+  m_Name: Strandpebble 16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5324,7 +5324,7 @@ GameObject:
   - component: {fileID: 767853949}
   - component: {fileID: 767853948}
   m_Layer: 0
-  m_Name: Ball 32
+  m_Name: Strandpebble 32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5593,7 +5593,7 @@ GameObject:
   - component: {fileID: 796571265}
   - component: {fileID: 796571264}
   m_Layer: 0
-  m_Name: Ball 20
+  m_Name: Strandpebble 20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5768,7 +5768,7 @@ GameObject:
   - component: {fileID: 806732810}
   - component: {fileID: 806732809}
   m_Layer: 0
-  m_Name: Ball 30
+  m_Name: Strandpebble 30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5943,7 +5943,7 @@ GameObject:
   - component: {fileID: 815432873}
   - component: {fileID: 815432872}
   m_Layer: 0
-  m_Name: Ball 3
+  m_Name: Strandpebble 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6118,7 +6118,7 @@ GameObject:
   - component: {fileID: 850457689}
   - component: {fileID: 850457688}
   m_Layer: 0
-  m_Name: Ball 31
+  m_Name: Strandpebble 31
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6293,7 +6293,7 @@ GameObject:
   - component: {fileID: 936612211}
   - component: {fileID: 936612210}
   m_Layer: 0
-  m_Name: Ball 14
+  m_Name: Strandpebble 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6624,7 +6624,7 @@ GameObject:
   - component: {fileID: 1033800481}
   - component: {fileID: 1033800480}
   m_Layer: 0
-  m_Name: Ball 46
+  m_Name: Strandpebble 46
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6799,7 +6799,7 @@ GameObject:
   - component: {fileID: 1097689463}
   - component: {fileID: 1097689462}
   m_Layer: 0
-  m_Name: Ball 0
+  m_Name: Strandpebble 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7262,7 +7262,7 @@ GameObject:
   - component: {fileID: 1131833599}
   - component: {fileID: 1131833598}
   m_Layer: 0
-  m_Name: Ball 36
+  m_Name: Strandpebble 36
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7631,7 +7631,7 @@ GameObject:
   - component: {fileID: 1146699135}
   - component: {fileID: 1146699134}
   m_Layer: 0
-  m_Name: Ball 29
+  m_Name: Strandpebble 29
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8463,7 +8463,7 @@ GameObject:
   - component: {fileID: 1304399835}
   - component: {fileID: 1304399834}
   m_Layer: 0
-  m_Name: Ball 28
+  m_Name: Strandpebble 28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8638,7 +8638,7 @@ GameObject:
   - component: {fileID: 1335144819}
   - component: {fileID: 1335144818}
   m_Layer: 0
-  m_Name: Ball 5
+  m_Name: Strandpebble 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8813,7 +8813,7 @@ GameObject:
   - component: {fileID: 1361863005}
   - component: {fileID: 1361863004}
   m_Layer: 0
-  m_Name: Ball 12
+  m_Name: Strandpebble 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8988,7 +8988,7 @@ GameObject:
   - component: {fileID: 1395555094}
   - component: {fileID: 1395555093}
   m_Layer: 0
-  m_Name: Ball 17
+  m_Name: Strandpebble 17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9163,7 +9163,7 @@ GameObject:
   - component: {fileID: 1401568599}
   - component: {fileID: 1401568598}
   m_Layer: 0
-  m_Name: Ball 43
+  m_Name: Strandpebble 43
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9338,7 +9338,7 @@ GameObject:
   - component: {fileID: 1468290178}
   - component: {fileID: 1468290177}
   m_Layer: 0
-  m_Name: Ball 10
+  m_Name: Strandpebble 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9513,7 +9513,7 @@ GameObject:
   - component: {fileID: 1489258570}
   - component: {fileID: 1489258569}
   m_Layer: 0
-  m_Name: Ball 38
+  m_Name: Strandpebble 38
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10162,7 +10162,7 @@ GameObject:
   - component: {fileID: 1518134791}
   - component: {fileID: 1518134790}
   m_Layer: 0
-  m_Name: Ball 24
+  m_Name: Strandpebble 24
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10429,7 +10429,7 @@ GameObject:
   - component: {fileID: 1543060728}
   - component: {fileID: 1543060727}
   m_Layer: 0
-  m_Name: Ball 48
+  m_Name: Strandpebble 48
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10604,7 +10604,7 @@ GameObject:
   - component: {fileID: 1569011649}
   - component: {fileID: 1569011648}
   m_Layer: 0
-  m_Name: Ball 33
+  m_Name: Strandpebble 33
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10779,7 +10779,7 @@ GameObject:
   - component: {fileID: 1589448924}
   - component: {fileID: 1589448923}
   m_Layer: 0
-  m_Name: Ball 8
+  m_Name: Strandpebble 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11426,7 +11426,7 @@ GameObject:
   - component: {fileID: 1691999761}
   - component: {fileID: 1691999760}
   m_Layer: 0
-  m_Name: Ball 23
+  m_Name: Strandpebble 23
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11601,7 +11601,7 @@ GameObject:
   - component: {fileID: 1695092707}
   - component: {fileID: 1695092706}
   m_Layer: 0
-  m_Name: Ball 15
+  m_Name: Strandpebble 15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11776,7 +11776,7 @@ GameObject:
   - component: {fileID: 1714624152}
   - component: {fileID: 1714624151}
   m_Layer: 0
-  m_Name: Ball 26
+  m_Name: Strandpebble 26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12111,7 +12111,7 @@ GameObject:
   - component: {fileID: 1795974645}
   - component: {fileID: 1795974644}
   m_Layer: 0
-  m_Name: Ball 25
+  m_Name: Strandpebble 25
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12286,7 +12286,7 @@ GameObject:
   - component: {fileID: 1809608531}
   - component: {fileID: 1809608530}
   m_Layer: 0
-  m_Name: Ball 45
+  m_Name: Strandpebble 45
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12461,7 +12461,7 @@ GameObject:
   - component: {fileID: 1816619019}
   - component: {fileID: 1816619018}
   m_Layer: 0
-  m_Name: Ball 40
+  m_Name: Strandpebble 40
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12636,7 +12636,7 @@ GameObject:
   - component: {fileID: 1823050410}
   - component: {fileID: 1823050409}
   m_Layer: 0
-  m_Name: Ball 9
+  m_Name: Strandpebble 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13099,7 +13099,7 @@ GameObject:
   - component: {fileID: 1856346188}
   - component: {fileID: 1856346187}
   m_Layer: 0
-  m_Name: Ball 39
+  m_Name: Strandpebble 39
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13274,7 +13274,7 @@ GameObject:
   - component: {fileID: 1867051663}
   - component: {fileID: 1867051662}
   m_Layer: 0
-  m_Name: Ball 6
+  m_Name: Strandpebble 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13449,7 +13449,7 @@ GameObject:
   - component: {fileID: 1904837597}
   - component: {fileID: 1904837596}
   m_Layer: 0
-  m_Name: TheoJansen
+  m_Name: Strandbeest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13466,7 +13466,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e551e2fb855c5d447982c51cd7a72159, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TheoJansenOptions
+  m_EditorClassIdentifier: Assembly-CSharp::StrandbeestOptions
   m_Contents: {fileID: 1904837597}
 --- !u!114 &1904837597
 MonoBehaviour:
@@ -13479,7 +13479,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d4a141e893c66c4c8e579f356ef93db, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TheoJansenContents
+  m_EditorClassIdentifier: Assembly-CSharp::StrandbeestContents
   m_MotorHinge: {fileID: 275034826}
   m_Chassis: {fileID: 411620543}
   m_CameraManipulator: {fileID: 1200458272}
@@ -13517,7 +13517,7 @@ GameObject:
   - component: {fileID: 1922818538}
   - component: {fileID: 1922818537}
   m_Layer: 0
-  m_Name: Ball 1
+  m_Name: Strandpebble 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13886,7 +13886,7 @@ GameObject:
   - component: {fileID: 2023280768}
   - component: {fileID: 2023280767}
   m_Layer: 0
-  m_Name: Ball 27
+  m_Name: Strandpebble 27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14061,7 +14061,7 @@ GameObject:
   - component: {fileID: 2031704966}
   - component: {fileID: 2031704965}
   m_Layer: 0
-  m_Name: Ball 4
+  m_Name: Strandpebble 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14430,7 +14430,7 @@ GameObject:
   - component: {fileID: 2043738189}
   - component: {fileID: 2043738188}
   m_Layer: 0
-  m_Name: Ball 44
+  m_Name: Strandpebble 44
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14605,7 +14605,7 @@ GameObject:
   - component: {fileID: 2075078921}
   - component: {fileID: 2075078920}
   m_Layer: 0
-  m_Name: Ball 34
+  m_Name: Strandpebble 34
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14874,7 +14874,7 @@ GameObject:
   - component: {fileID: 2088178323}
   - component: {fileID: 2088178322}
   m_Layer: 0
-  m_Name: Ball 11
+  m_Name: Strandpebble 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -809,21 +809,6 @@ MonoBehaviour:
       Head: the angle of the shade.'
     TypeName: DeskLamp, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
-  - Name: Theo Jansen
-    Category: Joints
-    Description: Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.
-    Purpose: 'Demonstrates a complex linkage of joints driven by a single motor. Theo Jansen''s walking machine turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.
-
-      The wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of balls.'
-    Controls: 'Left and Right arrow keys, or the Left and Right buttons: turn the motor one way or the other.
-
-      Space, or the Brake button: stop the motor.
-
-      Speed and Torque: how fast the motor turns and how much torque it has.
-
-      Drag the machine to move it.'
-    TypeName: TheoJansen, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    Data: {fileID: 0}
   - Name: Many Prismatics
     Category: Joints
     Description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
@@ -845,4 +830,21 @@ MonoBehaviour:
       The box drawn around each compound is the bounds of all the shapes on its body. A red box marks a compound whose shapes only touch, where a body can easily get stuck inside. A cyan box marks a compound whose shapes overlap, which resists a body getting stuck.'
     Controls: 'Intrude: drops a body inside each table and ship.'
     TypeName: StuckInside, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}
+  - Name: Strandbeest
+    Category: Joints
+    Description: A Strandbeest, Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of Strandpebbles.
+    Purpose: 'Demonstrates a complex linkage of joints driven by a single motor. A Strandbeest, Theo Jansen''s walking machine, turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.
+
+      The wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of Strandpebbles.
+
+      Theo Jansen''s own Strandbeests can be seen at https://www.strandbeest.com/'
+    Controls: 'Left and Right arrow keys, or the Walk Left and Walk Right buttons: turn the motor one way or the other.
+
+      Space, or the Stop button: stop the motor.
+
+      Motor Speed and Motor Torque: how fast the motor turns and how much torque it has.
+
+      Drag the machine to move it.'
+    TypeName: Strandbeest, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}

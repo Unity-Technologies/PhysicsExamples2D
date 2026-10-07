@@ -4,10 +4,10 @@ using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.",
-    Purpose = "Demonstrates a complex linkage of joints driven by a single motor. Theo Jansen's walking machine turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.\nThe wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of balls.",
-    Controls = "Left and Right arrow keys, or the Left and Right buttons: turn the motor one way or the other.\nSpace, or the Brake button: stop the motor.\nSpeed and Torque: how fast the motor turns and how much torque it has.\nDrag the machine to move it.")]
-public sealed class TheoJansen : SandboxExampleBehaviour
+[ExampleScene("Joints", "A Strandbeest, Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of Strandpebbles.",
+    Purpose = "Demonstrates a complex linkage of joints driven by a single motor. A Strandbeest, Theo Jansen's walking machine, turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.\nThe wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of Strandpebbles.\nTheo Jansen's own Strandbeests can be seen at https://www.strandbeest.com/",
+    Controls = "Left and Right arrow keys, or the Walk Left and Walk Right buttons: turn the motor one way or the other.\nSpace, or the Stop button: stop the motor.\nMotor Speed and Motor Torque: how fast the motor turns and how much torque it has.\nDrag the machine to move it.")]
+public sealed class Strandbeest : SandboxExampleBehaviour
 {
     private static readonly Vector2 Offset = new(0f, 8f);
     private static readonly Vector2 Pivot = new(0f, 0.8f);
@@ -23,7 +23,7 @@ public sealed class TheoJansen : SandboxExampleBehaviour
     private const float LegSpringFrequency = 10f;
     private const float LegSpringDamping = 0.5f;
 
-    // The legs, chassis and wheel share a negative group so they never touch each other, only the ground and the balls.
+    // The legs, chassis and wheel share a negative group so they never touch each other, only the ground and the Strandpebbles.
     private const int WalkerGroup = -1;
 
     private float m_MotorSpeed;
@@ -51,9 +51,9 @@ public sealed class TheoJansen : SandboxExampleBehaviour
             m_RightButton = SandboxManager.ControlsMenu[1];
             m_BrakeButton = SandboxManager.ControlsMenu[0];
 
-            m_LeftButton.Set("Left [←]");
-            m_RightButton.Set("Right [→]");
-            m_BrakeButton.Set("Brake [Spc]");
+            m_LeftButton.Set("Walk Left [←]");
+            m_RightButton.Set("Walk Right [→]");
+            m_BrakeButton.Set("Stop [Spc]");
         }
 
         // Draw all the joints, and don't let them be turned off, since the joints are what show how the legs are linked.
@@ -66,14 +66,14 @@ public sealed class TheoJansen : SandboxExampleBehaviour
     protected override void SetupOptions()
     {
         // Speed.
-        AddSlider("Speed", m_MotorSpeed, 0f, 10f, v =>
+        AddSlider("Motor Speed", m_MotorSpeed, 0f, 10f, v =>
         {
             m_MotorSpeed = v;
             ApplyMotorSpeed();
         });
 
         // Torque.
-        AddSlider("Torque", m_MotorTorque, 0f, 2000f, v =>
+        AddSlider("Motor Torque", m_MotorTorque, 0f, 2000f, v =>
         {
             m_MotorTorque = v;
 
@@ -103,7 +103,7 @@ public sealed class TheoJansen : SandboxExampleBehaviour
             groundBody.CreateShape(new SegmentGeometry { point1 = new Vector2(GroundHalfWidth, 0f), point2 = new Vector2(GroundHalfWidth, GroundWallHeight) }, shapeDef);
         }
 
-        // Balls, laid out in rows along the ground, with every other row shifted half a step and any more stacked above.
+        // Strandpebbles, laid out in rows along the ground, with every other row shifted half a step and any more stacked above.
         {
             var radius = BallRadius;
             var spacing = BallSpacing;

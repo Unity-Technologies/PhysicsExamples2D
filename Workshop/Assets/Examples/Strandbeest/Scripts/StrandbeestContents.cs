@@ -3,16 +3,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.
-/// The ground, balls, chassis, wheel and legs are authored from Physics Poses and Physics Areas, and the motor, the leg pivots and the soft leg springs are Physics Constraints, so this script only drives the motor and moves the camera.
+/// A Strandbeest, Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of Strandpebbles.
+/// The ground, Strandpebbles, chassis, wheel and legs are authored from Physics Poses and Physics Areas, and the motor, the leg pivots and the soft leg springs are Physics Constraints, so this script only drives the motor and moves the camera.
 /// </summary>
 /// <remarks>
-/// The wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the balls.
+/// The wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the Strandpebbles.
 /// Each leg is two triangles joined by four soft distance constraints, which reduce jitter and act like a suspension, and the lower triangle pivots on the chassis.
-/// The left and right buttons or arrow keys turn the motor each way, the brake or space key stops it, and the motor keeps turning the way it was last told to.
+/// The walk left and walk right buttons or arrow keys turn the motor each way, the stop button or space key stops it, and the motor keeps turning the way it was last told to.
 /// The camera follows the machine along the ground, and any attempt to pan it by hand is undone, so the machine can still be dragged.
 /// </remarks>
-public sealed class TheoJansenContents : MonoBehaviour
+public sealed class StrandbeestContents : MonoBehaviour
 {
     /// <summary>
     /// Sets the buttons that turn the motor each way and stop it.
