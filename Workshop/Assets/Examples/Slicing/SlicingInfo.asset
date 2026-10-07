@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Slicing/Slicing.unity
   m_ExampleName: Slicing
   m_Category: Advanced
+  m_Purpose: "Demonstrates slicing geometry with the physics destructor, cutting a shape in two along a line.\nA slicing ray fired from an orbiting player cuts whatever it crosses into two new pieces, and it can reflect off the arena wall several times in one shot."
+  m_Controls: "Left and Right arrow keys, or the Left and Right buttons: orbit the player.\nSpace, or the Fire button: fire a slice.\nReflection Count: how many times a shot can reflect.\nMaximum Fragments: how full the arena can get.\nThey take effect from the next shot."
   m_Description: Demonstrates the use of geometry slicing.

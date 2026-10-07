@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/LargePyramid/LargePyramid.unity
   m_ExampleName: Large Pyramid
   m_Category: Benchmarks
+  m_Purpose: "A pyramid of rounded boxes, as many rows high as it is wide along the base.\nIt shows how well a tall stack of resting bodies holds its shape."
+  m_Controls: "Base Count: how many boxes wide the base is. The pyramid is restacked when it changes.\nGravity Scale: how hard gravity leans on the stack. It acts on the stack where it stands."
   m_Description: A large pyramid of boxes stress-testing stacking stability.
   m_State:
     overriddenDrawOptions: 0

@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating some fun contraptions using joints.")]
+[ExampleScene("Joints", "Demonstrating some fun contraptions using joints.",
+    Purpose = "A stack of doohickeys dropped between two tall walls, each one a pair of wheels on a sprung, sliding bar.\nThey tumble and roll as they land on each other, so it shows hinge and slider joints working together.",
+    Controls = "Doohickey Count: how many doohickeys are stacked. They are restacked when it changes.")]
 public sealed class Doohickey : SandboxExampleBehaviour
 {
     private int m_DoohickeyCount;

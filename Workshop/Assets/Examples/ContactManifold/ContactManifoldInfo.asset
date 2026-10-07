@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/ContactManifold/ContactManifold.unity
   m_ExampleName: Contact Manifold
   m_Category: Shapes
+  m_Purpose: "Demonstrates the contact manifold, the contact points and normal that describe where two touching shapes meet. The same calculation the solver uses can be run directly on geometry with a query, with no bodies involved.\nEach pair of shapes is tested and drawn straight away. The second shape of a pair turns green when it touches the first, and every contact point is drawn on it."
+  m_Controls: "Drag with the left mouse button to move the second shape of every pair.\nHold the left Control key while dragging to rotate them."
   m_Description: Showing contacts manifolds between various shapes.

@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "A delicate balance of forces.")]
+[ExampleScene("Shapes", "A delicate balance of forces.",
+    Purpose = "A stone arch with a stack of blocks on its keystone, held up by nothing but the stones pressing on each other.\nIt shows how well the solver keeps a delicate balance of contacts stable.",
+    Controls = "Friction: the friction of the ground and of every stone. Lower it and the arch loses its grip and falls. The arch is rebuilt when it changes.")]
 public sealed class Arch : SandboxExampleBehaviour
 {
     private float m_Friction;

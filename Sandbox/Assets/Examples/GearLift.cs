@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating a gear-driven lift using Hinge and Slider Joints.")]
+[ExampleScene("Joints", "Demonstrating a gear-driven lift using Hinge and Slider Joints.",
+    Purpose = "A gear-driven lift: a drive gear turns a follower gear, which winds a chain that raises a door. A heap of random polygons fills the stepped ground.\nIt shows hinge and slider joints working together.",
+    Controls = "Use Motor: turns the drive gear's motor on or off.\nMotor Speed and Motor Max Torque: how fast the drive gear turns and how much torque it has.")]
 public sealed class GearLift : SandboxExampleBehaviour
 {
     private bool m_UseMotor;

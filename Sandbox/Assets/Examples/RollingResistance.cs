@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating Rolling Resistance Surface Property.")]
+[ExampleScene("Shapes", "Demonstrating Rolling Resistance Surface Property.",
+    Purpose = "Demonstrates rolling resistance, the surface material property that slows a shape's spin as it rolls, the way a real tire loses energy on the ground. Without it, a ball on a flat surface rolls forever.\nTwenty balls roll down stacked ramps, each with a little more rolling resistance than the one below, so the lowest keeps rolling long after the highest has stopped.",
+    Controls = "Slope Type: the tilt of every ramp. The whole stack is rebuilt when it changes.")]
 public sealed class RollingResistance : SandboxExampleBehaviour
 {
     private SlopeType m_SlopeType;

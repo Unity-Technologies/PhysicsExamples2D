@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Buoyancy/Buoyancy.unity
   m_ExampleName: Buoyancy
   m_Category: Shapes
+  m_Purpose: "Demonstrates buoyancy, worked out from how much of each shape is under the surface, so light shapes float, heavy shapes sink, and a flow can push them sideways.\nThe liquid is a trigger region, and buoyancy is applied to every shape inside it before each simulation step."
+  m_Controls: "Object Type, Spawn Count and Shape Scale: the dropped shapes. Changing any of them drops a fresh set.\nShape Density: how heavy the shapes are.\nSurface Level and Liquid Density: where the liquid ends and how dense it is.\nFlow Direction and Flow Speed: the push of the liquid.\nLinear Damping and Angular Damping: how much the liquid slows movement and spin."
   m_Description: Demonstrating buoyancy applied to random shapes dropped into a liquid region.

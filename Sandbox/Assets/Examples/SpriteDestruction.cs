@@ -9,7 +9,9 @@ using UnityEngine.U2D;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Advanced", "Demonstrates the use of Sprite fragmenting mapping.")]
+[ExampleScene("Advanced", "Demonstrates the use of Sprite fragmenting mapping.",
+    Purpose = "Demonstrates fragmenting sprites. The physics geometry is broken with the destructor, and each piece gets a sprite cut from the same source texture, so the picture stays consistent across a break.\nClicking a building cuts a hole out of it, and the pieces that come free fall and can be blown apart.",
+    Controls = "Click a building to cut a hole in it.\nFragment Radius: the size of each break.\nCreate Fragments: whether a break leaves debris.\nFragment Count: how many pieces it makes.\nFragment Friction, Fragment Bounciness and Fragment Force: the pieces' friction, bounciness and blast force.\nGravity Scale: how hard gravity pulls.\nThey take effect on the next click.")]
 public sealed class SpriteDestruction : SandboxExampleBehaviour, PhysicsCallbacks.IContactCallback
 {
     private Sprite m_Sprite;

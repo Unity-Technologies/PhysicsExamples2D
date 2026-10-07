@@ -6,7 +6,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating the Cast Mover feature.")]
+[ExampleScene("Shapes", "Demonstrating the Cast Mover feature.",
+    Purpose = "Demonstrates the cast mover, which moves a shape through the world by casting it and sliding it along whatever it hits, for a character controller that is not a physics body. A spring-like pogo, driven by a downward cast, holds the character off the ground.\nThe character walks over steps, a hanging bridge, loose debris and a moving lift.",
+    Controls = "Left and Right arrow keys, or the Left and Right buttons: walk.\nSpace, or the Jump button: jump.\nJump Speed, Min Speed, Max Speed, Stop Speed, Accelerate, Air Steer, Friction and Gravity: how the character walks and jumps.\nPogo Scale, Pogo Frequency, Pogo Damping and Pogo Type: how the pogo holds the character off the ground.")]
 public sealed class CharacterMover : SandboxExampleBehaviour
 {
     private enum PogoType

@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating rounded polygons.")]
+[ExampleScene("Shapes", "Demonstrating rounded polygons.",
+    Purpose = "Demonstrates rounded polygons. A polygon can have a radius that rounds every edge and corner outward, giving softer corners without adding vertices.\nA grid of random polygons, each with its own radius, shows sharp and rounded shapes side by side.",
+    Controls = "Column Count and Row Count: the size of the grid.\nFriction and Restitution: the friction and the bounciness of every shape.\nThe grid is dropped again when any of them changes.")]
 public sealed class RoundedPolygons : SandboxExampleBehaviour
 {
     private int m_ColumnCount;

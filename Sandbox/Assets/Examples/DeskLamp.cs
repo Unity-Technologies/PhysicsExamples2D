@@ -3,7 +3,9 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "An Anglepoise style desk lamp whose springs balance the arm and shade at any pose. Drag the shade to move it.")]
+[ExampleScene("Joints", "An Anglepoise style desk lamp whose springs balance the arm and shade at any pose. Drag the shade to move it.",
+    Purpose = "Demonstrates joints working together as a mechanism, with springs, joint friction and limits. The lamp's arm is a parallelogram of links, so the shade keeps its angle as the arm moves, and two springs balance the arm so it holds any pose it is left in.\nThe joint friction is a hinge motor with a target speed of zero, which resists movement up to its maximum torque.",
+    Controls = "Drag the shade, or any part of the lamp, to pose it. Let go and the springs hold it there.\nArm Spring and Head Spring: how stiff the two springs are.\nSpring Damping: how much the springs are damped.\nPost Friction and Elbow Friction: how much friction the joints have.\nHead: the angle of the shade.")]
 public sealed class DeskLamp : SandboxExampleBehaviour
 {
     // The dimensions of an Original 1227 in meters, scaled up because at life size the silver link is two centimeters, which is far too close to the linear slop.

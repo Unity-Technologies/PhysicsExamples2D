@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A large grid of bodies connected by Hinge Joints.")]
+[ExampleScene("Benchmarks", "A large grid of bodies connected by Hinge Joints.",
+    Purpose = "A grid of circles, each hinged to the neighbor above it and the neighbor to its left, hanging like a cloth. It stress-tests a large number of joints, both for performance and for how stable they stay.\nThe grid always covers the same area, so a higher count means more, smaller circles and links.",
+    Controls = "Grid Size: how many circles it is across and down. The grid is rebuilt when it changes.")]
 public sealed class JointGrid : SandboxExampleBehaviour
 {
     private int m_GridSize;

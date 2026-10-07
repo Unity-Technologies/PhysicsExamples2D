@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating the features of the Wheel Joint.")]
+[ExampleScene("Joints", "Demonstrating the features of the Wheel Joint.",
+    Purpose = "Demonstrates the wheel joint, which lets a body slide along one axis against a spring while it rotates freely, the way a car wheel moves on its suspension. It has the spring, limits on the slide, and a motor that spins the wheel.\nA wheel is held on a wheel joint to a fixed point so every setting can be tried.",
+    Controls = "Wheel Angle: the direction of the slide axis. The wheel is rebuilt when it changes.\nEnable Spring with Spring Frequency and Spring Damping: the suspension spring.\nEnable Motor with Motor Speed and Max Motor Torque: spins the wheel.\nEnable Limit with Min Distance Limit and Max Distance Limit: limits how far it can slide.")]
 public sealed class WheelJoint : SandboxExampleBehaviour
 {
     private PhysicsWheelJoint m_Joint;

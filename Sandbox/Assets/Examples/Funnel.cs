@@ -7,7 +7,9 @@ using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "Continuously spawns a mix of object types falling through a funnel.")]
+[ExampleScene("Benchmarks", "Continuously spawns a mix of object types falling through a funnel.",
+    Purpose = "A mix of shapes spawned continuously above a funnel and falling through it.\nIt is a steady stress test of many bodies colliding as they pass through a narrow gap.",
+    Controls = "Object Type and Object Scale: what falls and how big it is.\nSpawn Period: how often new shapes arrive.\nGravity Scale: how hard gravity pulls.\nChanges apply from the next spawn, so nothing already falling is disturbed.")]
 public sealed class Funnel : SandboxExampleBehaviour
 {
     private enum ObjectType

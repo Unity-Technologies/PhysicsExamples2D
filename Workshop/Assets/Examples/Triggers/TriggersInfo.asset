@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Triggers/Triggers.unity
   m_ExampleName: Triggers
   m_Category: Shapes
+  m_Purpose: "Demonstrates trigger shapes, which report when another shape enters or leaves them without colliding with it, and stress-tests thousands of trigger events every step.\nRows of circles fall through a dense field of triggers. A circle turns green while it is inside a trigger, and the wide triggers along the bottom remove any circle that touches them."
+  m_Controls: "Column Count: how many columns of triggers the field has, which is also how many circles are dropped in each row. The scene is rebuilt when it changes."
   m_Description: A dense field of trigger shapes processing thousands of trigger events.

@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/RoundedPolygons/RoundedPolygons.unity
   m_ExampleName: Rounded Polygons
   m_Category: Shapes
+  m_Purpose: "Demonstrates rounded polygons. A polygon can have a radius that rounds every edge and corner outward, giving softer corners without adding vertices.\nA grid of random polygons, each with its own radius, shows sharp and rounded shapes side by side."
+  m_Controls: "Column Count and Row Count: the size of the grid.\nFriction and Restitution: the friction and the bounciness of every shape.\nThe grid is dropped again when any of them changes."
   m_Description: Demonstrating rounded polygons.

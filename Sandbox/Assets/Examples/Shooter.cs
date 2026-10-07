@@ -5,7 +5,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "Continuously fires batches of projectiles and destroys them on contact using batched body APIs.")]
+[ExampleScene("Benchmarks", "Continuously fires batches of projectiles and destroys them on contact using batched body APIs.",
+    Purpose = "Demonstrates creating and destroying many bodies every frame, using contact events to decide what to remove.\nA fan of small capsules is fired from the middle of an arena at a steadily turning angle, and every capsule that touches the floor is removed.",
+    Controls = "Batch Count, Batch Delay and Batch Spread: how many capsules are fired, how often and how widely. Changes apply from the next batch.\nGravity Scale: how hard gravity pulls, including on capsules already in flight.")]
 public sealed class Shooter : SandboxExampleBehaviour
 {
     public PhysicsShape.ContactFilter BatchFilter = new PhysicsShape.ContactFilter { categories = 0x2, contacts = ~(ulong)0x2 };

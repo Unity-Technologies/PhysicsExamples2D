@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Funnel/Funnel.unity
   m_ExampleName: Funnel
   m_Category: Benchmarks
+  m_Purpose: "A mix of shapes spawned continuously above a funnel and falling through it.\nIt is a steady stress test of many bodies colliding as they pass through a narrow gap."
+  m_Controls: "Object Type and Object Scale: what falls and how big it is.\nSpawn Period: how often new shapes arrive.\nGravity Scale: how hard gravity pulls.\nChanges apply from the next spawn, so nothing already falling is disturbed."
   m_Description: Continuously spawns a mix of object types falling through a funnel.
   m_State:
     overriddenDrawOptions: 128

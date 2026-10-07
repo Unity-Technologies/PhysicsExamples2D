@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A rotating washer-drum with paddles agitating thousands of debris circles.")]
+[ExampleScene("Benchmarks", "A rotating washer-drum with paddles agitating thousands of debris circles.",
+    Purpose = "Stress-tests a great many bodies in a combination of the Spinner and Tumbler examples. The paddles inside the drum churn the circles as the Spinner does, while the whole drum keeps turning as the Tumbler's arena does.\nThe drum is a kinematic ring with paddles on its inside, and thousands of small circles are dropped into it.",
+    Controls = "Motor Speed: how fast the drum turns.\nDebris Count and Debris Friction: how many circles there are and how much friction they have.\nGravity Scale: how hard gravity pulls.\nPaddle Spacing and Paddle Scale: how many paddles the drum has and how far they reach.\nThe debris and paddle settings rebuild the scene.")]
 public sealed class Washer : SandboxExampleBehaviour
 {
     private Vector2 m_OldGravity;

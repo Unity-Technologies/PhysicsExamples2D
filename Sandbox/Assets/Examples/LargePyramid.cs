@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A large pyramid of boxes stress-testing stacking stability.")]
+[ExampleScene("Benchmarks", "A large pyramid of boxes stress-testing stacking stability.",
+    Purpose = "A pyramid of rounded boxes, as many rows high as it is wide along the base.\nIt shows how well a tall stack of resting bodies holds its shape.",
+    Controls = "Base Count: how many boxes wide the base is. The pyramid is restacked when it changes.\nGravity Scale: how hard gravity leans on the stack. It acts on the stack where it stands.")]
 public sealed class LargePyramid : SandboxExampleBehaviour
 {
     private int m_BaseCount;

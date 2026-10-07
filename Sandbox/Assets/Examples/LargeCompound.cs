@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "Many large dynamic compound bodies dropped into a container.")]
+[ExampleScene("Benchmarks", "Many large dynamic compound bodies dropped into a container.",
+    Purpose = "A stress test of compound bodies, both for performance and stability. A body can carry many shapes, and each body here is a solid square made of many separate box shapes.\nThe same amount of material is always dropped, so more splits means more bodies with fewer shapes each. Changing the split shows the trade-off between a few bodies with many shapes and many bodies with few shapes.\nEach body's mass is calculated once after all of its shapes are added, rather than again for every shape, which matters when a body has this many shapes.",
+    Controls = "Compound Size: how much material is dropped.\nCompound Splits: how many bodies it is divided into.\nA fresh set is dropped when either changes.")]
 public sealed class LargeCompound : SandboxExampleBehaviour
 {
     private int m_CompoundSize;

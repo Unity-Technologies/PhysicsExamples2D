@@ -3,7 +3,8 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates the use of a custom shape filter.")]
+[ExampleScene("Shapes", "Demonstrates the use of a custom shape filter.",
+    Purpose = "A row of boxes split into three groups, where a box touches only others in its own group and passes straight through the rest.\nIt shows a custom contact filter, which decides for each touching pair whether a contact is created at all, before the solver ever sees it.")]
 public sealed class CustomFilter : SandboxExampleBehaviour, PhysicsCallbacks.IContactFilterCallback
 {
     private bool m_OldContactFilterCallbacks;

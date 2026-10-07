@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/ShapeDistance/ShapeDistance.unity
   m_ExampleName: Shape Distance
   m_Category: Shapes
+  m_Purpose: "Demonstrates the shape distance query, which finds the distance between two shapes and the closest point on each, for any combination of shape types.\nOne inner shape is measured against four outer shapes, one of each type, as they orbit the origin and spin."
+  m_Controls: "Inner Shape: the type of the inner shape.\nOrbit Speed and Spin Speed: how fast the shapes orbit and spin.\nShape Scale: how big the shapes are."
   m_Description: Demonstrates the distance and closest points between two shapes as they orbit the origin and spin.

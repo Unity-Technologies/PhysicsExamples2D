@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A single large rotating kinematic body composed of many shapes.")]
+[ExampleScene("Benchmarks", "A single large rotating kinematic body composed of many shapes.",
+    Purpose = "One kinematic body made of a large grid of separate box shapes, spun at a steady rate.\nIt shows what a single body carrying many shapes costs to move.",
+    Controls = "Grid Size and Grid Spacing: how many boxes it is made of and how far apart they sit. The body is rebuilt when either changes.\nAngular Velocity: how fast it turns.")]
 public sealed class LargeKinematic : SandboxExampleBehaviour
 {
     private int m_GridSize;

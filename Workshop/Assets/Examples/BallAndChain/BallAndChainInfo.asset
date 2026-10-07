@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/BallAndChain/BallAndChain.unity
   m_ExampleName: Ball And Chain
   m_Category: Joints
+  m_Purpose: "A heavy ball hanging from a chain of capsule links, each joined to the next by a hinge joint.\nIt shows a long chain of joints holding together under the weight of the ball, and how the hinge spring and motor settings change the way it moves."
+  m_Controls: "Spring Frequency and Spring Damping: the spring on every hinge.\nMax Motor Torque: the most torque every hinge motor can apply.\nFix Chain Length: rebuilds the chain with a distance limit that stops it stretching."
   m_Description: Demonstrating a chain of joints.
   m_State:
     overriddenDrawOptions: 128

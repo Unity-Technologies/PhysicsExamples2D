@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Friction/Friction.unity
   m_ExampleName: Friction
   m_Category: Shapes
+  m_Purpose: "Demonstrates friction, the surface material property that resists one shape sliding over another.\nShapes slide down a zigzag of ramps, each with a little more friction than the one before it. The first slide all the way down, and the later ones slow and stop sooner."
+  m_Controls: "Object Type: the shape that slides.\nGravity Scale: how hard gravity pulls. The stream restarts when either changes."
   m_Description: Demonstrating the effect of Friction on shapes.

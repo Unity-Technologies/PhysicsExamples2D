@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/SoftBody/SoftBody.unity
   m_ExampleName: Soft Body
   m_Category: Joints
+  m_Purpose: "Demonstrates building a soft body from rigid bodies and joints. A ring of capsule segments is held together by fixed joints whose angular spring is soft, so the ring flexes and wobbles instead of staying rigid.\nThe segments share a negative contact group, so neighbors that overlap at the joins never push each other apart."
+  m_Controls: "Body Sides and Body Scale: how many segments the ring has and how big it is.\nJoint Frequency and Joint Damping: how soft the joints are.\nEvery change rebuilds the ring."
   m_Description: Demonstrating using joints to create a soft body.

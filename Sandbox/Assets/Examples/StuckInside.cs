@@ -3,7 +3,9 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.")]
+[ExampleScene("Shapes", "Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.",
+    Purpose = "Two tables and two ships, each made from several shapes on one body, with a body dropped into the join of each one.\nThe first table and ship are made of shapes that only meet at their edges, and the second pair's shapes overlap. A body dropped between shapes that only touch can get stuck, and overlapping the shapes closes the gap.\nThe box drawn around each compound is the bounds of all the shapes on its body. A red box marks a compound whose shapes only touch, where a body can easily get stuck inside. A cyan box marks a compound whose shapes overlap, which resists a body getting stuck.",
+    Controls = "Intrude: drops a body inside each table and ship.")]
 public sealed class StuckInside : SandboxExampleBehaviour
 {
     private ControlsMenu.CustomButton m_IntrudeButton;

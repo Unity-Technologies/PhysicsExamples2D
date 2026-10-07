@@ -32,12 +32,34 @@ public class WorkshopManager : MonoBehaviour, IFoldable
     // The per-scene controls container in the MainMenu "Scenes" tab. Examples build their controls
     // here via WorkshopExampleBehaviour's AddX helpers; it's cleared on scene build/teardown.
     public VisualElement SceneOptionsContent => m_SceneOptionsContent;
-    public void SetSceneDescription(string text) => m_SceneDescription.text = text;
+
+    // Gives the Help button the loaded example's text, and shows the button only when there is some.
+    public void SetSceneHelp(string title, string purpose, string controls)
+    {
+        m_HelpTitle = title;
+        m_HelpPurpose = purpose ?? string.Empty;
+        m_HelpControls = controls ?? string.Empty;
+
+        var hasHelp = !string.IsNullOrWhiteSpace(m_HelpPurpose) || !string.IsNullOrWhiteSpace(m_HelpControls);
+        m_SceneHelpButton.style.display = hasHelp ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
     public void ClearSceneOptions()
     {
         m_SceneOptionsContent.Clear();
-        m_SceneDescription.text = string.Empty;
         m_SceneOptionsHeader.style.display = DisplayStyle.None;
+
+        // The window belongs to the example being unloaded, so it closes with it, which also puts the simulation and the drawing back as they were.
+        // A window that has been asked for but is not showing yet is cancelled the same way.
+        if (m_HelpRoutine != null)
+        {
+            StopCoroutine(m_HelpRoutine);
+            m_HelpRoutine = null;
+            RestoreAfterHelp();
+        }
+
+        m_HelpDialog?.Hide();
+        m_SceneHelpButton.style.display = DisplayStyle.None;
     }
 
     // Called by the loaded example after it builds its controls: shows the "Options" section header
@@ -146,7 +168,15 @@ public class WorkshopManager : MonoBehaviour, IFoldable
     private VisualElement m_SceneOptionsContent;
     private Button m_SceneOptionsHeader;
     private bool m_SceneOptionsCollapsed;
-    private Label m_SceneDescription;
+    private Button m_SceneHelpButton;
+    private HelpDialog m_HelpDialog;
+    private string m_HelpTitle = string.Empty;
+    private string m_HelpPurpose = string.Empty;
+    private string m_HelpControls = string.Empty;
+    private bool m_WorldPausedBeforeHelp;
+    private PhysicsWorld.DrawTarget m_DrawTargetBeforeHelp;
+    private Coroutine m_HelpRoutine;
+    private readonly List<VisualElement> m_MenusDisabledForHelp = new();
 
     // Examples panel roll-up: the "Examples" header caret collapses the panel content (the header
     // stays). Joins Fold All via IFoldable.
@@ -311,6 +341,15 @@ public class WorkshopManager : MonoBehaviour, IFoldable
         // Controls.
         {
             var currentKeyboard = Keyboard.current;
+
+            // While the help window is open, Escape closes it and every other shortcut waits.
+            if (m_HelpDialog != null && m_HelpDialog.isOpen)
+            {
+                if (currentKeyboard.escapeKey.wasPressedThisFrame)
+                    m_HelpDialog.Hide();
+
+                return;
+            }
 
             // Quit (no-op on the Web platform).
             if (currentKeyboard.escapeKey.wasPressedThisFrame)
@@ -676,7 +715,14 @@ public class WorkshopManager : MonoBehaviour, IFoldable
 
         // Per-scene controls + description containers (populated by the loaded example).
         m_SceneOptionsContent = root.Q<VisualElement>("scene-controls");
-        m_SceneDescription = root.Q<Label>("scene-description");
+
+        // The Help button opens the window that explains the loaded example, and stays hidden until an example supplies text for it.
+        m_SceneHelpButton = root.Q<Button>("scene-help");
+        m_SceneHelpButton.clicked += OpenHelp;
+        m_SceneHelpButton.style.display = DisplayStyle.None;
+
+        m_HelpDialog = new HelpDialog(root);
+        m_HelpDialog.closed += OnHelpClosed;
 
         // Collapsible "Options" section header above the per-scene controls. Hidden until a scene
         // actually adds controls (see RefreshSceneOptionsSection).
@@ -1004,7 +1050,7 @@ public class WorkshopManager : MonoBehaviour, IFoldable
             m_CameraZoomElement.value = m_CameraManipulator.CameraZoom;
         }
 
-        SetSceneDescription(item.description);
+        SetSceneHelp($"{item.category} > {item.exampleName}".ToUpperInvariant(), item.purpose, item.controls);
 
         // Most examples supply no controls at all, because their components are already tunable in the Inspector.
         var optionsProvider = FindAnyObjectByType<WorkshopOptionsProvider>();
@@ -1013,6 +1059,80 @@ public class WorkshopManager : MonoBehaviour, IFoldable
             optionsProvider.BuildOptions(this, SceneOptionsContent, ControlsMenu);
 
         RefreshSceneOptionsSection();
+    }
+
+    // Opens the help window for the loaded example.
+    // The simulation is paused behind it, and the physics drawing is moved to the Scene view alone so the window is not drawn over in the Game view, with both put back when the window closes.
+    private void OpenHelp()
+    {
+        if (m_HelpRoutine != null || m_HelpDialog.isOpen)
+            return;
+
+        m_WorldPausedBeforeHelp = WorldPaused;
+        m_DrawTargetBeforeHelp = PhysicsWorld.defaultWorld.drawTarget;
+
+        SetPaused(true);
+        SetAllWorldsDrawTarget(PhysicsWorld.DrawTarget.SceneView);
+        DisableOtherMenus();
+        DebugView.frozen = true;
+
+        m_HelpRoutine = StartCoroutine(ShowHelpAfterRepaint());
+    }
+
+    // Disables every menu except the main one, which the help window already covers, so none of them can be used behind it.
+    private void DisableOtherMenus()
+    {
+        foreach (var document in FindObjectsByType<UIDocument>(FindObjectsInactive.Exclude))
+        {
+            if (document == m_MainMenuDocument || document.GetComponent<LoadingOverlay>() != null)
+                continue;
+
+            var root = document.rootVisualElement;
+
+            if (root == null || !root.enabledSelf)
+                continue;
+
+            root.SetEnabled(false);
+            m_MenusDisabledForHelp.Add(root);
+        }
+    }
+
+    // Enables the menus that were disabled while the help window was open.
+    private void EnableOtherMenus()
+    {
+        foreach (var root in m_MenusDisabledForHelp)
+            root.SetEnabled(true);
+
+        m_MenusDisabledForHelp.Clear();
+    }
+
+    // Shows the help window once a frame has been drawn without any physics drawing, because the drawing is only removed from the screen when the next frame is painted.
+    private IEnumerator ShowHelpAfterRepaint()
+    {
+        yield return null;
+        yield return new WaitForEndOfFrame();
+
+        m_HelpRoutine = null;
+        m_HelpDialog.Show(m_HelpTitle, m_HelpPurpose, m_HelpControls);
+    }
+
+    // Puts the simulation and the physics drawing back as they were before the help window opened.
+    private void OnHelpClosed() => RestoreAfterHelp();
+
+    private void RestoreAfterHelp()
+    {
+        DebugView.frozen = false;
+        EnableOtherMenus();
+        SetAllWorldsDrawTarget(m_DrawTargetBeforeHelp);
+        SetPaused(m_WorldPausedBeforeHelp);
+    }
+
+    // Applies the same draw target to every world.
+    private static void SetAllWorldsDrawTarget(PhysicsWorld.DrawTarget drawTarget)
+    {
+        using var worlds = PhysicsWorld.GetWorlds();
+        foreach (var world in worlds)
+            world.drawTarget = drawTarget;
     }
 
     private void TogglePausePlay() => SetPaused(!WorldPaused);

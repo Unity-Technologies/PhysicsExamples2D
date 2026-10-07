@@ -64,6 +64,8 @@ internal static class WorkshopRegistryBuilder
                 exampleName = info.exampleName,
                 category = string.IsNullOrEmpty(info.category) ? "Uncategorized" : info.category,
                 description = info.description,
+                purpose = info.purpose,
+                controls = info.controls,
                 scenePath = info.scenePath,
                 state = info.state
             });

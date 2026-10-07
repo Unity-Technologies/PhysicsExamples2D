@@ -32,6 +32,18 @@ public sealed class WorkshopExampleInfo : ScriptableObject
     public string description => m_Description;
 
     /// <summary>
+    /// What the example is for and what it shows, written as plain text for the help window.
+    /// Leave this and the controls text empty and the example has no Help button.
+    /// </summary>
+    public string purpose => m_Purpose;
+
+    /// <summary>
+    /// The controls that show the example off and how to use them, written as plain text for the help window.
+    /// Not every control needs describing, and this may be left empty when the purpose says everything.
+    /// </summary>
+    public string controls => m_Controls;
+
+    /// <summary>
     /// Project relative path of the scene this example loads, for example "Assets/Examples/Hinge/Hinge.unity".
     /// This is the value the runtime uses, so it stays serialized in a player build where the editor only scene reference cannot.
     /// </summary>
@@ -72,6 +84,8 @@ public sealed class WorkshopExampleInfo : ScriptableObject
     [SerializeField] string m_ExampleName;
     [SerializeField] string m_Category = "Uncategorized";
     [SerializeField, TextArea] string m_Description;
+    [SerializeField, TextArea(3, 12)] string m_Purpose;
+    [SerializeField, TextArea(3, 12)] string m_Controls;
     [SerializeField] WorkshopExampleState m_State;
 
     #endregion

@@ -15,6 +15,18 @@ public sealed class ExampleSceneAttribute : Attribute
     /// <summary>A short description shown in the example's options panel.</summary>
     public string Description { get; }
 
+    /// <summary>
+    /// What the example is for and what it shows, as plain text for the help window.
+    /// Leave this and <see cref="Controls"/> unset and the example has no Help button.
+    /// </summary>
+    public string Purpose { get; set; }
+
+    /// <summary>
+    /// The controls that show the example off and how to use them, as plain text for the help window.
+    /// Not every control needs describing, and this may be left unset when the purpose says everything.
+    /// </summary>
+    public string Controls { get; set; }
+
     public ExampleSceneAttribute(string category, string description)
     {
         Category = category;

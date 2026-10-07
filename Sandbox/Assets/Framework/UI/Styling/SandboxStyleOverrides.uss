@@ -13,7 +13,8 @@
 #sandbox-footer,
 #profile-header,
 #counters-header,
-#scene-options-header {
+#scene-options-header,
+#scene-help {
     background-color: var(--foreground);
 }
 
@@ -23,7 +24,8 @@
 #sandbox-footer:hover,
 #profile-header:hover,
 #counters-header:hover,
-#scene-options-header:hover {
+#scene-options-header:hover,
+#scene-help:hover {
     background-color: var(--highlight);
 }
 

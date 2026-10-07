@@ -6,7 +6,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating the use of a Wheel Joint for suspension when driving a car.")]
+[ExampleScene("Joints", "Demonstrating the use of a Wheel Joint for suspension when driving a car.",
+    Purpose = "Demonstrates the wheel joint working as a car's suspension over varied, difficult terrain. Each wheel is held on a spring by a wheel joint and driven by the joint's motor.\nThe car can be driven over a bridge, a stack of boxes and uneven ground.",
+    Controls = "Left and Right arrow keys, or the Reverse and Forward buttons: drive.\nSpace, or the Brake button: brake.\nSpring Frequency and Spring Damping: the suspension.\nMotor Speed and Max Motor Torque: the wheel motors.")]
 public sealed class Driving : SandboxExampleBehaviour
 {
     private float m_SpringFrequency;

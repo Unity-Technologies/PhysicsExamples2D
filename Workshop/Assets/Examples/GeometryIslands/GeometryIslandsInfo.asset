@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/GeometryIslands/GeometryIslands.unity
   m_ExampleName: Geometry Islands
   m_Category: Advanced
+  m_Purpose: "Demonstrates geometry islands when fragmenting. After a cut, what is left is grouped into islands, sets of polygons that still touch each other, so each separate piece can become its own body.\nProjectiles break holes in a row of tall slabs. An island that still reaches the ground line stays static, and one that is cut free becomes dynamic and falls."
+  m_Controls: "Left and Right arrow keys, or the Left and Right buttons: move the player.\nSpace, or the Fire button: fire a projectile.\nFragment Radius and Fragment Explode: the size of each hole and how hard the pieces are blown apart. They take effect from the next hit."
   m_Description: Demonstrates the use of geometry islands when fragmenting.

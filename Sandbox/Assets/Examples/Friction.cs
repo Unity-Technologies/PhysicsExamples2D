@@ -5,7 +5,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating the effect of Friction on shapes.")]
+[ExampleScene("Shapes", "Demonstrating the effect of Friction on shapes.",
+    Purpose = "Demonstrates friction, the surface material property that resists one shape sliding over another.\nShapes slide down a zigzag of ramps, each with a little more friction than the one before it. The first slide all the way down, and the later ones slow and stop sooner.",
+    Controls = "Object Type: the shape that slides.\nGravity Scale: how hard gravity pulls. The stream restarts when either changes.")]
 public sealed class Friction : SandboxExampleBehaviour
 {
     private enum ObjectType

@@ -3,7 +3,8 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "A delicate balance of forces.")]
+[ExampleScene("Shapes", "A delicate balance of forces.",
+    Purpose = "Demonstrates how stable contacts between very thin shapes stay. A house of cards five levels high is built from boxes only 2 millimeters thick and 40 centimeters tall, leaning against each other and held up only by friction.\nThin shapes are hard for a solver because there is so little of each shape to push against, so a small error would bring the whole house down.")]
 public sealed class CardHouse : SandboxExampleBehaviour
 {
     protected override float CameraSize => 1f;

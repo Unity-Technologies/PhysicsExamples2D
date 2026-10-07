@@ -5,7 +5,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Advanced", "Demonstrates the use of geometry slicing.")]
+[ExampleScene("Advanced", "Demonstrates the use of geometry slicing.",
+    Purpose = "Demonstrates slicing geometry with the physics destructor, cutting a shape in two along a line.\nA slicing ray fired from an orbiting player cuts whatever it crosses into two new pieces, and it can reflect off the arena wall several times in one shot.",
+    Controls = "Left and Right arrow keys, or the Left and Right buttons: orbit the player.\nSpace, or the Fire button: fire a slice.\nReflection Count: how many times a shot can reflect.\nMaximum Fragments: how full the arena can get.\nThey take effect from the next shot.")]
 public sealed class Slicing : SandboxExampleBehaviour
 {
     private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;

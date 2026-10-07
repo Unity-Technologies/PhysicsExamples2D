@@ -104,8 +104,9 @@ public abstract class SandboxExampleBehaviour : MonoBehaviour
         OptionsContent = SandboxManager.SceneOptionsContent;
         OptionsContent.Clear();
 
-        // Populate the scene description.
-        SandboxManager.SetSceneDescription(SceneManifest.LoadedSceneDescription);
+        // Give the Help button this example's text, if it has any.
+        if (SceneManifest.TryGetSceneItem(SceneManifest.LoadedSceneName, out var sceneItem))
+            SandboxManager.SetSceneHelp($"{sceneItem.Category} > {sceneItem.Name}".ToUpperInvariant(), sceneItem.Purpose, sceneItem.Controls);
 
         // Let the example build its controls (into OptionsContent, via the AddX helpers).
         SetupOptions();

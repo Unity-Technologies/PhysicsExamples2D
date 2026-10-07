@@ -81,6 +81,9 @@ public class DebugView : MonoBehaviour, IFoldable
 
     public void HideFPS() => m_BarFPS.style.display = DisplayStyle.None;
 
+    // While true the readouts stop updating and keep the values they last showed, so a changing frame rate does not distract from a window that is open over the menu.
+    public bool frozen { get; set; }
+
     // Rolls the menu up to show only the FPS bar (rolledUp) or expands it to the full view.
     // When rolled up, stat sampling is suspended (UpdateStats is unsubscribed) so the menu
     // costs nothing per simulation step.
@@ -230,6 +233,9 @@ public class DebugView : MonoBehaviour, IFoldable
 
     private void Update()
     {
+        if (frozen)
+            return;
+
         // Throttle the whole debug menu refresh to a fixed period rather than every frame.
         // Uses unscaled time so the menu still updates when the simulation is paused.
         m_UpdateTimer -= Time.unscaledDeltaTime;

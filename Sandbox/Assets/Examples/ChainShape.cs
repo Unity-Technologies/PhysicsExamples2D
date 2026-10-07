@@ -6,7 +6,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates how a Chain Shape doesn't produce \"ghost\" collisions.")]
+[ExampleScene("Shapes", "Demonstrates how a Chain Shape doesn't produce \"ghost\" collisions.",
+    Purpose = "Demonstrates the chain shape, a series of joined segments that acts as one smooth surface. Separate segments placed end to end cause ghost collisions, where a sliding shape catches on the corner where two segments meet. Each segment of a chain knows its neighbors, so shapes slide across the joins smoothly.\nA stream of shapes slides down a long uneven ground made from one chain.",
+    Controls = "Object Type and Object Count: what slides and how many.\nGravity Scale: how hard gravity pulls.\nCollision Threshold: the body setting that decides when continuous collision is used. At zero it is always used. Whether a shape is using continuous collision detection (CCD) is shown by its color, which can be configured on the physics world.\nAny change restarts the stream.")]
 public sealed class ChainShape : SandboxExampleBehaviour
 {
     private enum ObjectType

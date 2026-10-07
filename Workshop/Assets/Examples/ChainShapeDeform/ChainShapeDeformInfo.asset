@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/ChainShapeDeform/ChainShapeDeform.unity
   m_ExampleName: Chain Shape Deform
   m_Category: Shapes
+  m_Purpose: "Demonstrates changing the vertices of a chain shape while the simulation runs, so a surface can move and deform.\nA closed contour has its vertices moved every frame so a ripple runs around its outline."
+  m_Controls: "Vertex Count: how many vertices the outline has. Changing it replaces the contour.\nBase Radius: the size of the outline.\nModulation Radius, Modulation Frequency and Speed: how far, how many and how fast the ripple runs around it."
   m_Description: Demonstrates how a Chain Shape can be created and its vertices updated in realtime.

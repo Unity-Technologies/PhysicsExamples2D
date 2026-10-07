@@ -5,7 +5,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Checking the stability of very fast continuous collision.")]
+[ExampleScene("Shapes", "Checking the stability of very fast continuous collision.",
+    Purpose = "Demonstrates continuous collision detection (CCD), which stops a fast shape passing through another between two steps. Without it, a shape moving far in a single step can tunnel straight through a thin wall.\nOne very fast shape bounces around a bumper-lined room forever, with no gravity and no energy lost, and never escapes.",
+    Controls = "Object Type: the shape that is fired across the room.")]
 public sealed class BounceHouse : SandboxExampleBehaviour
 {
     private const float DrawLifetime = 2f;

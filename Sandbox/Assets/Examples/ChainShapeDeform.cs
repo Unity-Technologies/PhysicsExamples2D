@@ -3,7 +3,9 @@ using Unity.Mathematics;
 using UnityEngine;
 using Unity.U2D.Physics;
 
-[ExampleScene("Shapes", "Demonstrates how a Chain Shape can be created and its vertices updated in realtime.")]
+[ExampleScene("Shapes", "Demonstrates how a Chain Shape can be created and its vertices updated in realtime.",
+    Purpose = "Demonstrates changing the vertices of a chain shape while the simulation runs, so a surface can move and deform.\nA closed contour has its vertices moved every frame so a ripple runs around its outline.",
+    Controls = "Vertex Count: how many vertices the outline has. Changing it replaces the contour.\nBase Radius: the size of the outline.\nModulation Radius, Modulation Frequency and Speed: how far, how many and how fast the ripple runs around it.")]
 public sealed class ChainShapeDeform : SandboxExampleBehaviour
 {
     private int m_VertexCount = 64;

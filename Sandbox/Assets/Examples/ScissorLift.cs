@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Checking the stability of solving a complex set of joints.")]
+[ExampleScene("Joints", "Checking the stability of solving a complex set of joints.",
+    Purpose = "A scissor lift raising a car on its platform, driven by the motor of a distance joint that runs from the ground to one of its lower arms.\nIt checks the stability of solving a complex set of joints.",
+    Controls = "Enable Motor: turns the lift's motor on or off.\nMotor Speed: how fast the lift raises or lowers. Both act on the lift where it stands.")]
 public sealed class ScissorLift : SandboxExampleBehaviour
 {
     private PhysicsDistanceJoint m_Joint;

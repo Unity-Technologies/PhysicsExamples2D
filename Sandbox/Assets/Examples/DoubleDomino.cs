@@ -2,7 +2,8 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating accuracy by simulating the classic double-domino wave.")]
+[ExampleScene("Shapes", "Demonstrating accuracy by simulating the classic double-domino wave.",
+    Purpose = "Demonstrates the accuracy of the simulation with the classic double domino effect. Pushing the end domino of a row sends a wave of falling dominoes along it, each one coming to rest leaning on the next. When that wave reaches the end, a second wave runs back the other way as each leaning domino slides down to lie flat.\nThere are five shelves, and the direction alternates from one shelf to the next.")]
 public sealed class DoubleDomino : SandboxExampleBehaviour
 {
     private const int DominoCount = 20;

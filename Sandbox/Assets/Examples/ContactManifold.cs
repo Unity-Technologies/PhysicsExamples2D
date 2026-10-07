@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Showing contacts manifolds between various shapes.")]
+[ExampleScene("Shapes", "Showing contacts manifolds between various shapes.",
+    Purpose = "Demonstrates the contact manifold, the contact points and normal that describe where two touching shapes meet. The same calculation the solver uses can be run directly on geometry with a query, with no bodies involved.\nEach pair of shapes is tested and drawn straight away. The second shape of a pair turns green when it touches the first, and every contact point is drawn on it.",
+    Controls = "Drag with the left mouse button to move the second shape of every pair.\nHold the left Control key while dragging to rotate them.")]
 public sealed class ContactManifold : SandboxExampleBehaviour
 {
     private Vector2 m_ManipulatorStartPoint;

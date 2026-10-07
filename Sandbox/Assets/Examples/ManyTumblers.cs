@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A grid of rotating kinematic tumblers churning spawned debris.")]
+[ExampleScene("Benchmarks", "A grid of rotating kinematic tumblers churning spawned debris.",
+    Purpose = "A grid of small kinematic boxes, each open in the middle, turning while tiny capsules are dropped into every one of them a few times a second.\nIt stress-tests how the simulation copes with a great many bodies being churned at once.",
+    Controls = "Row Count and Column Count: how many tumblers there are.\nAngular Velocity: how fast every tumbler turns.\nSpawn Count: how many rounds of capsules are dropped into them.\nEvery change rebuilds the scene.")]
 public sealed class ManyTumblers : SandboxExampleBehaviour
 {
     private int m_RowCount;

@@ -7,7 +7,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "Casts and resolves thousands of rays per frame using a batched query job.")]
+[ExampleScene("Benchmarks", "Casts and resolves thousands of rays per frame using a batched query job.",
+    Purpose = "Demonstrates running world queries in a parallel job, so thousands of ray casts are done at once every frame.\nA fan of rays is cast from a point you choose across an arena of moving shapes, and each ray pushes whatever it hits.",
+    Controls = "Click an empty spot in the arena to move the point the rays start from, and move the pointer to aim them.\nBatch Count, Batch Spread and Batch Distance: how many rays there are, how wide the fan is and how far it reaches.\nBatch Force: how hard each ray pushes.\nDraw Rays, Draw Points and Draw Normals: what is drawn for each ray.")]
 public sealed class Queries : SandboxExampleBehaviour
 {
     public PhysicsQuery.QueryFilter BatchFilter = PhysicsQuery.QueryFilter.Everything;

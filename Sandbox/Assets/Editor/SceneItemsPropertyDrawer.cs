@@ -16,12 +16,16 @@ namespace UnityEditor
             const string nameTypeName = nameof(SceneManifest.SceneItem.Name);
             const string categoryTypeName = nameof(SceneManifest.SceneItem.Category);
             const string descriptionTypeName = nameof(SceneManifest.SceneItem.Description);
+            const string purposeTypeName = nameof(SceneManifest.SceneItem.Purpose);
+            const string controlsTypeName = nameof(SceneManifest.SceneItem.Controls);
             const string typeNameField = nameof(SceneManifest.SceneItem.TypeName);
             const string dataField = nameof(SceneManifest.SceneItem.Data);
 
             var nameProperty = property.FindPropertyRelative(nameTypeName);
             var categoryProperty = property.FindPropertyRelative(categoryTypeName);
             var descriptionProperty = property.FindPropertyRelative(descriptionTypeName);
+            var purposeProperty = property.FindPropertyRelative(purposeTypeName);
+            var controlsProperty = property.FindPropertyRelative(controlsTypeName);
             var typeNameProperty = property.FindPropertyRelative(typeNameField);
             var dataProperty = property.FindPropertyRelative(dataField);
 
@@ -33,6 +37,10 @@ namespace UnityEditor
 
             // Description.
             foldout.Add(new PropertyField(descriptionProperty, descriptionTypeName));
+
+            // Purpose and Controls (the help window's text).
+            foldout.Add(new PropertyField(purposeProperty, purposeTypeName));
+            foldout.Add(new PropertyField(controlsProperty, controlsTypeName));
 
             // TypeName (read-only — set by ExampleRegistryBuilder).
             foldout.Add(new TextField { label = typeNameField, bindingPath = typeNameProperty.propertyPath, enabledSelf = false });

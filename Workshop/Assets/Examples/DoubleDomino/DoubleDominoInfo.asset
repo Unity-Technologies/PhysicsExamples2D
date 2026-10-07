@@ -16,4 +16,5 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/DoubleDomino/DoubleDomino.unity
   m_ExampleName: Double Domino
   m_Category: Shapes
+  m_Purpose: "Demonstrates the accuracy of the simulation with the classic double domino effect. Pushing the end domino of a row sends a wave of falling dominoes along it, each one coming to rest leaning on the next. When that wave reaches the end, a second wave runs back the other way as each leaning domino slides down to lie flat.\nThere are five shelves, and the direction alternates from one shelf to the next."
   m_Description: Demonstrating accuracy by simulating the classic double-domino wave.

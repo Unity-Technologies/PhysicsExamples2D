@@ -4,7 +4,9 @@ using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.")]
+[ExampleScene("Joints", "Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.",
+    Purpose = "Demonstrates a complex linkage of joints driven by a single motor. Theo Jansen's walking machine turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.\nThe wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of balls.",
+    Controls = "Left and Right arrow keys, or the Left and Right buttons: turn the motor one way or the other.\nSpace, or the Brake button: stop the motor.\nSpeed and Torque: how fast the motor turns and how much torque it has.\nDrag the machine to move it.")]
 public sealed class TheoJansen : SandboxExampleBehaviour
 {
     private static readonly Vector2 Offset = new(0f, 8f);

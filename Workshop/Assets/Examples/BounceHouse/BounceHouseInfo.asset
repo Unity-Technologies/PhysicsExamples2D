@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/BounceHouse/BounceHouse.unity
   m_ExampleName: Bounce House
   m_Category: Shapes
+  m_Purpose: "Demonstrates continuous collision detection (CCD), which stops a fast shape passing through another between two steps. Without it, a shape moving far in a single step can tunnel straight through a thin wall.\nOne very fast shape bounces around a bumper-lined room forever, with no gravity and no energy lost, and never escapes."
+  m_Controls: "Object Type: the shape that is fired across the room."
   m_Description: Checking the stability of very fast continuous collision.

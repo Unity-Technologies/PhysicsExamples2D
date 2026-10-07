@@ -5,7 +5,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "Stress-tests the debug drawing API with many primitives and lifetimes.")]
+[ExampleScene("Benchmarks", "Stress-tests the debug drawing API with many primitives and lifetimes.",
+    Purpose = "Draws thousands of random primitives with the world's drawing calls, each staying on screen for its own lifetime. Nothing here is a physics body, so it stress-tests the drawing alone.\nThe physics drawing system is dedicated to visualizing and debugging physics. For high performance it draws on the GPU with instanced signed distance field (SDF) shaders driven by compute, so it needs a device with compute shader support.\nIt works in the Editor and, if selected, in players including final production builds. This is chosen with Rendering Mode on the Global tab of Project Settings > Physics Core 2D, where Development Player or Any Player can be picked.",
+    Controls = "Type: which drawing call is used.\nCount: how many shapes are drawn.\nLifetime and Spread Lifetime: how long each shape stays, and whether the lifetimes are spread out or shared.\nDraw Outline and Draw Interior: whether outlines and interiors are drawn.\nEvery change clears the drawing and draws it again.")]
 public sealed class Drawing : SandboxExampleBehaviour
 {
     private enum DrawingType

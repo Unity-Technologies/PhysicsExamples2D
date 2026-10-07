@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating the implementation of a custom joint.")]
+[ExampleScene("Joints", "Demonstrating the implementation of a custom joint.",
+    Purpose = "Demonstrates writing your own joint when none of the built-in joints does what you need. The constraint is solved in script after every simulation step by applying impulses to the bodies.\nTwo springs run from a fixed point to two anchors on a box. Each spring only pulls, and only once it is stretched past its rest length, so the box swings freely while they are slack.",
+    Controls = "Joint Frequency, Joint Damping and Joint Max Force: how stiff, how damped and how strong the springs are.\nAnchor Offset X and Anchor Offset Y: where the anchors sit on the box.\nThe impulse each spring applied on the last step is shown and updates every frame.")]
 public sealed class UserJoint : SandboxExampleBehaviour
 {
     private float m_JointFrequency;

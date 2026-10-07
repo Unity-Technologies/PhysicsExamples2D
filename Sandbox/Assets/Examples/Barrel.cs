@@ -5,7 +5,9 @@ using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A large barrel of various object types stress-testing the solver.")]
+[ExampleScene("Benchmarks", "A large barrel of various object types stress-testing the solver.",
+    Purpose = "A large barrel packed with a great many objects of one type, dropped in and left to settle.\nIt stress-tests the solver with a deep pile of touching bodies, so keep an eye on the frame rate in the Debug panel.",
+    Controls = "Object Type: chooses the type of object the barrel is filled with. The barrel refills when it changes.\nCollision Threshold: the body setting that decides when continuous collision is used. At zero it is always used. Whether a shape is using continuous collision detection (CCD) is shown by its color, which can be configured on the physics world. The barrel refills when it changes.")]
 public sealed class Barrel : SandboxExampleBehaviour
 {
     private const int MaxRows = 150;

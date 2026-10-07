@@ -9,7 +9,9 @@ using UnityEngine.UIElements;
 /// The available threads has a huge impact on this limit. The debug rendering defaults to being turned off as the FPS is irrelevant and may result in the Sandbox UI becoming sluggish on some devices.
 /// </summary>
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "Spawns bodies until the per-step simulation time reaches a configurable limit.")]
+[ExampleScene("Benchmarks", "Spawns bodies until the per-step simulation time reaches a configurable limit.",
+    Purpose = "Spawns bodies, each with the selected shape attached, until the simulation steps take longer than a limit you set, consistently over several steps, so a single slow step does not end the test.\nThe number it reaches is an approximate measure of how many bodies with that shape this device can simulate within that time.\nThe result also depends on how many threads the simulation may use, which is set with the Workers option in the project menu.\nFor more accurate results, build the project for the device you want to measure and run it there.",
+    Controls = "Simulation Limit (ms): the step time that, once exceeded consistently over several steps, stops the spawning.\nShape Type: the shape that is spawned.\nRendering On: turns the physics drawing on or off, so you can see what drawing costs.\nProgress bar: fills as the step time climbs toward the limit, turning from green to yellow to orange to red as it gets closer. It shows red with a message once the limit is reached and the test is over.\nWorkers: in the project menu, limits how many worker threads the simulation of a world can use. Lower it to see how many bodies fit with fewer threads.")]
 public sealed class Capacity : SandboxExampleBehaviour
 {
     private FloatField m_DisplayBodyCount;

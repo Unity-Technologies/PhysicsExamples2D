@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/ConveyorBelt/ConveyorBelt.unity
   m_ExampleName: Conveyor Belt
   m_Category: Shapes
+  m_Purpose: "Demonstrates tangent speed, the surface material property that makes a surface slide along itself while the shape stays still. Anything resting on it is dragged along by friction, as on a conveyor belt, with no moving body needed.\nA pile of boxes and capsules is carried along the belt, and a negative speed runs it the other way."
+  m_Controls: "Spawn: drops more debris onto the belt.\nConveyor Speed: the speed of the surface. A negative speed runs it the other way.\nConveyor Angle: tilts the belt.\nEither slider clears the debris and drops a fresh batch."
   m_Description: Demonstrates the use of the Tangent Speed surface material property.

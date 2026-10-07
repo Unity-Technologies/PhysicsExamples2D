@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/TheoJansen/TheoJansen.unity
   m_ExampleName: Theo Jansen
   m_Category: Joints
+  m_Purpose: "Demonstrates a complex linkage of joints driven by a single motor. Theo Jansen's walking machine turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.\nThe wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of balls."
+  m_Controls: "Left and Right arrow keys, or the Left and Right buttons: turn the motor one way or the other.\nSpace, or the Brake button: stop the motor.\nSpeed and Torque: how fast the motor turns and how much torque it has.\nDrag the machine to move it."
   m_Description: Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.
   m_State:
     overriddenDrawOptions: 128

@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "Checking the stability of very fast continuous collision.")]
+[ExampleScene("Benchmarks", "Checking the stability of very fast continuous collision.",
+    Purpose = "Ragdolls dropped one at a time into a closed room of very bouncy walls and bumpers, while gravity slowly swings around the room.\nIt checks that very fast continuous collision stays stable for a body made of many shapes and joints.",
+    Controls = "Update Period: how often a ragdoll is dropped.\nRagdoll Count: how many ragdolls are dropped.\nGravity Scale: how strong the swinging gravity is.")]
 public sealed class BounceRagdolls : SandboxExampleBehaviour
 {
     private float m_Time;

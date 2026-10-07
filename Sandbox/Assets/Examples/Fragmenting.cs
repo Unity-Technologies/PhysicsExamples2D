@@ -6,7 +6,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Advanced", "Demonstrates the use of geometry fragmenting.")]
+[ExampleScene("Advanced", "Demonstrates the use of geometry fragmenting.",
+    Purpose = "Demonstrates fragmenting geometry with the physics destructor. A region is cut out of a shape and split into pieces around random points, and what is left becomes the new shape.\nProjectiles fired at a large slab break a round hole out of it wherever they hit, and the pieces fall through a field of obstacles.",
+    Controls = "Left and Right arrow keys, or the Left and Right buttons: move the player.\nSpace, or the Fire button: fire a projectile.\nFragment Radius, Fragment Count and Fragment Explode: the size of each hole, how many pieces it breaks into, and how hard they are blown apart. They take effect from the next hit.")]
 public sealed class Fragmenting : SandboxExampleBehaviour, PhysicsCallbacks.IContactCallback
 {
     private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;

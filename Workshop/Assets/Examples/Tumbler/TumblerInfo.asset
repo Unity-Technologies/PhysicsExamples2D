@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Tumbler/Tumbler.unity
   m_ExampleName: Tumbler
   m_Category: Benchmarks
+  m_Purpose: "Stress-tests a great many bodies contained within a constantly moving arena. The arena is a kinematic box turning slowly around its middle, so the debris inside keeps sliding and tumbling and never settles.\nHundreds of debris pieces start at random places inside the box."
+  m_Controls: "Object Type and Debris Count: the shape of the debris, or a mix of all four, and how many pieces there are.\nAngular Velocity: how fast the box turns.\nGravity Scale: how hard gravity pulls.\nThe shape and count rebuild the scene."
   m_Description: A rotating kinematic tumbler churning many debris pieces.

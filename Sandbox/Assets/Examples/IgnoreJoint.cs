@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.")]
+[ExampleScene("Joints", "Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.",
+    Purpose = "Demonstrates the ignore joint, which stops all contacts between one specific pair of bodies while both still touch everything else. It is useful when two particular bodies must never collide, without changing the contact filtering of either.\nTwo large boxes with an obstacle between them pass through each other while the joint is on, and collide when it is off.",
+    Controls = "Enable Joint: turns the ignore joint on or off.")]
 public sealed class IgnoreJoint : SandboxExampleBehaviour
 {
     private PhysicsJoint m_Joint;

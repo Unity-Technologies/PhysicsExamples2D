@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating a chain of joints.")]
+[ExampleScene("Joints", "Demonstrating a chain of joints.",
+    Purpose = "A heavy ball hanging from a chain of capsule links, each joined to the next by a hinge joint.\nIt shows a long chain of joints holding together under the weight of the ball, and how the hinge spring and motor settings change the way it moves.",
+    Controls = "Spring Frequency and Spring Damping: the spring on every hinge.\nMax Motor Torque: the most torque every hinge motor can apply.\nFix Chain Length: rebuilds the chain with a distance limit that stops it stretching.")]
 public sealed class BallAndChain : SandboxExampleBehaviour
 {
     private const int JointCount = 30;

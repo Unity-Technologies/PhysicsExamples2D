@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A large dense body smashing through a field of small boxes.")]
+[ExampleScene("Benchmarks", "A large dense body smashing through a field of small boxes.",
+    Purpose = "Stress-tests a huge number of bodies waking at once, and a huge number of contacts being created and solved at the same moment.\nOne large dense box is fired across a room with no gravity into a field of thousands of small sleeping boxes.",
+    Controls = "Speed and Density: how fast and how heavy the large box is.\nBounciness: how bouncy everything is.\nSpacing: how far apart the small boxes are.\nCollision Threshold: the body setting that decides when continuous collision is used. Whether a shape is using continuous collision detection (CCD) is shown by its color, which can be configured on the physics world.\nEvery change rebuilds the scene.")]
 public sealed class Smash : SandboxExampleBehaviour
 {
     private const int Columns = 100;

@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A vast world far from the origin with a drivable car and streamed debris.")]
+[ExampleScene("Benchmarks", "A vast world far from the origin with a drivable car and streamed debris.",
+    Purpose = "Demonstrates that the simulation stays stable a very long way from the origin, on a rolling terrain forty-eight kilometers wide with a car to drive along it and a batch of debris dropped ahead of the camera every two seconds.\nIt also shows batch body and shape creation: the terrain is made of well over half a million polygons, created together rather than one at a time.",
+    Controls = "Left and Right arrow keys, or the Reverse and Forward buttons: drive the car.\nSpace, or the Brake button: brake.\nFollow Car: makes the camera follow the car.\nCamera Pan Speed: how fast the camera pans.\nThe two read-only fields show where the camera is and how wide the world is.")]
 public sealed class LargeWorld : SandboxExampleBehaviour
 {
     private bool m_FollowCar;

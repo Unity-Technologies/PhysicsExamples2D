@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Doohickey/Doohickey.unity
   m_ExampleName: Doohickey
   m_Category: Joints
+  m_Purpose: "A stack of doohickeys dropped between two tall walls, each one a pair of wheels on a sprung, sliding bar.\nThey tumble and roll as they land on each other, so it shows hinge and slider joints working together."
+  m_Controls: "Doohickey Count: how many doohickeys are stacked. They are restacked when it changes."
   m_Description: Demonstrating some fun contraptions using joints.
   m_State:
     overriddenDrawOptions: 128

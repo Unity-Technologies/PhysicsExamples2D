@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A spinning paddle churning thousands of debris pieces.")]
+[ExampleScene("Benchmarks", "A spinning paddle churning thousands of debris pieces.",
+    Purpose = "A long paddle spinning in the middle of a round room full of thousands of small debris pieces.\nIt stress-tests how the simulation copes with a great many bodies being churned at once.",
+    Controls = "Motor Speed and Motor Torque: how fast the paddle turns and how much torque its motor has.\nKinematic Spinner: switches the paddle between a kinematic body and a dynamic body turned by a motor.\nDebris Count, Debris Friction and Debris Bounciness: the debris.\nGravity Scale: how hard gravity pulls.\nThe paddle type and the debris settings rebuild the scene.")]
 public sealed class Spinner : SandboxExampleBehaviour
 {
     private Vector2 m_OldGravity;

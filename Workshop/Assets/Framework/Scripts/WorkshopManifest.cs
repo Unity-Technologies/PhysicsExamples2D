@@ -35,6 +35,16 @@ public sealed class WorkshopManifest : ScriptableObject
         public string description;
 
         /// <summary>
+        /// What the example is for, shown in the help window.
+        /// </summary>
+        public string purpose;
+
+        /// <summary>
+        /// The controls that show the example off and how to use them, shown in the help window.
+        /// </summary>
+        public string controls;
+
+        /// <summary>
         /// Project relative path of the scene to load, for example "Assets/Examples/Hinge/Hinge.unity".
         /// </summary>
         public string scenePath;

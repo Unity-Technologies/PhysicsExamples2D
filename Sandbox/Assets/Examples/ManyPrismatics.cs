@@ -2,7 +2,9 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.")]
+[ExampleScene("Joints", "A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.",
+    Purpose = "A chain of boxes joined by slider joints, stretched to the end of their limits.\nThe number of sub-steps the world takes in each step decides how well stretched joints hold. With too few, the chain bends away from its slide axis.",
+    Controls = "World Sub-Steps: sets how many sub-steps the world takes in each step. Raise it and the chain holds straight, lower it and the chain bends.\nDrag a box sideways to distort the chain and see how quickly it recovers.")]
 public sealed class ManyPrismatics : SandboxExampleBehaviour
 {
     private const int BoxCount = 6;

@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "A dense field of trigger shapes processing thousands of trigger events.")]
+[ExampleScene("Shapes", "A dense field of trigger shapes processing thousands of trigger events.",
+    Purpose = "Demonstrates trigger shapes, which report when another shape enters or leaves them without colliding with it, and stress-tests thousands of trigger events every step.\nRows of circles fall through a dense field of triggers. A circle turns green while it is inside a trigger, and the wide triggers along the bottom remove any circle that touches them.",
+    Controls = "Column Count: how many columns of triggers the field has, which is also how many circles are dropped in each row. The scene is rebuilt when it changes.")]
 public sealed class Triggers : SandboxExampleBehaviour
 {
     private int m_StepCount;

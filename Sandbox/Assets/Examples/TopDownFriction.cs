@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating using the RelativeJoint to achieve \"top down\" friction.")]
+[ExampleScene("Joints", "Demonstrating using the RelativeJoint to achieve \"top down\" friction.",
+    Purpose = "Demonstrates top-down friction with the relative joint. In a top-down view there is no gravity pressing a body onto the ground, so ordinary friction does nothing. A relative joint to the ground with a limited maximum force and torque resists movement and spin the way friction would.\nThe shapes on the table slide to a stop and stop spinning instead of drifting forever.",
+    Controls = "Explode: sets off an explosion that throws the shapes around.\nMax Force and Max Torque: how much force and torque each friction joint can resist. They act on the shapes where they are.")]
 public sealed class TopDownFriction : SandboxExampleBehaviour
 {
     private ControlsMenu.CustomButton m_ExplodeButton;

@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/ModifyGeometry/ModifyGeometry.unity
   m_ExampleName: Modify Geometry
   m_Category: Shapes
+  m_Purpose: "Demonstrates changing an existing shape's geometry, type and body type in place, without destroying and recreating it. Anything touching the shape feels the change straight away.\nA box rests on the shape so the effect of each change can be seen."
+  m_Controls: "Body Type: the body type of the shape.\nGeometry Type: the type of the shape.\nGeometry Scale: the size of the shape.\nEvery control changes the existing shape while it runs."
   m_Description: Demonstrates modifying the geometry of existing shapes.

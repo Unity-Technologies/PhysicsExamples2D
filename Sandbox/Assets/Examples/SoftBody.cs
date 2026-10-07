@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating using joints to create a soft body.")]
+[ExampleScene("Joints", "Demonstrating using joints to create a soft body.",
+    Purpose = "Demonstrates building a soft body from rigid bodies and joints. A ring of capsule segments is held together by fixed joints whose angular spring is soft, so the ring flexes and wobbles instead of staying rigid.\nThe segments share a negative contact group, so neighbors that overlap at the joins never push each other apart.",
+    Controls = "Body Sides and Body Scale: how many segments the ring has and how big it is.\nJoint Frequency and Joint Damping: how soft the joints are.\nEvery change rebuilds the ring.")]
 public sealed class SoftBody : SandboxExampleBehaviour
 {
     private int m_BodySides;

@@ -12,7 +12,9 @@ using UnityEngine.UIElements;
 /// Ref: http://www.kfish.org/boids/pseudocode.html
 /// </summary>
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "Thousands of flocking boids driven by a Burst job using batched body transforms.")]
+[ExampleScene("Benchmarks", "Thousands of flocking boids driven by a Burst job using batched body transforms.",
+    Purpose = "Demonstrates moving thousands of bodies efficiently. The flocking is worked out in a parallel Burst job, and every body is updated at once with the batched body calls instead of one at a time.\nEach boid steers away from boids that are too close, toward the middle of the boids it can see, and toward their average heading.",
+    Controls = "Boid Count and Boid Size: how many boids there are and how big they are.\nMax Speed, Sight Radius and Separation Radius: how fast boids go, how far they see and how close is too close.\nSeparation Strength, Cohesion Strength and Alignment Strength: how strongly each steering rule pulls.\nBounds Radius and Bounds Wrap: the size of the circle, and whether a boid that leaves it wraps to the other side or is turned back.\nBoid Groups: boids in different groups ignore each other.\nDraw Trails: draws a trail behind every boid.")]
 public sealed class Boids : SandboxExampleBehaviour
 {
     private NativeArray<PhysicsBody> m_BoidBodies;

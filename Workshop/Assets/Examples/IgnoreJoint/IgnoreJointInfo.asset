@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/IgnoreJoint/IgnoreJoint.unity
   m_ExampleName: Ignore Joint
   m_Category: Joints
+  m_Purpose: "Demonstrates the ignore joint, which stops all contacts between one specific pair of bodies while both still touch everything else. It is useful when two particular bodies must never collide, without changing the contact filtering of either.\nTwo large boxes with an obstacle between them pass through each other while the joint is on, and collide when it is off."
+  m_Controls: "Enable Joint: turns the ignore joint on or off."
   m_Description: Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.
   m_State:
     overriddenDrawOptions: 128

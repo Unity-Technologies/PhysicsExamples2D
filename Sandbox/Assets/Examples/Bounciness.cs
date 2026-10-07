@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating the effect of Bounciness on shapes.")]
+[ExampleScene("Shapes", "Demonstrating the effect of Bounciness on shapes.",
+    Purpose = "Demonstrates bounciness, the surface material property that decides how much speed a shape keeps when it rebounds from a contact. Zero keeps none, and one keeps all of it.\nA row of identical shapes is dropped together, each a little bouncier than the one to its left. The shapes cannot rotate, so each bounces straight up and down.",
+    Controls = "Object Type: the shape used for the row.\nGravity Scale: how hard gravity pulls. The row is dropped again when either changes.")]
 public sealed class Bounciness : SandboxExampleBehaviour
 {
     private enum ObjectType

@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Arch/Arch.unity
   m_ExampleName: Arch
   m_Category: Shapes
+  m_Purpose: "A stone arch with a stack of blocks on its keystone, held up by nothing but the stones pressing on each other.\nIt shows how well the solver keeps a delicate balance of contacts stable."
+  m_Controls: "Friction: the friction of the ground and of every stone. Lower it and the arch loses its grip and falls. The arch is rebuilt when it changes."
   m_Description: A delicate balance of forces.

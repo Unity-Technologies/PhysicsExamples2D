@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Checking the stability of solving forced overlap due to scaling a relatively complex setup.")]
+[ExampleScene("Joints", "Checking the stability of solving forced overlap due to scaling a relatively complex setup.",
+    Purpose = "A ragdoll dropped into a closed room and resized while it moves, so every limb is suddenly forced to overlap its neighbors.\nIt checks that the solver stays stable when a complex set of joints is scaled.",
+    Controls = "Ragdoll Scale: the size of the ragdoll. It is resized where it is, without being rebuilt.")]
 public sealed class ScaleRagdoll : SandboxExampleBehaviour
 {
     private RagdollFactory.Ragdoll m_Ragdoll;

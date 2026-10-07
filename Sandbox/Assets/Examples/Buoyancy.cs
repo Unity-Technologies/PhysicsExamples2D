@@ -5,7 +5,9 @@ using Unity.U2D.Physics;
 using Random = Unity.Mathematics.Random;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating buoyancy applied to random shapes dropped into a liquid region.")]
+[ExampleScene("Shapes", "Demonstrating buoyancy applied to random shapes dropped into a liquid region.",
+    Purpose = "Demonstrates buoyancy, worked out from how much of each shape is under the surface, so light shapes float, heavy shapes sink, and a flow can push them sideways.\nThe liquid is a trigger region, and buoyancy is applied to every shape inside it before each simulation step.",
+    Controls = "Object Type, Spawn Count and Shape Scale: the dropped shapes. Changing any of them drops a fresh set.\nShape Density: how heavy the shapes are.\nSurface Level and Liquid Density: where the liquid ends and how dense it is.\nFlow Direction and Flow Speed: the push of the liquid.\nLinear Damping and Angular Damping: how much the liquid slows movement and spin.")]
 public sealed class Buoyancy : SandboxExampleBehaviour
 {
     private enum ObjectType

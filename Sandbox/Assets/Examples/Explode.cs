@@ -3,7 +3,9 @@ using UnityEngine.InputSystem;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates an explosion that pushes shapes away from a point, or pulls them in when the impulse is negative.")]
+[ExampleScene("Shapes", "Demonstrates an explosion that pushes shapes away from a point, or pulls them in when the impulse is negative.",
+    Purpose = "Demonstrates the world's explosion, which applies an impulse to every shape near a point, pushing them away, or pulling them in when the impulse is negative. The impulse is given per unit of length and scaled by the shape's projected width as seen from the explosion center, so a shape presenting a wider face to the blast is pushed harder. It is applied at the point on the shape closest to the center, so it can also spin the shape.\nThe yellow circle is the radius inside which the impulse is at full strength, and the dimmer circle is where it has faded away.",
+    Controls = "Explode button or Space key: sets off one explosion. Holding it does not repeat it.\nShape Count: how many shapes are dropped. Changing it rebuilds the scene.\nRadius, Falloff and Impulse: the size, the fade distance and the strength of the next explosion.")]
 public sealed class Explode : SandboxExampleBehaviour
 {
     private const int BatchSize = 10;

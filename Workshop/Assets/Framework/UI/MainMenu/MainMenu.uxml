@@ -8,9 +8,7 @@
                 <ui:DropdownField label="Scene" name="scenes" picking-mode="Position" focusable="false"/>
                 <ui:Button text="▼ Options" name="scene-options-header" focusable="false" double-click-selects-word="false" triple-click-selects-line="false" style="-unity-text-align: upper-center; margin-right: 1px; margin-bottom: 0; margin-left: 1px; margin-top: 4px; padding-right: 0; padding-left: 0; border-left-color: rgba(38, 37, 37, 0.3); border-right-color: rgba(38, 37, 37, 0.3); border-top-color: rgba(38, 37, 37, 0.3); border-bottom-color: rgba(38, 37, 37, 0.3); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 6px; border-top-right-radius: 6px;"/>
                 <ui:VisualElement name="scene-controls"/>
-                <ui:VisualElement name="description" style="flex-grow: 0; flex-shrink: 0; color: rgba(210, 210, 210, 0.5); -unity-text-align: middle-left; align-self: stretch;">
-                    <ui:Label text="..." name="scene-description" style="flex-grow: 0; white-space: normal; -unity-text-align: upper-center; max-width: 240px;"/>
-                </ui:VisualElement>
+                <ui:Button text="Help" name="scene-help" focusable="false" double-click-selects-word="false" triple-click-selects-line="false" style="-unity-text-align: upper-center; margin-right: 1px; margin-bottom: 1px; margin-left: 1px; margin-top: 4px; padding-right: 0; padding-left: 0; border-left-color: rgba(38, 37, 37, 0.3); border-right-color: rgba(38, 37, 37, 0.3); border-top-color: rgba(38, 37, 37, 0.3); border-bottom-color: rgba(38, 37, 37, 0.3); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-left-radius: 6px; border-top-right-radius: 6px; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

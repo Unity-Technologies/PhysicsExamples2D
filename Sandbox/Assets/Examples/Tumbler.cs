@@ -5,7 +5,9 @@ using UnityEngine.UIElements;
 using Random = Unity.Mathematics.Random;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Benchmarks", "A rotating kinematic tumbler churning many debris pieces.")]
+[ExampleScene("Benchmarks", "A rotating kinematic tumbler churning many debris pieces.",
+    Purpose = "Stress-tests a great many bodies contained within a constantly moving arena. The arena is a kinematic box turning slowly around its middle, so the debris inside keeps sliding and tumbling and never settles.\nHundreds of debris pieces start at random places inside the box.",
+    Controls = "Object Type and Debris Count: the shape of the debris, or a mix of all four, and how many pieces there are.\nAngular Velocity: how fast the box turns.\nGravity Scale: how hard gravity pulls.\nThe shape and count rebuild the scene.")]
 public sealed class Tumbler : SandboxExampleBehaviour
 {
     private enum ObjectType

@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Bounciness/Bounciness.unity
   m_ExampleName: Bounciness
   m_Category: Shapes
+  m_Purpose: "Demonstrates bounciness, the surface material property that decides how much speed a shape keeps when it rebounds from a contact. Zero keeps none, and one keeps all of it.\nA row of identical shapes is dropped together, each a little bouncier than the one to its left. The shapes cannot rotate, so each bounces straight up and down."
+  m_Controls: "Object Type: the shape used for the row.\nGravity Scale: how hard gravity pulls. The row is dropped again when either changes."
   m_Description: Demonstrating the effect of Bounciness on shapes.

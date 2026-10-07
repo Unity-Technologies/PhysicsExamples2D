@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/JointGrid/JointGrid.unity
   m_ExampleName: Joint Grid
   m_Category: Benchmarks
+  m_Purpose: "A grid of circles, each hinged to the neighbor above it and the neighbor to its left, hanging like a cloth. It stress-tests a large number of joints, both for performance and for how stable they stay.\nThe grid always covers the same area, so a higher count means more, smaller circles and links."
+  m_Controls: "Grid Size: how many circles it is across and down. The grid is rebuilt when it changes."
   m_Description: A large grid of bodies connected by Hinge Joints.
   m_State:
     overriddenDrawOptions: 128

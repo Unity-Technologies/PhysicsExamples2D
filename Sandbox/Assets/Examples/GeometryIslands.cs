@@ -6,7 +6,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Advanced", "Demonstrates the use of geometry islands when fragmenting.")]
+[ExampleScene("Advanced", "Demonstrates the use of geometry islands when fragmenting.",
+    Purpose = "Demonstrates geometry islands when fragmenting. After a cut, what is left is grouped into islands, sets of polygons that still touch each other, so each separate piece can become its own body.\nProjectiles break holes in a row of tall slabs. An island that still reaches the ground line stays static, and one that is cut free becomes dynamic and falls.",
+    Controls = "Left and Right arrow keys, or the Left and Right buttons: move the player.\nSpace, or the Fire button: fire a projectile.\nFragment Radius and Fragment Explode: the size of each hole and how hard the pieces are blown apart. They take effect from the next hit.")]
 public sealed class GeometryIslands : SandboxExampleBehaviour, PhysicsCallbacks.IContactCallback
 {
     private PhysicsWorld.DrawFillOptions m_OldDrawFillOptions;

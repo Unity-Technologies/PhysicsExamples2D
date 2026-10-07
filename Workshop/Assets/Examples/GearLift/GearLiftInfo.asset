@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/GearLift/GearLift.unity
   m_ExampleName: Gear Lift
   m_Category: Joints
+  m_Purpose: "A gear-driven lift: a drive gear turns a follower gear, which winds a chain that raises a door. A heap of random polygons fills the stepped ground.\nIt shows hinge and slider joints working together."
+  m_Controls: "Use Motor: turns the drive gear's motor on or off.\nMotor Speed and Motor Max Torque: how fast the drive gear turns and how much torque it has."
   m_Description: Demonstrating a gear-driven lift using Hinge and Slider Joints.

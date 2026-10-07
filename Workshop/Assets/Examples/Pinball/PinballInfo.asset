@@ -17,3 +17,5 @@ MonoBehaviour:
   m_ExampleName: Pinball
   m_Category: Joints
   m_Description: A pinball table showing small fast balls using continuous collision against moving flippers.
+  m_Purpose: "A pinball table where small, fast balls hit flippers that are moving toward them.\nIt shows continuous collision stopping a ball from passing through a thin moving shape. A new ball arrives every few seconds up to a limit, and a ball that drains away is replaced."
+  m_Controls: "Flippers: hold the Space key, or hold the Flippers button, to raise both flippers. Release to lower them."

@@ -5,7 +5,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating the application of Wind with drag and lift.")]
+[ExampleScene("Shapes", "Demonstrating the application of Wind with drag and lift.",
+    Purpose = "Demonstrates applying wind to shapes. As with air on a real object, the force grows with the square of the wind's speed relative to the shape, and with the shape's projected width facing the wind, so a shape side-on to the wind catches more of it than one end-on. The force is applied where the shape faces the wind rather than at its center, so the wind can also turn the shape.\nLift turns part of the force sideways across the flow, the way a flag or streamer catches a crosswind. A circle has no edges, so it gets no lift and is only pushed. Only circles, capsules and polygons are affected.\nA chain of small shapes hangs from a spring-loaded hinge and sways in the wind.",
+    Controls = "Geometry Type and Count: the shape and length of the chain. It is rebuilt when they change.\nWind Direction and Wind Speed: where the wind blows from and how strong it is.\nDrag: how much of each shape's own movement is taken off the wind speed, so a shape moving with the wind feels less of it.\nLift: how strongly the wind pushes sideways across the flow.")]
 public sealed class Wind : SandboxExampleBehaviour
 {
     private enum GeometryType

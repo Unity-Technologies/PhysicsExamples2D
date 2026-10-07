@@ -3,7 +3,9 @@ using UnityEngine;
 using Unity.U2D.Physics;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates the distance and closest points between two shapes as they orbit the origin and spin.")]
+[ExampleScene("Shapes", "Demonstrates the distance and closest points between two shapes as they orbit the origin and spin.",
+    Purpose = "Demonstrates the shape distance query, which finds the distance between two shapes and the closest point on each, for any combination of shape types.\nOne inner shape is measured against four outer shapes, one of each type, as they orbit the origin and spin.",
+    Controls = "Inner Shape: the type of the inner shape.\nOrbit Speed and Spin Speed: how fast the shapes orbit and spin.\nShape Scale: how big the shapes are.")]
 public sealed class ShapeDistance : SandboxExampleBehaviour
 {
     private enum ShapeType

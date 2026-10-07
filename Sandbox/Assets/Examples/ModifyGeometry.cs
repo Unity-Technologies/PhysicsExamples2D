@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates modifying the geometry of existing shapes.")]
+[ExampleScene("Shapes", "Demonstrates modifying the geometry of existing shapes.",
+    Purpose = "Demonstrates changing an existing shape's geometry, type and body type in place, without destroying and recreating it. Anything touching the shape feels the change straight away.\nA box rests on the shape so the effect of each change can be seen.",
+    Controls = "Body Type: the body type of the shape.\nGeometry Type: the type of the shape.\nGeometry Scale: the size of the shape.\nEvery control changes the existing shape while it runs.")]
 public sealed class ModifyGeometry : SandboxExampleBehaviour
 {
     private PhysicsBody m_ChangerBody;

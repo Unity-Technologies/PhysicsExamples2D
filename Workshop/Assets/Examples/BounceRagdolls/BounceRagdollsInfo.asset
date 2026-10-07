@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/BounceRagdolls/BounceRagdolls.unity
   m_ExampleName: Bounce Ragdolls
   m_Category: Benchmarks
+  m_Purpose: "Ragdolls dropped one at a time into a closed room of very bouncy walls and bumpers, while gravity slowly swings around the room.\nIt checks that very fast continuous collision stays stable for a body made of many shapes and joints."
+  m_Controls: "Update Period: how often a ragdoll is dropped.\nRagdoll Count: how many ragdolls are dropped.\nGravity Scale: how strong the swinging gravity is."
   m_Description: Checking the stability of very fast continuous collision.
   m_State:
     overriddenDrawOptions: 128

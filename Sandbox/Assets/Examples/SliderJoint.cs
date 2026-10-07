@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating the features of the Slider Joint.")]
+[ExampleScene("Joints", "Demonstrating the features of the Slider Joint.",
+    Purpose = "Demonstrates the slider joint, also known as a prismatic joint, which lets a body move along one axis relative to another while stopping it rotating. It can have a spring that pulls toward a target position, limits on how far it slides, and a motor that drives it along the axis.\nA capsule is held on a slider to a fixed point so every setting can be tried.",
+    Controls = "Slider Angle: the direction of the slide axis. The capsule is rebuilt when it changes.\nEnable Spring with Spring Target Translation, Spring Frequency and Spring Damping: pulls the capsule toward a position like a spring.\nEnable Motor with Motor Speed and Max Motor Force: drives the capsule along the axis.\nEnable Limit with Min Distance Limit and Max Distance Limit: limits how far it can slide.")]
 public sealed class SliderJoint : SandboxExampleBehaviour
 {
     private PhysicsSliderJoint m_Joint;

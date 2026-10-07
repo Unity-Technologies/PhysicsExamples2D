@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrates the use of the Tangent Speed surface material property.")]
+[ExampleScene("Shapes", "Demonstrates the use of the Tangent Speed surface material property.",
+    Purpose = "Demonstrates tangent speed, the surface material property that makes a surface slide along itself while the shape stays still. Anything resting on it is dragged along by friction, as on a conveyor belt, with no moving body needed.\nA pile of boxes and capsules is carried along the belt, and a negative speed runs it the other way.",
+    Controls = "Spawn: drops more debris onto the belt.\nConveyor Speed: the speed of the surface. A negative speed runs it the other way.\nConveyor Angle: tilts the belt.\nEither slider clears the debris and drops a fresh batch.")]
 public sealed class ConveyorBelt : SandboxExampleBehaviour
 {
     private const int SpawnCount = 10;

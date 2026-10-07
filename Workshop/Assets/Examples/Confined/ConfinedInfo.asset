@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Confined/Confined.unity
   m_ExampleName: Confined
   m_Category: Shapes
+  m_Purpose: "A square grid of circles packed into a box too small to hold them, with gravity switched off.\nThe solver has to push every overlapping pair apart at once, so it shows how well it copes with tight confinement."
+  m_Controls: "Grid Count: how many circles are packed along each side of the grid. The box is refilled when it changes."
   m_Description: Showing the solver dealing with tight/overlapping confinement.

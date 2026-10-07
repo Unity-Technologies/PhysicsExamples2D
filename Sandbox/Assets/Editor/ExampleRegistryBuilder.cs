@@ -39,6 +39,8 @@ namespace UnityEditor
                     Name = ToDisplayName(type.Name),
                     Category = attribute.Category,
                     Description = attribute.Description,
+                    Purpose = attribute.Purpose,
+                    Controls = attribute.Controls,
                     TypeName = type.AssemblyQualifiedName,
                     Data = FindCompanionData(type)
                 });

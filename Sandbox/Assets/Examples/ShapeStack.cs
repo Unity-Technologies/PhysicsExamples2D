@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Checking the stability of stacking shapes.")]
+[ExampleScene("Shapes", "Checking the stability of stacking shapes.",
+    Purpose = "A tower of shapes stacked on the ground.\nIt shows how stable the stack stays against the world's contact and gravity settings.",
+    Controls = "Object Type and Stack Height: the shape and height of the tower. It is rebuilt when they change.\nContact Frequency, Contact Damping and Contact Speed: the world's contact settings, which act on the stack live.\nGravity Scale: how hard gravity pulls.")]
 public sealed class ShapeStack : SandboxExampleBehaviour
 {
     private enum ObjectType

@@ -11,6 +11,8 @@ public class SceneManifest : ScriptableObject
         public string Name;
         public string Category;
         public string Description;
+        public string Purpose;
+        public string Controls;
         public string TypeName;
         public ExampleSceneData Data;
     }

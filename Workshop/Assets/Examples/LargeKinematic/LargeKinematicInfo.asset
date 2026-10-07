@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/LargeKinematic/LargeKinematic.unity
   m_ExampleName: Large Kinematic
   m_Category: Benchmarks
+  m_Purpose: "One kinematic body made of a large grid of separate box shapes, spun at a steady rate.\nIt shows what a single body carrying many shapes costs to move."
+  m_Controls: "Grid Size and Grid Spacing: how many boxes it is made of and how far apart they sit. The body is rebuilt when either changes.\nAngular Velocity: how fast it turns."
   m_Description: A single large rotating kinematic body composed of many shapes.
   m_State:
     overriddenDrawOptions: 0

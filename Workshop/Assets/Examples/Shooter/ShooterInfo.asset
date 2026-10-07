@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/Shooter/Shooter.unity
   m_ExampleName: Shooter
   m_Category: Benchmarks
+  m_Purpose: "Demonstrates creating and destroying many bodies every frame, using contact events to decide what to remove.\nA fan of small capsules is fired from the middle of an arena at a steadily turning angle, and every capsule that touches the floor is removed."
+  m_Controls: "Batch Count, Batch Delay and Batch Spread: how many capsules are fired, how often and how widely. Changes apply from the next batch.\nGravity Scale: how hard gravity pulls, including on capsules already in flight."
   m_Description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
   m_State:
     overriddenDrawOptions: 128

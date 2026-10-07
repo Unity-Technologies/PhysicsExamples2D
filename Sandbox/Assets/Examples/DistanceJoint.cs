@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Joints", "Demonstrating the features of the Distance Joint.")]
+[ExampleScene("Joints", "Demonstrating the features of the Distance Joint.",
+    Purpose = "Demonstrates the distance joint, which keeps two anchor points a set distance apart. It can be rigid like a rod, soft like a spring, held between a minimum and maximum length like a rope, or driven along its length by a motor.\nA short chain of small circles hangs from a fixed point so every setting can be tried.",
+    Controls = "Joint Count and Distance: how many circles there are and how far apart they are held.\nEnable Spring with Spring Frequency, Spring Damping, Spring Tension and Spring Compression: lets the joint stretch like a spring.\nEnable Limit with Min Distance Limit and Max Distance Limit: keeps the joint between two lengths.\nEnable Motor with Motor Speed and Max Motor Force: drives the joint.\nThe chain is rebuilt when the joint count, the distance or the limits change.")]
 public sealed class DistanceJoint : SandboxExampleBehaviour
 {
     private NativeList<PhysicsDistanceJoint> m_Joints;

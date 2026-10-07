@@ -4,7 +4,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Demonstrating creating pseudo-ellipse shapes as Polygons.")]
+[ExampleScene("Shapes", "Demonstrating creating pseudo-ellipse shapes as Polygons.",
+    Purpose = "Demonstrates approximating an ellipse, which has no shape of its own, with a rounded polygon. A thin polygon with a radius rounds into a smooth oval.\nIt also shows how stable a complex stack of rounded polygons is. A grid of these shapes falls on top of each other into a tall box and settles until the bodies sleep. Disturb the pile and it collapses and settles again correctly.",
+    Controls = "Column Count and Row Count: the size of the grid.\nFriction and Restitution: the friction and the bounciness of every shape.\nThe grid is dropped again when any of them changes.")]
 public sealed class EllipsePolygons : SandboxExampleBehaviour
 {
     private int m_ColumnCount;

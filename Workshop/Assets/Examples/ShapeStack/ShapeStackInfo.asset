@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/ShapeStack/ShapeStack.unity
   m_ExampleName: Shape Stack
   m_Category: Shapes
+  m_Purpose: "A tower of shapes stacked on the ground.\nIt shows how stable the stack stays against the world's contact and gravity settings."
+  m_Controls: "Object Type and Stack Height: the shape and height of the tower. It is rebuilt when they change.\nContact Frequency, Contact Damping and Contact Speed: the world's contact settings, which act on the stack live.\nGravity Scale: how hard gravity pulls."
   m_Description: Checking the stability of stacking shapes.

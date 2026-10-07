@@ -16,6 +16,8 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/ScissorLift/ScissorLift.unity
   m_ExampleName: Scissor Lift
   m_Category: Joints
+  m_Purpose: "A scissor lift raising a car on its platform, driven by the motor of a distance joint that runs from the ground to one of its lower arms.\nIt checks the stability of solving a complex set of joints."
+  m_Controls: "Enable Motor: turns the lift's motor on or off.\nMotor Speed: how fast the lift raises or lowers. Both act on the lift where it stands."
   m_Description: Checking the stability of solving a complex set of joints.
   m_State:
     overriddenDrawOptions: 128

@@ -17,6 +17,8 @@ MonoBehaviour:
   m_ExampleName: Many Prismatics
   m_Category: Joints
   m_Description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
+  m_Purpose: "A chain of boxes joined by slider joints, stretched to the end of their limits.\nThe number of sub-steps the world takes in each step decides how well stretched joints hold. With too few, the chain bends away from its slide axis."
+  m_Controls: "World Sub-Steps: sets how many sub-steps the world takes in each step. Raise it and the chain holds straight, lower it and the chain bends.\nDrag a box sideways to distort the chain and see how quickly it recovers."
   m_State:
     overriddenDrawOptions: 128
     fixedDrawOptions: 128

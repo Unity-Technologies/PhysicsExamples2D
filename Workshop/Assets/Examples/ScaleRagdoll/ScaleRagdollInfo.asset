@@ -16,4 +16,6 @@ MonoBehaviour:
   m_ScenePath: Assets/Examples/ScaleRagdoll/ScaleRagdoll.unity
   m_ExampleName: Scale Ragdoll
   m_Category: Joints
+  m_Purpose: "A ragdoll dropped into a closed room and resized while it moves, so every limb is suddenly forced to overlap its neighbors.\nIt checks that the solver stays stable when a complex set of joints is scaled."
+  m_Controls: "Ragdoll Scale: the size of the ragdoll. It is resized where it is, without being rebuilt."
   m_Description: Checking the stability of solving forced overlap due to scaling a relatively complex setup.

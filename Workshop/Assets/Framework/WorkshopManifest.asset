@@ -16,6 +16,14 @@ MonoBehaviour:
   - exampleName: Fragmenting
     category: Advanced
     description: Demonstrates the use of geometry fragmenting.
+    purpose: 'Demonstrates fragmenting geometry with the physics destructor. A region is cut out of a shape and split into pieces around random points, and what is left becomes the new shape.
+
+      Projectiles fired at a large slab break a round hole out of it wherever they hit, and the pieces fall through a field of obstacles.'
+    controls: 'Left and Right arrow keys, or the Left and Right buttons: move the player.
+
+      Space, or the Fire button: fire a projectile.
+
+      Fragment Radius, Fragment Count and Fragment Explode: the size of each hole, how many pieces it breaks into, and how hard they are blown apart. They take effect from the next hit.'
     scenePath: Assets/Examples/Fragmenting/Fragmenting.unity
     state:
       overriddenDrawOptions: 0
@@ -27,6 +35,14 @@ MonoBehaviour:
   - exampleName: Geometry Islands
     category: Advanced
     description: Demonstrates the use of geometry islands when fragmenting.
+    purpose: 'Demonstrates geometry islands when fragmenting. After a cut, what is left is grouped into islands, sets of polygons that still touch each other, so each separate piece can become its own body.
+
+      Projectiles break holes in a row of tall slabs. An island that still reaches the ground line stays static, and one that is cut free becomes dynamic and falls.'
+    controls: 'Left and Right arrow keys, or the Left and Right buttons: move the player.
+
+      Space, or the Fire button: fire a projectile.
+
+      Fragment Radius and Fragment Explode: the size of each hole and how hard the pieces are blown apart. They take effect from the next hit.'
     scenePath: Assets/Examples/GeometryIslands/GeometryIslands.unity
     state:
       overriddenDrawOptions: 0
@@ -38,6 +54,18 @@ MonoBehaviour:
   - exampleName: Slicing
     category: Advanced
     description: Demonstrates the use of geometry slicing.
+    purpose: 'Demonstrates slicing geometry with the physics destructor, cutting a shape in two along a line.
+
+      A slicing ray fired from an orbiting player cuts whatever it crosses into two new pieces, and it can reflect off the arena wall several times in one shot.'
+    controls: 'Left and Right arrow keys, or the Left and Right buttons: orbit the player.
+
+      Space, or the Fire button: fire a slice.
+
+      Reflection Count: how many times a shot can reflect.
+
+      Maximum Fragments: how full the arena can get.
+
+      They take effect from the next shot.'
     scenePath: Assets/Examples/Slicing/Slicing.unity
     state:
       overriddenDrawOptions: 0
@@ -49,6 +77,22 @@ MonoBehaviour:
   - exampleName: Sprite Destruction
     category: Advanced
     description: Demonstrates the use of Sprite fragmenting mapping.
+    purpose: 'Demonstrates fragmenting sprites. The physics geometry is broken with the destructor, and each piece gets a sprite cut from the same source texture, so the picture stays consistent across a break.
+
+      Clicking a building cuts a hole out of it, and the pieces that come free fall and can be blown apart.'
+    controls: 'Click a building to cut a hole in it.
+
+      Fragment Radius: the size of each break.
+
+      Create Fragments: whether a break leaves debris.
+
+      Fragment Count: how many pieces it makes.
+
+      Fragment Friction, Fragment Bounciness and Fragment Force: the pieces'' friction, bounciness and blast force.
+
+      Gravity Scale: how hard gravity pulls.
+
+      They take effect on the next click.'
     scenePath: Assets/Examples/SpriteDestruction/SpriteDestruction.unity
     state:
       overriddenDrawOptions: 0
@@ -60,6 +104,12 @@ MonoBehaviour:
   - exampleName: Barrel
     category: Benchmarks
     description: A large barrel of various object types stress-testing the solver.
+    purpose: 'A large barrel packed with a great many objects of one type, dropped in and left to settle.
+
+      It stress-tests the solver with a deep pile of touching bodies, so keep an eye on the frame rate in the Debug panel.'
+    controls: 'Object Type: chooses the type of object the barrel is filled with. The barrel refills when it changes.
+
+      Collision Threshold: the body setting that decides when continuous collision is used. At zero it is always used. Whether a shape is using continuous collision detection (CCD) is shown by its color, which can be configured on the physics world. The barrel refills when it changes.'
     scenePath: Assets/Examples/Barrel/Barrel.unity
     state:
       overriddenDrawOptions: 0
@@ -71,6 +121,20 @@ MonoBehaviour:
   - exampleName: Boids
     category: Benchmarks
     description: Thousands of flocking boids driven by a Burst job using batched body transforms.
+    purpose: 'Demonstrates moving thousands of bodies efficiently. The flocking is worked out in a parallel Burst job, and every body is updated at once with the batched body calls instead of one at a time.
+
+      Each boid steers away from boids that are too close, toward the middle of the boids it can see, and toward their average heading.'
+    controls: 'Boid Count and Boid Size: how many boids there are and how big they are.
+
+      Max Speed, Sight Radius and Separation Radius: how fast boids go, how far they see and how close is too close.
+
+      Separation Strength, Cohesion Strength and Alignment Strength: how strongly each steering rule pulls.
+
+      Bounds Radius and Bounds Wrap: the size of the circle, and whether a boid that leaves it wraps to the other side or is turned back.
+
+      Boid Groups: boids in different groups ignore each other.
+
+      Draw Trails: draws a trail behind every boid.'
     scenePath: Assets/Examples/Boids/Boids.unity
     state:
       overriddenDrawOptions: 0
@@ -82,6 +146,14 @@ MonoBehaviour:
   - exampleName: Bounce Ragdolls
     category: Benchmarks
     description: Checking the stability of very fast continuous collision.
+    purpose: 'Ragdolls dropped one at a time into a closed room of very bouncy walls and bumpers, while gravity slowly swings around the room.
+
+      It checks that very fast continuous collision stays stable for a body made of many shapes and joints.'
+    controls: 'Update Period: how often a ragdoll is dropped.
+
+      Ragdoll Count: how many ragdolls are dropped.
+
+      Gravity Scale: how strong the swinging gravity is.'
     scenePath: Assets/Examples/BounceRagdolls/BounceRagdolls.unity
     state:
       overriddenDrawOptions: 128
@@ -93,6 +165,22 @@ MonoBehaviour:
   - exampleName: Capacity
     category: Benchmarks
     description: Spawns bodies until the per-step simulation time reaches a configurable limit.
+    purpose: 'Spawns bodies, each with the selected shape attached, until the simulation steps take longer than a limit you set, consistently over several steps, so a single slow step does not end the test.
+
+      The number it reaches is an approximate measure of how many bodies with that shape this device can simulate within that time.
+
+      The result also depends on how many threads the simulation may use, which is set with the Workers option in the project menu.
+
+      For more accurate results, build the project for the device you want to measure and run it there.'
+    controls: 'Simulation Limit (ms): the step time that, once exceeded consistently over several steps, stops the spawning.
+
+      Shape Type: the shape that is spawned.
+
+      Rendering On: turns the physics drawing on or off, so you can see what drawing costs.
+
+      Progress bar: fills as the step time climbs toward the limit, turning from green to yellow to orange to red as it gets closer. It shows red with a message once the limit is reached and the test is over.
+
+      Workers: in the project menu, limits how many worker threads the simulation of a world can use. Lower it to see how many bodies fit with fewer threads.'
     scenePath: Assets/Examples/Capacity/Capacity.unity
     state:
       overriddenDrawOptions: 0
@@ -104,6 +192,20 @@ MonoBehaviour:
   - exampleName: Drawing
     category: Benchmarks
     description: Stress-tests the debug drawing API with many primitives and lifetimes.
+    purpose: 'Draws thousands of random primitives with the world''s drawing calls, each staying on screen for its own lifetime. Nothing here is a physics body, so it stress-tests the drawing alone.
+
+      The physics drawing system is dedicated to visualizing and debugging physics. For high performance it draws on the GPU with instanced signed distance field (SDF) shaders driven by compute, so it needs a device with compute shader support.
+
+      It works in the Editor and, if selected, in players including final production builds. This is chosen with Rendering Mode on the Global tab of Project Settings > Physics Core 2D, where Development Player or Any Player can be picked.'
+    controls: 'Type: which drawing call is used.
+
+      Count: how many shapes are drawn.
+
+      Lifetime and Spread Lifetime: how long each shape stays, and whether the lifetimes are spread out or shared.
+
+      Draw Outline and Draw Interior: whether outlines and interiors are drawn.
+
+      Every change clears the drawing and draws it again.'
     scenePath: Assets/Examples/Drawing/Drawing.unity
     state:
       overriddenDrawOptions: 0
@@ -115,6 +217,16 @@ MonoBehaviour:
   - exampleName: Funnel
     category: Benchmarks
     description: Continuously spawns a mix of object types falling through a funnel.
+    purpose: 'A mix of shapes spawned continuously above a funnel and falling through it.
+
+      It is a steady stress test of many bodies colliding as they pass through a narrow gap.'
+    controls: 'Object Type and Object Scale: what falls and how big it is.
+
+      Spawn Period: how often new shapes arrive.
+
+      Gravity Scale: how hard gravity pulls.
+
+      Changes apply from the next spawn, so nothing already falling is disturbed.'
     scenePath: Assets/Examples/Funnel/Funnel.unity
     state:
       overriddenDrawOptions: 128
@@ -126,6 +238,10 @@ MonoBehaviour:
   - exampleName: Joint Grid
     category: Benchmarks
     description: A large grid of bodies connected by Hinge Joints.
+    purpose: 'A grid of circles, each hinged to the neighbor above it and the neighbor to its left, hanging like a cloth. It stress-tests a large number of joints, both for performance and for how stable they stay.
+
+      The grid always covers the same area, so a higher count means more, smaller circles and links.'
+    controls: 'Grid Size: how many circles it is across and down. The grid is rebuilt when it changes.'
     scenePath: Assets/Examples/JointGrid/JointGrid.unity
     state:
       overriddenDrawOptions: 128
@@ -137,6 +253,16 @@ MonoBehaviour:
   - exampleName: Large Compound
     category: Benchmarks
     description: Many large dynamic compound bodies dropped into a container.
+    purpose: 'A stress test of compound bodies, both for performance and stability. A body can carry many shapes, and each body here is a solid square made of many separate box shapes.
+
+      The same amount of material is always dropped, so more splits means more bodies with fewer shapes each. Changing the split shows the trade-off between a few bodies with many shapes and many bodies with few shapes.
+
+      Each body''s mass is calculated once after all of its shapes are added, rather than again for every shape, which matters when a body has this many shapes.'
+    controls: 'Compound Size: how much material is dropped.
+
+      Compound Splits: how many bodies it is divided into.
+
+      A fresh set is dropped when either changes.'
     scenePath: Assets/Examples/LargeCompound/LargeCompound.unity
     state:
       overriddenDrawOptions: 0
@@ -148,6 +274,12 @@ MonoBehaviour:
   - exampleName: Large Kinematic
     category: Benchmarks
     description: A single large rotating kinematic body composed of many shapes.
+    purpose: 'One kinematic body made of a large grid of separate box shapes, spun at a steady rate.
+
+      It shows what a single body carrying many shapes costs to move.'
+    controls: 'Grid Size and Grid Spacing: how many boxes it is made of and how far apart they sit. The body is rebuilt when either changes.
+
+      Angular Velocity: how fast it turns.'
     scenePath: Assets/Examples/LargeKinematic/LargeKinematic.unity
     state:
       overriddenDrawOptions: 0
@@ -159,6 +291,12 @@ MonoBehaviour:
   - exampleName: Large Pyramid
     category: Benchmarks
     description: A large pyramid of boxes stress-testing stacking stability.
+    purpose: 'A pyramid of rounded boxes, as many rows high as it is wide along the base.
+
+      It shows how well a tall stack of resting bodies holds its shape.'
+    controls: 'Base Count: how many boxes wide the base is. The pyramid is restacked when it changes.
+
+      Gravity Scale: how hard gravity leans on the stack. It acts on the stack where it stands.'
     scenePath: Assets/Examples/LargePyramid/LargePyramid.unity
     state:
       overriddenDrawOptions: 0
@@ -170,6 +308,18 @@ MonoBehaviour:
   - exampleName: Large World
     category: Benchmarks
     description: A vast world far from the origin with a drivable car and streamed debris.
+    purpose: 'Demonstrates that the simulation stays stable a very long way from the origin, on a rolling terrain forty-eight kilometers wide with a car to drive along it and a batch of debris dropped ahead of the camera every two seconds.
+
+      It also shows batch body and shape creation: the terrain is made of well over half a million polygons, created together rather than one at a time.'
+    controls: 'Left and Right arrow keys, or the Reverse and Forward buttons: drive the car.
+
+      Space, or the Brake button: brake.
+
+      Follow Car: makes the camera follow the car.
+
+      Camera Pan Speed: how fast the camera pans.
+
+      The two read-only fields show where the camera is and how wide the world is.'
     scenePath: Assets/Examples/LargeWorld/LargeWorld.unity
     state:
       overriddenDrawOptions: 128
@@ -181,6 +331,16 @@ MonoBehaviour:
   - exampleName: Many Tumblers
     category: Benchmarks
     description: A grid of rotating kinematic tumblers churning spawned debris.
+    purpose: 'A grid of small kinematic boxes, each open in the middle, turning while tiny capsules are dropped into every one of them a few times a second.
+
+      It stress-tests how the simulation copes with a great many bodies being churned at once.'
+    controls: 'Row Count and Column Count: how many tumblers there are.
+
+      Angular Velocity: how fast every tumbler turns.
+
+      Spawn Count: how many rounds of capsules are dropped into them.
+
+      Every change rebuilds the scene.'
     scenePath: Assets/Examples/ManyTumblers/ManyTumblers.unity
     state:
       overriddenDrawOptions: 0
@@ -192,6 +352,16 @@ MonoBehaviour:
   - exampleName: Queries
     category: Benchmarks
     description: Casts and resolves thousands of rays per frame using a batched query job.
+    purpose: 'Demonstrates running world queries in a parallel job, so thousands of ray casts are done at once every frame.
+
+      A fan of rays is cast from a point you choose across an arena of moving shapes, and each ray pushes whatever it hits.'
+    controls: 'Click an empty spot in the arena to move the point the rays start from, and move the pointer to aim them.
+
+      Batch Count, Batch Spread and Batch Distance: how many rays there are, how wide the fan is and how far it reaches.
+
+      Batch Force: how hard each ray pushes.
+
+      Draw Rays, Draw Points and Draw Normals: what is drawn for each ray.'
     scenePath: Assets/Examples/Queries/Queries.unity
     state:
       overriddenDrawOptions: 0
@@ -203,6 +373,12 @@ MonoBehaviour:
   - exampleName: Shooter
     category: Benchmarks
     description: Continuously fires batches of projectiles and destroys them on contact using batched body APIs.
+    purpose: 'Demonstrates creating and destroying many bodies every frame, using contact events to decide what to remove.
+
+      A fan of small capsules is fired from the middle of an arena at a steadily turning angle, and every capsule that touches the floor is removed.'
+    controls: 'Batch Count, Batch Delay and Batch Spread: how many capsules are fired, how often and how widely. Changes apply from the next batch.
+
+      Gravity Scale: how hard gravity pulls, including on capsules already in flight.'
     scenePath: Assets/Examples/Shooter/Shooter.unity
     state:
       overriddenDrawOptions: 128
@@ -214,6 +390,18 @@ MonoBehaviour:
   - exampleName: Smash
     category: Benchmarks
     description: A large dense body smashing through a field of small boxes.
+    purpose: 'Stress-tests a huge number of bodies waking at once, and a huge number of contacts being created and solved at the same moment.
+
+      One large dense box is fired across a room with no gravity into a field of thousands of small sleeping boxes.'
+    controls: 'Speed and Density: how fast and how heavy the large box is.
+
+      Bounciness: how bouncy everything is.
+
+      Spacing: how far apart the small boxes are.
+
+      Collision Threshold: the body setting that decides when continuous collision is used. Whether a shape is using continuous collision detection (CCD) is shown by its color, which can be configured on the physics world.
+
+      Every change rebuilds the scene.'
     scenePath: Assets/Examples/Smash/Smash.unity
     state:
       overriddenDrawOptions: 0
@@ -225,6 +413,18 @@ MonoBehaviour:
   - exampleName: Spinner
     category: Benchmarks
     description: A spinning paddle churning thousands of debris pieces.
+    purpose: 'A long paddle spinning in the middle of a round room full of thousands of small debris pieces.
+
+      It stress-tests how the simulation copes with a great many bodies being churned at once.'
+    controls: 'Motor Speed and Motor Torque: how fast the paddle turns and how much torque its motor has.
+
+      Kinematic Spinner: switches the paddle between a kinematic body and a dynamic body turned by a motor.
+
+      Debris Count, Debris Friction and Debris Bounciness: the debris.
+
+      Gravity Scale: how hard gravity pulls.
+
+      The paddle type and the debris settings rebuild the scene.'
     scenePath: Assets/Examples/Spinner/Spinner.unity
     state:
       overriddenDrawOptions: 0
@@ -236,6 +436,16 @@ MonoBehaviour:
   - exampleName: Tumbler
     category: Benchmarks
     description: A rotating kinematic tumbler churning many debris pieces.
+    purpose: 'Stress-tests a great many bodies contained within a constantly moving arena. The arena is a kinematic box turning slowly around its middle, so the debris inside keeps sliding and tumbling and never settles.
+
+      Hundreds of debris pieces start at random places inside the box.'
+    controls: 'Object Type and Debris Count: the shape of the debris, or a mix of all four, and how many pieces there are.
+
+      Angular Velocity: how fast the box turns.
+
+      Gravity Scale: how hard gravity pulls.
+
+      The shape and count rebuild the scene.'
     scenePath: Assets/Examples/Tumbler/Tumbler.unity
     state:
       overriddenDrawOptions: 0
@@ -247,6 +457,18 @@ MonoBehaviour:
   - exampleName: Washer
     category: Benchmarks
     description: A rotating washer-drum with paddles agitating thousands of debris circles.
+    purpose: 'Stress-tests a great many bodies in a combination of the Spinner and Tumbler examples. The paddles inside the drum churn the circles as the Spinner does, while the whole drum keeps turning as the Tumbler''s arena does.
+
+      The drum is a kinematic ring with paddles on its inside, and thousands of small circles are dropped into it.'
+    controls: 'Motor Speed: how fast the drum turns.
+
+      Debris Count and Debris Friction: how many circles there are and how much friction they have.
+
+      Gravity Scale: how hard gravity pulls.
+
+      Paddle Spacing and Paddle Scale: how many paddles the drum has and how far they reach.
+
+      The debris and paddle settings rebuild the scene.'
     scenePath: Assets/Examples/Washer/Washer.unity
     state:
       overriddenDrawOptions: 0
@@ -258,6 +480,14 @@ MonoBehaviour:
   - exampleName: Ball And Chain
     category: Joints
     description: Demonstrating a chain of joints.
+    purpose: 'A heavy ball hanging from a chain of capsule links, each joined to the next by a hinge joint.
+
+      It shows a long chain of joints holding together under the weight of the ball, and how the hinge spring and motor settings change the way it moves.'
+    controls: 'Spring Frequency and Spring Damping: the spring on every hinge.
+
+      Max Motor Torque: the most torque every hinge motor can apply.
+
+      Fix Chain Length: rebuilds the chain with a distance limit that stops it stretching.'
     scenePath: Assets/Examples/BallAndChain/BallAndChain.unity
     state:
       overriddenDrawOptions: 128
@@ -269,6 +499,18 @@ MonoBehaviour:
   - exampleName: Desk Lamp
     category: Joints
     description: An Anglepoise style desk lamp whose springs balance the arm and shade at any pose. Drag the shade to move it.
+    purpose: 'Demonstrates joints working together as a mechanism, with springs, joint friction and limits. The lamp''s arm is a parallelogram of links, so the shade keeps its angle as the arm moves, and two springs balance the arm so it holds any pose it is left in.
+
+      The joint friction is a hinge motor with a target speed of zero, which resists movement up to its maximum torque.'
+    controls: 'Drag the shade, or any part of the lamp, to pose it. Let go and the springs hold it there.
+
+      Arm Spring and Head Spring: how stiff the two springs are.
+
+      Spring Damping: how much the springs are damped.
+
+      Post Friction and Elbow Friction: how much friction the joints have.
+
+      Head: the angle of the shade.'
     scenePath: Assets/Examples/DeskLamp/DeskLamp.unity
     state:
       overriddenDrawOptions: 0
@@ -280,6 +522,18 @@ MonoBehaviour:
   - exampleName: Distance Joint
     category: Joints
     description: Demonstrating the features of the Distance Joint.
+    purpose: 'Demonstrates the distance joint, which keeps two anchor points a set distance apart. It can be rigid like a rod, soft like a spring, held between a minimum and maximum length like a rope, or driven along its length by a motor.
+
+      A short chain of small circles hangs from a fixed point so every setting can be tried.'
+    controls: 'Joint Count and Distance: how many circles there are and how far apart they are held.
+
+      Enable Spring with Spring Frequency, Spring Damping, Spring Tension and Spring Compression: lets the joint stretch like a spring.
+
+      Enable Limit with Min Distance Limit and Max Distance Limit: keeps the joint between two lengths.
+
+      Enable Motor with Motor Speed and Max Motor Force: drives the joint.
+
+      The chain is rebuilt when the joint count, the distance or the limits change.'
     scenePath: Assets/Examples/DistanceJoint/DistanceJoint.unity
     state:
       overriddenDrawOptions: 128
@@ -291,6 +545,10 @@ MonoBehaviour:
   - exampleName: Doohickey
     category: Joints
     description: Demonstrating some fun contraptions using joints.
+    purpose: 'A stack of doohickeys dropped between two tall walls, each one a pair of wheels on a sprung, sliding bar.
+
+      They tumble and roll as they land on each other, so it shows hinge and slider joints working together.'
+    controls: 'Doohickey Count: how many doohickeys are stacked. They are restacked when it changes.'
     scenePath: Assets/Examples/Doohickey/Doohickey.unity
     state:
       overriddenDrawOptions: 128
@@ -302,6 +560,16 @@ MonoBehaviour:
   - exampleName: Driving
     category: Joints
     description: Demonstrating the use of a Wheel Joint for suspension when driving a car.
+    purpose: 'Demonstrates the wheel joint working as a car''s suspension over varied, difficult terrain. Each wheel is held on a spring by a wheel joint and driven by the joint''s motor.
+
+      The car can be driven over a bridge, a stack of boxes and uneven ground.'
+    controls: 'Left and Right arrow keys, or the Reverse and Forward buttons: drive.
+
+      Space, or the Brake button: brake.
+
+      Spring Frequency and Spring Damping: the suspension.
+
+      Motor Speed and Max Motor Torque: the wheel motors.'
     scenePath: Assets/Examples/Driving/Driving.unity
     state:
       overriddenDrawOptions: 128
@@ -313,6 +581,12 @@ MonoBehaviour:
   - exampleName: Gear Lift
     category: Joints
     description: Demonstrating a gear-driven lift using Hinge and Slider Joints.
+    purpose: 'A gear-driven lift: a drive gear turns a follower gear, which winds a chain that raises a door. A heap of random polygons fills the stepped ground.
+
+      It shows hinge and slider joints working together.'
+    controls: 'Use Motor: turns the drive gear''s motor on or off.
+
+      Motor Speed and Motor Max Torque: how fast the drive gear turns and how much torque it has.'
     scenePath: Assets/Examples/GearLift/GearLift.unity
     state:
       overriddenDrawOptions: 0
@@ -324,6 +598,10 @@ MonoBehaviour:
   - exampleName: Ignore Joint
     category: Joints
     description: Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.
+    purpose: 'Demonstrates the ignore joint, which stops all contacts between one specific pair of bodies while both still touch everything else. It is useful when two particular bodies must never collide, without changing the contact filtering of either.
+
+      Two large boxes with an obstacle between them pass through each other while the joint is on, and collide when it is off.'
+    controls: 'Enable Joint: turns the ignore joint on or off.'
     scenePath: Assets/Examples/IgnoreJoint/IgnoreJoint.unity
     state:
       overriddenDrawOptions: 128
@@ -335,6 +613,12 @@ MonoBehaviour:
   - exampleName: Many Prismatics
     category: Joints
     description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
+    purpose: 'A chain of boxes joined by slider joints, stretched to the end of their limits.
+
+      The number of sub-steps the world takes in each step decides how well stretched joints hold. With too few, the chain bends away from its slide axis.'
+    controls: 'World Sub-Steps: sets how many sub-steps the world takes in each step. Raise it and the chain holds straight, lower it and the chain bends.
+
+      Drag a box sideways to distort the chain and see how quickly it recovers.'
     scenePath: Assets/Examples/ManyPrismatics/ManyPrismatics.unity
     state:
       overriddenDrawOptions: 128
@@ -346,6 +630,10 @@ MonoBehaviour:
   - exampleName: Pinball
     category: Joints
     description: A pinball table showing small fast balls using continuous collision against moving flippers.
+    purpose: 'A pinball table where small, fast balls hit flippers that are moving toward them.
+
+      It shows continuous collision stopping a ball from passing through a thin moving shape. A new ball arrives every few seconds up to a limit, and a ball that drains away is replaced.'
+    controls: 'Flippers: hold the Space key, or hold the Flippers button, to raise both flippers. Release to lower them.'
     scenePath: Assets/Examples/Pinball/Pinball.unity
     state:
       overriddenDrawOptions: 0
@@ -357,6 +645,10 @@ MonoBehaviour:
   - exampleName: Scale Ragdoll
     category: Joints
     description: Checking the stability of solving forced overlap due to scaling a relatively complex setup.
+    purpose: 'A ragdoll dropped into a closed room and resized while it moves, so every limb is suddenly forced to overlap its neighbors.
+
+      It checks that the solver stays stable when a complex set of joints is scaled.'
+    controls: 'Ragdoll Scale: the size of the ragdoll. It is resized where it is, without being rebuilt.'
     scenePath: Assets/Examples/ScaleRagdoll/ScaleRagdoll.unity
     state:
       overriddenDrawOptions: 0
@@ -368,6 +660,12 @@ MonoBehaviour:
   - exampleName: Scissor Lift
     category: Joints
     description: Checking the stability of solving a complex set of joints.
+    purpose: 'A scissor lift raising a car on its platform, driven by the motor of a distance joint that runs from the ground to one of its lower arms.
+
+      It checks the stability of solving a complex set of joints.'
+    controls: 'Enable Motor: turns the lift''s motor on or off.
+
+      Motor Speed: how fast the lift raises or lowers. Both act on the lift where it stands.'
     scenePath: Assets/Examples/ScissorLift/ScissorLift.unity
     state:
       overriddenDrawOptions: 128
@@ -379,6 +677,16 @@ MonoBehaviour:
   - exampleName: Slider Joint
     category: Joints
     description: Demonstrating the features of the Slider Joint.
+    purpose: 'Demonstrates the slider joint, also known as a prismatic joint, which lets a body move along one axis relative to another while stopping it rotating. It can have a spring that pulls toward a target position, limits on how far it slides, and a motor that drives it along the axis.
+
+      A capsule is held on a slider to a fixed point so every setting can be tried.'
+    controls: 'Slider Angle: the direction of the slide axis. The capsule is rebuilt when it changes.
+
+      Enable Spring with Spring Target Translation, Spring Frequency and Spring Damping: pulls the capsule toward a position like a spring.
+
+      Enable Motor with Motor Speed and Max Motor Force: drives the capsule along the axis.
+
+      Enable Limit with Min Distance Limit and Max Distance Limit: limits how far it can slide.'
     scenePath: Assets/Examples/SliderJoint/SliderJoint.unity
     state:
       overriddenDrawOptions: 128
@@ -390,6 +698,14 @@ MonoBehaviour:
   - exampleName: Soft Body
     category: Joints
     description: Demonstrating using joints to create a soft body.
+    purpose: 'Demonstrates building a soft body from rigid bodies and joints. A ring of capsule segments is held together by fixed joints whose angular spring is soft, so the ring flexes and wobbles instead of staying rigid.
+
+      The segments share a negative contact group, so neighbors that overlap at the joins never push each other apart.'
+    controls: 'Body Sides and Body Scale: how many segments the ring has and how big it is.
+
+      Joint Frequency and Joint Damping: how soft the joints are.
+
+      Every change rebuilds the ring.'
     scenePath: Assets/Examples/SoftBody/SoftBody.unity
     state:
       overriddenDrawOptions: 0
@@ -401,6 +717,16 @@ MonoBehaviour:
   - exampleName: Theo Jansen
     category: Joints
     description: Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of balls.
+    purpose: 'Demonstrates a complex linkage of joints driven by a single motor. Theo Jansen''s walking machine turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.
+
+      The wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of balls.'
+    controls: 'Left and Right arrow keys, or the Left and Right buttons: turn the motor one way or the other.
+
+      Space, or the Brake button: stop the motor.
+
+      Speed and Torque: how fast the motor turns and how much torque it has.
+
+      Drag the machine to move it.'
     scenePath: Assets/Examples/TheoJansen/TheoJansen.unity
     state:
       overriddenDrawOptions: 128
@@ -412,6 +738,12 @@ MonoBehaviour:
   - exampleName: Top Down Friction
     category: Joints
     description: Demonstrating using the RelativeJoint to achieve "top down" friction.
+    purpose: 'Demonstrates top-down friction with the relative joint. In a top-down view there is no gravity pressing a body onto the ground, so ordinary friction does nothing. A relative joint to the ground with a limited maximum force and torque resists movement and spin the way friction would.
+
+      The shapes on the table slide to a stop and stop spinning instead of drifting forever.'
+    controls: 'Explode: sets off an explosion that throws the shapes around.
+
+      Max Force and Max Torque: how much force and torque each friction joint can resist. They act on the shapes where they are.'
     scenePath: Assets/Examples/TopDownFriction/TopDownFriction.unity
     state:
       overriddenDrawOptions: 128
@@ -423,6 +755,14 @@ MonoBehaviour:
   - exampleName: User Joint
     category: Joints
     description: Demonstrating the implementation of a custom joint.
+    purpose: 'Demonstrates writing your own joint when none of the built-in joints does what you need. The constraint is solved in script after every simulation step by applying impulses to the bodies.
+
+      Two springs run from a fixed point to two anchors on a box. Each spring only pulls, and only once it is stretched past its rest length, so the box swings freely while they are slack.'
+    controls: 'Joint Frequency, Joint Damping and Joint Max Force: how stiff, how damped and how strong the springs are.
+
+      Anchor Offset X and Anchor Offset Y: where the anchors sit on the box.
+
+      The impulse each spring applied on the last step is shown and updates every frame.'
     scenePath: Assets/Examples/UserJoint/UserJoint.unity
     state:
       overriddenDrawOptions: 0
@@ -434,6 +774,16 @@ MonoBehaviour:
   - exampleName: Wheel Joint
     category: Joints
     description: Demonstrating the features of the Wheel Joint.
+    purpose: 'Demonstrates the wheel joint, which lets a body slide along one axis against a spring while it rotates freely, the way a car wheel moves on its suspension. It has the spring, limits on the slide, and a motor that spins the wheel.
+
+      A wheel is held on a wheel joint to a fixed point so every setting can be tried.'
+    controls: 'Wheel Angle: the direction of the slide axis. The wheel is rebuilt when it changes.
+
+      Enable Spring with Spring Frequency and Spring Damping: the suspension spring.
+
+      Enable Motor with Motor Speed and Max Motor Torque: spins the wheel.
+
+      Enable Limit with Min Distance Limit and Max Distance Limit: limits how far it can slide.'
     scenePath: Assets/Examples/WheelJoint/WheelJoint.unity
     state:
       overriddenDrawOptions: 128
@@ -445,6 +795,10 @@ MonoBehaviour:
   - exampleName: Arch
     category: Shapes
     description: A delicate balance of forces.
+    purpose: 'A stone arch with a stack of blocks on its keystone, held up by nothing but the stones pressing on each other.
+
+      It shows how well the solver keeps a delicate balance of contacts stable.'
+    controls: 'Friction: the friction of the ground and of every stone. Lower it and the arch loses its grip and falls. The arch is rebuilt when it changes.'
     scenePath: Assets/Examples/Arch/Arch.unity
     state:
       overriddenDrawOptions: 0
@@ -456,6 +810,10 @@ MonoBehaviour:
   - exampleName: Bounce House
     category: Shapes
     description: Checking the stability of very fast continuous collision.
+    purpose: 'Demonstrates continuous collision detection (CCD), which stops a fast shape passing through another between two steps. Without it, a shape moving far in a single step can tunnel straight through a thin wall.
+
+      One very fast shape bounces around a bumper-lined room forever, with no gravity and no energy lost, and never escapes.'
+    controls: 'Object Type: the shape that is fired across the room.'
     scenePath: Assets/Examples/BounceHouse/BounceHouse.unity
     state:
       overriddenDrawOptions: 0
@@ -467,6 +825,12 @@ MonoBehaviour:
   - exampleName: Bounciness
     category: Shapes
     description: Demonstrating the effect of Bounciness on shapes.
+    purpose: 'Demonstrates bounciness, the surface material property that decides how much speed a shape keeps when it rebounds from a contact. Zero keeps none, and one keeps all of it.
+
+      A row of identical shapes is dropped together, each a little bouncier than the one to its left. The shapes cannot rotate, so each bounces straight up and down.'
+    controls: 'Object Type: the shape used for the row.
+
+      Gravity Scale: how hard gravity pulls. The row is dropped again when either changes.'
     scenePath: Assets/Examples/Bounciness/Bounciness.unity
     state:
       overriddenDrawOptions: 0
@@ -478,6 +842,18 @@ MonoBehaviour:
   - exampleName: Buoyancy
     category: Shapes
     description: Demonstrating buoyancy applied to random shapes dropped into a liquid region.
+    purpose: 'Demonstrates buoyancy, worked out from how much of each shape is under the surface, so light shapes float, heavy shapes sink, and a flow can push them sideways.
+
+      The liquid is a trigger region, and buoyancy is applied to every shape inside it before each simulation step.'
+    controls: 'Object Type, Spawn Count and Shape Scale: the dropped shapes. Changing any of them drops a fresh set.
+
+      Shape Density: how heavy the shapes are.
+
+      Surface Level and Liquid Density: where the liquid ends and how dense it is.
+
+      Flow Direction and Flow Speed: the push of the liquid.
+
+      Linear Damping and Angular Damping: how much the liquid slows movement and spin.'
     scenePath: Assets/Examples/Buoyancy/Buoyancy.unity
     state:
       overriddenDrawOptions: 0
@@ -489,6 +865,16 @@ MonoBehaviour:
   - exampleName: Chain Shape
     category: Shapes
     description: Demonstrates how a Chain Shape doesn't produce "ghost" collisions.
+    purpose: 'Demonstrates the chain shape, a series of joined segments that acts as one smooth surface. Separate segments placed end to end cause ghost collisions, where a sliding shape catches on the corner where two segments meet. Each segment of a chain knows its neighbors, so shapes slide across the joins smoothly.
+
+      A stream of shapes slides down a long uneven ground made from one chain.'
+    controls: 'Object Type and Object Count: what slides and how many.
+
+      Gravity Scale: how hard gravity pulls.
+
+      Collision Threshold: the body setting that decides when continuous collision is used. At zero it is always used. Whether a shape is using continuous collision detection (CCD) is shown by its color, which can be configured on the physics world.
+
+      Any change restarts the stream.'
     scenePath: Assets/Examples/ChainShape/ChainShape.unity
     state:
       overriddenDrawOptions: 0
@@ -500,6 +886,14 @@ MonoBehaviour:
   - exampleName: Chain Shape Deform
     category: Shapes
     description: Demonstrates how a Chain Shape can be created and its vertices updated in realtime.
+    purpose: 'Demonstrates changing the vertices of a chain shape while the simulation runs, so a surface can move and deform.
+
+      A closed contour has its vertices moved every frame so a ripple runs around its outline.'
+    controls: 'Vertex Count: how many vertices the outline has. Changing it replaces the contour.
+
+      Base Radius: the size of the outline.
+
+      Modulation Radius, Modulation Frequency and Speed: how far, how many and how fast the ripple runs around it.'
     scenePath: Assets/Examples/ChainShapeDeform/ChainShapeDeform.unity
     state:
       overriddenDrawOptions: 0
@@ -511,6 +905,16 @@ MonoBehaviour:
   - exampleName: Character Mover
     category: Shapes
     description: Demonstrating the Cast Mover feature.
+    purpose: 'Demonstrates the cast mover, which moves a shape through the world by casting it and sliding it along whatever it hits, for a character controller that is not a physics body. A spring-like pogo, driven by a downward cast, holds the character off the ground.
+
+      The character walks over steps, a hanging bridge, loose debris and a moving lift.'
+    controls: 'Left and Right arrow keys, or the Left and Right buttons: walk.
+
+      Space, or the Jump button: jump.
+
+      Jump Speed, Min Speed, Max Speed, Stop Speed, Accelerate, Air Steer, Friction and Gravity: how the character walks and jumps.
+
+      Pogo Scale, Pogo Frequency, Pogo Damping and Pogo Type: how the pogo holds the character off the ground.'
     scenePath: Assets/Examples/CharacterMover/CharacterMover.unity
     state:
       overriddenDrawOptions: 128
@@ -522,6 +926,10 @@ MonoBehaviour:
   - exampleName: Confined
     category: Shapes
     description: Showing the solver dealing with tight/overlapping confinement.
+    purpose: 'A square grid of circles packed into a box too small to hold them, with gravity switched off.
+
+      The solver has to push every overlapping pair apart at once, so it shows how well it copes with tight confinement.'
+    controls: 'Grid Count: how many circles are packed along each side of the grid. The box is refilled when it changes.'
     scenePath: Assets/Examples/Confined/Confined.unity
     state:
       overriddenDrawOptions: 0
@@ -533,6 +941,12 @@ MonoBehaviour:
   - exampleName: Contact Manifold
     category: Shapes
     description: Showing contacts manifolds between various shapes.
+    purpose: 'Demonstrates the contact manifold, the contact points and normal that describe where two touching shapes meet. The same calculation the solver uses can be run directly on geometry with a query, with no bodies involved.
+
+      Each pair of shapes is tested and drawn straight away. The second shape of a pair turns green when it touches the first, and every contact point is drawn on it.'
+    controls: 'Drag with the left mouse button to move the second shape of every pair.
+
+      Hold the left Control key while dragging to rotate them.'
     scenePath: Assets/Examples/ContactManifold/ContactManifold.unity
     state:
       overriddenDrawOptions: 0
@@ -544,6 +958,16 @@ MonoBehaviour:
   - exampleName: Conveyor Belt
     category: Shapes
     description: Demonstrates the use of the Tangent Speed surface material property.
+    purpose: 'Demonstrates tangent speed, the surface material property that makes a surface slide along itself while the shape stays still. Anything resting on it is dragged along by friction, as on a conveyor belt, with no moving body needed.
+
+      A pile of boxes and capsules is carried along the belt, and a negative speed runs it the other way.'
+    controls: 'Spawn: drops more debris onto the belt.
+
+      Conveyor Speed: the speed of the surface. A negative speed runs it the other way.
+
+      Conveyor Angle: tilts the belt.
+
+      Either slider clears the debris and drops a fresh batch.'
     scenePath: Assets/Examples/ConveyorBelt/ConveyorBelt.unity
     state:
       overriddenDrawOptions: 0
@@ -555,6 +979,10 @@ MonoBehaviour:
   - exampleName: Custom Filter
     category: Shapes
     description: Demonstrates the use of a custom shape filter.
+    purpose: 'A row of boxes split into three groups, where a box touches only others in its own group and passes straight through the rest.
+
+      It shows a custom contact filter, which decides for each touching pair whether a contact is created at all, before the solver ever sees it.'
+    controls: 
     scenePath: Assets/Examples/CustomFilter/CustomFilter.unity
     state:
       overriddenDrawOptions: 0
@@ -566,6 +994,10 @@ MonoBehaviour:
   - exampleName: Double Domino
     category: Shapes
     description: Demonstrating accuracy by simulating the classic double-domino wave.
+    purpose: 'Demonstrates the accuracy of the simulation with the classic double domino effect. Pushing the end domino of a row sends a wave of falling dominoes along it, each one coming to rest leaning on the next. When that wave reaches the end, a second wave runs back the other way as each leaning domino slides down to lie flat.
+
+      There are five shelves, and the direction alternates from one shelf to the next.'
+    controls: 
     scenePath: Assets/Examples/DoubleDomino/DoubleDomino.unity
     state:
       overriddenDrawOptions: 0
@@ -577,6 +1009,14 @@ MonoBehaviour:
   - exampleName: Ellipse Polygons
     category: Shapes
     description: Demonstrating creating pseudo-ellipse shapes as Polygons.
+    purpose: 'Demonstrates approximating an ellipse, which has no shape of its own, with a rounded polygon. A thin polygon with a radius rounds into a smooth oval.
+
+      It also shows how stable a complex stack of rounded polygons is. A grid of these shapes falls on top of each other into a tall box and settles until the bodies sleep. Disturb the pile and it collapses and settles again correctly.'
+    controls: 'Column Count and Row Count: the size of the grid.
+
+      Friction and Restitution: the friction and the bounciness of every shape.
+
+      The grid is dropped again when any of them changes.'
     scenePath: Assets/Examples/EllipsePolygons/EllipsePolygons.unity
     state:
       overriddenDrawOptions: 0
@@ -588,6 +1028,14 @@ MonoBehaviour:
   - exampleName: Explode
     category: Shapes
     description: Demonstrates an explosion that pushes shapes away from a point, or pulls them in when the impulse is negative.
+    purpose: 'Demonstrates the world''s explosion, which applies an impulse to every shape near a point, pushing them away, or pulling them in when the impulse is negative. The impulse is given per unit of length and scaled by the shape''s projected width as seen from the explosion center, so a shape presenting a wider face to the blast is pushed harder. It is applied at the point on the shape closest to the center, so it can also spin the shape.
+
+      The yellow circle is the radius inside which the impulse is at full strength, and the dimmer circle is where it has faded away.'
+    controls: 'Explode button or Space key: sets off one explosion. Holding it does not repeat it.
+
+      Shape Count: how many shapes are dropped. Changing it rebuilds the scene.
+
+      Radius, Falloff and Impulse: the size, the fade distance and the strength of the next explosion.'
     scenePath: Assets/Examples/Explode/Explode.unity
     state:
       overriddenDrawOptions: 0
@@ -599,6 +1047,12 @@ MonoBehaviour:
   - exampleName: Friction
     category: Shapes
     description: Demonstrating the effect of Friction on shapes.
+    purpose: 'Demonstrates friction, the surface material property that resists one shape sliding over another.
+
+      Shapes slide down a zigzag of ramps, each with a little more friction than the one before it. The first slide all the way down, and the later ones slow and stop sooner.'
+    controls: 'Object Type: the shape that slides.
+
+      Gravity Scale: how hard gravity pulls. The stream restarts when either changes.'
     scenePath: Assets/Examples/Friction/Friction.unity
     state:
       overriddenDrawOptions: 0
@@ -610,6 +1064,16 @@ MonoBehaviour:
   - exampleName: Modify Geometry
     category: Shapes
     description: Demonstrates modifying the geometry of existing shapes.
+    purpose: 'Demonstrates changing an existing shape''s geometry, type and body type in place, without destroying and recreating it. Anything touching the shape feels the change straight away.
+
+      A box rests on the shape so the effect of each change can be seen.'
+    controls: 'Body Type: the body type of the shape.
+
+      Geometry Type: the type of the shape.
+
+      Geometry Scale: the size of the shape.
+
+      Every control changes the existing shape while it runs.'
     scenePath: Assets/Examples/ModifyGeometry/ModifyGeometry.unity
     state:
       overriddenDrawOptions: 0
@@ -621,6 +1085,10 @@ MonoBehaviour:
   - exampleName: Rolling Resistance
     category: Shapes
     description: Demonstrating Rolling Resistance Surface Property.
+    purpose: 'Demonstrates rolling resistance, the surface material property that slows a shape''s spin as it rolls, the way a real tire loses energy on the ground. Without it, a ball on a flat surface rolls forever.
+
+      Twenty balls roll down stacked ramps, each with a little more rolling resistance than the one below, so the lowest keeps rolling long after the highest has stopped.'
+    controls: 'Slope Type: the tilt of every ramp. The whole stack is rebuilt when it changes.'
     scenePath: Assets/Examples/RollingResistance/RollingResistance.unity
     state:
       overriddenDrawOptions: 0
@@ -632,6 +1100,14 @@ MonoBehaviour:
   - exampleName: Rounded Polygons
     category: Shapes
     description: Demonstrating rounded polygons.
+    purpose: 'Demonstrates rounded polygons. A polygon can have a radius that rounds every edge and corner outward, giving softer corners without adding vertices.
+
+      A grid of random polygons, each with its own radius, shows sharp and rounded shapes side by side.'
+    controls: 'Column Count and Row Count: the size of the grid.
+
+      Friction and Restitution: the friction and the bounciness of every shape.
+
+      The grid is dropped again when any of them changes.'
     scenePath: Assets/Examples/RoundedPolygons/RoundedPolygons.unity
     state:
       overriddenDrawOptions: 0
@@ -643,6 +1119,14 @@ MonoBehaviour:
   - exampleName: Shape Distance
     category: Shapes
     description: Demonstrates the distance and closest points between two shapes as they orbit the origin and spin.
+    purpose: 'Demonstrates the shape distance query, which finds the distance between two shapes and the closest point on each, for any combination of shape types.
+
+      One inner shape is measured against four outer shapes, one of each type, as they orbit the origin and spin.'
+    controls: 'Inner Shape: the type of the inner shape.
+
+      Orbit Speed and Spin Speed: how fast the shapes orbit and spin.
+
+      Shape Scale: how big the shapes are.'
     scenePath: Assets/Examples/ShapeDistance/ShapeDistance.unity
     state:
       overriddenDrawOptions: 0
@@ -654,6 +1138,14 @@ MonoBehaviour:
   - exampleName: Shape Stack
     category: Shapes
     description: Checking the stability of stacking shapes.
+    purpose: 'A tower of shapes stacked on the ground.
+
+      It shows how stable the stack stays against the world''s contact and gravity settings.'
+    controls: 'Object Type and Stack Height: the shape and height of the tower. It is rebuilt when they change.
+
+      Contact Frequency, Contact Damping and Contact Speed: the world''s contact settings, which act on the stack live.
+
+      Gravity Scale: how hard gravity pulls.'
     scenePath: Assets/Examples/ShapeStack/ShapeStack.unity
     state:
       overriddenDrawOptions: 0
@@ -665,6 +1157,12 @@ MonoBehaviour:
   - exampleName: Stuck Inside
     category: Shapes
     description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.
+    purpose: 'Two tables and two ships, each made from several shapes on one body, with a body dropped into the join of each one.
+
+      The first table and ship are made of shapes that only meet at their edges, and the second pair''s shapes overlap. A body dropped between shapes that only touch can get stuck, and overlapping the shapes closes the gap.
+
+      The box drawn around each compound is the bounds of all the shapes on its body. A red box marks a compound whose shapes only touch, where a body can easily get stuck inside. A cyan box marks a compound whose shapes overlap, which resists a body getting stuck.'
+    controls: 'Intrude: drops a body inside each table and ship.'
     scenePath: Assets/Examples/StuckInside/StuckInside.unity
     state:
       overriddenDrawOptions: 0
@@ -676,6 +1174,10 @@ MonoBehaviour:
   - exampleName: Triggers
     category: Shapes
     description: A dense field of trigger shapes processing thousands of trigger events.
+    purpose: 'Demonstrates trigger shapes, which report when another shape enters or leaves them without colliding with it, and stress-tests thousands of trigger events every step.
+
+      Rows of circles fall through a dense field of triggers. A circle turns green while it is inside a trigger, and the wide triggers along the bottom remove any circle that touches them.'
+    controls: 'Column Count: how many columns of triggers the field has, which is also how many circles are dropped in each row. The scene is rebuilt when it changes.'
     scenePath: Assets/Examples/Triggers/Triggers.unity
     state:
       overriddenDrawOptions: 0
@@ -687,6 +1189,18 @@ MonoBehaviour:
   - exampleName: Wind
     category: Shapes
     description: Demonstrating the application of Wind with drag and lift.
+    purpose: 'Demonstrates applying wind to shapes. As with air on a real object, the force grows with the square of the wind''s speed relative to the shape, and with the shape''s projected width facing the wind, so a shape side-on to the wind catches more of it than one end-on. The force is applied where the shape faces the wind rather than at its center, so the wind can also turn the shape.
+
+      Lift turns part of the force sideways across the flow, the way a flag or streamer catches a crosswind. A circle has no edges, so it gets no lift and is only pushed. Only circles, capsules and polygons are affected.
+
+      A chain of small shapes hangs from a spring-loaded hinge and sways in the wind.'
+    controls: 'Geometry Type and Count: the shape and length of the chain. It is rebuilt when they change.
+
+      Wind Direction and Wind Speed: where the wind blows from and how strong it is.
+
+      Drag: how much of each shape''s own movement is taken off the wind speed, so a shape moving with the wind feels less of it.
+
+      Lift: how strongly the wind pushes sideways across the flow.'
     scenePath: Assets/Examples/Wind/Wind.unity
     state:
       overriddenDrawOptions: 0

@@ -3,7 +3,9 @@ using Unity.U2D.Physics;
 using UnityEngine.UIElements;
 
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
-[ExampleScene("Shapes", "Showing the solver dealing with tight/overlapping confinement.")]
+[ExampleScene("Shapes", "Showing the solver dealing with tight/overlapping confinement.",
+    Purpose = "A square grid of circles packed into a box too small to hold them, with gravity switched off.\nThe solver has to push every overlapping pair apart at once, so it shows how well it copes with tight confinement.",
+    Controls = "Grid Count: how many circles are packed along each side of the grid. The box is refilled when it changes.")]
 public sealed class Confined : SandboxExampleBehaviour
 {
     private int m_GridCount;
