@@ -28,9 +28,6 @@ public sealed class PinballContents : MonoBehaviour
     {
         m_Random = new Random(RandomSeed);
 
-        m_BallRoot = new GameObject("Balls").transform;
-        m_BallRoot.SetParent(transform);
-
         // The first ball is emitted straight away.
         m_SpawnTime = BallInterval;
         m_SpawnLeft = true;
@@ -38,8 +35,12 @@ public sealed class PinballContents : MonoBehaviour
 
     private void OnDisable()
     {
-        if (m_BallRoot != null)
-            Destroy(m_BallRoot.gameObject);
+        // Each ball is a root object of its own, so every one that is left is removed individually.
+        foreach (var ball in m_Balls)
+        {
+            if (ball != null)
+                Destroy(ball.gameObject);
+        }
 
         m_Balls.Clear();
     }
@@ -107,7 +108,7 @@ public sealed class PinballContents : MonoBehaviour
         var side = m_SpawnLeft ? -1f : 1f;
         m_SpawnLeft = !m_SpawnLeft;
 
-        var ball = Instantiate(m_BallPrefab, new Vector3(side * BallSpawnX, BallSpawnY, 0f), Quaternion.identity, m_BallRoot);
+        var ball = Instantiate(m_BallPrefab, new Vector3(side * BallSpawnX, BallSpawnY, 0f), Quaternion.identity);
 
         var pose = ball.GetComponent<PhysicsPose>();
         var bodyDefinition = pose.definition;
@@ -155,7 +156,6 @@ public sealed class PinballContents : MonoBehaviour
     readonly List<PhysicsPose> m_Balls = new();
     ControlsMenu.CustomButton m_FlipperButton;
     Random m_Random;
-    Transform m_BallRoot;
     float m_SpawnTime;
     bool m_SpawnLeft;
 

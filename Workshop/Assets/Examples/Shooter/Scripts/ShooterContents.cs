@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using Unity.Mathematics;
 using Unity.U2D.Physics;
 using UnityEngine;
@@ -83,9 +85,6 @@ public sealed class ShooterContents : MonoBehaviour
 
         m_Random = new Random(RandomSeed);
 
-        m_ProjectileRoot = new GameObject("Projectiles").transform;
-        m_ProjectileRoot.SetParent(transform);
-
         PhysicsEvents.PreSimulate += OnPreSimulate;
     }
 
@@ -97,8 +96,14 @@ public sealed class ShooterContents : MonoBehaviour
         var world = PhysicsWorld.defaultWorld;
         world.gravity = m_WorldGravity;
 
-        if (m_ProjectileRoot != null)
-            Destroy(m_ProjectileRoot.gameObject);
+        // Each capsule is a root object of its own, so every one that is left is removed individually.
+        foreach (var projectile in m_Projectiles)
+        {
+            if (projectile != null)
+                Destroy(projectile);
+        }
+
+        m_Projectiles.Clear();
     }
 
     private void Update()
@@ -162,7 +167,8 @@ public sealed class ShooterContents : MonoBehaviour
             var spin = m_Random.NextFloat(-3f, 3f);
 
             var position = fireDirection * fireOffset;
-            var projectile = Instantiate(m_ProjectilePrefab, new Vector3(position.x, position.y, 0f), Quaternion.Euler(0f, 0f, spin * Mathf.Rad2Deg), m_ProjectileRoot);
+            var projectile = Instantiate(m_ProjectilePrefab, new Vector3(position.x, position.y, 0f), Quaternion.Euler(0f, 0f, spin * Mathf.Rad2Deg));
+            m_Projectiles.Add(projectile);
 
             bodyDefinition.linearVelocity = fireDirection * fireSpeed;
             projectile.GetComponent<PhysicsPose>().definition = bodyDefinition;
@@ -182,7 +188,7 @@ public sealed class ShooterContents : MonoBehaviour
     private Color RandomColor() => Color.HSVToRGB(m_Random.NextFloat(0f, 1f), m_Random.NextFloat(0.7f, 1f) * SaturationScale, m_Random.NextFloat(0.5f, 1f));
 
     // Removes every capsule involved in a new contact this step.
-    private static void DestroyBatch(PhysicsWorld world)
+    private void DestroyBatch(PhysicsWorld world)
     {
         foreach (var beginEvent in world.contactBeginEvents)
         {
@@ -200,12 +206,13 @@ public sealed class ShooterContents : MonoBehaviour
     }
 
     // Removes a capsule by its Physics Pose, since a body a component created can only be removed by removing the component.
-    private static void RemoveProjectile(PhysicsShape shape)
+    private void RemoveProjectile(PhysicsShape shape)
     {
         if (shape.body.owner is not PhysicsPose pose)
             return;
 
         var target = pose.gameObject;
+        m_Projectiles.Remove(target);
         target.SetActive(false);
         Destroy(target);
     }
@@ -233,7 +240,7 @@ public sealed class ShooterContents : MonoBehaviour
     [SerializeField, Range(1f, 5f)] float m_GravityScale = 2f;
 
     Random m_Random;
-    Transform m_ProjectileRoot;
+    readonly HashSet<GameObject> m_Projectiles = new();
     Vector2 m_WorldGravity;
     Vector2 m_FireDirection;
     float m_Time;

@@ -88,22 +88,10 @@ public sealed class ExplodeContents : MonoBehaviour
         set => m_Impulse = value;
     }
 
-    // Shapes are dropped from here on, and the root is made here because Unity calls this again after a script reload while playing, and Awake it does not.
-    private void OnEnable()
-    {
-        m_ShapeRoot = new GameObject("Shapes").transform;
-        m_ShapeRoot.SetParent(transform);
+    // Shapes are dropped from here on, and this is used rather than Awake because Unity calls it again after a script reload while playing.
+    private void OnEnable() => Rebuild();
 
-        Rebuild();
-    }
-
-    private void OnDisable()
-    {
-        m_Shapes.Clear();
-
-        if (m_ShapeRoot != null)
-            Destroy(m_ShapeRoot.gameObject);
-    }
+    private void OnDisable() => Clear();
 
     private void Update()
     {
@@ -156,7 +144,7 @@ public sealed class ExplodeContents : MonoBehaviour
                 continue;
 
             var position = new Vector3(m_Random.NextFloat(-SpawnHalfWidth, SpawnHalfWidth), SpawnY, 0f);
-            var spawned = Instantiate(prefab, position, Quaternion.identity, m_ShapeRoot);
+            var spawned = Instantiate(prefab, position, Quaternion.identity);
 
             // The polygon is the only shape that is different every time, so it is given its geometry before it is switched on.
             if (prefab == m_PolygonPrefab)
@@ -199,7 +187,6 @@ public sealed class ExplodeContents : MonoBehaviour
     readonly List<GameObject> m_Shapes = new();
     ControlsMenu.CustomButton m_ExplodeButton;
     Random m_Random;
-    Transform m_ShapeRoot;
     int m_Spawned;
     float m_SpawnTime;
     bool m_ButtonWasPressed;

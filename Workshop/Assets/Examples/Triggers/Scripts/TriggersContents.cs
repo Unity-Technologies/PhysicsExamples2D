@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using Unity.U2D.Physics;
 using UnityEngine;
 using Random = Unity.Mathematics.Random;
@@ -23,12 +25,6 @@ public sealed class TriggersContents : MonoBehaviour
         m_StepCount = 0;
         m_Random = new Random(RandomSeed);
 
-        m_FieldRoot = new GameObject("Triggers").transform;
-        m_FieldRoot.SetParent(transform);
-
-        m_VisitorRoot = new GameObject("Visitors").transform;
-        m_VisitorRoot.SetParent(transform);
-
         SpawnField();
     }
 
@@ -37,14 +33,14 @@ public sealed class TriggersContents : MonoBehaviour
     /// </summary>
     public void Clear()
     {
-        if (m_FieldRoot != null)
-            Destroy(m_FieldRoot.gameObject);
+        // Each trigger and circle is a root object of its own, so each one is removed individually.
+        foreach (var spawned in m_Spawned)
+        {
+            if (spawned != null)
+                Destroy(spawned);
+        }
 
-        if (m_VisitorRoot != null)
-            Destroy(m_VisitorRoot.gameObject);
-
-        m_FieldRoot = null;
-        m_VisitorRoot = null;
+        m_Spawned.Clear();
     }
 
     /// <summary>
@@ -74,7 +70,7 @@ public sealed class TriggersContents : MonoBehaviour
 
             for (var i = 0; i < groundCount; ++i)
             {
-                Instantiate(m_RemoverPrefab, new Vector3(x, 0f, 0f), Quaternion.identity, m_FieldRoot);
+                m_Spawned.Add(Instantiate(m_RemoverPrefab, new Vector3(x, 0f, 0f), Quaternion.identity));
                 x += gridSize;
             }
         }
@@ -94,7 +90,7 @@ public sealed class TriggersContents : MonoBehaviour
                 var yOffset = m_Random.NextFloat(-1f, 1f);
                 var rotation = Quaternion.Euler(0f, 0f, m_Random.NextFloat(-PhysicsMath.PI, PhysicsMath.PI) * Mathf.Rad2Deg);
 
-                Instantiate(m_TriggerPrefab, new Vector3(x, y + yOffset, 0f), rotation, m_FieldRoot);
+                m_Spawned.Add(Instantiate(m_TriggerPrefab, new Vector3(x, y + yOffset, 0f), rotation));
             }
         }
     }
@@ -102,7 +98,7 @@ public sealed class TriggersContents : MonoBehaviour
     // Drops a new row of circles at the top of the field once enough steps have passed, then colors or removes the circles that entered or left a trigger this step.
     private void OnPostSimulate(PhysicsWorld world, float timeStep)
     {
-        if (!world.isDefaultWorld || m_VisitorRoot == null)
+        if (!world.isDefaultWorld || m_Spawned.Count == 0)
             return;
 
         if (++m_StepCount > SpawnPeriod)
@@ -145,16 +141,17 @@ public sealed class TriggersContents : MonoBehaviour
         var xCenter = 0.5f * ColumnSpacing * m_ColumnCount;
 
         for (var i = 0; i < m_ColumnCount; ++i)
-            Instantiate(m_VisitorPrefab, new Vector3(ColumnSpacing * i - xCenter, y, 0f), Quaternion.identity, m_VisitorRoot);
+            m_Spawned.Add(Instantiate(m_VisitorPrefab, new Vector3(ColumnSpacing * i - xCenter, y, 0f), Quaternion.identity));
     }
 
     // Removes a circle by its Physics Pose, since a body a component created can only be removed by removing the component.
-    private static void RemoveVisitor(PhysicsShape shape)
+    private void RemoveVisitor(PhysicsShape shape)
     {
         if (shape.body.owner is not PhysicsPose pose)
             return;
 
         var target = pose.gameObject;
+        m_Spawned.Remove(target);
         target.SetActive(false);
         Destroy(target);
     }
@@ -192,8 +189,7 @@ public sealed class TriggersContents : MonoBehaviour
     [SerializeField] GameObject m_VisitorPrefab;
     [SerializeField, Range(10, 500)] int m_ColumnCount = 80;
 
-    Transform m_FieldRoot;
-    Transform m_VisitorRoot;
+    readonly HashSet<GameObject> m_Spawned = new();
     Random m_Random;
     int m_StepCount;
 

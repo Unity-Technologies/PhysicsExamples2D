@@ -29,8 +29,8 @@ public sealed class BoidsContents : MonoBehaviour
 
         var random = new Random(RandomSeed);
 
-        m_BoidRoot = new GameObject("Boids").transform;
-        m_BoidRoot.SetParent(transform);
+        // Every boid is a root object of its own, so they are kept in an array to be removed together.
+        m_Boids = new GameObject[m_BoidCount];
 
         var vertices = new NativeList<Vector2>(Allocator.Temp)
         {
@@ -75,7 +75,8 @@ public sealed class BoidsContents : MonoBehaviour
             var position = PhysicsRotate.FromRadians(random.NextFloat(0f, maxRotation)).direction * random.NextFloat(m_BoidBounds.radius * 0.1f, m_BoidBounds.radius * 0.9f);
 
             // Each boid is instantiated inactive and given its place, heading, velocity and color before it is switched on, so its body is created once with them.
-            var boid = Instantiate(m_BoidPrefab, new Vector3(position.x, position.y, 0f), Quaternion.Euler(0f, 0f, radians * Mathf.Rad2Deg), m_BoidRoot);
+            var boid = Instantiate(m_BoidPrefab, new Vector3(position.x, position.y, 0f), Quaternion.Euler(0f, 0f, radians * Mathf.Rad2Deg));
+            m_Boids[i] = boid;
 
             poseDefinition.linearVelocity = rotation.direction * random.NextFloat(m_MaxSpeed * 0.5f, m_MaxSpeed);
 
@@ -106,11 +107,18 @@ public sealed class BoidsContents : MonoBehaviour
     public void Clear()
     {
         // The boids are switched off first so their bodies are gone at once, rather than at the end of the frame.
-        if (m_BoidRoot != null)
+        if (m_Boids != null)
         {
-            m_BoidRoot.gameObject.SetActive(false);
-            Destroy(m_BoidRoot.gameObject);
-            m_BoidRoot = null;
+            foreach (var boid in m_Boids)
+            {
+                if (boid == null)
+                    continue;
+
+                boid.SetActive(false);
+                Destroy(boid);
+            }
+
+            m_Boids = null;
         }
 
         if (m_BoidBodies.IsCreated)
@@ -565,7 +573,7 @@ public sealed class BoidsContents : MonoBehaviour
 
     NativeArray<PhysicsBody> m_BoidBodies;
     NativeArray<int> m_GroupIndices;
-    Transform m_BoidRoot;
+    GameObject[] m_Boids;
     NativeArray<BoidState> m_BoidStates;
     NativeParallelMultiHashMap<int, int> m_BoidGrid;
     CircleGeometry m_BoidBounds;

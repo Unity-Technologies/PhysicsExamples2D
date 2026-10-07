@@ -84,9 +84,6 @@ public sealed class LargeWorldContents : MonoBehaviour
     {
         m_StartX = -0.5f * CycleCount * WavePeriod;
 
-        m_SpawnRoot = new GameObject("Spawned").transform;
-        m_SpawnRoot.SetParent(transform);
-
         m_CameraPosition = new Vector2(m_StartX, 15f);
         if (m_CameraManipulator != null)
             m_CameraManipulator.CameraPosition = m_CameraPosition;
@@ -226,7 +223,7 @@ public sealed class LargeWorldContents : MonoBehaviour
 
             for (var j = 0; j < 5; ++j)
             {
-                Instantiate(m_BoxPrefab, new Vector3(x, y, 0f), Quaternion.identity, m_SpawnRoot);
+                Instantiate(m_BoxPrefab, new Vector3(x, y, 0f), Quaternion.identity);
                 y += 0.5f;
             }
 
@@ -244,7 +241,7 @@ public sealed class LargeWorldContents : MonoBehaviour
 
         for (var i = 0; i < 5; ++i)
         {
-            var spawned = Instantiate(m_RagdollPrefab, new Vector3(x, 10f, 0f), Quaternion.identity, m_SpawnRoot);
+            var spawned = Instantiate(m_RagdollPrefab, new Vector3(x, 10f, 0f), Quaternion.identity);
             SetRagdoll(spawned, m_RagdollIndex++);
             spawned.SetActive(true);
 
@@ -311,7 +308,6 @@ public sealed class LargeWorldContents : MonoBehaviour
     {
         // The ring is built inactive and switched on once, so every segment and every joint between them is created together.
         var ring = new GameObject("Donut");
-        ring.transform.SetParent(m_SpawnRoot);
         ring.SetActive(false);
 
         var radius = DonutScale;
@@ -413,7 +409,6 @@ public sealed class LargeWorldContents : MonoBehaviour
     [SerializeField, Range(-400f, 400f)] float m_CameraPanSpeed = 25f;
 
     readonly List<PhysicsBody> m_TerrainBodies = new();
-    Transform m_SpawnRoot;
     Vector2 m_CameraPosition;
     float m_StartX;
     int m_CycleIndex;

@@ -59,6 +59,14 @@ Put constraints on an object that starts inactive and is activated after the pos
 
 A prefab that a script instantiates is best authored inactive, configured, and then activated, so its components are not created half set up.
 
+**Keep the hierarchy for a reason.**
+Only a Physics Pose writes to the transform, so each dynamic or kinematic body that a pose drives should be the root of its own hierarchy.
+- One thing is one hierarchy. A car, a bridge or a character is a single compound object, so its parts can share a parent, and an area stays on its pose or a child of it.
+- Never use a parent only to organize the scene. Independent bodies, such as a set of balls or boxes, are separate roots, because every body under one parent is processed together.
+- Bodies that a script spawns are always created at the scene root, with no parent, and the script keeps a list of them to remove. This keeps them correct if they are ever drawn with sprites that need their transforms written.
+- Static bodies never write to the transform, so they may be grouped wherever it helps.
+- Roots are enabled in the order they appear in the scene, so keep each body ahead of the constraints that connect it.
+
 **Step 3: Add a Contents script, only if needed.**
 Derive from `MonoBehaviour`, put it on an object in the scene, and build the example's content in `Start`.
 Use the components' public API and the `Unity.U2D.Physics` API, and use a fixed random seed so the example plays the same way every time.
@@ -159,6 +167,8 @@ An example may also supply a control that moves one of these while it runs, as t
 - [ ] The scene has a `Camera` with a `CameraManipulator`, framed to show the whole example.
 - [ ] The physics is authored with components, and a script exists only for what no component covers.
 - [ ] Constraints are enabled after the poses and areas they connect.
+- [ ] Each dynamic or kinematic thing is its own root, and no parent exists only to organize the scene.
+- [ ] Spawned bodies are created at the scene root, with no shared parent, and the script keeps a list to remove them.
 - [ ] Any Contents script uses a fixed random seed and rebuilds correctly when the scene is reloaded.
 - [ ] Any menu controls are in one `WorkshopOptionsProvider`, and global settings are in the info asset's State.
 - [ ] The info asset has a scene, a name, a category and a one sentence description.

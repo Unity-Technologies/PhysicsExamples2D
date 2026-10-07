@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using Unity.U2D.Physics;
 using UnityEngine;
 
@@ -18,9 +20,6 @@ public sealed class ManyTumblersContents : MonoBehaviour
     {
         Clear();
 
-        m_Root = new GameObject("Spawned").transform;
-        m_Root.SetParent(transform);
-
         m_CurrentSpawnCounter = 0;
         m_SpawnTime = 0f;
 
@@ -32,10 +31,14 @@ public sealed class ManyTumblersContents : MonoBehaviour
     /// </summary>
     public void Clear()
     {
-        if (m_Root != null)
-            Destroy(m_Root.gameObject);
+        // Each tumbler and capsule is a root object of its own, so each one is removed individually.
+        foreach (var spawned in m_Spawned)
+        {
+            if (spawned != null)
+                Destroy(spawned);
+        }
 
-        m_Root = null;
+        m_Spawned.Clear();
     }
 
     /// <summary>
@@ -82,7 +85,7 @@ public sealed class ManyTumblersContents : MonoBehaviour
 
     private void Update()
     {
-        if (m_Root == null || PhysicsWorld.defaultWorld.paused)
+        if (m_Spawned.Count == 0 || PhysicsWorld.defaultWorld.paused)
             return;
 
         if (m_CurrentSpawnCounter >= m_SpawnCount)
@@ -115,9 +118,10 @@ public sealed class ManyTumblersContents : MonoBehaviour
 
             for (var j = 0; j < m_RowCount; ++j, y += 8f)
             {
-                var spawned = Instantiate(m_TumblerPrefab, new Vector3(x, y, 0f), Quaternion.identity, m_Root);
+                var spawned = Instantiate(m_TumblerPrefab, new Vector3(x, y, 0f), Quaternion.identity);
                 spawned.GetComponent<PhysicsPose>().definition = bodyDefinition;
                 spawned.SetActive(true);
+                m_Spawned.Add(spawned);
             }
         }
     }
@@ -135,7 +139,7 @@ public sealed class ManyTumblersContents : MonoBehaviour
             var y = -4f * m_RowCount;
 
             for (var j = 0; j < m_RowCount; ++j, y += 8f)
-                Instantiate(m_DebrisPrefab, new Vector3(x, y, 0f), Quaternion.identity, m_Root);
+                m_Spawned.Add(Instantiate(m_DebrisPrefab, new Vector3(x, y, 0f), Quaternion.identity));
         }
     }
 
@@ -151,7 +155,7 @@ public sealed class ManyTumblersContents : MonoBehaviour
     [SerializeField, Range(-90f, 90f)] float m_AngularVelocity = 45f;
     [SerializeField, Range(1, 10)] int m_SpawnCount = 10;
 
-    Transform m_Root;
+    readonly List<GameObject> m_Spawned = new();
     float m_SpawnTime;
     int m_CurrentSpawnCounter;
 
