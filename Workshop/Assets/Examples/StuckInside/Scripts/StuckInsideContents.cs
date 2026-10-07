@@ -9,7 +9,7 @@ using UnityEngine;
 /// The first table and ship are made of shapes that only meet at their edges, where the second pair's shapes overlap each other, so the two can be compared with something dropped inside.
 /// Each compound's bounds, the box around every shape on its body, are drawn every frame.
 /// </remarks>
-public sealed class CompoundContents : MonoBehaviour
+public sealed class StuckInsideContents : MonoBehaviour
 {
     /// <summary>
     /// Drops one intruder inside each compound: a thin plank under each table top and a small circle inside each ship.
@@ -30,14 +30,21 @@ public sealed class CompoundContents : MonoBehaviour
         DrawBodyBounds(m_Ship2, Color.cyan);
     }
 
-    // Creates one intruder where the compound currently is, turned the same way, so it lands among the compound's shapes wherever the compound has moved to.
+    // Creates one intruder where the compound's body currently is, turned the same way, so it lands among the compound's shapes wherever the compound has moved to.
+    // The body is read rather than the transform, because the transform can trail the body by a step.
     private static void SpawnIntruder(GameObject prefab, PhysicsPose compound)
     {
         if (prefab == null || compound == null)
             return;
 
-        var compoundTransform = compound.transform;
-        var spawned = Instantiate(prefab, compoundTransform.position, compoundTransform.rotation);
+        var body = compound.body;
+
+        if (!body.isValid)
+            return;
+
+        var position = body.position;
+        var rotation = Quaternion.Euler(0f, 0f, body.rotation.degrees);
+        var spawned = Instantiate(prefab, new Vector3(position.x, position.y, 0f), rotation);
         spawned.SetActive(true);
     }
 

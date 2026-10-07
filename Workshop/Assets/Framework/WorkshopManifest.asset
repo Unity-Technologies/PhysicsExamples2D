@@ -519,17 +519,6 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
-  - exampleName: Compound
-    category: Shapes
-    description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.
-    scenePath: Assets/Examples/Compound/Compound.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
   - exampleName: Confined
     category: Shapes
     description: Showing the solver dealing with tight/overlapping confinement.
@@ -666,6 +655,17 @@ MonoBehaviour:
     category: Shapes
     description: Checking the stability of stacking shapes.
     scenePath: Assets/Examples/ShapeStack/ShapeStack.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Stuck Inside
+    category: Shapes
+    description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.
+    scenePath: Assets/Examples/StuckInside/StuckInside.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0

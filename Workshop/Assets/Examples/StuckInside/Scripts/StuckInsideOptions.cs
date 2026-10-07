@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /// <summary>
-/// Adds the compound example's Intrude button to the Workshop, which drops a body inside each of the tables and ships.
+/// Adds the stuck inside example's Intrude button to the Workshop, which drops a body inside each of the tables and ships.
 /// </summary>
-public sealed class CompoundOptions : WorkshopOptionsProvider
+public sealed class StuckInsideOptions : WorkshopOptionsProvider
 {
     protected override void SetupOptions()
     {
@@ -26,7 +26,7 @@ public sealed class CompoundOptions : WorkshopOptionsProvider
 
     #region Internal
 
-    [SerializeField] CompoundContents m_Contents;
+    [SerializeField] StuckInsideContents m_Contents;
 
     ControlsMenu.CustomButton m_IntrudeButton;
 

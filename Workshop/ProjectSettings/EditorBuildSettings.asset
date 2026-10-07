@@ -147,9 +147,6 @@ EditorBuildSettings:
     path: Assets/Examples/CharacterMover/CharacterMover.unity
     guid: 9b6abc2b0dd11f542a924e2f6824e482
   - enabled: 1
-    path: Assets/Examples/Compound/Compound.unity
-    guid: e21df1e3484cd2f4f88a7eb4a4e43edf
-  - enabled: 1
     path: Assets/Examples/Confined/Confined.unity
     guid: 23eb2a4cfd29857429f8737c618df813
   - enabled: 1
@@ -188,6 +185,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Examples/ShapeStack/ShapeStack.unity
     guid: b198bb9b23b9f3045a6436c321afaf0d
+  - enabled: 1
+    path: Assets/Examples/StuckInside/StuckInside.unity
+    guid: e21df1e3484cd2f4f88a7eb4a4e43edf
   - enabled: 1
     path: Assets/Examples/Triggers/Triggers.unity
     guid: 87f1463f2143e2f429c316c9a4146c78

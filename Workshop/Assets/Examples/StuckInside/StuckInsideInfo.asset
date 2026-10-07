@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 425f70a701d340949ad6110bc3f45d64, type: 3}
-  m_Name: CompoundInfo
+  m_Name: StuckInsideInfo
   m_EditorClassIdentifier: Assembly-CSharp::WorkshopExampleInfo
   m_Scene: {fileID: 102900000, guid: e21df1e3484cd2f4f88a7eb4a4e43edf, type: 3}
-  m_ScenePath: Assets/Examples/Compound/Compound.unity
-  m_ExampleName: Compound
+  m_ScenePath: Assets/Examples/StuckInside/StuckInside.unity
+  m_ExampleName: Stuck Inside
   m_Category: Shapes
   m_Description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.

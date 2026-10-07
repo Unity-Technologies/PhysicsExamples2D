@@ -53,11 +53,6 @@ MonoBehaviour:
     Description: A rotating kinematic tumbler churning many debris pieces.
     TypeName: Tumbler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
-  - Name: Compound
-    Category: Shapes
-    Description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.
-    TypeName: Compound, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    Data: {fileID: 0}
   - Name: User Joint
     Category: Joints
     Description: Demonstrating the implementation of a custom joint.
@@ -327,4 +322,9 @@ MonoBehaviour:
     Category: Joints
     Description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
     TypeName: ManyPrismatics, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}
+  - Name: Stuck Inside
+    Category: Shapes
+    Description: Demonstrates how multiple shapes on a single body produce a compound shape and how to mitigate overlaps.
+    TypeName: StuckInside, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}

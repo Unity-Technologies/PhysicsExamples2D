@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &654692301407493350
+--- !u!1 &6567025430485076134
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8551152870567505228}
-  - component: {fileID: 8139724304627583605}
-  - component: {fileID: 3067545140969460382}
+  - component: {fileID: 7299513934855883306}
+  - component: {fileID: 2116707864064517540}
+  - component: {fileID: 7475519277348171755}
   m_Layer: 0
-  m_Name: CompoundPlank
+  m_Name: StuckInsideBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &8551152870567505228
+--- !u!4 &7299513934855883306
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654692301407493350}
+  m_GameObject: {fileID: 6567025430485076134}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -33,13 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8139724304627583605
+--- !u!114 &2116707864064517540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654692301407493350}
+  m_GameObject: {fileID: 6567025430485076134}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b5cab806479227418445289d7193e6b, type: 3}
@@ -90,20 +90,20 @@ MonoBehaviour:
       m_Center: {x: 0, y: 0}
       m_RotationalInertia: 1
   m_Composite: {fileID: 0}
---- !u!114 &3067545140969460382
+--- !u!114 &7475519277348171755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654692301407493350}
+  m_GameObject: {fileID: 6567025430485076134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a4af6a834fddd40a7fadd3c55e0b0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c79862b9e6459045a7d5c56265ea844, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaPolygon
+  m_EditorClassIdentifier: Unity.U2D.Physics::Unity.U2D.Physics.PhysicsAreaCircle
   m_Source: 0
-  m_Pose: {fileID: 8139724304627583605}
+  m_Pose: {fileID: 2116707864064517540}
   m_Transformation:
     m_Transform:
       position: {x: 0, y: 0}
@@ -172,25 +172,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Geometry:
-    vertices:
-      m_Vertex0: {x: -4, y: 2.9}
-      m_Vertex1: {x: 4, y: 2.9}
-      m_Vertex2: {x: 4, y: 3.1}
-      m_Vertex3: {x: -4, y: 3.1}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    normals:
-      m_Vertex0: {x: 0, y: -1}
-      m_Vertex1: {x: 1, y: 0}
-      m_Vertex2: {x: 0, y: 1}
-      m_Vertex3: {x: -1, y: 0}
-      m_Vertex4: {x: 0, y: 0}
-      m_Vertex5: {x: 0, y: 0}
-      m_Vertex6: {x: 0, y: 0}
-      m_Vertex7: {x: 0, y: 0}
-    m_Centroid: {x: 0, y: 3}
-    m_Radius: 0
-    m_Count: 4
+    m_Center: {x: 0, y: 2}
+    m_Radius: 0.5
   m_GeometryAsset: {fileID: 0}
