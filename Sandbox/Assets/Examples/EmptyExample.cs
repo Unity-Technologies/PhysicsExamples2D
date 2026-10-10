@@ -4,6 +4,8 @@ using Unity.U2D.Physics;
 // A blank canvas for your own physics.
 // Everything below is empty on purpose, so add your own code at the signposts.
 // See the README for how to use the physics API, and look at the other examples, such as "Barrel", to see how a finished one is put together.
+// To load this example first when you press "Play", select the "MainMenu" GameObject in the "Sandbox" scene and pick it in the "Start Scene" drop-down of its Sandbox Manager.
+// Do this while developing, so every "Play" starts here and you do not have to choose it from the menu each time.
 // Run Tools > 2D > Physics > Rebuild Sandbox Registry after adding or renaming this class.
 [ExampleScene("Custom", "A blank example to build your own physics in.",
     Name = "Empty",
