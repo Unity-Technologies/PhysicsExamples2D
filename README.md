@@ -7,6 +7,8 @@ This repository contains test projects, examples, and a test package for Unity's
 - [Examples Package](Packages/com.unity.2d.physics.examples/README.md) - unsupported experimental example components
 - [OldPhysics2D](OldPhysics2D/README.md) — examples that use the older "Physics2D" component API.
 
+To try your own physics, open the "Custom > Empty" example in either the Sandbox or the Workshop. It is a blank canvas to build on.
+
 ---
 - [2D Physics Core Manual](https://docs.unity3d.com/6000.7/Documentation/Manual/2d-physics-api/2d-physics-api-landing.html)
 - [2D Physics Package Documentation](https://docs.unity3d.com/Packages/com.unity.2d.physics@latest/)

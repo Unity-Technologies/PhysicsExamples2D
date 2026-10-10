@@ -11,6 +11,13 @@ The [Sandbox](../Sandbox/README.md) project shows the same kind of examples writ
 
 ---
 
+## Start here
+
+To try your own physics, open the **Custom > Empty** example, found in `Assets/Examples/Empty/`.
+Its scene is blank, so add Physics Pose, Physics Area and Physics Constraint components to it and press "Play" to see the result.
+Its `EmptyContents` and `EmptyOptions` scripts are empty too, with signposts showing where to add your own code and controls.
+Look at the other examples, such as "Barrel", to see how they do it.
+
 ## How an example is laid out
 
 Every example is a folder inside `Assets/Examples/`:

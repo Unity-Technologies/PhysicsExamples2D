@@ -1211,3 +1211,18 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
+  - exampleName: Empty
+    category: Custom
+    description: A blank example to build your own physics in.
+    purpose: 'A blank canvas for your own physics.
+
+      Add Physics Poses, Physics Areas and Physics Constraints to this scene, or add your own code to the Empty Contents and Empty Options scripts at the signposts. Nothing is created until you do.'
+    controls: 
+    scenePath: Assets/Examples/Empty/Empty.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0

@@ -36,7 +36,7 @@ namespace UnityEditor
                 var attribute = (ExampleSceneAttribute)Attribute.GetCustomAttribute(type, typeof(ExampleSceneAttribute));
                 discovered.Add(new SceneManifest.SceneItem
                 {
-                    Name = ToDisplayName(type.Name),
+                    Name = string.IsNullOrEmpty(attribute.Name) ? ToDisplayName(type.Name) : attribute.Name,
                     Category = attribute.Category,
                     Description = attribute.Description,
                     Purpose = attribute.Purpose,

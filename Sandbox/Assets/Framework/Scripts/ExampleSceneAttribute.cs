@@ -16,6 +16,12 @@ public sealed class ExampleSceneAttribute : Attribute
     public string Description { get; }
 
     /// <summary>
+    /// The name the menu shows for the example.
+    /// Leave this unset and the name is made from the class name, so a class called CharacterMover is listed as "Character Mover".
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
     /// What the example is for and what it shows, as plain text for the help window.
     /// Leave this and <see cref="Controls"/> unset and the example has no Help button.
     /// </summary>

@@ -848,3 +848,12 @@ MonoBehaviour:
       Drag the machine to move it.'
     TypeName: Strandbeest, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Empty
+    Category: Custom
+    Description: A blank example to build your own physics in.
+    Purpose: 'A blank canvas for your own physics.
+
+      Open Sandbox/Assets/Examples/EmptyExample.cs and add your code where the signposts are. Nothing is created until you do.'
+    Controls: 
+    TypeName: EmptyExample, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}

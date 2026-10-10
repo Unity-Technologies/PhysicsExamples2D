@@ -12,6 +12,12 @@ To change the sample that initially loads when you press "Play", select the "Mai
 
 ---
 
+## Start here
+
+To try your own physics, open the **Custom > Empty** sample, or open [`Assets/Examples/EmptyExample.cs`](./Assets/Examples/EmptyExample.cs) directly.
+It creates nothing, and has signposts in the code showing where to add your scene, controls and per-frame logic, so you can edit it and press "Play" to see the result.
+Look at the other samples, such as "Barrel", to see how they do it.
+
 ## How a sample is laid out
 
 Every sample is a **single `.cs` file** inside `Assets/Examples/` — no scene file, no subfolders.

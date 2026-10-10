@@ -23,7 +23,7 @@ public class SceneManifest : ScriptableObject
     public string LoadedSceneDescription { get; private set; }
 
     // The order the categories are listed in the menu.
-    private static readonly string[] CategoryOrder = { "Benchmarks", "Shapes", "Joints", "Advanced" };
+    private static readonly string[] CategoryOrder = { "Benchmarks", "Shapes", "Joints", "Advanced", "Custom" };
 
     private GameObject m_CurrentExampleGO;
 
