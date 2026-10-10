@@ -22,6 +22,9 @@ public class SceneManifest : ScriptableObject
     public string LoadedSceneName { get; private set; }
     public string LoadedSceneDescription { get; private set; }
 
+    // The order the categories are listed in the menu.
+    private static readonly string[] CategoryOrder = { "Benchmarks", "Shapes", "Joints", "Advanced" };
+
     private GameObject m_CurrentExampleGO;
 
     // Called by SandboxManager at play-session start to clear any stale runtime state.
@@ -41,8 +44,19 @@ public class SceneManifest : ScriptableObject
             if (seen.Add(item.Category))
                 result.Add(item.Category);
         }
-        result.Sort(StringComparer.OrdinalIgnoreCase);
+        result.Sort((left, right) =>
+        {
+            var byRank = GetCategoryRank(left).CompareTo(GetCategoryRank(right));
+            return byRank != 0 ? byRank : string.Compare(left, right, StringComparison.OrdinalIgnoreCase);
+        });
         return result;
+    }
+
+    // Categories missing from the explicit order come after the ordered ones.
+    private static int GetCategoryRank(string category)
+    {
+        var index = Array.FindIndex(CategoryOrder, name => string.Equals(name, category, StringComparison.OrdinalIgnoreCase));
+        return index >= 0 ? index : CategoryOrder.Length;
     }
 
     public List<string> GetScenes(string category)

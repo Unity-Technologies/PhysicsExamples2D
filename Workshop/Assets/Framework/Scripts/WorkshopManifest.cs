@@ -56,7 +56,18 @@ public sealed class WorkshopManifest : ScriptableObject
     }
 
     /// <summary>
-    /// Returns every category name that has at least one example, sorted alphabetically.
+    /// Returns the position of a category in the menu, where categories that are not in the explicit order come after the ordered ones.
+    /// </summary>
+    public static int GetCategoryRank(string category)
+    {
+        var index = Array.FindIndex(CategoryOrder, name => string.Equals(name, category, StringComparison.OrdinalIgnoreCase));
+
+        return index >= 0 ? index : CategoryOrder.Length;
+    }
+
+    /// <summary>
+    /// Returns every category name that has at least one example, in the explicit menu order.
+    /// Categories missing from that order are listed after it, sorted alphabetically.
     /// </summary>
     public List<string> GetCategories()
     {
@@ -69,7 +80,12 @@ public sealed class WorkshopManifest : ScriptableObject
                 categories.Add(item.category);
         }
 
-        categories.Sort(StringComparer.OrdinalIgnoreCase);
+        categories.Sort((left, right) =>
+        {
+            var byRank = GetCategoryRank(left).CompareTo(GetCategoryRank(right));
+
+            return byRank != 0 ? byRank : string.Compare(left, right, StringComparison.OrdinalIgnoreCase);
+        });
 
         return categories;
     }
@@ -123,6 +139,9 @@ public sealed class WorkshopManifest : ScriptableObject
 #endif
 
     #region Internal
+
+    // The order the categories are listed in the menu.
+    static readonly string[] CategoryOrder = { "Benchmarks", "Shapes", "Joints", "Advanced" };
 
     [SerializeField] List<ExampleItem> m_Examples = new();
 

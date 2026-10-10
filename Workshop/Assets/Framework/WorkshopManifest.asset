@@ -13,94 +13,6 @@ MonoBehaviour:
   m_Name: WorkshopManifest
   m_EditorClassIdentifier: Assembly-CSharp::WorkshopManifest
   m_Examples:
-  - exampleName: Fragmenting
-    category: Advanced
-    description: Demonstrates the use of geometry fragmenting.
-    purpose: 'Demonstrates fragmenting geometry with the physics destructor. A region is cut out of a shape and split into pieces around random points, and what is left becomes the new shape.
-
-      Projectiles fired at a large slab break a round hole out of it wherever they hit, and the pieces fall through a field of obstacles.'
-    controls: 'Left and Right arrow keys, or the Left and Right buttons: move the player.
-
-      Space, or the Fire button: fire a projectile.
-
-      Fragment Radius, Fragment Count and Fragment Explode: the size of each hole, how many pieces it breaks into, and how hard they are blown apart. They take effect from the next hit.'
-    scenePath: Assets/Examples/Fragmenting/Fragmenting.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Geometry Islands
-    category: Advanced
-    description: Demonstrates the use of geometry islands when fragmenting.
-    purpose: 'Demonstrates geometry islands when fragmenting. After a cut, what is left is grouped into islands, sets of polygons that still touch each other, so each separate piece can become its own body.
-
-      Projectiles break holes in a row of tall slabs. An island that still reaches the ground line stays static, and one that is cut free becomes dynamic and falls.'
-    controls: 'Left and Right arrow keys, or the Left and Right buttons: move the player.
-
-      Space, or the Fire button: fire a projectile.
-
-      Fragment Radius and Fragment Explode: the size of each hole and how hard the pieces are blown apart. They take effect from the next hit.'
-    scenePath: Assets/Examples/GeometryIslands/GeometryIslands.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Slicing
-    category: Advanced
-    description: Demonstrates the use of geometry slicing.
-    purpose: 'Demonstrates slicing geometry with the physics destructor, cutting a shape in two along a line.
-
-      A slicing ray fired from an orbiting player cuts whatever it crosses into two new pieces, and it can reflect off the arena wall several times in one shot.'
-    controls: 'Left and Right arrow keys, or the Left and Right buttons: orbit the player.
-
-      Space, or the Fire button: fire a slice.
-
-      Reflection Count: how many times a shot can reflect.
-
-      Maximum Fragments: how full the arena can get.
-
-      They take effect from the next shot.'
-    scenePath: Assets/Examples/Slicing/Slicing.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Sprite Destruction
-    category: Advanced
-    description: Demonstrates the use of Sprite fragmenting mapping.
-    purpose: 'Demonstrates fragmenting sprites. The physics geometry is broken with the destructor, and each piece gets a sprite cut from the same source texture, so the picture stays consistent across a break.
-
-      Clicking a building cuts a hole out of it, and the pieces that come free fall and can be blown apart.'
-    controls: 'Click a building to cut a hole in it.
-
-      Fragment Radius: the size of each break.
-
-      Create Fragments: whether a break leaves debris.
-
-      Fragment Count: how many pieces it makes.
-
-      Fragment Friction, Fragment Bounciness and Fragment Force: the pieces'' friction, bounciness and blast force.
-
-      Gravity Scale: how hard gravity pulls.
-
-      They take effect on the next click.'
-    scenePath: Assets/Examples/SpriteDestruction/SpriteDestruction.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
   - exampleName: Barrel
     category: Benchmarks
     description: A large barrel of various object types stress-testing the solver.
@@ -473,323 +385,6 @@ MonoBehaviour:
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Ball And Chain
-    category: Joints
-    description: Demonstrating a chain of joints.
-    purpose: 'A heavy ball hanging from a chain of capsule links, each joined to the next by a hinge joint.
-
-      It shows a long chain of joints holding together under the weight of the ball, and how the hinge spring and motor settings change the way it moves.'
-    controls: 'Spring Frequency and Spring Damping: the spring on every hinge.
-
-      Max Motor Torque: the most torque every hinge motor can apply.
-
-      Fix Chain Length: rebuilds the chain with a distance limit that stops it stretching.'
-    scenePath: Assets/Examples/BallAndChain/BallAndChain.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Desk Lamp
-    category: Joints
-    description: An Anglepoise style desk lamp whose springs balance the arm and shade at any pose. Drag the shade to move it.
-    purpose: 'Demonstrates joints working together as a mechanism, with springs, joint friction and limits. The lamp''s arm is a parallelogram of links, so the shade keeps its angle as the arm moves, and two springs balance the arm so it holds any pose it is left in.
-
-      The joint friction is a hinge motor with a target speed of zero, which resists movement up to its maximum torque.'
-    controls: 'Drag the shade, or any part of the lamp, to pose it. Let go and the springs hold it there.
-
-      Arm Spring and Head Spring: how stiff the two springs are.
-
-      Spring Damping: how much the springs are damped.
-
-      Post Friction and Elbow Friction: how much friction the joints have.
-
-      Head: the angle of the shade.'
-    scenePath: Assets/Examples/DeskLamp/DeskLamp.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Distance Joint
-    category: Joints
-    description: Demonstrating the features of the Distance Joint.
-    purpose: 'Demonstrates the distance joint, which keeps two anchor points a set distance apart. It can be rigid like a rod, soft like a spring, held between a minimum and maximum length like a rope, or driven along its length by a motor.
-
-      A short chain of small circles hangs from a fixed point so every setting can be tried.'
-    controls: 'Joint Count and Distance: how many circles there are and how far apart they are held.
-
-      Enable Spring with Spring Frequency, Spring Damping, Spring Tension and Spring Compression: lets the joint stretch like a spring.
-
-      Enable Limit with Min Distance Limit and Max Distance Limit: keeps the joint between two lengths.
-
-      Enable Motor with Motor Speed and Max Motor Force: drives the joint.
-
-      The chain is rebuilt when the joint count, the distance or the limits change.'
-    scenePath: Assets/Examples/DistanceJoint/DistanceJoint.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Doohickey
-    category: Joints
-    description: Demonstrating some fun contraptions using joints.
-    purpose: 'A stack of doohickeys dropped between two tall walls, each one a pair of wheels on a sprung, sliding bar.
-
-      They tumble and roll as they land on each other, so it shows hinge and slider joints working together.'
-    controls: 'Doohickey Count: how many doohickeys are stacked. They are restacked when it changes.'
-    scenePath: Assets/Examples/Doohickey/Doohickey.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Driving
-    category: Joints
-    description: Demonstrating the use of a Wheel Joint for suspension when driving a car.
-    purpose: 'Demonstrates the wheel joint working as a car''s suspension over varied, difficult terrain. Each wheel is held on a spring by a wheel joint and driven by the joint''s motor.
-
-      The car can be driven over a bridge, a stack of boxes and uneven ground.'
-    controls: 'Left and Right arrow keys, or the Reverse and Forward buttons: drive.
-
-      Space, or the Brake button: brake.
-
-      Spring Frequency and Spring Damping: the suspension.
-
-      Motor Speed and Max Motor Torque: the wheel motors.'
-    scenePath: Assets/Examples/Driving/Driving.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Gear Lift
-    category: Joints
-    description: Demonstrating a gear-driven lift using Hinge and Slider Joints.
-    purpose: 'A gear-driven lift: a drive gear turns a follower gear, which winds a chain that raises a door. A heap of random polygons fills the stepped ground.
-
-      It shows hinge and slider joints working together.'
-    controls: 'Use Motor: turns the drive gear''s motor on or off.
-
-      Motor Speed and Motor Max Torque: how fast the drive gear turns and how much torque it has.'
-    scenePath: Assets/Examples/GearLift/GearLift.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Ignore Joint
-    category: Joints
-    description: Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.
-    purpose: 'Demonstrates the ignore joint, which stops all contacts between one specific pair of bodies while both still touch everything else. It is useful when two particular bodies must never collide, without changing the contact filtering of either.
-
-      Two large boxes with an obstacle between them pass through each other while the joint is on, and collide when it is off.'
-    controls: 'Enable Joint: turns the ignore joint on or off.'
-    scenePath: Assets/Examples/IgnoreJoint/IgnoreJoint.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Many Prismatics
-    category: Joints
-    description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
-    purpose: 'A chain of boxes joined by slider joints, stretched to the end of their limits.
-
-      The number of sub-steps the world takes in each step decides how well stretched joints hold. With too few, the chain bends away from its slide axis.'
-    controls: 'World Sub-Steps: sets how many sub-steps the world takes in each step. Raise it and the chain holds straight, lower it and the chain bends.
-
-      Drag a box sideways to distort the chain and see how quickly it recovers.'
-    scenePath: Assets/Examples/ManyPrismatics/ManyPrismatics.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 4
-  - exampleName: Pinball
-    category: Joints
-    description: A pinball table showing small fast balls using continuous collision against moving flippers.
-    purpose: 'A pinball table where small, fast balls hit flippers that are moving toward them.
-
-      It shows continuous collision stopping a ball from passing through a thin moving shape. A new ball arrives every few seconds up to a limit, and a ball that drains away is replaced.'
-    controls: 'Flippers: hold the Space key, or hold the Flippers button, to raise both flippers. Release to lower them.'
-    scenePath: Assets/Examples/Pinball/Pinball.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Scale Ragdoll
-    category: Joints
-    description: Checking the stability of solving forced overlap due to scaling a relatively complex setup.
-    purpose: 'A ragdoll dropped into a closed room and resized while it moves, so every limb is suddenly forced to overlap its neighbors.
-
-      It checks that the solver stays stable when a complex set of joints is scaled.'
-    controls: 'Ragdoll Scale: the size of the ragdoll. It is resized where it is, without being rebuilt.'
-    scenePath: Assets/Examples/ScaleRagdoll/ScaleRagdoll.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Scissor Lift
-    category: Joints
-    description: Checking the stability of solving a complex set of joints.
-    purpose: 'A scissor lift raising a car on its platform, driven by the motor of a distance joint that runs from the ground to one of its lower arms.
-
-      It checks the stability of solving a complex set of joints.'
-    controls: 'Enable Motor: turns the lift''s motor on or off.
-
-      Motor Speed: how fast the lift raises or lowers. Both act on the lift where it stands.'
-    scenePath: Assets/Examples/ScissorLift/ScissorLift.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Slider Joint
-    category: Joints
-    description: Demonstrating the features of the Slider Joint.
-    purpose: 'Demonstrates the slider joint, also known as a prismatic joint, which lets a body move along one axis relative to another while stopping it rotating. It can have a spring that pulls toward a target position, limits on how far it slides, and a motor that drives it along the axis.
-
-      A capsule is held on a slider to a fixed point so every setting can be tried.'
-    controls: 'Slider Angle: the direction of the slide axis. The capsule is rebuilt when it changes.
-
-      Enable Spring with Spring Target Translation, Spring Frequency and Spring Damping: pulls the capsule toward a position like a spring.
-
-      Enable Motor with Motor Speed and Max Motor Force: drives the capsule along the axis.
-
-      Enable Limit with Min Distance Limit and Max Distance Limit: limits how far it can slide.'
-    scenePath: Assets/Examples/SliderJoint/SliderJoint.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Soft Body
-    category: Joints
-    description: Demonstrating using joints to create a soft body.
-    purpose: 'Demonstrates building a soft body from rigid bodies and joints. A ring of capsule segments is held together by fixed joints whose angular spring is soft, so the ring flexes and wobbles instead of staying rigid.
-
-      The segments share a negative contact group, so neighbors that overlap at the joins never push each other apart.'
-    controls: 'Body Sides and Body Scale: how many segments the ring has and how big it is.
-
-      Joint Frequency and Joint Damping: how soft the joints are.
-
-      Every change rebuilds the ring.'
-    scenePath: Assets/Examples/SoftBody/SoftBody.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Strandbeest
-    category: Joints
-    description: A Strandbeest, Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of Strandpebbles.
-    purpose: 'Demonstrates a complex linkage of joints driven by a single motor. A Strandbeest, Theo Jansen''s walking machine, turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.
-
-      The wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of Strandpebbles.
-
-      Theo Jansen''s own Strandbeests can be seen at https://www.strandbeest.com/'
-    controls: 'Left and Right arrow keys, or the Walk Left and Walk Right buttons: turn the motor one way or the other.
-
-      Space, or the Stop button: stop the motor.
-
-      Motor Speed and Motor Torque: how fast the motor turns and how much torque it has.
-
-      Drag the machine to move it.'
-    scenePath: Assets/Examples/Strandbeest/Strandbeest.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Top Down Friction
-    category: Joints
-    description: Demonstrating using the RelativeJoint to achieve "top down" friction.
-    purpose: 'Demonstrates top-down friction with the relative joint. In a top-down view there is no gravity pressing a body onto the ground, so ordinary friction does nothing. A relative joint to the ground with a limited maximum force and torque resists movement and spin the way friction would.
-
-      The shapes on the table slide to a stop and stop spinning instead of drifting forever.'
-    controls: 'Explode: sets off an explosion that throws the shapes around.
-
-      Max Force and Max Torque: how much force and torque each friction joint can resist. They act on the shapes where they are.'
-    scenePath: Assets/Examples/TopDownFriction/TopDownFriction.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: User Joint
-    category: Joints
-    description: Demonstrating the implementation of a custom joint.
-    purpose: 'Demonstrates writing your own joint when none of the built-in joints does what you need. The constraint is solved in script after every simulation step by applying impulses to the bodies.
-
-      Two springs run from a fixed point to two anchors on a box. Each spring only pulls, and only once it is stretched past its rest length, so the box swings freely while they are slack.'
-    controls: 'Joint Frequency, Joint Damping and Joint Max Force: how stiff, how damped and how strong the springs are.
-
-      Anchor Offset X and Anchor Offset Y: where the anchors sit on the box.
-
-      The impulse each spring applied on the last step is shown and updates every frame.'
-    scenePath: Assets/Examples/UserJoint/UserJoint.unity
-    state:
-      overriddenDrawOptions: 0
-      fixedDrawOptions: 0
-      sleeping: 0
-      frameRateVisible: 0
-      catchUpSteps: 0
-      subSteps: 0
-  - exampleName: Wheel Joint
-    category: Joints
-    description: Demonstrating the features of the Wheel Joint.
-    purpose: 'Demonstrates the wheel joint, which lets a body slide along one axis against a spring while it rotates freely, the way a car wheel moves on its suspension. It has the spring, limits on the slide, and a motor that spins the wheel.
-
-      A wheel is held on a wheel joint to a fixed point so every setting can be tried.'
-    controls: 'Wheel Angle: the direction of the slide axis. The wheel is rebuilt when it changes.
-
-      Enable Spring with Spring Frequency and Spring Damping: the suspension spring.
-
-      Enable Motor with Motor Speed and Max Motor Torque: spins the wheel.
-
-      Enable Limit with Min Distance Limit and Max Distance Limit: limits how far it can slide.'
-    scenePath: Assets/Examples/WheelJoint/WheelJoint.unity
-    state:
-      overriddenDrawOptions: 128
-      fixedDrawOptions: 128
       sleeping: 0
       frameRateVisible: 0
       catchUpSteps: 0
@@ -1204,6 +799,411 @@ MonoBehaviour:
 
       Lift: how strongly the wind pushes sideways across the flow.'
     scenePath: Assets/Examples/Wind/Wind.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Ball And Chain
+    category: Joints
+    description: Demonstrating a chain of joints.
+    purpose: 'A heavy ball hanging from a chain of capsule links, each joined to the next by a hinge joint.
+
+      It shows a long chain of joints holding together under the weight of the ball, and how the hinge spring and motor settings change the way it moves.'
+    controls: 'Spring Frequency and Spring Damping: the spring on every hinge.
+
+      Max Motor Torque: the most torque every hinge motor can apply.
+
+      Fix Chain Length: rebuilds the chain with a distance limit that stops it stretching.'
+    scenePath: Assets/Examples/BallAndChain/BallAndChain.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Desk Lamp
+    category: Joints
+    description: An Anglepoise style desk lamp whose springs balance the arm and shade at any pose. Drag the shade to move it.
+    purpose: 'Demonstrates joints working together as a mechanism, with springs, joint friction and limits. The lamp''s arm is a parallelogram of links, so the shade keeps its angle as the arm moves, and two springs balance the arm so it holds any pose it is left in.
+
+      The joint friction is a hinge motor with a target speed of zero, which resists movement up to its maximum torque.'
+    controls: 'Drag the shade, or any part of the lamp, to pose it. Let go and the springs hold it there.
+
+      Arm Spring and Head Spring: how stiff the two springs are.
+
+      Spring Damping: how much the springs are damped.
+
+      Post Friction and Elbow Friction: how much friction the joints have.
+
+      Head: the angle of the shade.'
+    scenePath: Assets/Examples/DeskLamp/DeskLamp.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Distance Joint
+    category: Joints
+    description: Demonstrating the features of the Distance Joint.
+    purpose: 'Demonstrates the distance joint, which keeps two anchor points a set distance apart. It can be rigid like a rod, soft like a spring, held between a minimum and maximum length like a rope, or driven along its length by a motor.
+
+      A short chain of small circles hangs from a fixed point so every setting can be tried.'
+    controls: 'Joint Count and Distance: how many circles there are and how far apart they are held.
+
+      Enable Spring with Spring Frequency, Spring Damping, Spring Tension and Spring Compression: lets the joint stretch like a spring.
+
+      Enable Limit with Min Distance Limit and Max Distance Limit: keeps the joint between two lengths.
+
+      Enable Motor with Motor Speed and Max Motor Force: drives the joint.
+
+      The chain is rebuilt when the joint count, the distance or the limits change.'
+    scenePath: Assets/Examples/DistanceJoint/DistanceJoint.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Doohickey
+    category: Joints
+    description: Demonstrating some fun contraptions using joints.
+    purpose: 'A stack of doohickeys dropped between two tall walls, each one a pair of wheels on a sprung, sliding bar.
+
+      They tumble and roll as they land on each other, so it shows hinge and slider joints working together.'
+    controls: 'Doohickey Count: how many doohickeys are stacked. They are restacked when it changes.'
+    scenePath: Assets/Examples/Doohickey/Doohickey.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Driving
+    category: Joints
+    description: Demonstrating the use of a Wheel Joint for suspension when driving a car.
+    purpose: 'Demonstrates the wheel joint working as a car''s suspension over varied, difficult terrain. Each wheel is held on a spring by a wheel joint and driven by the joint''s motor.
+
+      The car can be driven over a bridge, a stack of boxes and uneven ground.'
+    controls: 'Left and Right arrow keys, or the Reverse and Forward buttons: drive.
+
+      Space, or the Brake button: brake.
+
+      Spring Frequency and Spring Damping: the suspension.
+
+      Motor Speed and Max Motor Torque: the wheel motors.'
+    scenePath: Assets/Examples/Driving/Driving.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Gear Lift
+    category: Joints
+    description: Demonstrating a gear-driven lift using Hinge and Slider Joints.
+    purpose: 'A gear-driven lift: a drive gear turns a follower gear, which winds a chain that raises a door. A heap of random polygons fills the stepped ground.
+
+      It shows hinge and slider joints working together.'
+    controls: 'Use Motor: turns the drive gear''s motor on or off.
+
+      Motor Speed and Motor Max Torque: how fast the drive gear turns and how much torque it has.'
+    scenePath: Assets/Examples/GearLift/GearLift.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Ignore Joint
+    category: Joints
+    description: Demonstrating the IgnoreJoint to permanently ignore collisions between two bodies.
+    purpose: 'Demonstrates the ignore joint, which stops all contacts between one specific pair of bodies while both still touch everything else. It is useful when two particular bodies must never collide, without changing the contact filtering of either.
+
+      Two large boxes with an obstacle between them pass through each other while the joint is on, and collide when it is off.'
+    controls: 'Enable Joint: turns the ignore joint on or off.'
+    scenePath: Assets/Examples/IgnoreJoint/IgnoreJoint.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Many Prismatics
+    category: Joints
+    description: A chain of slider joints that stays stable when it is stretched. Drag a box sideways to distort the chain.
+    purpose: 'A chain of boxes joined by slider joints, stretched to the end of their limits.
+
+      The number of sub-steps the world takes in each step decides how well stretched joints hold. With too few, the chain bends away from its slide axis.'
+    controls: 'World Sub-Steps: sets how many sub-steps the world takes in each step. Raise it and the chain holds straight, lower it and the chain bends.
+
+      Drag a box sideways to distort the chain and see how quickly it recovers.'
+    scenePath: Assets/Examples/ManyPrismatics/ManyPrismatics.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 4
+  - exampleName: Pinball
+    category: Joints
+    description: A pinball table showing small fast balls using continuous collision against moving flippers.
+    purpose: 'A pinball table where small, fast balls hit flippers that are moving toward them.
+
+      It shows continuous collision stopping a ball from passing through a thin moving shape. A new ball arrives every few seconds up to a limit, and a ball that drains away is replaced.'
+    controls: 'Flippers: hold the Space key, or hold the Flippers button, to raise both flippers. Release to lower them.'
+    scenePath: Assets/Examples/Pinball/Pinball.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Scale Ragdoll
+    category: Joints
+    description: Checking the stability of solving forced overlap due to scaling a relatively complex setup.
+    purpose: 'A ragdoll dropped into a closed room and resized while it moves, so every limb is suddenly forced to overlap its neighbors.
+
+      It checks that the solver stays stable when a complex set of joints is scaled.'
+    controls: 'Ragdoll Scale: the size of the ragdoll. It is resized where it is, without being rebuilt.'
+    scenePath: Assets/Examples/ScaleRagdoll/ScaleRagdoll.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Scissor Lift
+    category: Joints
+    description: Checking the stability of solving a complex set of joints.
+    purpose: 'A scissor lift raising a car on its platform, driven by the motor of a distance joint that runs from the ground to one of its lower arms.
+
+      It checks the stability of solving a complex set of joints.'
+    controls: 'Enable Motor: turns the lift''s motor on or off.
+
+      Motor Speed: how fast the lift raises or lowers. Both act on the lift where it stands.'
+    scenePath: Assets/Examples/ScissorLift/ScissorLift.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Slider Joint
+    category: Joints
+    description: Demonstrating the features of the Slider Joint.
+    purpose: 'Demonstrates the slider joint, also known as a prismatic joint, which lets a body move along one axis relative to another while stopping it rotating. It can have a spring that pulls toward a target position, limits on how far it slides, and a motor that drives it along the axis.
+
+      A capsule is held on a slider to a fixed point so every setting can be tried.'
+    controls: 'Slider Angle: the direction of the slide axis. The capsule is rebuilt when it changes.
+
+      Enable Spring with Spring Target Translation, Spring Frequency and Spring Damping: pulls the capsule toward a position like a spring.
+
+      Enable Motor with Motor Speed and Max Motor Force: drives the capsule along the axis.
+
+      Enable Limit with Min Distance Limit and Max Distance Limit: limits how far it can slide.'
+    scenePath: Assets/Examples/SliderJoint/SliderJoint.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Soft Body
+    category: Joints
+    description: Demonstrating using joints to create a soft body.
+    purpose: 'Demonstrates building a soft body from rigid bodies and joints. A ring of capsule segments is held together by fixed joints whose angular spring is soft, so the ring flexes and wobbles instead of staying rigid.
+
+      The segments share a negative contact group, so neighbors that overlap at the joins never push each other apart.'
+    controls: 'Body Sides and Body Scale: how many segments the ring has and how big it is.
+
+      Joint Frequency and Joint Damping: how soft the joints are.
+
+      Every change rebuilds the ring.'
+    scenePath: Assets/Examples/SoftBody/SoftBody.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Strandbeest
+    category: Joints
+    description: A Strandbeest, Theo Jansen's walking machine, where a motor turns a wheel that steps six linkage legs across a field of Strandpebbles.
+    purpose: 'Demonstrates a complex linkage of joints driven by a single motor. A Strandbeest, Theo Jansen''s walking machine, turns one wheel, and six legs built from hinge and distance joints turn that rotation into a walking step.
+
+      The wheel, chassis and legs share a negative contact group so they never touch each other, only the ground and the field of Strandpebbles.
+
+      Theo Jansen''s own Strandbeests can be seen at https://www.strandbeest.com/'
+    controls: 'Left and Right arrow keys, or the Walk Left and Walk Right buttons: turn the motor one way or the other.
+
+      Space, or the Stop button: stop the motor.
+
+      Motor Speed and Motor Torque: how fast the motor turns and how much torque it has.
+
+      Drag the machine to move it.'
+    scenePath: Assets/Examples/Strandbeest/Strandbeest.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Top Down Friction
+    category: Joints
+    description: Demonstrating using the RelativeJoint to achieve "top down" friction.
+    purpose: 'Demonstrates top-down friction with the relative joint. In a top-down view there is no gravity pressing a body onto the ground, so ordinary friction does nothing. A relative joint to the ground with a limited maximum force and torque resists movement and spin the way friction would.
+
+      The shapes on the table slide to a stop and stop spinning instead of drifting forever.'
+    controls: 'Explode: sets off an explosion that throws the shapes around.
+
+      Max Force and Max Torque: how much force and torque each friction joint can resist. They act on the shapes where they are.'
+    scenePath: Assets/Examples/TopDownFriction/TopDownFriction.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: User Joint
+    category: Joints
+    description: Demonstrating the implementation of a custom joint.
+    purpose: 'Demonstrates writing your own joint when none of the built-in joints does what you need. The constraint is solved in script after every simulation step by applying impulses to the bodies.
+
+      Two springs run from a fixed point to two anchors on a box. Each spring only pulls, and only once it is stretched past its rest length, so the box swings freely while they are slack.'
+    controls: 'Joint Frequency, Joint Damping and Joint Max Force: how stiff, how damped and how strong the springs are.
+
+      Anchor Offset X and Anchor Offset Y: where the anchors sit on the box.
+
+      The impulse each spring applied on the last step is shown and updates every frame.'
+    scenePath: Assets/Examples/UserJoint/UserJoint.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Wheel Joint
+    category: Joints
+    description: Demonstrating the features of the Wheel Joint.
+    purpose: 'Demonstrates the wheel joint, which lets a body slide along one axis against a spring while it rotates freely, the way a car wheel moves on its suspension. It has the spring, limits on the slide, and a motor that spins the wheel.
+
+      A wheel is held on a wheel joint to a fixed point so every setting can be tried.'
+    controls: 'Wheel Angle: the direction of the slide axis. The wheel is rebuilt when it changes.
+
+      Enable Spring with Spring Frequency and Spring Damping: the suspension spring.
+
+      Enable Motor with Motor Speed and Max Motor Torque: spins the wheel.
+
+      Enable Limit with Min Distance Limit and Max Distance Limit: limits how far it can slide.'
+    scenePath: Assets/Examples/WheelJoint/WheelJoint.unity
+    state:
+      overriddenDrawOptions: 128
+      fixedDrawOptions: 128
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Fragmenting
+    category: Advanced
+    description: Demonstrates the use of geometry fragmenting.
+    purpose: 'Demonstrates fragmenting geometry with the physics destructor. A region is cut out of a shape and split into pieces around random points, and what is left becomes the new shape.
+
+      Projectiles fired at a large slab break a round hole out of it wherever they hit, and the pieces fall through a field of obstacles.'
+    controls: 'Left and Right arrow keys, or the Left and Right buttons: move the player.
+
+      Space, or the Fire button: fire a projectile.
+
+      Fragment Radius, Fragment Count and Fragment Explode: the size of each hole, how many pieces it breaks into, and how hard they are blown apart. They take effect from the next hit.'
+    scenePath: Assets/Examples/Fragmenting/Fragmenting.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Geometry Islands
+    category: Advanced
+    description: Demonstrates the use of geometry islands when fragmenting.
+    purpose: 'Demonstrates geometry islands when fragmenting. After a cut, what is left is grouped into islands, sets of polygons that still touch each other, so each separate piece can become its own body.
+
+      Projectiles break holes in a row of tall slabs. An island that still reaches the ground line stays static, and one that is cut free becomes dynamic and falls.'
+    controls: 'Left and Right arrow keys, or the Left and Right buttons: move the player.
+
+      Space, or the Fire button: fire a projectile.
+
+      Fragment Radius and Fragment Explode: the size of each hole and how hard the pieces are blown apart. They take effect from the next hit.'
+    scenePath: Assets/Examples/GeometryIslands/GeometryIslands.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Slicing
+    category: Advanced
+    description: Demonstrates the use of geometry slicing.
+    purpose: 'Demonstrates slicing geometry with the physics destructor, cutting a shape in two along a line.
+
+      A slicing ray fired from an orbiting player cuts whatever it crosses into two new pieces, and it can reflect off the arena wall several times in one shot.'
+    controls: 'Left and Right arrow keys, or the Left and Right buttons: orbit the player.
+
+      Space, or the Fire button: fire a slice.
+
+      Reflection Count: how many times a shot can reflect.
+
+      Maximum Fragments: how full the arena can get.
+
+      They take effect from the next shot.'
+    scenePath: Assets/Examples/Slicing/Slicing.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
+  - exampleName: Sprite Destruction
+    category: Advanced
+    description: Demonstrates the use of Sprite fragmenting mapping.
+    purpose: 'Demonstrates fragmenting sprites. The physics geometry is broken with the destructor, and each piece gets a sprite cut from the same source texture, so the picture stays consistent across a break.
+
+      Clicking a building cuts a hole out of it, and the pieces that come free fall and can be blown apart.'
+    controls: 'Click a building to cut a hole in it.
+
+      Fragment Radius: the size of each break.
+
+      Create Fragments: whether a break leaves debris.
+
+      Fragment Count: how many pieces it makes.
+
+      Fragment Friction, Fragment Bounciness and Fragment Force: the pieces'' friction, bounciness and blast force.
+
+      Gravity Scale: how hard gravity pulls.
+
+      They take effect on the next click.'
+    scenePath: Assets/Examples/SpriteDestruction/SpriteDestruction.unity
     state:
       overriddenDrawOptions: 0
       fixedDrawOptions: 0

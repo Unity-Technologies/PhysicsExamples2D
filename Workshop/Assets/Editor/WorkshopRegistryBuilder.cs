@@ -73,7 +73,10 @@ internal static class WorkshopRegistryBuilder
 
         examples.Sort((left, right) =>
         {
-            var byCategory = string.Compare(left.category, right.category, System.StringComparison.OrdinalIgnoreCase);
+            var byCategory = WorkshopManifest.GetCategoryRank(left.category).CompareTo(WorkshopManifest.GetCategoryRank(right.category));
+
+            if (byCategory == 0)
+                byCategory = string.Compare(left.category, right.category, System.StringComparison.OrdinalIgnoreCase);
 
             return byCategory != 0 ? byCategory : string.Compare(left.exampleName, right.exampleName, System.StringComparison.OrdinalIgnoreCase);
         });
