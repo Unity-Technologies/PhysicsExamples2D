@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ccbda15d9cf33f748b90a5b1bf11f01c
+guid: a785cb0b29824974d8bba3dfde7fb28d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6246447005295785276
-    second: PhysicsAreaTilemap_0
+      213: -2385531197628367501
+    second: ExampleAreaTilemap_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,20 +99,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: iOS
+    buildTarget: CloudRendering
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -128,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PhysicsAreaTilemap_0
+      name: ExampleAreaTilemap_0
       rect:
         serializedVersion: 2
         x: 2
@@ -143,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c3535fac476dfa650800000000000000
-      internalID: 6246447005295785276
+      spriteID: 37dbfbcc304e4eed0800000000000000
+      internalID: -2385531197628367501
       vertices: []
       indices: 
       edges: []
@@ -163,10 +150,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PhysicsAreaTilemap_0: 6246447005295785276
+      ExampleAreaTilemap_0: -2385531197628367501
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 21037, guid: 0000000000000000e000000000000000, type: 0}
+  blockCollection:
+    blocks: []
+  references:
+    version: 2
+    RefIds: []
