@@ -1226,3 +1226,32 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
+  - exampleName: Mesh Deformation
+    category: Experiments
+    description: A mesh of triangle shapes made from one outline by a custom Physics Area, deformed by changing the polygon geometry of its shapes.
+    purpose: 'An experiment in deforming a mesh of physics shapes.
+
+      A custom Physics Area Mesh component splits a closed outline into triangles with a Physics Composer, limited to three vertices per polygon, and creates one polygon shape for each. Deforming moves the corners of the triangles and writes the new polygon geometry straight onto the existing shapes, so the triangles stay joined and are never split again. The work is done by Burst jobs, so it scales to many triangles.
+
+      A triangle that collapses to a line cannot be a valid polygon, so it keeps its last shape and is counted as invalid.'
+    controls: 'Seed: chooses the random outline. A new outline is made when it changes.
+
+      Outline Vertices: how many vertices the outline has, and so how many triangles the mesh has. A new outline is made when it changes.
+
+      Delaunay: how the outline is split into triangles. When on, the composer prefers triangles that are close to equilateral over long thin ones. A new mesh is made when it changes.
+
+      Min Area: a triangle smaller than this is treated as collapsed.
+
+      Deform: how the mesh is deformed. Shear slides it sideways in proportion to its height, Taper widens one end and pinches the other, and Twist rotates it more the further it is from the center.
+
+      Amount: how strongly the mesh is deformed.
+
+      Animate: swings the amount back and forth through zero, so the undeformed mesh is part of the cycle.'
+    scenePath: Assets/Examples/MeshDeformation/MeshDeformation.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0

@@ -141,7 +141,7 @@ public sealed class WorkshopManifest : ScriptableObject
     #region Internal
 
     // The order the categories are listed in the menu.
-    static readonly string[] CategoryOrder = { "Benchmarks", "Shapes", "Joints", "Advanced", "Custom" };
+    static readonly string[] CategoryOrder = { "Benchmarks", "Shapes", "Joints", "Advanced", "Custom", "Experiments" };
 
     [SerializeField] List<ExampleItem> m_Examples = new();
 

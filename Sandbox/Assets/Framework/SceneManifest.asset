@@ -857,3 +857,26 @@ MonoBehaviour:
     Controls: 
     TypeName: EmptyExample, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Mesh Deformation
+    Category: Experiments
+    Description: Builds a deformable 2D mesh and maps Polygon geometry directly to its triangles.
+    Purpose: 'An experiment in mapping a deforming mesh onto physics geometry.
+
+      A random outline is split into triangles by a Physics Composer limited to three vertices per polygon, and every triangle becomes a three vertex Polygon Geometry built directly from its deformed corners. This skips the convex hull step of creating a polygon, because a triangle is always convex, and only does the checks a triangle needs: its winding, and whether it has collapsed. The deforming and the building both run as Burst jobs, so it scales to many triangles.
+
+      Only the geometry is built and drawn. No bodies or shapes are created.'
+    Controls: 'Seed: chooses the random outline. The mesh is rebuilt when it changes.
+
+      Outline Vertices: how many vertices the outline has, and so how many triangles the mesh has. The mesh is rebuilt when it changes.
+
+      Delaunay: how the outline is split into triangles. When on, the composer prefers triangles that are close to equilateral over long thin ones. The mesh is rebuilt when it changes.
+
+      Min Area: a triangle smaller than this is treated as collapsed. It is drawn in red and its polygon is not built.
+
+      Deform: how the mesh is deformed. Shear slides it sideways in proportion to its height, Taper widens one end and pinches the other, and Twist rotates it more the further it is from the center.
+
+      Amount: how strongly the mesh is deformed.
+
+      Animate: swings the amount back and forth through zero, so the undeformed mesh is part of the cycle.'
+    TypeName: MeshDeformation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}
