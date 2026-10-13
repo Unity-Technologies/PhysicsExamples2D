@@ -24,13 +24,20 @@ public abstract class WorkshopOptionsProvider : MonoBehaviour
     /// The value passed in is the slider's starting value, so the field it writes to stays the single place the default lives.
     /// </summary>
     /// <remarks>
-    /// The callback runs when the drag ends rather than as the handle moves, so a control that rebuilds an example does that once per drag.
-    /// Typing in the slider's field or nudging it with the arrow keys still takes effect straight away.
+    /// By default the callback runs when the drag ends rather than as the handle moves, so a control that rebuilds an example does that once per drag.
+    /// Typing in the slider's field or nudging it with the arrow keys is reported after a short pause.
+    /// Pass true for <paramref name="immediate"/> to run the callback on every change instead, which suits a value that is cheap to apply but not one that destroys and recreates GameObjects or components.
     /// </remarks>
-    protected Slider AddSlider(string label, float value, float low, float high, Action<float> onChanged)
+    /// <param name="label">The text shown beside the slider.</param>
+    /// <param name="value">The starting value of the slider.</param>
+    /// <param name="low">The lowest value the slider can have.</param>
+    /// <param name="high">The highest value the slider can have.</param>
+    /// <param name="onChanged">Called with the new value when the slider changes.</param>
+    /// <param name="immediate">Whether to call back on every change, instead of once the slider has stopped moving.</param>
+    protected Slider AddSlider(string label, float value, float low, float high, Action<float> onChanged, bool immediate = false)
     {
         var slider = new Slider(label, low, high) { value = value, showInputField = true, fill = true, focusable = false };
-        DeferUntilSettled<Slider, float>(slider, onChanged);
+        RegisterSliderCallback<Slider, float>(slider, onChanged, immediate);
 
         return AddElement(slider);
     }
@@ -39,13 +46,20 @@ public abstract class WorkshopOptionsProvider : MonoBehaviour
     /// Adds a whole number slider to the options panel and returns it, so a caller can update it later.
     /// </summary>
     /// <remarks>
-    /// The callback runs when the drag ends rather than as the handle moves, so a control that rebuilds an example does that once per drag.
-    /// Typing in the slider's field or nudging it with the arrow keys still takes effect straight away.
+    /// By default the callback runs when the drag ends rather than as the handle moves, so a control that rebuilds an example does that once per drag.
+    /// Typing in the slider's field or nudging it with the arrow keys is reported after a short pause.
+    /// Pass true for <paramref name="immediate"/> to run the callback on every change instead, which suits a value that is cheap to apply but not one that destroys and recreates GameObjects or components.
     /// </remarks>
-    protected SliderInt AddSliderInt(string label, int value, int low, int high, Action<int> onChanged)
+    /// <param name="label">The text shown beside the slider.</param>
+    /// <param name="value">The starting value of the slider.</param>
+    /// <param name="low">The lowest value the slider can have.</param>
+    /// <param name="high">The highest value the slider can have.</param>
+    /// <param name="onChanged">Called with the new value when the slider changes.</param>
+    /// <param name="immediate">Whether to call back on every change, instead of once the slider has stopped moving.</param>
+    protected SliderInt AddSliderInt(string label, int value, int low, int high, Action<int> onChanged, bool immediate = false)
     {
         var slider = new SliderInt(label, low, high) { value = value, showInputField = true, fill = true, focusable = false };
-        DeferUntilSettled<SliderInt, int>(slider, onChanged);
+        RegisterSliderCallback<SliderInt, int>(slider, onChanged, immediate);
 
         return AddElement(slider);
     }
@@ -94,6 +108,15 @@ public abstract class WorkshopOptionsProvider : MonoBehaviour
     /// Anything an example wants set for its whole lifetime should be declared on its <see cref="WorkshopExampleInfo"/> instead, since that is applied before the scene loads and put back when it unloads.
     /// </summary>
     protected WorkshopManager workshop => m_Workshop;
+
+    // Connects a slider to its callback, either on every change or once the slider has stopped moving.
+    private static void RegisterSliderCallback<TSlider, TValue>(TSlider slider, Action<TValue> onChanged, bool immediate) where TSlider : BaseSlider<TValue> where TValue : IComparable<TValue>
+    {
+        if (immediate)
+            slider.RegisterValueChangedCallback(evt => onChanged?.Invoke(evt.newValue));
+        else
+            DeferUntilSettled<TSlider, TValue>(slider, onChanged);
+    }
 
     // Reports a slider's value once it stops moving, rather than on every step of a drag, so a control that rebuilds an example does that once instead of on every frame of the drag.
     // Each change pushes the report back, so a drag reports only when the handle comes to rest, and typing a value or nudging it with the arrow keys reports a moment later.
