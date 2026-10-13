@@ -4,7 +4,7 @@
   "description": "2D Physics Core (Examples) is an unsupported and experimental package containing example components built on top of the 2D Physics Core package, using only its public API. The components exist to show how to build your own, not to be used in production.",
   "version": "1.0.0",
   "unity": "6000.7",
-  "unityRelease": "0b2",
+  "unityRelease": "0b4",
   "keywords": ["2d", "physics", "physicscore", "examples"],
   "category": "2D",
   "dependencies": {
