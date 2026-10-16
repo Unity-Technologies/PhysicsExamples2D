@@ -98,7 +98,9 @@ MonoBehaviour:
     m_PreContactCallbacks: 0
     m_AutoBodyUpdateCallbacks: 0
     m_AutoJointThresholdCallbacks: 0
+    m_BouncePropagation: 0
     m_BounceThreshold: 1
+    m_BounceIterations: 2
     m_ContactHitEventThreshold: 1
     m_ContactFrequency: 30
     m_ContactDamping: 10
@@ -174,6 +176,8 @@ MonoBehaviour:
       m_Mass: 1
       m_Center: {x: 0, y: 0}
       m_RotationalInertia: 1
+    m_DrawTarget: 0
+    m_DrawDepth: 0
   m_PhysicsShapeDefinition:
     contactFilter:
       m_Categories:
