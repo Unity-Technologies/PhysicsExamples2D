@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:Style src="MainMenu.uss" />
+  <ui:VisualElement name="root" class="menu-root">
+    <ui:VisualElement name="menuPanel" class="panel-halo menu-panel">
+      <ui:VisualElement class="panel-halo-inner">
+        <ui:VisualElement class="panel">
+          <ui:VisualElement class="panel-glow">
+            <ui:Label name="menuTitle" text="NEON SHOOTER" class="title" />
+            <ui:Label name="menuSubtitle" text="a 2D physics package experiment" class="subtitle" />
+            <ui:Button name="resumeButton" text="Resume" class="menu-button menu-button--primary" />
+            <ui:Button name="startButton" text="Start Game" class="menu-button menu-button--primary" />
+            <ui:Button name="optionsButton" text="Options" class="menu-button" />
+            <ui:Button name="restartButton" text="Restart" class="menu-button" />
+            <ui:Button name="quitButton" text="Quit" class="menu-button" />
+          </ui:VisualElement>
+        </ui:VisualElement>
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="optionsPanel" class="panel-halo options-panel">
+      <ui:VisualElement class="panel-halo-inner">
+        <ui:VisualElement class="panel">
+          <ui:VisualElement class="panel-glow options-glow">
+            <ui:VisualElement class="options-header">
+              <ui:Label text="OPTIONS" class="title title--small" />
+              <ui:Button name="backButton" text="Back" class="menu-button menu-button--compact" />
+            </ui:VisualElement>
+            <ui:VisualElement name="tabBar" class="tab-bar" />
+            <ui:ScrollView name="optionsBody" class="options-body" />
+            <ui:VisualElement class="options-footer">
+              <ui:Label text="* takes effect on the next run" class="footer-note" />
+              <ui:Button name="resetTabButton" text="Reset Tab" class="menu-button menu-button--compact" />
+              <ui:Button name="resetAllButton" text="Reset All" class="menu-button menu-button--compact menu-button--danger" />
+            </ui:VisualElement>
+          </ui:VisualElement>
+        </ui:VisualElement>
+      </ui:VisualElement>
+    </ui:VisualElement>
+  </ui:VisualElement>
+</ui:UXML>

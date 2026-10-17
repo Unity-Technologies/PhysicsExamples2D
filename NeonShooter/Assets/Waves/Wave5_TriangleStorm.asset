@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed865364e34708a40a79175a7be5a569, type: 3}
+  m_Name: Wave5_TriangleStorm
+  m_EditorClassIdentifier: Assembly-CSharp::WaveDefinition
+  enemyPrefab: {fileID: 8944004553923615877, guid: 11fe2abdb0ce8be418bfa148d220f0f0, type: 3}
+  pattern: 2
+  speed: 1.8
+  amplitude: 2
+  frequency: 0.4
+  spinDegreesPerSecond: 0
+  count: 20
+  spawnInterval: 0.2
+  color: {r: 3.4, g: 2.4, b: 0.4, a: 1}
+  health: 6

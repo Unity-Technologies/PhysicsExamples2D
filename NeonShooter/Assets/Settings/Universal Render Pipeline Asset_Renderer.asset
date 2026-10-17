@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-605441696308183660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ec8151e0564d244bf8e6f666f2cf01, type: 3}
+  m_Name: RadianceCascades2DGIFeature
+  m_EditorClassIdentifier: Assembly-CSharp::RadianceCascades2DGIFeature
+  m_Active: 1
+  injectionPoint2D: 0
+  sortingLayerID: 0
+  m_BackgroundShader: {fileID: 4800000, guid: 35503f77011ba484caf9d23fb2baa70a, type: 3}
+  m_DistanceFieldShader: {fileID: 4800000, guid: cc3d1e72c8b1108459c2eed8cb9d645c, type: 3}
+  m_CascadeShader: {fileID: 4800000, guid: 8406cd68520c052418d8c3e43515b623, type: 3}
+  m_SceneCaptureShader: {fileID: 4800000, guid: 3456ca0403560a548a10cac571109bc4, type: 3}
+  m_SceneCaptureMaterialSource: {fileID: 2100000, guid: df8440cdb4ab2af46a098bcf38ea9a9e, type: 2}
+  m_SortingLayerName: Default
+  m_CascadeCount: 6
+  m_RenderScale: 0.25
+  m_StepStride: 0.125
+  m_Exposure: -0.6
+  m_Background:
+    baseColor: {r: 0.16, g: 0.17, b: 0.19, a: 1}
+    lineColor: {r: 0.3, g: 0.36, b: 0.46, a: 1}
+    cellsAcross: 40
+    lineThickness: 0.05
+    offset: {x: 0, y: 0}
+    cellsVariation: 20
+    tiltAmplitude: {x: 40, y: 40, z: 90}
+    tiltInterval: 3
+    perspective: 1.1
+  m_IrradianceCaptureEnabled: 0
+  m_DebugView: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11145981673336645838492a2d98e247, type: 3}
+  m_Name: Universal Render Pipeline Asset_Renderer
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Renderer2DData
+  debugShaders:
+    debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
+    hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
+    probeVolumeSamplingDebugComputeShader: {fileID: 7200000, guid: 53626a513ea68ce47b59dc1299fe3959, type: 3}
+  probeVolumeResources:
+    probeVolumeDebugShader: {fileID: 0}
+    probeVolumeFragmentationDebugShader: {fileID: 0}
+    probeVolumeOffsetDebugShader: {fileID: 0}
+    probeVolumeSamplingDebugShader: {fileID: 0}
+    probeSamplingDebugMesh: {fileID: 0}
+    probeSamplingDebugTexture: {fileID: 0}
+    probeVolumeBlendStatesCS: {fileID: 0}
+  m_RendererFeatures:
+  - {fileID: -605441696308183660}
+  m_RendererFeatureMap: 943d5727fc0999f7l
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_TransparencySortMode: 0
+  m_TransparencySortAxis: {x: 0, y: 1, z: 0}
+  m_HDREmulationScale: 1
+  m_LightRenderTextureScale: 0.5
+  m_LightBlendStyles:
+  - name: Multiply
+    maskTextureChannel: 0
+    blendMode: 1
+  - name: Additive
+    maskTextureChannel: 0
+    blendMode: 0
+  - name: Multiply with Mask
+    maskTextureChannel: 1
+    blendMode: 1
+  - name: Additive with Mask
+    maskTextureChannel: 1
+    blendMode: 0
+  m_UseDepthStencilBuffer: 1
+  m_UseCameraSortingLayersTexture: 0
+  m_CameraSortingLayersTextureBound: -1
+  m_CameraSortingLayerDownsamplingMethod: 0
+  m_MaxLightRenderTextureCount: 16
+  m_MaxShadowRenderTextureCount: 1
+  m_PostProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
+  m_DefaultMaterialType: 0
+  m_DefaultCustomMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}

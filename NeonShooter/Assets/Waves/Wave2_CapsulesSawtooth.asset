@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed865364e34708a40a79175a7be5a569, type: 3}
+  m_Name: Wave2_CapsulesSawtooth
+  m_EditorClassIdentifier: Assembly-CSharp::WaveDefinition
+  enemyPrefab: {fileID: 8550507749559239062, guid: ce9a27a64aea9e1449683d96023400da, type: 3}
+  pattern: 1
+  speed: 2
+  amplitude: 0.5
+  frequency: 0.5
+  spinDegreesPerSecond: 0
+  count: 25
+  spawnInterval: 0.35
+  color: {r: 1.019608, g: 1.6470588, b: 3.529412, a: 1}
+  health: 3

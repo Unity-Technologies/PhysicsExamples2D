@@ -4,6 +4,7 @@ This repository contains test projects, examples, and a test package for Unity's
 
 - [Sandbox Project](Sandbox/README.md) — interactive playground scenes that use the physics API directly
 - [Workshop Project](Workshop/README.md) — interactive workshop scenes that use the physics components
+- [NeonShooter Project](NeonShooter/README.md) — a neon-style 2D shooter demo built on the physics package, with experimental radiance cascades lighting
 - [Examples Package](Packages/com.unity.2d.physics.examples/README.md) - unsupported experimental example components
 - [OldPhysics2D](OldPhysics2D/README.md) — examples that use the older "Physics2D" component API.
 

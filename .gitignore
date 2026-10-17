@@ -47,6 +47,10 @@ SceneDependencyCache.meta
 SceneDependencyCache/
 UserSettings/
 
+# Package samples imported through the Package Manager; the source lives in the package's Samples~ folder.
+NeonShooter/Assets/Samples/
+NeonShooter/Assets/Samples.meta
+
 **/Packages/packages-lock.json
 **/ProjectSettings/VersionControlSettings.asset
 **/ProjectSettings/PackageManagerSettings.asset

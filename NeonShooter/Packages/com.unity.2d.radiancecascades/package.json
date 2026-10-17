@@ -1,0 +1,24 @@
+{
+    "name": "com.unity.2d.radiancecascades",
+    "displayName": "2D Radiance Cascades (Experimental)",
+    "description": "EXPERIMENTAL. This is not an official Unity package and is not supported by Unity. It is an experiment in screen-space global illumination for the URP 2D Renderer using radiance cascades, and it may change or disappear without notice.",
+    "version": "0.1.0-exp.1",
+    "unity": "6000.7",
+    "keywords": [
+        "2d",
+        "lighting",
+        "global illumination",
+        "radiance cascades",
+        "experimental"
+    ],
+    "dependencies": {
+        "com.unity.render-pipelines.universal": "17.7.0"
+    },
+    "samples": [
+        {
+            "displayName": "Rendering Lab",
+            "description": "A controlled scene for judging the lighting: one bright emitter and a few solid occluders, with a probe that reads the lit result back and reports it.",
+            "path": "Samples~/RenderingLab"
+        }
+    ]
+}
