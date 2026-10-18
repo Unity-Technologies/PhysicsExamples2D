@@ -62,6 +62,11 @@ namespace Unity.U2D.RadianceCascades
                 return;
 
             var overrides = GILightingOverride.instance;
+
+            // A scene that has switched its lighting off gets no passes at all, so it costs nothing.
+            if (overrides != null && !overrides.lightingEnabled)
+                return;
+
             var cascadeCount = overrides != null ? overrides.cascadeCount : m_CascadeCount;
             var renderScale = overrides != null ? overrides.renderScale : m_RenderScale;
 

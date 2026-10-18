@@ -13,6 +13,7 @@ public sealed class GILightingSettings : MonoBehaviour
         var lighting = GetComponent<GILightingOverride>();
         var background = lighting.background;
 
+        GameSettings.RegisterToggle(this, GameSettings.LightingTab, "Cascade Lighting", () => lighting.lightingEnabled, v => lighting.lightingEnabled = v);
         GameSettings.RegisterWholeSlider(this, GameSettings.LightingTab, "Cascades", 1, GILightingOverride.MaxCascadeCount, () => lighting.cascadeCount, v => lighting.cascadeCount = v);
         GameSettings.RegisterSlider(this, GameSettings.LightingTab, "Render Scale", GILightingOverride.MinRenderScale, 1f, () => lighting.renderScale, v => lighting.renderScale = v);
         GameSettings.RegisterSlider(this, GameSettings.LightingTab, "Step Stride", 0.05f, 1f, () => lighting.stepStride, v => lighting.stepStride = v);

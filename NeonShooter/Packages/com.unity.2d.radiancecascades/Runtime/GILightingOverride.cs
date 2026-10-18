@@ -21,6 +21,16 @@ namespace Unity.U2D.RadianceCascades
         public static GILightingOverride instance { get; private set; }
 
         /// <summary>
+        /// Whether the scene is lit by the radiance cascades at all.
+        /// Turning it off skips the lighting and the background surface it draws, removing their cost, while sprites, particles and screen effects still draw.
+        /// </summary>
+        public bool lightingEnabled
+        {
+            get => m_LightingEnabled;
+            set => m_LightingEnabled = value;
+        }
+
+        /// <summary>
         /// How many levels the cascade chain runs, which sets how far light carries across the screen.
         /// Setting it clamps to the range the lighting supports.
         /// </summary>
@@ -84,6 +94,9 @@ namespace Unity.U2D.RadianceCascades
         }
 
         #region Internal
+
+        [SerializeField]
+        private bool m_LightingEnabled = true;
 
         [SerializeField]
         [Range(1, GILightPass.MaxCascadeCount)]
