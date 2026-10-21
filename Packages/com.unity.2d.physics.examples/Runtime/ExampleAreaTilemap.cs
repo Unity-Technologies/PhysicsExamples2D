@@ -367,7 +367,7 @@ namespace Unity.U2D.Physics.Examples
                 if (!m_Segmenter.IsSlotOccupied(slot))
                     continue;
 
-                var placed = m_Segmenter[slot].Transform(relative);
+                var placed = PlaceSegment(m_Segmenter[slot], relative);
                 if (!placed.isValid)
                     continue;
 
@@ -497,7 +497,7 @@ namespace Unity.U2D.Physics.Examples
 
             foreach (var slot in changed)
             {
-                var placed = m_Segmenter[slot].Transform(relative);
+                var placed = PlaceSegment(m_Segmenter[slot], relative);
                 if (!placed.isValid)
                     continue;
 
@@ -548,7 +548,7 @@ namespace Unity.U2D.Physics.Examples
 
             foreach (var slot in added)
             {
-                var placed = m_Segmenter[slot].Transform(relative);
+                var placed = PlaceSegment(m_Segmenter[slot], relative);
                 if (!placed.isValid)
                     continue;
 
@@ -719,6 +719,7 @@ namespace Unity.U2D.Physics.Examples
         }
 
         // The matrix mapping geometry in this component's local space into the owning body's space.
+        // The body is placed by its pose's position and rotation only, so the pose's own scale is left out and this component's scale is kept.
         // Returns false when there is nothing to build against.
         private bool TryGetRelative(out Matrix4x4 relative)
         {
@@ -728,11 +729,23 @@ namespace Unity.U2D.Physics.Examples
                 return false;
 
             var anchor = resolvedPose.transform;
-            if (anchor == transform)
-                return true;
+            var bodyToWorld = Matrix4x4.TRS(anchor.position, anchor.rotation, Vector3.one);
 
-            relative = anchor.worldToLocalMatrix * transform.localToWorldMatrix;
+            relative = bodyToWorld.inverse * transform.localToWorldMatrix;
             return true;
+        }
+
+        // Place a chain segment in the body's space.
+        // A chain segment collides on its right, so a placement that mirrors, such as a negative scale, would turn it to face into the tiles.
+        // A mirroring placement therefore writes the segment the other way round, with its ghost vertices swapped to match, so it still faces out.
+        private static ChainSegmentGeometry PlaceSegment(ChainSegmentGeometry geometry, Matrix4x4 relative)
+        {
+            var mirrors = relative.m00 * relative.m11 - relative.m01 * relative.m10 < 0f;
+
+            if (mirrors)
+                geometry = new ChainSegmentGeometry(SegmentGeometry.Create(geometry.segment.point2, geometry.segment.point1), geometry.ghost2, geometry.ghost1);
+
+            return geometry.Transform(relative);
         }
 
         // How many shapes the storage and the gathering lists start out able to hold, before they have to grow.
