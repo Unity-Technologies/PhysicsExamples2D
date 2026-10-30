@@ -880,3 +880,20 @@ MonoBehaviour:
       Animate: swings the amount back and forth through zero, so the undeformed mesh is part of the cycle.'
     TypeName: MeshDeformation, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     Data: {fileID: 0}
+  - Name: Junkyard
+    Category: Benchmarks
+    Description: A kinematic pusher sweeping through thousands of small polygons in a walled yard.
+    Purpose: 'Thousands of small pentagons dropped into a walled yard made of box shapes, while a kinematic block sweeps from side to side.
+
+      It stress-tests a large pile of bodies being continually pushed and reshuffled.'
+    Controls: 'Object Type: circles, capsules, pentagons or a mix of all three.
+
+      Column Count and Row Count: how many objects are dropped.
+
+      Pusher Height and Pusher Speed: how tall the block is and how fast it sweeps from side to side.
+
+      Gravity Scale: how hard gravity pulls.
+
+      The object type, counts and pusher height rebuild the scene.'
+    TypeName: Junkyard, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    Data: {fileID: 0}
