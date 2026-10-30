@@ -162,6 +162,29 @@ MonoBehaviour:
       frameRateVisible: 0
       catchUpSteps: 0
       subSteps: 0
+  - exampleName: Junkyard
+    category: Benchmarks
+    description: A kinematic pusher sweeping through thousands of small shapes in a walled yard.
+    purpose: 'Thousands of small shapes dropped into a walled yard made of box shapes, while a kinematic block sweeps from side to side.
+
+      It stress-tests a large pile of bodies being continually pushed and reshuffled.'
+    controls: 'Object Type: circles, capsules, pentagons or a mix of all three.
+
+      Column Count and Row Count: how many objects are dropped.
+
+      Pusher Height and Pusher Speed: how tall the block is and how fast it sweeps from side to side.
+
+      Gravity Scale: how hard gravity pulls.
+
+      The object type, counts and pusher height rebuild the scene.'
+    scenePath: Assets/Examples/Junkyard/Junkyard.unity
+    state:
+      overriddenDrawOptions: 0
+      fixedDrawOptions: 0
+      sleeping: 0
+      frameRateVisible: 0
+      catchUpSteps: 0
+      subSteps: 0
   - exampleName: Large Compound
     category: Benchmarks
     description: Many large dynamic compound bodies dropped into a container.

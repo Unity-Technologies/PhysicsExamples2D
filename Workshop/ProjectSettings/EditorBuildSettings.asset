@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Examples/JointGrid/JointGrid.unity
     guid: 436a4717cb437034bb091cf6d3882910
   - enabled: 1
+    path: Assets/Examples/Junkyard/Junkyard.unity
+    guid: 4646fb89ce6e5214d990b72edb77b52d
+  - enabled: 1
     path: Assets/Examples/LargeCompound/LargeCompound.unity
     guid: 55b04be2cba5b394db8e6e8f99a59c47
   - enabled: 1

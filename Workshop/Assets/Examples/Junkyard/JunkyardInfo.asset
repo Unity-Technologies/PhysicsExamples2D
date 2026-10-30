@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425f70a701d340949ad6110bc3f45d64, type: 3}
+  m_Name: JunkyardInfo
+  m_EditorClassIdentifier: Assembly-CSharp::WorkshopExampleInfo
+  m_Scene: {fileID: 102900000, guid: 4646fb89ce6e5214d990b72edb77b52d, type: 3}
+  m_ScenePath: Assets/Examples/Junkyard/Junkyard.unity
+  m_ExampleName: Junkyard
+  m_Category: Benchmarks
+  m_Description: A kinematic pusher sweeping through thousands of small shapes in a walled yard.
+  m_Purpose: 'Thousands of small shapes dropped into a walled yard made of box shapes, while a kinematic block sweeps from side to side.
+
+    It stress-tests a large pile of bodies being continually pushed and reshuffled.'
+  m_Controls: 'Object Type: circles, capsules, pentagons or a mix of all three.
+
+    Column Count and Row Count: how many objects are dropped.
+
+    Pusher Height and Pusher Speed: how tall the block is and how fast it sweeps from side to side.
+
+    Gravity Scale: how hard gravity pulls.
+
+    The object type, counts and pusher height rebuild the scene.'
+  m_State:
+    overriddenDrawOptions: 0
+    fixedDrawOptions: 0
+    sleeping: 0
+    frameRateVisible: 0
+    catchUpSteps: 0
+    subSteps: 0
