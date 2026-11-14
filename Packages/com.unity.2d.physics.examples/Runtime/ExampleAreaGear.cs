@@ -96,22 +96,17 @@ namespace Unity.U2D.Physics.Examples
         /// Builds the gear as one circle for the hub and one rounded box per cog, set evenly around it.
         /// </summary>
         /// <remarks>
-        /// The gear is authored around this area's origin, so both the hub and the cogs are placed by <paramref name="relative"/> before they are created.
+        /// The gear is authored around this area's origin, so both the hub and the cogs are placed by the relative matrix of the context before they are created.
         /// </remarks>
-        /// <param name="body">Body to create the shapes on.</param>
-        /// <param name="relative">Matrix mapping geometry authored in this area's space into the body's local space.</param>
-        /// <param name="applyScaleRadius">Whether the scale carried by <paramref name="relative"/> also scales the hub radius and the rounding on the cog corners.</param>
-        /// <param name="shapeDefinition">Shape definition to create every shape with.</param>
-        /// <param name="shapes">List to append the created shapes to.</param>
-        protected override void GenerateShapes(PhysicsBody body, Matrix4x4 relative, bool applyScaleRadius, PhysicsShapeDefinition shapeDefinition, NativeList<PhysicsShape> shapes)
+        /// <param name="context">The body, placement and definition to build with, and the calls that create the shapes.
+        /// The relative matrix maps geometry authored in this area's space into the body's local space, and the scale it carries also scales the hub radius and the rounding on the cog corners when the context applies the scale radius.</param>
+        protected override void GenerateShapes(in PhysicsAreaShapeContext context)
         {
-            var hub = new CircleGeometry { radius = m_Radius }.Transform(relative, applyScaleRadius);
-            if (hub.isValid)
-            {
-                var hubShape = body.CreateShape(hub, shapeDefinition);
-                if (hubShape.isValid)
-                    shapes.Add(hubShape);
-            }
+            var relative = context.relative;
+            var applyScaleRadius = context.applyScaleRadius;
+
+            // An invalid hub creates no shape.
+            context.CreateShape(new CircleGeometry { radius = m_Radius }.Transform(relative, applyScaleRadius));
 
             // A count this low can only arrive from a serialized value written before the property clamped it, so the gear is left as a bare hub.
             if (m_CogCount < MinimumCogCount)
@@ -137,12 +132,8 @@ namespace Unity.U2D.Physics.Examples
             PolygonGeometry.Transform(cogs.AsSpan(), relative, applyScaleRadius);
 
             // One batch for the whole ring: the world is locked once rather than once per cog.
-            var cogShapes = body.CreateShapeBatch(cogs.AsReadOnlySpan(), shapeDefinition);
-            if (cogShapes.IsCreated)
-            {
-                shapes.AddRange(cogShapes);
-                cogShapes.Dispose();
-            }
+            // The area owns the created shapes, so only the returned array is disposed.
+            context.CreateShapeBatch(cogs.AsReadOnlySpan()).Dispose();
 
             cogs.Dispose();
         }

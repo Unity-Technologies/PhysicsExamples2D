@@ -190,15 +190,13 @@ public sealed class PhysicsAreaMesh : PhysicsArea
     /// <summary>
     /// Splits the outline into triangles and creates one polygon shape for each.
     /// </summary>
-    /// <param name="body">Body to create the shapes on.</param>
-    /// <param name="relative">Matrix mapping the outline in the space of this area into the local space of the body.</param>
-    /// <param name="applyScaleRadius">Unused: the triangles have no radius.</param>
-    /// <param name="shapeDefinition">Shape definition to create every shape with.</param>
-    /// <param name="shapes">List to append the created shapes to, in the order of the triangles.</param>
-    protected override void GenerateShapes(PhysicsBody body, Matrix4x4 relative, bool applyScaleRadius, PhysicsShapeDefinition shapeDefinition, NativeList<PhysicsShape> shapes)
+    /// <param name="context">The body, placement and definition to build with, and the calls that create the shapes.
+    /// The shapes are created in the order of the triangles, and the relative matrix maps the outline in the space of this area into the local space of the body.</param>
+    protected override void GenerateShapes(in PhysicsAreaShapeContext context)
     {
         DisposeNative();
 
+        var relative = context.relative;
         m_Relative = relative;
         m_InvalidCount = 0;
 
@@ -225,6 +223,7 @@ public sealed class PhysicsAreaMesh : PhysicsArea
 
         m_Extent = 1f;
         var corners = new NativeArray<Vector2>(3, Allocator.Temp);
+        var geometry = new NativeArray<PolygonGeometry>(m_TriangleCount, Allocator.Temp);
 
         for (var i = 0; i < m_TriangleCount; ++i)
         {
@@ -238,10 +237,13 @@ public sealed class PhysicsAreaMesh : PhysicsArea
                 corners[corner] = relative.MultiplyPoint3x4(vertex);
             }
 
-            var polygon = PolygonGeometry.Create(corners.AsReadOnlySpan(), 0f);
-            shapes.Add(body.CreateShape(polygon, shapeDefinition));
+            geometry[i] = PolygonGeometry.Create(corners.AsReadOnlySpan(), 0f);
         }
 
+        // The area owns the created shapes, so only the returned array is disposed.
+        context.CreateShapeBatch(geometry.AsReadOnlySpan()).Dispose();
+
+        geometry.Dispose();
         corners.Dispose();
         triangles.Dispose();
     }
