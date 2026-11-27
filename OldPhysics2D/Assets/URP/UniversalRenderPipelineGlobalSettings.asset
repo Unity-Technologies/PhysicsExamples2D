@@ -79,6 +79,7 @@ MonoBehaviour:
       - rid: 3571434333496934404
       - rid: 2594326403591438336
       - rid: 2594326403591438337
+      - rid: 4528547052989710338
     m_RuntimeSettings:
       m_List: []
   m_AssetVersion: 14
@@ -523,6 +524,11 @@ MonoBehaviour:
         m_setupCS: {fileID: 7200000, guid: 33be2e9a5506b2843bdb2bdff9cad5e1, type: 3}
         m_preTaaCS: {fileID: 7200000, guid: a679dba8ec4d9ce45884a270b0e22dda, type: 3}
         m_taaCS: {fileID: 7200000, guid: 3923900e2b41b5e47bc25bfdcbcdc9e6, type: 3}
+    - rid: 4528547052989710338
+      type: {class: URPLightFalloffSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Version: 1
+        m_LightFalloffMode: 0
     - rid: 8192759527709081600
       type: {class: UniversalRenderPipelineRuntimeTerrainShaders, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:

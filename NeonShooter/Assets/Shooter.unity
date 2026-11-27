@@ -405,6 +405,7 @@ MonoBehaviour:
   m_Spawner: {fileID: 633715900}
   m_Panic: {fileID: 633715908}
   m_PlayerSprite: {fileID: 1003947602}
+  m_Font: {fileID: 12800000, guid: c25901e449a59c9489d64dc8f70526bf, type: 3}
   m_BarBelowScore: 0.6
   m_ShowStats: 0
   m_Dim: 0.65
@@ -446,6 +447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuitButton
   m_Size: {x: 88, y: 44}
   m_Margin: 12
+  m_Font: {fileID: 12800000, guid: c25901e449a59c9489d64dc8f70526bf, type: 3}
 --- !u!114 &633715910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -585,6 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ea344e0dda9544dab192b986c1eae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.U2D.RadianceCascades::Unity.U2D.RadianceCascades.GILightingOverride
+  m_LightingEnabled: 1
   m_CascadeCount: 6
   m_RenderScale: 0.25
   m_StepStride: 0.125

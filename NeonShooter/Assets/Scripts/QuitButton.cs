@@ -45,6 +45,7 @@ public sealed class QuitButton : MonoBehaviour
 
         m_Style ??= new GUIStyle(GUI.skin.box)
         {
+            font = m_Font,
             fontSize = 16,
             alignment = TextAnchor.MiddleCenter,
             normal = { textColor = new Color(0.6f, 0.9f, 1f, 0.9f) }
@@ -74,6 +75,9 @@ public sealed class QuitButton : MonoBehaviour
     // On-screen size and edge margin, in pixels.
     [SerializeField] Vector2 m_Size = new(88f, 44f);
     [SerializeField] float m_Margin = 12f;
+
+    // The label font, matching the menu; the skin's font stands in when unassigned.
+    [SerializeField] Font m_Font;
 
     GUIStyle m_Style;
 

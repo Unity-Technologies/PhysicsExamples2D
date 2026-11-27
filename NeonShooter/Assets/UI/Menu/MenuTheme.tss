@@ -1,1 +1,5 @@
 @import url("unity-theme://default");
+
+:root {
+  -unity-font-definition: url("../Fonts/CozetteVector.ttf");
+}

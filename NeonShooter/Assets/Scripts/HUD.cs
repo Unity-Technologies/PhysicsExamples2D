@@ -71,7 +71,7 @@ public sealed class HUD : MonoBehaviour
     // Text meshes clamp vertex colors, so the HDR tint that drives the bloom lives on a cloned font material instead.
     void CreateScoreText()
     {
-        var font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        var font = m_Font != null ? m_Font : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         font.RequestCharactersInTexture("0123456789", ScoreFontSize, FontStyle.Bold);
 
         var scoreRoot = new GameObject("Score");
@@ -196,6 +196,7 @@ public sealed class HUD : MonoBehaviour
             // GUI.skin is only valid inside OnGUI, so the style is built lazily once here and reused.
             m_StatsStyle ??= new GUIStyle(GUI.skin.label)
             {
+                font = m_Font,
                 fontSize = 16,
                 normal = { textColor = new Color(0.6f, 0.9f, 1f, 0.9f) }
             };
@@ -252,6 +253,9 @@ public sealed class HUD : MonoBehaviour
 
     // The sprite whose color the bar and pips mirror; the player's hex is found by name when unassigned.
     [SerializeField] SpriteRenderer m_PlayerSprite;
+
+    // The font for the score and the corner stats, matching the menu; the built-in font stands in when unassigned.
+    [SerializeField] Font m_Font;
 
     // How far the health bar hangs below the top of the score text.
     [SerializeField] float m_BarBelowScore = 0.6f;

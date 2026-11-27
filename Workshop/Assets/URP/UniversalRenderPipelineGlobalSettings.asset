@@ -79,6 +79,7 @@ MonoBehaviour:
       - rid: 3571434153094152196
       - rid: 2594326403596156928
       - rid: 2594326403596156929
+      - rid: 4528547052960874498
     m_RuntimeSettings:
       m_List: []
   m_AssetVersion: 14
@@ -523,6 +524,11 @@ MonoBehaviour:
     - rid: 3571434153094152198
       type: {class: SoftShadowGeometryGenerator, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
+    - rid: 4528547052960874498
+      type: {class: URPLightFalloffSettings, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
+      data:
+        m_Version: 1
+        m_LightFalloffMode: 0
     - rid: 8192759505231020032
       type: {class: UniversalRenderPipelineRuntimeTerrainShaders, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.Runtime}
       data:
