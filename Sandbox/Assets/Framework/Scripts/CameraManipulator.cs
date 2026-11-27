@@ -23,6 +23,7 @@ public class CameraManipulator : MonoBehaviour
         set
         {
             m_CameraPosition = value;
+            m_PendingPan = Vector2.zero;
             Camera.transform.position = new Vector3(m_CameraPosition.x, m_CameraPosition.y, Camera.transform.position.z);
         }
     }
@@ -91,7 +92,20 @@ public class CameraManipulator : MonoBehaviour
 
     private InputAction m_Click;
     private InputAction m_Position;
-    
+
+    // How long the camera takes to ease most of the way through a mouse-wheel zoom or a pan, in seconds; zero follows them at once.
+    private const float Smoothing = 0.1f;
+
+    // The zoom the mouse wheel asked for, which the camera eases toward, and the zoom as the easing last left it, so a zoom set from elsewhere can be told apart.
+    private float m_TargetZoom;
+    private float m_AppliedZoom;
+
+    // The pan the camera still has to make, in world space, which it eases through.
+    private Vector2 m_PendingPan;
+
+    // The smallest zoom the mouse wheel can ask for, which keeps the eased zoom above zero.
+    private const float MinimumZoom = 0.01f;
+
     // Set up here rather than in Awake because Unity calls this again after a script reload while playing, and Awake it does not.
     private void OnEnable()
     {
@@ -101,6 +115,8 @@ public class CameraManipulator : MonoBehaviour
         m_TouchMode = InputMode.Drag;
         CameraZoom = 1f;
         CameraSize = 6f;
+        m_TargetZoom = m_CameraZoom;
+        m_AppliedZoom = m_CameraZoom;
 
         m_Click = InputSystem.actions.FindAction("Click");
         m_Position = InputSystem.actions.FindAction("Point");
@@ -118,7 +134,7 @@ public class CameraManipulator : MonoBehaviour
         // Fetch input.
         var actionWasPressedThisFrame = m_Click.WasPressedThisFrame();
         var actionWasReleasedThisFrame = m_Click.WasReleasedThisFrame();
-        var actionPosition = (Vector2)Camera.ScreenToWorldPoint(m_Position.ReadValue<Vector2>());        
+        var actionPosition = (Vector2)Camera.ScreenToWorldPoint(m_Position.ReadValue<Vector2>());
         var currentKeyboard = Keyboard.current;
 
         // Handle the manipulator mode.
@@ -210,14 +226,10 @@ public class CameraManipulator : MonoBehaviour
                     var mouseScroll = currentMouse.scroll;
                     if (mouseScroll != null)
                     {
+                        // The wheel moves the target zoom, which the camera eases toward in LateUpdate.
                         var scrollDelta = mouseScroll.y.ReadValue() * 0.1f;
                         if (math.abs(scrollDelta) > 0f)
-                        {
-                            m_SandboxManager.CameraZoom += scrollDelta;
-
-                            var newWorldPosition = (Vector2)Camera.ScreenToWorldPoint(currentMouse.position.ReadValue());
-                            Camera.transform.position -= (Vector3)(newWorldPosition - actionPosition);
-                        }
+                            m_TargetZoom = math.max(m_TargetZoom + scrollDelta, MinimumZoom);
                     }
                 }
 
@@ -236,13 +248,8 @@ public class CameraManipulator : MonoBehaviour
                     return;
                 }
 
-                // Fetch the world mouse position.
-                var worldDelta = actionPosition - m_LastActionPosition;
-                if (worldDelta.sqrMagnitude < 0.01f)
-                    return;
-
-                m_LastActionPosition = actionPosition - worldDelta;
-                Camera.transform.position -= (Vector3)worldDelta;
+                // The pan owed is how far the point grabbed has moved from under the pointer, which the camera eases through in LateUpdate.
+                m_PendingPan = actionPosition - m_LastActionPosition;
                 return;
             }
 
@@ -261,7 +268,7 @@ public class CameraManipulator : MonoBehaviour
 
                 // Get the default world.
                 var world = PhysicsWorld.defaultWorld;
-                
+
                 var bodyB = m_DragJoint.bodyB;
                 world.DrawLine(actionPosition, bodyB.GetWorldPoint(m_DragJoint.localAnchorB.position), Color.grey);
                 world.DrawLine(oldTarget, actionPosition, Color.whiteSmoke);
@@ -274,6 +281,48 @@ public class CameraManipulator : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    // Eases the camera toward the zoom the mouse wheel asked for and through the pan still owed, so the view glides rather than jumps.
+    // It runs after Update every frame, whatever Update returned early for, so the easing finishes after the wheel stops or a pan is released.
+    private void LateUpdate()
+    {
+        // A zoom set from elsewhere, such as the zoom slider, a scene's framing or a reset, becomes the target at once, so it is not eased.
+        if (m_CameraZoom != m_AppliedZoom)
+            m_TargetZoom = m_CameraZoom;
+
+        // How far toward the target the camera moves this frame, the same over a second whatever the frame rate; all the way with no smoothing.
+        var blend = Smoothing > 0f ? 1f - math.exp(-Time.unscaledDeltaTime / Smoothing) : 1f;
+
+        if (m_TargetZoom != m_CameraZoom)
+        {
+            // The zoom eases by ratio rather than by difference, so a zoom step looks the same speed zoomed in or out.
+            var currentZoom = math.max(m_CameraZoom, MinimumZoom);
+            var zoom = math.exp(math.lerp(math.log(currentZoom), math.log(m_TargetZoom), blend));
+            if (math.abs(zoom - m_TargetZoom) < 0.0001f)
+                zoom = m_TargetZoom;
+
+            var cursor = m_Position.ReadValue<Vector2>();
+            var before = (Vector2)Camera.ScreenToWorldPoint(cursor);
+
+            m_SandboxManager.CameraZoom = zoom;
+
+            // The zoom slider holds the zoom inside its range, so a target past the range is dropped once the zoom reaches its edge.
+            if (m_CameraZoom != zoom)
+                m_TargetZoom = m_CameraZoom;
+
+            // Keep whatever was under the pointer before this frame's zoom under it afterwards.
+            Camera.transform.position -= (Vector3)((Vector2)Camera.ScreenToWorldPoint(cursor) - before);
+        }
+
+        m_AppliedZoom = m_CameraZoom;
+
+        if (m_PendingPan == Vector2.zero)
+            return;
+
+        var pan = m_PendingPan.sqrMagnitude < 0.000001f ? m_PendingPan : m_PendingPan * blend;
+        m_PendingPan -= pan;
+        Camera.transform.position -= (Vector3)pan;
     }
 
     private void ResetInputMode()
@@ -310,6 +359,7 @@ public class CameraManipulator : MonoBehaviour
 
     public void ResetPanZoom()
     {
+        m_PendingPan = Vector2.zero;
         Camera.transform.position = new Vector3(m_CameraPosition.x, m_CameraPosition.y, Camera.transform.position.z);
         CameraZoom = 1f;
     }
